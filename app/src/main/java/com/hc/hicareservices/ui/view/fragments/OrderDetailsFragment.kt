@@ -142,7 +142,8 @@ class OrderDetailsFragment : Fragment() {
                 val orderValueWithTaxAfterDiscount = data.order_Value_with_Tax__c.toString().toDouble() - discount
                 binding.orderNameTv.text = data.service_Plan_Name__c
                 binding.orderNoTv.text = orderNo
-                binding.orderDateTv.text = data.createdDateText
+                binding.txtaddress.text= data.account_Name__r?.accountAddress ?: "N/A"
+                binding.orderDateTv.text  = data.createdDateText
                 binding.statusTv.text = data.status__c
                 binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
                 binding.quantityTv.text = "QTY: ${data.quantity__c}"
