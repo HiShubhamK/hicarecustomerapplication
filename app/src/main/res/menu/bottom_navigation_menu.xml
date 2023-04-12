@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Developed by Arjun Bhatt
+  Copyright (c) 2021. All rights reserved
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+
+        />
+
+    <item
+        android:id="@+id/nav_orders"
+        android:title="Orders"
+        android:icon="@drawable/orders"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+
+        />
+
+    <item
+        android:id="@+id/nav_bookings"
+        android:title="Bookings"
+        android:icon="@drawable/calendar"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+
+        />
+
+    <item
+        android:id="@+id/nav_account"
+        android:title="Account"
+        android:icon="@drawable/ic_user"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+
+        />
+    <item
+        android:id="@+id/nav_cart"
+        android:title="Cart"
+        android:icon="@drawable/trolley"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:visible="false" />
+
+</menu>
