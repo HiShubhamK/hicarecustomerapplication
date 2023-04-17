@@ -7,6 +7,7 @@ import com.hc.hicareservices.data.model.otp.OtpResponse
 import com.hc.hicareservices.data.model.otp.ValidateResponse
 import com.hc.hicareservices.data.repository.MainRepository
 import com.hc.hicareservices.ui.handler.ValidateAccountListener
+import com.hc.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +42,7 @@ class OtpViewModel : ViewModel(){
             override fun onResponse(call: Call<ValidateResponse?>, response: Response<ValidateResponse>?) {
                 if (response != null && response.body()?.isSuccess == true) {
                     val body = response.body()
+                    AppUtils2.TOKEN=response.body()?.data.toString()
                     validateAccountListener?.onSuccess(body?.data.toString())
                 }else{
                     validateAccountListener?.onSuccess("")

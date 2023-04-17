@@ -4,6 +4,8 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hc.hicareservices.R
+import com.hc.hicareservices.data.SharedPreferenceUtil
 import com.hc.hicareservices.data.model.weeks.WeekModel
 import com.hc.hicareservices.databinding.FragmentOrderDetailsBinding
 import com.hc.hicareservices.ui.adapter.ServiceRequestAdapter
@@ -29,8 +33,10 @@ import com.hc.hicareservices.ui.handler.PaymentListener
 import com.hc.hicareservices.ui.view.activities.AddComplaintsActivity
 import com.hc.hicareservices.ui.view.activities.HomeActivity
 import com.hc.hicareservices.ui.viewmodel.OrderDetailsViewModel
+import com.hc.hicareservices.ui.viewmodel.OtpViewModel
 import com.hc.hicareservices.ui.viewmodel.ServiceViewModel
 import com.hc.hicareservices.utils.AppUtils
+import com.hc.hicareservices.utils.AppUtils2
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import org.joda.time.DateTime
@@ -38,7 +44,6 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import org.json.JSONObject
 import kotlin.math.roundToInt
-
 
 @Suppress("DEPRECATION")
 class OrderDetailsFragment : Fragment() {
@@ -58,6 +63,7 @@ class OrderDetailsFragment : Fragment() {
     private val ORDER_NO = "ORDER_NO"
     private val SERVICE_TYPE = "SERVICE_TYPE"
     lateinit var options: JSONObject
+    private val viewModels: OtpViewModel by viewModels()
 
     companion object {
         @JvmStatic
@@ -93,8 +99,15 @@ class OrderDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("TAG", "orderno $orderNo and $serviceType")
+
+        AppUtils2.mobileno=SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
+        viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
-        getServiceList()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            getServiceList()
+        }, 1000)
+
         binding.complaintLayout.setOnClickListener {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
             intent.putExtra("orderNo", orderNo)
@@ -148,7 +161,7 @@ class OrderDetailsFragment : Fragment() {
 //                binding.statusTv.text = data.status__c
                 binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
                 binding.quantityTv.text = "QTY: ${data.quantity__c}"
-                binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
+//                binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
                 binding.totalTv.text = "₹ ${data.standard_Value__c}"
                 binding.priceTv.text = "₹ ${data.standard_Value__c}"
                 binding.discountTv.text = if (data.orderDiscountValue != null) "₹ ${data.orderDiscountValue}" else "₹ 0"
@@ -169,12 +182,16 @@ class OrderDetailsFragment : Fragment() {
                 }
                 if(data.status__c.equals("Active")){
                     binding.statusTv.text = data.status__c
-                    binding.statusTv.setTextColor(Color.GREEN)
+                    binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
                 }else {
                     binding.statusTv.text = data.status__c
-                    binding.statusTv.setTextColor(Color.RED)
+                    binding.statusTv.setTextColor(Color.parseColor("#B71C1C"))
                 }
-
+                if (data.enable_Payment_Link == false){
+                    binding.paymentStatusTv.text="Paid"
+                }else{
+                    binding.paymentStatusTv.text="Unpaid"
+                }
             }
         }
         orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
@@ -187,9 +204,9 @@ class OrderDetailsFragment : Fragment() {
         binding.recycleView.adapter = mAdapter
 
         viewModel.serviceList.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.visibility = View.GONE
             Log.d(TAG, "onViewCreated: $it")
             mAdapter.setServiceList(it)
-            binding.progressBar.visibility = View.GONE
         })
         mAdapter.setOnServiceItemClicked(object : OnServiceRequestClickHandler {
 

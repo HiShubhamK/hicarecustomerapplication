@@ -11,6 +11,7 @@ import java.util.*
 object AppUtils2 {
 
     var TOKEN = ""
+    var mobileno=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

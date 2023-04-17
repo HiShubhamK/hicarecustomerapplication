@@ -34,8 +34,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="OrderId -"
-                        android:textColor="@color/md_grey_900" />
+                        android:text="OrderId :"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtorderid"
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" - 06/04/2023"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -72,8 +72,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Service -"
-                        android:textColor="@color/black" />
+                        android:text="Service :"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtservicetype"
@@ -107,8 +107,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Service Date -"
-                        android:textColor="@color/black" />
+                        android:text="Service Date :"
+                        android:textStyle="bold" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
