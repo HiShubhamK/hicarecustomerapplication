@@ -249,7 +249,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -426,6 +427,67 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+
+<!--                Address-->
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="3"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Address"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintLeft_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.3dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/greyPrimary" />
+
+
+                        <TextView
+                            android:id="@+id/textaddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:lineSpacingMultiplier="1.2"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:layout_marginTop="8dp"
+                            android:text="adddress"
+                            android:maxLines="4"/>
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
 
 
                 <androidx.cardview.widget.CardView
@@ -714,7 +776,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -725,7 +788,7 @@
                             android:layout_marginBottom="5dp"
                             android:gravity="center"
                             android:lineSpacingMultiplier="1.2"
-                            android:text="Date"
+                            android:text="Service Details"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -742,111 +805,181 @@
                             android:layout_marginRight="20dp"
                             android:background="@color/greyPrimary" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:layout_width="130dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Service Period"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
+
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="15dp"
+                                    android:gravity="right">
+
+                                    <TextView
+                                        android:id="@+id/textserviceperiod"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="right"
+                                        android:maxLines="2"
+                                        android:text="36 months"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/lnrOrderDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp"
-                                android:orientation="horizontal">
+                                android:layout_marginTop="8dp">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="130dp"
                                     android:layout_height="wrap_content"
-                                    android:textSize="14sp"
-                                    android:text="Order Date : "
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:id="@+id/orderDateTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Order Date | 16/04/2021"
+                                    android:text="Start Date"
                                     android:textSize="14sp"
                                     android:textStyle="bold"/>
 
-                            </LinearLayout>
 
-                            <LinearLayout
-                                android:id="@+id/lnrScheduledDate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="15dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:orientation="horizontal">
+                                    android:layout_gravity="right"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="15dp"
+                                    android:gravity="right">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:id="@+id/textdatestart"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="right"
+                                        android:maxLines="2"
+                                        android:text="2023-03-31"
+                                        android:textColor="@color/black"
                                         android:textSize="14sp"
-                                        android:text="Scheduled Date : "
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold" />
 
-                                    <TextView
-                                    android:id="@+id/scheduledDateTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Scheduled Date | 16/04/2021 10:00 AM - 12:00 PM"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-                                </LinearLayout>
+                                </RelativeLayout>
 
                             </LinearLayout>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
                             <LinearLayout
-                                android:id="@+id/lnrCompletion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp">
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Completion Date : "
-                                    android:textStyle="bold"
-                                    android:textSize="14sp"/>
+                                android:layout_marginTop="8dp">
 
                                 <TextView
-                                    android:id="@+id/completionDateTv"
+                                    android:layout_width="130dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="End Date"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
+
+
+                                <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Completion Date | N/A"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
+                                    android:layout_gravity="right"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="15dp"
+                                    android:gravity="right">
 
+                                    <TextView
+                                        android:id="@+id/textdateend"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="right"
+                                        android:maxLines="2"
+                                        android:text="2023-03-31"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
 
                             </LinearLayout>
 
                         </LinearLayout>
+
                     </LinearLayout>
 
-
                 </androidx.cardview.widget.CardView>
-
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/serviceDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:background="@color/white"
-                    >
-
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:id="@+id/lnrSDetails"

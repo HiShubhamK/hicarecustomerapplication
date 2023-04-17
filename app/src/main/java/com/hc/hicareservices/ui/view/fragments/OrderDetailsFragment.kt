@@ -2,6 +2,7 @@ package com.hc.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -143,8 +144,8 @@ class OrderDetailsFragment : Fragment() {
                 binding.orderNameTv.text = data.service_Plan_Name__c
                 binding.orderNoTv.text = orderNo
                 binding.txtaddress.text= data.account_Name__r?.accountAddress ?: "N/A"
-                binding.orderDateTv.text  = data.createdDateText
-                binding.statusTv.text = data.status__c
+//                binding.orderDateTv.text  = data.createdDateText
+//                binding.statusTv.text = data.status__c
                 binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
                 binding.quantityTv.text = "QTY: ${data.quantity__c}"
                 binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
@@ -152,9 +153,13 @@ class OrderDetailsFragment : Fragment() {
                 binding.priceTv.text = "₹ ${data.standard_Value__c}"
                 binding.discountTv.text = if (data.orderDiscountValue != null) "₹ ${data.orderDiscountValue}" else "₹ 0"
                 binding.totalAmountTv.text = "₹ ${data.order_Value_with_Tax__c}"
-                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
+//                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
                 binding.contactDetailsTv.text = "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
                 binding.addressTv.text = data.account_Name__r?.accountAddress ?: "N/A"
+                binding.textaddress.text=  data.account_Name__r?.accountAddress ?: "N/A"
+                binding.textserviceperiod.text=data.service_Period
+                binding.textdatestart.text=data.start_Date__c
+                binding.textdateend.text=data.end_Date__c
                 val notes = prepareNotes(accountId, orderNo, service, serviceType, orderValueWithTax?.toDouble(), orderValueWithTaxAfterDiscount)
                 options = prepareOption(notes, data.service_Plan_Name__c.toString(), orderValueWithTaxAfterDiscount.toString())
                 if (data.enable_Payment_Link == true){
@@ -162,6 +167,14 @@ class OrderDetailsFragment : Fragment() {
                 }else{
                     binding.payNowBtn.visibility = View.VISIBLE
                 }
+                if(data.status__c.equals("Active")){
+                    binding.statusTv.text = data.status__c
+                    binding.statusTv.setTextColor(Color.GREEN)
+                }else {
+                    binding.statusTv.text = data.status__c
+                    binding.statusTv.setTextColor(Color.RED)
+                }
+
             }
         }
         orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
