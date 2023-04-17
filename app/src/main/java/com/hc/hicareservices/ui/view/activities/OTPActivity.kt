@@ -45,6 +45,8 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
         mOtp = intent.getStringExtra("otp").toString()
         binding.mobileNoTv.text = "$mobileNo"
 
+        AppUtils2.mobileno=mobileNo
+
         startCounter()
         binding.resendCodeTv.setOnClickListener {
             if (binding.resendCodeTv.text == "Resend code"){
