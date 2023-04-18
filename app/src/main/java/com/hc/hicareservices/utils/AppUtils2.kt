@@ -42,4 +42,12 @@ object AppUtils2 {
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+
+    fun formatDateTime2(dateTime: String): String{
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val simpleDateFormatOut = SimpleDateFormat("dd.LLLL.yyyy")
+        val parsedDate = simpleDateFormat.parse(dateTime)
+        return simpleDateFormatOut.format(parsedDate)
+    }
+
 }

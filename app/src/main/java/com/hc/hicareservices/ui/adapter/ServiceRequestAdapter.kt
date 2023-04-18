@@ -31,9 +31,10 @@ class ServiceRequestAdapter : RecyclerView.Adapter<ServiceRequestAdapter.MainVie
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val service = service[position]
         holder.binding.txtStatus.text = service.status__c
-        holder.binding.txtSequence.text = service.sequence_No__c
-        holder.binding.txtStep.text = service.serviceStep__c
-        holder.binding.txtSchedule.text = AppUtils2.formatDateTime(service.appointment_Start_Date_Time__c)
+//        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")
+        holder.binding.txtserviceno.text= service.sequence_No__c.replace(".0","")
+        holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(0,2)
+        holder.binding.txtSchedule.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(3)+"/"+"2 pm to 4 pm"
         if (service.enable_Reschedule_Option){
             holder.binding.btnReschedule.visibility = View.VISIBLE
         }else{

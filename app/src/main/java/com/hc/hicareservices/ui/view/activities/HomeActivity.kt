@@ -120,7 +120,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     val city = address[i].locality.toString()
                     val state = address[i].adminArea.toString()
                     val country = address[i].countryName.toString()
-                    binding.addressTv.text = adrs
+//                    binding.addressTv.text = adrs
                     //val postalcode = address[i].postalCode[i]
                     Log.d("TAG", "$adrs,$city, $state, $country")
                 }
