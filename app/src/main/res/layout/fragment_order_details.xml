@@ -1,443 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundtheme">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ScollOrders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundtheme"
+        tools:ignore="MissingClass">
 
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/ScollOrders"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/backgroundtheme"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/orderNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:ellipsize="end"
+                        android:lineSpacingMultiplier="1.2"
+                        android:singleLine="true"
+                        android:text="Home Cleaning Services"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@+id/img_logo"
+                        app:layout_constraintRight_toLeftOf="@id/txt_status"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img_logo"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
 
                     <LinearLayout
+                        android:id="@+id/lnrTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:weightSum="7">
+
 
                         <LinearLayout
-                            android:id="@+id/lnrTop"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="7">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center">
 
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                            <ImageView
+                                android:id="@+id/imgType"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center">
+                                android:src="@drawable/ic_home_cleaning" />
 
+                        </LinearLayout>
 
-                                <ImageView
-                                    android:id="@+id/imgType"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_home_cleaning" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
 
-                            </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/orderNameTv"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="5dp"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                android:ellipsize="end"-->
+<!--                                android:lineSpacingMultiplier="1.2"-->
+<!--                                android:singleLine="true"-->
+<!--                                android:text="Home Cleaning Services"-->
+<!--                                android:textColor="@color/colorAccent"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                app:layout_constraintLeft_toRightOf="@+id/img_logo"-->
+<!--                                app:layout_constraintRight_toLeftOf="@id/txt_status"-->
+<!--                                app:layout_constraintRight_toRightOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@id/img_logo"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
 
                             <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="8dp"
-                                android:layout_weight="4"
-                                android:gravity="center_vertical"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/orderNameTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:ellipsize="end"
-                                    android:lineSpacingMultiplier="1.2"
-                                    android:singleLine="true"
-                                    android:text="Home Cleaning Services"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintLeft_toRightOf="@+id/img_logo"
-                                    app:layout_constraintRight_toLeftOf="@id/txt_status"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintStart_toEndOf="@id/img_logo"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:orientation="horizontal">
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_width="60dp"
-                                            android:layout_height="match_parent"
-                                            android:text="Order No."
-                                            android:textSize="12sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text=":"
-                                            android:textSize="14sp"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-
-
-                                        <TextView
-                                            android:id="@+id/orderNoTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="5dp"
-                                            android:text="HC-324565654"
-                                            android:textSize="12sp"
-                                            android:textStyle="bold" />
-
-                                    </LinearLayout>
-
-
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="2dp"
-                                    android:orientation="horizontal">
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_width="65dp"
-                                            android:layout_height="match_parent"
-                                            android:text="Ordered On"
-                                            android:textSize="12sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text=":"
-                                            android:textSize="14sp"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:id="@+id/dateTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="5dp"
-                                            android:text="16/04/2021"
-                                            android:textSize="12sp"
-                                            android:textStyle="bold" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:layout_weight="2"
-                                android:orientation="vertical"
-                                android:weightSum="3">
-
-
-                                <TextView
-                                    android:id="@+id/statusTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:text="Cancelled"
-                                    android:textColor="@color/md_red_200"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-
-                                <RelativeLayout
-                                    android:id="@+id/complaintLayout"
-                                    android:layout_width="90dp"
-                                    android:layout_height="25dp"
-                                    android:gravity="center"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginEnd="2dp"
-                                    android:layout_marginTop="8dp"
-                                    android:background="@drawable/bg_red_opacity">
+                                    android:layout_height="wrap_content">
 
                                     <TextView
                                         android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:text="Order No     :"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"/>
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/orderNoTv"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="4dp"
-                                        android:layout_marginLeft="4dp"
-                                        android:text="Complaint"
-                                        android:textColor="@color/md_red_400"
-                                        android:textSize="13sp" />
-                                    <ImageView
-                                        android:layout_width="15dp"
-                                        android:layout_height="15dp"
-                                        android:layout_marginEnd="4dp"
-                                        android:layout_marginRight="4dp"
-                                        android:src="@drawable/ic_share_2"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_alignParentEnd="true"/>
-                                </RelativeLayout>
+                                        android:layout_marginLeft="5dp"
+                                        android:text="HC-324565654"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/black"/>
 
+                                </LinearLayout>
 
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_width="60dp"
-                                    android:layout_height="match_parent"
-                                    android:text="Address"
-                                    android:textSize="12sp"
-                                    android:layout_marginLeft="15dp"/>
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:orientation="horizontal">
 
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=":"
-                                    android:textSize="14sp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-                            </LinearLayout>
+                                    android:layout_height="wrap_content">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:text="Ordered On :"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"/>
+                                </LinearLayout>
 
-                                <TextView
-                                    android:id="@+id/txtaddress"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="HC-324565654"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/dateTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:text="16/04/2021"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/black"/>
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
 
                         </LinearLayout>
 
-
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/lnrQuantity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:weightSum="3"
-                        app:layout_constraintTop_toTopOf="parent">
-
-
-                        <TextView
-                            android:id="@+id/txt_Actualservice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="Quantity"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintLeft_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
-
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:orientation="vertical"
                             android:weightSum="3">
 
-                            <LinearLayout
-                                android:layout_width="0dp"
+
+                            <TextView
+                                android:id="@+id/statusTv"
+                                android:layout_width="80dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="2.5"
-                                android:orientation="vertical">
-
-
-                                <TextView
-                                    android:id="@+id/apartmentSizeTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:lineSpacingMultiplier="1.2"
-                                    android:paddingBottom="5dp"
-                                    android:text="Selected Apartment Size - 1BHK"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-
-                                    tools:ignore="MissingConstraints" />
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
-                                android:layout_weight="0.5"
+                                android:layout_centerInParent="true"
+                                android:text="Cancelled"
                                 android:gravity="center"
-                                android:orientation="vertical">
+                                android:textColor="@color/md_red_200"
+                                android:background="@drawable/round_border"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:id="@+id/complaintLayout"
+                                android:layout_width="90dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="2dp"
+                                android:background="@color/colorAccent"
+                                android:gravity="center">
 
                                 <TextView
-                                    android:id="@+id/totalTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="17dp"
-                                    android:text="₹ 4999"
-                                    android:textColor="@color/black"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    tools:ignore="MissingConstraints" />
-
-                                <TextView
-                                    android:id="@+id/quantityTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:lineSpacingMultiplier="1.2"
-                                    android:text="Qty: 1"
-                                    android:textColor="@color/black"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/totalTv"
-                                    tools:ignore="MissingConstraints" />
-                            </LinearLayout>
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="Complaint"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp" />
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="15dp"-->
+<!--                                    android:layout_height="15dp"-->
+<!--                                    android:layout_alignParentEnd="true"-->
+<!--                                    android:layout_alignParentRight="true"-->
+<!--                                    android:layout_marginEnd="4dp"-->
+<!--                                    android:layout_marginRight="4dp"-->
+<!--                                    android:src="@drawable/ic_share_2" />-->
+                            </RelativeLayout>
+
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/txt_schedule"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="10dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:paddingBottom="5dp"
-                            android:text="Scheduled on : 25th Mar 2019 | 04:00 PM - 05:00 PM"
-                            android:visibility="gone"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/txt_Actualservice"
-                            tools:ignore="MissingConstraints" />
-
                     </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:text="Address"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="14sp"></TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtaddress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="HC-324565654"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
 
-<!--                Address-->
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="visible">
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -473,578 +331,550 @@
 
                         <TextView
                             android:id="@+id/textaddress"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="8dp"
                             android:lineSpacingMultiplier="1.2"
+                            android:maxLines="4"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:layout_marginTop="8dp"
-                            android:text="adddress"
-                            android:maxLines="4"/>
+                            android:text="adddress" />
 
 
                     </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
 
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/lnrQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
+                    android:orientation="vertical"
+                    android:weightSum="3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/txt_Actualservice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Quantity"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintLeft_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Service Details"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
+                        android:weightSum="3">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Service Period"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/textserviceperiod"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="36 months"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-                            </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Start Date"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/textdatestart"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="2023-03-31"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="End Date"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/textdateend"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="2023-03-31"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cl_center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txt_PaymentDetails"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Payment Details"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
-
-
-                        <LinearLayout
-                            android:id="@+id/lnrTask"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="2.5"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/lnrStatus"
-                                android:layout_width="match_parent"
+
+                            <TextView
+                                android:id="@+id/apartmentSizeTv"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp"
+                                android:lineSpacingMultiplier="1.2"
+                                android:paddingBottom="5dp"
+                                android:text="Selected Apartment Size - 1BHK"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
 
-                                >
+                                tools:ignore="MissingConstraints" />
 
-                                <TextView
-                                    android:id="@+id/labelPlan"
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Payment Status"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/paymentStatusTv"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="Unpaid"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/lnrPrice"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="5dp"
-
-                                >
-
-                                <TextView
-                                    android:id="@+id/txtPriceLabel"
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Price"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/priceTv"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="₹ 4999"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/lnrDiscount"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="5dp">
-
-                                <TextView
-                                    android:id="@+id/txtDisLabel"
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Discount"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/discountTv"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="₹ 0"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/lnrTax"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="5dp"
-                                android:visibility="gone">
-
-                                <TextView
-                                    android:layout_width="130dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Applicable Tax"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/taxTv"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="₹ 0"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.3dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="20dp"
-                                android:background="@color/greyPrimary" />
-
-                            <LinearLayout
-                                android:id="@+id/lnrTotal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp">
-
-                                <TextView
-                                    android:layout_width="150dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total Payable Amount"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="right">
-
-                                    <TextView
-                                        android:id="@+id/totalAmountTv"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="right"
-                                        android:maxLines="2"
-                                        android:text="₹ 4999"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
-                            <Button
-                                android:id="@+id/payNowBtn"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_marginEnd="12dp"
-                                android:text="Pay Now"
-                                android:visibility="gone"/>
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/totalTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="17dp"
+                                android:text="₹ 4999"
+                                android:textColor="@color/black"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="MissingConstraints" />
+
+                            <TextView
+                                android:id="@+id/quantityTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:lineSpacingMultiplier="1.2"
+                                android:text="Qty: 1"
+                                android:textColor="@color/black"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/totalTv"
+                                tools:ignore="MissingConstraints" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_schedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:paddingBottom="5dp"
+                        android:text="Scheduled on : 25th Mar 2019 | 04:00 PM - 05:00 PM"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_Actualservice"
+                        tools:ignore="MissingConstraints" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!--                Address-->
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Service Details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="8dp">
+
+                            <TextView
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Service Period"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/textserviceperiod"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="36 months"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
-
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/serviceDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/white">
-
                     <LinearLayout
-                        android:id="@+id/lnrSDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="Upcoming Services"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/progressBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:indeterminate="true"
-                            android:layout_gravity="center"/>
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycleView"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="5dp"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                            android:layout_marginTop="8dp">
+
+                            <TextView
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Start Date"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/textdatestart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="2023-03-31"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/cl_head"
-                        android:background="#fff"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="8dp">
+
+                            <TextView
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="End Date"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/textdateend"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="2023-03-31"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cl_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_PaymentDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Payment Details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
+
+
+                    <LinearLayout
+                        android:id="@+id/lnrTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/lnrStatus"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="8dp"
+
+                            >
+
+                            <TextView
+                                android:id="@+id/labelPlan"
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Payment Status"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/paymentStatusTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="Unpaid"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnrPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Contact Details"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+
+                            >
+
+                            <TextView
+                                android:id="@+id/txtPriceLabel"
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Price"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/priceTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="₹ 4999"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnrDiscount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/txtDisLabel"
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Discount"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/discountTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="₹ 0"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnrTax"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:text="Applicable Tax"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/taxTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="₹ 0"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -1054,181 +884,304 @@
                             android:layout_marginRight="20dp"
                             android:background="@color/greyPrimary" />
 
+                        <LinearLayout
+                            android:id="@+id/lnrTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp">
 
-                        <TextView
-                            android:id="@+id/contactDetailsTv"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Total Payable Amount"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:gravity="right">
+
+                                <TextView
+                                    android:id="@+id/totalAmountTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:text="₹ 4999"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/payNowBtn"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="5dp"
-                            android:drawablePadding="10dp"
-                            android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Shahid Raza | 7045621807"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-
-                        <View
-                            android:id="@+id/view2"
-                            android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="150dp"
-                            android:background="@drawable/dash_line"
-                            android:layerType="software" />
-
-
-                        <TextView
-                            android:id="@+id/addressTv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="1304, Bismillah Tower., Souter Street, Near Baugh-e-rabbani, Byculla West"
-                            android:lineSpacingMultiplier="1.2"
-                            android:textStyle="bold"
-                            android:textSize="14sp" />
-
+                            android:layout_marginEnd="12dp"
+                            android:text="Pay Now"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/lnrSDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_login_white_color"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Upcoming Services"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/greyPrimary" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:visibility="gone"
-                    android:background="@color/white">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cl_head"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Contact Details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
+
+                    <TextView
+                        android:id="@+id/contactDetailsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Shahid Raza | 7045621807"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="150dp"
+                        android:background="@drawable/dash_line"
+                        android:layerType="software" />
+
+                    <TextView
+                        android:id="@+id/addressTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="1304, Bismillah Tower., Souter Street, Near Baugh-e-rabbani, Byculla West"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Cancellation Details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Cancellation Details"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="8dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/txtCancelledBy"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="8dp"
-
-                                >
-
-                                <TextView
-                                    android:id="@+id/txtCancelledBy"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cancelled By : Mr. Arjun Bhatt"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="15dp"
-                                >
-
-                                <TextView
-                                    android:id="@+id/txtCancelledDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cancelled Date : 16/04/2021"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-
-                                >
-
-                                <TextView
-                                    android:id="@+id/txtCancelledReason"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cancelled Reason : Pests Issue Resolved"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-
-                                >
-
-                                <TextView
-                                    android:id="@+id/txtCancelRemark"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cancel Remark : OK"
-                                    android:textStyle="bold"
-                                    android:textSize="14sp" />
-
-
-                            </LinearLayout>
-
+                                android:text="Cancelled By : Mr. Arjun Bhatt"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:id="@+id/txtCancelledDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cancelled Date : 16/04/2021"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/txtCancelledReason"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cancelled Reason : Pests Issue Resolved"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/txtCancelRemark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cancel Remark : OK"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
+        </LinearLayout>
 
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    </FrameLayout>
+</FrameLayout>

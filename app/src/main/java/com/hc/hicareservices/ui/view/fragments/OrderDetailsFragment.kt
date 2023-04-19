@@ -106,7 +106,7 @@ class OrderDetailsFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             getServiceList()
-        }, 1000)
+        }, 500)
 
         binding.complaintLayout.setOnClickListener {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
