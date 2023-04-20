@@ -30,8 +30,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val orders = orders[position]
-        holder.binding.txtorderid.text=" "+orders.order_Number__c
-        holder.binding.txtservicetype.text=" "+orders.service_Plan_Name__c
+        holder.binding.txtorderid.text=" #"+orders.order_Number__c
+        holder.binding.txtservicetype.text="  "+orders.service_Plan_Name__c
         holder.binding.txtdate.text=" "+orders.createdDateText
 //        holder.binding.txtOrderNo.text = orders.order_Number__c.toString()
 //        holder.binding.txtService.text = orders.service_Plan_Name__c
