@@ -83,6 +83,7 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintorderid"
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
 
@@ -129,7 +130,7 @@
                     android:background="@color/greyPrimary" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/complaintsLayout"
+                    android:id="@+id/constraintcomplaints"
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
 
@@ -176,7 +177,7 @@
                     android:background="@color/greyPrimary" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/referBtn"
+                    android:id="@+id/constraintreferBtn"
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
 

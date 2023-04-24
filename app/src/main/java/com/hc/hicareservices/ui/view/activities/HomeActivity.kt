@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             lat = mLocListener.latitude
             lng = mLocListener.longitude
 
-            address = geocoder.getFromLocation(lat,lng,1)
+            address = geocoder.getFromLocation(lat,lng,1)!!
 
             if (address.isNotEmpty()) {
                 for (i in 0 until address.size) {

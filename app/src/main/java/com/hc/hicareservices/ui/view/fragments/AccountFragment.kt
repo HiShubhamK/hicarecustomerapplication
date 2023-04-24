@@ -27,11 +27,17 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.complaintsLayout.setOnClickListener {
+
+        binding.constraintorderid.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();
+        }
+
+        binding.constraintcomplaints.setOnClickListener {
             val intent = Intent(requireContext(), ComplaintsActivity::class.java)
             startActivity(intent)
         }
-        binding.referBtn.setOnClickListener {
+        binding.constraintreferBtn.setOnClickListener {
             val intent = Intent(requireContext(), ReferralActivity::class.java)
             startActivity(intent)
         }
