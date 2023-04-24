@@ -25,8 +25,11 @@ class ComplaintsViewModel : ViewModel(){
         response.enqueue(object : Callback<ComplaintResponse> {
 
             override fun onResponse(call: Call<ComplaintResponse>, response: Response<ComplaintResponse>) {
-                complaintList.postValue(response.body()?.data)
-                Log.d("TAG", "Response "+ response.body()?.data.toString())
+                if(response.isSuccessful){
+                    complaintList.postValue(response.body()?.data)
+                }else {
+                    Log.d("TAGFail", "Response " + response.body()?.data.toString())
+                }
             }
 
             override fun onFailure(call: Call<ComplaintResponse>, t: Throwable) {

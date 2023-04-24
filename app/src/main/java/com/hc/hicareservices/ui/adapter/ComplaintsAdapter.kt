@@ -6,13 +6,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.hc.hicareservices.data.model.complaints.ComplaintsData
 import com.hc.hicareservices.databinding.LayoutComplaintsAdapterBinding
+import com.hc.hicareservices.databinding.LayoutComplaintsAdaptersBinding
 
 class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
 
     var complaints = mutableListOf<ComplaintsData>()
-    fun setComplaintsList(orders: List<ComplaintsData>?) {
-        if (orders != null) {
-            this.complaints = orders.toMutableList()
+    fun setComplaintsList(complaintdata: List<ComplaintsData>?) {
+        if (complaintdata != null) {
+            this.complaints = complaintdata.toMutableList()
         }
         notifyDataSetChanged()
     }
@@ -20,18 +21,18 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = LayoutComplaintsAdapterBinding.inflate(inflater, parent, false)
+        val binding = LayoutComplaintsAdaptersBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val complaints = complaints[position]
-        holder.binding.txtstatus.text=complaints.status
+        holder.binding.txthello.text=complaints.status
     }
 
     override fun getItemCount(): Int {
         return complaints.size
     }
 
-    class MainViewHolder(val binding: LayoutComplaintsAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: LayoutComplaintsAdaptersBinding) : RecyclerView.ViewHolder(binding.root)
 }
