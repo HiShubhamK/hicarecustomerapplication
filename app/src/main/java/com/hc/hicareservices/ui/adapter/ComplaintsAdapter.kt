@@ -26,10 +26,10 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val complaints = complaints[position]
-        holder.binding.txtorderid.text=" "+complaints.complaint_No__c
-        holder.binding.txtservicetype.text=" "+complaints.service_Plan__c
-        holder.binding.txtdate.text=" "+complaints.createdDate
+//        val complaints = complaints[position]
+//        holder.binding.txtorderid.text=" "+complaints.complaint_No__c
+//        holder.binding.txtservicetype.text=" "+complaints.service_Plan__c
+//        holder.binding.txtdate.text=" "+complaints.createdDate
     }
 
     override fun getItemCount(): Int {

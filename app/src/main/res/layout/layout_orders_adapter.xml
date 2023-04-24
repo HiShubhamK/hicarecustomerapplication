@@ -3,27 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="4dp"
+        android:elevation="8dp"
+        android:padding="3dp"
+        app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:text="Service :"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtservicetype"
@@ -61,31 +62,31 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="0.8">
+                    android:layout_weight="0.8"
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="OrderId :"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtorderid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/clipboard"
+                        android:gravity="center"
                         android:text=" - #123445"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:drawableLeft="@drawable/clipboard" />
+                        android:textStyle="bold" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -96,44 +97,52 @@
                     android:text=" - 06/04/2023"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:orientation="horizontal">-->
+            <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="horizontal">-->
 
-<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="0.8"-->
-<!--                    android:orientation="horizontal">-->
+            <!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="0.8"-->
+            <!--                    android:orientation="horizontal">-->
 
-<!--                    <androidx.appcompat.widget.AppCompatTextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Service :"-->
-<!--                        android:textStyle="bold" />-->
+            <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="Service :"-->
+            <!--                        android:textStyle="bold" />-->
 
-<!--                    <androidx.appcompat.widget.AppCompatTextView-->
-<!--                        android:id="@+id/txtservicetype"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text=" - #123445"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold" />-->
+            <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                        android:id="@+id/txtservicetype"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text=" - #123445"-->
+            <!--                        android:textColor="@color/black"-->
+            <!--                        android:textStyle="bold" />-->
 
-<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+            <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
 
-<!--                <androidx.appcompat.widget.AppCompatImageView-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:src="@drawable/forward_arrow" />-->
+            <!--                <androidx.appcompat.widget.AppCompatImageView-->
+            <!--                    android:layout_width="20dp"-->
+            <!--                    android:layout_height="20dp"-->
+            <!--                    android:src="@drawable/forward_arrow" />-->
 
-<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+            <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Start Date:"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -152,39 +161,67 @@
                         android:layout_height="wrap_content"
                         android:text="Service Date :"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
+                        android:gravity="center"
                         android:text=" - 06/04/2023"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:textStyle="bold" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_marginTop="8dp"
+                android:text="End Date:"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="6dp">
+                android:weightSum="2">
+
 
                 <androidx.appcompat.widget.AppCompatTextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 4.4"
-                    android:textColor="@color/black"
+                    android:text="Service Date :"
                     android:textStyle="bold"
-                    android:gravity="center"
-                    android:drawableLeft="@drawable/ic_baseline_star_rate_24"/>
+                    android:visibility="gone" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/enddate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
+                    android:gravity="center|left"
+                    android:text=" - 06/04/2023"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtamounts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text=" 20000"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -414,3 +451,421 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="wrap_content">-->
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:layout_marginEnd="4dp"-->
+    <!--        app:cardUseCompatPadding="true"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginTop="8dp"-->
+    <!--                android:orientation="horizontal">-->
+
+    <!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_weight="0.8"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text="Service :"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:visibility="gone"/>-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:id="@+id/txtservicetype"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text=" - #123445"-->
+    <!--                        android:textColor="@color/colorAccent"-->
+    <!--                        android:textSize="16sp"-->
+    <!--                        android:textStyle="bold" />-->
+
+    <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+    <!--                <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                    android:layout_width="20dp"-->
+    <!--                    android:layout_height="20dp"-->
+    <!--                    android:src="@drawable/forward_arrow" />-->
+
+    <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+    <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                android:layout_marginTop="10dp">-->
+
+    <!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:orientation="horizontal"-->
+    <!--                    android:layout_weight="0.8">-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text="OrderId :"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:visibility="gone"/>-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:id="@+id/txtorderid"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text=" - #123445"-->
+    <!--                        android:textColor="@color/black"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:drawableLeft="@drawable/clipboard" />-->
+    <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/txtamount"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text=" - 06/04/2023"-->
+    <!--                    android:textColor="@color/colorAccent"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    android:visibility="gone"/>-->
+
+    <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+    <!--&lt;!&ndash;            <androidx.appcompat.widget.LinearLayoutCompat&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_marginTop="8dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:orientation="horizontal">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <androidx.appcompat.widget.LinearLayoutCompat&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:layout_weight="0.8"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:orientation="horizontal">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                    <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:text="Service :"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                    <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:id="@+id/txtservicetype"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:text=" - #123445"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:textColor="@color/black"&ndash;&gt;-->
+    <!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                </androidx.appcompat.widget.LinearLayoutCompat>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <androidx.appcompat.widget.AppCompatImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:layout_width="20dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:layout_height="20dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:src="@drawable/forward_arrow" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;            </androidx.appcompat.widget.LinearLayoutCompat>&ndash;&gt;-->
+
+    <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginTop="8dp"-->
+    <!--                android:orientation="horizontal">-->
+
+    <!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_weight="0.8"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text="Service Date :"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:visibility="gone"/>-->
+
+
+    <!--                    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                        android:id="@+id/txtdate"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text=" - 06/04/2023"-->
+    <!--                        android:textColor="@color/black"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>-->
+    <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+    <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+    <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="0.8"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                android:layout_marginTop="6dp">-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text=" 4.4"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:drawableLeft="@drawable/ic_baseline_star_rate_24"/>-->
+    <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+    <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+
+    <!--    &lt;!&ndash;        <androidx.cardview.widget.CardView&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_marginTop="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_marginStart="4dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_marginEnd="4dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            app:cardUseCompatPadding="true">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:orientation="vertical"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:padding="4dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:layout_marginTop="2dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                android:layout_marginBottom="2dp">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                    android:id="@+id/lnrTop"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                    android:orientation="horizontal"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                    android:weightSum="7">&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;                    <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_height="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:gravity="center">&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;                        <ImageView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:id="@+id/imgType"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="48dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_gravity="center"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:src="@drawable/ic_home_cleaning"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            />&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                    </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                    <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_height="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_weight="4.5"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:gravity="center_vertical"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_marginBottom="8dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:orientation="vertical">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                        <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:id="@+id/txtOrderNo"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginTop="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:ellipsize="end"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:lineSpacingMultiplier="1.2"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:singleLine="true"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textColor="@color/black"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textSize="14sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:text="Home Cleaning Services"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textStyle="bold"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            app:layout_constraintLeft_toRightOf="@+id/img_logo"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            app:layout_constraintRight_toLeftOf="@id/txt_status"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            app:layout_constraintRight_toRightOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            app:layout_constraintStart_toEndOf="@id/img_logo"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginTop="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:orientation="horizontal"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:visibility="gone">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="60dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text="Order No."&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="12sp" />&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                app:layout_constraintTop_toTopOf="parent">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text=":"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="14sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:id="@+id/txtService"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="12sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textStyle="bold"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text="HC-324344324"/>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginTop="2dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:orientation="horizontal">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="65dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text="Ordered On"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="12sp" />&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                app:layout_constraintTop_toTopOf="parent">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text=":"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="14sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            <LinearLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                android:layout_height="wrap_content">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                                <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:id="@+id/txtDate"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textSize="12sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:textStyle="bold"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                    android:text="16/04/2021"/>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                            </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;                    </LinearLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                    <RelativeLayout&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_height="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:layout_weight="1.5"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:orientation="vertical"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                        android:weightSum="3">&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                        <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:id="@+id/txt_status"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_alignParentTop="true"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_centerHorizontal="true"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginTop="5dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_marginRight="2dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_weight="0.5"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:text="Active"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textColor="@color/colorPrimary"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textSize="12sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textStyle="bold" />&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                        <TextView&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:id="@+id/amountTv"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:layout_centerInParent="true"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:text="₹ 4999"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textColor="@color/black"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textSize="15sp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                            android:textStyle="bold" />&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;                    </RelativeLayout>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;                </LinearLayout>&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+
+    <!--    &lt;!&ndash;        </androidx.cardview.widget.CardView>&ndash;&gt;-->
+
+
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

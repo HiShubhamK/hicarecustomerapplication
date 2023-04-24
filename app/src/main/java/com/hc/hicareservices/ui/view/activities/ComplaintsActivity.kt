@@ -17,8 +17,8 @@ class ComplaintsActivity : AppCompatActivity() {
     private val TAG = "ComplaintsActivity"
 
     lateinit var binding: ActivityComplaintsBinding
-    private val viewModel: ComplaintsViewModel by viewModels()
-    private lateinit var mAdapter: ComplaintsAdapter
+//    private val viewModel: ComplaintsViewModel by viewModels()
+//    private lateinit var mAdapter: ComplaintsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,24 +35,24 @@ class ComplaintsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        getAllComplaints()
+//        getAllComplaints()
     }
 
-    private fun getAllComplaints() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        mAdapter = ComplaintsAdapter()
-
-        binding.recyclerView.adapter = mAdapter
-
-        viewModel.complaintList.observe(this, Observer {
-            Log.d(TAG, "onViewCreated: $it")
-            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-            mAdapter.setComplaintsList(it)
-        })
-
-        viewModel.errorMessage.observe(this, Observer {
-
-        })
-        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
-    }
+//    private fun getAllComplaints() {
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        mAdapter = ComplaintsAdapter()
+//
+//        binding.recyclerView.adapter = mAdapter
+//
+//        viewModel.complaintList.observe(this, Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            mAdapter.setComplaintsList(it)
+//        })
+//
+//        viewModel.errorMessage.observe(this, Observer {
+//
+//        })
+//        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
+//    }
 }
