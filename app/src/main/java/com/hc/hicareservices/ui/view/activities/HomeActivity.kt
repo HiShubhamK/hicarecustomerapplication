@@ -38,6 +38,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var lat = 0.0
     var lng = 0.0
     var paymentListener: PaymentListener? = null
+    var titles:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,30 +50,37 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             when (it.itemId) {
                 R.id.nav_home -> {
 //                    setContent("Home")
+                    binding.title.text="Home"
+                    titles="Home"
                     supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment.newInstance()).commit();
-
                     true
+
                 }
                 R.id.nav_account -> {
+                    binding.title.text="Account"
+                    titles="Account"
                     supportFragmentManager.beginTransaction().replace(R.id.container, AccountFragment.newInstance()).commit();
-
                     true
                 }
                 R.id.nav_cart -> {
+                    binding.title.text="Home"
                     supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment.newInstance()).commit();
 
                     true
                 }
                 R.id.nav_orders -> {
+                    binding.title.text="Orders"
+                    titles="Order"
                     supportFragmentManager.beginTransaction().replace(R.id.container, OrdersFragment.newInstance()).commit();
-
                     true
                 }
                 else -> false
             }
         }
         binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        binding.title.text=titles.toString()
     }
+
 
     private fun checkUserStatus(){
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()

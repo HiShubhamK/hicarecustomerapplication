@@ -13,7 +13,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/layout_orders_adapter"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

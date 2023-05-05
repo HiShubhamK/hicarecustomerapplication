@@ -45,8 +45,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - #123445"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
+                        android:textColor="@color/greyPrimary"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -61,7 +61,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="3dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -77,15 +77,25 @@
                         android:textStyle="bold"
                         android:visibility="gone" />
 
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:id="@+id/txtorderid"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:drawableLeft="@drawable/clipboard"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text=" - #123445"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textStyle="bold" />-->
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtorderid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/clipboard"
                         android:gravity="center"
                         android:text=" - #123445"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textSize="14sp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -103,6 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="2">
 
                 <TextView
@@ -130,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="2">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -161,12 +173,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="End Date:"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -177,16 +190,28 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/enddate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"-->
+<!--                    android:gravity="center|left"-->
+<!--                    android:text=" - 06/04/2023"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:visibility="gone"/>-->
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/enddate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
                     android:gravity="center|left"
                     android:text=" - 06/04/2023"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textColor="#828282"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtamounts"
@@ -195,6 +220,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text=" 20000"
+                    android:visibility="gone"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>
