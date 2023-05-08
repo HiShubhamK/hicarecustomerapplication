@@ -12,6 +12,7 @@ object AppUtils2 {
 
     var TOKEN = ""
     var mobileno=""
+    var order_number=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {
@@ -53,6 +54,13 @@ object AppUtils2 {
     fun formatDateTime3(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("dd-LLL-yyyy")
+        val parsedDate = simpleDateFormat.parse(dateTime)
+        return simpleDateFormatOut.format(parsedDate)
+    }
+
+    fun formatDateTime4(dateTime: String): String{
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val simpleDateFormatOut = SimpleDateFormat("dd-MM-yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }

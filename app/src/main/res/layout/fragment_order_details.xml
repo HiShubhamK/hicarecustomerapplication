@@ -4,29 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundtheme">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/ScollOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundtheme"
         tools:ignore="MissingClass">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundtheme"
             android:descendantFocusability="blocksDescendants"
+            android:background="#f6f6f6"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp"
                 app:layout_constraintTop_toTopOf="parent">
@@ -47,8 +45,7 @@
                         android:lineSpacingMultiplier="1.2"
                         android:singleLine="true"
                         android:text="Home Cleaning Services"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/img_logo"
                         app:layout_constraintRight_toRightOf="parent"
@@ -125,7 +122,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Order No     :"
-                                        android:textSize="14sp"
+                                        android:textSize="12sp"
                                         android:textStyle="bold"/>
                                 </LinearLayout>
 
@@ -140,7 +137,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="5dp"
                                         android:text="HC-324565654"
-                                        android:textSize="14sp"
+                                        android:textSize="12sp"
                                         android:textStyle="bold"
                                         android:textColor="@color/black"/>
 
@@ -163,7 +160,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Ordered On :"
-                                        android:textSize="14sp"
+                                        android:textSize="12sp"
                                         android:textStyle="bold"/>
                                 </LinearLayout>
 
@@ -176,15 +173,14 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="5dp"
-                                        android:text="16/04/2021"
-                                        android:textSize="14sp"
+                                        android:text="31-03-2023"
+                                        android:textSize="12sp"
                                         android:textStyle="bold"
                                         android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
                             </LinearLayout>
-
 
                         </LinearLayout>
 
@@ -195,8 +191,8 @@
                             android:layout_weight="2"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:weightSum="3">
-
+                            android:weightSum="3"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/statusTv"
@@ -206,19 +202,19 @@
                                 android:text="Cancelled"
                                 android:gravity="center"
                                 android:textColor="@color/md_red_200"
-                                android:background="@drawable/round_border"
                                 android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <RelativeLayout
                                 android:id="@+id/complaintLayout"
                                 android:layout_width="90dp"
-                                android:layout_height="25dp"
+                                android:layout_height="35dp"
                                 android:layout_marginStart="2dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginEnd="2dp"
-                                android:background="@color/colorAccent"
-                                android:gravity="center">
+                                android:background="@drawable/round_border"
+                                android:gravity="center"
+                                android:visibility="gone">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -227,7 +223,7 @@
                                     android:layout_marginLeft="4dp"
                                     android:text="Complaint"
                                     android:textStyle="bold"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/colorAccent"
                                     android:textSize="13sp" />
 
 <!--                                <ImageView-->
@@ -239,7 +235,6 @@
 <!--                                    android:layout_marginRight="4dp"-->
 <!--                                    android:src="@drawable/ic_share_2" />-->
                             </RelativeLayout>
-
 
                         </LinearLayout>
 
@@ -293,7 +288,6 @@
 
                         </LinearLayout>
 
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -301,32 +295,25 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:weightSum="3"
+                        android:layout_marginBottom="6dp"
                         app:layout_constraintTop_toTopOf="parent">
-
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
                             android:text="Address"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintLeft_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textStyle="bold"/>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.3dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/greyPrimary" />
-
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="0.3dp"-->
+<!--                            android:layout_marginLeft="20dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_marginRight="20dp"-->
+<!--                            android:background="@color/greyPrimary" />-->
 
                         <TextView
                             android:id="@+id/textaddress"
@@ -334,15 +321,25 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="2dp"
                             android:lineSpacingMultiplier="1.2"
                             android:maxLines="4"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp"
                             android:text="adddress" />
 
 
                     </LinearLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"
+                        android:text="Complaints"
+                        android:backgroundTint="@color/colorAccent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -479,9 +476,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp">
@@ -533,9 +530,8 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Service Period"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
-
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -554,7 +550,7 @@
                                     android:maxLines="2"
                                     android:text="36 months"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
@@ -580,7 +576,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Start Date"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
 
@@ -599,9 +595,9 @@
                                     android:ellipsize="end"
                                     android:gravity="right"
                                     android:maxLines="2"
-                                    android:text="2023-03-31"
+                                    android:text="31-03-2023"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
@@ -626,7 +622,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="End Date"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
 
@@ -645,9 +641,9 @@
                                     android:ellipsize="end"
                                     android:gravity="right"
                                     android:maxLines="2"
-                                    android:text="2023-03-31"
+                                    android:text="31-03-2023"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
@@ -665,10 +661,9 @@
                 android:id="@+id/cl_center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp">
@@ -717,16 +712,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-
-                            >
+                            android:layout_marginTop="8dp">
 
                             <TextView
                                 android:id="@+id/labelPlan"
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Payment Status"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
 
@@ -747,11 +740,10 @@
                                     android:maxLines="2"
                                     android:text="Unpaid"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
-
 
                         </LinearLayout>
 
@@ -760,18 +752,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-
-                            >
+                            android:layout_marginTop="5dp">
 
                             <TextView
                                 android:id="@+id/txtPriceLabel"
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Price"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
-
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -790,7 +779,7 @@
                                     android:maxLines="2"
                                     android:text="₹ 4999"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
@@ -809,7 +798,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Discount"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
                             <RelativeLayout
@@ -829,7 +818,7 @@
                                     android:maxLines="2"
                                     android:text="₹ 0"
                                     android:textColor="@color/black"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
                             </RelativeLayout>
@@ -929,7 +918,8 @@
                             android:layout_marginStart="12dp"
                             android:layout_marginEnd="12dp"
                             android:text="Pay Now"
-                            android:visibility="gone" />
+                            android:backgroundTint="@color/colorAccent"
+                            android:visibility="visible" />
 
                     </LinearLayout>
 
@@ -937,20 +927,30 @@
 
             </androidx.cardview.widget.CardView>
 
-            <LinearLayout
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/lnrSDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_login_white_color"
-                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp"
                 app:layout_constraintTop_toTopOf="parent">
+
+<!--                android:background="@drawable/bg_login_white_color"-->
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Upcoming Services"
                     android:textColor="@color/black"
@@ -981,7 +981,9 @@
                     android:layout_marginBottom="5dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

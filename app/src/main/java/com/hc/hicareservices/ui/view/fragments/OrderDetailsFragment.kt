@@ -163,16 +163,16 @@ class OrderDetailsFragment : Fragment() {
                 binding.quantityTv.text = "QTY: ${data.quantity__c}"
 //                binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
                 binding.totalTv.text = "₹ ${data.standard_Value__c}"
-                binding.priceTv.text = "₹ ${data.standard_Value__c}"
-                binding.discountTv.text = if (data.orderDiscountValue != null) "₹ ${data.orderDiscountValue}" else "₹ 0"
-                binding.totalAmountTv.text = "₹ ${data.order_Value_with_Tax__c}"
+                binding.priceTv.text = "₹ ${Math.round(data.standard_Value__c!!.toDouble())}"
+                binding.discountTv.text = if (data.orderDiscountValue != null) "₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "₹ 0"
+                binding.totalAmountTv.text = "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
                 binding.contactDetailsTv.text = "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
                 binding.addressTv.text = data.account_Name__r?.accountAddress ?: "N/A"
                 binding.textaddress.text=  data.account_Name__r?.accountAddress ?: "N/A"
                 binding.textserviceperiod.text=data.service_Period
-                binding.textdatestart.text=data.start_Date__c
-                binding.textdateend.text=data.end_Date__c
+                binding.textdatestart.text=AppUtils2.formatDateTime4(data.start_Date__c.toString())
+                binding.textdateend.text=AppUtils2.formatDateTime4(data.end_Date__c.toString())
                 val notes = prepareNotes(accountId, orderNo, service, serviceType, orderValueWithTax?.toDouble(), orderValueWithTaxAfterDiscount)
                 options = prepareOption(notes, data.service_Plan_Name__c.toString(), orderValueWithTaxAfterDiscount.toString())
                 if (data.enable_Payment_Link == true){

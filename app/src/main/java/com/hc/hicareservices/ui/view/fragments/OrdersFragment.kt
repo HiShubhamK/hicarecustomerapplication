@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,15 +15,16 @@ import com.hc.hicareservices.data.SharedPreferenceUtil
 import com.hc.hicareservices.databinding.FragmentOrdersBinding
 import com.hc.hicareservices.ui.adapter.OrdersAdapter
 import com.hc.hicareservices.ui.handler.OnOrderClickedHandler
+import com.hc.hicareservices.ui.view.activities.HomeActivity
 import com.hc.hicareservices.ui.viewmodel.OrdersViewModel
 
-
-class OrdersFragment : Fragment() {
+class OrdersFragment() : Fragment() {
     private val TAG = "OrdersFragment"
     lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
     private lateinit var mAdapter: OrdersAdapter
     private var mobile = ""
+    lateinit var homeActivity: HomeActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,6 @@ class OrdersFragment : Fragment() {
         fun newInstance() =
             OrdersFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }

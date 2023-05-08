@@ -2,7 +2,6 @@ package com.hc.hicareservices.ui.view.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.location.Address
@@ -11,6 +10,7 @@ import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.hc.hicareservices.R
 import com.hc.hicareservices.data.SharedPreferenceUtil
@@ -26,10 +26,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
-import org.json.JSONObject
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -38,7 +36,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var lat = 0.0
     var lng = 0.0
     var paymentListener: PaymentListener? = null
-    var titles:String?=null
+    var titles: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,45 +44,59 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(binding.root)
         checkUserStatus()
         takePermissionForLocation()
-        binding.bottomNavigation.setOnNavigationItemSelectedListener{
+
+        binding.bottomheadertext.text=AppUtils2.order_number
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
 //                    setContent("Home")
-                    binding.title.text="Home"
-                    titles="Home"
-                    supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment.newInstance()).commit();
+                    binding.title.text = "Home"
+                    binding.help.visibility = View.GONE
+                    binding.bottomheadertext.visibility = View.GONE
+                    titles = "Home"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, HomeFragment.newInstance()).commit();
                     true
 
                 }
                 R.id.nav_account -> {
-                    binding.title.text="Account"
-                    titles="Account"
-                    supportFragmentManager.beginTransaction().replace(R.id.container, AccountFragment.newInstance()).commit();
+                    binding.title.text = "Account"
+                    binding.help.visibility = View.GONE
+                    binding.bottomheadertext.visibility = View.GONE
+                    titles = "Account"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, AccountFragment.newInstance()).commit();
                     true
                 }
                 R.id.nav_cart -> {
-                    binding.title.text="Home"
-                    supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment.newInstance()).commit();
+                    binding.title.text = "Home"
+                    binding.help.visibility = View.GONE
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, HomeFragment.newInstance()).commit();
 
                     true
                 }
                 R.id.nav_orders -> {
-                    binding.title.text="Orders"
-                    titles="Order"
-                    supportFragmentManager.beginTransaction().replace(R.id.container, OrdersFragment.newInstance()).commit();
+                    binding.help.visibility = View.VISIBLE
+                    binding.bottomheadertext.visibility = View.GONE
+                    binding.title.text = "Orders"
+                    titles = "Order"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, OrdersFragment.newInstance()).commit();
                     true
                 }
                 else -> false
             }
         }
         binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
-        binding.title.text=titles.toString()
+        binding.title.text = titles.toString()
     }
 
 
-    private fun checkUserStatus(){
+    private fun checkUserStatus() {
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        if (mobileNo == "-1"){
+        if (mobileNo == "-1") {
             val i = Intent(this, LoginActivity::class.java)
             //i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(i)
@@ -92,35 +104,39 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
-    private fun takePermissionForLocation(){
+    private fun takePermissionForLocation() {
         Dexter.withActivity(this).withPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ).withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    if (report?.areAllPermissionsGranted() == true){
-                        getLocation()
-                    }
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+        ).withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                if (report?.areAllPermissionsGranted() == true) {
+                    getLocation()
                 }
+            }
 
-                override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
-                    token?.continuePermissionRequest()
-                }
-            }).check()
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>?,
+                token: PermissionToken?
+            ) {
+                token?.continuePermissionRequest()
+            }
+        }).check()
     }
 
 
     @SuppressLint("MissingPermission")
-    private fun getLocation(){
+    private fun getLocation() {
         geocoder = Geocoder(this)
-        val mLocManager: LocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val mLocManager: LocationManager =
+            this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val mLocListener = MyLocationListener(this)
         mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, mLocListener)
-        if (mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             lat = mLocListener.latitude
             lng = mLocListener.longitude
 
-            address = geocoder.getFromLocation(lat,lng,1)!!
+            address = geocoder.getFromLocation(lat, lng, 1)!!
 
             if (address.isNotEmpty()) {
                 for (i in 0 until address.size) {
@@ -138,7 +154,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
 
     override fun onPaymentSuccess(p0: String?, response: PaymentData?) {
-        if (response != null){
+        if (response != null) {
             Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
             paymentListener?.onPaymentSuccess(p0, response)
         }
@@ -149,7 +165,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         paymentListener?.onPaymentError(p0, p1, response)
     }
 
-    fun setOnPaymentListener(paymentListener: PaymentListener?){
+    fun setOnPaymentListener(paymentListener: PaymentListener?) {
         this.paymentListener = paymentListener
     }
 }

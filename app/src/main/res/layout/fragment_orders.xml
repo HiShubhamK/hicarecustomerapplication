@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -14,8 +15,8 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/layout_orders_adapter"
             android:visibility="gone"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

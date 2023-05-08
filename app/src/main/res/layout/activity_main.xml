@@ -10,7 +10,7 @@
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/white"
+        android:background="#f6f6f6"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -21,26 +21,54 @@
 
             <ImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
-                android:src="@drawable/logo"
-                android:visibility="gone"/>
+                android:src="@drawable/ic_baseline_account_circle_24"
+                android:visibility="visible"/>
+
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="14dp"
+                android:layout_marginRight="45dp"
                 android:text="Home"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:layout_toRightOf="@id/imgLogo"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/bottomheadertext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="45dp"
+                android:text="Home"
+                android:gravity="center_horizontal"
+                android:layout_toRightOf="@id/imgLogo"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/title"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Help"
+                android:gravity="end"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/imgLogo"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

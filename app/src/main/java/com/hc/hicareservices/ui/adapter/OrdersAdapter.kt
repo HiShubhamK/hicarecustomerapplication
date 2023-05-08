@@ -33,8 +33,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
         val orders = orders[position]
         holder.binding.txtorderid.text=""+orders.order_Number__c
         holder.binding.txtservicetype.text=""+orders.service_Plan_Name__c
-        holder.binding.txtdate.text=" "+AppUtils2.formatDateTime3(orders.start_Date__c!!)
-        holder.binding.enddate.text=AppUtils2.formatDateTime3(orders.end_Date__c!!)
+        holder.binding.txtdate.text=" "+AppUtils2.formatDateTime4(orders.start_Date__c!!)
+        holder.binding.enddate.text=AppUtils2.formatDateTime4(orders.end_Date__c!!)
         holder.binding.txtstatus.text=orders.status__c
         holder.binding.txtamounts.text = "₹ ${orders.order_Value_with_Tax__c}"
         holder.itemView.setOnClickListener {
