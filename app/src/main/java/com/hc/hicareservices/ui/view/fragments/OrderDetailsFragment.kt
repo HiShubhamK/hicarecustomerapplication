@@ -108,6 +108,20 @@ class OrderDetailsFragment : Fragment() {
             getServiceList()
         }, 500)
 
+        binding.imgadd.setOnClickListener {
+            binding.recycleView.visibility=View.VISIBLE
+            binding.imgminus.visibility=View.VISIBLE
+            binding.imgadd.visibility=View.GONE
+        }
+
+
+        binding.imgminus.setOnClickListener {
+            binding.recycleView.visibility=View.GONE
+            binding.imgadd.visibility=View.VISIBLE
+            binding.imgminus.visibility=View.GONE
+
+        }
+
         binding.complaintLayout.setOnClickListener {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
             intent.putExtra("orderNo", orderNo)
