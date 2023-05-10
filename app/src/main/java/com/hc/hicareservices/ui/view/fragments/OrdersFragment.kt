@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -69,9 +68,14 @@ class OrdersFragment() : Fragment() {
             binding.recyclerView.visibility = View.VISIBLE
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
-            override fun onOrderItemClicked(position: Int, orderNo: String, serviceType: String) {
+            override fun onOrderItemClicked(
+                position: Int,
+                orderNo: String,
+                serviceType: String,
+                service_url_image: String
+            ) {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType)).addToBackStack("OrdersFragment").commit();
+                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,service_url_image)).addToBackStack("OrdersFragment").commit();
             }
         })
 

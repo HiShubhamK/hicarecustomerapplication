@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -64,14 +63,16 @@ class OrderDetailsFragment : Fragment() {
     private val SERVICE_TYPE = "SERVICE_TYPE"
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
+    var service_url_image:String=""
 
     companion object {
         @JvmStatic
-        fun newInstance(orderNo: String, serviceType: String) =
+        fun newInstance(orderNo: String, serviceType: String, service_url_image: String) =
             OrderDetailsFragment().apply {
                 arguments = Bundle().apply {
                     this.putString(ORDER_NO, orderNo)
                     this.putString(SERVICE_TYPE, serviceType)
+                    this.putString(SERVICE_TYPE, service_url_image)
                 }
             }
     }

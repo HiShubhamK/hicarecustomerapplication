@@ -142,11 +142,6 @@
             android:scrollbars="none"
             android:visibility="gone" />
 
-        <!--        <include-->
-        <!--            android:id="@+id/shimmerCategory"-->
-        <!--            layout="@layout/dashboard_category_shimmer"-->
-        <!--           />-->
-
         <LinearLayout
             android:id="@+id/lnrPest"
             android:layout_width="match_parent"

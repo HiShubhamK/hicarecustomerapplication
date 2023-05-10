@@ -38,7 +38,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
         holder.binding.txtstatus.text=orders.status__c
         holder.binding.txtamounts.text = "₹ ${orders.order_Value_with_Tax__c}"
         holder.itemView.setOnClickListener {
-            onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString())
+            onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString())
         }
     }
 

@@ -66,6 +66,13 @@
                                 android:textStyle="bold" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txtdateinchar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Helloworld"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/txtStatus"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -92,7 +99,7 @@
                                 android:id="@+id/txtSchedule"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text=": Helloworld"
+                                android:text=": 2 pm to 4 pm"
                                 android:textStyle="bold" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -34,7 +34,7 @@ class ServiceRequestAdapter : RecyclerView.Adapter<ServiceRequestAdapter.MainVie
 //        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")
         holder.binding.txtserviceno.text= service.sequence_No__c.replace(".0","")
         holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(0,2)
-        holder.binding.txtSchedule.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(3)+"/"+"2 pm to 4 pm"
+        holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(3)
         if (service.enable_Reschedule_Option){
             holder.binding.btnReschedule.visibility = View.VISIBLE
         }else{
