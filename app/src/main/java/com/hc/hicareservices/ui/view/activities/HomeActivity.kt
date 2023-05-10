@@ -45,15 +45,15 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         checkUserStatus()
         takePermissionForLocation()
 
-        binding.bottomheadertext.text=AppUtils2.order_number
+//        binding.bottomheadertext.text=AppUtils2.order_number
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
 //                    setContent("Home")
-                    binding.title.text = "Home"
-                    binding.help.visibility = View.GONE
-                    binding.bottomheadertext.visibility = View.GONE
+//                    binding.title.text = "Home"
+//                    binding.help.visibility = View.GONE
+//                    binding.bottomheadertext.visibility = View.GONE
                     titles = "Home"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
@@ -61,26 +61,26 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 }
                 R.id.nav_account -> {
-                    binding.title.text = "Account"
-                    binding.help.visibility = View.GONE
-                    binding.bottomheadertext.visibility = View.GONE
+//                    binding.title.text = "Account"
+//                    binding.help.visibility = View.GONE
+//                    binding.bottomheadertext.visibility = View.GONE
                     titles = "Account"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AccountFragment.newInstance()).commit();
                     true
                 }
                 R.id.nav_cart -> {
-                    binding.title.text = "Home"
-                    binding.help.visibility = View.GONE
+//                    binding.title.text = "Home"
+//                    binding.help.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
 
                     true
                 }
                 R.id.nav_orders -> {
-                    binding.help.visibility = View.VISIBLE
-                    binding.bottomheadertext.visibility = View.GONE
-                    binding.title.text = "Orders"
+//                    binding.help.visibility = View.VISIBLE
+//                    binding.bottomheadertext.visibility = View.GONE
+//                    binding.title.text = "Orders"
                     titles = "Order"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragment.newInstance()).commit();
@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             }
         }
         binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
-        binding.title.text = titles.toString()
+//        binding.title.text = titles.toString()
     }
 
 

@@ -28,6 +28,12 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.edtAccount.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ProfileFragment.newInstance()).addToBackStack("AccountFragment").commit();
+        }
+
         binding.constraintorderid.setOnClickListener{
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();

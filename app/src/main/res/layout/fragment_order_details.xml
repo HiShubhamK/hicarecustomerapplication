@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -73,8 +74,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/ScollOrders"

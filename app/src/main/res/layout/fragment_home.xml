@@ -28,7 +28,6 @@
                 android:src="@drawable/ic_baseline_account_circle_24"
                 android:visibility="visible" />
 
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -77,9 +76,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp">
-
+        android:orientation="vertical">
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/slider"

@@ -104,6 +104,13 @@ class OrderDetailsFragment : Fragment() {
         viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
 
+        if(orderNo!=null){
+            binding.bottomheadertext.visibility=View.VISIBLE
+            binding.bottomheadertext.text=orderNo
+        }else{
+            binding.bottomheadertext.visibility=View.GONE
+        }
+
         Handler(Looper.getMainLooper()).postDelayed({
             getServiceList()
         }, 500)
