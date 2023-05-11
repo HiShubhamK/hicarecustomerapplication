@@ -20,13 +20,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.hc.hicareservices"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -79,7 +79,7 @@ dependencies {
     implementation 'design.ivisionblog.apps:feedback-dialog:0.0.1-alpha'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
-    implementation "com.splunk.mint:mint:5.0.0"
+//    implementation "com.splunk.mint:mint:5.0.0"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
@@ -87,7 +87,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-identity:18.0.1'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.github.Cutta:GifView:1.4'
     implementation 'com.github.aabhasr1:OtpView:v1.1.2'
