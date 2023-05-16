@@ -95,6 +95,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'joda-time:joda-time:2.10.4'
     implementation 'com.razorpay:checkout:1.6.16'
+    implementation("com.tbuonomo:dotsindicator:4.3")
 
 /*    compile(name: 'ezetapandroidsdk_2_0', ext: 'aar')
     api 'com.google.android.material:material:1.1.0'
@@ -146,6 +147,9 @@ dependencies {
 
     //dynamic module injection
 //    api 'com.google.android.play:core:1.7.1'
+
+
+    implementation 'com.github.IslamKhSh:CardSlider:1.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.4.0'
