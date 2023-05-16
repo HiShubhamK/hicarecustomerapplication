@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    binding.help.visibility = View.GONE
 //                    binding.bottomheadertext.visibility = View.GONE
                     titles = "Home"
+                    binding.title.text="Welcome To Hicare"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
                     true
@@ -65,6 +66,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    binding.help.visibility = View.GONE
 //                    binding.bottomheadertext.visibility = View.GONE
                     titles = "Account"
+                    binding.title.text="Account"
+
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AccountFragment.newInstance()).commit();
                     true
@@ -72,6 +75,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 R.id.nav_cart -> {
 //                    binding.title.text = "Home"
 //                    binding.help.visibility = View.GONE
+                    binding.title.text="Welcome To Hicare"
+
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
 
@@ -82,6 +87,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    binding.bottomheadertext.visibility = View.GONE
 //                    binding.title.text = "Orders"
                     titles = "Order"
+                    binding.title.text="Order"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragment.newInstance()).commit();
                     true
@@ -89,7 +95,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 else -> false
             }
         }
-        binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        binding.bottomNavigation.selectedItemId = R.id.nav_home;
 //        binding.title.text = titles.toString()
     }
 

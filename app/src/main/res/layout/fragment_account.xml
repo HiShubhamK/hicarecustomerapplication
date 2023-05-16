@@ -13,6 +13,7 @@
             tools:context=".fragments.AccountFragment">
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/headerView"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -32,7 +33,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
                         android:src="@drawable/ic_baseline_account_circle_24"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
 
 
                     <TextView
@@ -41,26 +42,26 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="45dp"
-                        android:text="Account"
-                        android:gravity="center_horizontal"
                         android:layout_toRightOf="@id/imgLogo"
+                        android:gravity="center_horizontal"
+                        android:text="Account"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/bottomheadertext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/title"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="45dp"
-                        android:text="Home"
-                        android:gravity="center_horizontal"
                         android:layout_toRightOf="@id/imgLogo"
+                        android:gravity="center_horizontal"
+                        android:text="Home"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_below="@+id/title"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 

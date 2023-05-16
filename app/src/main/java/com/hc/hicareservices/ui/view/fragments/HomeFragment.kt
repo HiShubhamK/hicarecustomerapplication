@@ -5,22 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.hc.hicareservices.ui.adapter.FanbookAdapter
-import com.hc.hicareservices.ui.adapter.HomeServiceAdapter
-import com.hc.hicareservices.ui.adapter.ServiceAdapter
+import com.hc.hicareservices.R
 import com.hc.hicareservices.databinding.FragmentHomeBinding
-import com.hc.hicareservices.utils.AppUtils2
-import kotlin.collections.ArrayList
+import com.hc.hicareservices.ui.adapter.DashboardMenuAdapter
+import com.hc.hicareservices.ui.adapter.HomeServiceAdapter
+import com.hc.hicareservices.ui.adapter.PaymentDashboardAdapter
+import com.hc.hicareservices.ui.viewmodel.GridViewModal
+import com.hc.hicareservices.ui.viewmodel.PaymentCardViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mAdapter: ServiceAdapter
+    private lateinit var mAdapter: DashboardMenuAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
-    private lateinit var mFanAdapter: FanbookAdapter
-
+    private lateinit var mpayentdashboardadapter: PaymentDashboardAdapter
+    lateinit var courseList: List<GridViewModal>
+    lateinit var paymentcardlist: List<PaymentCardViewModel>
     val TAG = HomeFragment::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +56,11 @@ class HomeFragment : Fragment() {
         binding.horizontalScrollView.post {
             binding.horizontalScrollView.scrollTo(0,0)
         }
-        binding.pestControl.setOnClickListener {
-            AppUtils2.startPayment(requireActivity())
-        }
+
+
+//        binding.recMenu.setOnClickListener {
+//            AppUtils2.startPayment(requireActivity())
+//        }
         setHomeBanner()
         getServiceData()
     }
@@ -64,26 +69,64 @@ class HomeFragment : Fragment() {
     private fun setHomeBanner() {
         try {
             val slideModels: MutableList<SlideModel> = ArrayList()
-            slideModels.add(SlideModel("https://image.shutterstock.com/image-vector/pest-control-house-hygiene-disinfection-600w-1422131480.jpg", ScaleTypes.FIT))
-            slideModels.add(SlideModel("https://image.shutterstock.com/image-photo/lablebutton-termite-protection-600w-772644724.jpg", ScaleTypes.FIT))
-            slideModels.add(SlideModel("https://image.shutterstock.com/image-vector/pest-control-services-banner-people-600w-1758538019.jpg", ScaleTypes.FIT))
+            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg", ScaleTypes.FIT))
+            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg", ScaleTypes.FIT))
+            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg", ScaleTypes.FIT))
             binding.slider.setImageList(slideModels, ScaleTypes.FIT)
+//            binding.slider.setScrollIndicators();
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     private fun getServiceData() {
-        binding.recyclerPest.layoutManager =
+        courseList = ArrayList<GridViewModal>()
+        paymentcardlist = ArrayList<PaymentCardViewModel>()
+
+        // on below line we are adding data to
+        // our course list with image and course name.
+        courseList = courseList + GridViewModal("My Orders", R.drawable.myorders)
+        courseList = courseList + GridViewModal("Ask Expert", R.drawable.experts)
+        courseList = courseList + GridViewModal("Renewal", R.drawable.orderrenew)
+        courseList = courseList + GridViewModal("Wallet", R.drawable.digitalwallet)
+        courseList = courseList + GridViewModal("Feedback", R.drawable.feedback)
+        courseList = courseList + GridViewModal("Refer & Earn", R.drawable.referandearn)
+        courseList = courseList + GridViewModal("Offers", R.drawable.offer)
+//        courseList = courseList + GridViewModal("Redeem Now!", R.drawable.redeem)
+        courseList = courseList + GridViewModal("Customer Support", R.drawable.customersuppoer)
+//        courseList = courseList + GridViewModal("Raise Complaint", R.drawable.complain)
+        courseList = courseList + GridViewModal("Upcoming Services", R.drawable.comingsoon)
+
+        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 1 year","Kindly click renew button to renew your order",R.drawable.hicarelogo,"Renew",false)
+        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 2 year","Kindly click view button to view your order details",R.drawable.hicarelogo,"View",false)
+        paymentcardlist=paymentcardlist+PaymentCardViewModel("AutoMos","Kindly click paynow button to pay your order payment",R.drawable.hicarelogo,"Pay Now",false)
+
+
+//        val courseAdapter = GridRVAdapter(courseList = courseList, LayoutInflater.from(getActivity()))
+
+//        binding.recMenu.adapter=courseAdapter
+//        binding.recMenu.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+//            // inside on click method we are simply displaying
+//            // a toast message with course name.
+//            Toast.makeText(
+//                context, courseList[position].courseName + " selected",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+        binding.recMenu.layoutManager =
+            GridLayoutManager(context,4)
+        mAdapter = DashboardMenuAdapter(courseList)
+
+        binding.recPayments.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        mAdapter = ServiceAdapter()
-
-        binding.recyclerHome.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        mFanAdapter = FanbookAdapter()
+        mpayentdashboardadapter = PaymentDashboardAdapter(paymentcardlist)
 
 
-        binding.recyclerPest.adapter = mAdapter
-        binding.recyclerHome.adapter = mFanAdapter
+//        binding.recMenu.adapter = mAdapter
+        binding.recMenu.adapter = mAdapter
+        binding.recPayments.adapter = mpayentdashboardadapter
     }
+
+
 }
