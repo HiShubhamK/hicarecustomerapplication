@@ -14,7 +14,7 @@ class ImageAdapter(private val imageList: ArrayList<String>, private val viewPag
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView);
+        val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -24,7 +24,6 @@ class ImageAdapter(private val imageList: ArrayList<String>, private val viewPag
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-//        holder.imageView.setImageResource(imageList[position])
         Picasso.get().load(imageList[position]).into(holder.imageView)
         if (position == imageList.size-1){
             viewPager2.post(runnable)

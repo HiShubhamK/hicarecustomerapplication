@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true">
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
@@ -37,7 +38,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Welcome To Hicare"
+                android:text="Home"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
