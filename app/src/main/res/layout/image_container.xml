@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:adjustViewBounds="true"
     app:cardCornerRadius="10dp">
 
 
@@ -12,14 +11,14 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         app:cardCornerRadius="10dp"
-        android:layout_margin="20dp">
+        android:layout_margin="10dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:src="@drawable/bird"
-            android:layout_margin="10dp"/>
+            android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>
 
