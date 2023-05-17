@@ -13,7 +13,6 @@
             tools:context=".fragments.AccountFragment">
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/headerView"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
