@@ -95,19 +95,18 @@
 <!--            app:cardElevation="2dp">-->
 
 
-
-
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/slider"
-            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="18dp"
             android:background="@drawable/border_card_bg"
-            android:padding="1dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:visibility="visible"
             app:iss_auto_cycle="true"
             app:iss_corner_radius="10"
             app:iss_delay="0"

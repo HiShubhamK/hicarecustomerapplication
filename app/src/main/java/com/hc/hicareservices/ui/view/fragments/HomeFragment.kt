@@ -98,8 +98,8 @@ class HomeFragment : Fragment() {
 //        courseList = courseList + GridViewModal("Raise Complaint", R.drawable.complain)
         courseList = courseList + GridViewModal("Upcoming Services", R.drawable.comingsoon)
 
-        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 1 year","Kindly click renew button to renew your order",R.drawable.hicarelogo,"Renew",false)
-        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 2 year","Kindly click view button to view your order details",R.drawable.hicarelogo,"View",false)
+        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 1 year","Kindly click Renewal button to renew your service",R.drawable.hicarelogo,"Renewal",false)
+        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 2 year","Kindly click Reschedule button to Reschedule your service",R.drawable.hicarelogo,"Reschedule",false)
         paymentcardlist=paymentcardlist+PaymentCardViewModel("AutoMos","Kindly click paynow button to pay your order payment",R.drawable.hicarelogo,"Pay Now",false)
 
 
