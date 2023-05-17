@@ -1,18 +1,24 @@
 package com.hc.hicareservices.ui.view.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.hc.hicareservices.R
 import com.hc.hicareservices.databinding.FragmentHomeBinding
 import com.hc.hicareservices.ui.adapter.DashboardMenuAdapter
 import com.hc.hicareservices.ui.adapter.HomeServiceAdapter
+import com.hc.hicareservices.ui.adapter.ImageAdapter
 import com.hc.hicareservices.ui.adapter.PaymentDashboardAdapter
 import com.hc.hicareservices.ui.viewmodel.GridViewModal
 import com.hc.hicareservices.ui.viewmodel.PaymentCardViewModel
@@ -25,6 +31,11 @@ class HomeFragment : Fragment() {
     lateinit var courseList: List<GridViewModal>
     lateinit var paymentcardlist: List<PaymentCardViewModel>
     val TAG = HomeFragment::class.java.simpleName
+    private lateinit var handler : Handler
+    private lateinit var imageList:ArrayList<String>
+    private lateinit var adapter: ImageAdapter
+    lateinit var viewPagerAdapter: ViewPagerAdapter
+    lateinit var imageLists: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +72,104 @@ class HomeFragment : Fragment() {
 //        binding.recMenu.setOnClickListener {
 //            AppUtils2.startPayment(requireActivity())
 //        }
-        setHomeBanner()
+        init()
+        binding.idViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler.removeCallbacks(runnable)
+                handler.postDelayed(runnable , 2000)
+            }
+        })
+//        setHomeBanner()
         getServiceData()
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        handler.postDelayed(runnable , 2000)
+    }
+
+    private val runnable = Runnable {
+        binding.idViewPager.currentItem = binding.idViewPager.currentItem + 1
+    }
+
+    private fun init() {
+
+        handler = Handler(Looper.myLooper()!!)
+        imageList = ArrayList()
+
+        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
+        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
+        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg")
+
+        adapter = ImageAdapter(imageList, binding.idViewPager)
+
+
+        binding.idViewPager.adapter = adapter
+//
+//        binding.dotsIndicator.attachTo(binding.idViewPager)
+
+
+
+//        binding.idViewPager.add
+
+
+//        binding.idViewPager.addOnPageChangeListener(object : OnPageChangeListener {
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                for (i in 0 until dotscount) {
+//                    dots[i]!!.setImageDrawable(
+//                        ContextCompat.getDrawable(
+//                            requireContext(),
+//                            R.drawable.nonactive_dot
+//                        )
+//                    )
+//                }
+//                dots[position]!!.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        requireContext(),
+//                        R.drawable.active_dot
+//                    )
+//                )
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {}
+//        })
+//
+//
+
+
+        binding.idViewPager.offscreenPageLimit = 3
+        binding.idViewPager.clipToPadding = false
+        binding.idViewPager.clipChildren = false
+        binding.idViewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//        binding.dotsIndicator.attachTo(binding.idViewPager)
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private fun setHomeBanner() {
