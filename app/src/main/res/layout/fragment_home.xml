@@ -81,30 +81,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/crdSlider"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="18dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginRight="18dp"-->
-<!--            android:visibility="visible"-->
-<!--            app:cardBackgroundColor="@color/white"-->
-<!--            app:cardCornerRadius="10dp"-->
-<!--            app:cardElevation="2dp">-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idViewPagerss">
+            android:id="@+id/idViewPagerss"
+            android:layout_marginLeft="3dp">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/idViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:paddingStart="60dp"
-                android:paddingEnd="60dp"
+                android:paddingEnd="50dp"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
