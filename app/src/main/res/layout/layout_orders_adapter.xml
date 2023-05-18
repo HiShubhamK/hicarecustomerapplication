@@ -17,264 +17,162 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Service :"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtservicetype"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" - #123445"
-                        android:textColor="@color/greyPrimary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/forward_arrow"
-                    android:visibility="gone"/>
+                    android:id="@+id/imgespest"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_user" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Service :"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
+                        android:layout_weight="0.3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_semibold"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:text="abcd"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/txtnameorder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/lato_regular"
+                            android:text="abcd"
+                            android:textColor="@color/grey_font"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtnamestatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="#f6f6f6"
+                            android:fontFamily="@font/lato_regular"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="abcd"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#f6f6f6" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtorderid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text=" - #123445"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="14sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="Next Planned Date"
+                        android:textColor="@color/grey_font"
+                        android:textSize="12sp" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/forward_arrow" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="3dp"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="0.8"-->
-<!--                    android:orientation="horizontal">-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtappointmentdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="hello"
+                        android:textSize="12sp" />
 
 <!--                    <androidx.appcompat.widget.AppCompatTextView-->
-<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="OrderId :"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:visibility="gone" />-->
+<!--                        android:fontFamily="@font/lato_regular"-->
+<!--                        android:text="(Next Planned Date)"-->
+<!--                        android:textColor="@color/colorAccent"-->
+<!--                        android:textSize="12sp" />-->
 
-<!--&lt;!&ndash;                    <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:id="@+id/txtorderid"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:drawableLeft="@drawable/clipboard"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:text=" - #123445"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:textColor="@color/black"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+                </LinearLayout>
 
-<!--                    <androidx.appcompat.widget.AppCompatTextView-->
-<!--                        android:id="@+id/txtorderid"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:gravity="center"-->
-<!--                        android:text=" - #123445"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textSize="14sp"/>-->
-<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
 
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/txtamount"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text=" - 06/04/2023"-->
-<!--                    android:textColor="@color/colorAccent"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:visibility="gone" />-->
-
-<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:weightSum="2">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:text="Start Date:"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="Status:"
-                    android:textStyle="bold" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtrupees"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato_semibold"
+                        android:gravity="end"
+                        android:text="hello"
+                        android:textSize="12sp" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="30dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/forward_arrow" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:weightSum="2">
+                </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
-                    android:gravity="center|left"
-                    android:text=" - 06/04/2023"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtstatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text=" Active"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="End Date:"
-                android:textStyle="bold"
-                android:visibility="gone"/>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Service Date :"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/enddate"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"-->
-<!--                    android:gravity="center|left"-->
-<!--                    android:text=" - 06/04/2023"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:visibility="gone"/>-->
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/enddate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|left"
-                    android:text=" - 06/04/2023"
-                    android:textColor="#828282"
-                    android:textSize="12sp"
-                    android:textStyle="bold"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtamounts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text=" 20000"
-                    android:visibility="gone"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

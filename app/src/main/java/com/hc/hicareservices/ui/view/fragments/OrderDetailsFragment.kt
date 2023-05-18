@@ -38,6 +38,7 @@ import com.hc.hicareservices.utils.AppUtils
 import com.hc.hicareservices.utils.AppUtils2
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
+import com.squareup.picasso.Picasso
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
@@ -61,6 +62,8 @@ class OrderDetailsFragment : Fragment() {
     var serviceType = ""
     private val ORDER_NO = "ORDER_NO"
     private val SERVICE_TYPE = "SERVICE_TYPE"
+    private val SERVICE_TYPE_IMG = "SERVICE_TYPE_IMG"
+
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
     var service_url_image:String=""
@@ -72,7 +75,7 @@ class OrderDetailsFragment : Fragment() {
                 arguments = Bundle().apply {
                     this.putString(ORDER_NO, orderNo)
                     this.putString(SERVICE_TYPE, serviceType)
-                    this.putString(SERVICE_TYPE, service_url_image)
+                    this.putString(SERVICE_TYPE_IMG, service_url_image)
                 }
             }
     }
@@ -82,6 +85,7 @@ class OrderDetailsFragment : Fragment() {
         arguments?.let {
             orderNo = it.getString(ORDER_NO).toString()
             serviceType = it.getString(SERVICE_TYPE).toString()
+            service_url_image=it.getString(SERVICE_TYPE_IMG).toString()
         }
     }
 
@@ -101,6 +105,9 @@ class OrderDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("TAG", "orderno $orderNo and $serviceType")
 
+        Picasso.get().load(service_url_image).into(binding.imgType)
+
+
         AppUtils2.mobileno=SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
@@ -116,19 +123,19 @@ class OrderDetailsFragment : Fragment() {
             getServiceList()
         }, 500)
 
-        binding.imgadd.setOnClickListener {
-            binding.recycleView.visibility=View.VISIBLE
-            binding.imgminus.visibility=View.VISIBLE
-            binding.imgadd.visibility=View.GONE
-        }
-
-
-        binding.imgminus.setOnClickListener {
-            binding.recycleView.visibility=View.GONE
-            binding.imgadd.visibility=View.VISIBLE
-            binding.imgminus.visibility=View.GONE
-
-        }
+//        binding.imgadd.setOnClickListener {
+//            binding.recycleView.visibility=View.VISIBLE
+//            binding.imgminus.visibility=View.VISIBLE
+//            binding.imgadd.visibility=View.GONE
+//        }
+//
+//
+//        binding.imgminus.setOnClickListener {
+//            binding.recycleView.visibility=View.GONE
+//            binding.imgadd.visibility=View.VISIBLE
+//            binding.imgminus.visibility=View.GONE
+//
+//        }
 
         binding.complaintLayout.setOnClickListener {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
@@ -202,13 +209,59 @@ class OrderDetailsFragment : Fragment() {
                 }else{
                     binding.payNowBtn.visibility = View.VISIBLE
                 }
-                if(data.status__c.equals("Active")){
-                    binding.statusTv.text = data.status__c
+
+                binding.statusTv.text = data.status__c
+
+//
+//                if(data.status__c.equals("Active")){
+//                    binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
+//                }else {
+//                    binding.statusTv.text = data.status__c
+//                    binding.statusTv.setTextColor(Color.parseColor("#B71C1C"))
+//                }
+//
+
+                if(data.status__c.equals("Expired")){
+
+                    binding.statusTv.setTextColor(Color.parseColor("#D50000"))
+
+                }else if(data.status__c.equals("Short Close")){
+
+                    binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
+
+                }else if(data.status__c.equals("Cancelled")){
+
+                    binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
+
+                }else if(data.status__c.equals("Active")){
+
                     binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
-                }else {
-                    binding.statusTv.text = data.status__c
-                    binding.statusTv.setTextColor(Color.parseColor("#B71C1C"))
+
+                }else if (data.status__c.equals("Rejected")){
+
+                    binding.statusTv.setTextColor(Color.parseColor("#FFAB00"))
+
+                }else{
+
+
+
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 if (data.enable_Payment_Link == false){
                     binding.paymentStatusTv.text="Paid"
                 }else{
@@ -244,6 +297,8 @@ class OrderDetailsFragment : Fragment() {
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onViewCreated: $it")
+            binding.recycleView.visibility=View.GONE
+            binding.txterrormessage.visibility=View.VISIBLE
         })
         viewModel.getServiceRequest(orderNo, serviceType)
     }
