@@ -7,6 +7,6 @@ data class OfferViewModel(
     // one is course name as string and
     // other course img as int.
     val courseName: String,
-    val courseImg: String
+    val courseImg: Int
 )
 

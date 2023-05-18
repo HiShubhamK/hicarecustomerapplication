@@ -1,15 +1,19 @@
 package com.hc.hicareservices.ui.view.fragments
 
+import android.content.res.Resources
+import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -79,7 +83,7 @@ class HomeFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable , 2000)
+                handler.postDelayed(runnable , 5000)
             }
         })
 //        setHomeBanner()
@@ -95,15 +99,19 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        handler.postDelayed(runnable , 2000)
-        handler2.postDelayed(runnable2 , 2000)
+        handler.postDelayed(runnable , 5000)
+        handler2.postDelayed(runnable2 , 5000)
     }
 
     private val runnable = Runnable {
-        binding.idViewPager.currentItem = binding.idViewPager.currentItem + 1
+//        binding.idViewPager.currentItem = binding.idViewPager.currentItem + 1
+        binding.idViewPager.setCurrentItem( binding.idViewPager.currentItem + 1,true);
+
     }
     private val runnable2 = Runnable {
-        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
+        binding.recOffers.setCurrentItem( binding.recOffers.currentItem + 1,true);
+
+//        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
     }
 
     private fun init() {
@@ -217,9 +225,10 @@ class HomeFragment : Fragment() {
         paymentcardlist=paymentcardlist+PaymentCardViewModel("AutoMos","Kindly click paynow button to pay your order payment",R.drawable.hicarelogo,"Pay Now",false)
 
 
-        offerlist= (offerlist+OfferViewModel("Upcoming Services","https://s3.ap-south-1.amazonaws.com/hicare-others/231c557a-d815-4385-8f1e-4dcfd3eb87b6.png")) as ArrayList<OfferViewModel>
-        offerlist= (offerlist+OfferViewModel("Offers","https://s3.ap-south-1.amazonaws.com/hicare-others/1f4cfa7b-aa7f-4767-8ee6-3c42bfe59ae4.png")) as ArrayList<OfferViewModel>
+        offerlist= (offerlist+OfferViewModel("Upcoming Services",R.raw.comingsoon)) as ArrayList<OfferViewModel>
+        offerlist= (offerlist+OfferViewModel("Offers",R.raw.animoffers)) as ArrayList<OfferViewModel>
 //        val courseAdapter = GridRVAdapter(courseList = courseList, LayoutInflater.from(getActivity()))
+
 
 //        binding.recMenu.adapter=courseAdapter
 //        binding.recMenu.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -257,6 +266,158 @@ class HomeFragment : Fragment() {
 //        binding.recMenu.adapter = mAdapter
         binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
+        binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
+    }
+
+    class CirclePagerIndicatorDecoration : ItemDecoration() {
+        private val colorActive = 0x727272
+        private val colorInactive = 0xF44336
+
+        /**
+         * Height of the space the indicator takes up at the bottom of the view.
+         */
+        private val mIndicatorHeight = (DP * 16).toInt()
+
+        /**
+         * Indicator stroke width.
+         */
+        private val mIndicatorStrokeWidth = DP * 2
+
+        /**
+         * Indicator width.
+         */
+        private val mIndicatorItemLength = DP * 16
+
+        /**
+         * Padding between indicators.
+         */
+        private val mIndicatorItemPadding = DP * 4
+
+        /**
+         * Some more natural animation interpolation
+         */
+        private val mInterpolator: AccelerateDecelerateInterpolator = AccelerateDecelerateInterpolator()
+        private val mPaint: Paint = Paint()
+        override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+            super.onDrawOver(c, parent, state)
+            val itemCount = parent.adapter!!.itemCount
+
+            // center horizontally, calculate width and subtract half from center
+            val totalLength = mIndicatorItemLength * itemCount
+            val paddingBetweenItems = Math.max(0, itemCount - 1) * mIndicatorItemPadding
+            val indicatorTotalWidth = totalLength + paddingBetweenItems
+            val indicatorStartX = (parent.width - indicatorTotalWidth) / 2f
+
+            // center vertically in the allotted space
+            val indicatorPosY = parent.height - mIndicatorHeight / 2f
+            drawInactiveIndicators(c, indicatorStartX, indicatorPosY, itemCount)
+
+
+            // find active page (which should be highlighted)
+            val layoutManager = parent.layoutManager as LinearLayoutManager?
+            val activePosition = layoutManager!!.findFirstVisibleItemPosition()
+            if (activePosition == RecyclerView.NO_POSITION) {
+                return
+            }
+
+            // find offset of active page (if the user is scrolling)
+            val activeChild = layoutManager.findViewByPosition(activePosition)
+            val left = activeChild!!.left
+            val width = activeChild.width
+
+            // on swipe the active item will be positioned from [-width, 0]
+            // interpolate offset for smooth animation
+            val progress: Float = mInterpolator.getInterpolation(left * -1 / width.toFloat())
+            drawHighlights(c, indicatorStartX, indicatorPosY, activePosition, progress, itemCount)
+        }
+//        fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+//            super.onDrawOver(c, parent, state!!)
+
+//        }
+
+        private fun drawInactiveIndicators(
+            c: Canvas,
+            indicatorStartX: Float,
+            indicatorPosY: Float,
+            itemCount: Int
+        ) {
+            mPaint.setColor(Color.GRAY)
+
+            // width of item indicator including padding
+            val itemWidth = mIndicatorItemLength + mIndicatorItemPadding
+            var start = indicatorStartX
+            for (i in 0 until itemCount) {
+                // draw the line for every item
+                c.drawCircle(start + mIndicatorItemLength, indicatorPosY, itemWidth / 6, mPaint)
+                //  c.drawLine(start, indicatorPosY, start + mIndicatorItemLength, indicatorPosY, mPaint);
+                start += itemWidth
+            }
+        }
+
+        private fun drawHighlights(
+            c: Canvas, indicatorStartX: Float, indicatorPosY: Float,
+            highlightPosition: Int, progress: Float, itemCount: Int
+        ) {
+            mPaint.color = Color.GREEN
+
+            // width of item indicator including padding
+            val itemWidth = mIndicatorItemLength + mIndicatorItemPadding
+            if (progress == 0f) {
+                // no swipe, draw a normal indicator
+                val highlightStart = indicatorStartX + itemWidth * highlightPosition
+                /*   c.drawLine(highlightStart, indicatorPosY,
+                    highlightStart + mIndicatorItemLength, indicatorPosY, mPaint);
+        */c.drawCircle(highlightStart, indicatorPosY, itemWidth / 6, mPaint)
+            } else {
+                val highlightStart = indicatorStartX + itemWidth * highlightPosition
+                // calculate partial highlight
+                val partialLength = mIndicatorItemLength * progress
+                c.drawCircle(
+                    highlightStart + mIndicatorItemLength,
+                    indicatorPosY,
+                    itemWidth / 6,
+                    mPaint
+                )
+
+                // draw the cut off highlight
+                /* c.drawLine(highlightStart + partialLength, indicatorPosY,
+                    highlightStart + mIndicatorItemLength, indicatorPosY, mPaint);
+*/
+                // draw the highlight overlapping to the next item as well
+                /* if (highlightPosition < itemCount - 1) {
+                highlightStart += itemWidth;
+                */
+                /*c.drawLine(highlightStart, indicatorPosY,
+                        highlightStart + partialLength, indicatorPosY, mPaint);*/
+                /*
+                c.drawCircle(highlightStart ,indicatorPosY,itemWidth/4,mPaint);
+
+            }*/
+            }
+        }
+
+
+
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+                        outRect.bottom = mIndicatorHeight
+
+        }
+        companion object {
+            private val DP: Float = Resources.getSystem().getDisplayMetrics().density
+        }
+
+        init {
+            mPaint.setStrokeCap(Paint.Cap.ROUND)
+            mPaint.setStrokeWidth(mIndicatorStrokeWidth)
+            mPaint.setStyle(Paint.Style.FILL)
+            mPaint.setAntiAlias(true)
+        }
     }
 
 }

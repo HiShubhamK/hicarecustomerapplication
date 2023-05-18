@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.cunoraz.gifview.library.GifView
 import com.hc.hicareservices.R
@@ -18,7 +20,7 @@ class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private va
     RecyclerView.Adapter<OffersAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgOffer: ImageView = itemView.findViewById(R.id.imgOffer)
+        val imgOffer: LottieAnimationView = itemView.findViewById(R.id.imgOffer)
         val tvOffers: TextView = itemView.findViewById(R.id.tvOffers)
     }
 
@@ -29,7 +31,12 @@ class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private va
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        Picasso.get().load(imageList[position].courseImg).into(holder.imgOffer)
+//        Picasso.get().load(imageList[position].courseImg).into(holder.imgOffer)
+        holder.imgOffer.setAnimation(imageList[position].courseImg)
+
+        holder.imgOffer.repeatCount = LottieDrawable.INFINITE
+        holder.imgOffer.playAnimation()
+
 //        Glide.with(this).load(imageList[position].courseImg)).into(holder.imgOffer)
 
         holder.tvOffers.text=imageList[position].courseName
