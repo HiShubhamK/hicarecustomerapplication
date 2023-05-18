@@ -108,6 +108,17 @@ class OrderDetailsFragment : Fragment() {
         Picasso.get().load(service_url_image).into(binding.imgType)
 
 
+        binding.imgLogo.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, OrdersFragment.newInstance()).commit();
+        }
+
+        binding.help.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, OrdersFragment.newInstance()).commit();
+        }
+
+
         AppUtils2.mobileno=SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
@@ -137,7 +148,7 @@ class OrderDetailsFragment : Fragment() {
 //
 //        }
 
-        binding.complaintLayout.setOnClickListener {
+        binding.help.setOnClickListener {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
             intent.putExtra("orderNo", orderNo)
             intent.putExtra("serviceType", serviceType)
@@ -243,24 +254,7 @@ class OrderDetailsFragment : Fragment() {
 
                 }else{
 
-
-
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 if (data.enable_Payment_Link == false){
                     binding.paymentStatusTv.text="Paid"

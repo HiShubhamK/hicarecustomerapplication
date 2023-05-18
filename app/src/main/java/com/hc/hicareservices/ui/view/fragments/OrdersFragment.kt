@@ -48,6 +48,12 @@ class OrdersFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.imgLogo.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance()).commit();
+        }
+
         binding.swipeRefreshLayout.setOnRefreshListener {
             getOrdersList()
             binding.swipeRefreshLayout.isRefreshing = false
