@@ -39,8 +39,18 @@
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
                 android:text="Home"
+                android:visibility="gone"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/imgLogo"
+                android:src="@drawable/ic_hicare">
+
+            </ImageView>
 
             <TextView
                 android:id="@+id/bottomheadertext"
@@ -81,17 +91,17 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/idViewPagerss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idViewPagerss"
             android:layout_marginLeft="3dp">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/idViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:paddingEnd="50dp"
                 android:layout_margin="10dp"
+                android:paddingEnd="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -117,9 +127,8 @@
             app:iss_corner_radius="10"
             app:iss_delay="0"
             app:iss_error_image="@drawable/error"
-            app:iss_period="1000"
-            />
-<!--        </androidx.cardview.widget.CardView>-->
+            app:iss_period="1000" />
+        <!--        </androidx.cardview.widget.CardView>-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardSearch"
             android:layout_width="match_parent"
@@ -191,7 +200,6 @@
             tools:listitem="@layout/layout_payment_dashboard_adapter" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/rltPayNow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -199,7 +207,8 @@
             android:layout_marginVertical="8dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/imgAvatar"
@@ -349,9 +358,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdpest"
-            android:layout_below="@+id/lnrTitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lnrTitle1"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
@@ -368,248 +377,6 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-
-                <!--            <LinearLayout-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_gravity="center"-->
-                <!--                android:orientation="horizontal"-->
-                <!--                android:weightSum="2">-->
-
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:id="@+id/pestControl"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="5dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:focusable="true"-->
-                <!--                    android:foreground="?attr/selectableItemBackground"-->
-                <!--                    app:cardCornerRadius="10dp"-->
-                <!--                    app:cardElevation="5dp"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:orientation="vertical">-->
-
-                <!--                        <ImageView-->
-                <!--                            android:id="@+id/mealThumb1"-->
-                <!--                            android:layout_width="60dp"-->
-                <!--                            android:layout_height="60dp"-->
-                <!--                            android:src="@drawable/pest" />-->
-
-                <!--                        <TextView-->
-
-                <!--                            android:layout_width="match_parent"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_margin="8dp"-->
-                <!--                            android:fontFamily="@font/lato_semibold"-->
-                <!--                            android:gravity="start"-->
-                <!--                            android:text="Pest Control"-->
-                <!--                            android:textColor="@color/black"-->
-                <!--                            android:textSize="16sp" />-->
-
-                <!--                        &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_height="47dp"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_below="@id/mealThumb1"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:background="@color/colorAccent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:orientation="horizontal">&ndash;&gt;-->
-
-
-                <!--                        &lt;!&ndash;                           &ndash;&gt;-->
-                <!--                        &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
-
-                <!--                    </LinearLayout>-->
-
-                <!--                </androidx.cardview.widget.CardView>-->
-
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:id="@+id/crd_homecleaning"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="5dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:focusable="true"-->
-                <!--                    android:foreground="?attr/selectableItemBackground"-->
-                <!--                    app:cardCornerRadius="10dp"-->
-                <!--                    app:cardElevation="5dp"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:orientation="vertical">-->
-
-                <!--                        <ImageView-->
-                <!--                            android:id="@+id/mealThumb2"-->
-                <!--                            android:layout_width="60dp"-->
-                <!--                            android:layout_height="60dp"-->
-                <!--                            android:src="@drawable/cleaning" />-->
-
-                <!--                        <TextView-->
-
-                <!--                            android:layout_width="match_parent"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_margin="8dp"-->
-                <!--                            android:fontFamily="@font/lato_semibold"-->
-                <!--                            android:gravity="start"-->
-                <!--                            android:text="Home Cleaning"-->
-                <!--                            android:textColor="@color/black"-->
-                <!--                            android:textSize="16sp" />-->
-
-                <!--                        &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_height="47dp"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_below="@id/mealThumb1"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:background="@color/colorAccent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:orientation="horizontal">&ndash;&gt;-->
-
-
-                <!--                        &lt;!&ndash;                           &ndash;&gt;-->
-                <!--                        &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
-
-                <!--                    </LinearLayout>-->
-
-                <!--                </androidx.cardview.widget.CardView>-->
-
-                <!--            </LinearLayout>-->
-
-                <!--            <LinearLayout-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_gravity="center"-->
-                <!--                android:orientation="horizontal"-->
-                <!--                android:weightSum="2">-->
-
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:id="@+id/crd_Bird"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="5dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:focusable="true"-->
-                <!--                    android:foreground="?attr/selectableItemBackground"-->
-                <!--                    app:cardCornerRadius="10dp"-->
-                <!--                    app:cardElevation="5dp"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:orientation="vertical">-->
-
-                <!--                        <ImageView-->
-                <!--                            android:id="@+id/Thumb3"-->
-                <!--                            android:layout_width="60dp"-->
-                <!--                            android:layout_height="60dp"-->
-                <!--                            android:src="@drawable/bird" />-->
-
-                <!--                        <TextView-->
-
-                <!--                            android:layout_width="match_parent"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_margin="8dp"-->
-                <!--                            android:fontFamily="@font/lato_semibold"-->
-                <!--                            android:gravity="start"-->
-                <!--                            android:text="Bird Netting"-->
-                <!--                            android:textColor="@color/black"-->
-                <!--                            android:textSize="16sp" />-->
-
-                <!--                        &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_height="47dp"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_below="@id/mealThumb1"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:background="@color/colorAccent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:orientation="horizontal">&ndash;&gt;-->
-
-
-                <!--                        &lt;!&ndash;                           &ndash;&gt;-->
-                <!--                        &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
-
-                <!--                    </LinearLayout>-->
-
-                <!--                </androidx.cardview.widget.CardView>-->
-
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:id="@+id/crd_covid"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="5dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:focusable="true"-->
-                <!--                    android:foreground="?attr/selectableItemBackground"-->
-                <!--                    app:cardCornerRadius="10dp"-->
-                <!--                    app:cardElevation="5dp"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:orientation="vertical">-->
-
-                <!--                        <ImageView-->
-
-                <!--                            android:id="@+id/mealThumb"-->
-                <!--                            android:layout_width="60dp"-->
-                <!--                            android:layout_height="60dp"-->
-                <!--                            android:src="@drawable/covid" />-->
-
-
-                <!--                        <TextView-->
-                <!--                            android:id="@+id/tvPublisher"-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_margin="8dp"-->
-                <!--                            android:fontFamily="@font/lato_semibold"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:text="Covid Disinfection"-->
-                <!--                            android:textColor="@color/black"-->
-                <!--                            android:textSize="16sp" />-->
-
-                <!--                        &lt;!&ndash;                        <LinearLayout&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_height="47dp"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:layout_below="@id/mealThumb1"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:background="@color/colorAccent"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
-                <!--                        &lt;!&ndash;                            android:orientation="horizontal">&ndash;&gt;-->
-
-
-                <!--                        &lt;!&ndash;                           &ndash;&gt;-->
-                <!--                        &lt;!&ndash;                        </LinearLayout>&ndash;&gt;-->
-
-                <!--                    </LinearLayout>-->
-
-                <!--                </androidx.cardview.widget.CardView>-->
-
-                <!--            </LinearLayout>-->
-
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:id="@+id/crdSlider"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_centerHorizontal="true"-->
-                <!--                android:layout_marginLeft="18dp"-->
-                <!--                android:layout_marginTop="8dp"-->
-                <!--                android:layout_marginRight="18dp"-->
-                <!--                android:visibility="visible"-->
-                <!--                app:cardBackgroundColor="@color/white"-->
-                <!--                app:cardCornerRadius="10dp"-->
-                <!--                app:cardElevation="2dp">-->
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recMenu"
                     android:layout_width="match_parent"
@@ -624,20 +391,19 @@
                     android:foregroundGravity="center"
                     android:overScrollMode="never"
                     android:visibility="visible" />
-                <!--            </androidx.cardview.widget.CardView>-->
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/lnrFan"
             style="@style/FabBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/crdpest"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/titleHome"
@@ -735,7 +501,7 @@
         </LinearLayout>
 
         <LinearLayout
-
+android:visibility="gone"
             android:id="@+id/lnrTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -778,13 +544,14 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:id="@+id/lnrRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lnrTitle2"
             android:layout_marginHorizontal="18dp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -1041,6 +808,128 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnrOffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lnrRating"
+            android:layout_marginHorizontal="18dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lnrTitle3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="3dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="Exclusive Deals"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnrOfferData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/lnrTitle1"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:visibility="visible"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    app:cardCornerRadius="10dp"-->
+<!--                    app:cardElevation="2dp">-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/recOffers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:clipToPadding="false"
+                            android:foregroundGravity="center"
+                            android:overScrollMode="never"
+                            android:visibility="visible" />
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/rltArrows"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_margin="5dp"
+                                android:layout_alignParentStart="true"
+                                android:rotation="180"
+                                android:src="@drawable/forward_arrow"
+                                android:id="@+id/btn_to_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </ImageView>
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_gravity="end"
+                                android:src="@drawable/forward_arrow"
+                                android:id="@+id/btn_to_right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </ImageView>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+<!--                </androidx.cardview.widget.CardView>-->
+
 
             </LinearLayout>
 

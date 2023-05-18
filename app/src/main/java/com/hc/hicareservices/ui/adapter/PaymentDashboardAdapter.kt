@@ -26,7 +26,8 @@ class PaymentDashboardAdapter(paymentcardlist: List<PaymentCardViewModel>) : Rec
         holder.binding.ServiceName.text = recipe.title
         holder.binding.serviceDesc.text = recipe.description
         holder.binding.tvPayNow.text = recipe.ButtonTitle
-        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
+        holder.binding.imgAvatar.visibility = View.GONE
+//        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
         if (recipe.isButtonCancel){
             holder.binding.imgClose.visibility=View.VISIBLE
         }else {

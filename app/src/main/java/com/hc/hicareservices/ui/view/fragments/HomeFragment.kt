@@ -16,23 +16,25 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.hc.hicareservices.R
 import com.hc.hicareservices.databinding.FragmentHomeBinding
-import com.hc.hicareservices.ui.adapter.DashboardMenuAdapter
-import com.hc.hicareservices.ui.adapter.HomeServiceAdapter
-import com.hc.hicareservices.ui.adapter.ImageAdapter
-import com.hc.hicareservices.ui.adapter.PaymentDashboardAdapter
+import com.hc.hicareservices.ui.adapter.*
 import com.hc.hicareservices.ui.viewmodel.GridViewModal
+import com.hc.hicareservices.ui.viewmodel.OfferViewModel
 import com.hc.hicareservices.ui.viewmodel.PaymentCardViewModel
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: DashboardMenuAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
     private lateinit var mpayentdashboardadapter: PaymentDashboardAdapter
+    private lateinit var mOfferAdapter: OffersAdapter
     lateinit var courseList: List<GridViewModal>
     lateinit var paymentcardlist: List<PaymentCardViewModel>
     val TAG = HomeFragment::class.java.simpleName
     private lateinit var handler : Handler
+    private lateinit var handler2 : Handler
     private lateinit var imageList:ArrayList<String>
+    private lateinit var offerlist:List<OfferViewModel>
     private lateinit var adapter: ImageAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     lateinit var imageLists: List<Int>
@@ -94,16 +96,22 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         handler.postDelayed(runnable , 2000)
+        handler2.postDelayed(runnable2 , 2000)
     }
 
     private val runnable = Runnable {
         binding.idViewPager.currentItem = binding.idViewPager.currentItem + 1
     }
+    private val runnable2 = Runnable {
+        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
+    }
 
     private fun init() {
 
         handler = Handler(Looper.myLooper()!!)
+        handler2 = Handler(Looper.myLooper()!!)
         imageList = ArrayList()
+        offerlist = ArrayList()
 
         imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
         imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
@@ -193,22 +201,24 @@ class HomeFragment : Fragment() {
         // on below line we are adding data to
         // our course list with image and course name.
         courseList = courseList + GridViewModal("My Orders", R.drawable.myorders)
-        courseList = courseList + GridViewModal("Ask Expert", R.drawable.experts)
         courseList = courseList + GridViewModal("Renewal", R.drawable.orderrenew)
         courseList = courseList + GridViewModal("Wallet", R.drawable.digitalwallet)
-        courseList = courseList + GridViewModal("Feedback", R.drawable.feedback)
-        courseList = courseList + GridViewModal("Refer & Earn", R.drawable.referandearn)
         courseList = courseList + GridViewModal("Offers", R.drawable.offer)
+        courseList = courseList + GridViewModal("Feedback", R.drawable.feedback)
+        courseList = courseList + GridViewModal("Ask Expert", R.drawable.experts)
+        courseList = courseList + GridViewModal("Refer & Earn", R.drawable.referandearn)
 //        courseList = courseList + GridViewModal("Redeem Now!", R.drawable.redeem)
-        courseList = courseList + GridViewModal("Customer Support", R.drawable.customersuppoer)
+        courseList = courseList + GridViewModal("Support", R.drawable.customersuppoer)
 //        courseList = courseList + GridViewModal("Raise Complaint", R.drawable.complain)
-        courseList = courseList + GridViewModal("Upcoming Services", R.drawable.comingsoon)
+//        courseList = courseList + GridViewModal("Upcoming Services", R.drawable.comingsoon)
 
         paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 1 year","Kindly click Renewal button to renew your service",R.drawable.hicarelogo,"Renewal",false)
         paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 2 year","Kindly click Reschedule button to Reschedule your service",R.drawable.hicarelogo,"Reschedule",false)
         paymentcardlist=paymentcardlist+PaymentCardViewModel("AutoMos","Kindly click paynow button to pay your order payment",R.drawable.hicarelogo,"Pay Now",false)
 
 
+        offerlist= (offerlist+OfferViewModel("Upcoming Services","https://s3.ap-south-1.amazonaws.com/hicare-others/231c557a-d815-4385-8f1e-4dcfd3eb87b6.png")) as ArrayList<OfferViewModel>
+        offerlist= (offerlist+OfferViewModel("Offers","https://s3.ap-south-1.amazonaws.com/hicare-others/1f4cfa7b-aa7f-4767-8ee6-3c42bfe59ae4.png")) as ArrayList<OfferViewModel>
 //        val courseAdapter = GridRVAdapter(courseList = courseList, LayoutInflater.from(getActivity()))
 
 //        binding.recMenu.adapter=courseAdapter
@@ -221,18 +231,32 @@ class HomeFragment : Fragment() {
 //            ).show()
 //        }
         binding.recMenu.layoutManager =
-            GridLayoutManager(context,4)
+            GridLayoutManager(context,3)
         mAdapter = DashboardMenuAdapter(courseList)
 
         binding.recPayments.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         mpayentdashboardadapter = PaymentDashboardAdapter(paymentcardlist)
 
+//        binding.recOffers.layoutManager =
+//            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
+        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferViewModel>,binding.recOffers)
+        binding.recOffers.adapter = mOfferAdapter
+        binding.recOffers.offscreenPageLimit = 2
+        binding.recOffers.clipToPadding = false
+        binding.recOffers.clipChildren = false
+        binding.recOffers.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        binding.recOffers.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler2.removeCallbacks(runnable2)
+                handler2.postDelayed(runnable2 , 5000)
+            }
+        })
 //        binding.recMenu.adapter = mAdapter
         binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
     }
-
 
 }
