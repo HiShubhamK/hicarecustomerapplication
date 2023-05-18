@@ -12,6 +12,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
@@ -267,8 +268,15 @@ class HomeFragment : Fragment() {
         binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
         binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
-    }
+//        binding.recPayments.smoothSnapToPosition()
+        binding.recPayments.layoutManager!!.smoothScrollToPosition(
+            binding.recPayments,
+            RecyclerView.State(),
+            binding.recPayments.adapter!!.itemCount
+        )
 
+
+    }
     class CirclePagerIndicatorDecoration : ItemDecoration() {
         private val colorActive = 0x727272
         private val colorInactive = 0xF44336
