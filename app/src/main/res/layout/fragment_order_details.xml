@@ -993,7 +993,7 @@
                             <TextView
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:text="Total Payable Amount"
+                                android:text="Total Paid Amount"
                                 android:textSize="14sp"
                                 android:fontFamily="@font/lato_semibold"
                                 android:textColor="@color/grey_font"/>
@@ -1076,7 +1076,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Upcoming Services"
+                        android:text="Service Details"
                         android:textColor="@color/black"
                         android:fontFamily="@font/lato_semibold"
                         android:textStyle="bold"
@@ -1089,6 +1089,7 @@
                             android:gravity="center"
                             android:layout_weight="0.2"
                             android:layout_marginTop="8dp"
+                            android:visibility="gone"
                             android:src="@drawable/ic_baseline_add_24"/>
 
 

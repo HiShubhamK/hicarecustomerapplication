@@ -123,14 +123,15 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_regular"
                         android:text="Next Planned Date"
-                        android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtappointmentdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_regular"
+                        android:layout_marginTop="3dp"
                         android:text="hello"
                         android:textSize="12sp" />
 
