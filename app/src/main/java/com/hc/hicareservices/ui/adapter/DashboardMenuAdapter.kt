@@ -36,7 +36,6 @@ class DashboardMenuAdapter(courseList: List<GridViewModal>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val service = service[position]
         holder.binding.tvOrderName.text = service.courseName
-
         Picasso.get().load(service.courseImg).into( holder.binding.imgLogo);
 
 //        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")

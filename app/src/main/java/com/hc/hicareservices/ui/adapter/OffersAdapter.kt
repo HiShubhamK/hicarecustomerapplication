@@ -1,23 +1,24 @@
 package com.hc.hicareservices.ui.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import com.bumptech.glide.Glide
-import com.cunoraz.gifview.library.GifView
 import com.hc.hicareservices.R
+import com.hc.hicareservices.ui.handler.OffersInterface
+import com.hc.hicareservices.ui.handler.OnOrderClickedHandler
+import com.hc.hicareservices.ui.handler.OnServiceRequestClickHandler
+import com.hc.hicareservices.ui.view.fragments.HomeFragment
 import com.hc.hicareservices.ui.viewmodel.OfferViewModel
-import com.squareup.picasso.Picasso
 
 
 class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private val viewPager2: ViewPager2) :
     RecyclerView.Adapter<OffersAdapter.ImageViewHolder>() {
+    private var offersInterface: OffersInterface? = null
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgOffer: LottieAnimationView = itemView.findViewById(R.id.imgOffer)
@@ -34,6 +35,7 @@ class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private va
 //        Picasso.get().load(imageList[position].courseImg).into(holder.imgOffer)
         holder.imgOffer.setAnimation(imageList[position].courseImg)
 
+
         holder.imgOffer.repeatCount = LottieDrawable.INFINITE
         holder.imgOffer.playAnimation()
 
@@ -43,6 +45,10 @@ class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private va
 
         if (position == imageList.size-1){
             viewPager2.post(runnable)
+        }
+        holder.itemView.setOnClickListener{
+            offersInterface!!.onItemClick(position)
+
         }
     }
 
@@ -54,4 +60,8 @@ class OffersAdapter(private val imageList: ArrayList<OfferViewModel>, private va
         imageList.addAll(imageList)
         notifyDataSetChanged()
     }
+    fun setOnOfferClick(l: OffersInterface) {
+        offersInterface = l
+    }
+
 }

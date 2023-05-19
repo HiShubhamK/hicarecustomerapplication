@@ -17,6 +17,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="greyPrimary">#aeaeae</color>
     <color name="smoke_gray">#F5F5F5</color>
+    <color name="dark_grey">#5A5A5A</color>
     <color name="button_color">#00BC7A</color>
 
     <!-- google's material design colours from

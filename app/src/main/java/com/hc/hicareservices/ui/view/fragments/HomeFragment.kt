@@ -12,16 +12,17 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hc.hicareservices.R
 import com.hc.hicareservices.databinding.FragmentHomeBinding
 import com.hc.hicareservices.ui.adapter.*
+import com.hc.hicareservices.ui.handler.OffersInterface
 import com.hc.hicareservices.ui.viewmodel.GridViewModal
 import com.hc.hicareservices.ui.viewmodel.OfferViewModel
 import com.hc.hicareservices.ui.viewmodel.PaymentCardViewModel
@@ -274,6 +275,13 @@ class HomeFragment : Fragment() {
             RecyclerView.State(),
             binding.recPayments.adapter!!.itemCount
         )
+        mOfferAdapter.setOnOfferClick {
+            val modelBottomSheet =
+                LayoutInflater.from(requireContext()).inflate(R.layout.layout_offer_detail_bottomsheet, null)
+            val dialog = BottomSheetDialog(requireContext())
+            dialog.setContentView(modelBottomSheet)
+            dialog.show()
+        }
 
 
     }
