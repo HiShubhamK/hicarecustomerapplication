@@ -1,6 +1,6 @@
 import android.app.Application
 import android.content.Context
-import com.hc.hicareservices.R
+import com.ab.hicareservices.R
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump

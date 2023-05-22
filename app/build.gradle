@@ -24,7 +24,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.hc.hicareservices"
+        applicationId "com.ab.hicareservices"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
@@ -49,6 +49,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
