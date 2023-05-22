@@ -45,7 +45,7 @@ class ProfileFragment : Fragment() {
 
         binding.imgLogo.setOnClickListener{
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance()).commit();
+                .replace(R.id.container, AccountFragment.newInstance()).commit();
         }
 
         binding.txtedits.setOnClickListener {
