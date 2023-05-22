@@ -27,7 +27,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_baseline_account_circle_24"
+                android:src="@drawable/ic_baseline_arrow_back_24"
                 android:visibility="visible"/>
 
 
@@ -40,7 +40,8 @@
                 android:text="Order"
                 android:gravity="center_horizontal"
                 android:layout_toRightOf="@id/imgLogo"
-                android:textColor="@color/black"
+                android:fontFamily="@font/lato_semibold"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -56,6 +57,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_below="@+id/title"
+                android:fontFamily="@font/lato_regular"
                 android:visibility="gone"/>
 
 
@@ -66,6 +68,7 @@
                 android:layout_centerVertical="true"
                 android:text="Help"
                 android:gravity="end"
+                android:fontFamily="@font/lato_semibold"
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/imgLogo"
                 android:textColor="@color/colorAccent"
@@ -112,7 +115,7 @@
                             android:id="@+id/orderNameTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1.5"
@@ -121,7 +124,8 @@
                             android:singleLine="true"
                             android:text="Home Cleaning Services"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_semibold"
                             app:layout_constraintLeft_toRightOf="@+id/img_logo"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintStart_toEndOf="@id/img_logo"
@@ -135,18 +139,16 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
+                            android:layout_marginRight="5dp"
                             android:layout_weight="0.5"
                             android:ellipsize="end"
                             android:gravity="center"
-                            android:lineSpacingMultiplier="1.2"
                             android:singleLine="true"
                             android:text="Active"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
-                            app:layout_constraintLeft_toRightOf="@+id/img_logo"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/img_logo"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:background="#f6f6f6"
+                            android:fontFamily="@font/lato_regular" />
 
                     </LinearLayout>
 
@@ -219,7 +221,8 @@
                                         android:layout_height="match_parent"
                                         android:text="Order No     :"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                        android:textColor="@color/grey_font"
+                                        android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
 
 
@@ -235,7 +238,7 @@
                                         android:text="HC-324565654"
                                         android:textColor="@color/black"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                        android:fontFamily="@font/lato_regular"/>
 
                                 </LinearLayout>
 
@@ -257,7 +260,9 @@
                                         android:layout_height="match_parent"
                                         android:text="Ordered On :"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+
+                                        android:textColor="@color/grey_font"
+                                        android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -272,7 +277,7 @@
                                         android:text="31-03-2023"
                                         android:textColor="@color/black"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                        android:fontFamily="@font/lato_regular"/>
 
                                 </LinearLayout>
 
@@ -401,7 +406,7 @@
                             android:text="Address"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/lato_semibold"/>
 
                         <!--                        <View-->
                         <!--                            android:layout_width="match_parent"-->
@@ -422,7 +427,8 @@
                             android:lineSpacingMultiplier="1.2"
                             android:maxLines="4"
                             android:text="adddress"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:fontFamily="@font/lato_regular"/>
 
 
                     </LinearLayout>
@@ -597,7 +603,7 @@
                         android:text="Service Details"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/lato_semibold"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -627,7 +633,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="Service Period"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+
+                                android:textColor="@color/grey_font"
+                                android:fontFamily="@font/lato_regular"/>
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -647,7 +655,7 @@
                                     android:text="36 months"
                                     android:textColor="@color/black"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:fontFamily="@font/lato_regular"/>
 
                             </RelativeLayout>
 
@@ -673,7 +681,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="Start Date"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+
+                                android:textColor="@color/grey_font"
+                                android:fontFamily="@font/lato_regular"/>
 
 
                             <RelativeLayout
@@ -692,9 +702,9 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="31-03-2023"
+                                    android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:textSize="12sp" />
 
                             </RelativeLayout>
 
@@ -719,7 +729,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="End Date"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/grey_font"/>
 
 
                             <RelativeLayout
@@ -737,10 +748,10 @@
                                     android:ellipsize="end"
                                     android:gravity="right"
                                     android:maxLines="2"
-                                    android:text="31-03-2023"
-                                    android:textColor="@color/black"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:text="31-03-2023"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textColor="@color/black"/>
 
                             </RelativeLayout>
 
@@ -782,7 +793,7 @@
                         android:text="Payment Details"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/lato_semibold"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -816,7 +827,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Payment Status"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/grey_font"/>
 
 
                             <RelativeLayout
@@ -835,9 +847,9 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="Unpaid"
-                                    android:textColor="@color/black"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textColor="@color/black"/>
 
                             </RelativeLayout>
 
@@ -856,7 +868,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Price"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/grey_font"/>
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -874,9 +887,9 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="₹ 4999"
-                                    android:textColor="@color/black"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textColor="@color/black"/>
 
                             </RelativeLayout>
 
@@ -895,7 +908,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Discount"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/grey_font"/>
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -913,9 +927,9 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="₹ 0"
-                                    android:textColor="@color/black"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textColor="@color/black"/>
 
                             </RelativeLayout>
 
@@ -979,9 +993,10 @@
                             <TextView
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:text="Total Payable Amount"
+                                android:text="Total Paid Amount"
                                 android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/lato_semibold"
+                                android:textColor="@color/grey_font"/>
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -1043,88 +1058,98 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/lnrservices"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnrservices"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="Upcoming Services"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="0.8"/>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imgadd"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:layout_weight="0.2"
-                            android:layout_marginTop="8dp"
-                            android:src="@drawable/ic_baseline_add_24"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="Service Details"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/lato_semibold"
+                                android:textStyle="bold"
+                                android:layout_weight="0.8"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imgadd"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:gravity="center"
+                                android:layout_weight="0.2"
+                                android:layout_marginTop="8dp"
+                                android:visibility="gone"
+                                android:src="@drawable/ic_baseline_add_24"/>
 
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imgminus"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:gravity="center"
-                            android:layout_weight="0.2"
-                            android:layout_marginTop="8dp"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_baseline_add_24"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imgminus"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:gravity="center"
+                                android:layout_weight="0.2"
+                                android:layout_marginTop="8dp"
+                                android:visibility="gone"
+                                android:src="@drawable/ic_baseline_add_24"/>
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.3dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/greyPrimary" />
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:indeterminate="true"
+                            android:visibility="gone"/>
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/greyPrimary" />
-
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/progressBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:indeterminate="true"
-                        android:visibility="gone"/>
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleView"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                        android:orientation="vertical">
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txterrormessage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="50dp"
+                            android:text="No Service Available"
+                            android:visibility="gone"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -1330,5 +1355,6 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
