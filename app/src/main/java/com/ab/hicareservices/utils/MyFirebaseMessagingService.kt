@@ -12,7 +12,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         Handler().post {
             Toast.makeText(baseContext,remoteMessage.notification?.title, Toast.LENGTH_LONG).show()
         }
-
         Looper.loop()
     }
 }
