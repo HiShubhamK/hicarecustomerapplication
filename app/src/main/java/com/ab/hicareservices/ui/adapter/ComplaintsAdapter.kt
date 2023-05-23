@@ -1,14 +1,19 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
+import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.databinding.LayoutComplaintsAdaptersBinding
 
-class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
+class ComplaintsAdapter: RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
 
     var complaints = mutableListOf<ComplaintsData>()
+
+    @SuppressLint("NotifyDataSetChanged")
     fun setComplaintsList(complaintdata: List<ComplaintsData>?) {
         if (complaintdata != null) {
             this.complaints = complaintdata.toMutableList()
@@ -24,8 +29,19 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val complaints = complaints[position]
-        holder.binding.txthello.text=complaints.status
+        try {
+            val complaints = complaints[position]
+            if(complaints.subject!=null){
+                holder.binding.txthello.text=complaints.subject
+
+            }else {
+                holder.binding.txthello.text="NA"
+
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
     override fun getItemCount(): Int {

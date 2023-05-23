@@ -21,15 +21,16 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:src="@drawable/ic_round_arrow_back_black"/>
+
             <TextView
-                android:layout_toEndOf="@id/backIv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Refer &amp; Earn"
-                android:textSize="16sp"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"/>
+                android:layout_marginEnd="6dp"
+                android:layout_toEndOf="@id/backIv"
+                android:text="Refer &amp; Earn"
+                android:textSize="16sp" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -80,12 +81,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="20dp">
-                    <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/referral_image"/>
+                        app:lottie_rawRes="@raw/refer"
+                        app:lottie_autoPlay="true"/>
                 </androidx.cardview.widget.CardView>
 
 

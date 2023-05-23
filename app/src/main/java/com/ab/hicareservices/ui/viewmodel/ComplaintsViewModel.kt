@@ -12,7 +12,6 @@ import retrofit2.Response
 
 class ComplaintsViewModel : ViewModel(){
     val repository = MainRepository()
-
     val complaintList = MutableLiveData<List<ComplaintsData>>()
     val errorMessage = MutableLiveData<String>()
 
@@ -23,7 +22,7 @@ class ComplaintsViewModel : ViewModel(){
 
             override fun onResponse(call: Call<ComplaintResponse>, response: Response<ComplaintResponse>) {
                 if(response.isSuccessful){
-                    complaintList.postValue(response.body()?.data)
+                    complaintList.postValue(response.body()?.data!!)
                 }else {
                     Log.d("TAGFail", "Response " + response.body()?.data.toString())
                 }

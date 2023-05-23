@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/txthello"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HelloAkshay"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
+        android:text="demo"
+        app:fontFamily="@font/lato_semibold"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:layout_margin="30dp"
         android:gravity="center"/>
 
