@@ -23,9 +23,10 @@ class ComplaintsViewModel : ViewModel(){
 
             override fun onResponse(call: Call<ComplaintResponse>, response: Response<ComplaintResponse>) {
                 if(response.isSuccessful){
-                    complaintList.postValue(response.body()?.data)
+                        complaintList.postValue(response.body()?.data)
+
                 }else {
-                    Log.d("TAGFail", "Response " + response.body()?.data.toString())
+                    Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
                 }
             }
 

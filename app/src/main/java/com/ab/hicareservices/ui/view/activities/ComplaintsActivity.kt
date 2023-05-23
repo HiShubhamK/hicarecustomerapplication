@@ -2,6 +2,8 @@ package com.ab.hicareservices.ui.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -37,7 +39,11 @@ class ComplaintsActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        getAllComplaints()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            getAllComplaints()
+        }, 1500)
+
     }
 
     private fun getAllComplaints() {
@@ -49,14 +55,16 @@ class ComplaintsActivity : AppCompatActivity() {
             Log.d(TAG, "onViewCreated: $it")
             Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
             Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-            binding.recyclerView.adapter = mAdapter
             mAdapter.setComplaintsList(it)
+
         })
 
         viewModel.errorMessage.observe(this, Observer {
             Toast.makeText(applicationContext,"Akshay Failed badly",Toast.LENGTH_SHORT).show()
 
         })
+
+        binding.recyclerView.adapter = mAdapter
 
         viewModel.getAllComplaints("9967994682")
 

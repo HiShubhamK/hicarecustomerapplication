@@ -25,7 +25,7 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val complaints = complaints[position]
-        holder.binding.txthello.text=complaints.status
+        holder.binding.txthello.text=complaints.Subject
     }
 
     override fun getItemCount(): Int {
