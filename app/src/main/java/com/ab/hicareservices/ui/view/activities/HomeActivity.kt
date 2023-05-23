@@ -19,6 +19,7 @@ import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
+import com.google.firebase.messaging.FirebaseMessaging
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -26,6 +27,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
+import com.google.android.gms.tasks.OnCompleteListener
+import android.content.ClipData
+import android.content.ClipboardManager
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -42,6 +46,24 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(binding.root)
         checkUserStatus()
         takePermissionForLocation()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+
+            if(!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+
+            Toast.makeText(baseContext,token,Toast.LENGTH_LONG).show()
+
+            Log.e("Token",token)
+
+            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text",token)
+            clipboardManager.setPrimaryClip(clipData)
+
+        })
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
