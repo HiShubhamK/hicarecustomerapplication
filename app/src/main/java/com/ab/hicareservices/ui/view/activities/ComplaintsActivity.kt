@@ -1,12 +1,12 @@
 package com.ab.hicareservices.ui.view.activities
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
@@ -27,7 +27,6 @@ class ComplaintsActivity : AppCompatActivity() {
         binding = ActivityComplaintsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        mAdapter = ComplaintsAdapter()
 
         viewModeld.validateAccount("9967994682")
 
@@ -40,30 +39,32 @@ class ComplaintsActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
+
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints()
+        }, 1500)
 
-        }, 1000)
     }
 
-
     private fun getAllComplaints() {
-        binding.recyclerView.adapter = mAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        mAdapter = ComplaintsAdapter()
 
 
         viewModel.complaintList.observe(this, Observer {
             Log.d(TAG, "onViewCreated: $it")
-            if (it.isNotEmpty()){
-                mAdapter.setComplaintsList(it)
-
-            }
+            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+            mAdapter.setComplaintsList(it)
 
         })
 
         viewModel.errorMessage.observe(this, Observer {
+            Toast.makeText(applicationContext,"Akshay Failed badly",Toast.LENGTH_SHORT).show()
 
         })
+
+        binding.recyclerView.adapter = mAdapter
 
         viewModel.getAllComplaints("9967994682")
 
