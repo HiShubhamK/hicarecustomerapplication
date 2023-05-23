@@ -68,32 +68,32 @@ class LoginActivity : AppCompatActivity() {
         })
     }
     
-    fun slideLeft(view: View){
-        view.animate()
-            .translationX(-20f)
-            .setDuration(1000)
-            .setInterpolator(LinearInterpolator())
-            .setListener(object : AnimatorListenerAdapter(){
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    slideRight(view)
-                }
-            }).start()
-    }
-
-    fun slideRight(view: View){
-        view.animate()
-            .translationX(20f)
-            .setDuration(1000)
-            .setInterpolator(LinearInterpolator())
-            .setListener(object : AnimatorListenerAdapter(){
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    slideLeft(view)
-                }
-            }).start()
-    }
-
+//    fun slideLeft(view: View){
+//        view.animate()
+//            .translationX(-20f)
+//            .setDuration(1000)
+//            .setInterpolator(LinearInterpolator())
+//            .setListener(object : AnimatorListenerAdapter(){
+//                override fun onAnimationEnd(animation: Animator?) {
+//                    super.onAnimationEnd(animation)
+//                    slideRight(view)
+//                }
+//            }).start()
+//    }
+//
+//    fun slideRight(view: View){
+//        view.animate()
+//            .translationX(20f)
+//            .setDuration(1000)
+//            .setInterpolator(LinearInterpolator())
+//            .setListener(object : AnimatorListenerAdapter(){
+//                override fun onAnimationEnd(animation: Animator?) {
+//                    super.onAnimationEnd(animation)
+//                    slideLeft(view)
+//                }
+//            }).start()
+//    }
+//
     private fun checkUserStatus(){
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(this, "bToken", "").toString()

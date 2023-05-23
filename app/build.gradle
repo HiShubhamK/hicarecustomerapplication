@@ -20,13 +20,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.ab.hicareservices"
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdkVersion 26
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -102,6 +102,7 @@ dependencies {
     implementation 'com.github.Cutta:GifView:1.6'
 
     implementation 'com.airbnb.android:lottie:4.1.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
 
 
 /*    compile(name: 'ezetapandroidsdk_2_0', ext: 'aar')
