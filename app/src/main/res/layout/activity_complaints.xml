@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/md_blue_grey_50"
     tools:context=".ui.view.activities.ComplaintsActivity">
 
     <RelativeLayout
@@ -21,13 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:src="@drawable/ic_round_arrow_back_white"/>
+            android:src="@drawable/ic_round_arrow_back_white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Complaints"
             android:textColor="@color/white"
+
             android:textSize="16sp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
@@ -39,7 +41,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         />
 <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 

@@ -92,6 +92,9 @@ class ReferralActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     binding.referralCodeTv.setTextColor(ContextCompat.getColor(this, R.color.black))
                     binding.referralCodeTv.text = it.data.toString()
+                    binding.txtTitle.text = ""
+                    binding.txtDescription.text = ""
+                    binding.tvShareText.text = ""
                     referralCode = it.data.toString()
                 } else {
                     binding.progressBar.visibility = View.GONE

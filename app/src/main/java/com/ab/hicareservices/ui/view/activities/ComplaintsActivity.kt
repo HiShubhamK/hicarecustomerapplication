@@ -53,14 +53,14 @@ class ComplaintsActivity : AppCompatActivity() {
 
         viewModel.complaintList.observe(this, Observer {
             Log.d(TAG, "onViewCreated: $it")
-            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
             mAdapter.setComplaintsList(it)
 
         })
 
         viewModel.errorMessage.observe(this, Observer {
-            Toast.makeText(applicationContext,"Akshay Failed badly",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"Something went wrong!",Toast.LENGTH_SHORT).show()
 
         })
 
