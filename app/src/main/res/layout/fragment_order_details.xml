@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
 
             <TextView
@@ -37,28 +37,28 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="45dp"
-                android:text="Order"
-                android:gravity="center_horizontal"
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
+                android:gravity="center_horizontal"
+                android:text="Order"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bottomheadertext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="45dp"
-                android:text="Home"
-                android:gravity="center_horizontal"
                 android:layout_toRightOf="@id/imgLogo"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center_horizontal"
+                android:text="Home"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_below="@+id/title"
-                android:fontFamily="@font/lato_regular"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
 
             <TextView
@@ -66,13 +66,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Help"
-                android:gravity="end"
-                android:fontFamily="@font/lato_semibold"
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/imgLogo"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="end"
+                android:text="Help"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </RelativeLayout>
 

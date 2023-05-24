@@ -40,8 +40,9 @@ class AccountFragment : Fragment() {
         }
 
         binding.constraintcomplaints.setOnClickListener {
-            val intent = Intent(requireContext(), ComplaintsActivity::class.java)
-            startActivity(intent)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("AccountFragment").commit();
+
         }
         binding.constraintreferBtn.setOnClickListener {
             val intent = Intent(requireContext(), ReferralActivity::class.java)

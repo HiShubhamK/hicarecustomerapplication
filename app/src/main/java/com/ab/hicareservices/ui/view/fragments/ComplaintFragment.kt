@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,14 +22,13 @@ import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 
 class ComplaintFragment() : Fragment() {
-    private val TAG = "OrdersFragment"
+    private val TAG = "ComplaintsActivity"
+
     lateinit var binding: ActivityComplaintsBinding
     private val viewModel: ComplaintsViewModel by viewModels()
     private lateinit var mAdapter: ComplaintsAdapter
-    private lateinit var nAdapter: OrderMenuAdapter
-    private var mobile = ""
-    lateinit var homeActivity: HomeActivity
     private val viewModeld: OtpViewModel by viewModels()
+    private var mobile = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,47 +60,50 @@ class ComplaintFragment() : Fragment() {
 //        }
         viewModeld.validateAccount("9967994682")
 
-//        getOrdersList2()
-        Handler(Looper.getMainLooper()).postDelayed({
-            getOrdersList()
+        binding.backIv.setOnClickListener {
+            requireActivity().finish()
+        }
 
-        }, 1000)
+//        binding.addComplaintsBtn.setOnClickListener {
+//            val intent = Intent(this, AddComplaintsActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        binding.progressBar.visibility= View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            getAllComplaints()
+        }, 1500)
 
     }
 
 
-    private fun getOrdersList() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    private fun getAllComplaints() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         mAdapter = ComplaintsAdapter()
+
+
+        viewModel.complaintList.observe(requireActivity(), Observer {
+            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+            mAdapter.setComplaintsList(it)
+
+        })
+
+        viewModel.errorMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show()
+
+        })
 
         binding.recyclerView.adapter = mAdapter
 
-        viewModel.complaintList.observe(requireActivity(), Observer {
-            Log.d(TAG, "onViewCreated: $it orders fragment")
-            mAdapter.setComplaintsList(it)
-//            binding.progressBar.visibility = View.GONE
-            binding.recyclerView.visibility = View.VISIBLE
-        })
-//        mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
-//            override fun onOrderItemClicked(
-//                position: Int,
-//                orderNo: String,
-//                serviceType: String,
-//                service_url_image: String
-//            ) {
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,service_url_image)).addToBackStack("OrdersFragment").commit();
-//            }
-//        })
+//        viewModel.getAllComplaints("9967994682")
+        if (mobile != "-1") {
+            viewModel.getAllComplaints(mobile)
+        }
+        binding.progressBar.visibility= View.GONE
 
-        viewModel.errorMessage.observe(requireActivity(), Observer {
-
-        })
-        viewModel.getAllComplaints("9967994682")
-
-
-//        if (mobile != "-1") {
-//        }
+//        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }
 
     override fun onDestroy() {

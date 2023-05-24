@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -39,10 +40,10 @@ class ComplaintsActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-
+        binding.progressBar.visibility= View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints()
-        }, 1500)
+        }, 1000)
 
     }
 
@@ -67,6 +68,7 @@ class ComplaintsActivity : AppCompatActivity() {
         binding.recyclerView.adapter = mAdapter
 
         viewModel.getAllComplaints("9967994682")
+        binding.progressBar.visibility= View.GONE
 
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }
