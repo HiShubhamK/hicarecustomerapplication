@@ -30,4 +30,21 @@ class OrdersViewModel : ViewModel(){
             }
         })
     }
+
+
+    fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype: String) {
+
+        val response = repository.getCustomerOrdersByMobileNo(mobileNo,ordertype)
+        response.enqueue(object : Callback<OrdersResponse> {
+
+            override fun onResponse(call: Call<OrdersResponse>, response: Response<OrdersResponse>) {
+                ordersList.postValue(response.body()?.data)
+                Log.d("TAG", "Response "+ response.body()?.data.toString())
+            }
+
+            override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
 }

@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             val token = task.result
 
-            Toast.makeText(baseContext,token,Toast.LENGTH_LONG).show()
+//            Toast.makeText(baseContext,token,Toast.LENGTH_LONG).show()
 
             Log.e("Token",token)
 

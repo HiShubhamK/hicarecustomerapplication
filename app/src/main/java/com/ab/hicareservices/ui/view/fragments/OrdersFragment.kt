@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,6 +29,7 @@ class OrdersFragment() : Fragment() {
     private lateinit var mAdapter: OrdersAdapter
     private lateinit var nAdapter: OrderMenuAdapter
     private var mobile = ""
+    private var ordertype=""
     lateinit var homeActivity: HomeActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,15 +61,60 @@ class OrdersFragment() : Fragment() {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
         getOrdersList()
-        getOrdersList2()
+//        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
 //            getOrdersList()
         }, 1000)
+
+
+        binding.txtactive.setOnClickListener{
+            binding.progressBar.visibility = View.VISIBLE
+            ordertype="Active"
+            getOrdersList()
+            binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
+            binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
+
+        }
+
+        binding.txtexpire.setOnClickListener{
+            binding.progressBar.visibility = View.VISIBLE
+            ordertype="Expired"
+            getOrdersList()
+            binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
+            binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
+        }
+
+        binding.txtcancelled.setOnClickListener{
+            binding.progressBar.visibility = View.VISIBLE
+            ordertype="Cancelled"
+            getOrdersList()
+            binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
+            binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
+        }
+
+
+        binding.txtall.setOnClickListener{
+            binding.progressBar.visibility = View.VISIBLE
+            ordertype="All"
+            getOrdersList2()
+            binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
+            binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
+            binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
+        }
+
 
     }
 
     private fun getOrdersList2() {
 
+        binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView2.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
@@ -95,12 +142,21 @@ class OrdersFragment() : Fragment() {
 
         })
         if (mobile != "-1") {
-            viewModel.getCustomerOrdersByMobileNo(mobile)
+            if(ordertype.equals("") && ordertype!=null){
+                ordertype="Active"
+                viewModel.getCustomerOrdersByMobileNo(mobile)
+            }else{
+                viewModel.getCustomerOrdersByMobileNo(mobile)
+            }
+
         }
 
     }
 
     private fun getOrdersList() {
+
+        binding.progressBar.visibility = View.VISIBLE
+
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
 
@@ -111,6 +167,7 @@ class OrdersFragment() : Fragment() {
             mAdapter.setOrdersList(it)
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
+
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
             override fun onOrderItemClicked(
@@ -128,7 +185,12 @@ class OrdersFragment() : Fragment() {
 
         })
         if (mobile != "-1") {
-            viewModel.getCustomerOrdersByMobileNo(mobile)
+            if(ordertype.equals("") && ordertype!=null){
+                ordertype="Active"
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype)
+            }else{
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype)
+            }
         }
     }
 

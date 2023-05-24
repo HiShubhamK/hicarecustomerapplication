@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/headerView"
@@ -79,6 +80,99 @@
 <!--            android:background="#f6f6f6">-->
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lnrmenus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/headerView"
+        android:background="#f6f6f6"
+        android:weightSum="4">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/txtactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:elevation="8dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/activetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:padding="10dp"
+                android:text="Active"
+                android:layout_gravity="center"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/txtexpire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:elevation="8dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/expiretxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="Expired" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/txtcancelled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:elevation="8dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cancelledtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="Cancelled" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/txtall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:elevation="8dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/alltext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="All" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
@@ -86,13 +180,14 @@
         android:layout_below="@id/headerView"
         android:background="#f6f6f6"
         android:orientation="horizontal"
+        android:visibility="gone"
         tools:listitem="@layout/layout_order_menu_list" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerView2"
+        android:layout_below="@id/lnrmenus"
         android:layout_marginTop="10dp"
         android:background="#f6f6f6"
         android:visibility="visible"
@@ -109,6 +204,8 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:backgroundTint="@color/colorAccent"
+        />
 
 </RelativeLayout>

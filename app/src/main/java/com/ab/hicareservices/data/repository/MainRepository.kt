@@ -8,6 +8,8 @@ class MainRepository {
 
     fun getOrders(mobileNO: String, type: String) = retrofitService.getOrders(mobileNO, type)
     fun getCustomerOrdersByMobileNo(mobileNo: String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo)
+    fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype:String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo,ordertype)
+
     fun getOtpResponse(mobileNo: String) = retrofitService.getOtpResponse(mobileNo)
     fun validateAccount(mobileNo: String) = retrofitService.validateAccount(mobileNo)
     fun getAllComplaints(mobile: String) = retrofitService.getAllComplaints(mobile)

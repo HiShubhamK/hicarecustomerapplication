@@ -74,4 +74,10 @@ interface IRetrofit {
     @POST("Payment/SaveAppPaymentDetails")
     fun saveAppPaymentDetails(@Body data: HashMap<String, Any>): Call<SavePaymentResponse>
 
+    @GET("Order/GetAllOrdersByMobileNo")
+    fun getCustomerOrdersByMobileNo(
+        @Query("mobileNo") mobileNo: String,
+        @Query("orderType") orderType: String
+    ): Call<OrdersResponse>
+
 }
