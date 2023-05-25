@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.repository.MainRepository
@@ -17,6 +18,7 @@ class OtpViewModel : ViewModel(){
 
     val otpResponse = MutableLiveData<OtpResponse>()
     val validateResponse = MutableLiveData<String>()
+    val notificationToken = MutableLiveData<NotificationToken>()
     val errorMessage = MutableLiveData<String>()
     var validateAccountListener: ValidateAccountListener? = null
 
@@ -54,4 +56,25 @@ class OtpViewModel : ViewModel(){
             }
         })
     }
+
+
+    fun getNotificationtoken(apptoken: String) {
+        val response = repository.notification(apptoken)
+        response.enqueue(object : Callback<NotificationToken> {
+            override fun onResponse(call: Call<NotificationToken?>, response: Response<NotificationToken>?) {
+                if (response != null) {
+                   val body = response.body()?.Data.toString()
+                    AppUtils2.TOKEN = response.body()?.Data.toString()
+                    validateAccountListener?.onSuccess(body)
+                }
+            }
+
+            override fun onFailure(call: Call<NotificationToken>, t: Throwable) {
+                validateAccountListener?.onError(t.message.toString())
+            }
+        })
+    }
+
 }
+
+

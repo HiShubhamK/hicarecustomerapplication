@@ -1,5 +1,6 @@
 package com.ab.hicareservices.data.api
 
+import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.orders.OrdersResponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
@@ -79,5 +80,10 @@ interface IRetrofit {
         @Query("mobileNo") mobileNo: String,
         @Query("orderType") orderType: String
     ): Call<OrdersResponse>
+
+    @GET("Notification/SubscribeApplicationAsync")
+    fun getNotificationToken(
+        @Query("appToken") appToken: String,
+    ): Call<NotificationToken>
 
 }

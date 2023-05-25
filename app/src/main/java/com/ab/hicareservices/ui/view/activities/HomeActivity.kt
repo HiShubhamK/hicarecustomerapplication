@@ -30,6 +30,11 @@ import com.razorpay.PaymentResultWithDataListener
 import com.google.android.gms.tasks.OnCompleteListener
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Handler
+import android.os.Looper
+import androidx.activity.viewModels
+import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -39,6 +44,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var lng = 0.0
     var paymentListener: PaymentListener? = null
     var titles: String? = null
+    private val viewModel: OtpViewModel by viewModels()
+    var token:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,23 +54,31 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         checkUserStatus()
         takePermissionForLocation()
 
+        viewModel.validateAccount(AppUtils2.mobileno)
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
             if(!task.isSuccessful) {
                 return@OnCompleteListener
             }
 
-            val token = task.result
+            token = task.result
 
 //            Toast.makeText(baseContext,token,Toast.LENGTH_LONG).show()
 
-            Log.e("Token",token)
 
             var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("text",token)
             clipboardManager.setPrimaryClip(clipData)
 
         })
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            viewModel.getNotificationtoken(token.toString())
+        }, 1500)
+
+
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
