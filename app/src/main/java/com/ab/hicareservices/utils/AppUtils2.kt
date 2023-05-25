@@ -11,7 +11,7 @@ object AppUtils2 {
     var TOKEN = ""
     var mobileno=""
     var order_number=""
-
+    var paymentsucess=""
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

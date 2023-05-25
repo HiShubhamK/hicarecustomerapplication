@@ -6,6 +6,7 @@ import com.ab.hicareservices.data.model.orderdetails.Data
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,7 @@ class OrderDetailsViewModel : ViewModel() {
                 override fun onResponse(call: Call<SavePaymentResponse>, response: Response<SavePaymentResponse>) {
                     if (response.body()?.isSuccess == true){
                         val responseBody = response.body()?.data
+                        AppUtils2.paymentsucess= response.body()!!.data.toString()
                         savePaymentResponse.postValue("Success")
                     }
                 }

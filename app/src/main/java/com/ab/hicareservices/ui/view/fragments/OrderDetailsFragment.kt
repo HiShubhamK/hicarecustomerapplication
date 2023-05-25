@@ -65,7 +65,7 @@ class OrderDetailsFragment : Fragment() {
 
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
-    var service_url_image:String=""
+    var service_url_image: String = ""
 
     companion object {
         @JvmStatic
@@ -84,11 +84,15 @@ class OrderDetailsFragment : Fragment() {
         arguments?.let {
             orderNo = it.getString(ORDER_NO).toString()
             serviceType = it.getString(SERVICE_TYPE).toString()
-            service_url_image=it.getString(SERVICE_TYPE_IMG).toString()
+            service_url_image = it.getString(SERVICE_TYPE_IMG).toString()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
         //viewModel = ViewModelProvider(requireActivity(), ServiceVMFactory(MainRepository(api))).get(ServiceViewModel::class.java)
         /*orderDetailsViewModel = ViewModelProvider(requireActivity(),
@@ -106,26 +110,26 @@ class OrderDetailsFragment : Fragment() {
 
         Picasso.get().load(service_url_image).into(binding.imgType)
 
-        binding.imgLogo.setOnClickListener{
+        binding.imgLogo.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OrdersFragment.newInstance()).commit();
         }
 
-        binding.help.setOnClickListener{
+        binding.help.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OrdersFragment.newInstance()).commit();
         }
 
 
-        AppUtils2.mobileno=SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
 
-        if(orderNo!=null){
-            binding.bottomheadertext.visibility=View.VISIBLE
-            binding.bottomheadertext.text=orderNo
-        }else{
-            binding.bottomheadertext.visibility=View.GONE
+        if (orderNo != null) {
+            binding.bottomheadertext.visibility = View.VISIBLE
+            binding.bottomheadertext.text = orderNo
+        } else {
+            binding.bottomheadertext.visibility = View.GONE
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -152,38 +156,61 @@ class OrderDetailsFragment : Fragment() {
             intent.putExtra("serviceType", serviceType)
             startActivity(intent)
         }
-        binding.payNowBtn.setOnClickListener {
-            try {
-                val co = Checkout()
-                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
-                co.open(requireActivity(), options)
-            }catch (e: Exception){
-                Log.d("TAG", "$e")
-            }
-        }
-        (activity as HomeActivity).setOnPaymentListener(object : PaymentListener{
-            override fun onPaymentSuccess(s: String?, response: PaymentData?) {
-                progressDialog.setMessage("Saving Payment details...")
-                progressDialog.show()
-                orderDetailsViewModel.savePaymentResponse.observe(requireActivity()){
-                    progressDialog.dismiss()
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                }
-                val data = HashMap<String, Any>()
-                data["razorpay_payment_id"] = response?.paymentId.toString()
-                data["razorpay_order_id"] = response?.orderId.toString()
-                data["razorpay_signature"] = response?.signature.toString()
-                Log.d("TAG", "$data")
-                orderDetailsViewModel.saveAppPaymentDetails(data)
-            }
 
-            override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
-                Log.d("TAG", "Error")
+        try {
+
+            binding.payNowBtn.setOnClickListener {
+                try {
+                    val co = Checkout()
+                    co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                    co.open(requireActivity(), options)
+                } catch (e: Exception) {
+                    Log.d("TAG", "$e")
+                }
             }
-        })
+            (activity as HomeActivity).setOnPaymentListener(object : PaymentListener {
+
+                override fun onPaymentSuccess(s: String?, response: PaymentData?) {
+
+
+                    var data = HashMap<String, Any>()
+                    data["razorpay_payment_id"] = response?.paymentId.toString()
+                    data["razorpay_order_id"] = orderNo
+                    data["razorpay_signature"] = response?.signature.toString()
+                    orderDetailsViewModel.saveAppPaymentDetails(data)
+
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Signature " + response!!.paymentId,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    Log.e("Paymnet", "PaymentAkshay      " + response.signature)
+//                    try {
+//
+//
+//                        var data = HashMap<String, Any>()
+//                        data["razorpay_payment_id"] = response?.paymentId.toString()
+//                        data["razorpay_order_id"] = orderNo
+//                        data["razorpay_signature"] = response?.signature.toString()
+//                        orderDetailsViewModel.saveAppPaymentDetails(data)
+//                    } catch (e: Exception) {
+//
+//                    }
+
+//                    Toast.makeText(requireContext(),AppUtils2.paymentsucess,Toast.LENGTH_LONG).show()
+
+                }
+
+                override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
+                    Log.d("TAG", "Error")
+                }
+            })
+        } catch (e: Exception) {
+
+        }
     }
 
-    private fun getServiceDetails(orderNo: String, serviceType: String){
+    private fun getServiceDetails(orderNo: String, serviceType: String) {
         orderDetailsViewModel.orderDetailsData.observe(requireActivity()) {
             if (it != null) {
                 val data = it[0]
@@ -191,10 +218,11 @@ class OrderDetailsFragment : Fragment() {
                 val service = data.service_Plan_Name__c
                 val orderValueWithTax = data.order_Value_with_Tax__c
                 val discount = orderValueWithTax.toString().toDouble() * 0.05
-                val orderValueWithTaxAfterDiscount = data.order_Value_with_Tax__c.toString().toDouble() - discount
+                val orderValueWithTaxAfterDiscount =
+                    data.order_Value_with_Tax__c.toString().toDouble() - discount
                 binding.orderNameTv.text = data.service_Plan_Name__c
                 binding.orderNoTv.text = orderNo
-                binding.txtaddress.text= data.account_Name__r?.accountAddress ?: "N/A"
+                binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
 //                binding.orderDateTv.text  = data.createdDateText
 //                binding.statusTv.text = data.status__c
                 binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
@@ -202,21 +230,36 @@ class OrderDetailsFragment : Fragment() {
 //                binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
                 binding.totalTv.text = "₹ ${data.standard_Value__c}"
                 binding.priceTv.text = "₹ ${Math.round(data.standard_Value__c!!.toDouble())}"
-                binding.discountTv.text = if (data.orderDiscountValue != null) "₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "₹ 0"
-                binding.totalAmountTv.text = "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
+                binding.discountTv.text =
+                    if (data.orderDiscountValue != null) "₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "₹ 0"
+                binding.totalAmountTv.text =
+                    "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
-                binding.contactDetailsTv.text = "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
+                binding.contactDetailsTv.text =
+                    "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
                 binding.addressTv.text = data.account_Name__r?.accountAddress ?: "N/A"
-                binding.textaddress.text=  data.account_Name__r?.accountAddress ?: "N/A"
-                binding.textserviceperiod.text=data.service_Period
-                binding.textdatestart.text=AppUtils2.formatDateTime4(data.start_Date__c.toString())
-                binding.textdateend.text=AppUtils2.formatDateTime4(data.end_Date__c.toString())
-                val notes = prepareNotes(accountId, orderNo, service, serviceType, orderValueWithTax?.toDouble(), orderValueWithTaxAfterDiscount)
-                options = prepareOption(notes, data.service_Plan_Name__c.toString(), orderValueWithTaxAfterDiscount.toString())
-                if (data.enable_Payment_Link == true){
+                binding.textaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
+                binding.textserviceperiod.text = data.service_Period
+                binding.textdatestart.text =
+                    AppUtils2.formatDateTime4(data.start_Date__c.toString())
+                binding.textdateend.text = AppUtils2.formatDateTime4(data.end_Date__c.toString())
+                val notes = prepareNotes(
+                    accountId,
+                    orderNo,
+                    service,
+                    serviceType,
+                    orderValueWithTax?.toDouble(),
+                    orderValueWithTaxAfterDiscount
+                )
+                options = prepareOption(
+                    notes,
+                    data.service_Plan_Name__c.toString(),
+                    orderValueWithTaxAfterDiscount.toString()
+                )
+                if (data.enable_Payment_Link == true) {
                     binding.payNowBtn.visibility = View.VISIBLE
-                }else{
-                    binding.payNowBtn.visibility = View.GONE
+                } else {
+                    binding.payNowBtn.visibility = View.VISIBLE
                 }
 
                 binding.statusTv.text = data.status__c
@@ -230,34 +273,34 @@ class OrderDetailsFragment : Fragment() {
 //                }
 //
 
-                if(data.status__c.equals("Expired")){
+                if (data.status__c.equals("Expired")) {
 
                     binding.statusTv.setTextColor(Color.parseColor("#D50000"))
 
-                }else if(data.status__c.equals("Short Close")){
+                } else if (data.status__c.equals("Short Close")) {
 
                     binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
 
-                }else if(data.status__c.equals("Cancelled")){
+                } else if (data.status__c.equals("Cancelled")) {
 
                     binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
 
-                }else if(data.status__c.equals("Active")){
+                } else if (data.status__c.equals("Active")) {
 
                     binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
 
-                }else if (data.status__c.equals("Rejected")){
+                } else if (data.status__c.equals("Rejected")) {
 
                     binding.statusTv.setTextColor(Color.parseColor("#FFAB00"))
 
-                }else{
+                } else {
 
                 }
 
-                if (data.enable_Payment_Link == false){
-                    binding.paymentStatusTv.text="Paid"
-                }else{
-                    binding.paymentStatusTv.text="Unpaid"
+                if (data.enable_Payment_Link == false) {
+                    binding.paymentStatusTv.text = "Paid"
+                } else {
+                    binding.paymentStatusTv.text = "Unpaid"
                 }
             }
         }
@@ -279,7 +322,8 @@ class OrderDetailsFragment : Fragment() {
 
             override fun onViewServiceClicked(position: Int) {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MyServiceDetailsFragment.newInstance()).addToBackStack("OrderDetailsFragment").commit()
+                    .replace(R.id.container, MyServiceDetailsFragment.newInstance())
+                    .addToBackStack("OrderDetailsFragment").commit()
             }
 
             override fun onRescheduleServiceClicked(position: Int) {
@@ -289,13 +333,13 @@ class OrderDetailsFragment : Fragment() {
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onViewCreated: $it")
-            binding.recycleView.visibility=View.GONE
-            binding.txterrormessage.visibility=View.VISIBLE
+            binding.recycleView.visibility = View.GONE
+            binding.txterrormessage.visibility = View.VISIBLE
         })
         viewModel.getServiceRequest(orderNo, serviceType)
     }
 
-    private fun showDetailsDialog(){
+    private fun showDetailsDialog() {
     }
 
     private fun showRescheduleDialog() {
@@ -348,17 +392,18 @@ class OrderDetailsFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun prepareOption(notes: JSONObject, description: String, amount: String): JSONObject{
+    private fun prepareOption(notes: JSONObject, description: String, amount: String): JSONObject {
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", description)
-        options.put("image","https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
+        options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
         options.put("amount", "${amount.toDouble().roundToInt()}00")
         options.put("notes", notes)
         return options
     }
+
     private fun prepareNotes(
         accountId: String?,
         orderNo: String?,
@@ -366,7 +411,7 @@ class OrderDetailsFragment : Fragment() {
         serviceType: String?,
         orderValue: Double?,
         orderValueAfterDiscount: Double?
-    ): JSONObject{
+    ): JSONObject {
         val notes = JSONObject()
         notes.put("Account_Id", accountId)
         notes.put("InvoiceNo", "")
