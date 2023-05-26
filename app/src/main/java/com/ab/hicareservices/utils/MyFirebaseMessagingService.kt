@@ -1,8 +1,5 @@
 package com.ab.hicareservices.utils
 
-import android.os.Handler
-import android.os.Looper
-import android.widget.Toast
 import com.ab.hicareservices.R
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 
@@ -14,15 +11,14 @@ import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 
-
-
 class MyFirebaseMessagingService : FirebaseMessagingService(){
+
+
 //    override fun onMessageReceived(remoteMessage: RemoteMessage) {
 //        Looper.prepare()
 //        Handler().post {
@@ -65,7 +61,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
             // directly as below.
             showNotification(
                 remoteMessage.getNotification()!!.getTitle().toString(),
-                remoteMessage.getNotification()!!.getBody().toString()
+                remoteMessage.getNotification()!!.getBody().toString(),
+                remoteMessage.getNotification()!!.getTag().toString()
             )
         }
     }
@@ -92,8 +89,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     // Method to display the notifications
     fun showNotification(
         title: String,
-        message: String
-    ) {
+        message: String,
+        tag: String,
+
+        ) {
         // Pass the intent to switch to the MainActivity
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
