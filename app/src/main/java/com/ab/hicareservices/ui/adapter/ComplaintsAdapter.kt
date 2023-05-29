@@ -28,6 +28,7 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
         holder.binding.txthello.text=complaints.Subject
     }
 
+
     override fun getItemCount(): Int {
         return complaints.size
     }
