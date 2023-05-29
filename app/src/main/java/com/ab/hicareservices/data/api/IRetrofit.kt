@@ -58,7 +58,7 @@ interface IRetrofit {
 
     @POST("Complaint/CreateComplaint")
     fun createComplaintResponse(
-        @Body request: HashMap<String, String>,
+        @Body request: HashMap<String, Any>,
     ): Call<CreateComplaint>
 
     @GET("Account/GetAccountReferralCode")
@@ -85,5 +85,8 @@ interface IRetrofit {
     fun getNotificationToken(
         @Query("appToken") appToken: String,
     ): Call<NotificationToken>
+
+    @POST("Attachment/UploadAttachment")
+    fun UploadAttachment(@Body data: HashMap<String, Any>): Call<AttachmentResponse>
 
 }

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">HiCare Services</string>
+    <string name="txtno">No</string>
+    <string name="txtyes">Yes</string>
     <string name="my_orders">My Orders</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

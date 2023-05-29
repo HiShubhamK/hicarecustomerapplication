@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/lnrCheckList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/popupTitleTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="11dp"
+                                    android:layout_marginBottom="11dp"
+                                    android:text="Rate Us"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.8dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@color/grey_font">
+
+                                </View>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/txtInfo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:gravity="center"
+                                    android:text="Please ensure all safety precautions before coming to service."
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="4dp"
+                                        android:layout_marginEnd="4dp"
+                                        android:text="kindly rate us based on your experience"
+                                        android:textColor="@color/red" />
+
+                                    <LinearLayout
+                                        android:id="@+id/imageLinearLayout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:visibility="visible">
+
+                                        <RatingBar
+                                            android:stepSize="1"
+                                            app:tint="@color/colorPrimary"
+                                            android:id="@+id/simpleRatingBar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:numStars="5" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/typeRecycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="4dp"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btnCancel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="35dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="8dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/round_border"
+                                    android:baselineAligned="false"
+                                    android:elevation="2dp"
+                                    android:gravity="center"
+                                    android:text="Cancel"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp" />
+
+                                <!--                                <androidx.appcompat.widget.AppCompatButton-->
+                                <!--                                    android:id="@+id/okBtn"-->
+                                <!--                                    android:layout_weight="1"-->
+                                <!--                                    android:layout_width="match_parent"-->
+                                <!--                                    android:layout_height="35dp"-->
+                                <!--                                    android:layout_gravity="center"-->
+                                <!--                                    android:layout_margin="8dp"-->
+                                <!--                                    android:background="@drawable/button_background"-->
+                                <!--                                    android:baselineAligned="false"-->
+                                <!--                                    android:elevation="2dp"-->
+                                <!--                                    android:gravity="center"-->
+                                <!--                                    android:text="Submit"-->
+                                <!--                                    android:enabled="false"-->
+                                <!--                                    android:textColor="@color/colorPrimary"-->
+                                <!--                                    android:textSize="16sp" />-->
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/okBtn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="35dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="8dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/round_border"
+                                    android:baselineAligned="false"
+                                    android:elevation="2dp"
+                                    android:gravity="center"
+                                    android:text="Submit"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_above="@id/rel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-55dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/forward_arrow" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -16,8 +16,10 @@ class MainRepository {
     fun getServiceRequest(orderNo: String, type: String) = retrofitService.getServiceRequest(orderNo, type)
     fun getComplaintReasonResponse(serviceType: String) = retrofitService.getComplaintReasonResponse(serviceType)
     fun getReferralCodeResponse(mobileNo: String) = retrofitService.getReferralCodeResponse(mobileNo)
-    fun createComplaintResponse(request: HashMap<String, String>) = retrofitService.createComplaintResponse(request)
-    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String) = retrofitService.getOrderDetailsByOrderNo(orderNo, serviceType)
+    fun createComplaintResponse(request: HashMap<String, Any>) = retrofitService.createComplaintResponse(request)
+    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String) =
+        retrofitService.getOrderDetailsByOrderNo(orderNo, serviceType)
     fun saveAppPaymentDetails(data: HashMap<String, Any>) = retrofitService.saveAppPaymentDetails(data)
+    fun UploadAttachment(data: HashMap<String, Any>) = retrofitService.UploadAttachment(data)
     fun notification(apptoken:String) = retrofitService.getNotificationToken(apptoken)
 }

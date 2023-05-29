@@ -29,7 +29,7 @@ class CComplaintViewModel : ViewModel() {
             }
         })
     }
-    fun createComplaint(request: HashMap<String, String>) {
+    fun createComplaint(request: HashMap<String, Any>) {
         val response = repository.createComplaintResponse(request)
         response.enqueue(object : Callback<CreateComplaint> {
 

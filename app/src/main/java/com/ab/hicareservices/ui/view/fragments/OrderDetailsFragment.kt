@@ -154,6 +154,7 @@ class OrderDetailsFragment : Fragment() {
             val intent = Intent(requireContext(), AddComplaintsActivity::class.java)
             intent.putExtra("orderNo", orderNo)
             intent.putExtra("serviceType", serviceType)
+            intent.putExtra("service_url_image", service_url_image)
             startActivity(intent)
         }
 

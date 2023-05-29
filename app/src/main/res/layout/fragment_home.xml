@@ -16,10 +16,10 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:gravity="start"
             android:id="@+id/lnrTitle"
             android:layout_width="match_parent"
-            android:layout_height="65dp">
+            android:layout_height="65dp"
+            android:gravity="start">
 
             <ImageView
 
@@ -41,15 +41,15 @@
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
                 android:text="Home"
-                android:visibility="gone"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
 
             <ImageView
-                android:layout_margin="5dp"
-                android:layout_alignParentStart="true"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_margin="5dp"
                 android:layout_toRightOf="@id/imgLogo"
                 android:src="@drawable/ic_hicare">
 
@@ -898,45 +898,155 @@ android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent"  />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-
-                        <RelativeLayout
-                            android:visibility="gone"
-                            android:id="@+id/rltArrows"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_margin="5dp"
-                                android:layout_alignParentStart="true"
-                                android:rotation="180"
-                                android:src="@drawable/forward_arrow"
-                                android:id="@+id/btn_to_left"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                            </ImageView>
-                            <ImageView
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="end"
-                                android:src="@drawable/forward_arrow"
-                                android:id="@+id/btn_to_right"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                            </ImageView>
-                        </RelativeLayout>
-
-                    </LinearLayout>
 <!--                </androidx.cardview.widget.CardView>-->
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnrTitleNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recPayments"
+                android:layout_marginHorizontal="18dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="3dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+
+                <TextView
+                    android:id="@+id/titleFollowUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".5"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="Follow Us"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+            </LinearLayout>
+            <LinearLayout
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/lnrInsta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="3dp">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/imgInsta"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/instagram" />
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:fontFamily="@font/lato_semibold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="followers"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/grey_font"-->
+<!--                        android:textSize="12sp" />-->
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/lnrFacebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="3dp">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+
+                        android:id="@+id/imgFacebook"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/ic_facebook" />
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:fontFamily="@font/lato_semibold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="followers"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/grey_font"-->
+<!--                        android:textSize="12sp" />-->
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/lnrTwitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="3dp">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/imgTwitter"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/ic_twitter" />
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:fontFamily="@font/lato_semibold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="followers"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/grey_font"-->
+<!--                        android:textSize="12sp" />-->
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
 
         </LinearLayout>
