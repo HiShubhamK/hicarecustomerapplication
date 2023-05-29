@@ -1,30 +1,29 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.*
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
-import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.viewmodel.GridViewModal
 import com.ab.hicareservices.ui.viewmodel.OfferViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
+import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class HomeFragment : Fragment() {
@@ -189,19 +188,6 @@ class HomeFragment : Fragment() {
 
 
 
-    private fun setHomeBanner() {
-        try {
-            val slideModels: MutableList<SlideModel> = ArrayList()
-            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg", ScaleTypes.FIT))
-            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg", ScaleTypes.FIT))
-            slideModels.add(SlideModel("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg", ScaleTypes.FIT))
-            binding.slider.setImageList(slideModels, ScaleTypes.FIT)
-//            binding.slider.setScrollIndicators();
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     private fun getServiceData() {
         courseList = ArrayList<GridViewModal>()
@@ -282,6 +268,54 @@ class HomeFragment : Fragment() {
             dialog.show()
         }
 
+        binding.lnrTwitter.setOnClickListener{
+            try {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/hicare_services")
+                )
+                startActivity(intent)
+            } catch (e: Exception) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://twitter.com/hicare_services")
+                    )
+                )
+            }
+        }
+        binding.lnrFacebook.setOnClickListener{
+            try {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/HiCare?ref=hl")
+                )
+                startActivity(intent)
+            } catch (e: Exception) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://www.facebook.com/HiCare?ref=hl")
+                    )
+                )
+            }
+        }
+        binding.lnrInsta.setOnClickListener{
+            try {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.instagram.com/hicareservicespvtltd/?igshid=fkw5lb8qbj5a")
+                )
+                startActivity(intent)
+            } catch (e: Exception) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://www.instagram.com/hicareservicespvtltd/?igshid=fkw5lb8qbj5a")
+                    )
+                )
+            }
+        }
 
     }
     class CirclePagerIndicatorDecoration : ItemDecoration() {
@@ -434,5 +468,6 @@ class HomeFragment : Fragment() {
             mPaint.setAntiAlias(true)
         }
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.data.api
 
+import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.orders.OrdersResponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
@@ -57,7 +58,7 @@ interface IRetrofit {
 
     @POST("Complaint/CreateComplaint")
     fun createComplaintResponse(
-        @Body request: HashMap<String, String>,
+        @Body request: HashMap<String, Any>,
     ): Call<CreateComplaint>
 
     @GET("Account/GetAccountReferralCode")
@@ -73,5 +74,8 @@ interface IRetrofit {
 
     @POST("Payment/SaveAppPaymentDetails")
     fun saveAppPaymentDetails(@Body data: HashMap<String, Any>): Call<SavePaymentResponse>
+
+    @POST("Attachment/UploadAttachment")
+    fun UploadAttachment(@Body data: HashMap<String, Any>): Call<AttachmentResponse>
 
 }

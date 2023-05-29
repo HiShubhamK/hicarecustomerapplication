@@ -11,10 +11,10 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,17 +24,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:src="@drawable/ic_round_arrow_back_white" />
+                android:src="@drawable/ic_round_arrow_back_white"
+                app:tint="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Refer &amp; Earn"
-                android:textColor="@color/white"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
-
-
         </RelativeLayout>
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBar"
@@ -100,6 +99,10 @@
                 android:layout_height="match_parent"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout

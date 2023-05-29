@@ -15,10 +15,10 @@
         android:visibility="visible">
 
         <RelativeLayout
-            android:background="@color/colorAccent"
             android:id="@+id/lnrTitle"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/white">
 
             <ImageView
 
@@ -40,7 +40,7 @@
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
                 android:text="12345"
-                android:textColor="@color/white"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

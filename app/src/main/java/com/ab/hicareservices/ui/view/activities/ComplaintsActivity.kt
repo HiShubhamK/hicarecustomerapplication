@@ -56,7 +56,7 @@ class ComplaintsActivity : AppCompatActivity() {
             Log.d(TAG, "onViewCreated: $it")
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-            mAdapter.setComplaintsList(it)
+//            mAdapter.setComplaintsList(it, imageList)
 
         })
 

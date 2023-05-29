@@ -1,51 +1,19 @@
 package com.ab.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.weeks.WeekModel
 import com.ab.hicareservices.databinding.FragmentComplaintDetailBinding
-import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
-import com.ab.hicareservices.ui.adapter.SlotsAdapter
-import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnRescheduleClickHandler
-import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.handler.PaymentListener
-import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.HomeActivity
-import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
-import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
-import com.ab.hicareservices.utils.AppUtils
 import com.ab.hicareservices.utils.AppUtils2
-import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
-import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
-import com.razorpay.Checkout
-import com.razorpay.PaymentData
-import com.squareup.picasso.Picasso
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
 import org.json.JSONObject
-import kotlin.math.roundToInt
 
 class ComplaintDetailsFragment : Fragment() {
 
@@ -73,6 +41,9 @@ class ComplaintDetailsFragment : Fragment() {
     private val DESC = "DESC"
     private val STATUS = "STATUS"
     private val CASENUM = "CASENUM"
+    private val ATTACHMENTS = "ATTACHMENTS"
+    private lateinit var imageListnew:ArrayList<String>
+
 
 
     lateinit var options: JSONObject
@@ -81,7 +52,19 @@ class ComplaintDetailsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(complaintdate1: String, complaintnum1: String, orderno1: String, category1: String, complainttype1: String, serviceplan1: String, subject1: String, description1: String, status1: String, casenum: String) =
+        fun newInstance(
+            complaintdate1: String,
+            complaintnum1: String,
+            orderno1: String,
+            category1: String,
+            complainttype1: String,
+            serviceplan1: String,
+            subject1: String,
+            description1: String,
+            status1: String,
+            casenum: String,
+            imageList: ArrayList<String>
+        ) =
             ComplaintDetailsFragment().apply {
                 arguments = Bundle().apply {
                     this.putString(COMPLANTDATE, complaintdate1)
@@ -94,6 +77,7 @@ class ComplaintDetailsFragment : Fragment() {
                     this.putString(DESC, description1)
                     this.putString(STATUS, status1)
                     this.putString(CASENUM, casenum)
+                    this.putStringArrayList("attachmentlist",imageList)
 
                 }
             }
@@ -101,6 +85,7 @@ class ComplaintDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        imageListnew=ArrayList()
         arguments?.let {
             complaintdate = it.getString(COMPLANTDATE).toString()
             complaintnum = it.getString(COMPLAINTNO).toString()
@@ -112,6 +97,8 @@ class ComplaintDetailsFragment : Fragment() {
             description=it.getString(DESC).toString()
             status=it.getString(STATUS).toString()
             casenum=it.getString(CASENUM).toString()
+            imageListnew= it.getStringArrayList("attachmentlist") as ArrayList<String>
+
         }
     }
 
@@ -161,7 +148,11 @@ class ComplaintDetailsFragment : Fragment() {
 
         }
 
+        binding.txtSeeAttachment.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ComplaintAttachmentFragment.newInstance(imageListnew)).addToBackStack("AccountFragment").commit();
 
+        }
         AppUtils2.mobileno=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
 
 //        if(orderNo!=null){
