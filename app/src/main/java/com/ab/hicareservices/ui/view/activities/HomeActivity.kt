@@ -64,8 +64,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             token = task.result
 
-//            Toast.makeText(baseContext,token,Toast.LENGTH_LONG).show()
-
+            Log.e("Token",token.toString())
 
             var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("text",token)

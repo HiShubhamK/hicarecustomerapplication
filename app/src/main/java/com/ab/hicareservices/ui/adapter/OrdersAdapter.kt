@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.databinding.LayoutOrdersAdapterBinding
@@ -15,9 +16,10 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     var orders = mutableListOf<OrdersData>()
     private var onOrderClickedHandler: OnOrderClickedHandler? = null
+    lateinit var requireActivity:FragmentActivity
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setOrdersList(orders: List<OrdersData>?) {
+    fun setOrdersList(orders: List<OrdersData>?, requireActivity: FragmentActivity) {
         if (orders != null) {
             this.orders = orders.toMutableList()
         }
@@ -75,6 +77,16 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
         }else{
 
         }
+
+
+        holder.binding.btnPayNow.setOnClickListener {
+            onOrderClickedHandler?.onOrderPaynowClicked(position,
+                orders.order_Number__c!!,
+                orders.account_Name__r?.customer_id__c!!
+                , orders.service_Plan_Name__c!!,orders.order_Value_with_Tax__c!!)
+        }
+
+
         Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
         holder.itemView.setOnClickListener {
             onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString())
@@ -91,3 +103,4 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     class MainViewHolder(val binding: LayoutOrdersAdapterBinding) : RecyclerView.ViewHolder(binding.root)
 }
+

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -8,11 +9,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentOrdersBinding
@@ -20,7 +25,9 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
+import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import org.json.JSONObject
 
 class OrdersFragment() : Fragment() {
     private val TAG = "OrdersFragment"
@@ -31,6 +38,18 @@ class OrdersFragment() : Fragment() {
     private var mobile = ""
     private var ordertype=""
     lateinit var homeActivity: HomeActivity
+    lateinit var orderactivityforadapter:FragmentActivity
+    lateinit var options: JSONObject
+
+
+    var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult> { activityResult ->
+            val result = activityResult.resultCode
+            val data = activityResult.data
+        }
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,7 +183,7 @@ class OrdersFragment() : Fragment() {
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            mAdapter.setOrdersList(it)
+            mAdapter.setOrdersList(it,requireActivity())
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
 
@@ -174,12 +193,30 @@ class OrdersFragment() : Fragment() {
                 position: Int,
                 orderNo: String,
                 serviceType: String,
-                service_url_image: String
+                service_url_image: String,
             ) {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,service_url_image)).addToBackStack("OrdersFragment").commit();
+                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,
+                        service_url_image
+                    )).addToBackStack("OrdersFragment").commit();
+            }
+
+            override fun onOrderPaynowClicked(
+                position: Int,
+                orderNumberC: String,
+                customerIdC: String,
+                servicePlanNameC: String,
+                orderValueWithTaxC: Double
+            ) {
+                val intent = Intent(requireContext(), PaymentActivity::class.java)
+                intent.putExtra("ORDER_NO", orderNumberC)
+                intent.putExtra("ACCOUNT_NO", customerIdC)
+                intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
+                intent.putExtra("PAYMENT", orderValueWithTaxC)
+                activityResultLauncher.launch(intent)
             }
         })
+
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
 

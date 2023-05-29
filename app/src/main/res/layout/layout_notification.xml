@@ -1,99 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:orientation="horizontal">-->
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
 
-<!--    -->
-
-<!--</LinearLayout>-->
-
-
-
-<!--    [12:34 PM] Shubham Kadam-->
-
-
-
-
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:id="@+id/layout"-->
-<!--android:layout_width="fill_parent"-->
-<!--android:layout_height="64dp"-->
-<!--android:padding="10dp" >-->
-<!--<ImageView-->
-<!--    android:src="@mipmap/ic_launcher"-->
-<!--    android:id="@+id/image"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="fill_parent"-->
-<!--    android:layout_alignParentLeft="true"-->
-<!--    android:layout_marginRight="10dp" />-->
-<!--<TextView-->
-<!--    android:textSize="13dp"-->
-<!--    android:textColor="#000"-->
-<!--    android:text="Testing"-->
-<!--    android:id="@+id/title"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_toRightOf="@id/image"-->
-<!--    />-->
-<!--<TextView-->
-<!--    android:textSize="13dp"-->
-<!--    android:textColor="#000"-->
-<!--    android:text="Testing is awecome"-->
-<!--    android:id="@+id/text"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_toRightOf="@id/image"-->
-<!--    android:layout_below="@id/title"-->
-<!--    />-->
-<!--</RelativeLayout>-->
-
-
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:id="@+id/layout"
 android:layout_width="fill_parent"
 android:layout_height="64dp"
-android:padding="10dp"
-android:orientation="horizontal"
-android:weightSum="1">
-
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_weight="0.7">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/image"
-        android:text="Testing"
-        android:textColor="#000"
-        android:textSize="13dp" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_toRightOf="@id/image"
-        android:text="Testing is awecome"
-        android:textColor="#000"
-        android:textSize="13dp" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
-
+android:padding="10dp" >
 <ImageView
     android:src="@mipmap/ic_launcher"
     android:id="@+id/image"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_alignParentLeft="true"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="2dp"
-    android:layout_weight="0.3"/>
+    android:layout_marginRight="10dp" />
+<TextView
+    android:textSize="13dp"
+    android:textColor="#000"
+    android:text="Testing"
+    android:id="@+id/notificationtitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/image"
+    />
+<TextView
+    android:textSize="13dp"
+    android:textColor="#000"
+    android:text="Testing is awecome"
+    android:id="@+id/notificationtext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/image"
+    android:layout_below="@id/notificationtitle"
+    />
+</RelativeLayout>
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:id="@+id/layout"-->
+<!--    android:layout_width="fill_parent"-->
+<!--    android:layout_height="64dp"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:padding="10dp"-->
+<!--    android:weightSum="1">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="0.7"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toRightOf="@id/image"-->
+<!--            android:text="Testing"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="13dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/title"-->
+<!--            android:layout_toRightOf="@id/image"-->
+<!--            android:text="Testing is awecome"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="13dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textdataload"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/title"-->
+<!--            android:layout_toRightOf="@id/image"-->
+<!--            android:text="Testing is awecome"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="13dp" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_marginLeft="2dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:layout_weight="0.3"-->
+<!--        android:src="@drawable/hicarelogo" />-->
+
+
+<!--</LinearLayout>-->
 

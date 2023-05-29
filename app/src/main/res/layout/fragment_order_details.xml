@@ -30,7 +30,6 @@
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 android:visibility="visible"/>
 
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
