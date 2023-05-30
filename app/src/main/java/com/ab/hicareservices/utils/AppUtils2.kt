@@ -12,6 +12,7 @@ object AppUtils2 {
     var mobileno=""
     var order_number=""
     var paymentsucess=""
+     var leaderlist= ArrayList<String>()
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

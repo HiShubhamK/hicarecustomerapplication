@@ -7,6 +7,7 @@ import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
+import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
@@ -85,5 +86,10 @@ interface IRetrofit {
     fun getNotificationToken(
         @Query("appToken") appToken: String,
     ): Call<NotificationToken>
+
+    @GET("Lead/GetInterestedServices")
+    fun getLead(
+        @Query("serviceType") serviceType: String,
+    ): Call<leadResopnse>
 
 }

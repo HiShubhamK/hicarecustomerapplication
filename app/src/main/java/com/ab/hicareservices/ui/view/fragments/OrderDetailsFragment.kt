@@ -13,6 +13,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,6 +40,7 @@ import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
+import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.squareup.picasso.Picasso
@@ -66,7 +71,11 @@ class OrderDetailsFragment : Fragment() {
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
     var service_url_image: String = ""
-
+    var accountId = ""
+    var service = ""
+    var orderValueWithTax = 00.00
+    var discount = ""
+    var orderValueWithTaxAfterDiscount = ""
     companion object {
         @JvmStatic
         fun newInstance(orderNo: String, serviceType: String, service_url_image: String) =
@@ -78,6 +87,14 @@ class OrderDetailsFragment : Fragment() {
                 }
             }
     }
+
+    var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult> { activityResult ->
+            val result = activityResult.resultCode
+            val data = activityResult.data
+        }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,50 +178,59 @@ class OrderDetailsFragment : Fragment() {
 
             binding.payNowBtn.setOnClickListener {
                 try {
-                    val co = Checkout()
-                    co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
-                    co.open(requireActivity(), options)
+
+
+                    val intent = Intent(requireContext(), PaymentActivity::class.java)
+                    intent.putExtra("ORDER_NO", orderNo)
+                    intent.putExtra("ACCOUNT_NO", accountId)
+                    intent.putExtra("SERVICETYPE_NO", service)
+                    intent.putExtra("PAYMENT", orderValueWithTax)
+                    activityResultLauncher.launch(intent)
+
+//                    val co = Checkout()
+//                    co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+//                    co.open(requireActivity(), options)
                 } catch (e: Exception) {
                     Log.d("TAG", "$e")
                 }
             }
-            (activity as HomeActivity).setOnPaymentListener(object : PaymentListener {
-
-                override fun onPaymentSuccess(s: String?, response: PaymentData?) {
-
-
-                    var data = HashMap<String, Any>()
-                    data["razorpay_payment_id"] = response?.paymentId.toString()
-                    data["razorpay_order_id"] = orderNo
-                    data["razorpay_signature"] = response?.signature.toString()
-                    orderDetailsViewModel.saveAppPaymentDetails(data)
-
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Signature " + response!!.paymentId,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    Log.e("Paymnet", "PaymentAkshay      " + response.signature)
-//                    try {
+//            (activity as HomeActivity).setOnPaymentListener(object : PaymentListener {
+//
+//                override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 //
 //
-//                        var data = HashMap<String, Any>()
-//                        data["razorpay_payment_id"] = response?.paymentId.toString()
-//                        data["razorpay_order_id"] = orderNo
-//                        data["razorpay_signature"] = response?.signature.toString()
-//                        orderDetailsViewModel.saveAppPaymentDetails(data)
-//                    } catch (e: Exception) {
+//                    var data = HashMap<String, Any>()
+//                    data["razorpay_payment_id"] = response?.paymentId.toString()
+//                    data["razorpay_order_id"] = orderNo
+//                    data["razorpay_signature"] = response?.signature.toString()
+//                    orderDetailsViewModel.saveAppPaymentDetails(data)
 //
-//                    }
-
-//                    Toast.makeText(requireContext(),AppUtils2.paymentsucess,Toast.LENGTH_LONG).show()
-
-                }
-
-                override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
-                    Log.d("TAG", "Error")
-                }
-            })
+////                    Toast.makeText(
+////                        requireContext(),
+////                        "Signature " + response!!.paymentId,
+////                        Toast.LENGTH_SHORT
+////                    ).show()
+////                    Log.e("Paymnet", "PaymentAkshay      " + response.signature)
+////                    try {
+////
+////
+////                        var data = HashMap<String, Any>()
+////                        data["razorpay_payment_id"] = response?.paymentId.toString()
+////                        data["razorpay_order_id"] = orderNo
+////                        data["razorpay_signature"] = response?.signature.toString()
+////                        orderDetailsViewModel.saveAppPaymentDetails(data)
+////                    } catch (e: Exception) {
+////
+////                    }
+//
+////                    Toast.makeText(requireContext(),AppUtils2.paymentsucess,Toast.LENGTH_LONG).show()
+//
+//                }
+//
+//                override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
+//                    Log.d("TAG", "Error")
+//                }
+//            })
         } catch (e: Exception) {
 
         }
@@ -214,12 +240,12 @@ class OrderDetailsFragment : Fragment() {
         orderDetailsViewModel.orderDetailsData.observe(requireActivity()) {
             if (it != null) {
                 val data = it[0]
-                val accountId = data.account_Name__r?.customer_id__c
-                val service = data.service_Plan_Name__c
-                val orderValueWithTax = data.order_Value_with_Tax__c
-                val discount = orderValueWithTax.toString().toDouble() * 0.05
-                val orderValueWithTaxAfterDiscount =
-                    data.order_Value_with_Tax__c.toString().toDouble() - discount
+                 accountId = data.account_Name__r?.customer_id__c.toString()
+                 service = data.service_Plan_Name__c.toString()
+                 orderValueWithTax = data.order_Value_with_Tax__c.toString().toDouble()
+                 discount = (orderValueWithTax.toString().toDouble() * 0.05).toString()
+//                 orderValueWithTaxAfterDiscount =
+//                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                 binding.orderNameTv.text = data.service_Plan_Name__c
                 binding.orderNoTv.text = orderNo
                 binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
@@ -243,19 +269,19 @@ class OrderDetailsFragment : Fragment() {
                 binding.textdatestart.text =
                     AppUtils2.formatDateTime4(data.start_Date__c.toString())
                 binding.textdateend.text = AppUtils2.formatDateTime4(data.end_Date__c.toString())
-                val notes = prepareNotes(
-                    accountId,
-                    orderNo,
-                    service,
-                    serviceType,
-                    orderValueWithTax?.toDouble(),
-                    orderValueWithTaxAfterDiscount
-                )
-                options = prepareOption(
-                    notes,
-                    data.service_Plan_Name__c.toString(),
-                    orderValueWithTaxAfterDiscount.toString()
-                )
+//                val notes = prepareNotes(
+//                    accountId,
+//                    orderNo,
+//                    service,
+//                    serviceType,
+//                    orderValueWithTax?.toDouble(),
+//                    orderValueWithTaxAfterDiscount
+//                )
+//                options = prepareOption(
+//                    notes,
+//                    data.service_Plan_Name__c.toString(),
+//                    orderValueWithTaxAfterDiscount.toString()
+//                )
                 if (data.enable_Payment_Link == true) {
                     binding.payNowBtn.visibility = View.VISIBLE
                 } else {

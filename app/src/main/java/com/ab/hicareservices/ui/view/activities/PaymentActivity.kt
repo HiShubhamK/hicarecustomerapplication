@@ -7,9 +7,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.ab.hicareservices.R
+import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.airbnb.lottie.LottieDrawable
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
@@ -18,6 +20,7 @@ import kotlin.math.roundToInt
 
 class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithDataListener {
 
+    private lateinit var binding:ActivityPaymentBinding
     var payment = ""
     var order_no = ""
     lateinit var options: JSONObject
@@ -44,7 +47,6 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
             "payment: " + payment + "  " + "orderno: " + order_no,
             Toast.LENGTH_SHORT
         ).show()
-
 
         val notes = prepareNotes(
             accountId,
