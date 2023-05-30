@@ -2,7 +2,9 @@ package com.ab.hicareservices.data.model.service
 
 import com.google.gson.annotations.SerializedName
 
-data class ServiceTaskData(
+data class Records(
+
+
     @SerializedName("Id") var Id: String? = null,
     @SerializedName("Name") var Name: String? = null,
     @SerializedName("Amount_to_collect__c") var AmountToCollect_c: String? = null,

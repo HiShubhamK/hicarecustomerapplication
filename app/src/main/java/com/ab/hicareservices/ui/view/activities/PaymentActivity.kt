@@ -38,12 +38,12 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
         accountId = intent.getStringExtra("ACCOUNT_NO").toString()
         serviceType = intent.getStringExtra("SERVICETYPE_NO").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
-
-        Toast.makeText(
-            this,
-            "payment: " + payment + "  " + "orderno: " + order_no,
-            Toast.LENGTH_SHORT
-        ).show()
+//
+//        Toast.makeText(
+//            this,
+//            "payment: " + payment + "  " + "orderno: " + order_no,
+//            Toast.LENGTH_SHORT
+//        ).show()
 
 
         val notes = prepareNotes(
@@ -143,4 +143,5 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
         data1.putExtra("title", AppUtils2.paymentsucess)
         finish()
     }
+
 }

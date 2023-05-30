@@ -33,6 +33,7 @@ import android.content.ClipboardManager
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
+import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
@@ -45,6 +46,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var paymentListener: PaymentListener? = null
     var titles: String? = null
     private val viewModel: OtpViewModel by viewModels()
+    private val getSlotViewModel: GetSlotViewModel by viewModels()
     var token:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +94,38 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    binding.title.text="Welcome To Hicare"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
+                    true
+
+                }
+                R.id.nav_bookings -> {
+//                    "Pincode": "400079",
+//                    "Service_Code": "SP0071",
+//                    "Service_Date": "2023-05-29T12:13:43.296Z",
+//                    "Service_Subscription": "string",
+//                    "Unit": "1 BHK",
+//                    "Lat": "19.1085082",
+//                    "Long": "72.92474",
+//                    "ServiceType": "Pest"
+                    var data = HashMap<String, Any>()
+                    data["Pincode"] = "400079"
+                    data["Service_Code"] = "SP0071"
+                    data["Service_Date"] = ""
+                    data["Service_Subscription"] = "Pest"
+                    data["Unit"] = "1 bhk"
+                    data["Lat"] = "19.1085082"
+                    data["Long"] = "72.92474"
+                    data["ServiceType"] = "Pest"
+                    getSlotViewModel.GetSlots(data)
+//                    Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
+
+//                    setContent("Home")
+//                    binding.title.text = "Home"
+//                    binding.help.visibility = View.GONE
+//                    binding.bottomheadertext.visibility = View.GONE
+//                    titles = "Home"
+//                    binding.title.text="Welcome To Hicare"
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, HomeFragment.newInstance()).commit();
                     true
 
                 }
