@@ -14,9 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_higenie"
+        android:icon="@drawable/hicarelogo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_higenie"
+        android:roundIcon="@drawable/hicarelogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
