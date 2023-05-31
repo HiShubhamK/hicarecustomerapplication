@@ -2,14 +2,29 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityMainBinding
@@ -18,6 +33,9 @@ import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
+import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -26,49 +44,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
-import com.google.android.gms.tasks.OnCompleteListener
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.net.Uri
-import android.os.Handler
-import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatSpinner
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.data.model.weeks.WeekModel
-import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
-import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
-import com.ab.hicareservices.ui.adapter.SlotsAdapter
-import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnRescheduleClickHandler
-import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.view.fragments.MyServiceDetailsFragment
-import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
-import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-import com.ab.hicareservices.ui.viewmodel.OtpViewModel
-import com.ab.hicareservices.utils.AppUtils
-import com.ab.hicareservices.utils.AppUtils2
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -208,6 +186,90 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val spinner = promptsView.findViewById<View>(R.id.spinner_lead) as AppCompatSpinner
         val lnrcall = promptsView.findViewById<View>(R.id.getcall) as LinearLayoutCompat
         val btnSubmit = promptsView.findViewById<View>(R.id.btnlead) as Button
+        val email = promptsView.findViewById<View>(R.id.textemail) as TextView
+
+        email.setOnClickListener {
+
+
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.type = "message/rfc822"
+            intent.data = Uri.parse("mailto:")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("me@somewhere.com"))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
+
+            startActivity(Intent.createChooser(intent, "Email via..."))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            val i = Intent(Intent.ACTION_SEND)
+//            i.type = "message/rfc822"
+//            i.putExtra(Intent.EXTRA_EMAIL, arrayOf("recipient@example.com"))
+//            i.putExtra(Intent.EXTRA_SUBJECT, "subject of email")
+//            i.putExtra(Intent.EXTRA_TEXT, "body of email")
+//            try {
+//                startActivity(Intent.createChooser(i, "Send mail..."))
+//            } catch (ex: ActivityNotFoundException) {
+//                Toast.makeText(
+//                    this,
+//                    "There are no email clients installed.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+
+
+
+
+
+
+
+
+
+
+
+
+//            val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
+//            emailIntent.type("")
+//            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@hicare.in"))
+//            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "support services")
+////            emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+////emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, body); //If you are using HTML in your body text
+//
+////emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, body); //If you are using HTML in your body text
+//            startActivity(Intent.createChooser(emailIntent, "Chooser Title"))
+
+
+
+
+
+
+
+
+
+
+//            val shareIntent = Intent(Intent.ACTION_SEND)
+//            shareIntent.type = "text/plain"
+//            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "HiCare Services")
+//            var shareMessage = othertxt
+//            shareMessage =
+//                "${shareMessage}Download HiCare app from the google play store\n" +
+//                        "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+//            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+//            startActivity(Intent.createChooser(shareIntent, "choose one"))
+        }
 
         viewModel.validateAccount("9967994682")
 
@@ -271,12 +333,14 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 edtpincode.setError("Enter pincode")
             }else if(edtpincode.text.toString().length<6){
                 edtpincode.setError("Enter correct pincode")
+            }else if(selectedLocation.toString().equals("Select Type")){
+                Toast.makeText(this,"Please select item",Toast.LENGTH_SHORT).show()
             }else {
                 var data = HashMap<String, Any>()
                 data["LMSId"] =""
                 data["SFDCId"] =""
                 data["CallCenterId"] =""
-                data["ServiceType"] =selectedLocation.toString()
+                data["ServiceType"] ="pest"
                 data["Batch_Name"] =""
                 data["Original_Batch_Name"] =""
                 data["Created_On"] =""
@@ -289,7 +353,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Email"] =""
                 data["Company"] =""
                 data["EmployeeCount"] = 0
-                data["Service"] =selectedLocation
+                data["Service"] =selectedLocation.toString()
                 data["ServiceCategory"] =""
                 data["ServiceSubCategory"] =""
                 data["FlatNo"] =""
