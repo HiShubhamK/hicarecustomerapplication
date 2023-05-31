@@ -76,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="vertical"
             android:layout_margin="8dp">
 
@@ -132,4 +131,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</LinearLayout><?xml version="1.0" encoding="utf-8"?>

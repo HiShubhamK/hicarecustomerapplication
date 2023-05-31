@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.ab.hicareservices.R
@@ -124,6 +125,9 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
                 val data1 = Intent()
                 data1.putExtra("title", AppUtils2.paymentsucess)
                 finish()
+                binding.imgOffer.visibility= View.VISIBLE
+                binding.txtpayment.visibility=View.VISIBLE
+
             }
 
         } catch (e: Exception) {
@@ -133,7 +137,10 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
 
     override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
         try {
-
+            binding.imgOffer.visibility= View.GONE
+            binding.imgOffererror.visibility=View.VISIBLE
+            binding.txtpayment.visibility=View.VISIBLE
+            binding.txtpayment.text="Payment Failed"
         } catch (e: Exception) {
 
         }

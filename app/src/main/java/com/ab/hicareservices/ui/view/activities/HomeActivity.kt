@@ -83,6 +83,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         datalist=ArrayList()
+        datalist.add("Select Type")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkUserStatus()
@@ -227,8 +228,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             }
         arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
         spinner.adapter = arrayAdapter
-
-
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

@@ -15,10 +15,23 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/paymentsuccessful"
         android:layout_height="180dp"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="70dp"
+        android:visibility="gone"/>
 <!--    </com.airbnb.lottie.LottieAnimationView>-->
 
+    <com.airbnb.lottie.LottieAnimationView
+
+        android:id="@+id/imgOffererror"
+        android:layout_width="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/error_occurred"
+        android:layout_height="180dp"
+        android:layout_marginTop="70dp"
+        android:visibility="gone"/>
+
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtpayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Payment Successful !"
@@ -26,6 +39,7 @@
         android:textColor="@color/black"
         android:gravity="center"
         android:textSize="18sp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
