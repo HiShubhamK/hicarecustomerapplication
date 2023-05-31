@@ -407,6 +407,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Utm_Term"] ="Mobile app"
                 data["Campaign_Url"] =""
                 viewModels.postleaderdata(data)
+                alertDialog.show()
             }
 
         }

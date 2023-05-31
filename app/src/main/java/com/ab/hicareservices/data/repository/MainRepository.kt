@@ -9,6 +9,7 @@ class MainRepository {
     fun getOrders(mobileNO: String, type: String) = retrofitService.getOrders(mobileNO, type)
     fun getCustomerOrdersByMobileNo(mobileNo: String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo)
     fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype:String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo,ordertype)
+
     fun getOtpResponse(mobileNo: String) = retrofitService.getOtpResponse(mobileNo)
     fun validateAccount(mobileNo: String) = retrofitService.validateAccount(mobileNo)
     fun getAllComplaints(mobile: String) = retrofitService.getAllComplaints(mobile)
@@ -23,8 +24,6 @@ class MainRepository {
     fun notification(apptoken:String) = retrofitService.getNotificationToken(apptoken)
     fun lead(serviceType: String) = retrofitService.getLead(serviceType)
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
-    fun getComplainceData(ServiceCenter_Id:String,SlotDate:String,TaskId:String,Lat:String,Long:String,ServiceType:String) = retrofitService.getComplainceData(ServiceCenter_Id,SlotDate,TaskId, Lat, Long, ServiceType)
-    fun posttakelead(data: HashMap<String, Any>) = retrofitService.postLead(data)
     fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
-
+    fun postLead(data: HashMap<String, Any>) = retrofitService.postLead(data)
 }

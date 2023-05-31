@@ -38,7 +38,7 @@ class HomeActivityViewModel: ViewModel() {
     }
 
     fun postleaderdata(data: HashMap<String, Any>){
-        repository.posttakelead(data)
+        repository.postLead(data)
             .enqueue(object : Callback<LeadResponse>{
                 override fun onResponse(call: Call<LeadResponse>, response: Response<LeadResponse>) {
                     if (response.body()?.IsSuccess == true){
