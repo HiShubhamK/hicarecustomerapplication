@@ -7,7 +7,8 @@ interface OnOrderClickedHandler {
         serviceType: String,
         toString: String,
         locationLatitudeS: Double?,
-        locationLongitudeS: Double?
+        locationLongitudeS: Double?,
+        toString1: String
     )
     fun onOrderPaynowClicked(
         position: Int,

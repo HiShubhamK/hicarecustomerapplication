@@ -18,7 +18,9 @@ class GetSlotViewModel : ViewModel() {
 
     val getcomplainceresponse = MutableLiveData<List<com.ab.hicareservices.data.model.slotcomplaincemodel.Data>>()
     val getSlotresponse = MutableLiveData<com.ab.hicareservices.data.model.getslots.Data>()
-//    val getcomplainceresponse = MutableLiveData<com.ab.hicareservices.data.model.slotcomplaincemodel.Data>()
+    val errorMessage = MutableLiveData<String>()
+
+    //    val getcomplainceresponse = MutableLiveData<com.ab.hicareservices.data.model.slotcomplaincemodel.Data>()
 //    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String){
 //        repository.getOrderDetailsByOrderNo(orderNo, serviceType)
 //            .enqueue(object : Callback<OrderDetails>{
@@ -55,6 +57,8 @@ class GetSlotViewModel : ViewModel() {
                     }
                 }
                 override fun onFailure(call: Call<GetComplaiceResponce>, t: Throwable) {
+                    errorMessage.postValue(t.message)
+
                 }
             })
     }

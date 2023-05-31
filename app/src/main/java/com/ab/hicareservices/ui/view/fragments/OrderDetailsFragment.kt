@@ -72,6 +72,7 @@ class OrderDetailsFragment : Fragment() {
     var service_url_image: String = ""
     var locationLatitudeS: String = ""
     var locationLongitudeS: String = ""
+    var ServiceCenterId: String = ""
 
     companion object {
         @JvmStatic
@@ -80,7 +81,8 @@ class OrderDetailsFragment : Fragment() {
             serviceType: String,
             service_url_image: String,
             locationLatitudeS: Double?,
-            locationLongitudeS: Double?
+            locationLongitudeS: Double?,
+            ServiceCenterId: String
         ) =
             OrderDetailsFragment().apply {
                 arguments = Bundle().apply {
@@ -89,6 +91,7 @@ class OrderDetailsFragment : Fragment() {
                     this.putString(SERVICE_TYPE_IMG, service_url_image)
                     this.putString("locationLatitudeS", locationLatitudeS.toString())
                     this.putString("locationLongitudeS", locationLongitudeS.toString())
+                    this.putString("ServiceCenterId", ServiceCenterId)
                 }
             }
     }
@@ -101,6 +104,7 @@ class OrderDetailsFragment : Fragment() {
             service_url_image = it.getString(SERVICE_TYPE_IMG).toString()
             locationLatitudeS = it.getString("locationLatitudeS").toString()
             locationLongitudeS = it.getString("locationLongitudeS").toString()
+            ServiceCenterId = it.getString("ServiceCenterId").toString()
         }
     }
 
@@ -344,16 +348,17 @@ class OrderDetailsFragment : Fragment() {
             }
 
             override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
-                showRescheduleDialog()
+//                showRescheduleDialog()
 //                ShowBookingDialog(service)
 //                try {
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(
                             R.id.container,
                             SlotComplinceFragment.newInstance(
-                                service.Id.toString(),
+                                ServiceCenterId,
                                 getCurrentDate(),
                                 service.ParentTaskId.toString(),
+                                service.Parent_Task_Skill_Id.toString(),
                                 locationLatitudeS,
                                 locationLongitudeS,
                                 serviceType

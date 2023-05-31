@@ -196,10 +196,11 @@ class OrdersFragment() : Fragment() {
                 service_url_image: String,
                 locationLatitudeS: Double?,
                 locationLongitudeS: Double?,
+                ServiceCenterId: String,
             ) {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,
-                        service_url_image,locationLatitudeS,locationLongitudeS
+                        service_url_image,locationLatitudeS,locationLongitudeS,ServiceCenterId
                     )).addToBackStack("OrdersFragment").commit();
             }
 

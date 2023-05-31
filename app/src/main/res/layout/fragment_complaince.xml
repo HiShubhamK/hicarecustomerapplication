@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
@@ -36,7 +37,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Available Slots"
+                android:text="Schedule Slot"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
@@ -70,14 +71,16 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--            android:id="@+id/swipeRefreshLayout"-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvTitle"-->
+<!--            android:text="Help"-->
+<!--            android:textColor="@color/white"-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_below="@+id/headerView"-->
-<!--            android:background="#f6f6f6">-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/colorAccent"/>-->
+
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -174,6 +177,10 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
@@ -189,10 +196,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lnrmenus"
         android:layout_marginTop="10dp"
         android:background="#f6f6f6"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:listitem="@layout/layout_complaince_adapter" />
 
 
@@ -202,12 +208,10 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="visible"
         android:backgroundTint="@color/colorAccent"
         />
 
-</RelativeLayout>
+</LinearLayout>
