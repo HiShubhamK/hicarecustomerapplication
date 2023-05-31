@@ -161,9 +161,17 @@ class SlotComplinceFragment() : Fragment() {
             binding.recyclerView.visibility = View.VISIBLE
 
         })
+        Handler(Looper.getMainLooper()).postDelayed({
+            var data = HashMap<String, Any>()
+            data["ServiceCenter_Id"] = ServiceCenter_Id
+            data["SlotDate"] = SlotDate
+            data["TaskId"] = TaskId
+            data["Lat"] = Lat
+            data["Long"] = Long
+            data["ServiceType"] = ServiceType
+            viewModel.getComplainceData(data)
+        }, 1000)
 
-
-        viewModel.getComplainceData(TaskId, SlotDate, ServiceCenter_Id, Lat, Long, ServiceType)
 
         Log.e("TAG","Data11: "+ServiceCenter_Id+", "+SlotDate+", "+TaskId+", "+Lat+", "+Long+", "+ServiceType)
 

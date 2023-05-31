@@ -38,11 +38,11 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val complincelist = complincelist[position]
-        holder.binding.txtname.text="NoOfAvailableTechnician:- "+complincelist.NoOfAvailableTechnician.toString()
+        holder.binding.tvNoOfTechnician.text="NoOfAvailableTechnician:- "+complincelist.NoOfAvailableTechnician.toString()
         holder.binding.txtnameorder.text="ScheduledDate:- "+complincelist.ScheduledDateText
-        holder.binding.txtnamestatus.text="AvailableCompliance:- "+complincelist.AvailableCompliance.toString()
+        holder.binding.txtFillingSlotStatus.text="AvailableCompliance:- "+complincelist.AvailableCompliance.toString()
         holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(complincelist.ScheduledDate.toString())
-        holder.binding.txtrupees.visibility= View.GONE
+        holder.binding.txtrupees.visibility= View.INVISIBLE
 
 
 //        if(complincelist.status__c.equals("Expired")){

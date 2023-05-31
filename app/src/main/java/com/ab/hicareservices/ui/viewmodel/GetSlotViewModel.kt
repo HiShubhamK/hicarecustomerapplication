@@ -45,8 +45,8 @@ class GetSlotViewModel : ViewModel() {
                 }
             })
     }
-        fun getComplainceData(ServiceCenter_Id:String,SlotDate:String,TaskId:String,Lat:String,Long:String,ServiceType:String){
-        repository.getComplainceData(ServiceCenter_Id,SlotDate,TaskId,Lat,Long,ServiceType)
+        fun getComplainceData(data:HashMap<String,Any>){
+        repository.getComplainceData(data)
             .enqueue(object : Callback<GetComplaiceResponce>{
                 override fun onResponse(call: Call<GetComplaiceResponce>, response: Response<GetComplaiceResponce>) {
                     if (response.body()?.IsSuccess == true){

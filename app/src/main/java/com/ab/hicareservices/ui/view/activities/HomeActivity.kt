@@ -106,16 +106,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    "Lat": "19.1085082",
 //                    "Long": "72.92474",
 //                    "ServiceType": "Pest"
-                    var data = HashMap<String, Any>()
-                    data["Pincode"] = "400079"
-                    data["Service_Code"] = "SP0071"
-                    data["Service_Date"] = ""
-                    data["Service_Subscription"] = "Pest"
-                    data["Unit"] = "1 bhk"
-                    data["Lat"] = "19.1085082"
-                    data["Long"] = "72.92474"
-                    data["ServiceType"] = "Pest"
-                    getSlotViewModel.GetSlots(data)
+
 //                    Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
 
 //                    setContent("Home")

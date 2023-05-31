@@ -70,15 +70,25 @@ class OrderDetailsFragment : Fragment() {
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
     var service_url_image: String = ""
+    var locationLatitudeS: String = ""
+    var locationLongitudeS: String = ""
 
     companion object {
         @JvmStatic
-        fun newInstance(orderNo: String, serviceType: String, service_url_image: String) =
+        fun newInstance(
+            orderNo: String,
+            serviceType: String,
+            service_url_image: String,
+            locationLatitudeS: Double?,
+            locationLongitudeS: Double?
+        ) =
             OrderDetailsFragment().apply {
                 arguments = Bundle().apply {
                     this.putString(ORDER_NO, orderNo)
                     this.putString(SERVICE_TYPE, serviceType)
                     this.putString(SERVICE_TYPE_IMG, service_url_image)
+                    this.putString("locationLatitudeS", locationLatitudeS.toString())
+                    this.putString("locationLongitudeS", locationLongitudeS.toString())
                 }
             }
     }
@@ -89,6 +99,8 @@ class OrderDetailsFragment : Fragment() {
             orderNo = it.getString(ORDER_NO).toString()
             serviceType = it.getString(SERVICE_TYPE).toString()
             service_url_image = it.getString(SERVICE_TYPE_IMG).toString()
+            locationLatitudeS = it.getString("locationLatitudeS").toString()
+            locationLongitudeS = it.getString("locationLongitudeS").toString()
         }
     }
 
@@ -332,7 +344,7 @@ class OrderDetailsFragment : Fragment() {
             }
 
             override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
-//                showRescheduleDialog()
+                showRescheduleDialog()
 //                ShowBookingDialog(service)
 //                try {
                     requireActivity().supportFragmentManager.beginTransaction()
@@ -342,8 +354,8 @@ class OrderDetailsFragment : Fragment() {
                                 service.Id.toString(),
                                 getCurrentDate(),
                                 service.ParentTaskId.toString(),
-                                service.Latitude.toString(),
-                                service.Longitude.toString(),
+                                locationLatitudeS,
+                                locationLongitudeS,
                                 serviceType
                             )
                         ).addToBackStack("SlotComplinceFragment").commit()

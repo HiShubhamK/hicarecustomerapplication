@@ -23,6 +23,6 @@ class MainRepository {
     fun UploadAttachment(data: HashMap<String, Any>) = retrofitService.UploadAttachment(data)
     fun notification(apptoken:String) = retrofitService.getNotificationToken(apptoken)
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
-    fun getComplainceData(ServiceCenter_Id:String,SlotDate:String,TaskId:String,Lat:String,Long:String,ServiceType:String) = retrofitService.getComplainceData(ServiceCenter_Id,SlotDate,TaskId, Lat, Long, ServiceType)
+    fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
 
 }
