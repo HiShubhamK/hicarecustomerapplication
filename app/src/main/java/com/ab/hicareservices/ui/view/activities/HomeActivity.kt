@@ -115,6 +115,29 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     true
 
                 }
+                R.id.nav_bookings -> {
+//                    "Pincode": "400079",
+//                    "Service_Code": "SP0071",
+//                    "Service_Date": "2023-05-29T12:13:43.296Z",
+//                    "Service_Subscription": "string",
+//                    "Unit": "1 BHK",
+//                    "Lat": "19.1085082",
+//                    "Long": "72.92474",
+//                    "ServiceType": "Pest"
+
+//                    Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
+
+//                    setContent("Home")
+//                    binding.title.text = "Home"
+//                    binding.help.visibility = View.GONE
+//                    binding.bottomheadertext.visibility = View.GONE
+//                    titles = "Home"
+//                    binding.title.text="Welcome To Hicare"
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, HomeFragment.newInstance()).commit();
+                    true
+
+                }
                 R.id.nav_account -> {
 //                    binding.title.text = "Account"
 //                    binding.help.visibility = View.GONE
@@ -505,4 +528,3 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         this.paymentListener = paymentListener
     }
 }
-

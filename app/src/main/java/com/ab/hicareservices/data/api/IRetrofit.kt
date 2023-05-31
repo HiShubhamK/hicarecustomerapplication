@@ -101,16 +101,18 @@ interface IRetrofit {
 
     @POST("Slot/GetSlot")
     fun GetSlot(@Body data: HashMap<String, Any>): Call<GetSlots>
+    @POST("Slot/GetSlotCompliance")
+    fun getComplainceData(@Body data: HashMap<String, Any>): Call<GetComplaiceResponce>
 
-    @GET("Slot/GetSlotCompliance")
-    fun getComplainceData(
-        @Query("ServiceCenter_Id") ServiceCenterId: String,
-        @Query("SlotDate") SlotDate: String,
-        @Query("TaskId") TaskId: String,
-        @Query("Lat") Lat: String,
-        @Query("Long") Long: String,
-        @Query("ServiceType") ServiceType: String
-    ): Call<GetComplaiceResponce>
+//    @POST("Slot/GetSlotCompliance")
+//    fun getComplainceData(
+//        @Query("ServiceCenter_Id") ServiceCenterId: String,
+//        @Query("SlotDate") SlotDate: String,
+//        @Query("TaskId") TaskId: String,
+//        @Query("Lat") Lat: String,
+//        @Query("Long") Long: String,
+//        @Query("ServiceType") ServiceType: String
+//    ): Call<GetComplaiceResponce>
 
     @POST("Lead/AddLeadAsync")
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>

@@ -2,29 +2,29 @@ package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.data.model.orders.OrdersData
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.slotcomplaincemodel.Data
 import com.ab.hicareservices.databinding.LayoutComplainceAdapterBinding
-import com.ab.hicareservices.databinding.LayoutOrdersAdapterBinding
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
+import com.ab.hicareservices.ui.view.fragments.SlotComplinceFragment
 import com.ab.hicareservices.utils.AppUtils2
-import com.squareup.picasso.Picasso
 
 class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewHolder>() {
 
     var complincelist = mutableListOf<Data>()
     private var onOrderClickedHandler: OnOrderClickedHandler? = null
-    lateinit var requireActivity:FragmentActivity
+    lateinit var requireActivity: FragmentActivity
 
     @SuppressLint("NotifyDataSetChanged")
     fun serComplainceList(complincelist: List<Data>, requireActivity: FragmentActivity) {
         if (complincelist != null) {
             this.complincelist = complincelist.toMutableList()
+            this.requireActivity = requireActivity
         }
         notifyDataSetChanged()
     }
@@ -38,18 +38,49 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val complincelist = complincelist[position]
-        holder.binding.txtname.text="NoOfAvailableTechnician:- "+complincelist.NoOfAvailableTechnician.toString()
-        holder.binding.txtnameorder.text="ScheduledDate:- "+complincelist.ScheduledDateText
-        holder.binding.txtnamestatus.text="AvailableCompliance:- "+complincelist.AvailableCompliance.toString()
-        holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(complincelist.ScheduledDate.toString())
-        holder.binding.txtrupees.visibility= View.GONE
+        holder.binding.tvScheduleDate.text =
+            AppUtils2.formatDateTime4(complincelist.ScheduledDate.toString())
+
+        holder.binding.tvAvailablity.text = complincelist.Title
+        holder.binding.tvAvailablity.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
 
-//        if(complincelist.status__c.equals("Expired")){
+        if (complincelist.Title.equals("N/A")) {
+//            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#D61A3C"))
+            holder.binding.tvAvailablity.setTextColor(Color.parseColor("#D61A3C"))
 //
-//            holder.binding.txtnamestatus.setTextColor(Color.parseColor("#D50000"))
+        } else if (complincelist.Title.equals("Filling Fast")) {
 //
-//        }else if(complincelist.status__c.equals("Short Close")){
+//            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#ED944D"));
+
+            holder.binding.tvAvailablity.setTextColor(Color.parseColor("#ED944D"))
+//
+        } else if (complincelist.Title.equals("Available")) {
+            holder.binding.tvAvailablity.setTextColor(Color.parseColor("#48A14D"))
+//            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#48A14D"));
+
+        }
+        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
+        holder.binding.crdMain.setOnClickListener {
+
+//            requireActivity.supportFragmentManager.beginTransaction()
+//                .replace(
+//                    R.id.container,
+//                    SlotComplinceFragment.newInstance(
+//                        ServiceCenterId,
+//                        getCurrentDate(),
+//                        service.ParentTaskId.toString(),
+//                        service.Parent_Task_Skill_Id.toString(),
+//                        locationLatitudeS,
+//                        locationLongitudeS,
+//                        serviceType
+//                    )
+//                ).addToBackStack("SlotComplinceFragment").commit()
+//
+
+
+        }
+        //        else if(complincelist.status__c.equals("Short Close")){
 //
 //            holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FB8C00"))
 //
@@ -88,10 +119,12 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
     override fun getItemCount(): Int {
         return complincelist.size
     }
+
     fun setOnOrderItemClicked(l: OnOrderClickedHandler) {
         onOrderClickedHandler = l
     }
 
-    class MainViewHolder(val binding: LayoutComplainceAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: LayoutComplainceAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 

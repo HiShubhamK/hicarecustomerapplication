@@ -81,14 +81,28 @@ class OrderDetailsFragment : Fragment() {
     var orderValueWithTax = 00.00
     var discount = ""
     var orderValueWithTaxAfterDiscount = ""
+    var locationLatitudeS: String = ""
+    var locationLongitudeS: String = ""
+    var ServiceCenterId: String = ""
+
     companion object {
         @JvmStatic
-        fun newInstance(orderNo: String, serviceType: String, service_url_image: String) =
+        fun newInstance(
+            orderNo: String,
+            serviceType: String,
+            service_url_image: String,
+            locationLatitudeS: Double?,
+            locationLongitudeS: Double?,
+            ServiceCenterId: String
+        ) =
             OrderDetailsFragment().apply {
                 arguments = Bundle().apply {
                     this.putString(ORDER_NO, orderNo)
                     this.putString(SERVICE_TYPE, serviceType)
                     this.putString(SERVICE_TYPE_IMG, service_url_image)
+                    this.putString("locationLatitudeS", locationLatitudeS.toString())
+                    this.putString("locationLongitudeS", locationLongitudeS.toString())
+                    this.putString("ServiceCenterId", ServiceCenterId)
                 }
             }
     }
@@ -107,6 +121,9 @@ class OrderDetailsFragment : Fragment() {
             orderNo = it.getString(ORDER_NO).toString()
             serviceType = it.getString(SERVICE_TYPE).toString()
             service_url_image = it.getString(SERVICE_TYPE_IMG).toString()
+            locationLatitudeS = it.getString("locationLatitudeS").toString()
+            locationLongitudeS = it.getString("locationLongitudeS").toString()
+            ServiceCenterId = it.getString("ServiceCenterId").toString()
         }
     }
 
@@ -366,11 +383,12 @@ class OrderDetailsFragment : Fragment() {
                         .replace(
                             R.id.container,
                             SlotComplinceFragment.newInstance(
-                                service.Id.toString(),
+                                ServiceCenterId,
                                 getCurrentDate(),
                                 service.ParentTaskId.toString(),
-                                service.Latitude.toString(),
-                                service.Longitude.toString(),
+                                service.Parent_Task_Skill_Id.toString(),
+                                locationLatitudeS,
+                                locationLongitudeS,
                                 serviceType
                             )
                         ).addToBackStack("SlotComplinceFragment").commit()

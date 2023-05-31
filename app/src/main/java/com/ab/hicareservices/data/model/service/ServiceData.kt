@@ -42,6 +42,7 @@ data class ServiceData(
     @SerializedName("Latitude") var Latitude: String? = null,
     @SerializedName("Longitude") var Longitude: String? = null,
     @SerializedName("Parent_Task_Id") var ParentTaskId: String? = null,
+    @SerializedName("Parent_Task_Skill_Id") var Parent_Task_Skill_Id: String? = null,
     @SerializedName("IsDoubleCheckConfirmed__c") var IsDoubleCheckConfirmed_c: Boolean? = null,
     @SerializedName("Pincode") var Pincode: String? = null,
     @SerializedName("IsLastCompletedJob") var IsLastCompletedJob: Boolean? = null,
