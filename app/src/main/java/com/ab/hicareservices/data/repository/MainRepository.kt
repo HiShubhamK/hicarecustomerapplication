@@ -24,5 +24,5 @@ class MainRepository {
     fun lead(serviceType: String) = retrofitService.getLead(serviceType)
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
     fun getComplainceData(ServiceCenter_Id:String,SlotDate:String,TaskId:String,Lat:String,Long:String,ServiceType:String) = retrofitService.getComplainceData(ServiceCenter_Id,SlotDate,TaskId, Lat, Long, ServiceType)
-
+    fun posttakelead(data: HashMap<String, Any>) = retrofitService.postLead(data)
 }

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.data.api
 
+import com.ab.hicareservices.data.model.LeadResponse
 import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
@@ -110,5 +111,8 @@ interface IRetrofit {
         @Query("Long") Long: String,
         @Query("ServiceType") ServiceType: String
     ): Call<GetComplaiceResponce>
+
+    @POST("Lead/AddLeadAsync")
+    fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
 
 }

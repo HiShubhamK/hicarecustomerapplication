@@ -65,6 +65,10 @@ import com.ab.hicareservices.utils.AppUtils2
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -191,15 +195,26 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     private fun showLeadDialog() {
         var selectedLocation = ""
+        var dateTime=""
         val li = LayoutInflater.from(this)
         val promptsView = li.inflate(R.layout.layout_lead, null)
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
 //        val today: DateTime = DateTime().withTimeAtStartOfDay()
+        val edtname = promptsView.findViewById<View>(R.id.edtname) as EditText
+        val edtmobile = promptsView.findViewById<View>(R.id.edtmobile) as EditText
+        val edtpincode = promptsView.findViewById<View>(R.id.edtpincode) as EditText
         val spinner = promptsView.findViewById<View>(R.id.spinner_lead) as AppCompatSpinner
         val lnrcall = promptsView.findViewById<View>(R.id.getcall) as LinearLayoutCompat
-//        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
+        val btnSubmit = promptsView.findViewById<View>(R.id.btnlead) as Button
+
+        viewModel.validateAccount("9967994682")
+
+        val calendar = Calendar.getInstance()
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss aaa z")
+        dateTime = simpleDateFormat.format(calendar.time).toString()
+
 
         lnrcall.setOnClickListener {
             makePhoneCall()
@@ -241,6 +256,75 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+
+        btnSubmit.setOnClickListener {
+
+            Toast.makeText(this,selectedLocation.toString(),Toast.LENGTH_LONG).show()
+
+            if(edtname.text.toString().equals("")){
+                edtname.setError("Enter name")
+            }else if(edtmobile.text.toString().equals("")){
+                edtmobile.setError("Enter mobile number")
+            }else if(edtmobile.text.toString().length<10){
+                edtmobile.setError("Enter correct mobile number")
+            } else if(edtpincode.text.toString().equals("") ){
+                edtpincode.setError("Enter pincode")
+            }else if(edtpincode.text.toString().length<6){
+                edtpincode.setError("Enter correct pincode")
+            }else {
+                var data = HashMap<String, Any>()
+                data["LMSId"] =""
+                data["SFDCId"] =""
+                data["CallCenterId"] =""
+                data["ServiceType"] =selectedLocation.toString()
+                data["Batch_Name"] =""
+                data["Original_Batch_Name"] =""
+                data["Created_On"] =""
+                data["LeadType"] =""
+                data["Salutation"] =""
+                data["FirstName"] = edtname.text.toString()
+                data["LastName"] ="."
+                data["Mobile"] =edtmobile.text.toString()
+                data["AltMobile"] =""
+                data["Email"] =""
+                data["Company"] =""
+                data["EmployeeCount"] = 0
+                data["Service"] =selectedLocation
+                data["ServiceCategory"] =""
+                data["ServiceSubCategory"] =""
+                data["FlatNo"] =""
+                data["Building"] =""
+                data["Street"] =""
+                data["Locality"] =""
+                data["Landmark"] =""
+                data["City"] =""
+                data["State"] =""
+                data["Pincode"] =edtpincode.text.toString()
+                data["Lat"] =""
+                data["Long"] =""
+                data["Priority"] = 0
+                data["Agency"] =""
+                data["Utm_Campaign"] ="Mobile app"
+                data["Utm_Source"] ="Mobile app"
+                data["Utm_Sub_Source"] ="Mobile app"
+                data["BHK"] =""
+                data["Status"] =""
+                data["Service_Value"] =""
+                data["PaymentMode"] =""
+                data["Lead_Source"] ="Mobile app"
+                data["Lead_Sub_Source"] ="Mobile app"
+                data["Remark"] =""
+                data["Gclid"] =""
+                data["Utm_Medium"] ="Mobile app"
+                data["Utm_Content"] ="Mobile app"
+                data["Utm_Term"] ="Mobile app"
+                data["Campaign_Url"] =""
+                viewModels.postleaderdata(data)
+            }
+
+        }
+
+
         alertDialog.show()
     }
 
@@ -357,5 +441,4 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         this.paymentListener = paymentListener
     }
 }
-
 
