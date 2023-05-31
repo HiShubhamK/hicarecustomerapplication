@@ -10,22 +10,27 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ComplaintsViewModel : ViewModel(){
+class ComplaintsViewModel : ViewModel() {
     val repository = MainRepository()
 
     val complaintList = MutableLiveData<List<ComplaintsData>>()
+    val attachments = MutableLiveData<List<String>>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getAllComplaints( mobileNo: String) {
+    fun getAllComplaints(mobileNo: String) {
 
         val response = repository.getAllComplaints(mobileNo)
         response.enqueue(object : Callback<ComplaintResponse> {
 
-            override fun onResponse(call: Call<ComplaintResponse>, response: Response<ComplaintResponse>) {
-                if(response.isSuccessful){
-                        complaintList.postValue(response.body()?.data)
+            override fun onResponse(
+                call: Call<ComplaintResponse>,
+                response: Response<ComplaintResponse>
+            ) {
+                if (response.isSuccessful) {
+                    complaintList.postValue(response.body()?.data)
+                    attachments.postValue(response.body()?.Attachments)
 
-                }else {
+                } else {
                     Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
                 }
             }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -39,10 +40,10 @@ class ComplaintsActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-
+        binding.progressBar.visibility= View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints()
-        }, 1500)
+        }, 1000)
 
     }
 
@@ -53,20 +54,21 @@ class ComplaintsActivity : AppCompatActivity() {
 
         viewModel.complaintList.observe(this, Observer {
             Log.d(TAG, "onViewCreated: $it")
-            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-            mAdapter.setComplaintsList(it)
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+//            mAdapter.setComplaintsList(it, imageList)
 
         })
 
         viewModel.errorMessage.observe(this, Observer {
-            Toast.makeText(applicationContext,"Akshay Failed badly",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"Something went wrong!",Toast.LENGTH_SHORT).show()
 
         })
 
         binding.recyclerView.adapter = mAdapter
 
         viewModel.getAllComplaints("9967994682")
+        binding.progressBar.visibility= View.GONE
 
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }

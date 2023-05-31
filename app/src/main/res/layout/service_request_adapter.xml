@@ -145,12 +145,14 @@
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
+                            android:id="@+id/lnrRecheduleButton"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="horizontal"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:weightSum="2">
 
                             <LinearLayout
@@ -199,7 +201,7 @@
 
                             </LinearLayout>
 
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 

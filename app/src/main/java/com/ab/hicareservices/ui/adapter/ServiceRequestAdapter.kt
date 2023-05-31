@@ -30,18 +30,18 @@ class ServiceRequestAdapter : RecyclerView.Adapter<ServiceRequestAdapter.MainVie
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val service = service[position]
-        holder.binding.txtStatus.text = service.status__c
+        holder.binding.txtStatus.text = service.Status_c
 //        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")
-        holder.binding.txtserviceno.text= service.sequence_No__c.replace(".0","")
-        holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(0,2)
-        holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(3)
-        if (service.enable_Reschedule_Option){
-            holder.binding.btnReschedule.visibility = View.VISIBLE
+        holder.binding.txtserviceno.text= service.SequenceNo_c.toString().replace(".0","")
+        holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(0,2)
+        holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(3)
+        if (service.EnableRescheduleOption==true){
+            holder.binding.lnrRecheduleButton.visibility = View.VISIBLE
         }else{
-            holder.binding.btnReschedule.visibility = View.GONE
+            holder.binding.lnrRecheduleButton.visibility = View.GONE
         }
         holder.binding.btnReschedule.setOnClickListener {
-            mOnServiceRequestClickHandler?.onRescheduleServiceClicked(position)
+            mOnServiceRequestClickHandler?.onRescheduleServiceClicked(position,service)
         }
 
         holder.binding.btnView.setOnClickListener {

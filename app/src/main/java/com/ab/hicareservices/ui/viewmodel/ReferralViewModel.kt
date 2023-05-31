@@ -20,7 +20,7 @@ class ReferralViewModel : ViewModel() {
         response.enqueue(object : Callback<ReferralResponse> {
             override fun onResponse(call: Call<ReferralResponse>, response: Response<ReferralResponse>) {
                 referralResponse.postValue(response.body())
-                Log.d("TAG", "Response " + response.body()?.data.toString())
+                Log.d("TAG", "Response " + response.body()?.Data.toString())
             }
 
             override fun onFailure(call: Call<ReferralResponse>, t: Throwable) {

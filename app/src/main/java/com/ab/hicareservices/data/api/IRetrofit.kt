@@ -1,17 +1,20 @@
 package com.ab.hicareservices.data.api
 
 import com.ab.hicareservices.data.model.NotificationToken
-import com.ab.hicareservices.data.model.complaints.ComplaintResponse
-import com.ab.hicareservices.data.model.orders.OrdersResponse
-import com.ab.hicareservices.data.model.otp.OtpResponse
-import com.ab.hicareservices.data.model.service.ServiceResponse
+import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
+import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.leadResopnse
+import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
+import com.ab.hicareservices.data.model.orders.OrdersResponse
+import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
+import com.ab.hicareservices.data.model.service.ServiceResponse
+import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -59,7 +62,7 @@ interface IRetrofit {
 
     @POST("Complaint/CreateComplaint")
     fun createComplaintResponse(
-        @Body request: HashMap<String, String>,
+        @Body request: HashMap<String, Any>,
     ): Call<CreateComplaint>
 
     @GET("Account/GetAccountReferralCode")
@@ -91,5 +94,21 @@ interface IRetrofit {
     fun getLead(
         @Query("serviceType") serviceType: String,
     ): Call<leadResopnse>
+
+    @POST("Attachment/UploadAttachment")
+    fun UploadAttachment(@Body data: HashMap<String, Any>): Call<AttachmentResponse>
+
+    @POST("Slot/GetSlot")
+    fun GetSlot(@Body data: HashMap<String, Any>): Call<GetSlots>
+
+    @GET("Slot/GetSlotCompliance")
+    fun getComplainceData(
+        @Query("ServiceCenter_Id") ServiceCenterId: String,
+        @Query("SlotDate") SlotDate: String,
+        @Query("TaskId") TaskId: String,
+        @Query("Lat") Lat: String,
+        @Query("Long") Long: String,
+        @Query("ServiceType") ServiceType: String
+    ): Call<GetComplaiceResponce>
 
 }

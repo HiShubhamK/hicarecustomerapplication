@@ -4,7 +4,9 @@ import android.app.Activity
 import android.widget.Toast
 import com.razorpay.Checkout
 import org.json.JSONObject
+import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
 object AppUtils2 {
 
@@ -62,6 +64,18 @@ object AppUtils2 {
         val simpleDateFormatOut = SimpleDateFormat("dd-MM-yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
+    }
+    fun getCurrentTimeStamp(): String? {
+        var s = ""
+        try {
+            val dateFormatter: DateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+            dateFormatter.isLenient = false
+            val today = Date()
+            s = dateFormatter.format(today)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return s
     }
 
 }

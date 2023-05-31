@@ -20,8 +20,8 @@ class ServiceViewModel : ViewModel(){
         val response = repository.getServiceRequest(orderNo, type)
         response.enqueue(object : Callback<ServiceResponse> {
             override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
-                serviceList.postValue(response.body()?.data)
-                Log.d("TAG", "Response "+ response.body()?.data.toString())
+                serviceList.postValue(response.body()?.Data)
+                Log.d("TAG", "Response "+ response.body()?.Data.toString())
             }
 
             override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
