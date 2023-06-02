@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera.any" android:required="true" />
 
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +24,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.view.activities.LoginActivity"
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".ui.view.activities.PaymentActivity"
             android:exported="true">
@@ -49,8 +58,7 @@
 
         <activity
             android:name=".ui.view.activities.HelpActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ui.view.activities.ReferralActivity"
             android:exported="true"
@@ -83,10 +91,10 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.view.activities.LoginActivity"
+            android:name=".ui.view.activities.SplashActivity"
             android:exported="true"
-            android:launchMode="singleTask"
             android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="LockedOrientationActivity">
@@ -96,8 +104,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.activities.CameraActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".ui.view.activities.CameraActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -118,12 +127,12 @@
             android:theme="@style/CheckoutTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <data
                     android:host="rzp.io"
                     android:scheme="io.rzp" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

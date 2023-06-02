@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 //
     private fun checkUserStatus(){
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        AppUtils2.TOKEN = SharedPreferenceUtil.getData(this, "bToken", "").toString()
+//        AppUtils2.TOKEN = SharedPreferenceUtil.getData(this, "bToken", "").toString()
         if (mobileNo != "-1"){
             val i = Intent(this, HomeActivity::class.java)
             //i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

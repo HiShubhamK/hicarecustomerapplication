@@ -210,9 +210,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val lnrcall = promptsView.findViewById<View>(R.id.getcall) as LinearLayoutCompat
         val btnSubmit = promptsView.findViewById<View>(R.id.btnlead) as Button
         val email = promptsView.findViewById<View>(R.id.textemail) as TextView
+       val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
+
+        imgcancels.setOnClickListener {  alertDialog.cancel() }
 
         email.setOnClickListener {
-
 
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.type = "message/rfc822"
@@ -221,21 +223,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             intent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
 
             startActivity(Intent.createChooser(intent, "Email via..."))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //            val i = Intent(Intent.ACTION_SEND)
@@ -407,7 +394,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Utm_Term"] ="Mobile app"
                 data["Campaign_Url"] =""
                 viewModels.postleaderdata(data)
-                alertDialog.show()
+                alertDialog.cancel()
             }
 
         }

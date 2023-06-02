@@ -64,7 +64,7 @@ class OtpViewModel : ViewModel(){
             override fun onResponse(call: Call<NotificationToken?>, response: Response<NotificationToken>?) {
                 if (response != null) {
                    val body = response.body()?.Data.toString()
-                    AppUtils2.TOKEN = response.body()?.Data.toString()
+//                    AppUtils2.TOKEN = response.body()?.Data.toString()
                     validateAccountListener?.onSuccess(body)
                 }
             }

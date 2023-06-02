@@ -85,6 +85,7 @@ class OrdersFragment() : Fragment() {
 //            getOrdersList()
         }, 1000)
 
+        binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
 
         binding.txtactive.setOnClickListener{
             binding.progressBar.visibility = View.VISIBLE
