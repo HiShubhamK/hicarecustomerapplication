@@ -2,6 +2,7 @@ package com.ab.hicareservices.data.api
 
 import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
+import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
@@ -96,6 +97,8 @@ interface IRetrofit {
     fun GetSlot(@Body data: HashMap<String, Any>): Call<GetSlots>
     @POST("Slot/GetSlotCompliance")
     fun getComplainceData(@Body data: HashMap<String, Any>): Call<GetComplaiceResponce>
+   @POST("Slot/BookSlot")
+    fun BookSlot(@Body data: HashMap<String, Any>): Call<BookSlotResponce>
 
 //    @POST("Slot/GetSlotCompliance")
 //    fun getComplainceData(

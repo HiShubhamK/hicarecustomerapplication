@@ -7,24 +7,42 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.slotcomplaincemodel.Data
 import com.ab.hicareservices.databinding.LayoutComplainceAdapterBinding
-import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
-import com.ab.hicareservices.ui.view.fragments.SlotComplinceFragment
+import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.utils.AppUtils2
 
 class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewHolder>() {
 
     var complincelist = mutableListOf<Data>()
-    private var onOrderClickedHandler: OnOrderClickedHandler? = null
+    private var onSlotclick: onSlotclick? = null
     lateinit var requireActivity: FragmentActivity
-
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unitt = ""
+    private var Lat = ""
+    private var Long = ""
+    private var ServiceType = ""
     @SuppressLint("NotifyDataSetChanged")
-    fun serComplainceList(complincelist: List<Data>, requireActivity: FragmentActivity) {
+    fun serComplainceList(
+        complincelist: List<Data>,
+        requireActivity: FragmentActivity,
+        Pincode: String,
+        Service_Code: String,
+        Unit: String,
+        Lat: String,
+        Long: String,
+        ServiceType: String
+    ) {
         if (complincelist != null) {
             this.complincelist = complincelist.toMutableList()
             this.requireActivity = requireActivity
+            this.Pincode=Pincode
+            this.Service_Code=Service_Code
+            this.Unitt=Unit
+            this.Lat=Lat
+            this.Long=Long
+            this.ServiceType=ServiceType
         }
         notifyDataSetChanged()
     }
@@ -61,25 +79,29 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
 
         }
         holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
-        holder.binding.crdMain.setOnClickListener {
-
-//            requireActivity.supportFragmentManager.beginTransaction()
-//                .replace(
-//                    R.id.container,
-//                    SlotComplinceFragment.newInstance(
-//                        ServiceCenterId,
-//                        getCurrentDate(),
-//                        service.ParentTaskId.toString(),
-//                        service.Parent_Task_Skill_Id.toString(),
-//                        locationLatitudeS,
-//                        locationLongitudeS,
-//                        serviceType
-//                    )
-//                ).addToBackStack("SlotComplinceFragment").commit()
-//
-
-
+        holder.itemView.setOnClickListener {
+          onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,AppUtils2.formatDateTime4(complincelist.ScheduledDate.toString()),
+              "",Unitt,Lat,Long,ServiceType,complincelist.ScheduledDate.toString())
         }
+//        holder.binding.crdMain.setOnClickListener {
+//
+////            requireActivity.supportFragmentManager.beginTransaction()
+////                .replace(
+////                    R.id.container,
+////                    SlotComplinceFragment.newInstance(
+////                        ServiceCenterId,
+////                        getCurrentDate(),
+////                        service.ParentTaskId.toString(),
+////                        service.Parent_Task_Skill_Id.toString(),
+////                        locationLatitudeS,
+////                        locationLongitudeS,
+////                        serviceType
+////                    )
+////                ).addToBackStack("SlotComplinceFragment").commit()
+////
+//
+//
+//        }
         //        else if(complincelist.status__c.equals("Short Close")){
 //
 //            holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FB8C00"))
@@ -120,8 +142,8 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
         return complincelist.size
     }
 
-    fun setOnOrderItemClicked(l: OnOrderClickedHandler) {
-        onOrderClickedHandler = l
+    fun onSlotclick(l: onSlotclick) {
+        onSlotclick = l
     }
 
     class MainViewHolder(val binding: LayoutComplainceAdapterBinding) :

@@ -1,6 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.content.Intent
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,18 +8,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CalendarView.OnDateChangeListener
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.FragmentComplainceBinding
 import com.ab.hicareservices.ui.adapter.SlotCompliceAdapater
-import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
-import com.ab.hicareservices.ui.view.activities.PaymentActivity
+import com.ab.hicareservices.ui.adapter.SlotsAdapter
+import com.ab.hicareservices.ui.handler.onSlotSelection
+import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -39,9 +46,17 @@ class SlotComplinceFragment() : Fragment() {
     private var Lat = ""
     private var Long = ""
     private var ServiceType = ""
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unit = ""
+    private var AppointmentDate = ""
+    private var AppointmentStart = ""
+    private var AppointmentEnd = ""
+    private var Source = ""
     var service = mutableListOf<ServiceData>()
     private val viewModels: OtpViewModel by viewModels()
-
+    lateinit var mSlotAdapter: SlotsAdapter
+    lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +69,9 @@ class SlotComplinceFragment() : Fragment() {
             Lat = it.getString("Lat").toString()
             Long = it.getString("Long").toString()
             ServiceType = it.getString("ServiceType").toString()
+            Pincode = it.getString("Pincode").toString()
+            Service_Code = it.getString("Service_Code").toString()
+            Unit = it.getString("Unit").toString()
 
         }
     }
@@ -79,7 +97,10 @@ class SlotComplinceFragment() : Fragment() {
             SkillId: String,
             latitude: String,
             longitude: String,
-            serviceType: String
+            serviceType: String,
+            pincode: String?,
+            spcode: String?,
+            serviceUnit: String?
         ) =
             SlotComplinceFragment().apply {
                 arguments = Bundle().apply {
@@ -90,6 +111,12 @@ class SlotComplinceFragment() : Fragment() {
                     this.putString("Lat", latitude)
                     this.putString("Long", longitude)
                     this.putString("ServiceType", serviceType)
+
+                    this.putString("Pincode", pincode)
+                    this.putString("Service_Code", spcode)
+                    this.putString("Service_Date", "")
+                    this.putString("Service_Subscription", "")
+                    this.putString("Unit", serviceUnit)
                 }
             }
     }
@@ -105,7 +132,7 @@ class SlotComplinceFragment() : Fragment() {
 
 //        getOrdersList2()
         binding.calendarView.setOnDateChangeListener(OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
-            val date = "$year/$month/$dayOfMonth"
+            val date = "$year-$month-$dayOfMonth"
             Log.e(TAG, "onSelectedDayChange: yyyy/mm/dd:$date")
 //            val intent = Intent(this@CalendarActivity, MainActivity::class.java)
 //            intent.putExtra("date", date)
@@ -177,7 +204,16 @@ class SlotComplinceFragment() : Fragment() {
 
         viewModel.getcomplainceresponse.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            mAdapter.serComplainceList(it, requireActivity())
+            mAdapter.serComplainceList(
+                it,
+                requireActivity(),
+                Pincode,
+                Service_Code,
+                Unit,
+                Lat,
+                Long,
+                ServiceType
+            )
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
 
@@ -193,57 +229,40 @@ class SlotComplinceFragment() : Fragment() {
             data["ServiceType"] = ServiceType
             viewModel.getComplainceData(data)
         }, 1000)
-        mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
-            override fun onOrderItemClicked(
+
+
+        mAdapter.onSlotclick(object : onSlotclick {
+            override fun onSlotItemclicked(
                 position: Int,
-                orderNo: String,
-                serviceType: String,
-                service_url_image: String,
-                locationLatitudeS: Double?,
-                locationLongitudeS: Double?,
-                ServiceCenterId: String,
+                Pincode: String,
+                Service_Code: String,
+                Service_Date: String,
+                Service_Subscription: String?,
+                unit: String?,
+                Lat: String,
+                Long: String,
+                ServiceType: String,
+                toString: String
             ) {
-//                {
-//                    "Pincode": "string",
-//                    "Service_Code": "string",
-//                    "Service_Date": "2023-05-31T12:37:17.019Z",
-//                    "Service_Subscription": "string",
-//                    "Unit": "string",
-//                    "Lat": "string",
-//                    "Long": "string",
-//                    "ServiceType": "string"
-//                }
                 var data = HashMap<String, Any>()
-                data["Pincode"] = ServiceCenter_Id
-                data["Service_Code"] = date
-                data["Service_Date"] = TaskId
-                data["Service_Subscription"] = SkillId
-                data["Unit"] = Lat
-                data["Lat"] = Long
+                data["Pincode"] = Pincode
+                data["Service_Code"] = Service_Code
+                data["Service_Date"] = Service_Date
+                data["Service_Subscription"] = ""
+                data["Unit"] = unit.toString()
+                data["Lat"] = Lat
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
                 viewModel.GetSlots(data)
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(
-//                        R.id.container, SlotComplinceFragment.newInstance(orderNo, serviceType,
-//                        service_url_image,locationLatitudeS,locationLongitudeS,ServiceCenterId
-//                    )).addToBackStack("OrdersFragment").commit();
+                viewModel.getSlotresponse.observe(requireActivity(), Observer {
+                    Log.d(TAG, "onViewCreated: $it orders fragment")
+                    ShowBookingDialog(it)
+
+                })
+
             }
 
-            override fun onOrderPaynowClicked(
-                position: Int,
-                orderNumberC: String,
-                customerIdC: String,
-                servicePlanNameC: String,
-                orderValueWithTaxC: Double
-            ) {
-//                val intent = Intent(requireContext(), PaymentActivity::class.java)
-//                intent.putExtra("ORDER_NO", orderNumberC)
-//                intent.putExtra("ACCOUNT_NO", customerIdC)
-//                intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
-//                intent.putExtra("PAYMENT", orderValueWithTaxC)
-//                activityResultLauncher.launch(intent)
-            }
+
         })
 
 
@@ -256,10 +275,81 @@ class SlotComplinceFragment() : Fragment() {
         })
         Log.e(
             "TAG",
-            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", "+ SkillId + Lat + ", " + Long + ", " + ServiceType
+            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType
         )
 
     }
+
+    private fun ShowBookingDialog(slotData: Data) {
+        val li = LayoutInflater.from(activity)
+        val promptsView = li.inflate(R.layout.reschedule_layout, null)
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+        alertDialogBuilder.setView(promptsView)
+        alertDialog = alertDialogBuilder.create()
+        alertDialog.setCancelable(false)
+        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
+        val recycleWeeks: RecyclerView =
+            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
+        val recycleSlots: RecyclerView =
+            promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
+        recycleWeeks.setHasFixedSize(true)
+        var layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recycleWeeks.layoutManager = layoutManager
+        recycleSlots.setHasFixedSize(true)
+        layoutManager = LinearLayoutManager(activity)
+        recycleSlots.layoutManager = layoutManager
+        btnSubmit.visibility = View.GONE
+
+        mSlotAdapter = SlotsAdapter(requireActivity(), slotData.TimeSlots, TaskId)
+        recycleSlots.adapter = mSlotAdapter
+        alertDialog.show()
+        btnSubmit.setOnClickListener {
+
+            var data = HashMap<String, Any>()
+            data["TaskId"] = TaskId
+            data["AppointmentDate"] = AppointmentDate
+            data["AppointmentStart"] = AppointmentStart
+            data["AppointmentEnd"] =AppointmentEnd
+            data["Source"] = Source
+            data["ServiceType"] = ServiceType
+            viewModel.BookSlot(data)
+
+            viewModel.bookSlotResponce.observe(requireActivity(), Observer {
+                Log.d(TAG, "onViewCreated: $it orders fragment")
+//                ShowBookingDialog(it)
+                if (it.IsSuccess) {
+                    Toast.makeText(requireContext(), "" + it.ResponseMessage, Toast.LENGTH_SHORT)
+                        .show()
+                    alertDialog.dismiss()
+                }
+
+            })
+        }
+
+        mSlotAdapter.setOnSlotSelection(object : onSlotSelection {
+//
+
+            override fun onSlotBookSelect(
+                position: Int,
+                taskid: String,
+                appointmentDate: String,
+                appointmentStart: String,
+                appointmentEnd: String?,
+                source: String?,
+                serviceType: String
+            ) {
+                TaskId=taskid
+                AppointmentDate=appointmentDate
+                AppointmentStart=appointmentStart
+                AppointmentEnd=appointmentEnd!!
+                Source=source!!
+
+            }
+
+
+        })
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

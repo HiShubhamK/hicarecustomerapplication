@@ -89,7 +89,12 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
         Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
         holder.itemView.setOnClickListener {
-            onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r!!.location__Latitude__s,orders.account_Name__r!!.location__Longitude__s,orders.hR_Shipping_Region__r!!.id.toString())
+            try {
+                onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r!!.location__Latitude__s,orders.account_Name__r!!.location__Longitude__s,orders.hR_Shipping_Region__r!!.id.toString())
+
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
     }
 

@@ -10,22 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.service.ServiceData
-import com.ab.hicareservices.data.model.weeks.WeekModel
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnRescheduleClickHandler
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
@@ -33,19 +27,14 @@ import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
-import com.ab.hicareservices.utils.AppUtils
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.squareup.picasso.Picasso
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.roundToInt
 
@@ -361,7 +350,11 @@ class OrderDetailsFragment : Fragment() {
                                 service.Parent_Task_Skill_Id.toString(),
                                 locationLatitudeS,
                                 locationLongitudeS,
-                                serviceType
+                                serviceType,
+                                service.Pincode,
+                                service.SPCode,
+                                service.ServiceUnit
+
                             )
                         ).addToBackStack("SlotComplinceFragment").commit()
 
@@ -387,105 +380,105 @@ class OrderDetailsFragment : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         return sdf.format(Date())
     }
-
-    private fun showRescheduleDialog() {
-        val li = LayoutInflater.from(activity)
-        val promptsView = li.inflate(R.layout.reschedule_layout, null)
-        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-        alertDialogBuilder.setView(promptsView)
-        val alertDialog: AlertDialog = alertDialogBuilder.create()
-        val weekList: ArrayList<WeekModel> = ArrayList<WeekModel>()
-        val today: DateTime = DateTime().withTimeAtStartOfDay()
-        val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
-        val txtSlots = promptsView.findViewById<View>(R.id.txtNoSlots) as TextView
-        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
-        val recycleWeeks: RecyclerView =
-            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
-        val recycleSlots: RecyclerView =
-            promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
-        recycleWeeks.setHasFixedSize(true)
-        var layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        recycleWeeks.layoutManager = layoutManager
-        recycleSlots.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(activity)
-        recycleSlots.layoutManager = layoutManager
-        btnSubmit.visibility = View.GONE
-        for (i in 2..8) {
-            val weekModel = WeekModel()
-            weekModel.setDateTime(today.plusDays(i).withTimeAtStartOfDay())
-            weekModel.setDate(today.plusDays(i).dayOfMonth.toString())
-            weekModel.setDays(AppUtils.getDays(today.plusDays(i).dayOfWeek))
-            weekList.add(weekModel)
-        }
-        mWeeksAdapter = WeeksAdapter(weekList, today, txtMonth)
-        recycleWeeks.adapter = mWeeksAdapter
-        mWeeksAdapter.setOnRescheduleClickHandler(object : OnRescheduleClickHandler {
-            override fun onDateSelected(position: Int) {
-                weekList[position].getDateTime()
-                val strDateTime: String = weekList[position].getDateTime().toString()
-                val dateTime: DateTime = DateTime.parse(strDateTime)
-                val fmt: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
-                date = fmt.print(dateTime)
-//                getAvailableSlots(btnSubmit, txtSlots)
-            }
-
-            override fun onSlotSelected(position: Int) {
-            }
-
-        })
-        mSlotAdapter = SlotsAdapter(requireActivity())
-        recycleSlots.adapter = mSlotAdapter
-        alertDialog.show()
-    }
-    private fun ShowBookingDialog(service: ServiceData) {
-        val li = LayoutInflater.from(activity)
-        val promptsView = li.inflate(R.layout.reschedule_layout, null)
-        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-        alertDialogBuilder.setView(promptsView)
-        val alertDialog: AlertDialog = alertDialogBuilder.create()
-        val weekList: ArrayList<WeekModel> = ArrayList<WeekModel>()
-        val today: DateTime = DateTime().withTimeAtStartOfDay()
-        val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
-        val txtSlots = promptsView.findViewById<View>(R.id.txtNoSlots) as TextView
-        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
-        val recycleWeeks: RecyclerView =
-            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
-        val recycleSlots: RecyclerView =
-            promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
-        recycleWeeks.setHasFixedSize(true)
-        var layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        recycleWeeks.layoutManager = layoutManager
-        recycleSlots.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(activity)
-        recycleSlots.layoutManager = layoutManager
-        btnSubmit.visibility = View.GONE
-        for (i in 2..8) {
-            val weekModel = WeekModel()
-            weekModel.setDateTime(today.plusDays(i).withTimeAtStartOfDay())
-            weekModel.setDate(today.plusDays(i).dayOfMonth.toString())
-            weekModel.setDays(AppUtils.getDays(today.plusDays(i).dayOfWeek))
-            weekList.add(weekModel)
-        }
-        mWeeksAdapter = WeeksAdapter(weekList, today, txtMonth)
-        recycleWeeks.adapter = mWeeksAdapter
-        mWeeksAdapter.setOnRescheduleClickHandler(object : OnRescheduleClickHandler {
-            override fun onDateSelected(position: Int) {
-                weekList[position].getDateTime()
-                val strDateTime: String = weekList[position].getDateTime().toString()
-                val dateTime: DateTime = DateTime.parse(strDateTime)
-                val fmt: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
-                date = fmt.print(dateTime)
-//                getAvailableSlots(btnSubmit, txtSlots)
-            }
-
-            override fun onSlotSelected(position: Int) {
-            }
-
-        })
-        mSlotAdapter = SlotsAdapter(requireActivity())
-        recycleSlots.adapter = mSlotAdapter
-        alertDialog.show()
-    }
+//
+//    private fun showRescheduleDialog() {
+//        val li = LayoutInflater.from(activity)
+//        val promptsView = li.inflate(R.layout.reschedule_layout, null)
+//        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+//        alertDialogBuilder.setView(promptsView)
+//        val alertDialog: AlertDialog = alertDialogBuilder.create()
+//        val weekList: ArrayList<WeekModel> = ArrayList<WeekModel>()
+//        val today: DateTime = DateTime().withTimeAtStartOfDay()
+//        val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
+//        val txtSlots = promptsView.findViewById<View>(R.id.txtNoSlots) as TextView
+//        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
+//        val recycleWeeks: RecyclerView =
+//            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
+//        val recycleSlots: RecyclerView =
+//            promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
+//        recycleWeeks.setHasFixedSize(true)
+//        var layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//        recycleWeeks.layoutManager = layoutManager
+//        recycleSlots.setHasFixedSize(true)
+//        layoutManager = LinearLayoutManager(activity)
+//        recycleSlots.layoutManager = layoutManager
+//        btnSubmit.visibility = View.GONE
+//        for (i in 2..8) {
+//            val weekModel = WeekModel()
+//            weekModel.setDateTime(today.plusDays(i).withTimeAtStartOfDay())
+//            weekModel.setDate(today.plusDays(i).dayOfMonth.toString())
+//            weekModel.setDays(AppUtils.getDays(today.plusDays(i).dayOfWeek))
+//            weekList.add(weekModel)
+//        }
+//        mWeeksAdapter = WeeksAdapter(weekList, today, txtMonth)
+//        recycleWeeks.adapter = mWeeksAdapter
+//        mWeeksAdapter.setOnRescheduleClickHandler(object : OnRescheduleClickHandler {
+//            override fun onDateSelected(position: Int) {
+//                weekList[position].getDateTime()
+//                val strDateTime: String = weekList[position].getDateTime().toString()
+//                val dateTime: DateTime = DateTime.parse(strDateTime)
+//                val fmt: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+//                date = fmt.print(dateTime)
+////                getAvailableSlots(btnSubmit, txtSlots)
+//            }
+//
+//            override fun onSlotSelected(position: Int) {
+//            }
+//
+//        })
+//        mSlotAdapter = SlotsAdapter(requireActivity())
+//        recycleSlots.adapter = mSlotAdapter
+//        alertDialog.show()
+//    }
+//    private fun ShowBookingDialog(service: ServiceData) {
+//        val li = LayoutInflater.from(activity)
+//        val promptsView = li.inflate(R.layout.reschedule_layout, null)
+//        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+//        alertDialogBuilder.setView(promptsView)
+//        val alertDialog: AlertDialog = alertDialogBuilder.create()
+//        val weekList: ArrayList<WeekModel> = ArrayList<WeekModel>()
+//        val today: DateTime = DateTime().withTimeAtStartOfDay()
+//        val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
+//        val txtSlots = promptsView.findViewById<View>(R.id.txtNoSlots) as TextView
+//        val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
+//        val recycleWeeks: RecyclerView =
+//            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
+//        val recycleSlots: RecyclerView =
+//            promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
+//        recycleWeeks.setHasFixedSize(true)
+//        var layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//        recycleWeeks.layoutManager = layoutManager
+//        recycleSlots.setHasFixedSize(true)
+//        layoutManager = LinearLayoutManager(activity)
+//        recycleSlots.layoutManager = layoutManager
+//        btnSubmit.visibility = View.GONE
+//        for (i in 2..8) {
+//            val weekModel = WeekModel()
+//            weekModel.setDateTime(today.plusDays(i).withTimeAtStartOfDay())
+//            weekModel.setDate(today.plusDays(i).dayOfMonth.toString())
+//            weekModel.setDays(AppUtils.getDays(today.plusDays(i).dayOfWeek))
+//            weekList.add(weekModel)
+//        }
+//        mWeeksAdapter = WeeksAdapter(weekList, today, txtMonth)
+//        recycleWeeks.adapter = mWeeksAdapter
+//        mWeeksAdapter.setOnRescheduleClickHandler(object : OnRescheduleClickHandler {
+//            override fun onDateSelected(position: Int) {
+//                weekList[position].getDateTime()
+//                val strDateTime: String = weekList[position].getDateTime().toString()
+//                val dateTime: DateTime = DateTime.parse(strDateTime)
+//                val fmt: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+//                date = fmt.print(dateTime)
+////                getAvailableSlots(btnSubmit, txtSlots)
+//            }
+//
+//            override fun onSlotSelected(position: Int) {
+//            }
+//
+//        })
+//        mSlotAdapter = SlotsAdapter(requireActivity())
+//        recycleSlots.adapter = mSlotAdapter
+//        alertDialog.show()
+//    }
 
     private fun prepareOption(notes: JSONObject, description: String, amount: String): JSONObject {
         val options = JSONObject()

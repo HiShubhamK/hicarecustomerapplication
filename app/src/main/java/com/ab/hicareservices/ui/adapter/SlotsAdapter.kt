@@ -7,16 +7,29 @@ import com.ab.hicareservices.ui.handler.OnListItemClickHandler
 import android.app.Activity
 import android.view.ViewGroup
 import android.view.LayoutInflater
+import androidx.lifecycle.MutableLiveData
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.slots.TimeSlot
 import com.ab.hicareservices.databinding.SlotsAdapterBinding
+import com.ab.hicareservices.ui.handler.onSlotSelection
+import com.ab.hicareservices.ui.handler.onSlotclick
+import com.ab.hicareservices.utils.AppUtils2
 
-class SlotsAdapter(activity: FragmentActivity) : RecyclerView.Adapter<SlotsAdapter.ViewHolder>() {
+class SlotsAdapter(
+    activity: FragmentActivity,
+    slotData: ArrayList<com.ab.hicareservices.data.model.getslots.TimeSlot>,
+    TaskId: String
+) : RecyclerView.Adapter<SlotsAdapter.ViewHolder>() {
     private val onItemClickHandler: OnListItemClickHandler? = null
 
-    //    private List<SlotResponse> items = null;
+    val getSlotresponse = slotData
+    private var onSlotSelection: onSlotSelection? = null
+
+    //        private List<SlotResponse> items = null;
     private val context: Activity
     private var lastSelectedPosition = 0
+    val taskid=TaskId
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = SlotsAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -24,8 +37,9 @@ class SlotsAdapter(activity: FragmentActivity) : RecyclerView.Adapter<SlotsAdapt
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        String slots = items.get(position).getStartTime() + " to " + items.get(position).getFinishTime();
-//        holder.mSlotsAdapterBinding.txtSlots.setText(slots);
+        val slotlist=getSlotresponse
+
+        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
         if (position == lastSelectedPosition) {
             holder.binding.radioSlots.isChecked = true
             holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
@@ -38,15 +52,22 @@ class SlotsAdapter(activity: FragmentActivity) : RecyclerView.Adapter<SlotsAdapt
         holder.binding.relSlot.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
+//            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
+
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
+            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
+
         }
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return getSlotresponse.size
+    }
+    fun setOnSlotSelection(l: onSlotSelection) {
+        onSlotSelection = l
     }
 
     fun setData(data: List<TimeSlot?>?) {
