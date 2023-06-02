@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.adapter
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     var orders = mutableListOf<OrdersData>()
     private var onOrderClickedHandler: OnOrderClickedHandler? = null
-    lateinit var requireActivity:FragmentActivity
+    lateinit var requireActivity: FragmentActivity
 
     @SuppressLint("NotifyDataSetChanged")
     fun setOrdersList(orders: List<OrdersData>?, requireActivity: FragmentActivity) {
@@ -48,48 +49,68 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val orders = orders[position]
-        holder.binding.txtname.text=orders.service_Plan_Name__c
-        holder.binding.txtnameorder.text=orders.order_Number__c
-        holder.binding.txtnamestatus.text=orders.status__c
-        holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(orders.appointmentEndDateTime__c.toString())
+        holder.binding.txtname.text = orders.service_Plan_Name__c
+        holder.binding.txtnameorder.text = orders.order_Number__c
+        holder.binding.txtnamestatus.text = orders.status__c
+        try {
+            if (orders.appointmentEndDateTime__c.equals("null")) {
+
+            } else {
+                holder.binding.txtappointmentdate.text =
+                    AppUtils2.formatDateTime4(orders.appointmentEndDateTime__c.toString())
+            }
+        }catch (e:Exception){
+
+        }
         holder.binding.txtrupees.text = "₹ ${orders.order_Value_with_Tax__c}"
 
-        if(orders.status__c.equals("Expired")){
+        if (orders.status__c.equals("Expired")) {
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#D50000"))
 
-        }else if(orders.status__c.equals("Short Close")){
+        } else if (orders.status__c.equals("Short Close")) {
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FB8C00"))
 
-        }else if(orders.status__c.equals("Cancelled")){
+        } else if (orders.status__c.equals("Cancelled")) {
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#ff9e9e9e"))
 
-        }else if(orders.status__c.equals("Active")){
+        } else if (orders.status__c.equals("Active")) {
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#2bb77a"))
 
-        }else if (orders.status__c.equals("Rejected")){
+        } else if (orders.status__c.equals("Rejected")) {
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FFAB00"))
 
-        }else{
+        } else {
 
         }
 
 
         holder.binding.btnPayNow.setOnClickListener {
-            onOrderClickedHandler?.onOrderPaynowClicked(position,
+            onOrderClickedHandler?.onOrderPaynowClicked(
+                position,
                 orders.order_Number__c!!,
-                orders.account_Name__r?.customer_id__c!!
-                , orders.service_Plan_Name__c!!,orders.order_Value_with_Tax__c!!)
+                orders.account_Name__r?.customer_id__c!!,
+                orders.service_Plan_Name__c!!,
+                orders.order_Value_with_Tax__c!!
+            )
         }
 
 
         Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
         holder.itemView.setOnClickListener {
-            onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r!!.location__Latitude__s,orders.account_Name__r!!.location__Longitude__s,orders.hR_Shipping_Region__r!!.id.toString())
+            onOrderClickedHandler?.onOrderItemClicked(
+                position,
+                orders.order_Number__c.toString(),
+                orders.service_Type.toString(),
+                orders.service_Plan_Image_Url.toString(),
+                orders.account_Name__r!!.location__Latitude__s,
+                orders.account_Name__r!!.location__Longitude__s,
+                orders.hR_Shipping_Region__r!!.id.toString()
+            )
         }
     }
 
@@ -97,10 +118,12 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
     override fun getItemCount(): Int {
         return orders.size
     }
+
     fun setOnOrderItemClicked(l: OnOrderClickedHandler) {
         onOrderClickedHandler = l
     }
 
-    class MainViewHolder(val binding: LayoutOrdersAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: LayoutOrdersAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 

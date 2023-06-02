@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -80,6 +81,7 @@ class OrdersFragment() : Fragment() {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
         getOrdersList()
+
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
 //            getOrdersList()
@@ -89,6 +91,11 @@ class OrdersFragment() : Fragment() {
 
         binding.txtactive.setOnClickListener{
             binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar13.visibility = View.GONE
+            binding.progressBar12.visibility = View.GONE
+            binding.progressBar14.visibility = View.GONE
+
+
             ordertype="Active"
             getOrdersList()
             binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
@@ -99,7 +106,10 @@ class OrdersFragment() : Fragment() {
         }
 
         binding.txtexpire.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar12.visibility = View.VISIBLE
+            binding.progressBar13.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+            binding.progressBar14.visibility = View.GONE
             ordertype="Expired"
             getOrdersList()
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -109,7 +119,12 @@ class OrdersFragment() : Fragment() {
         }
 
         binding.txtcancelled.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar13.visibility = View.VISIBLE
+            binding.progressBar12.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+            binding.progressBar14.visibility = View.GONE
+
+//            binding.progressBar.visibility = View.VISIBLE
             ordertype="Cancelled"
             getOrdersList()
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -120,7 +135,9 @@ class OrdersFragment() : Fragment() {
 
 
         binding.txtall.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar13.visibility = View.VISIBLE
+
+//            binding.progressBar.visibility = View.VISIBLE
             ordertype="All"
             getOrdersList2()
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -175,7 +192,9 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList() {
 
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.GONE
+        binding.progressBar13.visibility = View.GONE
+        binding.progressBar14.visibility = View.GONE
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
