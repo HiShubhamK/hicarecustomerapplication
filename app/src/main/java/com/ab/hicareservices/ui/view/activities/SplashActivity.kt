@@ -1,12 +1,14 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import com.ab.hicareservices.R
-import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -25,25 +27,15 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.splash)
+        binding.splashimg.startAnimation(animation)
 
-        // on below line we are calling
-        // handler to run a task
-        // for specific time interval
-        Handler().postDelayed({
-            // on below line we are
-            // creating a new intent
-            val i = Intent(
-                this,
-                LoginActivity::class.java
-            )
-            // on below line we are
-            // starting a new activity.
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val i = Intent(this, LoginActivity::class.java)
             startActivity(i)
-
-            // on the below line we are finishing
-            // our current activity.
             finish()
-        }, 4000)
+        }, 1500)
 
     }
 }

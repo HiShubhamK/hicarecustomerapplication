@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativelayout">
 
     <RelativeLayout
         android:id="@+id/headerView"
@@ -194,6 +195,27 @@
         tools:listitem="@layout/layout_orders_adapter" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lnrmenus"
+        android:layout_marginTop="10dp"
+        android:background="#f6f6f6"
+        android:visibility="visible"
+        tools:listitem="@layout/layout_orders_adapter" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lnrmenus"
+        android:layout_marginTop="10dp"
+        android:background="#f6f6f6"
+        android:visibility="visible"
+        tools:listitem="@layout/layout_orders_adapter" />
+
 <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -216,7 +238,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:backgroundTint="@color/colorAccent"
         style="@style/CardView.Dark"
         />
@@ -229,7 +251,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:backgroundTint="@color/colorAccent"
         style="@style/CardView.Dark"
         />
@@ -242,7 +264,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:backgroundTint="@color/colorAccent"
         style="@style/CardView.Dark"
         />
