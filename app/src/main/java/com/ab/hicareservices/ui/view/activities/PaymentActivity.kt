@@ -4,20 +4,25 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.ab.hicareservices.R
+import com.ab.hicareservices.databinding.ActivityMainBinding
+import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.airbnb.lottie.LottieDrawable
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
 import org.json.JSONObject
 import kotlin.math.roundToInt
 
-class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithDataListener {
+class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
+    private lateinit var binding:ActivityPaymentBinding
     var payment = ""
     var order_no = ""
     lateinit var options: JSONObject
@@ -31,6 +36,8 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+        binding = ActivityPaymentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val intent = intent
 
@@ -44,7 +51,6 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
 //            "payment: " + payment + "  " + "orderno: " + order_no,
 //            Toast.LENGTH_SHORT
 //        ).show()
-
 
         val notes = prepareNotes(
             accountId,
@@ -65,6 +71,11 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
         } catch (e: Exception) {
             Log.d("TAG", "$e")
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
     }
 
@@ -108,20 +119,34 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
 
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
+        var data = HashMap<String, Any>()
+        data["razorpay_payment_id"] = response?.paymentId.toString()
+        data["razorpay_order_id"] = order_no
+        data["razorpay_signature"] = response?.signature.toString()
+        orderDetailsViewModel.saveAppPaymentDetails(data)
+        binding.imgOffer.visibility= View.VISIBLE
+        binding.txtpayment.visibility=View.VISIBLE
+        binding.imgOffererror.visibility=View.GONE
+        onBackPressed()
 
         try {
 
-
             if (response != null) {
 
+                Toast.makeText(this, response?.paymentId.toString(),Toast.LENGTH_SHORT).show()
                 var data = HashMap<String, Any>()
                 data["razorpay_payment_id"] = response?.paymentId.toString()
                 data["razorpay_order_id"] = order_no
                 data["razorpay_signature"] = response?.signature.toString()
                 orderDetailsViewModel.saveAppPaymentDetails(data)
+                Toast.makeText(this, AppUtils2.paymentsucess.toString(),Toast.LENGTH_SHORT).show()
                 val data1 = Intent()
                 data1.putExtra("title", AppUtils2.paymentsucess)
                 finish()
+                binding.imgOffer.visibility= View.VISIBLE
+                binding.txtpayment.visibility=View.VISIBLE
+                binding.imgOffererror.visibility=View.GONE
+
             }
 
         } catch (e: Exception) {
@@ -131,7 +156,10 @@ class PaymentActivity : AppCompatActivity(), PaymentListener, PaymentResultWithD
 
     override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
         try {
-
+            binding.imgOffer.visibility= View.GONE
+            binding.imgOffererror.visibility=View.VISIBLE
+            binding.txtpayment.visibility=View.VISIBLE
+            binding.txtpayment.text="Payment Failed"
         } catch (e: Exception) {
 
         }

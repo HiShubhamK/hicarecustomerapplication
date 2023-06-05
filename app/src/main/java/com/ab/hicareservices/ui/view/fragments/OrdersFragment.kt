@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -40,6 +43,8 @@ class OrdersFragment() : Fragment() {
     lateinit var homeActivity: HomeActivity
     lateinit var orderactivityforadapter:FragmentActivity
     lateinit var options: JSONObject
+    lateinit var progressDialog: ProgressDialog
+
 
 
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -74,33 +79,53 @@ class OrdersFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.swipeRefreshLayout.setOnRefreshListener {
-//            getOrdersList()
-//            getOrdersList2()
-//            binding.swipeRefreshLayout.isRefreshing = false
-//        }
-        getOrdersList()
+
+
+        val progressBar = ProgressBar(requireActivity())
+        //setting height and width of progressBar
+        progressBar.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        binding.relativelayout?.addView(progressBar)
+        progressDialog = ProgressDialog(requireActivity()).apply {
+            setCanceledOnTouchOutside(false)
+            setCancelable(false)
+            setTitle("Please Wait.....")
+        }
+
+
+        getOrdersList(progressBar,progressDialog)
+
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
 //            getOrdersList()
         }, 1000)
 
+        binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
 
         binding.txtactive.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+//                binding.progressBar.visibility=View.VISIBLE
+                progressDialog.show()
+            }, 1000)
+
             ordertype="Active"
-            getOrdersList()
+
             binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-
+            getOrdersList(progressBar, progressDialog)
         }
 
         binding.txtexpire.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+//                binding.progressBar.visibility=View.VISIBLE
+                progressDialog.show()
+            }, 1000)
             ordertype="Expired"
-            getOrdersList()
+            getOrdersList(progressBar, progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
@@ -108,9 +133,13 @@ class OrdersFragment() : Fragment() {
         }
 
         binding.txtcancelled.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+//                binding.progressBar.visibility=View.VISIBLE
+                progressDialog.show()
+            }, 1000)
+
             ordertype="Cancelled"
-            getOrdersList()
+            getOrdersList(progressBar, progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -119,7 +148,9 @@ class OrdersFragment() : Fragment() {
 
 
         binding.txtall.setOnClickListener{
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar13.visibility = View.VISIBLE
+
+//            binding.progressBar.visibility = View.VISIBLE
             ordertype="All"
             getOrdersList2()
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -127,8 +158,6 @@ class OrdersFragment() : Fragment() {
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
         }
-
-
     }
 
     private fun getOrdersList2() {
@@ -172,9 +201,12 @@ class OrdersFragment() : Fragment() {
 
     }
 
-    private fun getOrdersList() {
+
+    private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
 
         binding.progressBar.visibility = View.VISIBLE
+        progressDialog.dismiss()
+        progressBar.visibility=View.VISIBLE
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
@@ -184,9 +216,10 @@ class OrdersFragment() : Fragment() {
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
             mAdapter.setOrdersList(it,requireActivity())
+            progressBar.visibility=View.GONE
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
-
+            progressDialog.dismiss()
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
             override fun onOrderItemClicked(
@@ -222,14 +255,16 @@ class OrdersFragment() : Fragment() {
 
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
-
+            progressDialog.dismiss()
         })
+        binding.progressBar13.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {
             if(ordertype.equals("") && ordertype!=null){
                 ordertype="Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype,progressBar)
             }else{
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype,progressBar)
             }
         }
     }

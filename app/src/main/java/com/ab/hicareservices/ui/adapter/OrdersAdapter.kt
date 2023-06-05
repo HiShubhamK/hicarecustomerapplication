@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.orders.OrdersData
@@ -16,7 +17,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     var orders = mutableListOf<OrdersData>()
     private var onOrderClickedHandler: OnOrderClickedHandler? = null
-    lateinit var requireActivity:FragmentActivity
+    lateinit var requireActivity: FragmentActivity
 
     @SuppressLint("NotifyDataSetChanged")
     fun setOrdersList(orders: List<OrdersData>?, requireActivity: FragmentActivity) {
@@ -73,7 +74,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
             }else if (orders.status__c.equals("Rejected")){
 
-                holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FFAB00"))
+            holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FFAB00"))
 
             }else{
 
@@ -111,6 +112,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
         onOrderClickedHandler = l
     }
 
-    class MainViewHolder(val binding: LayoutOrdersAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: LayoutOrdersAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 

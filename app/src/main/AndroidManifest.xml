@@ -21,8 +21,13 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.LoginActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".ui.view.activities.PaymentActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -30,7 +35,7 @@
 
         <service
             android:name=".utils.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -49,11 +54,7 @@
 
         <activity
             android:name=".ui.view.activities.HelpActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ui.view.activities.ReferralActivity"
             android:exported="true"
@@ -86,8 +87,10 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.view.activities.LoginActivity"
+            android:name=".ui.view.activities.SplashActivity"
             android:exported="true"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="LockedOrientationActivity">
@@ -97,7 +100,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.activities.CameraActivity" />
+        <activity
+            android:name=".ui.view.activities.CameraActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

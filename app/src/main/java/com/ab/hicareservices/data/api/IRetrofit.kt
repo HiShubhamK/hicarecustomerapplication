@@ -1,5 +1,6 @@
 package com.ab.hicareservices.data.api
 
+import com.ab.hicareservices.data.model.LeadResponse
 import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
@@ -7,6 +8,7 @@ import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
+import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.orders.OrdersResponse
@@ -91,6 +93,11 @@ interface IRetrofit {
         @Query("appToken") appToken: String,
     ): Call<NotificationToken>
 
+    @GET("Lead/GetInterestedServices")
+    fun getLead(
+        @Query("serviceType") serviceType: String,
+    ): Call<leadResopnse>
+
     @POST("Attachment/UploadAttachment")
     fun UploadAttachment(@Body data: HashMap<String, Any>): Call<AttachmentResponse>
 
@@ -120,5 +127,8 @@ interface IRetrofit {
 //        @Query("Long") Long: String,
 //        @Query("ServiceType") ServiceType: String
 //    ): Call<GetComplaiceResponce>
+
+    @POST("Lead/AddLeadAsync")
+    fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
 
 }

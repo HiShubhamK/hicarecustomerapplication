@@ -22,9 +22,11 @@ class MainRepository {
     fun saveAppPaymentDetails(data: HashMap<String, Any>) = retrofitService.saveAppPaymentDetails(data)
     fun UploadAttachment(data: HashMap<String, Any>) = retrofitService.UploadAttachment(data)
     fun notification(apptoken:String) = retrofitService.getNotificationToken(apptoken)
+    fun lead(serviceType: String) = retrofitService.getLead(serviceType)
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
     fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
     fun BookSlot(data: HashMap<String, Any>) = retrofitService.BookSlot(data)
     fun GetDashboard(mobileNo: String) = retrofitService.GetDashboard(mobileNo)
 
+    fun postLead(data: HashMap<String, Any>) = retrofitService.postLead(data)
 }

@@ -7,7 +7,7 @@
     android:background="@color/md_blue_grey_50"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
@@ -15,11 +15,12 @@
         android:elevation="2dp"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/lnrTitle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:gravity="start">
+            android:gravity="start"
+            android:orientation="vertical">
 
             <ImageView
 
@@ -83,9 +84,9 @@
                 android:textSize="14sp"
                 android:visibility="gone" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <RelativeLayout
