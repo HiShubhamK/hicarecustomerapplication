@@ -105,7 +105,7 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewModel.getNotificationtoken(token.toString())
-                }, 1500)
+                }, 500)
             }
         }
     }

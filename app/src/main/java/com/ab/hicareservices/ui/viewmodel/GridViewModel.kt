@@ -8,5 +8,6 @@ data class GridViewModal(
     // other course img as int.
     val courseName: String,
     val courseImg: Int
+
 )
 

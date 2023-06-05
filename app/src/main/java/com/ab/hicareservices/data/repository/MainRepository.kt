@@ -25,5 +25,6 @@ class MainRepository {
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
     fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
     fun BookSlot(data: HashMap<String, Any>) = retrofitService.BookSlot(data)
+    fun GetDashboard(mobileNo: String) = retrofitService.GetDashboard(mobileNo)
 
 }

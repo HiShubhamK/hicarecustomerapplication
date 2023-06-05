@@ -15,6 +15,7 @@ import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityReferralBinding
 import com.ab.hicareservices.ui.viewmodel.ReferralViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 
 class ReferralActivity : AppCompatActivity() {
@@ -35,7 +36,7 @@ class ReferralActivity : AppCompatActivity() {
 
         //referralViewModel = ViewModelProvider(this, ReferralViewModelFactory(MainRepository(api))).get(ReferralViewModel::class.java)
 
-        getReferralCode("9967994682")
+        getReferralCode(AppUtils2.mobileno)
 
         binding.backIv.setOnClickListener {
             finish()

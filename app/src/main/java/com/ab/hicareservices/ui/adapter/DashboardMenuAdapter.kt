@@ -1,23 +1,32 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.R
+import com.ab.hicareservices.data.model.dashboard.BannerData
+import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
+import com.ab.hicareservices.ui.view.fragments.ComplaintFragment
+import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.GridViewModal
 import com.squareup.picasso.Picasso
 
-class DashboardMenuAdapter(courseList: List<GridViewModal>) : RecyclerView.Adapter<DashboardMenuAdapter.MainViewHolder>() {
+class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerView.Adapter<DashboardMenuAdapter.MainViewHolder>() {
 
-    var service = courseList
+    var service = mutableListOf<MenuData>()
 //    private var mOnServiceRequestClickHandler: OnServiceRequestClickHandler? = null
 
-//    fun setServiceList(movies: List<GridViewModal>?) {
-//        if (movies != null) {
-//            this.service = movies.toMutableList()
-//        }
-//        notifyDataSetChanged()
-//    }
+    fun setServiceList(movies: List<MenuData>?) {
+        if (movies != null) {
+            this.service = movies.toMutableList()
+        }
+        notifyDataSetChanged()
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -28,35 +37,49 @@ class DashboardMenuAdapter(courseList: List<GridViewModal>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val service = service[position]
-        holder.binding.tvOrderName.text = service.courseName
-        Picasso.get().load(service.courseImg).into( holder.binding.imgLogo);
+        try {
+            val service = service[position]
+            holder.binding.tvOrderName.text = service.Title
+            Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo)
+            holder.itemView.setOnClickListener{
+                if(service.IsExternalAppBrowserLink==true){
 
-//        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")
-//        holder.binding.imgLogo.text= service.sequence_No__c.replace(".0","")
-//        holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(0,2)
-//        holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.appointment_Start_Date_Time__c).substring(3)
-//        if (service.enable_Reschedule_Option){
-//            holder.binding.btnReschedule.visibility = View.VISIBLE
-//        }else{
-//            holder.binding.btnReschedule.visibility = View.GONE
-//        }
-//        holder.binding.btnReschedule.setOnClickListener {
-//            mOnServiceRequestClickHandler?.onRescheduleServiceClicked(position)
-//        }
-//
-//        holder.binding.btnView.setOnClickListener {
-//            mOnServiceRequestClickHandler?.onViewServiceClicked(position)
-//        }
+                    fragmentActivity!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(service.PageLink)))
+                }else if (service.IsAppLink==true){
+                    if (service.Title.equals("My Orders")){
+                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();
+
+                    }else if (service.Title.equals("Complaints")){
+                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("AccountFragment").commit();
+                    }else if (service.Title.equals("Renewals")){
+
+
+                    }else if (service.Title.equals("Book Inspection")){
+
+
+                    }else if (service.Title.equals("Support")){
+
+                    }
+
+                }else if (service.IsInAppBrowserLink==true){
+
+                }else{
+
+                }
+            }
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
     override fun getItemCount(): Int {
         return service.size
     }
 
-//    fun setOnServiceItemClicked(l: OnServiceRequestClickHandler) {
-//        mOnServiceRequestClickHandler = l
-//    }
 
     class MainViewHolder(val binding: DashboardMenuAdapterBinding) : RecyclerView.ViewHolder(binding.root) {
 

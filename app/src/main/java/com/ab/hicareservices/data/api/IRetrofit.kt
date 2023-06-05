@@ -6,6 +6,7 @@ import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
+import com.ab.hicareservices.data.model.dashboard.DashboardModel
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.orders.OrdersResponse
@@ -95,10 +96,20 @@ interface IRetrofit {
 
     @POST("Slot/GetSlot")
     fun GetSlot(@Body data: HashMap<String, Any>): Call<GetSlots>
+
     @POST("Slot/GetSlotCompliance")
     fun getComplainceData(@Body data: HashMap<String, Any>): Call<GetComplaiceResponce>
-   @POST("Slot/BookSlot")
+
+    @POST("Slot/BookSlot")
     fun BookSlot(@Body data: HashMap<String, Any>): Call<BookSlotResponce>
+
+//    @POST("Dashboard/GetDashboard")
+//    fun GetDashboard(@Body data: HashMap<String, Any>): Call<DashboardModel>
+
+    @POST("Dashboard/GetDashboard")
+    fun GetDashboard(
+        @Query("mobileNo") mobileNo: String,
+    ): Call<DashboardModel>
 
 //    @POST("Slot/GetSlotCompliance")
 //    fun getComplainceData(

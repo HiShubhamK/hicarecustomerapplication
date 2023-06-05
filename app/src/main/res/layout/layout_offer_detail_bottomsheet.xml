@@ -56,7 +56,7 @@
                 </ImageView>
 
                 <TextView
-                    android:id="@+id/tvOffer"
+                    android:id="@+id/tvCoupen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

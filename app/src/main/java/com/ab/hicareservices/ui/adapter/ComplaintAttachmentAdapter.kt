@@ -11,14 +11,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
-import com.ab.hicareservices.ui.handler.OffersInterface
 import com.ab.hicareservices.ui.viewmodel.OfferViewModel
 import com.squareup.picasso.Picasso
 
 
 class ComplaintAttachmentAdapter() :
     RecyclerView.Adapter<ComplaintAttachmentAdapter.ImageViewHolder>() {
-    private var offersInterface: OffersInterface? = null
     private lateinit var imageList:ArrayList<String>
     fun setAttachment(complaintdata: ArrayList<String>) {
         if (complaintdata != null) {
@@ -63,8 +61,8 @@ class ComplaintAttachmentAdapter() :
 //        imageList.addAll(imageList)
 //        notifyDataSetChanged()
 //    }
-    fun setOnOfferClick(l: OffersInterface) {
-        offersInterface = l
-    }
+//    fun setOnOfferClick(l: OffersInterface) {
+//        offersInterface = l
+//    }
 
 }

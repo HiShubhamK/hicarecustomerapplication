@@ -14,6 +14,7 @@ import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class ComplaintsActivity : AppCompatActivity() {
     private val TAG = "ComplaintsActivity"
@@ -29,7 +30,7 @@ class ComplaintsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        viewModeld.validateAccount("9967994682")
+        viewModeld.validateAccount(AppUtils2.mobileno)
 
         binding.backIv.setOnClickListener {
             finish()
@@ -67,7 +68,7 @@ class ComplaintsActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = mAdapter
 
-        viewModel.getAllComplaints("9967994682")
+        viewModel.getAllComplaints(AppUtils2.mobileno)
         binding.progressBar.visibility= View.GONE
 
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
