@@ -205,7 +205,7 @@ class OrdersFragment() : Fragment() {
     private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
 
         binding.progressBar.visibility = View.VISIBLE
-        progressDialog.dismiss()
+
         progressBar.visibility=View.VISIBLE
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
