@@ -305,7 +305,7 @@ class OrderDetailsFragment : Fragment() {
                 if (data.enable_Payment_Link == true) {
                     binding.payNowBtn.visibility = View.VISIBLE
                 } else {
-                    binding.payNowBtn.visibility = View.VISIBLE
+                    binding.payNowBtn.visibility = View.GONE
                 }
 
                 binding.statusTv.text = data.status__c

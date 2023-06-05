@@ -128,6 +128,7 @@ class SlotComplinceFragment() : Fragment() {
 //            getOrdersList2()
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
 
 //        getOrdersList2()

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,15 +23,12 @@ class ComplaintFragment() : Fragment() {
     private val TAG = "ComplaintsActivity"
     var mobileNo = ""
     private lateinit var imageList:ArrayList<String>
-
-
-
-
     lateinit var binding: ActivityComplaintsBinding
     private val viewModel: ComplaintsViewModel by viewModels()
     private lateinit var mAdapter: ComplaintsAdapter
     private val viewModeld: OtpViewModel by viewModels()
     private var mobile = ""
+    lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +59,14 @@ class ComplaintFragment() : Fragment() {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
         viewModeld.validateAccount(mobile)
+
+        progressDialog = ProgressDialog(requireActivity()).apply {
+            setCanceledOnTouchOutside(false)
+            setCancelable(false)
+            setTitle("Please Wait.....")
+        }
+
+
 
         binding.backIv.setOnClickListener {
             requireActivity().finish()

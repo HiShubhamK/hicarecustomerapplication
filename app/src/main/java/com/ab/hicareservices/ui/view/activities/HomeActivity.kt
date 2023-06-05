@@ -35,6 +35,7 @@ import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.karumi.dexter.Dexter
@@ -73,7 +74,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         binding.addFab.setColorFilter(Color.WHITE);
 
-        viewModel.validateAccount("9967994682")
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+        viewModel.validateAccount(AppUtils2.mobileno)
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
@@ -281,8 +283,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //            startActivity(Intent.createChooser(shareIntent, "choose one"))
         }
 
-        viewModel.validateAccount("9967994682")
-
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+        viewModel.validateAccount(AppUtils2.mobileno)
         val calendar = Calendar.getInstance()
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss aaa z")
         dateTime = simpleDateFormat.format(calendar.time).toString()

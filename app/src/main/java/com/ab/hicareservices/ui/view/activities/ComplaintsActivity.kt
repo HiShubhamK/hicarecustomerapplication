@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
@@ -30,6 +31,7 @@ class ComplaintsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         viewModeld.validateAccount(AppUtils2.mobileno)
 
         binding.backIv.setOnClickListener {

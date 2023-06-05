@@ -114,7 +114,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/slider"
             android:layout_width="match_parent"
@@ -824,14 +823,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/lnrRating"
             android:layout_marginHorizontal="18dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:id="@+id/lnrTitle3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="3dp">
+                android:paddingHorizontal="3dp"
+                android:layout_marginTop="10dp">
 
                 <View
                     android:layout_width="match_parent"
@@ -891,7 +892,9 @@
                         android:id="@+id/recOffers"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
                         android:paddingEnd="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

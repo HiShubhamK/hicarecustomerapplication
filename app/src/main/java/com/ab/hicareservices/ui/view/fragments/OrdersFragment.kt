@@ -88,6 +88,7 @@ class OrdersFragment() : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT)
 
         binding.relativelayout?.addView(progressBar)
+
         progressDialog = ProgressDialog(requireActivity()).apply {
             setCanceledOnTouchOutside(false)
             setCancelable(false)
@@ -148,11 +149,13 @@ class OrdersFragment() : Fragment() {
 
 
         binding.txtall.setOnClickListener{
-            binding.progressBar13.visibility = View.VISIBLE
+//            binding.progressBar13.visibility = View.VISIBLE
+
+            progressDialog.show()
 
 //            binding.progressBar.visibility = View.VISIBLE
             ordertype="All"
-            getOrdersList2()
+            getOrdersList2(progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -160,9 +163,13 @@ class OrdersFragment() : Fragment() {
         }
     }
 
-    private fun getOrdersList2() {
+    private fun getOrdersList2(progressDialog: ProgressDialog) {
 
-        binding.progressBar.visibility = View.VISIBLE
+
+        progressDialog.show()
+
+
+//        binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView2.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
@@ -172,7 +179,8 @@ class OrdersFragment() : Fragment() {
             Log.d(TAG, "onViewCreated: $it orders fragment")
             nAdapter.setOrdersList(it)
             binding.progressBar.visibility = View.GONE
-//            binding.recyclerView2.visibility = View.VISIBLE
+            this.progressDialog.dismiss()
+        //            binding.recyclerView2.visibility = View.VISIBLE
         })
 //        mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
 //            override fun onOrderItemClicked(
@@ -192,9 +200,9 @@ class OrdersFragment() : Fragment() {
         if (mobile != "-1") {
             if(ordertype.equals("") && ordertype!=null){
                 ordertype="Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile)
+                viewModel.getCustomerOrdersByMobileNo(mobile,progressDialog)
             }else{
-                viewModel.getCustomerOrdersByMobileNo(mobile)
+                viewModel.getCustomerOrdersByMobileNo(mobile,progressDialog)
             }
 
         }
@@ -204,9 +212,11 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
 
-        binding.progressBar.visibility = View.VISIBLE
+//        binding.progressBar.visibility = View.VISIBLE
+//
+//        progressBar.visibility=View.VISIBLE
 
-        progressBar.visibility=View.VISIBLE
+        progressDialog.show()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()

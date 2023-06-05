@@ -111,6 +111,7 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
     }
 
     private fun validateAccount(mobileNo: String){
+
         viewModel.validateAccount(mobileNo)
     }
 
@@ -149,6 +150,7 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
             AppUtils2.TOKEN = data
             SharedPreferenceUtil.setData(this, "bToken", data)
             SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
             binding.otpView.showSuccess()
             progressDialog.dismiss()
             val home = Intent(this, HomeActivity::class.java)

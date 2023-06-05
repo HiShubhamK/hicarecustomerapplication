@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.app.ProgressDialog
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -17,18 +18,22 @@ class OrdersViewModel : ViewModel(){
     val ordersList = MutableLiveData<List<OrdersData>>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getCustomerOrdersByMobileNo(mobileNo: String) {
+    fun getCustomerOrdersByMobileNo(mobileNo: String,progressDialog: ProgressDialog) {
+
+        progressDialog.show()
 
         val response = repository.getCustomerOrdersByMobileNo(mobileNo)
         response.enqueue(object : Callback<OrdersResponse> {
 
             override fun onResponse(call: Call<OrdersResponse>, response: Response<OrdersResponse>) {
                 ordersList.postValue(response.body()?.data)
+                progressDialog.dismiss()
                 Log.d("TAG", "Response "+ response.body()?.data.toString())
             }
 
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
                 errorMessage.postValue(t.message)
+                progressDialog.dismiss()
             }
         })
     }
@@ -55,5 +60,6 @@ class OrdersViewModel : ViewModel(){
             }
         })
     }
+
 
 }
