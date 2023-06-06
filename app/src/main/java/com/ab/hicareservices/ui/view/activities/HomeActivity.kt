@@ -291,8 +291,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         btnSubmit.setOnClickListener {
 
-            Toast.makeText(this,selectedLocation.toString(),Toast.LENGTH_LONG).show()
-
             if(edtname.text.toString().equals("")){
                 edtname.setError("Enter name")
             }else if(edtmobile.text.toString().equals("")){
