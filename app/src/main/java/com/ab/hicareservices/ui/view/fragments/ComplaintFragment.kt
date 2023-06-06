@@ -68,7 +68,7 @@ class ComplaintFragment() : Fragment() {
 
 
 
-        binding.backIv.setOnClickListener {
+        binding.imgLogo.setOnClickListener {
             requireActivity().finish()
         }
 

@@ -15,8 +15,8 @@
             <RelativeLayout
                 android:id="@+id/headerView"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="#f6f6f6"
+                android:layout_height="65dp"
+                android:background="@color/white"
                 android:elevation="2dp"
                 android:orientation="vertical">
 

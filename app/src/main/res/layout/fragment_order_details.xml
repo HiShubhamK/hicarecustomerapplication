@@ -11,7 +11,7 @@
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="#f6f6f6"
+        android:background="@color/white"
         android:elevation="2dp"
         android:orientation="vertical"
         android:visibility="visible">
@@ -23,10 +23,10 @@
 
             <ImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_margin="10dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 android:visibility="visible" />
 
@@ -117,18 +117,12 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_weight="1.5"
+                            android:layout_weight="2"
                             android:ellipsize="end"
-                            android:lineSpacingMultiplier="1.2"
-                            android:singleLine="true"
                             android:text="Home Cleaning Services"
                             android:textSize="14sp"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/lato_semibold"
-                            app:layout_constraintLeft_toRightOf="@+id/img_logo"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/img_logo"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:fontFamily="@font/lato_semibold" />
 
 
                         <TextView
@@ -139,7 +133,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_marginRight="5dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="1"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:singleLine="true"
@@ -1029,7 +1023,7 @@
                             android:layout_marginEnd="12dp"
                             android:backgroundTint="@color/colorAccent"
                             android:text="Pay Now"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
@@ -1075,7 +1069,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="5dp"
-                                android:text="Service Details"
+                                android:text="Services"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/lato_semibold"
                                 android:textStyle="bold"

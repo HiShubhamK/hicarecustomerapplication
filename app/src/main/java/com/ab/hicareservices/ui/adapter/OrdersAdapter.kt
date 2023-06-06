@@ -80,14 +80,23 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
             }
 
-
-            holder.binding.btnPayNow.setOnClickListener {
-                onOrderClickedHandler?.onOrderPaynowClicked(position,
-                    orders.order_Number__c!!,
-                    orders.account_Name__r?.customer_id__c!!
-                    , orders.service_Plan_Name__c!!,orders.order_Value_with_Tax__c!!)
+            if(orders.enable_Payment_Link==true) {
+                holder.binding.addview.visibility=View.VISIBLE
+                holder.binding.btnPayNow.visibility=View.VISIBLE
+            }else{
+                holder.binding.addview.visibility=View.GONE
+                holder.binding.btnPayNow.visibility=View.GONE
             }
 
+            holder.binding.btnPayNow.setOnClickListener {
+                onOrderClickedHandler?.onOrderPaynowClicked(
+                    position,
+                    orders.order_Number__c!!,
+                    orders.account_Name__r?.customer_id__c!!,
+                    orders.service_Plan_Name__c!!,
+                    orders.order_Value_with_Tax__c!!
+                )
+            }
 
             Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
             holder.itemView.setOnClickListener {

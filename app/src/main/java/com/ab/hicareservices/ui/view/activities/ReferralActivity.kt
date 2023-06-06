@@ -38,7 +38,7 @@ class ReferralActivity : AppCompatActivity() {
 
         getReferralCode(AppUtils2.mobileno)
 
-        binding.backIv.setOnClickListener {
+        binding.imgLogo.setOnClickListener {
             finish()
         }
 

@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -32,10 +33,17 @@ class SplashActivity : AppCompatActivity() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val i = Intent(this, LoginActivity::class.java)
-            startActivity(i)
-            finish()
-        }, 1500)
+            val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
+            if(islogin==true){
+                val i = Intent(this, HomeActivity::class.java)
+                startActivity(i)
+                finish()
+            }else{
+                val i = Intent(this, LoginActivity::class.java)
+                startActivity(i)
+                finish()
+            }
+        }, 3000)
 
     }
 }

@@ -81,6 +81,8 @@ class AccountFragment : Fragment() {
     private fun signOut(){
         SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
         SharedPreferenceUtil.setData(requireContext(), "bToken", "")
+        SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
+
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }

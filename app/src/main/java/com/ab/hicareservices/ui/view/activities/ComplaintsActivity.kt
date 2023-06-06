@@ -34,7 +34,7 @@ class ComplaintsActivity : AppCompatActivity() {
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         viewModeld.validateAccount(AppUtils2.mobileno)
 
-        binding.backIv.setOnClickListener {
+        binding.imgLogo.setOnClickListener {
             finish()
         }
 

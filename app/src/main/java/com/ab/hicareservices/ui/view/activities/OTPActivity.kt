@@ -1,27 +1,39 @@
 package com.ab.hicareservices.ui.view.activities
 
 import `in`.aabhasjindal.otptextview.OTPListener
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
+import android.location.Address
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.handler.ValidateAccountListener
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
 
 class OTPActivity : AppCompatActivity(), ValidateAccountListener {
@@ -32,7 +44,10 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
     var mOtp = ""
     lateinit var progressDialog: ProgressDialog
     var token:String?=null
-
+    lateinit var geocoder: Geocoder
+    lateinit var address: List<Address>
+    var lat = 0.0
+    var lng = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,6 +166,10 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
             SharedPreferenceUtil.setData(this, "bToken", data)
             SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
             SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+            SharedPreferenceUtil.setData(this, "IsLogin", true)
+
+            takePermissionForLocation()
+
             binding.otpView.showSuccess()
             progressDialog.dismiss()
             val home = Intent(this, HomeActivity::class.java)
@@ -160,6 +179,54 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun takePermissionForLocation() {
+        Dexter.withActivity(this).withPermissions(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+        ).withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                if (report?.areAllPermissionsGranted() == true) {
+                    getLocation()
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>?,
+                token: PermissionToken?
+            ) {
+                token?.continuePermissionRequest()
+            }
+        }).check()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        geocoder = Geocoder(this)
+        val mLocManager: LocationManager =
+            this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val mLocListener = MyLocationListener(this)
+        mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, mLocListener)
+        if (mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            lat = mLocListener.latitude
+            lng = mLocListener.longitude
+
+            address = geocoder.getFromLocation(lat, lng, 1)!!
+
+            if (address.isNotEmpty()) {
+                for (i in 0 until address.size) {
+                    val adrs = address[i].getAddressLine(0).toString()
+                    val city = address[i].locality.toString()
+                    val state = address[i].adminArea.toString()
+                    val country = address[i].countryName.toString()
+//                    binding.addressTv.text = adrs
+                    //val postalcode = address[i].postalCode[i]
+                    Log.d("TAG", "$adrs,$city, $state, $country")
+                }
+            }
+        }
+    }
+
 
     override fun onError(message: String) {
         binding.continueBtn.isEnabled = true

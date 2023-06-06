@@ -65,12 +65,12 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        datalist=ArrayList()
-        datalist.add("Select Type")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        datalist=ArrayList()
+        datalist.add("Select Type")
         checkUserStatus()
-        takePermissionForLocation()
+//        takePermissionForLocation()
 
         binding.addFab.setColorFilter(Color.WHITE);
 
@@ -93,80 +93,42 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         })
 
-
         Handler(Looper.getMainLooper()).postDelayed({
             viewModel.getNotificationtoken(token.toString())
         }, 1500)
 
-
+        binding.addFab.visibility=View.VISIBLE
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, HomeFragment.newInstance()).commit();
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+        binding.bottomNavigation.setOnItemSelectedListener  {
             when (it.itemId) {
                 R.id.nav_home -> {
                     binding.addFab.visibility=View.VISIBLE
-//                    setContent("Home")
-//                    binding.title.text = "Home"
-//                    binding.help.visibility = View.GONE
-//                    binding.bottomheadertext.visibility = View.GONE
-//                    titles = "Home"
-//                    binding.title.text="Welcome To Hicare"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
                     true
 
                 }
                 R.id.nav_bookings -> {
-//                    "Pincode": "400079",
-//                    "Service_Code": "SP0071",
-//                    "Service_Date": "2023-05-29T12:13:43.296Z",
-//                    "Service_Subscription": "string",
-//                    "Unit": "1 BHK",
-//                    "Lat": "19.1085082",
-//                    "Long": "72.92474",
-//                    "ServiceType": "Pest"
-
-//                    Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
-
-//                    setContent("Home")
-//                    binding.title.text = "Home"
-//                    binding.help.visibility = View.GONE
-//                    binding.bottomheadertext.visibility = View.GONE
-//                    titles = "Home"
-//                    binding.title.text="Welcome To Hicare"
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.container, HomeFragment.newInstance()).commit();
                     true
 
                 }
                 R.id.nav_account -> {
-//                    binding.title.text = "Account"
-//                    binding.help.visibility = View.GONE
-//                    binding.bottomheadertext.visibility = View.GONE
-//                    titles = "Account"
-//                    binding.title.text="Account"
-
                     binding.addFab.visibility=View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AccountFragment.newInstance()).commit();
                     true
                 }
                 R.id.nav_cart -> {
-//                    binding.title.text = "Home"
-//                    binding.help.visibility = View.GONE
-                    binding.title.text="Welcome To Hicare"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).commit();
 
                     true
                 }
                 R.id.nav_orders -> {
-//                    binding.help.visibility = View.VISIBLE
-//                    binding.bottomheadertext.visibility = View.GONE
-//                    binding.title.text = "Orders"
-//                    titles = "Order"
-//                    binding.title.text="Order"
                     binding.addFab.visibility=View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragment.newInstance()).commit();
@@ -175,7 +137,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 else -> false
             }
         }
-        binding.bottomNavigation.selectedItemId = R.id.nav_home;
+//        binding.bottomNavigation.selectedItemId = R.id.nav_home;
 
         binding.addFab.setOnClickListener{
             showLeadDialog()
@@ -473,7 +435,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }).check()
     }
 
-
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         geocoder = Geocoder(this)
@@ -517,4 +478,16 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     fun setOnPaymentListener(paymentListener: PaymentListener?) {
         this.paymentListener = paymentListener
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
+        if (islogin==true) {
+            finishAffinity()
+        }
+    }
+
+
+
+
 }
