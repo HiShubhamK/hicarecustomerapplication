@@ -70,10 +70,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         datalist=ArrayList()
         datalist.add("Select Type")
         checkUserStatus()
-//        takePermissionForLocation()
-
-//        binding.addFab.setColorFilter(Color.WHITE);
-
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         viewModel.validateAccount(AppUtils2.mobileno)
 
@@ -391,20 +387,20 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == requestCall) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall()
-            } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+//
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String?>,
+//        grantResults: IntArray
+//    ) {
+//        if (requestCode == requestCall) {
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                makePhoneCall()
+//            } else {
+//                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 
 
     private fun checkUserStatus() {
@@ -416,54 +412,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             finish()
         }
     }
-
-    private fun takePermissionForLocation() {
-        Dexter.withActivity(this).withPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-        ).withListener(object : MultiplePermissionsListener {
-            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                if (report?.areAllPermissionsGranted() == true) {
-                    getLocation()
-                }
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                permissions: MutableList<PermissionRequest>?,
-                token: PermissionToken?
-            ) {
-                token?.continuePermissionRequest()
-            }
-        }).check()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLocation() {
-        geocoder = Geocoder(this)
-        val mLocManager: LocationManager =
-            this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val mLocListener = MyLocationListener(this)
-        mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, mLocListener)
-        if (mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            lat = mLocListener.latitude
-            lng = mLocListener.longitude
-
-            address = geocoder.getFromLocation(lat, lng, 1)!!
-
-            if (address.isNotEmpty()) {
-                for (i in 0 until address.size) {
-                    val adrs = address[i].getAddressLine(0).toString()
-                    val city = address[i].locality.toString()
-                    val state = address[i].adminArea.toString()
-                    val country = address[i].countryName.toString()
-//                    binding.addressTv.text = adrs
-                    //val postalcode = address[i].postalCode[i]
-                    Log.d("TAG", "$adrs,$city, $state, $country")
-                }
-            }
-        }
-    }
-
 
     override fun onPaymentSuccess(p0: String?, response: PaymentData?) {
         if (response != null) {
@@ -485,7 +433,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         super.onBackPressed()
         val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
         if (islogin==true) {
-            finishAffinity()
+            binding.bottomNavigation.selectedItemId = R.id.nav_home;
         }
     }
 

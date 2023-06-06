@@ -45,8 +45,6 @@ class OrdersFragment() : Fragment() {
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
 
-
-
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback<ActivityResult> { activityResult ->
@@ -89,12 +87,8 @@ class OrdersFragment() : Fragment() {
 
         binding.relativelayout?.addView(progressBar)
 
-        progressDialog = ProgressDialog(requireActivity()).apply {
-            setCanceledOnTouchOutside(false)
-            setCancelable(false)
-            setTitle("Please Wait.....")
-        }
-
+        progressDialog = ProgressDialog(requireActivity(),R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
 
         getOrdersList(progressBar,progressDialog)
 
@@ -165,11 +159,8 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList2(progressDialog: ProgressDialog) {
 
-
-        progressDialog.show()
-
-
-//        binding.progressBar.visibility = View.VISIBLE
+//        progressDialog.show()
+        binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView2.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
@@ -179,20 +170,9 @@ class OrdersFragment() : Fragment() {
             Log.d(TAG, "onViewCreated: $it orders fragment")
             nAdapter.setOrdersList(it)
             binding.progressBar.visibility = View.GONE
-            this.progressDialog.dismiss()
+//            this.progressDialog.dismiss()
         //            binding.recyclerView2.visibility = View.VISIBLE
         })
-//        mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
-//            override fun onOrderItemClicked(
-//                position: Int,
-//                orderNo: String,
-//                serviceType: String,
-//                service_url_image: String
-//            ) {
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,service_url_image)).addToBackStack("OrdersFragment").commit();
-//            }
-//        })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
 
@@ -214,8 +194,8 @@ class OrdersFragment() : Fragment() {
 
 //        binding.progressBar.visibility = View.VISIBLE
 //
-//        progressBar.visibility=View.VISIBLE
-
+        progressBar.visibility=View.VISIBLE
+//
         progressDialog.show()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

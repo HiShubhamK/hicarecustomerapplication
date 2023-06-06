@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
@@ -60,11 +61,9 @@ class ComplaintFragment() : Fragment() {
 //        }
         viewModeld.validateAccount(mobile)
 
-        progressDialog = ProgressDialog(requireActivity()).apply {
-            setCanceledOnTouchOutside(false)
-            setCancelable(false)
-            setTitle("Please Wait.....")
-        }
+
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
 
 
 
@@ -78,15 +77,15 @@ class ComplaintFragment() : Fragment() {
 //        }
         imageList=ArrayList()
 
-        binding.progressBar.visibility= View.VISIBLE
+        progressDialog.show()
         Handler(Looper.getMainLooper()).postDelayed({
-            getAllComplaints()
+            getAllComplaints(progressDialog)
         }, 1500)
 
     }
 
 
-    private fun getAllComplaints() {
+    private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             mAdapter = ComplaintsAdapter()
@@ -104,11 +103,12 @@ class ComplaintFragment() : Fragment() {
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
                 mAdapter.setComplaintsList(it,imageList,requireActivity())
 
+                progressDialog.dismiss()
             })
 
             viewModel.errorMessage.observe(requireActivity(), Observer {
                 Toast.makeText(requireActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show()
-
+                progressDialog.dismiss()
             })
 
             binding.recyclerView.adapter = mAdapter

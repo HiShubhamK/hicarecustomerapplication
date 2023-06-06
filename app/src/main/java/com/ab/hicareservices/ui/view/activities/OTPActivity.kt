@@ -168,7 +168,7 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
             SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
             SharedPreferenceUtil.setData(this, "IsLogin", true)
 
-            takePermissionForLocation()
+//            takePermissionForLocation()
 
             binding.otpView.showSuccess()
             progressDialog.dismiss()
@@ -177,53 +177,6 @@ class OTPActivity : AppCompatActivity(), ValidateAccountListener {
             finish()
         }else{
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun takePermissionForLocation() {
-        Dexter.withActivity(this).withPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-        ).withListener(object : MultiplePermissionsListener {
-            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                if (report?.areAllPermissionsGranted() == true) {
-                    getLocation()
-                }
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                permissions: MutableList<PermissionRequest>?,
-                token: PermissionToken?
-            ) {
-                token?.continuePermissionRequest()
-            }
-        }).check()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLocation() {
-        geocoder = Geocoder(this)
-        val mLocManager: LocationManager =
-            this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val mLocListener = MyLocationListener(this)
-        mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, mLocListener)
-        if (mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            lat = mLocListener.latitude
-            lng = mLocListener.longitude
-
-            address = geocoder.getFromLocation(lat, lng, 1)!!
-
-            if (address.isNotEmpty()) {
-                for (i in 0 until address.size) {
-                    val adrs = address[i].getAddressLine(0).toString()
-                    val city = address[i].locality.toString()
-                    val state = address[i].adminArea.toString()
-                    val country = address[i].countryName.toString()
-//                    binding.addressTv.text = adrs
-                    //val postalcode = address[i].postalCode[i]
-                    Log.d("TAG", "$adrs,$city, $state, $country")
-                }
-            }
         }
     }
 

@@ -1,15 +1,20 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +48,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ImageAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     lateinit var imageLists: List<Int>
+    private var progress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +77,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.horizontalScrollView.post {
             binding.horizontalScrollView.scrollTo(0,0)
         }
@@ -177,17 +184,6 @@ class HomeFragment : Fragment() {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     private fun getServiceData() {
@@ -480,7 +476,4 @@ class HomeFragment : Fragment() {
             mPaint.setAntiAlias(true)
         }
     }
-
-
-
 }

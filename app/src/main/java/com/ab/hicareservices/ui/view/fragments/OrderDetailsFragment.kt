@@ -10,45 +10,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.service.ServiceData
-import com.ab.hicareservices.data.model.weeks.WeekModel
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnRescheduleClickHandler
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
-import com.ab.hicareservices.utils.AppUtils
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.squareup.picasso.Picasso
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.math.roundToInt
 
 class OrderDetailsFragment : Fragment() {
@@ -68,7 +55,6 @@ class OrderDetailsFragment : Fragment() {
     private val ORDER_NO = "ORDER_NO"
     private val SERVICE_TYPE = "SERVICE_TYPE"
     private val SERVICE_TYPE_IMG = "SERVICE_TYPE_IMG"
-
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
     var service_url_image: String = ""
@@ -80,6 +66,7 @@ class OrderDetailsFragment : Fragment() {
     var locationLatitudeS: String = ""
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
+
 
     companion object {
         @JvmStatic
@@ -129,13 +116,6 @@ class OrderDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
-        //viewModel = ViewModelProvider(requireActivity(), ServiceVMFactory(MainRepository(api))).get(ServiceViewModel::class.java)
-        /*orderDetailsViewModel = ViewModelProvider(requireActivity(),
-            OrderDetailsVMFactory(MainRepository(api)))[OrderDetailsViewModel::class.java]*/
-        progressDialog = ProgressDialog(requireContext()).apply {
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-        }
         return binding.root
     }
 
@@ -144,6 +124,10 @@ class OrderDetailsFragment : Fragment() {
         Log.d("TAG", "orderno $orderNo and $serviceType")
 
         Picasso.get().load(service_url_image).into(binding.imgType)
+
+        progressDialog = ProgressDialog(requireActivity(),R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
 
         binding.imgLogo.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -162,7 +146,8 @@ class OrderDetailsFragment : Fragment() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            getServiceList()
+            progressDialog.show()
+            getServiceList(progressDialog)
         }, 500)
 
 //        binding.imgadd.setOnClickListener {
@@ -347,7 +332,7 @@ class OrderDetailsFragment : Fragment() {
         orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
     }
 
-    private fun getServiceList() {
+    private fun getServiceList(progressDialog: ProgressDialog) {
         binding.recycleView.layoutManager = LinearLayoutManager(activity)
         mAdapter = ServiceRequestAdapter()
 
@@ -357,6 +342,7 @@ class OrderDetailsFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
             Log.d(TAG, "onViewCreated: $it")
             mAdapter.setServiceList(it)
+            progressDialog.dismiss()
         })
         mAdapter.setOnServiceItemClicked(object : OnServiceRequestClickHandler {
 
