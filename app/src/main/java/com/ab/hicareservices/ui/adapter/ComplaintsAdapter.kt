@@ -67,7 +67,7 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
             }
 //            imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
             holder.itemView.setOnClickListener {
-                if (imageList.isNotEmpty()) {
+//                if (imageList.isNotEmpty()) {
                     val appCompatActivity = it.context as AppCompatActivity
                     appCompatActivity.supportFragmentManager.beginTransaction()
                         .replace(
@@ -88,10 +88,10 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
                         )
                         .addToBackStack(null)
                         .commit()
-                } else {
-                    Toast.makeText(requireActivity,"Sorry, attachments not available!", Toast.LENGTH_SHORT).show()
-
-                }
+//                } else {
+//                    Toast.makeText(requireActivity,"Sorry, attachments not available!", Toast.LENGTH_SHORT).show()
+//
+//                }
 //            requireActivity().supportFragmentManager.beginTransaction()
 //                .replace(com.ab.hicareservices.R.id.container, ComplaintDetailsFragment.newInstance()).addToBackStack("OrderDetailsFragment").commit()
             }

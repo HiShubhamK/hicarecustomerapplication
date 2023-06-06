@@ -33,13 +33,14 @@
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
     </RelativeLayout>
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
-        android:layout_below="@id/headerLayout"
+        android:layout_below="@id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
         app:indicatorColor="@color/colorAccent" />
 <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
 <!--        android:layout_width="match_parent"-->

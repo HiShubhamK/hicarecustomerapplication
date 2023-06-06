@@ -29,24 +29,29 @@ class ServiceRequestAdapter : RecyclerView.Adapter<ServiceRequestAdapter.MainVie
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val service = service[position]
-        holder.binding.txtStatus.text = service.Status_c
+        try {
+            val service = service[position]
+            holder.binding.txtStatus.text = service.Status_c
 //        holder.binding.txtSequence.text = service.sequence_No__c.replace(".0","")
-        holder.binding.txtserviceno.text= service.SequenceNo_c.toString().replace(".0","")
-        holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(0,2)
-        holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(3)
-        if (service.EnableRescheduleOption==true){
-            holder.binding.lnrRecheduleButton.visibility = View.VISIBLE
-        }else{
-            holder.binding.lnrRecheduleButton.visibility = View.GONE
-        }
-        holder.binding.btnReschedule.setOnClickListener {
-            mOnServiceRequestClickHandler?.onRescheduleServiceClicked(position,service)
+            holder.binding.txtserviceno.text= service.SequenceNo_c.toString().replace(".0","")
+            holder.binding.txtStep.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(0,2)
+            holder.binding.txtdateinchar.text = AppUtils2.formatDateTime2(service.AppointmentStartDateTime_c.toString()).substring(3)
+            if (service.EnableRescheduleOption==true){
+                holder.binding.lnrRecheduleButton.visibility = View.VISIBLE
+            }else{
+                holder.binding.lnrRecheduleButton.visibility = View.GONE
+            }
+            holder.binding.btnReschedule.setOnClickListener {
+                mOnServiceRequestClickHandler?.onRescheduleServiceClicked(position,service)
+            }
+
+            holder.binding.btnView.setOnClickListener {
+                mOnServiceRequestClickHandler?.onViewServiceClicked(position)
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
-        holder.binding.btnView.setOnClickListener {
-            mOnServiceRequestClickHandler?.onViewServiceClicked(position)
-        }
     }
 
     override fun getItemCount(): Int {

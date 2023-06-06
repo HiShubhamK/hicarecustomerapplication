@@ -80,6 +80,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }, 1500)
 
 
+
+
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
@@ -134,9 +136,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //                    binding.title.text = "Home"
 //                    binding.help.visibility = View.GONE
                     binding.title.text = "Welcome To Hicare"
-
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance()).commit();
+//
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, HomeFragment.newInstance()).commit();
 
                     true
                 }

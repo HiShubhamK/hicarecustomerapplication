@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -139,7 +138,7 @@ class SlotComplinceFragment() : Fragment() {
 //            startActivity(intent)
             Handler(Looper.getMainLooper()).postDelayed({
                 getOrdersList(date)
-            }, 1000)
+            }, 500)
 
         })
 
@@ -191,92 +190,97 @@ class SlotComplinceFragment() : Fragment() {
 
     private fun getOrdersList(date: String) {
 
-
-        binding.progressBar.visibility = View.VISIBLE
-        binding.recyclerView.visibility = View.GONE
-        binding.recyclerView.layoutManager =
-            GridLayoutManager(context, 2)
+        try {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.recyclerView.visibility = View.GONE
+            binding.recyclerView.layoutManager =
+                GridLayoutManager(context, 2)
 //        binding.recyclerView.layoutManager =
 //            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        mAdapter = SlotCompliceAdapater()
+            mAdapter = SlotCompliceAdapater()
 
-        binding.recyclerView.adapter = mAdapter
+            binding.recyclerView.adapter = mAdapter
 
-        viewModel.getcomplainceresponse.observe(requireActivity(), Observer {
-            Log.d(TAG, "onViewCreated: $it orders fragment")
-            mAdapter.serComplainceList(
-                it,
-                requireActivity(),
-                Pincode,
-                Service_Code,
-                Unit,
-                Lat,
-                Long,
-                ServiceType
-            )
-            binding.progressBar.visibility = View.GONE
-            binding.recyclerView.visibility = View.VISIBLE
+            viewModel.getcomplainceresponse.observe(requireActivity(), Observer {
+                Log.d(TAG, "onViewCreated: $it orders fragment")
+                mAdapter.serComplainceList(
+                    it,
+                    requireActivity(),
+                    Pincode,
+                    Service_Code,
+                    Unit,
+                    Lat,
+                    Long,
+                    ServiceType
+                )
+                binding.progressBar.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
 
-        })
-        Handler(Looper.getMainLooper()).postDelayed({
-            var data = HashMap<String, Any>()
-            data["ServiceCenter_Id"] = ServiceCenter_Id
-            data["SlotDate"] = date
-            data["TaskId"] = TaskId
-            data["SkillId"] = SkillId
-            data["Lat"] = Lat
-            data["Long"] = Long
-            data["ServiceType"] = ServiceType
-            viewModel.getComplainceData(data)
-        }, 1000)
-
-
-        mAdapter.onSlotclick(object : onSlotclick {
-            override fun onSlotItemclicked(
-                position: Int,
-                Pincode: String,
-                Service_Code: String,
-                Service_Date: String,
-                Service_Subscription: String?,
-                unit: String?,
-                Lat: String,
-                Long: String,
-                ServiceType: String,
-                toString: String
-            ) {
+            })
+            Handler(Looper.getMainLooper()).postDelayed({
                 var data = HashMap<String, Any>()
-                data["Pincode"] = Pincode
-                data["Service_Code"] = Service_Code
-                data["Service_Date"] = Service_Date
-                data["Service_Subscription"] = ""
-                data["Unit"] = unit.toString()
+                data["ServiceCenter_Id"] = ServiceCenter_Id
+                data["SlotDate"] = AppUtils2.formatDateTime4(date).reversed()
+                data["TaskId"] = TaskId
+                data["SkillId"] = SkillId
                 data["Lat"] = Lat
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
-                viewModel.GetSlots(data)
-                viewModel.getSlotresponse.observe(requireActivity(), Observer {
-                    Log.d(TAG, "onViewCreated: $it orders fragment")
-                    ShowBookingDialog(it)
-
-                })
-
-            }
+                viewModel.getComplainceData(data)
+            }, 1000)
 
 
-        })
+            mAdapter.onSlotclick(object : onSlotclick {
+                override fun onSlotItemclicked(
+                    position: Int,
+                    Pincode: String,
+                    Service_Code: String,
+                    Service_Date: String,
+                    Service_Subscription: String?,
+                    unit: String?,
+                    Lat: String,
+                    Long: String,
+                    ServiceType: String,
+                    toString: String
+                ) {
+                    var data = HashMap<String, Any>()
+                    data["Pincode"] = Pincode
+                    data["Service_Code"] = Service_Code
+                    data["Service_Date"] = Service_Date
+                    data["Service_Subscription"] = ""
+                    data["Unit"] = unit.toString()
+                    data["Lat"] = Lat
+                    data["Long"] = Long
+                    data["ServiceType"] = ServiceType
+                    viewModel.GetSlots(data)
+                    viewModel.getSlotresponse.observe(requireActivity(), Observer {
+                        Log.d(TAG, "onViewCreated: $it orders fragment")
+                        ShowBookingDialog(it)
+
+                    })
+
+                }
+
+
+            })
 
 
 
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onViewCreated: $it")
-            binding.recyclerView.visibility = View.GONE
+            viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+                Log.d(TAG, "onViewCreated: $it")
+                binding.recyclerView.visibility = View.GONE
 //            binding.txterrormessage.visibility = View.VISIBLE
-        })
-        Log.e(
-            "TAG",
-            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType
-        )
+            })
+            Log.e(
+                "TAG",
+                "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType
+            )
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 
@@ -309,7 +313,7 @@ class SlotComplinceFragment() : Fragment() {
             data["TaskId"] = TaskId
             data["AppointmentDate"] = AppointmentDate
             data["AppointmentStart"] = AppointmentStart
-            data["AppointmentEnd"] =AppointmentEnd
+            data["AppointmentEnd"] = AppointmentEnd
             data["Source"] = Source
             data["ServiceType"] = ServiceType
             viewModel.BookSlot(data)
@@ -338,11 +342,11 @@ class SlotComplinceFragment() : Fragment() {
                 source: String?,
                 serviceType: String
             ) {
-                TaskId=taskid
-                AppointmentDate=appointmentDate
-                AppointmentStart=appointmentStart
-                AppointmentEnd=appointmentEnd!!
-                Source=source!!
+                TaskId = taskid
+                AppointmentDate = appointmentDate
+                AppointmentStart = appointmentStart
+                AppointmentEnd = appointmentEnd!!
+                Source = source!!
 
             }
 

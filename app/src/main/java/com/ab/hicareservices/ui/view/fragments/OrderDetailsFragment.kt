@@ -364,6 +364,7 @@ class OrderDetailsFragment : Fragment() {
 //                }
 
             }
+
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {

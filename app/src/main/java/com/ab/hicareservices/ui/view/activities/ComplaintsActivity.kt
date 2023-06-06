@@ -42,9 +42,11 @@ class ComplaintsActivity : AppCompatActivity() {
 //        }
 
         binding.progressBar.visibility= View.VISIBLE
+        binding.recyclerView.visibility=View.GONE
+
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints()
-        }, 1000)
+        }, 500)
 
     }
 
@@ -69,6 +71,7 @@ class ComplaintsActivity : AppCompatActivity() {
         binding.recyclerView.adapter = mAdapter
 
         viewModel.getAllComplaints(AppUtils2.mobileno)
+        binding.recyclerView.visibility=View.VISIBLE
         binding.progressBar.visibility= View.GONE
 
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
