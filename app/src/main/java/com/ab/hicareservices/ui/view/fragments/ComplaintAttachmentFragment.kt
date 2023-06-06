@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsAttachmentBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
@@ -22,9 +23,6 @@ class ComplaintAttachmentFragment() : Fragment() {
     private val TAG = "ComplaintsActivity"
     var mobileNo = ""
     private lateinit var imageList:ArrayList<String>
-
-
-
 
     lateinit var binding: ActivityComplaintsAttachmentBinding
     private val viewModel: ComplaintsViewModel by viewModels()
@@ -64,10 +62,12 @@ class ComplaintAttachmentFragment() : Fragment() {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
 //        viewModeld.validateAccount(mobile)
-
-        binding.backIv.setOnClickListener {
-            requireActivity().finish()
-        }
+//
+//
+//        binding.backIv.setOnClickListener {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ComplaintAttachmentFragment.newInstance()).addToBackStack("AccountFragment").commit();
+//        }
 
 //        binding.addComplaintsBtn.setOnClickListener {
 //            val intent = Intent(this, AddComplaintsActivity::class.java)

@@ -9,30 +9,74 @@
     tools:context=".ui.view.activities.ComplaintsActivity">
 
     <RelativeLayout
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="65dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:orientation="vertical">
 
-        <ImageView
-            app:tint="@color/colorAccent"
-            android:id="@+id/backIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:src="@drawable/ic_round_arrow_back_white" />
+        <RelativeLayout
+            android:id="@+id/lnrTitle"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Complaint Attachments"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="35dp"
+                android:layout_toRightOf="@id/imgLogo"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="center_horizontal"
+                android:text="Complaint Attachments"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/bottomheadertext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="45dp"
+                android:layout_toRightOf="@id/imgLogo"
+                android:gravity="center_horizontal"
+                android:text="Home"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/imgLogo"
+                android:gravity="end"
+                android:text="Help"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
+
+
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_below="@id/headerLayout"
