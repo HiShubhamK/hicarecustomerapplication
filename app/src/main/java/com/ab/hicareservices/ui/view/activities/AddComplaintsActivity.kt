@@ -87,13 +87,21 @@ class AddComplaintsActivity : AppCompatActivity() {
 //        service_url_image = intent.getStringExtra(SERVICE_TYPE_IMG).toString()
         arraylistImages = ArrayList()
         val extras = getIntent().extras
+        if(orderNo!="") {
+            binding.bottomheadertext.visibility=View.GONE
+            binding.bottomheadertext.text = orderNo
+        }else{
+            binding.bottomheadertext.visibility=View.VISIBLE
+            binding.bottomheadertext.text = orderNo
+
+        }
 
         binding.orderNoEt.text = orderNo
 
         //complaintViewModel = ViewModelProvider(this, CComplaintViewModelFactory(MainRepository(api))).get(CComplaintViewModel::class.java)
 
         typeHash = HashMap()
-        binding.backIv.setOnClickListener {
+        binding.imgLogo.setOnClickListener {
             finish()
         }
 
@@ -133,7 +141,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            val orderNo = binding.orderNoEt.text.toString().trim()
+            val orderNo = binding.bottomheadertext.text.toString().trim()
             val serviceNo = binding.serviceNoEt.text.toString().trim()
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()

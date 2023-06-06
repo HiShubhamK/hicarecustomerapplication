@@ -72,7 +72,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         checkUserStatus()
 //        takePermissionForLocation()
 
-        binding.addFab.setColorFilter(Color.WHITE);
+//        binding.addFab.setColorFilter(Color.WHITE);
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         viewModel.validateAccount(AppUtils2.mobileno)
@@ -175,6 +175,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val btnSubmit = promptsView.findViewById<View>(R.id.btnlead) as Button
         val email = promptsView.findViewById<View>(R.id.textemail) as TextView
        val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
+
+        alertDialog.setCancelable(false)
 
         imgcancels.setOnClickListener {  alertDialog.cancel() }
 

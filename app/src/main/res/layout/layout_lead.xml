@@ -5,14 +5,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imgbtncancel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:src="@drawable/ic_baseline_cancel"
-        app:tint="@color/colorAccent"
-        android:layout_margin="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
+            android:text="Request Callback"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:fontFamily="@font/lato_semibold"/>
+
+        <ImageView
+            android:id="@+id/imgbtncancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_baseline_cancel"
+            app:tint="@color/colorAccent"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,35 +41,6 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="Request Callback"
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp"
-                android:fontFamily="@font/lato_semibold"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="Find a time that work for us both below and we'll get something booked."
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:visibility="gone"/>
-
-        </LinearLayout>
 
         <View
             android:id="@+id/view1"
@@ -93,7 +84,6 @@
                     android:background="@null"
                     android:textColor="@color/grey_font"
                     android:textSize="12sp"
-                    android:hint="Enter name here"
                     android:padding="12dp" />
 
             </androidx.cardview.widget.CardView>
@@ -139,7 +129,6 @@
                     android:textColor="@color/grey_font"
                     android:textSize="12sp"
                     android:maxLength="10"
-                    android:hint="Enter mobile no here"
                     android:padding="12dp" />
 
             </androidx.cardview.widget.CardView>
@@ -186,7 +175,6 @@
                     android:textColor="@color/grey_font"
                     android:textSize="12sp"
                     android:maxLength="6"
-                    android:hint="Enter pincode here"
                     android:padding="12dp" />
 
             </androidx.cardview.widget.CardView>
