@@ -96,7 +96,8 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         }
 
-        binding.orderNoEt.text = orderNo
+
+//        binding.orderNoEt.text = orderNo
 
         //complaintViewModel = ViewModelProvider(this, CComplaintViewModelFactory(MainRepository(api))).get(CComplaintViewModel::class.java)
 

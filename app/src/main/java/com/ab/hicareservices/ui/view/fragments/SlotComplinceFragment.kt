@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper

@@ -109,6 +109,31 @@
                 app:otp_box_background_success="@drawable/bg_otp_success"
                 app:otp_text_size="20sp"
                 app:width="40dp" />
+<!--            -->
+
+
+<!--            <androidx.appcompat.widget.AppCompatEditText-->
+<!--                android:id="@+id/otpView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textColor="@color/md_grey_600"-->
+<!--                app:bar_enabled="false"-->
+<!--                app:bar_height="2dp"-->
+<!--                app:box_margin="8dp"-->
+<!--                app:height="40dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:length="4"-->
+<!--                app:otp=""-->
+<!--                app:otp_box_background="@drawable/bg_login_edittext"-->
+<!--                app:otp_box_background_error="@drawable/bg_otp_error"-->
+<!--                app:otp_box_background_success="@drawable/bg_otp_success"-->
+<!--                app:otp_text_size="20sp"-->
+<!--                app:width="40dp"/>-->
+
 
             <TextView
                 android:id="@+id/resentSuccessTv"

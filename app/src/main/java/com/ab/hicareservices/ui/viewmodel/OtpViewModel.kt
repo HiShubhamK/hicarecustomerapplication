@@ -1,7 +1,7 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.content.Context
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -10,6 +10,7 @@ import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.handler.ValidateAccountListener
+import com.ab.hicareservices.ui.view.activities.OTPActivity
 import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +48,26 @@ class OtpViewModel : ViewModel(){
                 if (response != null && response.body()?.isSuccess == true) {
                     val body = response.body()
                     AppUtils2.TOKEN=response.body()?.data.toString()
+                    validateAccountListener?.onSuccess(body?.data.toString())
+                }else{
+                    validateAccountListener?.onSuccess("")
+                }
+            }
+
+            override fun onFailure(call: Call<ValidateResponse>, t: Throwable) {
+                validateAccountListener?.onError(t.message.toString())
+            }
+        })
+    }
+
+    fun validateAccounts(mobileNo: String,context:Context) {
+        val response = repository.validateAccount(mobileNo)
+        response.enqueue(object : Callback<ValidateResponse> {
+            override fun onResponse(call: Call<ValidateResponse?>, response: Response<ValidateResponse>?) {
+                if (response != null && response.body()?.isSuccess == true) {
+                    val body = response.body()
+                    AppUtils2.TOKEN=response.body()?.data.toString()
+                    SharedPreferenceUtil.setData(context, "bToken", response.body()?.data.toString())
                     validateAccountListener?.onSuccess(body?.data.toString())
                 }else{
                     validateAccountListener?.onSuccess("")

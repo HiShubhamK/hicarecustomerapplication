@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
+            val islogin=SharedPreferenceUtil.getData(this, "IsLogin", false)
             if(islogin==true){
                 val i = Intent(this, HomeActivity::class.java)
                 startActivity(i)

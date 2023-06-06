@@ -1,13 +1,11 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -28,7 +26,6 @@ import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityMainBinding
-import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
@@ -38,11 +35,6 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
 import java.text.SimpleDateFormat
@@ -69,9 +61,15 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(binding.root)
         datalist=ArrayList()
         datalist.add("Select Type")
-        checkUserStatus()
+
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         viewModel.validateAccount(AppUtils2.mobileno)
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            checkUserStatus()
+        }, 3000)
+
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
