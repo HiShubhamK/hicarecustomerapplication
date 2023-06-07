@@ -129,7 +129,6 @@
                     android:background="@color/colorPrimary"
                     android:layout_width="1dp"
                     android:layout_height="match_parent">
-
                 </View>
 
                 <androidx.appcompat.widget.AppCompatEditText
