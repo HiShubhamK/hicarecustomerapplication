@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.location.Address
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -22,8 +24,7 @@ class OTPActivity : AppCompatActivity() {
     private val viewModel: OtpViewModel by viewModels()
     var mobileNo = ""
     var mOtp = ""
-
-    //    lateinit var progressDialog: ProgressDialog
+    lateinit var progressDialog: ProgressDialog
     var token: String? = null
     lateinit var geocoder: Geocoder
     lateinit var address: List<Address>
@@ -43,6 +44,10 @@ class OTPActivity : AppCompatActivity() {
 
         AppUtils2.mobileno = mobileNo
 
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
+
         startCounter()
         binding.resendCodeTv.setOnClickListener {
             if (binding.resendCodeTv.text == "Resend code") {
@@ -54,16 +59,20 @@ class OTPActivity : AppCompatActivity() {
             finish()
         }
         binding.continueBtn.setOnClickListener {
+                progressDialog.show()
             if (mOtp.equals(binding.otpView.otp.toString())) {
 
                 validateAccount(mobileNo)
-
+                progressDialog.dismiss()
                 SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
                 SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
 
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
+            }else{
+                progressDialog.dismiss()
+                Toast.makeText(this,"Enter valid otp",Toast.LENGTH_LONG).show()
             }
         }
     }

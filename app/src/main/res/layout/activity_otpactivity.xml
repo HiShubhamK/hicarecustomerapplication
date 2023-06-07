@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDFFE2"
+    android:background="#f6f6f6"
     tools:context=".ui.view.activities.OTPActivity">
 
     <ImageView
@@ -16,34 +16,10 @@
         android:src="@drawable/ic_round_arrow_back_black"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/polygon_1"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/polygon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/polygon_2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/hicarelogo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="match_parent"
         android:background="@drawable/bg_login_white_color"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,12 +28,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f6f6f6">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/polygon_2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/unlock"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="Enter OTP"
+            android:text="Validate OTP"
             android:textColor="@color/cardview_dark_background"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -92,12 +85,14 @@
                 android:id="@+id/otpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/dim_20"
+                android:layout_marginBottom="@dimen/dim_20"
                 android:textColor="@color/md_grey_600"
                 app:bar_enabled="false"
                 app:bar_height="2dp"
                 app:box_margin="8dp"
                 app:height="40dp"
+                android:importantForAutofill="auto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:padding="10sp"
-                android:layout_margin="10dp"
+                android:layout_margin="0dp"
                 android:gravity="center"
                 android:background="@color/grey"
                 android:text="Resend OTP (27)"
@@ -165,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
                 app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="6dp"
@@ -175,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center"
-                    android:text="LOG-IN"
+                    android:text="Verify &amp; Proceed"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
