@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -78,6 +79,9 @@ class OrdersFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
+            requireActivity().onBackPressed()
+        }
 
         val progressBar = ProgressBar(requireActivity())
         //setting height and width of progressBar

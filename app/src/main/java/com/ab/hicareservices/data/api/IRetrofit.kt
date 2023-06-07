@@ -2,6 +2,7 @@ package com.ab.hicareservices.data.api
 
 import com.ab.hicareservices.data.model.LeadResponse
 import com.ab.hicareservices.data.model.NotificationToken
+import com.ab.hicareservices.data.model.Whatappresponse
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
@@ -130,5 +131,8 @@ interface IRetrofit {
 
     @POST("Lead/AddLeadAsync")
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
+
+    @GET("Account/VerifyWhatsAppUser")
+    fun getWhatappVerification(@Query("waToken") waToken:String):Call<Whatappresponse>
 
 }

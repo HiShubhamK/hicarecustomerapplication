@@ -17,7 +17,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="150dp"
@@ -35,18 +36,19 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:textSize="22sp"
+                android:text="Hicare"
+                android:textSize="26sp"
                 android:fontFamily="@font/lato_semibold"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/colorAccent"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hello welcome back to out account"
+                android:text="Say Hi to Hygiene"
                 android:textSize="12sp"
+                app:textAllCaps="false"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/lato_semibold"
                 android:textStyle="bold"/>
@@ -57,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="50dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -109,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textSize="14sp"
             android:textAllCaps="false"
             android:text="Request OTP"
             android:textColor="@color/white"
@@ -157,146 +160,43 @@
             </View>
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:elevation="5dp"-->
+<!--            android:background="@color/colorAccent"-->
+<!--            android:text="Login with What's app"/>-->
+
+        <com.otpless.views.WhatsappLoginButton
+            android:id="@+id/whatsapp_login"
+            app:otpless_link="https://hicare.authlink.me"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:otplessTextSize="14sp"
             android:layout_marginTop="30dp"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:elevation="5dp"
-            android:background="@color/colorAccent"
-            android:text="Login with What's app"/>
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="By continuing you agree to our"
+            android:gravity="center"
+            android:layout_marginTop="180dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Term and Condition"
+            android:gravity="center"
+            android:layout_marginTop="2dp"/>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/polygon_1"-->
-<!--        android:layout_width="250dp"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:src="@drawable/polygon"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.496"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.151" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/polygon_2"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/hicarelogo"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.208" />-->
-
-<!--    <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--        android:id="@+id/linearLayoutCompat"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="357dp"-->
-<!--        android:background="@drawable/bg_login_white_color"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="1.0">-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Enter your mobile number"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:fontFamily="@font/lato_semibold"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="20sp" />-->
-
-<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            android:layout_marginRight="30dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:background="@drawable/border_background_curve">-->
-
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:padding="12dp"-->
-<!--                android:text="+91"-->
-<!--                android:fontFamily="@font/lato_regular"-->
-<!--                android:textColor="@color/md_grey_500"-->
-<!--                android:textSize="18sp" />-->
-<!--            <View-->
-<!--                android:background="@color/colorPrimary"-->
-<!--                android:layout_width="1dp"-->
-<!--                android:layout_height="match_parent">-->
-
-<!--            </View>-->
-
-<!--            <androidx.appcompat.widget.AppCompatEditText-->
-<!--                android:id="@+id/mobileNoEt"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:fontFamily="@font/lato_regular"-->
-<!--                android:hint="Eg. 9892934776"-->
-<!--                android:inputType="number"-->
-<!--                android:maxLength="10"-->
-<!--                android:padding="12dp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textColorHint="@color/md_grey_500" />-->
-<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="12dp"-->
-
-<!--            android:text="TERM AND CONDITION"-->
-<!--            android:fontFamily="@font/lato_light"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="80dp"-->
-<!--            android:textColor="#3E9EF7"-->
-<!--            android:textSize="16sp"-->
-<!--            android:textStyle="bold" />-->
-
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/signInBtn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:layout_marginRight="30dp"-->
-<!--            android:background="@drawable/button_border"-->
-<!--            android:text="Get Otp"-->
-<!--            android:fontFamily="@font/lato_regular"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp" />-->
-
-<!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

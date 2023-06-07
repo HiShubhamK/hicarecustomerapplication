@@ -17,6 +17,7 @@ plugins {
 }*/
 repositories {
     maven { url 'https://maven.google.com' }
+    maven{url 'https://jitpack.io'}
 }
 
 android {
@@ -117,6 +118,8 @@ dependencies {
     // CameraX View class
     implementation "androidx.camera:camera-view:1.0.0-alpha27"
 
+    //otpless
+    implementation 'com.github.otpless-tech:otpless-android-sdk:1.1.6'
 
 /*    compile(name: 'ezetapandroidsdk_2_0', ext: 'aar')
     api 'com.google.android.material:material:1.1.0'

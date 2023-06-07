@@ -131,7 +131,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 else -> false
             }
         }
-//        binding.bottomNavigation.selectedItemId = R.id.nav_home;
+        binding.bottomNavigation.selectedItemId = R.id.nav_home
 
         binding.addFab.setOnClickListener{
             showLeadDialog()
@@ -429,11 +429,13 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         super.onBackPressed()
         val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
         if (islogin==true) {
-            binding.bottomNavigation.selectedItemId = R.id.nav_home;
+
+            binding.bottomNavigation.selectedItemId = R.id.nav_home
+            binding.addFab.visibility=View.VISIBLE
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance()).commit();
+        }else{
+            finishAffinity()
         }
     }
-
-
-
-
 }

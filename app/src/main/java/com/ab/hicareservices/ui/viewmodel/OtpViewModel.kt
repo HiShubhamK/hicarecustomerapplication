@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.NotificationToken
+import com.ab.hicareservices.data.model.Whatappresponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.repository.MainRepository
@@ -20,10 +21,12 @@ class OtpViewModel : ViewModel(){
     val repository = MainRepository()
 
     val otpResponse = MutableLiveData<OtpResponse>()
-    val validateResponse = MutableLiveData<String>()
+    val validateResponses = MutableLiveData<ValidateResponse>()
     val notificationToken = MutableLiveData<NotificationToken>()
     val errorMessage = MutableLiveData<String>()
     var validateAccountListener: ValidateAccountListener? = null
+    val whatsResponse = MutableLiveData<Whatappresponse>()
+
 
     fun getOtp(mobileNo: String) {
 
@@ -93,6 +96,22 @@ class OtpViewModel : ViewModel(){
             }
 
             override fun onFailure(call: Call<NotificationToken>, t: Throwable) {
+                validateAccountListener?.onError(t.message.toString())
+            }
+        })
+    }
+
+
+    fun getWhatappToken(watoken: String) {
+        val response = repository.getWhatappVerify(watoken)
+        response.enqueue(object : Callback<Whatappresponse> {
+            override fun onResponse(call: Call<Whatappresponse?>, response: Response<Whatappresponse>?) {
+                if (response != null) {
+                    whatsResponse.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<Whatappresponse>, t: Throwable) {
                 validateAccountListener?.onError(t.message.toString())
             }
         })

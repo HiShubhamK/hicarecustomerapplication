@@ -4,19 +4,24 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityLoginBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.otpless.dto.OtplessResponse
+import com.otpless.views.OtplessManager
+import com.otpless.views.WhatsappLoginButton
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     private val viewModel: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
-
+    var data:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -24,6 +29,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         checkUserStatus()
+
+        OtplessManager.getInstance().init(this)
+
+        val button = findViewById<View>(R.id.whatsapp_login) as WhatsappLoginButton
+        button.setResultCallback { data: OtplessResponse ->
+            if (data?.waId != null) {
+                val waid = data.waId
+                getwhatapplogin(waid,progressDialog)
+            }
+        }
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -38,6 +53,21 @@ class LoginActivity : AppCompatActivity() {
             binding.signInBtn.isEnabled = false
             getOtp(mobileNo,progressDialog)
         }
+    }
+
+    private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
+        viewModel.getWhatappToken(waid.toString())
+        viewModel.whatsResponse.observe(this,Observer{
+            if(it.IsSuccess==true){
+                data= it.Data?.waNumber?.substring(2).toString()
+                viewModel.validateAccount(data)
+                SharedPreferenceUtil.setData(this, "mobileNo", data)
+                SharedPreferenceUtil.setData(this, "phoneNo", data)
+                SharedPreferenceUtil.setData(this, "IsLogin", true)
+                val intent=Intent(this,HomeActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onResume() {
