@@ -89,7 +89,6 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/lato_regular"/>
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -206,28 +205,28 @@
             </View>
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:elevation="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/colorAccent"
-            android:text="Login with What's app"/>
-
-<!--        <com.otpless.views.WhatsappLoginButton-->
-<!--            android:id="@+id/whatsapp_login"-->
-<!--            app:otpless_link="https://hicare.authlink.me"-->
+<!--        <androidx.appcompat.widget.AppCompatButton-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            app:otplessTextSize="14sp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:elevation="5dp"-->
 <!--            android:layout_marginLeft="20dp"-->
 <!--            android:layout_marginRight="20dp"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            />-->
+<!--            android:background="@color/colorAccent"-->
+<!--            android:text="Login with What's app"/>-->
+
+        <com.otpless.views.WhatsappLoginButton
+            android:id="@+id/whatsapp_login"
+            app:otpless_link="https://hicare.authlink.me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:otplessTextSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
