@@ -124,6 +124,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:textColor="@color/md_grey_500"
                     android:textSize="18sp" />
+
                 <View
                     android:background="@color/colorPrimary"
                     android:layout_width="1dp"
@@ -238,7 +239,6 @@
 <!--            android:gravity="center"-->
 <!--            android:layout_marginTop="180dp"/>-->
 
-
 <!--        <TextView-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
@@ -246,7 +246,6 @@
 <!--            android:text="Term and Condition"-->
 <!--            android:gravity="center"-->
 <!--            android:layout_marginTop="2dp"/>-->
-
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
