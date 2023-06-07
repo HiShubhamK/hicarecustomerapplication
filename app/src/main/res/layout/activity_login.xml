@@ -10,22 +10,85 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="20dp">
-
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:background="#f6f6f6">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/hicarelogo"/>
+                android:src="@drawable/hicarelogo"
+                android:layout_marginLeft="10dp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f6f6f6">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="India's Hygiene Expert"
+                android:textSize="26sp"
+                android:background="#f6f6f6"
+                android:fontFamily="@font/lato_semibold"
+                android:textStyle="bold"
+                android:layout_marginLeft="35dp"
+                android:textColor="@color/colorAccent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="30+ years of legacy "
+                android:textSize="22sp"
+                android:background="#f6f6f6"
+                android:fontFamily="@font/lato_semibold"
+                android:textStyle="bold"
+                android:layout_marginLeft="35dp"
+                android:textColor="@color/colorAccent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Expert"
+                android:textSize="26sp"
+                android:background="#f6f6f6"
+                app:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/lato_semibold"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACCOUNT"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/lato_semibold"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login Account to say Hi to Hygiene"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/lato_regular"/>
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -33,33 +96,12 @@
             android:orientation="vertical"
             android:layout_marginTop="30dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hicare"
-                android:textSize="26sp"
-                android:fontFamily="@font/lato_semibold"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/colorAccent"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Say Hi to Hygiene"
-                android:textSize="12sp"
-                app:textAllCaps="false"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/lato_semibold"
-                android:textStyle="bold"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="50dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -112,6 +154,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:textAllCaps="false"
             android:text="Request OTP"
             android:textColor="@color/white"
@@ -124,6 +168,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/recPayments"
             android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp">
 
             <View
@@ -160,41 +206,47 @@
             </View>
         </LinearLayout>
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorAccent"
+            android:text="Login with What's app"/>
+
+<!--        <com.otpless.views.WhatsappLoginButton-->
+<!--            android:id="@+id/whatsapp_login"-->
+<!--            app:otpless_link="https://hicare.authlink.me"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
+<!--            app:otplessTextSize="14sp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
 <!--            android:layout_marginTop="30dp"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:elevation="5dp"-->
-<!--            android:background="@color/colorAccent"-->
-<!--            android:text="Login with What's app"/>-->
+<!--            />-->
 
-        <com.otpless.views.WhatsappLoginButton
-            android:id="@+id/whatsapp_login"
-            app:otpless_link="https://hicare.authlink.me"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:otplessTextSize="14sp"
-            android:layout_marginTop="30dp"
-            />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="By continuing you agree to our"
-            android:gravity="center"
-            android:layout_marginTop="180dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="12sp"-->
+<!--            android:text="By continuing you agree to our"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="180dp"/>-->
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="Term and Condition"
-            android:gravity="center"
-            android:layout_marginTop="2dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="12sp"-->
+<!--            android:text="Term and Condition"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="2dp"/>-->
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
