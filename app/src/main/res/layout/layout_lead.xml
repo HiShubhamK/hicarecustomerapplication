@@ -15,12 +15,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_semibold"
             android:text="Request Callback"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:fontFamily="@font/lato_semibold"/>
+            android:textSize="20dp" />
 
         <ImageView
             android:id="@+id/imgbtncancel"
@@ -259,7 +259,6 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="Submit"
             android:textAllCaps="false" />
-
 
 
         <TextView
