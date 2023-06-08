@@ -129,6 +129,7 @@ interface IRetrofit {
 //        @Query("ServiceType") ServiceType: String
 //    ): Call<GetComplaiceResponce>
 
+
     @POST("Lead/AddLeadAsync")
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
 
