@@ -242,6 +242,7 @@ class HomeFragment : Fragment() {
         snapHelper.attachToRecyclerView(binding.recOffers)
         binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
         (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
+        binding.recOffers.addItemDecoration(CirclePagerIndicatorDecoration())
 
 
 

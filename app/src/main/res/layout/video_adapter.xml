@@ -8,19 +8,18 @@
     android:clickable="true"
     android:focusable="true">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+    <VideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:videoId="S0Q4gqBUs7c"
-        app:autoPlay="true" />
+      />
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/videoView_thumbnail"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="220dp"-->
-<!--        android:scaleType="centerCrop"/>-->
+    <ImageView
+        android:id="@+id/videoView_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"/>
 
 </RelativeLayout>
 

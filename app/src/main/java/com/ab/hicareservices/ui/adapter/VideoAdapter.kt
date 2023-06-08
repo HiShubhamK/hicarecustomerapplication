@@ -7,9 +7,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.dashboard.VideoData
 import com.ab.hicareservices.databinding.VideoAdapterBinding
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.squareup.picasso.Picasso
+
+//import com.ab.hicareservices.databinding.VideoAdapterBinding
+
 
 
 class VideoAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerView.Adapter<VideoAdapter.MainViewHolder>() {
@@ -36,7 +37,7 @@ class VideoAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerV
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         try {
             val socialmedialist = socialmedialist[position]
-//            Picasso.get().load(socialmedialist.ImageUrl).into( holder.binding.videoViewThumbnail)
+            Picasso.get().load(socialmedialist.ImageUrl).into( holder.binding.videoViewThumbnail)
 //            mediaController = MediaController(fragmentActivity!!)
 //            mediaController.setAnchorView(holder.binding.videoView)
 //            holder.binding.videoView.setMediaController(mediaController)
@@ -53,14 +54,14 @@ class VideoAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerV
 //                holder.binding.videoView.stopPlayback()
 //                holder.binding.videoViewThumbnail.setVisibility(View.VISIBLE)
 //            })
-            fragmentActivity!!.lifecycle.addObserver(holder.binding.videoView)
+//            fragmentActivity!!.lifecycle.addObserver(holder.binding.videoView)
 
-            holder.binding.videoView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    val videoId = socialmedialist.VideoUrl.toString()
-                    youTubePlayer.loadVideo(videoId, 0f)
-                }
-            })
+//            holder.binding.videoView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+//                override fun onReady(youTubePlayer: YouTubePlayer) {
+//                    val videoId = socialmedialist.VideoUrl.toString()
+//                    youTubePlayer.loadVideo(videoId, 0f)
+//                }
+//            })
 
         }catch (e:Exception){
             e.printStackTrace()
