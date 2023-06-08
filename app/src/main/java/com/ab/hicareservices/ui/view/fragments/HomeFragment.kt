@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -11,45 +10,56 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
-import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.dashboard.BannerData
+import com.ab.hicareservices.data.model.dashboard.MenuData
+import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
-import com.ab.hicareservices.ui.handler.Backpressedlistener
-import com.ab.hicareservices.ui.handler.OffersInterface
-import com.ab.hicareservices.ui.viewmodel.GridViewModal
-import com.ab.hicareservices.ui.viewmodel.OfferViewModel
+import com.ab.hicareservices.ui.handler.offerinterface
+import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
+import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class HomeFragment : Fragment(), Backpressedlistener {
+class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: DashboardMenuAdapter
+    private lateinit var msocialMediaAdapter: SocialMediaAdapter
+    private lateinit var mvideoAdapter: VideoAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
     private lateinit var mpayentdashboardadapter: PaymentDashboardAdapter
     private lateinit var mOfferAdapter: OffersAdapter
-    lateinit var courseList: List<GridViewModal>
+    lateinit var courseList: List<MenuData>
     lateinit var paymentcardlist: List<PaymentCardViewModel>
     val TAG = HomeFragment::class.java.simpleName
-    private lateinit var handler : Handler
-    private lateinit var handler2 : Handler
-    private lateinit var imageList:ArrayList<String>
-    private lateinit var offerlist:List<OfferViewModel>
+    private lateinit var handler: Handler
+    private lateinit var handler2: Handler
+    private lateinit var handler3: Handler
+    private lateinit var imageList: ArrayList<BannerData>
+    private lateinit var offerlist: List<OfferData>
     private lateinit var adapter: ImageAdapter
+    private lateinit var madapterbrand: BrandAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     lateinit var imageLists: List<Int>
-    private var progress: ProgressDialog? = null
+    private val dashboardViewModel: DashboardViewModel by viewModels()
+    private val viewModels: OtpViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +71,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         //19.1019646,72.9342336
         // Inflate the layout for this fragment
         return binding.root
@@ -78,9 +89,8 @@ class HomeFragment : Fragment(), Backpressedlistener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.horizontalScrollView.post {
-            binding.horizontalScrollView.scrollTo(0,0)
+            binding.horizontalScrollView.scrollTo(0, 0)
         }
 
 
@@ -88,15 +98,15 @@ class HomeFragment : Fragment(), Backpressedlistener {
 //            AppUtils2.startPayment(requireActivity())
 //        }
         init()
-        binding.idViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.idViewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable , 5000)
+                handler.postDelayed(runnable, 5000)
             }
         })
 //        setHomeBanner()
-        getServiceData()
     }
 
 
@@ -108,39 +118,66 @@ class HomeFragment : Fragment(), Backpressedlistener {
     override fun onResume() {
         super.onResume()
 
-        handler.postDelayed(runnable , 5000)
-        handler2.postDelayed(runnable2 , 5000)
+        handler.postDelayed(runnable, 5000)
+        handler2.postDelayed(runnable2, 5000)
+//        handler3.postDelayed(runnable3, 5000)
     }
 
     private val runnable = Runnable {
-//        binding.idViewPager.currentItem = binding.idViewPager.currentItem + 1
-        binding.idViewPager.setCurrentItem( binding.idViewPager.currentItem + 1,true);
+//        binding.idViewPager2.currentItem = binding.idViewPager2.currentItem + 1
+        binding.idViewPager.setCurrentItem(binding.idViewPager.currentItem + 1, true)
 
     }
     private val runnable2 = Runnable {
-        binding.recOffers.setCurrentItem( binding.recOffers.currentItem + 1,true);
+//        binding.recOffers.s(binding.recOffers.currentItem + 1, true);
 
 //        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
     }
+//    private val runnable3 = Runnable {
+//        binding.idViewPager2.setCurrentItem(binding.idViewPager2.currentItem + 1, true)
+//
+////        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
+//    }
 
     private fun init() {
-
+        AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
+        viewModels.validateAccount(AppUtils2.mobileno)
         handler = Handler(Looper.myLooper()!!)
         handler2 = Handler(Looper.myLooper()!!)
+        handler3 = Handler(Looper.myLooper()!!)
         imageList = ArrayList()
         offerlist = ArrayList()
+        courseList = ArrayList<MenuData>()
+        binding.crdpest.visibility = View.GONE
 
-        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
-        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
-        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg")
+//        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>, binding.recOffers)
+//        madapterbrand = BrandAdapter(binding.idViewPager2, requireActivity())
+//        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>,binding.recOffers)
 
-        adapter = ImageAdapter(imageList, binding.idViewPager)
+        dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
+            Log.d(TAG, "onViewCreated: $it orders fragment")
+            adapter.serBanner(it.BannerData)
+            mAdapter.setServiceList(it.MenuData)
+            msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
+            mvideoAdapter.setvideo(it.VideoData)
+//            mOfferAdapter.setServiceList(it.OfferData)
+            madapterbrand.serBrand(it.BrandData)
+
+//            binding.idViewPager.adapter = adapter
+        })
+        adapter = ImageAdapter(binding.idViewPager, requireActivity())
+
+
+//        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
+//        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
+//        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg")
 
 
         binding.idViewPager.adapter = adapter
+//        binding.idViewPager2.adapter = madapterbrand
 //
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
-
 
 
 //        binding.idViewPager.add
@@ -181,37 +218,89 @@ class HomeFragment : Fragment(), Backpressedlistener {
         binding.idViewPager.clipToPadding = false
         binding.idViewPager.clipChildren = false
         binding.idViewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+
+        binding.recMenu.layoutManager =
+            GridLayoutManager(context, 3)
+
+        binding.recSocialMedia.layoutManager =
+            GridLayoutManager(context, 3)
+        mAdapter = DashboardMenuAdapter(requireActivity())
+        binding.recPayments.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        msocialMediaAdapter = SocialMediaAdapter(requireActivity())
+        mvideoAdapter = VideoAdapter(requireActivity())
+        binding.recMenu.adapter = mAdapter
+        binding.recSocialMedia.adapter = msocialMediaAdapter
+        binding.recVideo.adapter = mvideoAdapter
+        binding.crdpest.visibility = View.VISIBLE
+        madapterbrand= BrandAdapter(binding.recOffers,requireActivity())
+        binding.recOffers.adapter = madapterbrand
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        binding.recOffers.layoutManager = layoutManager
+        snapHelper.attachToRecyclerView(binding.recOffers)
+        binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
+        (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
+
+
+
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            dashboardViewModel.GetDashboard(AppUtils2.mobileno)
+        }, 500)
 
 
     }
 
 
-    private fun getServiceData() {
-        courseList = ArrayList<GridViewModal>()
+    private fun getServiceData(courseList2: ArrayList<MenuData>) {
         paymentcardlist = ArrayList<PaymentCardViewModel>()
 
         // on below line we are adding data to
         // our course list with image and course name.
-        courseList = courseList + GridViewModal("My Orders", R.drawable.myorders)
-        courseList = courseList + GridViewModal("Renewal", R.drawable.orderrenew)
-        courseList = courseList + GridViewModal("Wallet", R.drawable.digitalwallet)
-        courseList = courseList + GridViewModal("Offers", R.drawable.offer)
-        courseList = courseList + GridViewModal("Feedback", R.drawable.feedback)
-        courseList = courseList + GridViewModal("Ask Expert", R.drawable.experts)
-        courseList = courseList + GridViewModal("Refer & Earn", R.drawable.referandearn)
-//        courseList = courseList + GridViewModal("Redeem Now!", R.drawable.redeem)
-        courseList = courseList + GridViewModal("Support", R.drawable.customersuppoer)
+//        courseList = courseList + GridViewModal("My Orders", R.drawable.myorders)
+//        courseList = courseList + GridViewModal("Renewal", R.drawable.orderrenew)
+//        courseList = courseList + GridViewModal("Wallet", R.drawable.digitalwallet)
+//        courseList = courseList + GridViewModal("Offers", R.drawable.offer)
+//        courseList = courseList + GridViewModal("Feedback", R.drawable.feedback)
+//        courseList = courseList + GridViewModal("Ask Expert", R.drawable.experts)
+//        courseList = courseList + GridViewModal("Refer & Earn", R.drawable.referandearn)
+////        courseList = courseList + GridViewModal("Redeem Now!", R.drawable.redeem)
+//        courseList = courseList + GridViewModal("Support", R.drawable.customersuppoer)
 //        courseList = courseList + GridViewModal("Raise Complaint", R.drawable.complain)
 //        courseList = courseList + GridViewModal("Upcoming Services", R.drawable.comingsoon)
 
-        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 1 year","Kindly click Renewal button to renew your service",R.drawable.hicarelogo,"Renewal",false)
-        paymentcardlist=paymentcardlist+PaymentCardViewModel("Termite 2 year","Kindly click Reschedule button to Reschedule your service",R.drawable.hicarelogo,"Reschedule",false)
-        paymentcardlist=paymentcardlist+PaymentCardViewModel("AutoMos","Kindly click paynow button to pay your order payment",R.drawable.hicarelogo,"Pay Now",false)
+        paymentcardlist = paymentcardlist + PaymentCardViewModel(
+            "Termite 1 year",
+            "Kindly click Renewal button to renew your service",
+            com.ab.hicareservices.R.drawable.hicarelogo,
+            "Renewal",
+            false
+        )
+        paymentcardlist = paymentcardlist + PaymentCardViewModel(
+            "Termite 2 year",
+            "Kindly click Reschedule button to Reschedule your service",
+            com.ab.hicareservices.R.drawable.hicarelogo,
+            "Reschedule",
+            false
+        )
+        paymentcardlist = paymentcardlist + PaymentCardViewModel(
+            "AutoMos",
+            "Kindly click paynow button to pay your order payment",
+            com.ab.hicareservices.R.drawable.hicarelogo,
+            "Pay Now",
+            false
+        )
 
 
-        offerlist= (offerlist+OfferViewModel("Upcoming Services",R.raw.comingsoon)) as ArrayList<OfferViewModel>
-        offerlist= (offerlist+OfferViewModel("Offers",R.raw.animoffers)) as ArrayList<OfferViewModel>
+//        offerlist = (offerlist + OfferViewModel(
+//            "Upcoming Services",
+//            R.raw.comingsoon
+//        )) as ArrayList<OfferViewModel>
+//        offerlist =
+//            (offerlist + OfferViewModel("Offers", R.raw.animoffers)) as ArrayList<OfferViewModel>
 //        val courseAdapter = GridRVAdapter(courseList = courseList, LayoutInflater.from(getActivity()))
 
 
@@ -224,9 +313,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
 //                Toast.LENGTH_SHORT
 //            ).show()
 //        }
-        binding.recMenu.layoutManager =
-            GridLayoutManager(context,3)
-        mAdapter = DashboardMenuAdapter(courseList)
+
 
         binding.recPayments.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -235,21 +322,24 @@ class HomeFragment : Fragment(), Backpressedlistener {
 //        binding.recOffers.layoutManager =
 //            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferViewModel>,binding.recOffers)
-        binding.recOffers.adapter = mOfferAdapter
-        binding.recOffers.offscreenPageLimit = 2
-        binding.recOffers.clipToPadding = false
-        binding.recOffers.clipChildren = false
-        binding.recOffers.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        binding.recOffers.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handler2.removeCallbacks(runnable2)
-                handler2.postDelayed(runnable2 , 5000)
-            }
-        })
+//        binding.recOffers.offscreenPageLimit = 2
+//        binding.recOffers.clipToPadding = false
+//        binding.recOffers.clipChildren = false
+//        binding.recOffers.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//        binding.recOffers.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                handler2.removeCallbacks(runnable2)
+//                handler2.postDelayed(runnable2, 5000)
+//            }
+//        })
+//        mOfferAdapter.setOnOfferClick(object :offerinterface{
+//            override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 //        binding.recMenu.adapter = mAdapter
-        binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
         binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
 //        binding.recPayments.smoothSnapToPosition()
@@ -258,26 +348,19 @@ class HomeFragment : Fragment(), Backpressedlistener {
             RecyclerView.State(),
             binding.recPayments.adapter!!.itemCount
         )
-        mOfferAdapter.setOnOfferClick(object :OffersInterface{
+//        mOfferAdapter.setOnOfferClick {
+////            val modelBottomSheet =
+////                LayoutInflater.from(requireContext())
+////                    .inflate(com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet, null)
+////            val dialog = BottomSheetDialog(requireContext())
+////
+////           val tvCoupen :TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen) as TextView
+////            tvCoupen
+////            dialog.setContentView(modelBottomSheet)
+////            dialog.show()
+//        }
 
-
-            override fun onItemClick(position: Int) {
-
-                val modelBottomSheet =
-                    LayoutInflater.from(requireContext())
-                        .inflate(com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet, null)
-                val dialog = BottomSheetDialog(requireContext())
-
-//                val tvCoupen : TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen) as TextView
-//                tvCoupen.text=offers[position].VoucherCode
-                dialog.setContentView(modelBottomSheet)
-                dialog.show()
-            }
-
-
-        })
-
-        binding.lnrTwitter.setOnClickListener{
+        binding.lnrTwitter.setOnClickListener {
             try {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
@@ -293,7 +376,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
                 )
             }
         }
-        binding.lnrFacebook.setOnClickListener{
+        binding.lnrFacebook.setOnClickListener {
             try {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
@@ -309,7 +392,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
                 )
             }
         }
-        binding.lnrInsta.setOnClickListener{
+        binding.lnrInsta.setOnClickListener {
             try {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
@@ -327,6 +410,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
         }
 
     }
+
     class CirclePagerIndicatorDecoration : ItemDecoration() {
         private val colorActive = 0x727272
         private val colorInactive = 0xF44336
@@ -354,7 +438,8 @@ class HomeFragment : Fragment(), Backpressedlistener {
         /**
          * Some more natural animation interpolation
          */
-        private val mInterpolator: AccelerateDecelerateInterpolator = AccelerateDecelerateInterpolator()
+        private val mInterpolator: AccelerateDecelerateInterpolator =
+            AccelerateDecelerateInterpolator()
         private val mPaint: Paint = Paint()
         override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
             super.onDrawOver(c, parent, state)
@@ -455,7 +540,6 @@ class HomeFragment : Fragment(), Backpressedlistener {
         }
 
 
-
         override fun getItemOffsets(
             outRect: Rect,
             view: View,
@@ -466,6 +550,7 @@ class HomeFragment : Fragment(), Backpressedlistener {
             outRect.bottom = mIndicatorHeight
 
         }
+
         companion object {
             private val DP: Float = Resources.getSystem().getDisplayMetrics().density
         }
@@ -478,7 +563,5 @@ class HomeFragment : Fragment(), Backpressedlistener {
         }
     }
 
-    override fun onBackpress() {
 
-    }
 }

@@ -121,6 +121,10 @@ dependencies {
     //otpless
     implementation 'com.github.otpless-tech:otpless-android-sdk:1.1.6'
 
+//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
+//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28'
+
+
 /*    compile(name: 'ezetapandroidsdk_2_0', ext: 'aar')
     api 'com.google.android.material:material:1.1.0'
 
