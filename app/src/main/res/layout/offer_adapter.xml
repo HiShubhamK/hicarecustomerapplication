@@ -29,7 +29,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/md_amber_600"
                 android:textSize="24sp"
-                android:visibility="gone">
+                android:visibility="visible">
 
             </TextView>
 

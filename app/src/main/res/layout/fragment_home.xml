@@ -398,12 +398,34 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lnroffers"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:layout_below="@id/crdpest"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/idViewPager4"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:paddingEnd="50dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
         <LinearLayout
             android:id="@+id/lnrFan"
             style="@style/FabBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/crdpest"
+            android:layout_below="@id/lnroffers"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone">
@@ -1171,9 +1193,7 @@
                 android:foregroundGravity="center"
                 android:visibility="visible" />
 
-
         </LinearLayout>
-
 
     </RelativeLayout>
 
