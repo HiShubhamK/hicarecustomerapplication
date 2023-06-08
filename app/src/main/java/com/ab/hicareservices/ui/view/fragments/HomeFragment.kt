@@ -562,6 +562,4 @@ class HomeFragment : Fragment() {
             mPaint.setAntiAlias(true)
         }
     }
-
-
 }
