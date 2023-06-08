@@ -17,7 +17,7 @@ import com.ab.hicareservices.data.model.dashboard.BrandData
 import com.squareup.picasso.Picasso
 
 
-class BrandAdapter(private val viewPager: ViewPager2, private val requireActivity: FragmentActivity) :
+class BrandAdapter(private val viewPager: RecyclerView, private val requireActivity: FragmentActivity) :
     RecyclerView.Adapter<BrandAdapter.ImageViewHolder>() {
     var brand = mutableListOf<BrandData>()
 //   lateinit var requireActivity:FragmentActivity

@@ -15,13 +15,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -36,11 +33,15 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: DashboardMenuAdapter
+    private lateinit var msocialMediaAdapter: SocialMediaAdapter
+    private lateinit var mvideoAdapter: VideoAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
     private lateinit var mpayentdashboardadapter: PaymentDashboardAdapter
     private lateinit var mOfferAdapter: OffersAdapter
@@ -128,7 +129,7 @@ class HomeFragment : Fragment() {
 
     }
     private val runnable2 = Runnable {
-        binding.recOffers.setCurrentItem(binding.recOffers.currentItem + 1, true);
+//        binding.recOffers.s(binding.recOffers.currentItem + 1, true);
 
 //        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
     }
@@ -152,14 +153,16 @@ class HomeFragment : Fragment() {
 
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>, binding.recOffers)
 //        madapterbrand = BrandAdapter(binding.idViewPager2, requireActivity())
-        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>,binding.recOffers)
+//        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>,binding.recOffers)
 
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
             adapter.serBanner(it.BannerData)
             mAdapter.setServiceList(it.MenuData)
-            mOfferAdapter.setServiceList(it.OfferData)
-//            madapterbrand.serBrand(it.BrandData)
+            msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
+            mvideoAdapter.setvideo(it.VideoData)
+//            mOfferAdapter.setServiceList(it.OfferData)
+            madapterbrand.serBrand(it.BrandData)
 
 //            binding.idViewPager.adapter = adapter
         })
@@ -219,9 +222,28 @@ class HomeFragment : Fragment() {
 
         binding.recMenu.layoutManager =
             GridLayoutManager(context, 3)
+
+        binding.recSocialMedia.layoutManager =
+            GridLayoutManager(context, 3)
         mAdapter = DashboardMenuAdapter(requireActivity())
+        binding.recPayments.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        msocialMediaAdapter = SocialMediaAdapter(requireActivity())
+        mvideoAdapter = VideoAdapter(requireActivity())
         binding.recMenu.adapter = mAdapter
+        binding.recSocialMedia.adapter = msocialMediaAdapter
+        binding.recVideo.adapter = mvideoAdapter
         binding.crdpest.visibility = View.VISIBLE
+        madapterbrand= BrandAdapter(binding.recOffers,requireActivity())
+        binding.recOffers.adapter = madapterbrand
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        binding.recOffers.layoutManager = layoutManager
+        snapHelper.attachToRecyclerView(binding.recOffers)
+        binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
+        (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
+
+
 
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
@@ -300,24 +322,23 @@ class HomeFragment : Fragment() {
 //        binding.recOffers.layoutManager =
 //            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.recOffers.adapter = mOfferAdapter
-        binding.recOffers.offscreenPageLimit = 2
-        binding.recOffers.clipToPadding = false
-        binding.recOffers.clipChildren = false
-        binding.recOffers.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        binding.recOffers.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handler2.removeCallbacks(runnable2)
-                handler2.postDelayed(runnable2, 5000)
-            }
-        })
-        mOfferAdapter.setOnOfferClick(object :offerinterface{
-            override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
-                TODO("Not yet implemented")
-            }
-
-        })
+//        binding.recOffers.offscreenPageLimit = 2
+//        binding.recOffers.clipToPadding = false
+//        binding.recOffers.clipChildren = false
+//        binding.recOffers.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//        binding.recOffers.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                handler2.removeCallbacks(runnable2)
+//                handler2.postDelayed(runnable2, 5000)
+//            }
+//        })
+//        mOfferAdapter.setOnOfferClick(object :offerinterface{
+//            override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 //        binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
         binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())

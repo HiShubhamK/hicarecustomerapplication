@@ -826,6 +826,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/lnrTitle3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -866,6 +867,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:id="@+id/lnrOfferData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -886,7 +888,7 @@
                     <!--                    app:cardBackgroundColor="@color/white"-->
                     <!--                    app:cardCornerRadius="10dp"-->
                     <!--                    app:cardElevation="2dp">-->
-                    <androidx.viewpager2.widget.ViewPager2
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recOffers"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -952,51 +954,10 @@
 <!--                    android:layout_margin="10dp"-->
 <!--                     />-->
 
-            <LinearLayout
-                android:id="@+id/lnrTitleNew"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/recPayments"
-                android:layout_marginHorizontal="18dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="3dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="2dp"
-                    android:layout_weight="1"
-                    android:background="@color/grey_font">
-
-                </View>
-
-                <TextView
-                    android:id="@+id/titleFollowUs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight=".5"
-                    android:fontFamily="@font/lato_semibold"
-                    android:gravity="center"
-                    android:text="Follow Us"
-                    android:textAllCaps="true"
-                    android:textColor="@color/grey_font"
-                    android:textSize="14sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="2dp"
-                    android:layout_weight="1"
-                    android:background="@color/grey_font">
-
-                </View>
-            </LinearLayout>
 
             <LinearLayout
 
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -1097,7 +1058,118 @@
 
                 </LinearLayout>
 
+
+
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnrTitleNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recPayments"
+                android:layout_marginHorizontal="18dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="3dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+
+                <TextView
+                    android:id="@+id/titleFollowUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".5"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="Follow Us"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recSocialMedia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:clipToPadding="false"
+                android:foregroundGravity="center"
+                android:overScrollMode="never"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/lnrTitleVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="3dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+
+                <TextView
+                    android:id="@+id/titleVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".5"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="Youtube"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:clipToPadding="false"
+                android:foregroundGravity="center"
+                android:visibility="visible" />
 
 
         </LinearLayout>

@@ -51,6 +51,43 @@
         <entry key="..\:/Users/Shahid/AndroidStudioProjects/HiCareServices-1/app/src/main/res/layout/service_request_adapter.xml" value="0.14537037037037037" />
         <entry key="..\:/Users/Shahid/AndroidStudioProjects/HiCareServices-1/app/src/main/res/layout/slots_adapter.xml" value="0.1" />
         <entry key="..\:/Users/Shahid/AndroidStudioProjects/HiCareServices-1/app/src/main/res/layout/view_service_detail_adapter.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/drawable-v24/capture_button.xml" value="0.1295" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/drawable/bg_login_btn.xml" value="0.1295" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/drawable/ic_facebook.xml" value="0.118" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/drawable/ic_orders.xml" value="0.1295" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/activity_add_complaints.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/activity_camera.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/activity_complaints.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/activity_complaints_attachment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/activity_referral.xml" value="0.18" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/brand_image_container.xml" value="0.12" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/complaint_attachment_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/dashboard_menu_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_account.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_complaince.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_complaint_detail.xml" value="0.18" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_my_service_details.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_order_details.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_orders.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_terms.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/image_container.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_banner_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_complaince_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_complaints_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_complaints_adapters.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_dialog.xml" value="0.21936148300720906" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_offer_detail_bottomsheet.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_orders_adapter.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/layout_payment_dashboard_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/offer_adapter.xml" value="0.12" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/reschedule_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/reschedule_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/service_request_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/slots_adapter.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/socialmedia_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/video_adapter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

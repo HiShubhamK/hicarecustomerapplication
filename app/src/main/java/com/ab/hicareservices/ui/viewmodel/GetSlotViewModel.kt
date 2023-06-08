@@ -1,5 +1,8 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
@@ -69,7 +72,9 @@ class GetSlotViewModel : ViewModel() {
             })
     }
 
-    fun BookSlot(data: HashMap<String, Any>) {
+    fun BookSlot(
+        data: HashMap<String, Any>
+    ) {
         repository.BookSlot(data)
             .enqueue(object : Callback<BookSlotResponce> {
 
@@ -83,6 +88,8 @@ class GetSlotViewModel : ViewModel() {
                     call: Call<BookSlotResponce>,
                     response: Response<BookSlotResponce>
                 ) {
+//                    Toast.makeText(requireActivity,"Success",Toast.LENGTH_SHORT).show()
+//                    alertDialog.dismiss()
                     bookSlotResponce.postValue(response.body())
                 }
             })

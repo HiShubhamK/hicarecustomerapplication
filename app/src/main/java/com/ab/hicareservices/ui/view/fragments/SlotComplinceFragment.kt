@@ -302,7 +302,7 @@ class SlotComplinceFragment() : Fragment() {
         recycleSlots.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         recycleSlots.layoutManager = layoutManager
-        btnSubmit.visibility = View.GONE
+        btnSubmit.visibility = View.VISIBLE
 
         mSlotAdapter = SlotsAdapter(requireActivity(), slotData.TimeSlots, TaskId)
         recycleSlots.adapter = mSlotAdapter
