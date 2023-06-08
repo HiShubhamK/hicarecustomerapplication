@@ -430,10 +430,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
         if (islogin==true) {
 
-            binding.bottomNavigation.selectedItemId = R.id.nav_home
-            binding.addFab.visibility=View.VISIBLE
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance()).commit();
+            finishAffinity()
+//            binding.bottomNavigation.selectedItemId = R.id.nav_home
+//            binding.addFab.visibility=View.VISIBLE
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, HomeFragment.newInstance()).commit();
         }else{
             finishAffinity()
         }

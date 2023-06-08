@@ -70,6 +70,7 @@ class OTPActivity : AppCompatActivity() {
 
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
+                finish()
             }else{
                 progressDialog.dismiss()
                 Toast.makeText(this,"Enter valid otp",Toast.LENGTH_LONG).show()

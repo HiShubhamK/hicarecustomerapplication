@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
                 val intent=Intent(this,HomeActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         })
     }
@@ -84,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra("mobileNo", mobileNo)
                 intent.putExtra("otp", it.data)
                 startActivity(intent)
+                finishAffinity()
             }else{
             }
         })
