@@ -24,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
+import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OffersInterface
 import com.ab.hicareservices.ui.viewmodel.GridViewModal
 import com.ab.hicareservices.ui.viewmodel.OfferViewModel
@@ -32,7 +33,7 @@ import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), Backpressedlistener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: DashboardMenuAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
@@ -475,5 +476,9 @@ class HomeFragment : Fragment() {
             mPaint.setStyle(Paint.Style.FILL)
             mPaint.setAntiAlias(true)
         }
+    }
+
+    override fun onBackpress() {
+
     }
 }

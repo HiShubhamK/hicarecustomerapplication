@@ -21,7 +21,11 @@ class AccountFragment : Fragment() {
 
     lateinit var binding: FragmentAccountBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(layoutInflater, container, false)
         val view = binding.root
@@ -31,38 +35,44 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.edtAccount.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance()).addToBackStack("AccountFragment").commit();
+                .replace(R.id.container, ProfileFragment.newInstance())
+                .addToBackStack("AccountFragment").commit();
         }
 
-        binding.constraintorderid.setOnClickListener{
+        binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();
+                .replace(R.id.container, OrdersFragment.newInstance())
+                .addToBackStack("AccountFragment").commit();
         }
 
         binding.constraintcomplaints.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("AccountFragment").commit();
-
+                .replace(R.id.container, ComplaintFragment.newInstance())
+                .addToBackStack("AccountFragment").commit();
         }
+
         binding.constraintreferBtn.setOnClickListener {
             val intent = Intent(requireContext(), ReferralActivity::class.java)
             startActivity(intent)
         }
+
         binding.constrainRateus.setOnClickListener {
             showRatusdialog()
         }
+
         binding.help.setOnClickListener {
-            val intent= Intent(requireContext(), HelpActivity::class.java)
+            val intent = Intent(requireContext(), HelpActivity::class.java)
             startActivity(intent)
         }
+
         binding.terms.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TermsAndConditionFragment.newInstance()).addToBackStack("AccountFragment").commit();
-
+                .replace(R.id.container, TermsAndConditionFragment.newInstance())
+                .addToBackStack("AccountFragment").commit();
         }
+
         binding.signOut.setOnClickListener {
             signOut()
         }
@@ -78,14 +88,14 @@ class AccountFragment : Fragment() {
             }
     }
 
-    private fun signOut(){
+    private fun signOut() {
         SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
         SharedPreferenceUtil.setData(requireContext(), "bToken", "")
         SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
-
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }
+
     private fun showRatusdialog() {
 
         val dialogView = Dialog(requireActivity()).apply {
@@ -96,10 +106,9 @@ class AccountFragment : Fragment() {
             setCanceledOnTouchOutside(false)
             setContentView(R.layout.layout_dialog)
         }
+
         val okBtn = dialogView.findViewById(R.id.okBtn) as AppCompatButton
         val cancelBtn = dialogView.findViewById(R.id.btnCancel) as AppCompatButton
-
-
 
         okBtn.setOnClickListener {
             Toast.makeText(requireContext(), "Thank You!", Toast.LENGTH_SHORT).show()

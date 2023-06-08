@@ -27,22 +27,23 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentOrdersBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
+import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
 
-class OrdersFragment() : Fragment() {
+class OrdersFragment() : Fragment(),Backpressedlistener {
     private val TAG = "OrdersFragment"
     lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
     private lateinit var mAdapter: OrdersAdapter
     private lateinit var nAdapter: OrderMenuAdapter
     private var mobile = ""
-    private var ordertype=""
+    private var ordertype = ""
     lateinit var homeActivity: HomeActivity
-    lateinit var orderactivityforadapter:FragmentActivity
+    lateinit var orderactivityforadapter: FragmentActivity
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
 
@@ -60,7 +61,11 @@ class OrdersFragment() : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
         //viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(MainRepository(api))).get(OrdersViewModel::class.java)
         mobile = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
@@ -79,22 +84,26 @@ class OrdersFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-            requireActivity().onBackPressed()
-        }
+//        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(
+//                    R.id.container, HomeFragment.newInstance()
+//                ).addToBackStack("OrdersFragment").commit()
+//        }
 
         val progressBar = ProgressBar(requireActivity())
         //setting height and width of progressBar
         progressBar.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
         binding.relativelayout?.addView(progressBar)
 
-        progressDialog = ProgressDialog(requireActivity(),R.style.TransparentProgressDialog)
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        getOrdersList(progressBar,progressDialog)
+        getOrdersList(progressBar, progressDialog)
 
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
@@ -103,13 +112,13 @@ class OrdersFragment() : Fragment() {
 
         binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
 
-        binding.txtactive.setOnClickListener{
+        binding.txtactive.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
 //                binding.progressBar.visibility=View.VISIBLE
                 progressDialog.show()
             }, 1000)
 
-            ordertype="Active"
+            ordertype = "Active"
 
             binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -118,12 +127,12 @@ class OrdersFragment() : Fragment() {
             getOrdersList(progressBar, progressDialog)
         }
 
-        binding.txtexpire.setOnClickListener{
+        binding.txtexpire.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
 //                binding.progressBar.visibility=View.VISIBLE
                 progressDialog.show()
             }, 1000)
-            ordertype="Expired"
+            ordertype = "Expired"
             getOrdersList(progressBar, progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
@@ -131,13 +140,13 @@ class OrdersFragment() : Fragment() {
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
         }
 
-        binding.txtcancelled.setOnClickListener{
+        binding.txtcancelled.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
 //                binding.progressBar.visibility=View.VISIBLE
                 progressDialog.show()
             }, 1000)
 
-            ordertype="Cancelled"
+            ordertype = "Cancelled"
             getOrdersList(progressBar, progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
@@ -146,13 +155,13 @@ class OrdersFragment() : Fragment() {
         }
 
 
-        binding.txtall.setOnClickListener{
+        binding.txtall.setOnClickListener {
 //            binding.progressBar13.visibility = View.VISIBLE
 
             progressDialog.show()
 
 //            binding.progressBar.visibility = View.VISIBLE
-            ordertype="All"
+            ordertype = "All"
             getOrdersList2(progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
@@ -165,7 +174,8 @@ class OrdersFragment() : Fragment() {
 
 //        progressDialog.show()
         binding.progressBar.visibility = View.VISIBLE
-        binding.recyclerView2.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView2.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
         binding.recyclerView2.adapter = nAdapter
@@ -175,18 +185,18 @@ class OrdersFragment() : Fragment() {
             nAdapter.setOrdersList(it)
             binding.progressBar.visibility = View.GONE
 //            this.progressDialog.dismiss()
-        //            binding.recyclerView2.visibility = View.VISIBLE
+            //            binding.recyclerView2.visibility = View.VISIBLE
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
 
         })
         if (mobile != "-1") {
-            if(ordertype.equals("") && ordertype!=null){
-                ordertype="Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile,progressDialog)
-            }else{
-                viewModel.getCustomerOrdersByMobileNo(mobile,progressDialog)
+            if (ordertype.equals("") && ordertype != null) {
+                ordertype = "Active"
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
+            } else {
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             }
 
         }
@@ -198,19 +208,20 @@ class OrdersFragment() : Fragment() {
 
 //        binding.progressBar.visibility = View.VISIBLE
 //
-        progressBar.visibility=View.VISIBLE
+        progressBar.visibility = View.VISIBLE
 //
         progressDialog.show()
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
 
         binding.recyclerView.adapter = mAdapter
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            mAdapter.setOrdersList(it,requireActivity())
-            progressBar.visibility=View.GONE
+            mAdapter.setOrdersList(it, requireActivity())
+            progressBar.visibility = View.GONE
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
             progressDialog.dismiss()
@@ -226,9 +237,16 @@ class OrdersFragment() : Fragment() {
                 ServiceCenterId: String,
             ) {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, OrderDetailsFragment.newInstance(orderNo, serviceType,
-                        service_url_image,locationLatitudeS,locationLongitudeS,ServiceCenterId
-                    )).addToBackStack("OrdersFragment").commit();
+                    .replace(
+                        R.id.container, OrderDetailsFragment.newInstance(
+                            orderNo,
+                            serviceType,
+                            service_url_image,
+                            locationLatitudeS,
+                            locationLongitudeS,
+                            ServiceCenterId
+                        )
+                    ).addToBackStack("OrdersFragment").commit();
             }
 
             override fun onOrderPaynowClicked(
@@ -254,16 +272,20 @@ class OrdersFragment() : Fragment() {
         binding.progressBar13.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {
-            if(ordertype.equals("") && ordertype!=null){
-                ordertype="Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype,progressBar)
-            }else{
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype,progressBar)
+            if (ordertype.equals("") && ordertype != null) {
+                ordertype = "Active"
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressBar)
+            } else {
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressBar)
             }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    override fun onBackpress() {
+        TODO("Not yet implemented")
     }
 }

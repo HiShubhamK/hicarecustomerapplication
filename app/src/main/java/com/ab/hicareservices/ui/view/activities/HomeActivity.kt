@@ -102,7 +102,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 R.id.nav_home -> {
                     binding.addFab.visibility=View.VISIBLE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance()).commit();
+                        .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("HomeFragment").commit()
                     true
 
                 }
@@ -113,19 +113,19 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 R.id.nav_account -> {
                     binding.addFab.visibility=View.GONE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, AccountFragment.newInstance()).commit();
+                        .replace(R.id.container, AccountFragment.newInstance()).addToBackStack("AccountFragment").commit()
                     true
                 }
                 R.id.nav_cart -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance()).commit();
+                        .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag").commit()
 
                     true
                 }
                 R.id.nav_orders -> {
                     binding.addFab.visibility=View.GONE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragment.newInstance()).commit();
+                        .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("OrdersFragment").commit()
                     true
                 }
                 else -> false
@@ -425,18 +425,30 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         this.paymentListener = paymentListener
     }
 
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
-        if (islogin==true) {
-
+        
+        if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
             finishAffinity()
+        }else{
+            binding.bottomNavigation.selectedItemId = R.id.nav_home
+        }
+//        val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
+//        if (islogin==true) {
+//
+//            finishAffinity()
 //            binding.bottomNavigation.selectedItemId = R.id.nav_home
 //            binding.addFab.visibility=View.VISIBLE
 //            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, HomeFragment.newInstance()).commit();
-        }else{
-            finishAffinity()
-        }
+//             .replace(R.id.container, HomeFragment.newInstance()).commit();
+//        }else{
+//            finishAffinity()
+//        }
     }
 }
