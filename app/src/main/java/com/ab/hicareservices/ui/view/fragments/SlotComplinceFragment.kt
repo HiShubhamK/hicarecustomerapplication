@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -56,6 +57,8 @@ class SlotComplinceFragment() : Fragment() {
     private val viewModels: OtpViewModel by viewModels()
     lateinit var mSlotAdapter: SlotsAdapter
     lateinit var alertDialog: AlertDialog
+    lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +113,6 @@ class SlotComplinceFragment() : Fragment() {
                     this.putString("Lat", latitude)
                     this.putString("Long", longitude)
                     this.putString("ServiceType", serviceType)
-
                     this.putString("Pincode", pincode)
                     this.putString("Service_Code", spcode)
                     this.putString("Service_Date", "")
@@ -127,6 +129,9 @@ class SlotComplinceFragment() : Fragment() {
 //            getOrdersList2()
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
 
@@ -191,8 +196,8 @@ class SlotComplinceFragment() : Fragment() {
 
     private fun getOrdersList(date: String) {
 
+        progressDialog.show()
 
-        binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.GONE
         binding.recyclerView.layoutManager =
             GridLayoutManager(context, 2)
@@ -214,7 +219,9 @@ class SlotComplinceFragment() : Fragment() {
                 Long,
                 ServiceType
             )
-            binding.progressBar.visibility = View.GONE
+            progressDialog.dismiss()
+
+
             binding.recyclerView.visibility = View.VISIBLE
 
         })
@@ -244,10 +251,11 @@ class SlotComplinceFragment() : Fragment() {
                 ServiceType: String,
                 toString: String
             ) {
+                progressDialog.show()
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
                 data["Service_Code"] = Service_Code
-                data["Service_Date"] = Service_Date
+                data["Service_Date"] = AppUtils2.formatDateTimeApi(Service_Date)
                 data["Service_Subscription"] = ""
                 data["Unit"] = unit.toString()
                 data["Lat"] = Lat
@@ -298,12 +306,12 @@ class SlotComplinceFragment() : Fragment() {
         recycleSlots.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         recycleSlots.layoutManager = layoutManager
-        btnSubmit.visibility = View.GONE
 
         mSlotAdapter = SlotsAdapter(requireActivity(), slotData.TimeSlots, TaskId)
         recycleSlots.adapter = mSlotAdapter
         alertDialog.show()
         btnSubmit.setOnClickListener {
+            progressDialog.show()
 
             var data = HashMap<String, Any>()
             data["TaskId"] = TaskId
@@ -318,12 +326,16 @@ class SlotComplinceFragment() : Fragment() {
                 Log.d(TAG, "onViewCreated: $it orders fragment")
 //                ShowBookingDialog(it)
                 if (it.IsSuccess) {
-                    Toast.makeText(requireContext(), "" + it.ResponseMessage, Toast.LENGTH_SHORT)
-                        .show()
-                    alertDialog.dismiss()
+
+
                 }
 
             })
+            Toast.makeText(requireContext(), "Appointment Booked" , Toast.LENGTH_SHORT)
+                .show()
+            alertDialog.dismiss()
+            progressDialog.dismiss()
+
         }
 
         mSlotAdapter.setOnSlotSelection(object : onSlotSelection {
@@ -338,6 +350,7 @@ class SlotComplinceFragment() : Fragment() {
                 source: String?,
                 serviceType: String
             ) {
+
                 TaskId=taskid
                 AppointmentDate=appointmentDate
                 AppointmentStart=appointmentStart

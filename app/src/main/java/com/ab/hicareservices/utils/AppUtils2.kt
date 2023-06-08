@@ -65,6 +65,12 @@ object AppUtils2 {
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+    fun formatDateTimeApi(dateTime: String): String{
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")
+        val parsedDate = simpleDateFormat.parse(dateTime)
+        return simpleDateFormatOut.format(parsedDate)
+    }
     fun getCurrentTimeStamp(): String? {
         var s = ""
         try {

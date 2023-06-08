@@ -106,7 +106,13 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 }
                 R.id.nav_bookings -> {
+                    Toast.makeText(
+                    this,
+                    "Coming Soon!",
+                    Toast.LENGTH_SHORT
+                ).show()
                     true
+
 
                 }
                 R.id.nav_account -> {
