@@ -70,7 +70,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             checkUserStatus()
         }, 3000)
 
-
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
             if(!task.isSuccessful) {
