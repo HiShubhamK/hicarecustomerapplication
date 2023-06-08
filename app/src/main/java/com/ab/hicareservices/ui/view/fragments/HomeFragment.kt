@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -21,19 +22,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
-import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -59,6 +59,8 @@ class HomeFragment : Fragment() {
     lateinit var imageLists: List<Int>
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val viewModels: OtpViewModel by viewModels()
+    lateinit var progressDialog: ProgressDialog
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,10 +96,14 @@ class HomeFragment : Fragment() {
         }
 
 
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
+
 //        binding.recMenu.setOnClickListener {
 //            AppUtils2.startPayment(requireActivity())
 //        }
-        init()
+        init(progressDialog)
         binding.idViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -139,7 +145,8 @@ class HomeFragment : Fragment() {
 ////        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
 //    }
 
-    private fun init() {
+    private fun init(progressDialog: ProgressDialog) {
+        progressDialog.show()
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
@@ -163,7 +170,7 @@ class HomeFragment : Fragment() {
             mvideoAdapter.setvideo(it.VideoData)
 //            mOfferAdapter.setServiceList(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
-
+            progressDialog.dismiss()
 //            binding.idViewPager.adapter = adapter
         })
         adapter = ImageAdapter(binding.idViewPager, requireActivity())
