@@ -112,6 +112,14 @@ class HomeFragment : Fragment() {
                 handler.postDelayed(runnable, 5000)
             }
         })
+        binding.idViewPager4.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler2.removeCallbacks(runnable)
+                handler2.postDelayed(runnable, 5000)
+            }
+        })
 //        setHomeBanner()
     }
 
@@ -135,6 +143,8 @@ class HomeFragment : Fragment() {
 
     }
     private val runnable2 = Runnable {
+                binding.idViewPager4.setCurrentItem(binding.idViewPager4.currentItem + 1, true)
+
 //        binding.recOffers.s(binding.recOffers.currentItem + 1, true);
 
 //        binding.recOffers.currentItem = binding.recOffers.currentItem + 1
@@ -168,12 +178,13 @@ class HomeFragment : Fragment() {
             mAdapter.setServiceList(it.MenuData)
             msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
             mvideoAdapter.setvideo(it.VideoData)
-//            mOfferAdapter.setServiceList(it.OfferData)
+            mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
             progressDialog.dismiss()
 //            binding.idViewPager.adapter = adapter
         })
         adapter = ImageAdapter(binding.idViewPager, requireActivity())
+        mOfferAdapter = OffersAdapter(binding.idViewPager4, requireActivity())
 
 
 //        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
@@ -182,7 +193,7 @@ class HomeFragment : Fragment() {
 
 
         binding.idViewPager.adapter = adapter
-//        binding.idViewPager2.adapter = madapterbrand
+        binding.idViewPager4.adapter = mOfferAdapter
 //
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
@@ -226,6 +237,11 @@ class HomeFragment : Fragment() {
         binding.idViewPager.clipChildren = false
         binding.idViewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
+
+        binding.idViewPager4.offscreenPageLimit = 3
+        binding.idViewPager4.clipToPadding = false
+        binding.idViewPager4.clipChildren = false
+        binding.idViewPager4.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
         binding.recMenu.layoutManager =
             GridLayoutManager(context, 3)
