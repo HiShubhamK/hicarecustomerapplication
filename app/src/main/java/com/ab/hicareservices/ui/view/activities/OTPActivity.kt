@@ -47,6 +47,11 @@ class OTPActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        binding.backIv.setOnClickListener {
+            val intent=Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         startCounter()
         binding.resendCodeTv.setOnClickListener {
