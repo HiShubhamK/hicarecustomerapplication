@@ -59,7 +59,9 @@ class AccountFragment : Fragment() {
         }
 
         binding.constrainRateus.setOnClickListener {
-            showRatusdialog()
+//            showRatusdialog()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ab.hicareservices")))
+
         }
 
         binding.help.setOnClickListener {

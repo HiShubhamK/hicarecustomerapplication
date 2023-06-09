@@ -89,6 +89,8 @@
 
 
     <RelativeLayout
+        android:id="@+id/rltMain"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -96,8 +98,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/idViewPagerss"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp">
+            android:layout_height="wrap_content">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/idViewPager"
