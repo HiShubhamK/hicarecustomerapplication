@@ -1,13 +1,12 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.R
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,14 +15,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
-import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.data.model.dashboard.MenuData
@@ -101,6 +101,13 @@ class HomeFragment : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            val drawable = ProgressBar(requireActivity()).indeterminateDrawable.mutate()
+            drawable.setColorFilter(
+                ContextCompat.getColor(requireActivity(), com.ab.hicareservices.R.color.colorAccent),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
 
 //        binding.recMenu.setOnClickListener {
 //            AppUtils2.startPayment(requireActivity())
@@ -588,3 +595,4 @@ class HomeFragment : Fragment() {
         }
     }
 }
+

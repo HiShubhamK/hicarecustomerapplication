@@ -405,6 +405,7 @@
             android:layout_below="@id/crdpest"
             android:layout_marginHorizontal="18dp"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             android:paddingHorizontal="3dp">
 
             <View
@@ -454,11 +455,9 @@
                 android:id="@+id/idViewPager4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:paddingEnd="50dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 
         <LinearLayout

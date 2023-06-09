@@ -55,7 +55,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
         <LinearLayout
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -85,8 +85,8 @@
                 android:id="@+id/otpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dim_20"
-                android:layout_marginBottom="@dimen/dim_20"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:textColor="@color/md_grey_600"
                 app:bar_enabled="false"
                 app:bar_height="2dp"
@@ -136,8 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="center"
+                android:background="@color/colorAccent"
                 android:text="OTP Resent successfully"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
@@ -149,10 +150,10 @@
                 android:padding="10sp"
                 android:layout_margin="0dp"
                 android:gravity="center"
-                android:background="@color/grey"
                 android:text="Resend OTP (27)"
-                android:textColor="@color/md_grey_600"
                 android:textSize="16sp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView

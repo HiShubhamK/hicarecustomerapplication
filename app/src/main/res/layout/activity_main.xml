@@ -98,6 +98,8 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         android:gravity="center"
+        app:iconTint="@color/white"
+        app:icon="@drawable/ic_baseline_call"
         android:fontFamily="@font/lato_semibold"
         app:backgroundTint="@color/colorAccent"
         android:layout_above="@+id/bottom_navigation"

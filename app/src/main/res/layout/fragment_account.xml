@@ -327,7 +327,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="60dp"
+                    android:id="@+id/contraintbutton">
 
                     <ImageView
                         android:id="@+id/imgWhatsapp"
@@ -373,7 +374,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="60dp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/img_notification"
