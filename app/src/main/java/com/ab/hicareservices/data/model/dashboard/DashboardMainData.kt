@@ -9,7 +9,7 @@ data class DashboardMainData(
     @SerializedName("BrandData") var BrandData: ArrayList<BrandData> = arrayListOf(),
     @SerializedName("SocialMediadata") var SocialMediadata: ArrayList<SocialMediadata> = arrayListOf(),
     @SerializedName("VideoData") var VideoData: ArrayList<VideoData> = arrayListOf(),
-    @SerializedName("CODOrders") var CODOrders: String? = null,
+    @SerializedName("CODOrders") var CODOrders: ArrayList<String> = arrayListOf(),
     @SerializedName("TodaysService") var TodaysService: ArrayList<String> = arrayListOf(),
     @SerializedName("UpcomingService") var UpcomingService: ArrayList<String> = arrayListOf()
 )
