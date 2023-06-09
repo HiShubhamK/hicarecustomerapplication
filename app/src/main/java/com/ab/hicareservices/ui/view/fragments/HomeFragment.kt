@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,12 +30,13 @@ import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
+import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
-import kotlin.collections.ArrayList
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class HomeFragment : Fragment() {
@@ -96,7 +98,7 @@ class HomeFragment : Fragment() {
         }
 
 
-        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
 
@@ -194,6 +196,22 @@ class HomeFragment : Fragment() {
 
         binding.idViewPager.adapter = adapter
         binding.idViewPager4.adapter = mOfferAdapter
+        mOfferAdapter.setOnOfferClick(object : offerinterface {
+            override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
+                val modelBottomSheet =
+                    LayoutInflater.from(requireContext())
+                        .inflate(com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet, null)
+                val dialog = BottomSheetDialog(requireContext())
+
+                val textapp: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen)
+                val tvOfferTitle: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
+                textapp.text=offers[position].VoucherCode
+                tvOfferTitle.text=offers[position].OfferTitle
+                dialog.setContentView(modelBottomSheet)
+                dialog.show()
+            }
+
+        })
 //
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
@@ -356,12 +374,7 @@ class HomeFragment : Fragment() {
 //                handler2.postDelayed(runnable2, 5000)
 //            }
 //        })
-//        mOfferAdapter.setOnOfferClick(object :offerinterface{
-//            override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
+
 //        binding.recMenu.adapter = mAdapter
         binding.recPayments.adapter = mpayentdashboardadapter
         binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
@@ -371,17 +384,6 @@ class HomeFragment : Fragment() {
             RecyclerView.State(),
             binding.recPayments.adapter!!.itemCount
         )
-//        mOfferAdapter.setOnOfferClick {
-////            val modelBottomSheet =
-////                LayoutInflater.from(requireContext())
-////                    .inflate(com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet, null)
-////            val dialog = BottomSheetDialog(requireContext())
-////
-////           val tvCoupen :TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen) as TextView
-////            tvCoupen
-////            dialog.setContentView(modelBottomSheet)
-////            dialog.show()
-//        }
 
         binding.lnrTwitter.setOnClickListener {
             try {

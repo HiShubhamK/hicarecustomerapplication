@@ -398,23 +398,64 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <LinearLayout
+            android:id="@+id/lnrTitle4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/crdpest"
+            android:layout_marginHorizontal="18dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="3dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                android:layout_weight="1"
+                android:background="@color/grey_font">
+
+            </View>
+
+            <TextView
+                android:id="@+id/titleOffers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight=".5"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="center"
+                android:text="Exclusive Offers"
+                android:textAllCaps="true"
+                android:textColor="@color/grey_font"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                android:layout_weight="1"
+                android:background="@color/grey_font">
+
+            </View>
+        </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/lnroffers"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_below="@id/crdpest"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lnrTitle4"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/idViewPager4"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:paddingEnd="50dp"/>
+                android:paddingEnd="50dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -849,7 +890,6 @@
 
             <LinearLayout
                 android:layout_marginTop="6dp"
-
                 android:visibility="visible"
                 android:id="@+id/lnrTitle3"
                 android:layout_width="match_parent"

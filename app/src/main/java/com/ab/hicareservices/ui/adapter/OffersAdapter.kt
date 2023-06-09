@@ -13,11 +13,12 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.ui.handler.OffersInterface
+import com.ab.hicareservices.ui.handler.offerinterface
 
 
 class OffersAdapter(private val viewpa: ViewPager2, private val viewPager2: FragmentActivity) :
     RecyclerView.Adapter<OffersAdapter.ImageViewHolder>() {
-    private var offersInterface: OffersInterface? = null
+    private var offersInterface: offerinterface? = null
 
     var bannerLis = mutableListOf<OfferData>()
 
@@ -40,22 +41,26 @@ class OffersAdapter(private val viewpa: ViewPager2, private val viewPager2: Frag
 
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        try {
 //        Picasso.get().load(imageList[position].courseImg).into(holder.imgOffer)
 //        holder.imgOffer.setAnimation(bannerLis[position].courseImg)
 
-        holder.imgOffer.repeatCount = LottieDrawable.INFINITE
-        holder.imgOffer.playAnimation()
+            holder.imgOffer.repeatCount = LottieDrawable.INFINITE
+            holder.imgOffer.playAnimation()
 
 //        Glide.with(this).load(imageList[position].courseImg)).into(holder.imgOffer)
 
-        holder.tvOffers.text=bannerLis[position].OfferTitle
+            holder.tvOffers.text = bannerLis[position].OfferTitle
 
-        if (position == bannerLis.size-1){
-            viewpa.post(runnable)
-        }
-        holder.itemView.setOnClickListener{
-            offersInterface!!.onItemClick(position)
+            if (position == bannerLis.size - 1) {
+                viewpa.post(runnable)
+            }
+            holder.itemView.setOnClickListener {
+                offersInterface!!.onOfferClick(position, bannerLis as ArrayList<OfferData>)
 
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
     }
 
@@ -67,7 +72,7 @@ class OffersAdapter(private val viewpa: ViewPager2, private val viewPager2: Frag
         bannerLis.addAll(bannerLis)
         notifyDataSetChanged()
     }
-    fun setOnOfferClick(l: OffersInterface) {
+    fun setOnOfferClick(l: offerinterface) {
         offersInterface = l
     }
 
