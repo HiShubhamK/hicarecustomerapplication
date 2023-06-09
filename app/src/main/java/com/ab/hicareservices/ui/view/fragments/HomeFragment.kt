@@ -159,6 +159,7 @@ class HomeFragment : Fragment() {
 
     private fun init(progressDialog: ProgressDialog) {
         progressDialog.show()
+        binding.rltMain.visibility=View.GONE
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
@@ -183,6 +184,8 @@ class HomeFragment : Fragment() {
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
             progressDialog.dismiss()
+            binding.rltMain.visibility=View.VISIBLE
+
 //            binding.idViewPager.adapter = adapter
         })
         adapter = ImageAdapter(binding.idViewPager, requireActivity())

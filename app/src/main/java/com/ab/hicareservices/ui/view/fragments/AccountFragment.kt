@@ -4,15 +4,15 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.Fragment
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.HelpActivity
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.ReferralActivity
@@ -59,7 +59,9 @@ class AccountFragment : Fragment() {
         }
 
         binding.constrainRateus.setOnClickListener {
-            showRatusdialog()
+//            showRatusdialog()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ab.hicareservices")))
+
         }
 
         binding.help.setOnClickListener {
