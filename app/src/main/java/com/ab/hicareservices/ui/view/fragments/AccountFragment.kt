@@ -70,8 +70,8 @@ class AccountFragment : Fragment() {
         }
 
         binding.contraintbutton.setOnClickListener{
-            val mobileNumber="8976399055"
-            val message="Welcome to hicare"
+            val mobileNumber="9324747360"
+            val message=""
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber&text=$message")

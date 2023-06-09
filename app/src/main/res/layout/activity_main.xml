@@ -93,7 +93,7 @@
         android:id="@+id/add_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take a Call"
+        android:text="Get a Call"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
