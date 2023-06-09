@@ -90,7 +90,6 @@
 
     <RelativeLayout
         android:id="@+id/rltMain"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -188,6 +187,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recPayments"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recyclerCategory"
@@ -955,7 +955,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recOffers"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"

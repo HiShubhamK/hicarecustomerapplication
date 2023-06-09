@@ -88,10 +88,10 @@ class AddComplaintsActivity : AppCompatActivity() {
         arraylistImages = ArrayList()
         val extras = getIntent().extras
         if(orderNo!="") {
-            binding.bottomheadertext.visibility=View.GONE
+            binding.bottomheadertext.visibility=View.VISIBLE
             binding.bottomheadertext.text = orderNo
         }else{
-            binding.bottomheadertext.visibility=View.VISIBLE
+            binding.bottomheadertext.visibility=View.GONE
             binding.bottomheadertext.text = orderNo
 
         }
@@ -278,7 +278,6 @@ class AddComplaintsActivity : AppCompatActivity() {
                         serviceType = selectedType
                         Log.d("TAG", "Called Select Service Type")
                         binding.progressBar.visibility = View.VISIBLE
-                        getComplaintReason(selectedType)
                         binding.complaintSpnType.isEnabled = true
                     }
                     //Log.d("TAG", selectedType)
@@ -400,6 +399,8 @@ class AddComplaintsActivity : AppCompatActivity() {
                     if (it != null || it != "") {
                         Picasso.get().load(it).into(binding.imgUploadedCheque)
                     }
+                    Log.e("TAG","imageArray:- "+arraylistImages.toString())
+
                     binding.progressBar.visibility = View.GONE
 
                 }
@@ -427,6 +428,8 @@ class AddComplaintsActivity : AppCompatActivity() {
                     if (it != null || it != "") {
                         Picasso.get().load(it).into(binding.imgUploadedCheque2)
                     }
+                    Log.e("TAG","imageArray2:- "+arraylistImages.toString())
+
                     binding.progressBar.visibility = View.GONE
 
                 }
@@ -721,7 +724,9 @@ class AddComplaintsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        getFromServiceType()
+//        getFromServiceType()
+        getComplaintReason("Pest")
+
 
     }
 

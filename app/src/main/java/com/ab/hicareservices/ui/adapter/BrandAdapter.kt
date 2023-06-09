@@ -46,9 +46,6 @@ class BrandAdapter(private val viewPager: RecyclerView, private val requireActiv
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 
         Picasso.get().load(brand[position].ImageUrl).into(holder.imageView)
-        if (position == brand.size-1){
-            viewPager.post(runnablenew)
-        }
         holder.itemView.setOnClickListener{
 //            if(bannerLis[position].IsExternalAppBrowserLink==true){
 //
@@ -69,8 +66,5 @@ class BrandAdapter(private val viewPager: RecyclerView, private val requireActiv
         return brand.size
     }
 
-    private val runnablenew = Runnable {
-        brand.addAll(brand)
-        notifyDataSetChanged()
-    }
+
 }

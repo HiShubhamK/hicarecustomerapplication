@@ -17,19 +17,33 @@
         android:layout_margin="5dp">
 
         <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imgOfferLogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/offer"
+                app:tint="@color/colorPrimary">
+
+            </ImageView>
 
             <TextView
                 android:id="@+id/tvOffers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_semibold"
+                android:fontFamily="@font/lato_regular"
                 android:gravity="start"
                 android:text=""
+
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:visibility="visible">
 
             </TextView>

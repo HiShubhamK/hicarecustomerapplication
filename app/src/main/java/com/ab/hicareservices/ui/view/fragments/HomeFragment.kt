@@ -2,6 +2,9 @@ package com.ab.hicareservices.ui.view.fragments
 
 import android.R
 import android.app.ProgressDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.*
@@ -17,6 +20,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -215,8 +219,36 @@ class HomeFragment : Fragment() {
 
                 val textapp: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen)
                 val tvOfferTitle: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
+                val tvCopy: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCopy)
                 textapp.text=offers[position].VoucherCode
                 tvOfferTitle.text=offers[position].OfferTitle
+                if (offers[position].IsCopyEnabled == true){
+                    tvCopy.visibility=View.VISIBLE
+                    tvCopy.text="Copy"
+                    tvCopy.setOnLongClickListener {
+                        if (tvCopy.text != "") {
+                            val clipboard = ContextCompat.getSystemService(requireContext(), ClipboardManager::class.java)
+                            clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                            Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT).show()
+                        }
+                        true
+                    }
+                }else if(offers[position].IsExternalAppBrowserLink==true){
+                    tvCopy.text="Redeem Now"
+                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
+
+                }else if (offers[position].IsInAppBrowserLink==true){
+                    tvCopy.text="Redeem Now"
+                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
+
+                }else {
+                    tvCopy.text="Redeem Now"
+                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
+
+                }
+
                 dialog.setContentView(modelBottomSheet)
                 dialog.show()
             }
@@ -276,6 +308,8 @@ class HomeFragment : Fragment() {
 
         binding.recSocialMedia.layoutManager =
             GridLayoutManager(context, 3)
+        binding.recOffers.layoutManager =
+            GridLayoutManager(context, 3)
         mAdapter = DashboardMenuAdapter(requireActivity())
         binding.recPayments.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -287,12 +321,12 @@ class HomeFragment : Fragment() {
         binding.crdpest.visibility = View.VISIBLE
         madapterbrand= BrandAdapter(binding.recOffers,requireActivity())
         binding.recOffers.adapter = madapterbrand
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        binding.recOffers.layoutManager = layoutManager
-        snapHelper.attachToRecyclerView(binding.recOffers)
-        binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
-        (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
+//        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        val snapHelper: SnapHelper = PagerSnapHelper()
+//        binding.recOffers.layoutManager = layoutManager
+//        snapHelper.attachToRecyclerView(binding.recOffers)
+//        binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
+//        (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
 
 
 
@@ -596,6 +630,12 @@ class HomeFragment : Fragment() {
             mPaint.setStyle(Paint.Style.FILL)
             mPaint.setAntiAlias(true)
         }
+    }
+    fun Context.copyToClipboard(text: CharSequence) {
+        val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
+        clipboard?.setPrimaryClip(ClipData.newPlainText("", text))
+        Toast.makeText(applicationContext, "Copied!", Toast.LENGTH_SHORT).show();
+
     }
 }
 

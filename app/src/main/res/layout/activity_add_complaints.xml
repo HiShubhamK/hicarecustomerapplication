@@ -61,7 +61,7 @@
                 android:text="Home"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
 
             <TextView
