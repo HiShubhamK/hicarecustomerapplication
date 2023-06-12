@@ -104,6 +104,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:tint="@color/colorAccent"
                 android:src="@drawable/ic_baseline_email"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -152,6 +153,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:tint="@color/colorAccent"
                 android:src="@drawable/ic_baseline_call_black"/>
 
             <androidx.appcompat.widget.AppCompatTextView

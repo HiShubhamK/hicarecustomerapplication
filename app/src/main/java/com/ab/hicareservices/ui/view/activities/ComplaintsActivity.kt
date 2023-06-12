@@ -34,8 +34,7 @@ class ComplaintsActivity : AppCompatActivity() {
         setContentView(view)
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        viewModeld.validateAccount(AppUtils2.mobileno)
-
+//        viewModeld.validateAccount(AppUtils2.mobileno)
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

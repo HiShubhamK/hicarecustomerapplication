@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         datalist.add("Select Type")
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        viewModel.validateAccount(AppUtils2.mobileno)
+//        viewModel.validateAccount(AppUtils2.mobileno)
 
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -247,7 +247,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        viewModel.validateAccount(AppUtils2.mobileno)
+//        viewModel.validateAccount(AppUtils2.mobileno)
         val calendar = Calendar.getInstance()
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss aaa z")
         dateTime = simpleDateFormat.format(calendar.time).toString()
