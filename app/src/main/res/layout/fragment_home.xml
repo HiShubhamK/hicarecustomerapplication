@@ -87,6 +87,14 @@
 
     </RelativeLayout>
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedscroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_below="@id/headerView"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
         android:id="@+id/rltMain"
@@ -1240,5 +1248,6 @@
             android:visibility="visible" />
 
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

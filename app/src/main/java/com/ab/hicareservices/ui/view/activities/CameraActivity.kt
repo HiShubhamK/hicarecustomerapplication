@@ -117,6 +117,7 @@ class CameraActivity : AppCompatActivity() {
             intent.putExtra("serviceType",getServiceType)
             intent.putExtra("captureby","Image2")
             startActivity(intent)
+            finish()
 
         }else if (captureby == "Image1"){
             val intent = Intent(this, AddComplaintsActivity::class.java)
@@ -125,6 +126,7 @@ class CameraActivity : AppCompatActivity() {
             intent.putExtra("serviceType",getServiceType)
             intent.putExtra("captureby","Image1")
             startActivity(intent)
+            finish()
         }
 
     }

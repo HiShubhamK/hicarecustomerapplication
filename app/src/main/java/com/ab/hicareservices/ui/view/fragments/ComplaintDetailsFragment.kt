@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.ab.hicareservices.R
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentComplaintDetailBinding
+import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
+import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import org.json.JSONObject
@@ -45,13 +48,15 @@ class ComplaintDetailsFragment : Fragment() {
     private val STATUS = "STATUS"
     private val CASENUM = "CASENUM"
     private val ATTACHMENTS = "ATTACHMENTS"
-    private lateinit var imageListnew:ArrayList<String>
+    private lateinit var imageListnew: ArrayList<String>
 
+    private lateinit var mAdapter: ComplaintAttachmentAdapter
 
+    private val viewModel: ComplaintsViewModel by viewModels()
 
     lateinit var options: JSONObject
     private val viewModels: OtpViewModel by viewModels()
-    var service_url_image:String=""
+    var service_url_image: String = ""
 
     companion object {
         @JvmStatic
@@ -67,7 +72,7 @@ class ComplaintDetailsFragment : Fragment() {
             status1: String,
             casenum: String,
             imageList: ArrayList<String>,
-            complaintid:String
+            complaintid: String
         ) =
             ComplaintDetailsFragment().apply {
                 arguments = Bundle().apply {
@@ -82,7 +87,7 @@ class ComplaintDetailsFragment : Fragment() {
                     this.putString(STATUS, status1)
                     this.putString(CASENUM, casenum)
                     this.putString(COMPLAINTID, complaintid)
-                    this.putStringArrayList("attachmentlist",imageList)
+                    this.putStringArrayList("attachmentlist", imageList)
 
                 }
             }
@@ -90,26 +95,30 @@ class ComplaintDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageListnew=ArrayList()
+        imageListnew = ArrayList()
         arguments?.let {
             complaintdate = it.getString(COMPLANTDATE).toString()
             complaintnum = it.getString(COMPLAINTNO).toString()
-            orderNo=it.getString(ORDER_NO).toString()
-            category=it.getString(CATEGORY).toString()
-            complainttype=it.getString(COMPLAINT_TYPE).toString()
-            serviceplan=it.getString(SERVICE_PLAN).toString()
-            subject=it.getString(SUBJECT).toString()
-            description=it.getString(DESC).toString()
-            status=it.getString(STATUS).toString()
-            casenum=it.getString(CASENUM).toString()
-            imageListnew= it.getStringArrayList("attachmentlist") as ArrayList<String>
-            complaintid=it.getString(COMPLAINTID).toString()
+            orderNo = it.getString(ORDER_NO).toString()
+            category = it.getString(CATEGORY).toString()
+            complainttype = it.getString(COMPLAINT_TYPE).toString()
+            serviceplan = it.getString(SERVICE_PLAN).toString()
+            subject = it.getString(SUBJECT).toString()
+            description = it.getString(DESC).toString()
+            status = it.getString(STATUS).toString()
+            casenum = it.getString(CASENUM).toString()
+            imageListnew = it.getStringArrayList("attachmentlist") as ArrayList<String>
+            complaintid = it.getString(COMPLAINTID).toString()
 
 
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentComplaintDetailBinding.inflate(inflater, container, false)
 
         progressDialog = ProgressDialog(requireContext()).apply {
@@ -129,45 +138,48 @@ class ComplaintDetailsFragment : Fragment() {
 //            requireActivity().supportFragmentManager.beginTransaction()
 //                .replace(R.id.container, OrdersFragment.newInstance()).commit();
 //        }
-        binding.title.text=  "Complaint Detail"
-        binding.txtStatus.text=  status
-        binding.txtComplaintDate.text=  AppUtils2.formatDateTime4(complaintdate)
-        binding.txtcomplaintno.text= complaintnum
-        binding.txtorderno.text=orderNo
-        binding.txtCategory.text=category
-        binding.txtcomplainttype.text=complainttype
-        binding.txtServicePlan.text=serviceplan
-        binding.txtSubject.text=subject
-        binding.txtDescription.text=description
-        if(status == "Open"){
+        binding.title.text = "Complaint Detail"
+        binding.txtStatus.text = status
+        binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
+        binding.txtcomplaintno.text = complaintnum
+        binding.txtorderno.text = orderNo
+        binding.txtCategory.text = category
+        binding.txtcomplainttype.text = complainttype
+        binding.txtServicePlan.text = serviceplan
+        binding.txtSubject.text = subject
+        binding.txtDescription.text = description
+        if (status == "Open") {
 
             binding.txtStatus.setTextColor(Color.parseColor("#D50000"))
 
-        }else if(status == "Pending"){
+        } else if (status == "Pending") {
 
             binding.txtStatus.setTextColor(Color.parseColor("#FB8C00"))
 
-        }else if(status == "Resolved" || status == "Closed"){
+        } else if (status == "Resolved" || status == "Closed") {
 
             binding.txtStatus.setTextColor(Color.parseColor("#2bb77a"))
 
-        }else{
+        } else {
 
         }
         binding.imgLogo.setOnClickListener {
             requireActivity().finish()
         }
 
-        binding.txtSeeAttachment.setOnClickListener{
-            if(!imageListnew.isEmpty()) {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ComplaintAttachmentFragment.newInstance(complaintid))
-                    .addToBackStack("AccountFragment").commit();
-            }else{
-                Toast.makeText(requireActivity(),"No attachment available",Toast.LENGTH_LONG).show()
-            }
-        }
-        AppUtils2.mobileno=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+//        binding.txtSeeAttachment.setOnClickListener{
+////            if(!imageListnew.isEmpty()) {
+////                requireActivity().supportFragmentManager.beginTransaction()
+////                    .replace(R.id.container, ComplaintAttachmentFragment.newInstance(complaintid))
+////                    .addToBackStack("AccountFragment").commit();
+////            }else{
+////                Toast.makeText(requireActivity(),"No attachment available",Toast.LENGTH_LONG).show()
+////            }
+//        }
+        AppUtils2.mobileno =
+            SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+        progressDialog.show()
+        getcomplaintAttachment()
 
 //        if(orderNo!=null){
 //            binding.bottomheadertext.visibility=View.VISIBLE
@@ -175,7 +187,6 @@ class ComplaintDetailsFragment : Fragment() {
 //        }else{
 //            binding.bottomheadertext.visibility=View.GONE
 //        }
-
 
 
 //        binding.imgadd.setOnClickListener {
@@ -229,7 +240,7 @@ class ComplaintDetailsFragment : Fragment() {
 //        })
     }
 
-    private fun getServiceDetails(orderNo: String, serviceType: String){
+    private fun getServiceDetails(orderNo: String, serviceType: String) {
 //        orderDetailsViewModel.orderDetailsData.observe(requireActivity()) {
 //            if (it != null) {
 //                val data = it[0]
@@ -309,5 +320,61 @@ class ComplaintDetailsFragment : Fragment() {
 //        }
 //        orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
     }
+
+    private fun getcomplaintAttachment() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        mAdapter = ComplaintAttachmentAdapter()
+
+//        viewModel.attachments.observe(requireActivity(),{
+//
+//           if (it!=null){
+//               imageList.addAll(it)
+//           }
+//        })
+        viewModel.attachments.observe(requireActivity(), Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+            if (it != null) {
+                mAdapter.setAttachment(it as ArrayList<String>)
+                progressDialog.dismiss()
+                binding.recyclerView.visibility=View.VISIBLE
+                binding.tvNodata.visibility=View.GONE
+            }else{
+                progressDialog.dismiss()
+                binding.recyclerView.visibility=View.GONE
+                binding.tvNodata.visibility=View.VISIBLE
+            }
+
+//        Log.e("TAG", "Attachments: $imageList")
+//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+
+        })
+        viewModel.errorMessage.observe(requireActivity(), Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+            progressDialog.dismiss()
+//            binding.recyclerView.visibility=View.GONE
+//            binding.tvNodata.visibility=View.VISIBLE
+//            binding.tvNodata.text = it
+
+//        Log.e("TAG", "Attachments: $imageList")
+//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+
+        })
+
+
+
+        binding.recyclerView.adapter = mAdapter
+
+//        viewModel.getAllComplaints("9967994682")
+
+//        binding.progressBar.visibility= View.GONE
+
+        viewModel.getComlaintAttachment(complaintid)
+//        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
+    }
+
 
 }

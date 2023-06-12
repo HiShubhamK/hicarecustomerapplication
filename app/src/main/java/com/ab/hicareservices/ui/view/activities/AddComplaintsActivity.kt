@@ -124,7 +124,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
 
-        Picasso.get().load(img2).into(binding.imgUploadedCheque2)
+//        Picasso.get().load(img2).into(binding.imgUploadedCheque2)
 
         if (img2 != null && !img2.equals("")) {
             binding.lnrUpload2.visibility=View.GONE
@@ -144,6 +144,9 @@ class AddComplaintsActivity : AppCompatActivity() {
         typeHash = HashMap()
         binding.imgLogo.setOnClickListener {
             finish()
+
+            SharedPreferenceUtil.setData(this, "Image1", "").toString()
+            SharedPreferenceUtil.setData(this, "Image2", "").toString()
         }
 
 
@@ -197,7 +200,6 @@ class AddComplaintsActivity : AppCompatActivity() {
                 }
             } else {
                 if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
-                    && selectedCType != "" && selectedCSubType != ""
                 ) {
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
@@ -376,12 +378,12 @@ class AddComplaintsActivity : AppCompatActivity() {
     ) {
         val hashMap = HashMap<String, Any>()
         hashMap["OrderNo"] = orderNo
-        hashMap["ServiceNo"] = serviceNo
+        hashMap["ServiceNo"] = "1"
         hashMap["ComplaintType"] = complaintType
         hashMap["ComplaintSubType"] = complaintSubType
         hashMap["ComplaintTitle"] = complaintTitle
         hashMap["ComplaintDescription"] = complaintDescr
-        hashMap["ServiceType"] = serviceType
+        hashMap["ServiceType"] = getServiceType
         hashMap["Source"] = "mobileApp"
         hashMap["SubSource"] = "mobileApp"
         hashMap["attachments"] = arraylistImages
@@ -760,11 +762,13 @@ class AddComplaintsActivity : AppCompatActivity() {
     }
 
 
-//    override fun onBackPressed() {
-//        super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        SharedPreferenceUtil.setData(this, "Image1", "").toString()
+        SharedPreferenceUtil.setData(this, "Image2", "").toString()
 //        this.supportFragmentManager.beginTransaction()
 //            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();
-//        finish()
-//    }
+        finish()
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -32,6 +33,7 @@ class ComplaintAttachmentFragment() : Fragment() {
     private var mobile = ""
 
     private val COMPLAINTID = "COMPLAINTID"
+    lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,11 @@ class ComplaintAttachmentFragment() : Fragment() {
         binding = ActivityComplaintsAttachmentBinding.inflate(inflater, container, false)
         //viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(MainRepository(api))).get(OrdersViewModel::class.java)
         mobile = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
+        progressDialog = ProgressDialog(
+            requireActivity(),
+            com.ab.hicareservices.R.style.TransparentProgressDialog
+        )
+        progressDialog.setCancelable(false)
         return binding.root
     }
 
@@ -78,7 +85,6 @@ class ComplaintAttachmentFragment() : Fragment() {
 //        }
 
         binding.progressBar.visibility= View.VISIBLE
-        viewModel.getComlaintAttachment(complaintid)
         getAllComplaints()
 
 
@@ -122,6 +128,7 @@ class ComplaintAttachmentFragment() : Fragment() {
 
         binding.progressBar.visibility= View.GONE
 
+        viewModel.getComlaintAttachment(complaintid)
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }
 

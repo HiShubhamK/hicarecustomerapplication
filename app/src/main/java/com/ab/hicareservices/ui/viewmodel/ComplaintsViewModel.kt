@@ -33,6 +33,7 @@ class ComplaintsViewModel : ViewModel() {
 
                 } else {
                     Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
+                    errorMessage.postValue(response.body()!!.ResponseMessage)
                 }
             }
 
@@ -60,7 +61,7 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<GetAttachmentResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+//                errorMessage.postValue(t.message)
             }
         })
     }

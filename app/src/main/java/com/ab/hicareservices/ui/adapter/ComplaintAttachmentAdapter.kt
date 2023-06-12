@@ -11,21 +11,24 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
+import com.ab.hicareservices.data.model.dashboard.BrandData
 import com.ab.hicareservices.ui.viewmodel.OfferViewModel
 import com.squareup.picasso.Picasso
 
 
 class ComplaintAttachmentAdapter() :
     RecyclerView.Adapter<ComplaintAttachmentAdapter.ImageViewHolder>() {
-    private lateinit var imageList:ArrayList<String>
+    var imageList = mutableListOf<String>()
+
+    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val ivComplaintAttachment: ImageView = itemView.findViewById(R.id.ivComplaintAttachment)
+    }
     fun setAttachment(complaintdata: ArrayList<String>) {
         if (complaintdata != null) {
             this.imageList = complaintdata
+            notifyDataSetChanged()
+
         }
-        notifyDataSetChanged()
-    }
-    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivComplaintAttachment: ImageView = itemView.findViewById(R.id.ivComplaintAttachment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -35,7 +38,12 @@ class ComplaintAttachmentAdapter() :
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        Picasso.get().load(imageList[position]).into(holder.ivComplaintAttachment)
+        try {
+            Picasso.get().load(imageList[position]).into(holder.ivComplaintAttachment)
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
 //        holder.imgOffer.setAnimation(imageList[position].courseImg)
 
 
