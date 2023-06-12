@@ -83,8 +83,7 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
                                 complaints.Description.toString(),
                                 holder.binding.txtStatus.text.toString(),
                                 complaints.CaseNumber.toString(),
-                                imageList
-                            )
+                                imageList,complaints.Id.toString())
                         )
                         .addToBackStack(null)
                         .commit()

@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.R
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -25,7 +24,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -68,7 +69,6 @@ class HomeFragment : Fragment() {
     lateinit var progressDialog: ProgressDialog
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -102,13 +102,19 @@ class HomeFragment : Fragment() {
         }
 
 
-        progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
+        progressDialog = ProgressDialog(
+            requireActivity(),
+            com.ab.hicareservices.R.style.TransparentProgressDialog
+        )
         progressDialog.setCancelable(false)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             val drawable = ProgressBar(requireActivity()).indeterminateDrawable.mutate()
             drawable.setColorFilter(
-                ContextCompat.getColor(requireActivity(), com.ab.hicareservices.R.color.colorAccent),
+                ContextCompat.getColor(
+                    requireActivity(),
+                    com.ab.hicareservices.R.color.colorAccent
+                ),
                 PorterDuff.Mode.SRC_IN
             )
         }
@@ -156,7 +162,7 @@ class HomeFragment : Fragment() {
 
     }
     private val runnable2 = Runnable {
-                binding.idViewPager4.setCurrentItem(binding.idViewPager4.currentItem + 1, true)
+        binding.idViewPager4.setCurrentItem(binding.idViewPager4.currentItem + 1, true)
 
 //        binding.recOffers.s(binding.recOffers.currentItem + 1, true);
 
@@ -170,7 +176,7 @@ class HomeFragment : Fragment() {
 
     private fun init(progressDialog: ProgressDialog) {
         progressDialog.show()
-        binding.rltMain.visibility=View.GONE
+        binding.rltMain.visibility = View.GONE
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
         viewModels.validateAccount(AppUtils2.mobileno)
@@ -195,7 +201,7 @@ class HomeFragment : Fragment() {
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
             progressDialog.dismiss()
-            binding.rltMain.visibility=View.VISIBLE
+            binding.rltMain.visibility = View.VISIBLE
 
 //            binding.idViewPager.adapter = adapter
         })
@@ -214,39 +220,65 @@ class HomeFragment : Fragment() {
             override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
                 val modelBottomSheet =
                     LayoutInflater.from(requireContext())
-                        .inflate(com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet, null)
+                        .inflate(
+                            com.ab.hicareservices.R.layout.layout_offer_detail_bottomsheet,
+                            null
+                        )
                 val dialog = BottomSheetDialog(requireContext())
 
-                val textapp: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen)
-                val tvOfferTitle: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
-                val tvCopy: TextView = modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCopy)
-                textapp.text=offers[position].VoucherCode
-                tvOfferTitle.text=offers[position].OfferTitle
-                if (offers[position].IsCopyEnabled == true){
-                    tvCopy.visibility=View.VISIBLE
-                    tvCopy.text="Copy"
-                    tvCopy.setOnLongClickListener {
+                val textapp: TextView =
+                    modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen)
+                val tvOfferTitle: TextView =
+                    modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
+                val tvCopy: TextView =
+                    modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCopy)
+                textapp.text = offers[position].VoucherCode
+                tvOfferTitle.text = offers[position].OfferTitle
+                if (offers[position].IsCopyEnabled == true) {
+                    tvCopy.visibility = View.VISIBLE
+                    tvCopy.text = "Copy"
+                    tvCopy.setOnClickListener {
                         if (tvCopy.text != "") {
-                            val clipboard = ContextCompat.getSystemService(requireContext(), ClipboardManager::class.java)
+                            val clipboard = ContextCompat.getSystemService(
+                                requireContext(),
+                                ClipboardManager::class.java
+                            )
                             clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
                             Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT)
+                                .show()
                         }
-                        true
+
+                        if (offers[position].IsExternalAppBrowserLink == true) {
+                            tvCopy.text = "Redeem Now"
+                            requireActivity()!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(offers[position].PageLink)
+                                )
+                            )
+
+                        } else if (offers[position].IsInAppBrowserLink == true) {
+                            tvCopy.text = "Redeem Now"
+                            requireActivity()!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(offers[position].PageLink)
+                                )
+                            )
+
+                        } else {
+                            tvCopy.text = "Redeem Now"
+                            requireActivity()!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(offers[position].PageLink)
+                                )
+                            )
+
+                        }
                     }
-                }else if(offers[position].IsExternalAppBrowserLink==true){
-                    tvCopy.text="Redeem Now"
-                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
-
-                }else if (offers[position].IsInAppBrowserLink==true){
-                    tvCopy.text="Redeem Now"
-                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
-
-                }else {
-                    tvCopy.text="Redeem Now"
-                    requireActivity()!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(offers[position].PageLink)))
-
                 }
 
                 dialog.setContentView(modelBottomSheet)
@@ -311,7 +343,7 @@ class HomeFragment : Fragment() {
         binding.recOffers.layoutManager =
             GridLayoutManager(context, 3)
         mAdapter = DashboardMenuAdapter(requireActivity())
-        binding.recPayments.layoutManager =
+        binding.recVideo.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         msocialMediaAdapter = SocialMediaAdapter(requireActivity())
         mvideoAdapter = VideoAdapter(requireActivity())
@@ -319,7 +351,7 @@ class HomeFragment : Fragment() {
         binding.recSocialMedia.adapter = msocialMediaAdapter
         binding.recVideo.adapter = mvideoAdapter
         binding.crdpest.visibility = View.VISIBLE
-        madapterbrand= BrandAdapter(binding.recOffers,requireActivity())
+        madapterbrand = BrandAdapter(binding.recOffers, requireActivity())
         binding.recOffers.adapter = madapterbrand
 //        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 //        val snapHelper: SnapHelper = PagerSnapHelper()
@@ -327,7 +359,6 @@ class HomeFragment : Fragment() {
 //        snapHelper.attachToRecyclerView(binding.recOffers)
 //        binding.recOffers.scrollToPosition(madapterbrand.itemCount -1);
 //        (binding.recOffers.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(madapterbrand.itemCount, 0)
-
 
 
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
@@ -631,6 +662,7 @@ class HomeFragment : Fragment() {
             mPaint.setAntiAlias(true)
         }
     }
+
     fun Context.copyToClipboard(text: CharSequence) {
         val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
         clipboard?.setPrimaryClip(ClipData.newPlainText("", text))

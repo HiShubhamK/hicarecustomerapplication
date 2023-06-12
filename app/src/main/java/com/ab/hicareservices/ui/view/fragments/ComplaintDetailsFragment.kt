@@ -32,8 +32,10 @@ class ComplaintDetailsFragment : Fragment() {
     var description = ""
     var status = ""
     var casenum = ""
+    var complaintid = ""
     private val COMPLANTDATE = "COMPLANTDATE"
     private val COMPLAINTNO = "COMPLAINTNO"
+    private val COMPLAINTID = "COMPLAINTID"
     private val ORDER_NO = "ORDER_NO"
     private val CATEGORY = "CATEGORY"
     private val COMPLAINT_TYPE = "COMPLAINT_TYPE"
@@ -64,7 +66,8 @@ class ComplaintDetailsFragment : Fragment() {
             description1: String,
             status1: String,
             casenum: String,
-            imageList: ArrayList<String>
+            imageList: ArrayList<String>,
+            complaintid:String
         ) =
             ComplaintDetailsFragment().apply {
                 arguments = Bundle().apply {
@@ -78,6 +81,7 @@ class ComplaintDetailsFragment : Fragment() {
                     this.putString(DESC, description1)
                     this.putString(STATUS, status1)
                     this.putString(CASENUM, casenum)
+                    this.putString(COMPLAINTID, complaintid)
                     this.putStringArrayList("attachmentlist",imageList)
 
                 }
@@ -99,6 +103,8 @@ class ComplaintDetailsFragment : Fragment() {
             status=it.getString(STATUS).toString()
             casenum=it.getString(CASENUM).toString()
             imageListnew= it.getStringArrayList("attachmentlist") as ArrayList<String>
+            complaintid=it.getString(COMPLAINTID).toString()
+
 
         }
     }
@@ -152,7 +158,7 @@ class ComplaintDetailsFragment : Fragment() {
         binding.txtSeeAttachment.setOnClickListener{
             if(!imageListnew.isEmpty()) {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ComplaintAttachmentFragment.newInstance(imageListnew))
+                    .replace(R.id.container, ComplaintAttachmentFragment.newInstance(complaintid))
                     .addToBackStack("AccountFragment").commit();
             }else{
                 Toast.makeText(requireActivity(),"No attachment available",Toast.LENGTH_LONG).show()

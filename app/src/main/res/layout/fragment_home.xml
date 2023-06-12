@@ -1223,19 +1223,21 @@
                 </View>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recVideo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:clipToPadding="false"
-                android:foregroundGravity="center"
-                android:visibility="visible" />
+
 
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recVideo"
+            android:layout_below="@+id/lnrOffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
+            android:foregroundGravity="center"
+            android:visibility="visible" />
 
     </RelativeLayout>
 

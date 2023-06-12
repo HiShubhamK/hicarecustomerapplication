@@ -626,12 +626,12 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="36 months"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp"
-                                    android:fontFamily="@font/lato_regular"/>
+                                    android:textSize="12sp" />
 
                             </RelativeLayout>
 

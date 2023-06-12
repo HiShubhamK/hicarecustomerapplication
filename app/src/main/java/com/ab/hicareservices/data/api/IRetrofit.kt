@@ -4,6 +4,7 @@ import com.ab.hicareservices.data.model.LeadResponse
 import com.ab.hicareservices.data.model.NotificationToken
 import com.ab.hicareservices.data.model.Whatappresponse
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
+import com.ab.hicareservices.data.model.attachment.GetAttachmentResponse
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
 import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
@@ -118,6 +119,11 @@ interface IRetrofit {
     fun GetDashboard(
         @Query("mobileNo") mobileNo: String,
     ): Call<DashboardModel>
+
+    @GET("Complaint/GetComplaintAttachment")
+    fun GetComplaintAttachments(
+        @Query("complaintId") complaintId: String,
+    ): Call<GetAttachmentResponse>
 
 //    @POST("Slot/GetSlotCompliance")
 //    fun getComplainceData(

@@ -68,9 +68,9 @@
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_account.xml" value="0.19722222222222222" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_complaince.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_complaint_detail.xml" value="0.18" />
-        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_home.xml" value="0.14" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_home.xml" value="0.18" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_my_service_details.xml" value="0.19722222222222222" />
-        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_order_details.xml" value="0.1" />
+        <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_order_details.xml" value="0.2" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_orders.xml" value="0.19722222222222222" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/fragment_terms.xml" value="0.19722222222222222" />
         <entry key="..\:/Users/Shubham.Kadam/AndroidStudioProjects/hicarecustomerapplication2/app/src/main/res/layout/image_container.xml" value="0.20416666666666666" />
@@ -93,6 +93,7 @@
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

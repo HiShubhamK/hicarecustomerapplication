@@ -41,6 +41,10 @@ class SharedPreferenceUtil(context: Context) {
             return sharedPref(context).sharedPreferences.getLong(param, defaultVal)
         }
 
+//        fun getData(context: Context, param: String, defaultVal: ArrayList<String>): Any{
+//            return sharedPref(context).sharedPreferences.getS(param, defaultVal)
+//        }
+
         /**
          * It is used to set any data stored in the App SharedPreference
          * You can set any data without explicitly typing the name of the method

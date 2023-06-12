@@ -26,9 +26,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
-import com.ab.hicareservices.ui.view.fragments.OrderDetailsFragment
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -71,7 +70,6 @@ class AddComplaintsActivity : AppCompatActivity() {
     private lateinit var imageuri2: Uri
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddComplaintsBinding.inflate(layoutInflater)
@@ -87,13 +85,34 @@ class AddComplaintsActivity : AppCompatActivity() {
 //        service_url_image = intent.getStringExtra(SERVICE_TYPE_IMG).toString()
         arraylistImages = ArrayList()
         val extras = getIntent().extras
-        if(orderNo!="") {
-            binding.bottomheadertext.visibility=View.VISIBLE
+        if (orderNo != "") {
+            binding.bottomheadertext.visibility = View.VISIBLE
             binding.bottomheadertext.text = orderNo
-        }else{
-            binding.bottomheadertext.visibility=View.GONE
+        } else {
+            binding.bottomheadertext.visibility = View.GONE
             binding.bottomheadertext.text = orderNo
 
+        }
+
+
+        val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
+
+        Toast.makeText(this, "Image1" + img1, Toast.LENGTH_SHORT).show()
+
+        if (img1 != null && img1.isNotEmpty()) {
+            Picasso.get().load(img1).into(binding.imgUploadedCheque)
+        } else {
+            binding.relPhoto.visibility = View.VISIBLE
+        }
+
+
+        val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
+        Toast.makeText(this, "Image2" + img2, Toast.LENGTH_SHORT).show()
+
+        if (img2 != null && img2.isNotEmpty()) {
+            Picasso.get().load(img2).into(binding.imgUploadedCheque2)
+        } else {
+            binding.relPhoto2.visibility = View.VISIBLE
         }
 
 
@@ -173,6 +192,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             intent.putExtra("orderNo", orderNo)
             intent.putExtra("getServiceType", getServiceType)
             intent.putExtra("captureby", "1")
+
             startActivity(intent)
         }
         binding.lnrUpload2.setOnClickListener {
@@ -186,12 +206,14 @@ class AddComplaintsActivity : AppCompatActivity() {
         try {
             imageuri1 = Uri.parse(extras!!.getString("imageUri"))
             if (imageuri1 != null) {
+                captureby = "Image1"
                 setCaptureImage(imageuri1, captureby)
             }
 //            if (arraylistImages[0] != "") {
 
             imageuri2 = Uri.parse(extras!!.getString("imageUri2"))
             if (imageuri2 != null) {
+                captureby = "Image2"
                 setCaptureImage(imageuri2, captureby)
             }
 //            }else{
@@ -202,7 +224,6 @@ class AddComplaintsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
 
 
     }
@@ -307,10 +328,10 @@ class AddComplaintsActivity : AppCompatActivity() {
             val encodedString: String = Base64.encodeToString(b, Base64.DEFAULT)
             binding.progressBar.visibility = View.VISIBLE
 
-            if (captureby == "1") {
+            if (captureby.equals("Image1")) {
                 uploadattachment(encodedString, captureby)
 
-            }else if (captureby=="2"){
+            } else if (captureby == "Image2") {
                 uploadattachment(encodedString, captureby)
 
             }
@@ -395,11 +416,12 @@ class AddComplaintsActivity : AppCompatActivity() {
                 if (it != "") {
                     binding.lnrImage.visibility = View.VISIBLE
                     binding.lnrUpload.visibility = View.GONE
-                    arraylistImages.add(0, it)
-                    if (it != null || it != "") {
-                        Picasso.get().load(it).into(binding.imgUploadedCheque)
-                    }
-                    Log.e("TAG","imageArray:- "+arraylistImages.toString())
+                    SharedPreferenceUtil.setData(this, captureby, it)
+//                    arraylistImages.add(it)
+//                    if (it != null || it != "") {
+//                        Picasso.get().load(it).into(binding.imgUploadedCheque)
+//                    }
+                    Log.e("TAG", "imageArray:- " + arraylistImages.toString())
 
                     binding.progressBar.visibility = View.GONE
 
@@ -412,7 +434,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                 binding.lnrImage.visibility = View.GONE
                 binding.lnrUpload.visibility = View.VISIBLE
             }
-        } else if (captureby == "2") {
+        } else if (captureby == "Image2") {
             val hashMap = HashMap<String, Any>()
             hashMap["FileName"] = "complaint1"
             hashMap["FileExtension"] = ".jpeg"
@@ -424,11 +446,12 @@ class AddComplaintsActivity : AppCompatActivity() {
                 if (it != "") {
                     binding.lnrImage2.visibility = View.VISIBLE
                     binding.lnrUpload2.visibility = View.GONE
-                    arraylistImages.add(1, it)
-                    if (it != null || it != "") {
-                        Picasso.get().load(it).into(binding.imgUploadedCheque2)
-                    }
-                    Log.e("TAG","imageArray2:- "+arraylistImages.toString())
+                    arraylistImages.add(it)
+
+//                    if (it != null || it != "") {
+//                        Picasso.get().load(it).into(binding.imgUploadedCheque2)
+//                    }
+//                    Log.e("TAG","imageArray2:- "+arraylistImages.toString())
 
                     binding.progressBar.visibility = View.GONE
 

@@ -27,6 +27,7 @@ class MainRepository {
     fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
     fun BookSlot(data: HashMap<String, Any>) = retrofitService.BookSlot(data)
     fun GetDashboard(mobileNo: String) = retrofitService.GetDashboard(mobileNo)
+    fun GetComplaintAttachments(complaintId: String) = retrofitService.GetComplaintAttachments(complaintId)
     fun postLead(data: HashMap<String, Any>) = retrofitService.postLead(data)
     fun getWhatappVerify(watoken: String) = retrofitService.getWhatappVerification(watoken)
 

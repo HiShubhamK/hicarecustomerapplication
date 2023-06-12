@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.attachment.GetAttachmentResponse
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
 import com.ab.hicareservices.data.repository.MainRepository
@@ -36,6 +37,29 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ComplaintResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+    fun getComlaintAttachment(complaintid: String) {
+
+        val response = repository.GetComplaintAttachments(complaintid)
+        response.enqueue(object : Callback<GetAttachmentResponse> {
+
+            override fun onResponse(
+                call: Call<GetAttachmentResponse>,
+                response: Response<GetAttachmentResponse>
+            ) {
+                if (response.isSuccessful) {
+                    attachments.postValue(response.body()?.Data)
+
+                } else {
+                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                    Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<GetAttachmentResponse>, t: Throwable) {
                 errorMessage.postValue(t.message)
             }
         })

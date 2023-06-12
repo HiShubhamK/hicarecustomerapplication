@@ -18,22 +18,25 @@ import com.ab.hicareservices.databinding.ActivityComplaintsAttachmentBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class ComplaintAttachmentFragment() : Fragment() {
     private val TAG = "ComplaintsActivity"
     var mobileNo = ""
-    private lateinit var imageList:ArrayList<String>
+    private lateinit var complaintid:String
 
     lateinit var binding: ActivityComplaintsAttachmentBinding
     private val viewModel: ComplaintsViewModel by viewModels()
     private lateinit var mAdapter: ComplaintAttachmentAdapter
-    private val viewModeld: OtpViewModel by viewModels()
+    private val viewModeld: ComplaintsViewModel by viewModels()
     private var mobile = ""
+
+    private val COMPLAINTID = "COMPLAINTID"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            imageList = it.getStringArrayList("attachmentlist") as ArrayList<String>
+            complaintid = it.getString(COMPLAINTID).toString()
         }
     }
 
@@ -46,10 +49,10 @@ class ComplaintAttachmentFragment() : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(imageListnew: ArrayList<String>) =
+        fun newInstance(complaintid: String) =
             ComplaintAttachmentFragment().apply {
                 arguments = Bundle().apply {
-                    this.putStringArrayList("attachmentlist",imageListnew)
+                    this.putString(COMPLAINTID,complaintid)
                 }
             }
     }
@@ -75,7 +78,9 @@ class ComplaintAttachmentFragment() : Fragment() {
 //        }
 
         binding.progressBar.visibility= View.VISIBLE
-            getAllComplaints()
+        viewModel.getComlaintAttachment(complaintid)
+        getAllComplaints()
+
 
     }
 
@@ -90,15 +95,24 @@ class ComplaintAttachmentFragment() : Fragment() {
 //               imageList.addAll(it)
 //           }
 //        })
-//        viewModel.attachments.observe(requireActivity(), Observer {
+        viewModel.attachments.observe(requireActivity(), Observer {
 //            Log.d(TAG, "onViewCreated: $it")
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-            mAdapter.setAttachment(imageList)
-        Log.e("TAG", "Attachments: $imageList")
-            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+            mAdapter.setAttachment(it as ArrayList<String>)
+//        Log.e("TAG", "Attachments: $imageList")
+//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
 
-//        })
+        })
+        viewModel.errorMessage.observe(requireActivity(), Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+
+//        Log.e("TAG", "Attachments: $imageList")
+//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+
+        })
 
 
 
