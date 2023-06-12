@@ -209,6 +209,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
+            onBackPressed()
         }
         binding.lnrUpload.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)

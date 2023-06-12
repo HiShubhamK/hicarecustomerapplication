@@ -87,16 +87,15 @@
 
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/nestedscroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_below="@id/headerView"
         android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        >
 
     <RelativeLayout
+        android:layout_marginBottom="80dp"
         android:id="@+id/rltMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -105,7 +104,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/idViewPagerss"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/idViewPager"
@@ -895,6 +894,60 @@
             android:layout_below="@id/lnrRating"
             android:layout_marginHorizontal="18dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_marginTop="6dp"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="3dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="What's Trending"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_font">
+
+                </View>
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lnrOffer"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:clipToPadding="false"
+                android:foregroundGravity="center"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_marginTop="6dp"
@@ -1081,10 +1134,10 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lnrTitleNew"
+                    android:layout_marginTop="6dp"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/recPayments"
-                    android:layout_marginHorizontal="18dp"
                     android:orientation="horizontal"
                     android:paddingHorizontal="3dp">
 
@@ -1234,20 +1287,10 @@
 
 
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recVideo"
-            android:layout_below="@+id/lnrOffer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:clipToPadding="false"
-            android:foregroundGravity="center"
-            android:visibility="visible" />
+
+
 
     </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </LinearLayout>

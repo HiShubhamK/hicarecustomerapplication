@@ -6,21 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
+    android:layout_margin="5dp"
     android:focusable="true">
 
-    <VideoView
+    <androidx.cardview.widget.CardView
         android:id="@+id/video_view"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-      />
+        >
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/videoView_thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scaleType="centerCrop"/>
-
+        android:layout_height="200dp"
+        android:scaleType="fitXY"        />
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
 
 
