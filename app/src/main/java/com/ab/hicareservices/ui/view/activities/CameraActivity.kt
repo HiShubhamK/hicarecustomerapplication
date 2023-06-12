@@ -110,20 +110,20 @@ class CameraActivity : AppCompatActivity() {
 
     }
     private fun goBackToPreview(savedUri: Uri, orderNo: String) {
-        if (captureby == "2"){
+        if (captureby == "Image2"){
             val intent = Intent(this, AddComplaintsActivity::class.java)
             intent.putExtra("imageUri2",savedUri.toString())
             intent.putExtra("orderNo",orderNo)
             intent.putExtra("serviceType",getServiceType)
-            intent.putExtra("captureby","2")
+            intent.putExtra("captureby","Image2")
             startActivity(intent)
 
-        }else if (captureby == "1"){
+        }else if (captureby == "Image1"){
             val intent = Intent(this, AddComplaintsActivity::class.java)
             intent.putExtra("imageUri",savedUri.toString())
             intent.putExtra("orderNo",orderNo)
             intent.putExtra("serviceType",getServiceType)
-            intent.putExtra("captureby","1")
+            intent.putExtra("captureby","Image1")
             startActivity(intent)
         }
 
