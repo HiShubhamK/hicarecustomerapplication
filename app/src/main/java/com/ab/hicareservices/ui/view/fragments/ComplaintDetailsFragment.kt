@@ -154,6 +154,9 @@ class ComplaintDetailsFragment : Fragment() {
         }else{
 
         }
+        binding.imgLogo.setOnClickListener {
+            requireActivity().finish()
+        }
 
         binding.txtSeeAttachment.setOnClickListener{
             if(!imageListnew.isEmpty()) {
