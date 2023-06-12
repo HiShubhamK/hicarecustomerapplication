@@ -1,6 +1,8 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Intent
 import android.media.session.MediaController
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -38,6 +40,12 @@ class VideoAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerV
         try {
             val socialmedialist = socialmedialist[position]
             Picasso.get().load(socialmedialist.ImageUrl).into( holder.binding.videoViewThumbnail)
+            holder.binding.videoViewThumbnail.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(socialmedialist.VideoUrl));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setPackage("com.google.android.youtube");
+                fragmentActivity!!.startActivity(intent)
+            }
 //            mediaController = MediaController(fragmentActivity!!)
 //            mediaController.setAnchorView(holder.binding.videoView)
 //            holder.binding.videoView.setMediaController(mediaController)
