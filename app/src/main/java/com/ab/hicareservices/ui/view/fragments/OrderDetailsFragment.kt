@@ -135,7 +135,7 @@ class OrderDetailsFragment : Fragment() {
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
-        viewModels.validateAccount(AppUtils2.mobileno)
+//        viewModels.validateAccount(AppUtils2.mobileno)
         getServiceDetails(orderNo, serviceType)
 
         if (orderNo != null) {

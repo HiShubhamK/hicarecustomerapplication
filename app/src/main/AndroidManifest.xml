@@ -128,6 +128,22 @@
                     android:scheme="io.rzp" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.otpless.main.OtplessLoginActivity"
+            android:exported="true"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="hicare"
+                    android:scheme="otpless" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

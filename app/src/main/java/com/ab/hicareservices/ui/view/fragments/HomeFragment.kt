@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
         binding.rltMain.visibility=View.GONE
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
-        viewModels.validateAccount(AppUtils2.mobileno)
+//        viewModels.validateAccount(AppUtils2.mobileno)
         handler = Handler(Looper.myLooper()!!)
         handler2 = Handler(Looper.myLooper()!!)
         handler3 = Handler(Looper.myLooper()!!)

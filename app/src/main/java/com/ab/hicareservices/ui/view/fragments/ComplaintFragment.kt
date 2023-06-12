@@ -59,7 +59,8 @@ class ComplaintFragment() : Fragment() {
 //            getOrdersList2()
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
-        viewModeld.validateAccount(mobile)
+
+//        viewModeld.validateAccount(mobile)
 
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
