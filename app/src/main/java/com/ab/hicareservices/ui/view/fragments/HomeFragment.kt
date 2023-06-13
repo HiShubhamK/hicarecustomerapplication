@@ -236,48 +236,54 @@ class HomeFragment : Fragment() {
                 tvOfferTitle.text = offers[position].OfferTitle
                 if (offers[position].IsCopyEnabled == true) {
                     tvCopy.visibility = View.VISIBLE
-                    tvCopy.text = "Copy"
-                    tvCopy.setOnClickListener {
-                        if (tvCopy.text != "") {
-                            val clipboard = ContextCompat.getSystemService(
-                                requireContext(),
-                                ClipboardManager::class.java
-                            )
-                            clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
-                            Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                    tvCopy.text = "Copy code"
+                } else if (offers[position].IsExternalAppBrowserLink == true) {
+                    tvCopy.text = "Redeem Now"
 
-                        if (offers[position].IsExternalAppBrowserLink == true) {
-                            tvCopy.text = "Redeem Now"
-                            requireActivity()!!.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse(offers[position].PageLink)
-                                )
-                            )
+                } else if (offers[position].IsInAppBrowserLink == true) {
+                    tvCopy.text = "Redeem Now"
+                } else {
+                    tvCopy.text = "Redeem Now"
+                }
 
-                        } else if (offers[position].IsInAppBrowserLink == true) {
-                            tvCopy.text = "Redeem Now"
-                            requireActivity()!!.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse(offers[position].PageLink)
-                                )
-                            )
 
-                        } else {
-                            tvCopy.text = "Redeem Now"
-                            requireActivity()!!.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse(offers[position].PageLink)
-                                )
-                            )
+                tvCopy.setOnClickListener {
+                    if (tvCopy.text != "" && offers[position].IsCopyEnabled == true) {
+                        val clipboard = ContextCompat.getSystemService(
+                            requireContext(),
+                            ClipboardManager::class.java
+                        )
+                        clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                        Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT)
+                            .show()
+                    }
 
-                        }
+                    if (offers[position].IsExternalAppBrowserLink == true) {
+                        requireActivity()!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(offers[position].PageLink)
+                            )
+                        )
+
+                    } else if (offers[position].IsInAppBrowserLink == true) {
+                        requireActivity()!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(offers[position].PageLink)
+                            )
+                        )
+
+                    } else {
+                        requireActivity()!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(offers[position].PageLink)
+                            )
+                        )
+
                     }
                 }
 
