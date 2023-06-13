@@ -194,79 +194,25 @@
         android:visibility="visible"
         tools:listitem="@layout/layout_orders_adapter" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/textnotfound"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lnrmenus"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:background="#f6f6f6"
-        android:visibility="visible"
-        tools:listitem="@layout/layout_orders_adapter" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lnrmenus"
-        android:layout_marginTop="10dp"
-        android:background="#f6f6f6"
-        android:visibility="visible"
-        tools:listitem="@layout/layout_orders_adapter" />
-
-<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="visible"
-        android:backgroundTint="@color/colorAccent"
-        />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:indeterminate="true"
+        android:gravity="center"
         android:visibility="gone"
-        android:backgroundTint="@color/colorAccent"
-        style="@style/CardView.Dark"
-        />
+        android:layout_below="@+id/lnrmenus">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        android:backgroundTint="@color/colorAccent"
-        style="@style/CardView.Dark"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Record Found"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:fontFamily="@font/lato_semibold"/>
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        android:backgroundTint="@color/colorAccent"
-        style="@style/CardView.Dark"
-        />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

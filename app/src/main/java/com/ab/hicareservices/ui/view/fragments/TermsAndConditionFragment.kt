@@ -9,6 +9,7 @@ import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentTermsBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
@@ -59,6 +60,8 @@ class TermsAndConditionFragment : Fragment() {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
 
+
+
         setupHTMLWebView()
 
     }
@@ -88,8 +91,5 @@ class TermsAndConditionFragment : Fragment() {
         binding.webView.isScrollbarFadingEnabled = true
         binding.webView.loadUrl("https://hicare.in/terms-conditions")
 
-
     }
-
-
 }
