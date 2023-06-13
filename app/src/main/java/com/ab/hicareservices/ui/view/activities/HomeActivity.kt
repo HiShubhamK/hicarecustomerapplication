@@ -439,13 +439,19 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        if(OrderDetailsFragment.equals("OrderDetailsFragment")){
-            binding.bottomNavigation.selectedItemId = R.id.nav_orders
-        }else if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
+        if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
             finishAffinity()
         }else{
             binding.bottomNavigation.selectedItemId = R.id.nav_home
         }
+
+
+
+
+
+
+
+
 //        val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
 //        if (islogin==true) {
 //

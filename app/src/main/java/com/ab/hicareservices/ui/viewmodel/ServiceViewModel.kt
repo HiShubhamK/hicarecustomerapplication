@@ -29,4 +29,33 @@ class ServiceViewModel : ViewModel(){
             }
         })
     }
+
+    fun getUpcomingScheduledService( mobileno: String) {
+        val response = repository.getUpcomingScheduledService(mobileno)
+        response.enqueue(object : Callback<ServiceResponse> {
+            override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
+                serviceList.postValue(response.body()?.Data)
+                Log.d("TAG", "Response "+ response.body()?.Data.toString())
+            }
+
+            override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+    fun getTodayScheduledService(mobileno: String) {
+        val response = repository.getTodayScheduledService(mobileno)
+        response.enqueue(object : Callback<ServiceResponse> {
+            override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
+                serviceList.postValue(response.body()?.Data)
+                Log.d("TAG", "Response "+ response.body()?.Data.toString())
+            }
+
+            override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
 }

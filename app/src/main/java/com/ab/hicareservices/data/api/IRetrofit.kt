@@ -112,8 +112,6 @@ interface IRetrofit {
     @POST("Slot/BookSlot")
     fun BookSlot(@Body data: HashMap<String, Any>): Call<BookSlotResponce>
 
-//    @POST("Dashboard/GetDashboard")
-//    fun GetDashboard(@Body data: HashMap<String, Any>): Call<DashboardModel>
 
     @POST("Dashboard/GetDashboard")
     fun GetDashboard(
@@ -125,21 +123,22 @@ interface IRetrofit {
         @Query("complaintId") complaintId: String,
     ): Call<GetAttachmentResponse>
 
-//    @POST("Slot/GetSlotCompliance")
-//    fun getComplainceData(
-//        @Query("ServiceCenter_Id") ServiceCenterId: String,
-//        @Query("SlotDate") SlotDate: String,
-//        @Query("TaskId") TaskId: String,
-//        @Query("Lat") Lat: String,
-//        @Query("Long") Long: String,
-//        @Query("ServiceType") ServiceType: String
-//    ): Call<GetComplaiceResponce>
-
 
     @POST("Lead/AddLeadAsync")
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
 
     @GET("Account/VerifyWhatsAppUser")
     fun getWhatappVerification(@Query("waToken") waToken:String):Call<Whatappresponse>
+
+    @GET("ServiceRequest/GetUpcomingScheduledService")
+    fun getUpcomingScheduledService(
+        @Query("mobileNo") mobileNo: String
+    ): Call<ServiceResponse>
+
+    @GET("ServiceRequest/GetTodayScheduledService")
+    fun getTodayScheduledService(
+        @Query("mobileNo") mobileNo: String
+    ): Call<ServiceResponse>
+
 
 }

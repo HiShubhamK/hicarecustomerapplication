@@ -30,5 +30,7 @@ class MainRepository {
     fun GetComplaintAttachments(complaintId: String) = retrofitService.GetComplaintAttachments(complaintId)
     fun postLead(data: HashMap<String, Any>) = retrofitService.postLead(data)
     fun getWhatappVerify(watoken: String) = retrofitService.getWhatappVerification(watoken)
+    fun getUpcomingScheduledService(mobileNo: String)=retrofitService.getUpcomingScheduledService(mobileNo)
+    fun getTodayScheduledService(mobileNo: String)=retrofitService.getTodayScheduledService(mobileNo)
 
 }
