@@ -40,7 +40,6 @@ import com.razorpay.PaymentResultWithDataListener
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
     lateinit var geocoder: Geocoder

@@ -45,13 +45,17 @@ class LoginActivity : AppCompatActivity() {
 
         binding.signInBtn.setOnClickListener {
             val mobileNo = binding.mobileNoEt.text.toString()
-            if (mobileNo.length != 10){
-                binding.mobileNoEt.setError("Invalid Phone Number")
+            if(binding.mobileNoEt.text.toString().equals("0000000000")){
+                Toast.makeText(this,"Please Enter Valid Mobile Number",Toast.LENGTH_LONG).show()
+            }else if (mobileNo.length != 10){
+                Toast.makeText(this,"Please Enter Mobile Number",Toast.LENGTH_LONG).show()
+//                binding.mobileNoEt.setError("Invalid Phone Number")
                 return@setOnClickListener
+            }else{
+                progressDialog.show()
+                binding.signInBtn.isEnabled = false
+                getOtp(mobileNo,progressDialog)
             }
-            progressDialog.show()
-            binding.signInBtn.isEnabled = false
-            getOtp(mobileNo,progressDialog)
         }
     }
 
@@ -60,7 +64,9 @@ class LoginActivity : AppCompatActivity() {
         viewModel.whatsResponse.observe(this,Observer{
             if(it.IsSuccess==true){
                 data= it.Data?.waNumber?.substring(2).toString()
-                viewModel.validateAccount(data)
+
+                viewModel.validateAccounts(data,this)
+
                 SharedPreferenceUtil.setData(this, "mobileNo", data)
                 SharedPreferenceUtil.setData(this, "phoneNo", data)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)

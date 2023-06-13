@@ -47,7 +47,7 @@ class OTPActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        binding.backIv.setOnClickListener {
+        binding.backIvs.setOnClickListener {
             val intent=Intent(this,LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -65,7 +65,9 @@ class OTPActivity : AppCompatActivity() {
         }
         binding.continueBtn.setOnClickListener {
                 progressDialog.show()
-            if (mOtp.equals(binding.otpView.otp.toString())) {
+            if (binding.otpView.otp.toString().equals("")){
+                Toast.makeText(this,"Please enter code",Toast.LENGTH_LONG).show()
+            } else if (mOtp.equals(binding.otpView.otp.toString())) {
 
                 validateAccount(mobileNo)
                 progressDialog.dismiss()
@@ -78,7 +80,7 @@ class OTPActivity : AppCompatActivity() {
                 finish()
             }else{
                 progressDialog.dismiss()
-                Toast.makeText(this,"Enter valid otp",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter Valid code",Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -103,7 +105,7 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun startCounter() {
-        object : CountDownTimer(30000, 1000) {
+        object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.resendCodeTv.text = "Resend code in 00: " + millisUntilFinished / 1000
                 //here you can have your logic to set text to edittext
@@ -144,4 +146,13 @@ class OTPActivity : AppCompatActivity() {
 //        progressDialog.dismiss()
 //        Toast.makeText(this, "Authorization Error", Toast.LENGTH_SHORT).show()
 //    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent=Intent(this,LoginActivity::class.java)
+        startActivity(intent)
+
+    }
+
 }

@@ -48,6 +48,18 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+        <ImageView
+            android:id="@+id/backIvs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="12dp"
+            android:visibility="visible"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,28 +183,28 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/continueBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="#f6f6f6"
+                app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="6dp"
                 android:padding="3dp"
                 android:elevation="5dp"
-                android:background="#f6f6f6"
+                android:background="@color/colorAccent"
                 app:cardUseCompatPadding="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Login with password"
-                    android:textColor="@color/black"
+                    android:text="Login"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:background="#f6f6f6"
+                    android:background="@color/colorAccent"
                     android:fontFamily="@font/lato_semibold"/>
             </androidx.cardview.widget.CardView>
 

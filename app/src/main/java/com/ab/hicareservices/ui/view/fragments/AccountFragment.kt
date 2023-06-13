@@ -38,19 +38,19 @@ class AccountFragment : Fragment() {
         binding.edtAccount.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, ProfileFragment.newInstance())
-                .addToBackStack("AccountFragment").commit();
+                .addToBackStack("AccountFragment").commit()
         }
 
         binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OrdersFragment.newInstance())
-                .addToBackStack("AccountFragment").commit();
+                .addToBackStack("AccountFragment").commit()
         }
 
         binding.constraintcomplaints.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, ComplaintFragment.newInstance())
-                .addToBackStack("AccountFragment").commit();
+                .addToBackStack("AccountFragment").commit()
         }
 
         binding.constraintreferBtn.setOnClickListener {
