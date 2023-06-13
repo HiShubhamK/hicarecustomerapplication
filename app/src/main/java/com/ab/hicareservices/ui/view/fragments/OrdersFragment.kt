@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -196,8 +197,19 @@ class OrdersFragment() : Fragment(),Backpressedlistener {
             //            binding.recyclerView2.visibility = View.VISIBLE
         })
 
-        viewModel.errorMessage.observe(requireActivity(), Observer {
 
+        viewModel.responseMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility=View.VISIBLE
+            binding.textnotfound.text=it.toString()
+            progressDialog.dismiss()
+        })
+
+
+        viewModel.errorMessage.observe(requireActivity(), Observer {
+            if(it!=null) {
+                binding.textnotfound.visibility = View.VISIBLE
+            }
         })
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
@@ -218,6 +230,8 @@ class OrdersFragment() : Fragment(),Backpressedlistener {
 //
         progressDialog.show()
 
+        binding.recyclerView.visibility=View.VISIBLE
+
         binding.recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
@@ -229,12 +243,9 @@ class OrdersFragment() : Fragment(),Backpressedlistener {
             if(it!=null) {
                 mAdapter.setOrdersList(it, requireActivity())
                 binding.recyclerView.visibility = View.VISIBLE
-                binding.textnotfound.visibility=View.GONE
                 progressDialog.dismiss()
             }else{
                 progressDialog.dismiss()
-                binding.recyclerView.visibility = View.GONE
-                binding.recyclerView2.visibility = View.GONE
                 binding.textnotfound.visibility=View.VISIBLE
             }
         })
@@ -278,7 +289,16 @@ class OrdersFragment() : Fragment(),Backpressedlistener {
         })
 
 
+        viewModel.responseMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility=View.VISIBLE
+            binding.textnotfound.text=it.toString()
+            progressDialog.dismiss()
+        })
+
         viewModel.errorMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility=View.VISIBLE
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE

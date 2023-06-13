@@ -17,6 +17,8 @@ class ComplaintsViewModel : ViewModel() {
     val complaintList = MutableLiveData<List<ComplaintsData>>()
     val attachments = MutableLiveData<List<String>>()
     val errorMessage = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
+
 
     fun getAllComplaints(mobileNo: String) {
 
@@ -27,13 +29,12 @@ class ComplaintsViewModel : ViewModel() {
                 call: Call<ComplaintResponse>,
                 response: Response<ComplaintResponse>
             ) {
-                if (response.isSuccessful) {
+                if (response.body()?.IsSuccess==true) {
                     complaintList.postValue(response.body()?.data)
                     attachments.postValue(response.body()?.Attachments)
-
                 } else {
                     Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
-                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage)
                 }
             }
 
@@ -55,13 +56,13 @@ class ComplaintsViewModel : ViewModel() {
                     attachments.postValue(response.body()?.Data)
 
                 } else {
-                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                    responseMessage.postValue(response.body()!!.ResponseMessage)
                     Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
                 }
             }
 
             override fun onFailure(call: Call<GetAttachmentResponse>, t: Throwable) {
-//                errorMessage.postValue(t.message)
+                errorMessage.postValue(t.message)
             }
         })
     }

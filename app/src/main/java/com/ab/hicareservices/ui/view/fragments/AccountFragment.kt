@@ -81,7 +81,7 @@ class AccountFragment : Fragment() {
         binding.terms.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, TermsAndConditionFragment.newInstance())
-                .addToBackStack("AccountFragment").commit();
+                .addToBackStack("AccountFragment").setReorderingAllowed(true).commit();
         }
 
         binding.signOut.setOnClickListener {

@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -31,6 +32,7 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
+import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
@@ -38,7 +40,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class OrderDetailsFragment : Fragment() {
+class OrderDetailsFragment : Fragment(), Backpressedlistener {
 
     private val TAG = "OrderDetailsFragment"
     lateinit var binding: FragmentOrderDetailsBinding
@@ -533,5 +535,9 @@ class OrderDetailsFragment : Fragment() {
         notes.put("OrdersAmountMapping", "")
         notes.put("Service_Type", serviceType)
         return notes
+    }
+
+    override fun onBackpress() {
+        Toast.makeText(getContext(),"back button pressed",Toast.LENGTH_LONG).show();
     }
 }

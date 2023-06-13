@@ -29,6 +29,7 @@ import com.ab.hicareservices.databinding.ActivityMainBinding
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
+import com.ab.hicareservices.ui.view.fragments.OrderDetailsFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -437,8 +438,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        
-        if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
+
+        if(OrderDetailsFragment.equals("OrderDetailsFragment")){
+            binding.bottomNavigation.selectedItemId = R.id.nav_orders
+        }else if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
             finishAffinity()
         }else{
             binding.bottomNavigation.selectedItemId = R.id.nav_home

@@ -13,22 +13,31 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OrdersViewModel : ViewModel(){
+class OrdersViewModel : ViewModel() {
     val repository = MainRepository()
     val ordersList = MutableLiveData<List<OrdersData>>()
     val errorMessage = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
 
-    fun getCustomerOrdersByMobileNo(mobileNo: String,progressDialog: ProgressDialog) {
+    fun getCustomerOrdersByMobileNo(mobileNo: String, progressDialog: ProgressDialog) {
 
         progressDialog.show()
 
         val response = repository.getCustomerOrdersByMobileNo(mobileNo)
         response.enqueue(object : Callback<OrdersResponse> {
 
-            override fun onResponse(call: Call<OrdersResponse>, response: Response<OrdersResponse>) {
-                ordersList.postValue(response.body()?.data)
-                progressDialog.dismiss()
-                Log.d("TAG", "Response "+ response.body()?.data.toString())
+            override fun onResponse(
+                call: Call<OrdersResponse>,
+                response: Response<OrdersResponse>
+            ) {
+
+                if (response.body()?.isSuccess == false) {
+                    responseMessage.postValue(response.body()?.responseMessage)
+                } else {
+                    ordersList.postValue(response.body()?.data)
+                    progressDialog.dismiss()
+                    Log.d("TAG", "Response " + response.body()?.data.toString())
+                }
             }
 
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
@@ -39,24 +48,32 @@ class OrdersViewModel : ViewModel(){
     }
 
 
-    fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype: String, progressBar: ProgressBar) {
+    fun getCustomerOrdersByMobileNo(mobileNo: String, ordertype: String, progressBar: ProgressBar) {
 
-        progressBar.visibility=View.VISIBLE
+        progressBar.visibility = View.VISIBLE
 
-        val response = repository.getCustomerOrdersByMobileNo(mobileNo,ordertype)
+        val response = repository.getCustomerOrdersByMobileNo(mobileNo, ordertype)
         response.enqueue(object : Callback<OrdersResponse> {
 
 
-            override fun onResponse(call: Call<OrdersResponse>, response: Response<OrdersResponse>) {
+            override fun onResponse(
+                call: Call<OrdersResponse>,
+                response: Response<OrdersResponse>
+            ) {
 
-                ordersList.postValue(response.body()?.data)
-                Log.d("TAG", "Response "+ response.body()?.data.toString())
-                progressBar.visibility=View.GONE
+                if(response.body()?.isSuccess==false){
+                    responseMessage.postValue(response.body()?.responseMessage)
+                }else {
+
+                    ordersList.postValue(response.body()?.data)
+                    Log.d("TAG", "Response " + response.body()?.data.toString())
+                    progressBar.visibility = View.GONE
+                }
             }
 
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
                 errorMessage.postValue(t.message)
-                progressBar.visibility=View.GONE
+                progressBar.visibility = View.GONE
             }
         })
     }
