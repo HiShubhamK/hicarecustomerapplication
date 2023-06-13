@@ -52,11 +52,11 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
                 }else if (service.IsAppLink==true){
                     if (service.Title.equals("My Orders")){
                         fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit()
+                            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("HomeFragment").commit()
 
                     }else if (service.Title.equals("Complaints")){
                         fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("AccountFragment").commit()
+                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("HomeFragment").commit()
                     }else if (service.Title.equals("Renewals")){
 
 
@@ -66,7 +66,7 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
 
                     }else if (service.Title.equals("Support")){
                         fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
+                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("HomeFragment").commit()
                     }
                 }else if (service.IsInAppBrowserLink==true){
 

@@ -34,7 +34,7 @@ import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
 
-class OrdersFragment() : Fragment(),Backpressedlistener {
+class OrdersFragment() : Fragment() {
     private val TAG = "OrdersFragment"
     lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
@@ -285,7 +285,5 @@ class OrdersFragment() : Fragment(),Backpressedlistener {
         super.onDestroy()
     }
 
-    override fun onBackpress() {
-        TODO("Not yet implemented")
-    }
+
 }
