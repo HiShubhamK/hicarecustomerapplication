@@ -11,7 +11,6 @@ class PaymentDashboardAdapter(paymentcardlist: List<PaymentCardViewModel>) : Rec
 
     var list = paymentcardlist
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 

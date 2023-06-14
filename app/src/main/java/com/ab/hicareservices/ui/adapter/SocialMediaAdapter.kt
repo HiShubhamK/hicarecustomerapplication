@@ -1,21 +1,13 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.dashboard.BannerData
-import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.data.model.dashboard.SocialMediadata
-import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.databinding.SocialmediaAdapterBinding
-import com.ab.hicareservices.ui.view.fragments.ComplaintFragment
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
-import com.ab.hicareservices.ui.viewmodel.GridViewModal
 import com.squareup.picasso.Picasso
 
 class SocialMediaAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerView.Adapter<SocialMediaAdapter.MainViewHolder>() {

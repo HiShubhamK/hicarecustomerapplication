@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -22,23 +24,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.service.ServiceData
+import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
+import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
 import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
-import com.ab.hicareservices.databinding.FragmentOrderDetailsBinding
-import com.ab.hicareservices.ui.handler.Backpressedlistener
-import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
+
 
 class OrderDetailsFragment : Fragment(), Backpressedlistener {
 
@@ -69,6 +72,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
 
+    var backpressedlistener: Backpressedlistener? = null
 
     companion object {
         @JvmStatic
@@ -76,8 +80,8 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
             orderNo: String,
             serviceType: String,
             service_url_image: String,
-            locationLatitudeS: Double?,
-            locationLongitudeS: Double?,
+            locationLatitudeS: String?,
+            locationLongitudeS: String?,
             ServiceCenterId: String
         ) =
             OrderDetailsFragment().apply {
@@ -110,6 +114,22 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
             locationLongitudeS = it.getString("locationLongitudeS").toString()
             ServiceCenterId = it.getString("ServiceCenterId").toString()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                    // Leave empty do disable back press or
+                    // write your code which you want
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
     }
 
     override fun onCreateView(
@@ -537,7 +557,19 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
         return notes
     }
 
-    override fun onBackpress() {
-        Toast.makeText(getContext(),"back button pressed",Toast.LENGTH_LONG).show();
+
+    override fun onPause() {
+        backpressedlistener = null
+        super.onPause()
     }
+
+    override fun onResume() {
+        super.onResume()
+        backpressedlistener = this
+    }
+
+    override fun onBackpress() {
+        TODO("Not yet implemented")
+    }
+
 }

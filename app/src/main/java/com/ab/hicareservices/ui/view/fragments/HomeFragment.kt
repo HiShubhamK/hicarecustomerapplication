@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.BannerData
+import com.ab.hicareservices.data.model.dashboard.CODOrders
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.databinding.FragmentHomeBinding
@@ -43,7 +44,6 @@ import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
-
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -68,6 +68,7 @@ class HomeFragment : Fragment() {
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val viewModels: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
+    private lateinit var codOrders:ArrayList<CODOrders>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,6 +141,11 @@ class HomeFragment : Fragment() {
                 handler2.postDelayed(runnable, 5000)
             }
         })
+
+
+        getServiceData()
+
+
 //        setHomeBanner()
     }
 
@@ -187,6 +193,7 @@ class HomeFragment : Fragment() {
         imageList = ArrayList()
         offerlist = ArrayList()
         courseList = ArrayList<MenuData>()
+        codOrders =ArrayList()
         binding.crdpest.visibility = View.GONE
 
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>, binding.recOffers)
@@ -201,6 +208,7 @@ class HomeFragment : Fragment() {
             mvideoAdapter.setvideo(it.VideoData)
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
+            codOrders=it.CODOrders
             progressDialog.dismiss()
             binding.rltMain.visibility = View.VISIBLE
 
@@ -373,7 +381,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun getServiceData(courseList2: ArrayList<MenuData>) {
+    private fun getServiceData() {
         paymentcardlist = ArrayList<PaymentCardViewModel>()
 
         // on below line we are adding data to

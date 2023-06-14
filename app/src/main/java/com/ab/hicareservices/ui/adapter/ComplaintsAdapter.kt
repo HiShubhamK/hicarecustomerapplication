@@ -1,28 +1,30 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
 import com.ab.hicareservices.databinding.LayoutComplaintsAdaptersBinding
+import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.fragments.ComplaintDetailsFragment
 import com.ab.hicareservices.utils.AppUtils2
 
 
-class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
+class ComplaintsAdapter(requireActivity: ComplaintsActivity) : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
 
     var complaints = mutableListOf<ComplaintsData>()
     var imageList = ArrayList<String>()
-    private lateinit var  requireActivity: FragmentActivity
+    private lateinit var requireActivity: ComplaintsActivity
 
     fun setComplaintsList(
         complaintdata: List<ComplaintsData>?,
         imageList: ArrayList<String>,
-        requireActivity: FragmentActivity
+        requireActivity: ComplaintsActivity
     ) {
         if (complaintdata != null) {
             this.complaints = complaintdata.toMutableList()
@@ -67,31 +69,25 @@ class ComplaintsAdapter() : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolde
             }
 //            imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
             holder.itemView.setOnClickListener {
-                try {
-                    val appCompatActivity = it.context as AppCompatActivity
-                    appCompatActivity.supportFragmentManager.beginTransaction()
-                        .replace(
-                            com.ab.hicareservices.R.id.container,
-                            ComplaintDetailsFragment.newInstance(
-                                AppUtils2.formatDateTime4(complaints.CreatedDate.toString()),
-                                complaints.ComplaintNo_c.toString(),
-                                complaints.OrderNo_c.toString(),
-                                "Pest",
-                                complaints.ComplaintDescription_c.toString(),
-                                complaints.ServicePlan_c.toString(),
-                                complaints.Subject.toString(),
-                                complaints.Description.toString(),
-                                holder.binding.txtStatus.text.toString(),
-                                complaints.CaseNumber.toString(),
-                                imageList,complaints.Id.toString())
-                        )
-                        .addToBackStack(null)
-                        .commit()
-                } catch (e:Exception) {
-                    e.printStackTrace()
-                }
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .replace(com.ab.hicareservices.R.id.container, ComplaintDetailsFragment.newInstance()).addToBackStack("OrderDetailsFragment").commit()
+
+                    val intent = Intent(requireActivity, ComplaintDetailsActivity::class.java)
+                    intent.putExtra(
+                        "Dateformat",
+                        AppUtils2.formatDateTime4(complaints.CreatedDate.toString())
+                    )
+                    intent.putExtra("ComplaintNo", complaints.ComplaintNo_c.toString())
+                    intent.putExtra("OrderNO", complaints.OrderNo_c.toString())
+                    intent.putExtra("Pest", "Pest")
+                    intent.putExtra("Cdescription", complaints.ComplaintDescription_c.toString())
+                    intent.putExtra("ServicePlan", complaints.ServicePlan_c.toString())
+                    intent.putExtra("Subject", complaints.Subject.toString())
+                    intent.putExtra("Description", complaints.Description.toString())
+                    intent.putExtra("status", holder.binding.txtStatus.text.toString())
+                    intent.putExtra("CaseNo", complaints.CaseNumber.toString())
+                    intent.putStringArrayListExtra("Imagelist", imageList)
+                    intent.putExtra("Complaintid", complaints.Id.toString())
+                    requireActivity.startActivity(intent)
+
             }
         } catch (e: Exception) {
             e.printStackTrace()

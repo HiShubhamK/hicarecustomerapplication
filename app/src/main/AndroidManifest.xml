@@ -3,15 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-feature android:name="android.hardware.camera.any" android:required="true" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -22,10 +26,24 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.view.activities.LoginActivity"
-            android:exported="true">
-
+            android:name=".ui.view.activities.TermsAndConditionActivity"
+            android:exported="false">
         </activity>
+        <activity
+            android:name=".ui.view.activities.ComplaintDetailsActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.view.activities.MyServiceDetailsActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.view.activities.SlotComplinceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.view.activities.OrderDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.view.activities.LoginActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.view.activities.PaymentActivity"
             android:exported="true">
@@ -55,7 +73,7 @@
 
         <activity
             android:name=".ui.view.activities.HelpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.view.activities.ReferralActivity"
             android:exported="true"
@@ -108,6 +126,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <receiver
             android:name="com.razorpay.RzpTokenReceiver"
             android:exported="false">
@@ -123,18 +142,19 @@
             android:theme="@style/CheckoutTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <data
                     android:host="rzp.io"
                     android:scheme="io.rzp" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.otpless.main.OtplessLoginActivity"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -143,7 +163,6 @@
                     android:scheme="otpless" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -444,24 +444,5 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }else{
             binding.bottomNavigation.selectedItemId = R.id.nav_home
         }
-
-
-
-
-
-
-
-
-//        val islogin=SharedPreferenceUtil.getData(this, "IsLogin", true)
-//        if (islogin==true) {
-//
-//            finishAffinity()
-//            binding.bottomNavigation.selectedItemId = R.id.nav_home
-//            binding.addFab.visibility=View.VISIBLE
-//            supportFragmentManager.beginTransaction()
-//             .replace(R.id.container, HomeFragment.newInstance()).commit();
-//        }else{
-//            finishAffinity()
-//        }
     }
 }

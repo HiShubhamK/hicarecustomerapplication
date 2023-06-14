@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -20,11 +21,13 @@ import com.ab.hicareservices.utils.AppUtils2
 
 class ComplaintsActivity : AppCompatActivity() {
     private val TAG = "ComplaintsActivity"
-
+    var mobileNo = ""
+    private lateinit var imageList:ArrayList<String>
     lateinit var binding: ActivityComplaintsBinding
     private val viewModel: ComplaintsViewModel by viewModels()
     private lateinit var mAdapter: ComplaintsAdapter
     private val viewModeld: OtpViewModel by viewModels()
+    private var mobile = ""
     lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,54 +37,55 @@ class ComplaintsActivity : AppCompatActivity() {
         setContentView(view)
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-//        viewModeld.validateAccount(AppUtils2.mobileno)
-
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
         binding.imgLogo.setOnClickListener {
-            finish()
+            onBackPressed()
         }
 
-//        binding.addComplaintsBtn.setOnClickListener {
-//            val intent = Intent(this, AddComplaintsActivity::class.java)
-//            startActivity(intent)
-//        }
-
+        imageList=ArrayList()
         progressDialog.show()
-//        binding.progressBar.visibility= View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
-
             getAllComplaints(progressDialog)
-        }, 1000)
-
+        }, 1500)
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
-        binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        mAdapter = ComplaintsAdapter()
+        try {
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+            mAdapter = ComplaintsAdapter(this)
 
+            viewModel.complaintList.observe(this, Observer {
+                Log.d(TAG, "onViewCreated: $it")
+                mAdapter.setComplaintsList(it,imageList,this)
+                progressDialog.dismiss()
+                binding.recyclerView.visibility=View.VISIBLE
+                binding.txtnotfound.visibility=View.GONE
+            })
 
-        viewModel.complaintList.observe(this, Observer {
-            progressDialog.dismiss()
-            Log.d(TAG, "onViewCreated: $it")
-//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-//            mAdapter.setComplaintsList(it, imageList)
+            viewModel.responseMessage.observe(this, Observer {
+                binding.recyclerView.visibility=View.GONE
+                binding.txtnotfound.visibility=View.VISIBLE
+                binding.txtnotfound.text=it.toString()
+                progressDialog.dismiss()
+            })
 
-        })
+            viewModel.errorMessage.observe(this, Observer {
+                Toast.makeText(this,"Something went wrong!",Toast.LENGTH_SHORT).show()
+                progressDialog.dismiss()
+            })
 
-        viewModel.errorMessage.observe(this, Observer {
-            progressDialog.dismiss()
-            Toast.makeText(applicationContext,"Something went wrong!",Toast.LENGTH_SHORT).show()
-        })
+            binding.recyclerView.adapter = mAdapter
 
-        binding.recyclerView.adapter = mAdapter
+//        viewModel.getAllComplaints("9967994682")
+            if (mobile != "-1") {
+                viewModel.getAllComplaints(AppUtils2.mobileno)
+            }
+            binding.progressBar.visibility= View.GONE
 
-        viewModel.getAllComplaints(AppUtils2.mobileno)
-//        binding.progressBar.visibility= View.GONE
-
-//        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 }

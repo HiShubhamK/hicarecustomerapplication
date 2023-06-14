@@ -1,24 +1,20 @@
 package com.ab.hicareservices.ui.view.fragments
 
-import android.net.http.SslError
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentTermsBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-
-
 class TermsAndConditionFragment : Fragment() {
+
     private val TAG = "TermsAndConditionFragment"
     lateinit var binding: FragmentTermsBinding
     private val viewModel: OrdersViewModel by viewModels()
@@ -30,7 +26,6 @@ class TermsAndConditionFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,34 +49,10 @@ class TermsAndConditionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.swipeRefreshLayout.setOnRefreshListener {
-//            getOrdersList()
-//            getOrdersList2()
-//            binding.swipeRefreshLayout.isRefreshing = false
-//        }
-
-
-
         setupHTMLWebView()
-
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     private fun setupHTMLWebView() {
-//        binding.webView.settings.javaScriptEnabled = true
-////        binding.webView.webViewClient = object : WebViewClient() {
-////            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-////                view?.loadUrl(url)
-////                return true
-////            }
-////        }
-//        binding.webView.loadUrl("https://hicare.in/terms-conditions")
-//        binding.webView.isVerticalScrollBarEnabled = true
-//        binding.webView.isHorizontalScrollBarEnabled = true
 
         binding.webView.isVerticalScrollBarEnabled = true;
         binding.webView.requestFocus();

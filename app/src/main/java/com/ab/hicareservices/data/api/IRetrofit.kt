@@ -10,6 +10,7 @@ import com.ab.hicareservices.data.model.compaintsReason.ComplaintReasons
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
+import com.ab.hicareservices.data.model.dashboard.ScheduledService
 import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
@@ -133,12 +134,12 @@ interface IRetrofit {
     @GET("ServiceRequest/GetUpcomingScheduledService")
     fun getUpcomingScheduledService(
         @Query("mobileNo") mobileNo: String
-    ): Call<ServiceResponse>
+    ): Call<ScheduledService>
 
     @GET("ServiceRequest/GetTodayScheduledService")
     fun getTodayScheduledService(
         @Query("mobileNo") mobileNo: String
-    ): Call<ServiceResponse>
+    ): Call<ScheduledService>
 
 
 }

@@ -17,6 +17,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 
@@ -71,11 +72,11 @@ class ComplaintFragment() : Fragment() {
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            mAdapter = ComplaintsAdapter()
+            mAdapter = ComplaintsAdapter(requireActivity = ComplaintsActivity())
 
             viewModel.complaintList.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it")
-                mAdapter.setComplaintsList(it,imageList,requireActivity())
+                mAdapter.setComplaintsList(it,imageList, requireActivity() as ComplaintsActivity)
                 progressDialog.dismiss()
                 binding.recyclerView.visibility=View.VISIBLE
                 binding.txtnotfound.visibility=View.GONE

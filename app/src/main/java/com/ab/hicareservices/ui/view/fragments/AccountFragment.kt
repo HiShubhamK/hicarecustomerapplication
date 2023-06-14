@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.HelpActivity
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.ReferralActivity
@@ -48,9 +49,11 @@ class AccountFragment : Fragment() {
         }
 
         binding.constraintcomplaints.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ComplaintFragment.newInstance())
-                .addToBackStack("AccountFragment").commit()
+            val intent=Intent(requireActivity(),ComplaintsActivity::class.java)
+            startActivity(intent)
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ComplaintFragment.newInstance())
+//                .addToBackStack("AccountFragment").commit()
         }
 
         binding.constraintreferBtn.setOnClickListener {

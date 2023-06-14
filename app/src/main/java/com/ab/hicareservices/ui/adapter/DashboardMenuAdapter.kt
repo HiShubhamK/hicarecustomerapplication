@@ -1,23 +1,16 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
-import com.ab.hicareservices.ui.view.fragments.ComplaintFragment
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
@@ -65,8 +58,10 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
                             .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("HomeFragment").commit()
 
                     }else if (service.Title.equals("Complaints")){
-                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("HomeFragment").commit()
+                        val intent=Intent(fragmentActivity,ComplaintsActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
+//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("HomeFragment").commit()
                     }else if (service.Title.equals("Renewals")){
 
 

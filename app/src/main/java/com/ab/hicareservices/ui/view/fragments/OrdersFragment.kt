@@ -31,6 +31,7 @@ import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
+import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
@@ -182,15 +183,15 @@ class OrdersFragment() : Fragment() {
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            if(it!=null) {
+            if (it != null) {
                 nAdapter.setOrdersList(it)
-                binding.textnotfound.visibility=View.GONE
+                binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()
-            }else{
+            } else {
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.recyclerView2.visibility = View.GONE
-                binding.textnotfound.visibility=View.VISIBLE
+                binding.textnotfound.visibility = View.VISIBLE
             }
 
 //            this.progressDialog.dismiss()
@@ -199,15 +200,15 @@ class OrdersFragment() : Fragment() {
 
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
-            binding.textnotfound.visibility=View.VISIBLE
-            binding.textnotfound.text=it.toString()
+            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
-            if(it!=null) {
+            if (it != null) {
                 binding.textnotfound.visibility = View.VISIBLE
             }
         })
@@ -230,7 +231,7 @@ class OrdersFragment() : Fragment() {
 //
         progressDialog.show()
 
-        binding.recyclerView.visibility=View.VISIBLE
+        binding.recyclerView.visibility = View.VISIBLE
 
         binding.recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -240,16 +241,17 @@ class OrdersFragment() : Fragment() {
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            if(it!=null) {
+            if (it != null) {
                 mAdapter.setOrdersList(it, requireActivity())
                 binding.recyclerView.visibility = View.VISIBLE
                 progressDialog.dismiss()
-            }else{
+            } else {
                 progressDialog.dismiss()
-                binding.textnotfound.visibility=View.VISIBLE
+                binding.textnotfound.visibility = View.VISIBLE
             }
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
+
             override fun onOrderItemClicked(
                 position: Int,
                 orderNo: String,
@@ -259,17 +261,29 @@ class OrdersFragment() : Fragment() {
                 locationLongitudeS: Double?,
                 ServiceCenterId: String,
             ) {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.container, OrderDetailsFragment.newInstance(
-                            orderNo,
-                            serviceType,
-                            service_url_image,
-                            locationLatitudeS,
-                            locationLongitudeS,
-                            ServiceCenterId
-                        )
-                    ).addToBackStack("OrdersFragment").commit();
+
+                val intent=Intent(requireActivity(), OrderDetailActivity::class.java)
+                intent.putExtra("orderNo", orderNo)
+                intent.putExtra("serviceType",serviceType)
+                intent.putExtra("service_url_image", service_url_image)
+                intent.putExtra("locationLatitudeS", locationLatitudeS.toString())
+                intent.putExtra("locationLongitudeS", locationLongitudeS.toString())
+                intent.putExtra("ServiceCenterId", ServiceCenterId)
+
+                startActivity(intent)
+
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(
+//                        R.id.container, OrderDetailsFragment.newInstance(
+//                            orderNo,
+//                            serviceType,
+//                            service_url_image,
+//                            locationLatitudeS,
+//                            locationLongitudeS,
+//                            ServiceCenterId
+//                        )
+//                    ).addToBackStack("OrdersFragment").commit()
+
             }
 
             override fun onOrderPaynowClicked(
@@ -290,15 +304,15 @@ class OrdersFragment() : Fragment() {
 
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
-            binding.textnotfound.visibility=View.VISIBLE
-            binding.textnotfound.text=it.toString()
+            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
-            binding.textnotfound.visibility=View.VISIBLE
+            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.textnotfound.visibility = View.VISIBLE
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE
