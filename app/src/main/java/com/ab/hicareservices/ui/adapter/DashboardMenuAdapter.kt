@@ -45,7 +45,17 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
         try {
             val service = service[position]
             holder.binding.tvOrderName.text = service.Title
-            Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo)
+            if (service.IsIcon==true){
+                holder.binding.imgLogo2.visibility=View.VISIBLE
+                holder.binding.imgLogo.visibility=View.GONE
+                Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo2)
+
+            }else{
+                holder.binding.imgLogo2.visibility=View.GONE
+                holder.binding.imgLogo.visibility=View.VISIBLE
+                Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo)
+
+            }
             holder.itemView.setOnClickListener{
                 if(service.IsExternalAppBrowserLink==true){
                     fragmentActivity!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(service.PageLink)))
@@ -66,7 +76,7 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
 
                     }else if (service.Title.equals("Support")){
                         fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("HomeFragment").commit()
+                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
                     }
                 }else if (service.IsInAppBrowserLink==true){
 

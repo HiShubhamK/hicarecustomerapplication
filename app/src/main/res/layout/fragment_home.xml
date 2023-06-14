@@ -387,7 +387,6 @@
                 android:id="@+id/lnrPest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:orientation="vertical"
                 android:visibility="visible">
 
@@ -395,12 +394,11 @@
                     android:id="@+id/recMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/titlePest"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
                     android:clipToPadding="false"
                     android:foregroundGravity="center"
                     android:overScrollMode="never"
@@ -978,7 +976,7 @@
                     android:layout_weight="0.5"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="center"
-                    android:text="Our Brands"
+                    android:text="Brands That Love Us"
                     android:textAllCaps="true"
                     android:textColor="@color/grey_font"
                     android:textSize="14sp" />
