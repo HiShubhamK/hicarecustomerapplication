@@ -127,6 +127,14 @@ class CameraActivity : AppCompatActivity() {
             intent.putExtra("captureby","Image1")
             startActivity(intent)
             finish()
+        }else if (captureby == "Image3"){
+            val intent = Intent(this, AddComplaintsActivity::class.java)
+            intent.putExtra("imageUri3",savedUri.toString())
+            intent.putExtra("orderNo",orderNo)
+            intent.putExtra("serviceType",getServiceType)
+            intent.putExtra("captureby","Image3")
+            startActivity(intent)
+            finish()
         }
 
     }

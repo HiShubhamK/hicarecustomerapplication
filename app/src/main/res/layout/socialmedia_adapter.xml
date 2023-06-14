@@ -20,9 +20,9 @@
             app:civ_border_color="@color/white"
             />
     <TextView
-        android:gravity="start"
+        android:gravity="center"
         android:textAlignment="center"
-        android:text="@string/my_orders"
+        android:text=""
         android:textSize="12sp"
         android:textColor="@color/black"
         android:fontFamily="@font/lato_regular"

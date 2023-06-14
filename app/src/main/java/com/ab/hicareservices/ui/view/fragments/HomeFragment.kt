@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -230,36 +231,20 @@ class HomeFragment : Fragment() {
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCoupen)
                 val tvOfferTitle: TextView =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
-                val tvCopy: TextView =
+                val tvCopy: Button =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCopy)
+                val btnRedeem: Button =
+                    modelBottomSheet.findViewById(com.ab.hicareservices.R.id.btnRedeem)
                 textapp.text = offers[position].VoucherCode
                 tvOfferTitle.text = offers[position].OfferTitle
                 if (offers[position].IsCopyEnabled == true) {
-                    tvCopy.visibility = View.VISIBLE
-                    tvCopy.text = "Copy code"
-                } else if (offers[position].IsExternalAppBrowserLink == true) {
-                    tvCopy.text = "Redeem Now"
+                    tvCopy.visibility=View.VISIBLE
+                }else {
+                    tvCopy.visibility=View.GONE
 
-                } else if (offers[position].IsInAppBrowserLink == true) {
-                    tvCopy.text = "Redeem Now"
-                } else {
-                    tvCopy.text = "Redeem Now"
                 }
 
-
-                tvCopy.setOnClickListener {
-                    if (tvCopy.text != "" && offers[position].IsCopyEnabled == true) {
-                        val clipboard = ContextCompat.getSystemService(
-                            requireContext(),
-                            ClipboardManager::class.java
-                        )
-                        clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
-                        Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Please wait...", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
+                btnRedeem.setOnClickListener{
                     if (offers[position].IsExternalAppBrowserLink == true) {
                         requireActivity()!!.startActivity(
                             Intent(
@@ -276,7 +261,7 @@ class HomeFragment : Fragment() {
                             )
                         )
 
-                    } else {
+                    } else if (offers[position].IsAppLink == true) {
                         requireActivity()!!.startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
@@ -285,6 +270,17 @@ class HomeFragment : Fragment() {
                         )
 
                     }
+                }
+                tvCopy.setOnClickListener {
+                        val clipboard = ContextCompat.getSystemService(
+                            requireContext(),
+                            ClipboardManager::class.java
+                        )
+                        clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                        Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
+
+
+
                 }
 
                 dialog.setContentView(modelBottomSheet)

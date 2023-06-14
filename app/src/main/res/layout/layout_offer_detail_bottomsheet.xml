@@ -81,7 +81,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@+id/rltOffersDetail1"
                 android:fontFamily="@font/lato_semibold"
-                android:text=""
+                android:text="Copy Code"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -199,11 +199,28 @@
                 android:textSize="14sp">
 
             </TextView>
+
+
         </LinearLayout>
 
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btnRedeem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/rltOffersDetail1"
+        android:fontFamily="@font/lato_semibold"
+        android:text="Redeem Now"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold">
 
+    </Button>
 
 
 
