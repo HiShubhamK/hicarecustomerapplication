@@ -42,13 +42,15 @@ class OTPActivity : AppCompatActivity() {
         mOtp = intent.getStringExtra("otp").toString()
         binding.mobileNoTv.text = "$mobileNo"
 
+        binding.otpView.setOTP(mOtp)
+
         AppUtils2.mobileno = mobileNo
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         binding.backIvs.setOnClickListener {
-            val intent=Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -64,9 +66,9 @@ class OTPActivity : AppCompatActivity() {
             finish()
         }
         binding.continueBtn.setOnClickListener {
-                progressDialog.show()
-            if (binding.otpView.otp.toString().equals("")){
-                Toast.makeText(this,"Please enter code",Toast.LENGTH_LONG).show()
+            progressDialog.show()
+            if (binding.otpView.otp.toString().equals("")) {
+                Toast.makeText(this, "Please enter code", Toast.LENGTH_LONG).show()
             } else if (mOtp.equals(binding.otpView.otp.toString())) {
 
                 validateAccount(mobileNo)
@@ -78,16 +80,16 @@ class OTPActivity : AppCompatActivity() {
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
-            }else{
+            } else {
                 progressDialog.dismiss()
-                Toast.makeText(this,"Enter Valid code",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Enter Valid code", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun validateAccount(mobileNo: String) {
 
-        viewModel.validateAccounts(mobileNo,this)
+        viewModel.validateAccounts(mobileNo, this)
     }
 
     private fun resendOtp(mobileNo: String) {
@@ -118,39 +120,10 @@ class OTPActivity : AppCompatActivity() {
         }.start()
     }
 
-//    override fun onSuccess(data: String) {
-//        binding.continueBtn.isEnabled = true
-//        progressDialog.dismiss()
-//        if (data != "") {
-//            AppUtils2.TOKEN = data
-//            SharedPreferenceUtil.setData(this, "bToken", data)
-//            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-//            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-//            SharedPreferenceUtil.setData(this, "IsLogin", true)
-//
-////            takePermissionForLocation()
-//
-//            binding.otpView.showSuccess()
-//            progressDialog.dismiss()
-//            val home = Intent(this, HomeActivity::class.java)
-//            startActivity(home)
-//            finish()
-//        }else{
-//            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//
-//
-//    override fun onError(message: String) {
-//        binding.continueBtn.isEnabled = true
-//        progressDialog.dismiss()
-//        Toast.makeText(this, "Authorization Error", Toast.LENGTH_SHORT).show()
-//    }
-
     override fun onBackPressed() {
         super.onBackPressed()
 
-        val intent=Intent(this,LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
 
     }

@@ -174,11 +174,10 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="721dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:gravity="center"
         android:orientation="vertical"
         android:layout_below="@+id/lnrmenus">
 
@@ -186,7 +185,6 @@
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/headerView"
         android:background="#f6f6f6"
         android:orientation="horizontal"
         android:visibility="gone"
@@ -196,7 +194,6 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lnrmenus"
         android:layout_marginTop="10dp"
         android:background="#f6f6f6"
         android:visibility="gone"
@@ -209,11 +206,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
-            android:visibility="gone"
+            android:layout_centerInParent="true"
             android:text="No Record Found"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
 </RelativeLayout>
