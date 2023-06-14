@@ -35,7 +35,6 @@ class ComplaintFragment() : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = ActivityComplaintsBinding.inflate(inflater, container, false)
         //viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(MainRepository(api))).get(OrdersViewModel::class.java)
@@ -54,56 +53,38 @@ class ComplaintFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.swipeRefreshLayout.setOnRefreshListener {
-//            getOrdersList()
-//            getOrdersList2()
-//            binding.swipeRefreshLayout.isRefreshing = false
-//        }
-
-//        viewModeld.validateAccount(mobile)
-
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
-
-
 
         binding.imgLogo.setOnClickListener {
             requireActivity().finish()
         }
 
-//        binding.addComplaintsBtn.setOnClickListener {
-//            val intent = Intent(this, AddComplaintsActivity::class.java)
-//            startActivity(intent)
-//        }
         imageList=ArrayList()
-
         progressDialog.show()
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
         }, 1500)
-
     }
-
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             mAdapter = ComplaintsAdapter()
-//            imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
 
-//            viewModel.attachments.observe(requireActivity()) {
-//                if (it != null) {
-//                    imageList.addAll(it)
-//                }
-//            }
             viewModel.complaintList.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it")
-
-//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
                 mAdapter.setComplaintsList(it,imageList,requireActivity())
+                progressDialog.dismiss()
+                binding.recyclerView.visibility=View.VISIBLE
+                binding.txtnotfound.visibility=View.GONE
+            })
 
+            viewModel.responseMessage.observe(requireActivity(), Observer {
+                binding.recyclerView.visibility=View.GONE
+                binding.txtnotfound.visibility=View.VISIBLE
+                binding.txtnotfound.text=it.toString()
                 progressDialog.dismiss()
             })
 
@@ -123,8 +104,6 @@ class ComplaintFragment() : Fragment() {
         }catch (e:Exception){
             e.printStackTrace()
         }
-
-//        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }
 
     override fun onDestroy() {
