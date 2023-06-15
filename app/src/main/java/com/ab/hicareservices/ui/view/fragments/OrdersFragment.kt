@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -28,7 +27,6 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentOrdersBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
-import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
@@ -285,13 +283,15 @@ class OrdersFragment() : Fragment() {
                 orderNumberC: String,
                 customerIdC: String,
                 servicePlanNameC: String,
-                orderValueWithTaxC: Double
+                orderValueWithTaxC: Double,
+                serviceType: String
             ) {
                 val intent = Intent(requireContext(), PaymentActivity::class.java)
                 intent.putExtra("ORDER_NO", orderNumberC)
                 intent.putExtra("ACCOUNT_NO", customerIdC)
                 intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
                 intent.putExtra("PAYMENT", orderValueWithTaxC)
+                intent.putExtra("SERVICE_TYPE",serviceType)
                 activityResultLauncher.launch(intent)
             }
         })

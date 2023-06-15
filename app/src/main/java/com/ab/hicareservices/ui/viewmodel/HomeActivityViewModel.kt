@@ -19,7 +19,7 @@ class HomeActivityViewModel: ViewModel() {
     val repository = MainRepository()
     val spinnerList = MutableLiveData<ArrayList<String>>()
     val errorMessage = MutableLiveData<String>()
-
+    val leadResponse = MutableLiveData<LeadResponse>()
 
     fun getleaderspinner(servicetype: String) {
 
@@ -44,6 +44,7 @@ class HomeActivityViewModel: ViewModel() {
                     if (response.body()?.IsSuccess == true){
                         val responseBody = response.body()?.Data
                         AppUtils2.paymentsucess= response.body()!!.Data.toString()
+                        leadResponse.postValue(response.body())
                     }
                 }
                 override fun onFailure(call: Call<LeadResponse>, t: Throwable) {

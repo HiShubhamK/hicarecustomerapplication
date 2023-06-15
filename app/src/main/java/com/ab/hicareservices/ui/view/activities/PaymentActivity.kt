@@ -8,12 +8,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.ab.hicareservices.R
-import com.ab.hicareservices.databinding.ActivityMainBinding
 import com.ab.hicareservices.databinding.ActivityPaymentBinding
-import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
-import com.airbnb.lottie.LottieDrawable
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
@@ -43,8 +40,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         order_no = intent.getStringExtra("ORDER_NO").toString()
         accountId = intent.getStringExtra("ACCOUNT_NO").toString()
-        serviceType = intent.getStringExtra("SERVICETYPE_NO").toString()
+        service = intent.getStringExtra("SERVICETYPE_NO").toString()
+        serviceType=intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
+
 //
 //        Toast.makeText(
 //            this,
@@ -56,7 +55,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             accountId,
             order_no,
             serviceType,
-            payment
+            payment,
+            service
         )
         options = prepareOption(
             notes,
@@ -83,15 +83,16 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         accountId: String,
         orderNo: String,
         serviceType: String,
-        orderValue: String
+        orderValue: String,
+        service: String
     ): JSONObject {
 
         val notes = JSONObject()
         notes.put("Account_Id", accountId)
         notes.put("InvoiceNo", "")
         notes.put("OrderNo", orderNo)
-        notes.put("Service", serviceType)
-        notes.put("OrderValue", orderValue)
+        notes.put("Service", "pest")
+        notes.put("OrderValue", service)
         notes.put("OrderValueAfterDiscount", orderValue)
         notes.put("ETDiscount", 5)
         notes.put("ETPaidAmount", orderValue)

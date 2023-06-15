@@ -94,7 +94,6 @@ class OrderDetailActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
@@ -130,6 +129,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     intent.putExtra("ORDER_NO", orderNo)
                     intent.putExtra("ACCOUNT_NO", accountId)
                     intent.putExtra("SERVICETYPE_NO", service)
+                    intent.putExtra("SERVICE_TYPE",serviceType)
                     intent.putExtra("PAYMENT", orderValueWithTax)
                     activityResultLauncher.launch(intent)
 

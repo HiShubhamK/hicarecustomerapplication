@@ -1,7 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.databinding.LayoutOrdersAdapterBinding
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
-import com.ab.hicareservices.ui.view.activities.HomeActivity
-import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
@@ -97,7 +94,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
                     orders.order_Number__c!!,
                     orders.account_Name__r?.customer_id__c!!,
                     orders.service_Plan_Name__c!!,
-                    orders.order_Value_with_Tax__c!!
+                    orders.order_Value_with_Tax__c!!,
+                    orders.service_Type!!
                 )
             }
 

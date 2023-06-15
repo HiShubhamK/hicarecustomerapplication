@@ -1286,15 +1286,13 @@
                     android:background="@color/grey_font">
 
                 </View>
+
             </LinearLayout>
-
-
 
         </LinearLayout>
 
-
-
     </RelativeLayout>
+
     </ScrollView>
 
 </LinearLayout>

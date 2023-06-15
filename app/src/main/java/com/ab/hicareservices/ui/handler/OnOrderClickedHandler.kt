@@ -15,6 +15,7 @@ interface OnOrderClickedHandler {
         orderNumberC: String,
         customerIdC: String,
         servicePlanNameC: String,
-        orderValueWithTaxC: Double
+        orderValueWithTaxC: Double,
+        serviceType: String
     )
 }

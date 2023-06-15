@@ -356,8 +356,17 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Utm_Content"] ="Mobile app"
                 data["Utm_Term"] ="Mobile app"
                 data["Campaign_Url"] =""
+
+
+                viewModels.leadResponse.observe(this, Observer {
+                    if(it.IsSuccess==true){
+                        alertDialog.cancel()
+                    }else{
+                        alertDialog.cancel()
+                        Toast.makeText(this,"Something went to wrong",Toast.LENGTH_LONG).show()
+                    }
+                })
                 viewModels.postleaderdata(data)
-                alertDialog.cancel()
             }
 
         }
