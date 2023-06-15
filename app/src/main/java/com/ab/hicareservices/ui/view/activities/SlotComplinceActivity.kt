@@ -140,7 +140,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         }, 1000)
 
 
-        mAdapter.onSlotclick(object : onSlotclick, LifecycleOwner {
+        mAdapter.onSlotclick(object : onSlotclick {
             override fun onSlotItemclicked(
                 position: Int,
                 Pincode: String,
@@ -164,17 +164,12 @@ class SlotComplinceActivity : AppCompatActivity() {
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
                 viewModel.GetSlots(data)
-
-                viewModel.getSlotresponse.observe(this, Observer {
- //                   Log.d(TAG, "onViewCreated: $it orders fragment")
+                viewModel.getSlotresponse.observe(this@SlotComplinceActivity, Observer {
+//                    Log.d(TAG, "onViewCreated: $it orders fragment")
                     ShowBookingDialog(it)
 
                 })
 
-            }
-
-            override fun getLifecycle(): Lifecycle {
-                TODO("Not yet implemented")
             }
 
 
@@ -203,6 +198,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         alertDialogBuilder.setView(promptsView)
         alertDialog = alertDialogBuilder.create()
         alertDialog.setCancelable(false)
+        alertDialog.show()
         val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
         val recycleWeeks: RecyclerView =
             promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
@@ -217,7 +213,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 
         mSlotAdapter = SlotsAdapter(this, slotData.TimeSlots, TaskId)
         recycleSlots.adapter = mSlotAdapter
-        alertDialog.show()
+
         btnSubmit.setOnClickListener {
             progressDialog.show()
 
@@ -228,17 +224,16 @@ class SlotComplinceActivity : AppCompatActivity() {
             data["AppointmentEnd"] =AppointmentEnd
             data["Source"] = Source
             data["ServiceType"] = ServiceType
-            viewModel.BookSlot(data)
 
             viewModel.bookSlotResponce.observe(this, Observer {
-//                Log.d(TAG, "onViewCreateded: $it orders fragment")
-//                ShowBookingDialog(it)
                 if (it.IsSuccess) {
-
-
+                    alertDialog.dismiss()
                 }
 
             })
+
+            viewModel.BookSlot(data)
+
             Toast.makeText(this, "Appointment Booked" , Toast.LENGTH_SHORT)
                 .show()
             alertDialog.dismiss()
@@ -264,11 +259,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 AppointmentStart=appointmentStart
                 AppointmentEnd=appointmentEnd!!
                 Source=source!!
-
             }
-
-
         })
     }
-
 }

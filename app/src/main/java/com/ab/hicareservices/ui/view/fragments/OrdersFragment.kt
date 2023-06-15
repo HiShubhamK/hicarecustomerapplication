@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -28,7 +27,6 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentOrdersBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
-import com.ab.hicareservices.ui.handler.Backpressedlistener
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
@@ -225,14 +223,8 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
 
-//        binding.progressBar.visibility = View.VISIBLE
-//
-//        progressBar.visibility = View.VISIBLE
-//
         progressDialog.show()
-
         binding.recyclerView.visibility = View.VISIBLE
-
         binding.recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
@@ -246,7 +238,7 @@ class OrdersFragment() : Fragment() {
                 binding.recyclerView.visibility = View.VISIBLE
                 progressDialog.dismiss()
             } else {
-                progressDialog.dismiss()
+//                progressDialog.dismiss()
                 binding.textnotfound.visibility = View.VISIBLE
             }
         })
@@ -262,9 +254,9 @@ class OrdersFragment() : Fragment() {
                 ServiceCenterId: String,
             ) {
 
-                val intent=Intent(requireActivity(), OrderDetailActivity::class.java)
+                val intent = Intent(requireActivity(), OrderDetailActivity::class.java)
                 intent.putExtra("orderNo", orderNo)
-                intent.putExtra("serviceType",serviceType)
+                intent.putExtra("serviceType", serviceType)
                 intent.putExtra("service_url_image", service_url_image)
                 intent.putExtra("locationLatitudeS", locationLatitudeS.toString())
                 intent.putExtra("locationLongitudeS", locationLongitudeS.toString())
@@ -291,13 +283,15 @@ class OrdersFragment() : Fragment() {
                 orderNumberC: String,
                 customerIdC: String,
                 servicePlanNameC: String,
-                orderValueWithTaxC: Double
+                orderValueWithTaxC: Double,
+                serviceType: String
             ) {
                 val intent = Intent(requireContext(), PaymentActivity::class.java)
                 intent.putExtra("ORDER_NO", orderNumberC)
                 intent.putExtra("ACCOUNT_NO", customerIdC)
                 intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
                 intent.putExtra("PAYMENT", orderValueWithTaxC)
+                intent.putExtra("SERVICE_TYPE",serviceType)
                 activityResultLauncher.launch(intent)
             }
         })
@@ -313,6 +307,7 @@ class OrdersFragment() : Fragment() {
         viewModel.errorMessage.observe(requireActivity(), Observer {
             Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE

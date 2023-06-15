@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
+import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
@@ -65,7 +66,11 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
                     }else if (service.Title.equals("Renewals")){
 
 
-                    }else if (service.Title.equals("Book Inspection")){
+                    }else if (service.Title.equals("Book an Inspection")){
+
+                        val intent=Intent(fragmentActivity,BookInspectionActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
+
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
 

@@ -26,15 +26,28 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.view.activities.TermsAndConditionActivity"
+            android:name=".ui.view.activities.UpcomingServicesActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
+            android:name=".ui.view.activities.BookInspectionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.view.activities.TermsAndConditionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activities.ComplaintDetailsActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.view.activities.MyServiceDetailsActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.view.activities.SlotComplinceActivity"
             android:exported="true" />

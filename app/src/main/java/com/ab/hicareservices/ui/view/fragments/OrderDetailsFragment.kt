@@ -42,7 +42,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-
 class OrderDetailsFragment : Fragment(), Backpressedlistener {
 
     private val TAG = "OrderDetailsFragment"
