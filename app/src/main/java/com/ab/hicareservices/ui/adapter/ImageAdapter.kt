@@ -41,22 +41,31 @@ class ImageAdapter(private val viewPager2: ViewPager2,private val requireActivit
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        try {
 
-        Picasso.get().load(bannerLis[position].ImageUrl).into(holder.imageView)
-        if (position == bannerLis.size-1){
-            viewPager2.post(runnable)
-        }
-        holder.itemView.setOnClickListener{
-            if(bannerLis[position].IsExternalAppBrowserLink==true){
-
-                requireActivity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(bannerLis[position].PageLink)))
-            }else if (bannerLis[position].IsAppLink==true){
-
-            }else if (bannerLis[position].IsInAppBrowserLink==true){
-
-            }else{
-
+            Picasso.get().load(bannerLis[position].ImageUrl).into(holder.imageView)
+            if (position == bannerLis.size - 1) {
+                viewPager2.post(runnable)
             }
+            holder.itemView.setOnClickListener {
+                if (bannerLis[position].IsExternalAppBrowserLink == true) {
+
+                    requireActivity.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(bannerLis[position].PageLink)
+                        )
+                    )
+                } else if (bannerLis[position].IsAppLink == true) {
+
+                } else if (bannerLis[position].IsInAppBrowserLink == true) {
+
+                } else {
+
+                }
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
     }

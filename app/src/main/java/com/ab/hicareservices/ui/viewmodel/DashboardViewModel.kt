@@ -12,16 +12,16 @@ import retrofit2.Response
 class DashboardViewModel : ViewModel() {
     val repository = MainRepository()
 
-    val dashboardmain = MutableLiveData<DashboardMainData>()
+    val dashboardmain = MutableLiveData<DashboardMainData?>()
     val bannerArrayArrayList = MutableLiveData<List<BannerData>>()
     val brandListArrayList= MutableLiveData<ArrayList<BrandData>>()
     val menuDataArrayList = MutableLiveData<ArrayList<MenuData>>()
     val offerDataArrayList = MutableLiveData<ArrayList<OfferData>>()
     val socialMediadataArrayList = MutableLiveData<ArrayList<SocialMediadata>>()
-    val todayserviceArrayList = MutableLiveData<ArrayList<Any>>()
-    val upcomingservices = MutableLiveData<ArrayList<Any>>()
+    val todayserviceArrayList = MutableLiveData<ArrayList<String>>()
+    val upcomingservices = MutableLiveData<ArrayList<UpcomingService>>()
     val videodataArrayList = MutableLiveData<ArrayList<VideoData>>()
-//    val errorMessage = MutableLiveData<String>()
+    val errorMessage = MutableLiveData<String>()
 fun GetDashboard(mobileNo: String) {
     repository.GetDashboard(mobileNo)
         .enqueue(object : Callback<DashboardModel> {

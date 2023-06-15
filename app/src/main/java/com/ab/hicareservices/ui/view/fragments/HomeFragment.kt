@@ -35,9 +35,12 @@ import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.data.model.dashboard.CODOrders
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.data.model.dashboard.OfferData
+import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
+import com.ab.hicareservices.ui.handler.onResceduleInterface
+import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
@@ -68,7 +71,7 @@ class HomeFragment : Fragment() {
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val viewModels: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
-    private lateinit var codOrders:ArrayList<CODOrders>
+    private lateinit var codOrders: ArrayList<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -201,10 +204,11 @@ class HomeFragment : Fragment() {
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>,binding.recOffers)
 
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
-            Log.d(TAG, "onViewCreated: $it orders fragment")
-            adapter.serBanner(it.BannerData)
+            Log.d(TAG, "onDashboardData: $it orders fragment")
+            adapter.serBanner(it!!.BannerData)
             mAdapter.setServiceList(it.MenuData)
             msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
+            mpayentdashboardadapter.setPaymentData(it.UpcomingService)
             mvideoAdapter.setvideo(it.VideoData)
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
@@ -246,13 +250,13 @@ class HomeFragment : Fragment() {
                 textapp.text = offers[position].VoucherCode
                 tvOfferTitle.text = offers[position].OfferTitle
                 if (offers[position].IsCopyEnabled == true) {
-                    tvCopy.visibility=View.VISIBLE
-                }else {
-                    tvCopy.visibility=View.GONE
+                    tvCopy.visibility = View.VISIBLE
+                } else {
+                    tvCopy.visibility = View.GONE
 
                 }
 
-                btnRedeem.setOnClickListener{
+                btnRedeem.setOnClickListener {
                     if (offers[position].IsExternalAppBrowserLink == true) {
                         requireActivity()!!.startActivity(
                             Intent(
@@ -280,13 +284,12 @@ class HomeFragment : Fragment() {
                     }
                 }
                 tvCopy.setOnClickListener {
-                        val clipboard = ContextCompat.getSystemService(
-                            requireContext(),
-                            ClipboardManager::class.java
-                        )
-                        clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
-                        Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
-
+                    val clipboard = ContextCompat.getSystemService(
+                        requireContext(),
+                        ClipboardManager::class.java
+                    )
+                    clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                    Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
 
 
                 }
@@ -297,6 +300,7 @@ class HomeFragment : Fragment() {
 
         })
 //
+
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
 
@@ -356,6 +360,40 @@ class HomeFragment : Fragment() {
         binding.recVideo.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         msocialMediaAdapter = SocialMediaAdapter(requireActivity())
+
+        binding.recPayments.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        mpayentdashboardadapter = PaymentDashboardAdapter()
+        binding.recPayments.adapter = mpayentdashboardadapter
+        binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
+//        binding.recPayments.smoothSnapToPosition()
+        binding.recPayments.layoutManager!!.smoothScrollToPosition(
+            binding.recPayments,
+            RecyclerView.State(),
+            binding.recPayments.adapter!!.itemCount
+        )
+        mpayentdashboardadapter.setRescudullClick(object :onResceduleInterface{
+            override fun onRecheduleClick(position: Int, upcomingdata: ArrayList<UpcomingService>) {
+                val intent = Intent(requireActivity(), SlotComplinceActivity::class.java)
+                intent.putExtra("ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
+                if (upcomingdata[position].AppointmentDate!=null){
+                    intent.putExtra("SlotDate",upcomingdata[position].AppointmentDate)
+                }else{
+                    intent.putExtra("SlotDate",upcomingdata[position].SRPlanDate)
+                }
+                intent.putExtra("TaskId", upcomingdata[position].Id)
+                intent.putExtra("SkillId", upcomingdata[position].TaskSkill_c)
+                intent.putExtra("Lat", upcomingdata[position].GoogleLat_c)
+                intent.putExtra("Long", upcomingdata[position].GoogleLong_c)
+                intent.putExtra("ServiceType", "Pest")
+                intent.putExtra("Pincode", upcomingdata[position].HRZipPostalCode_c)
+                intent.putExtra("SPCode", upcomingdata[position].OrderServiceArea_r!!.SPCode_c)
+                intent.putExtra("ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
+                startActivity(intent)
+            }
+
+        })
+
         mvideoAdapter = VideoAdapter(requireActivity())
         binding.recMenu.adapter = mAdapter
         binding.recSocialMedia.adapter = msocialMediaAdapter
@@ -441,9 +479,7 @@ class HomeFragment : Fragment() {
 //        }
 
 
-        binding.recPayments.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        mpayentdashboardadapter = PaymentDashboardAdapter(paymentcardlist)
+
 
 //        binding.recOffers.layoutManager =
 //            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -461,14 +497,7 @@ class HomeFragment : Fragment() {
 //        })
 
 //        binding.recMenu.adapter = mAdapter
-        binding.recPayments.adapter = mpayentdashboardadapter
-        binding.recPayments.addItemDecoration(CirclePagerIndicatorDecoration())
-//        binding.recPayments.smoothSnapToPosition()
-        binding.recPayments.layoutManager!!.smoothScrollToPosition(
-            binding.recPayments,
-            RecyclerView.State(),
-            binding.recPayments.adapter!!.itemCount
-        )
+
 
         binding.lnrTwitter.setOnClickListener {
             try {
