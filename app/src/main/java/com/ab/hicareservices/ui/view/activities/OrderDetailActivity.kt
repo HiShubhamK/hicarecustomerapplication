@@ -96,8 +96,7 @@ class OrderDetailActivity : AppCompatActivity() {
 
 
         binding.imgLogo.setOnClickListener {
-            this.supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance()).commit();
+            onBackPressed()
         }
 
         if (orderNo != null) {

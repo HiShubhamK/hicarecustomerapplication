@@ -225,14 +225,8 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
 
-//        binding.progressBar.visibility = View.VISIBLE
-//
-//        progressBar.visibility = View.VISIBLE
-//
         progressDialog.show()
-
         binding.recyclerView.visibility = View.VISIBLE
-
         binding.recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
@@ -246,7 +240,7 @@ class OrdersFragment() : Fragment() {
                 binding.recyclerView.visibility = View.VISIBLE
                 progressDialog.dismiss()
             } else {
-                progressDialog.dismiss()
+//                progressDialog.dismiss()
                 binding.textnotfound.visibility = View.VISIBLE
             }
         })
@@ -262,9 +256,9 @@ class OrdersFragment() : Fragment() {
                 ServiceCenterId: String,
             ) {
 
-                val intent=Intent(requireActivity(), OrderDetailActivity::class.java)
+                val intent = Intent(requireActivity(), OrderDetailActivity::class.java)
                 intent.putExtra("orderNo", orderNo)
-                intent.putExtra("serviceType",serviceType)
+                intent.putExtra("serviceType", serviceType)
                 intent.putExtra("service_url_image", service_url_image)
                 intent.putExtra("locationLatitudeS", locationLatitudeS.toString())
                 intent.putExtra("locationLongitudeS", locationLongitudeS.toString())
@@ -313,6 +307,7 @@ class OrdersFragment() : Fragment() {
         viewModel.errorMessage.observe(requireActivity(), Observer {
             Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE

@@ -2,7 +2,6 @@ package com.ab.hicareservices.data.repository
 
 import com.ab.hicareservices.data.api.RetrofitService
 
-
 class MainRepository {
     private val retrofitService = RetrofitService.getInstance()
 

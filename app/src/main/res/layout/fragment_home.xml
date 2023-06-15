@@ -401,7 +401,8 @@
                     android:clipToPadding="false"
                     android:foregroundGravity="center"
                     android:overScrollMode="never"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:nestedScrollingEnabled="false"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -1015,7 +1016,9 @@
                     <!--                    app:cardElevation="2dp">-->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recOffers"
-                        app:fastScrollEnabled="false"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
