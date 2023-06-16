@@ -12,6 +12,7 @@ import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.UpcomingServicesActivity
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
@@ -69,6 +70,14 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
                     }else if (service.Title.equals("Book an Inspection")){
 
                         val intent=Intent(fragmentActivity,BookInspectionActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
+
+//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
+
+                    }else if (service.Title.equals("Upcoming Service")){
+
+                        val intent=Intent(fragmentActivity,UpcomingServicesActivity::class.java)
                         fragmentActivity!!.startActivity(intent)
 
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()

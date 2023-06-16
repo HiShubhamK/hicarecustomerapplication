@@ -11,6 +11,7 @@ import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
 import com.ab.hicareservices.data.model.dashboard.ScheduledService
+import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
