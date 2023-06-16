@@ -53,10 +53,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
             holder.binding.tvServicestep.text = service.ServiceStep_c
             holder.binding.tvOrderNumber.text = service.OrderNumber_c
             holder.binding.ServiceName.text = service.ServicePlan_c
-            holder.binding.btnPayNow.setOnClickListener {
-                onResceduleInterface!!.onRecheduleClick(position, services as ArrayList<UpcomingService>)
 
-            }
         }catch (e:Exception){
             e.printStackTrace()
         }
@@ -71,7 +68,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 //            holder.binding.lnrRecheduleButton.visibility = View.GONE
 //        }
         holder.binding.tvPayNow.setOnClickListener {
-//            mOnServiceRequestClickHandler?.On(position,service)
+            onResceduleInterface!!.onRecheduleClick(position, services as ArrayList<UpcomingService>)
         }
 
 //        holder.binding.btnView.setOnClickListener {
