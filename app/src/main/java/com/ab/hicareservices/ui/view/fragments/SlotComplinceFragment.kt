@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
@@ -30,6 +31,7 @@ import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import java.util.Calendar
 
 
 class SlotComplinceFragment() : Fragment() {
@@ -136,17 +138,33 @@ class SlotComplinceFragment() : Fragment() {
 //        viewModels.validateAccount(AppUtils2.mobileno)
 
 //        getOrdersList2()
-        binding.calendarView.setOnDateChangeListener(OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
-            val date = "$year-$month-$dayOfMonth"
-            Log.e(TAG, "onSelectedDayChange: yyyy/mm/dd:$date")
-//            val intent = Intent(this@CalendarActivity, MainActivity::class.java)
-//            intent.putExtra("date", date)
-//            startActivity(intent)
-            Handler(Looper.getMainLooper()).postDelayed({
-                getOrdersList(date)
-            }, 1000)
-
-        })
+//        mcurrentDate.add(Calendar.DATE, 1);
+        binding.ivCalender.setOnClickListener{
+            val c = Calendar.getInstance()
+            val dialog = DatePickerDialog(
+                context!!,
+                { view, year, month, dayOfMonth ->
+                    val _year = year.toString()
+                    val _month = if (month + 1 < 10) "0" + (month + 1) else (month + 1).toString()
+                    val _date = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth.toString()
+                    val _pickedDate = "$year-$_month-$_date"
+                    Log.e("PickedDate: ", "Date: $_pickedDate") //2019-02-12
+                }, c[Calendar.YEAR], c[Calendar.MONTH], c[Calendar.MONTH]
+            )
+            dialog.datePicker.minDate = System.currentTimeMillis() - 1000
+            dialog.show()
+        }
+//        binding.calendarView.setOnDateChangeListener(OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
+//            val date = "$year-$month-$dayOfMonth"
+//            Log.e(TAG, "onSelectedDayChange: yyyy/mm/dd:$date")
+////            val intent = Intent(this@CalendarActivity, MainActivity::class.java)
+////            intent.putExtra("date", date)
+////            startActivity(intent)
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                getOrdersList(date)
+//            }, 1000)
+//
+//        })
 
 
 //        binding.txtactive.setOnClickListener{

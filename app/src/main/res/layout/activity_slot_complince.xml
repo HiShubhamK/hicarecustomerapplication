@@ -179,9 +179,18 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
     <CalendarView
+        android:visibility="gone"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_margin="5dp"
+        android:id="@+id/ivCalender"
+        android:src="@drawable/calendar"
+        android:layout_width="35dp"
+        android:layout_height="35dp">
+
+    </ImageView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
