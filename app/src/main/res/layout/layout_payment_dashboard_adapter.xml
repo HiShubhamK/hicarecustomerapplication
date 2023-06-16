@@ -198,7 +198,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvOrderNumber"
+                        android:id="@+id/tvSequenceNo"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
