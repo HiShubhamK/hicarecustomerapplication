@@ -31,11 +31,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.dashboard.BannerData
-import com.ab.hicareservices.data.model.dashboard.CODOrders
-import com.ab.hicareservices.data.model.dashboard.MenuData
-import com.ab.hicareservices.data.model.dashboard.OfferData
-import com.ab.hicareservices.data.model.dashboard.UpcomingService
+import com.ab.hicareservices.data.model.dashboard.*
 import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
@@ -208,11 +204,11 @@ class HomeFragment : Fragment() {
             adapter.serBanner(it!!.BannerData)
             mAdapter.setServiceList(it.MenuData)
             msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
-            mpayentdashboardadapter.setPaymentData(it.UpcomingService)
+            mpayentdashboardadapter.setPaymentData(it.UpcomingService,it.CODOrders,it.TodaysService)
             mvideoAdapter.setvideo(it.VideoData)
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)
-            codOrders=it.CODOrders
+
             progressDialog.dismiss()
             binding.rltMain.visibility = View.VISIBLE
 
@@ -390,6 +386,14 @@ class HomeFragment : Fragment() {
                 intent.putExtra("SPCode", upcomingdata[position].OrderServiceArea_r!!.SPCode_c)
                 intent.putExtra("ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
                 startActivity(intent)
+            }
+
+            override fun onPaymentClick(position: Int, offers: ArrayList<CODOrders>) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onPaymentitemsClick(position: Int, offers: ArrayList<CODOrders>) {
+                TODO("Not yet implemented")
             }
 
         })

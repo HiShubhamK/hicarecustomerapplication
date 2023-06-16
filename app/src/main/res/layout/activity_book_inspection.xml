@@ -711,7 +711,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:background="@null"
-                        android:hint="Enter complaint subject here"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
