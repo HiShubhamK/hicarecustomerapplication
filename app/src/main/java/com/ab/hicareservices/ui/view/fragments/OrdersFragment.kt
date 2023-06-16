@@ -34,6 +34,7 @@ import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
 
+
 class OrdersFragment() : Fragment() {
     private val TAG = "OrdersFragment"
     lateinit var binding: FragmentOrdersBinding

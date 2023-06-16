@@ -7,7 +7,7 @@ data class UpcomingService(
     @SerializedName("Name") var Name: String? = null,
 //    @SerializedName("Amount_to_collect__c") var AmountToCollect_c: String? = null,
 //    @SerializedName("Advance_Payment_Amount__c") var AdvancePaymentAmount_c: String? = null,
-//    @SerializedName("Order__c") var Order_c: String? = null,
+    @SerializedName("Order__c") var Order_c: String? = null,
 //    @SerializedName("HR_Status__c") var HRStatus_c: String? = null,
 //    @SerializedName("IsMegatask__c") var IsMegatask_c: Boolean? = null,
 //    @SerializedName("IsDoubleCheckConfirmed__c") var IsDoubleCheckConfirmed_c: Boolean? = null,

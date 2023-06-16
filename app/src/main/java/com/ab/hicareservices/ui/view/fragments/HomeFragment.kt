@@ -36,6 +36,8 @@ import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
+import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
+import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -388,12 +390,26 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            override fun onPaymentClick(position: Int, offers: ArrayList<CODOrders>) {
-                TODO("Not yet implemented")
+            override fun onPaymentClick(position: Int, order: ArrayList<CODOrders>) {
+                val intent=Intent(requireActivity(),PaymentActivity::class.java)
+                intent.putExtra("ORDER_NO",  order[position].OrderNumber_c)
+                intent.putExtra("ACCOUNT_NO", order[position].CustomerId_c)
+                intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
+                intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
+                intent.putExtra("SERVICE_TYPE",order[position].ServiceType)
+                startActivity(intent)
             }
 
-            override fun onPaymentitemsClick(position: Int, offers: ArrayList<CODOrders>) {
-                TODO("Not yet implemented")
+            override fun onPaymentitemsClick(position: Int, order: ArrayList<CODOrders>) {
+                val intent=Intent(requireActivity(),OrderDetailActivity::class.java)
+                intent.putExtra("orderNo", order[position].OrderNumber_c)
+                intent.putExtra("serviceType", order[position].ServiceType)
+                intent.putExtra("service_url_image", order[position].ServicePlanImageUrl)
+                intent.putExtra("locationLatitudeS", order[position].AccountName_r!!.Location_Latitude_s)
+                intent.putExtra("locationLongitudeS", order[position].AccountName_r!!.Location_Longitude_s)
+                intent.putExtra("ServiceCenterId", order[position]!!.HRShippingRegion_r!!.Id)
+
+                startActivity(intent)
             }
 
         })

@@ -45,6 +45,8 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             val recipe = upcomingservicelist[position]
 //            holder.binding.ServiceName.text = recipe.ServiceStep_c
             holder.binding.ServiceName.text=recipe.ServicePlan_c
+            holder.binding.lnrorders.visibility=View.GONE
+            holder.binding.tvorderno.text=recipe.Order_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
@@ -69,17 +71,18 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
         }else if (codOrders.isNotEmpty()){
 
 
-            val recipe = upcomingservicelist[position]
-            holder.binding.ServiceName.text = recipe.ServiceStep_c
+            val recipe = codOrders[position]
+            holder.binding.ServiceName.text = recipe.ServicePlanName_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
             holder.binding.tvPayNow.text="Pay Now"
 
-            if (recipe.AppointmentDate!=null){
-                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
+            if (recipe.AppointmentStartDateTime_c!=null){
+                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentStartDateTime_c.toString())
             }else{
-                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
+                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.NextServiceDate.toString())
 
             }
+            holder.binding.tvorderno.text=recipe.OrderNumber_c
             holder.binding.imgAvatar.visibility = View.GONE
 //        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
 //        if (recipe.isButtonCancel){
@@ -99,9 +102,10 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
 
         }else{
-            val recipe = upcomingservicelist[position]
+            val recipe = todaysservices[position]
             holder.binding.ServiceName.text = recipe.ServiceStep_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
+            holder.binding.tvorderno.text=recipe.Order_c
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
             }else{
@@ -123,12 +127,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 //
 //            }
 
-
         }
-
-
-
-
     }
 
     override fun getItemCount(): Int {
