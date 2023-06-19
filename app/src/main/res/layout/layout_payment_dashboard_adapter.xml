@@ -234,11 +234,12 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorPrimary"
                         android:elevation="10dp"
+                        android:padding="5dp"
                         android:layout_gravity="center"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardCornerRadius="5dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginRight="30dp">
+                        android:layout_marginRight="40dp">
 
                         <TextView
                             android:id="@+id/tvPayNows"
@@ -247,7 +248,7 @@
                             android:layout_gravity="center"
                             android:fontFamily="@font/lato_semibold"
                             android:gravity="center"
-                            android:padding="5dp"
+                            android:padding="6dp"
                             android:singleLine="true"
                             android:text="reschedule"
                             android:textAllCaps="false"
@@ -266,7 +267,7 @@
                         android:elevation="5dp"
                         app:cardCornerRadius="5dp"
                         android:background="#f6f6f6"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="50dp"
                         android:layout_marginBottom="5dp">

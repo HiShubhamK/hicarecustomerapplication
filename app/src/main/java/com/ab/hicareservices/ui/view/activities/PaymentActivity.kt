@@ -3,11 +3,14 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -128,31 +131,37 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         binding.imgOffer.visibility= View.VISIBLE
         binding.txtpayment.visibility=View.VISIBLE
         binding.imgOffererror.visibility=View.GONE
-        onBackPressed()
 
-        try {
+        Handler(Looper.getMainLooper()).postDelayed({
+            onBackPressed()
+        }, 500)
 
-            if (response != null) {
 
-                Toast.makeText(this, response?.paymentId.toString(),Toast.LENGTH_SHORT).show()
-                var data = HashMap<String, Any>()
-                data["razorpay_payment_id"] = response?.paymentId.toString()
-                data["razorpay_order_id"] = order_no
-                data["razorpay_signature"] = response?.signature.toString()
-                orderDetailsViewModel.saveAppPaymentDetails(data)
-                Toast.makeText(this, AppUtils2.paymentsucess.toString(),Toast.LENGTH_SHORT).show()
-                val data1 = Intent()
-                data1.putExtra("title", AppUtils2.paymentsucess)
-                finish()
-                binding.imgOffer.visibility= View.VISIBLE
-                binding.txtpayment.visibility=View.VISIBLE
-                binding.imgOffererror.visibility=View.GONE
 
-            }
-
-        } catch (e: Exception) {
-
-        }
+//        try {
+//
+//            if (response != null) {
+//
+//                Toast.makeText(this, response?.paymentId.toString(),Toast.LENGTH_SHORT).show()
+//                var data = HashMap<String, Any>()
+//                data["razorpay_payment_id"] = response?.paymentId.toString()
+//                data["razorpay_order_id"] = order_no
+//                data["razorpay_signature"] = response?.signature.toString()
+//                orderDetailsViewModel.saveAppPaymentDetails(data)
+//                Toast.makeText(this, AppUtils2.paymentsucess.toString(),Toast.LENGTH_SHORT).show()
+//                val data1 = Intent()
+//                data1.putExtra("title", AppUtils2.paymentsucess)
+//                finish()
+//                binding.imgOffer.visibility= View.VISIBLE
+//                binding.txtpayment.visibility=View.VISIBLE
+//                binding.imgOffererror.visibility=View.GONE
+//
+//
+//            }
+//
+//        } catch (e: Exception) {
+//
+//        }
     }
 
     override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
@@ -161,6 +170,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             binding.imgOffererror.visibility=View.VISIBLE
             binding.txtpayment.visibility=View.VISIBLE
             binding.txtpayment.text="Payment Failed"
+            Handler(Looper.getMainLooper()).postDelayed({
+                onBackPressed()
+            }, 500)
+
         } catch (e: Exception) {
 
         }
