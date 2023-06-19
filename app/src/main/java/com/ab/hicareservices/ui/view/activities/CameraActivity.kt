@@ -218,4 +218,8 @@ class CameraActivity : AppCompatActivity() {
         super.onDestroy()
         cameraExecutor.shutdown()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }
