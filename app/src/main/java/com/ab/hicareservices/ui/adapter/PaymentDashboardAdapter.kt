@@ -41,6 +41,12 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
 
         if (upcomingservicelist.isNotEmpty()){
+
+
+            holder.binding.btneta.visibility=View.VISIBLE
+            holder.binding.btnPayNows.visibility=View.GONE
+
+
             val recipe=upcomingservicelist[position]
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
@@ -52,7 +58,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             }else if(recipe.SRDate_c!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
             }else{
-                holder.binding.lnrtime.visibility=View.GONE
+//                holder.binding.lnrtime.visibility=View.GONE
                 holder.binding.lnrdate.visibility=View.GONE
             }
 
@@ -78,6 +84,9 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
         }else if (codOrders.isNotEmpty()){
 
 
+            holder.binding.btneta.visibility=View.GONE
+            holder.binding.btnPayNows.visibility=View.VISIBLE
+
             val recipe = codOrders[position]
             holder.binding.ServiceName.text = recipe.ServicePlanName_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
@@ -85,7 +94,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.tvPayNows.text="Pay Now"
             holder.binding.lnrorderno.visibility=View.VISIBLE
             holder.binding.tvOrderNumber.text=recipe.OrderNumber_c
-            holder.binding.lnrtime.visibility=View.GONE
+//            holder.binding.lnrtime.visibility=View.GONE
             if (recipe.AppointmentStartDateTime_c!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentEndDateTime_c.toString())
             }else{
@@ -115,6 +124,8 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
         }else{
             val recipe = todaysservices[position]
+            holder.binding.btneta.visibility=View.VISIBLE
+            holder.binding.btnPayNows.visibility=View.GONE
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
 //            holder.binding.tveta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
@@ -124,22 +135,22 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             }else if(recipe.SRDate_c!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
             }else{
-                holder.binding.lnrtime.visibility=View.GONE
+//                holder.binding.lnrtime.visibility=View.GONE
                 holder.binding.lnrdate.visibility=View.GONE
             }
 
             if(recipe.HRAssignmentStartTimeAMPM_c!!.isNotEmpty() && recipe.HRAssignmentFinishTimeAMPM_c!!.isNotEmpty() ){
-                holder.binding.lnrtime.visibility=View.GONE
+//                holder.binding.lnrtime.visibility=View.GONE
                 holder.binding.lnrETA.visibility=View.VISIBLE
-                holder.binding.tveta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
+                holder.binding.txteta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
 
             }else{
                 holder.binding.lnrETA.visibility=View.GONE
-                holder.binding.lnrtime.visibility=View.VISIBLE
+//                holder.binding.lnrtime.visibility=View.VISIBLE
                 holder.binding.tvScheduletime.text=recipe.Appointmentstarttime+"-"+recipe.AppointmentFinishtime
             }
 
-            holder.binding.tvPayNow.visibility=View.GONE
+            holder.binding.tvPayNows.visibility=View.GONE
             holder.binding.lnrETA.visibility=View.VISIBLE
             holder.binding.imgAvatar.visibility = View.GONE
 

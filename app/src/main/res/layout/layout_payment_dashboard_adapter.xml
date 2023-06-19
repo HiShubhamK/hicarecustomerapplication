@@ -170,9 +170,8 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:elevation="10dp"
                         android:layout_gravity="center"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:cardCornerRadius="5dp"
-
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="30dp">
 
@@ -193,6 +192,54 @@
                         </TextView>
                     </androidx.cardview.widget.CardView>
 
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btneta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="5dp"
+                        android:background="#f6f6f6"
+                        android:visibility="visible"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginBottom="5dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/lato_semibold"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="ETA : "
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/txteta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/lato_semibold"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="5pm - 8 pm"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.cardview.widget.CardView>
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
