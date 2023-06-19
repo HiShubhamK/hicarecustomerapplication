@@ -2,7 +2,6 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,19 +9,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.CalendarView
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivitySlotComplinceBinding
@@ -33,7 +29,10 @@ import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 
 class SlotComplinceActivity : AppCompatActivity() {
 
@@ -98,6 +97,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 //        })
         binding.ivCalender.setOnClickListener{
             val c = Calendar.getInstance()
+            c.add(Calendar.DAY_OF_YEAR, 1)
             var _pickedDate=""
             val dialog = DatePickerDialog(
                 this!!,
@@ -107,13 +107,33 @@ class SlotComplinceActivity : AppCompatActivity() {
                     val _date = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth.toString()
                     _pickedDate = "$_year-$_month-$_date"
                     Log.e("PickedDate: ", "Date: $_pickedDate") //2019-02-12
-                    getOrdersList(_pickedDate)
+
+                    val sdf = SimpleDateFormat("yyyy-MM-dd")
+                    val c = Calendar.getInstance()
+                    try {
+                        c.time = sdf.parse(_pickedDate)
+                    } catch (e: ParseException) {
+                        e.printStackTrace()
+                    }
+                    c.add(
+                        Calendar.DATE,
+                        1
+                    ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+                    val sdf1 = SimpleDateFormat("yyyy-MM-dd")
+                    val output = sdf1.format(c.time)
+
+                    getOrdersList(output.toString())
 
                 }, c[Calendar.YEAR], c[Calendar.MONTH], c[Calendar.MONTH]
             )
             dialog.datePicker.minDate = System.currentTimeMillis() - 1000
             dialog.show()
         }
+    }
+    fun DatePicker.getDate(): Date {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, dayOfMonth)
+        return calendar.time
     }
 
     private fun getOrdersList(date: String) {
