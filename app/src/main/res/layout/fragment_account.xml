@@ -346,7 +346,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
-                        android:text="Whats App"
+                        android:text="WhatsApp"
                         android:textColor="@color/black"
                         android:textSize="13dp"
                         android:textStyle="bold"
@@ -527,7 +527,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SIGN OUT"
+                    android:text="Log out"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp"
                     android:textStyle="bold"

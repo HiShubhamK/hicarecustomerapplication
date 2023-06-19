@@ -76,9 +76,14 @@ class OrderDetailActivity : AppCompatActivity() {
                 val data = activityResult.data
             })
 
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
+
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+
 
         val intent = intent
         orderNo = intent.getStringExtra("orderNo").toString()
@@ -154,6 +159,7 @@ class OrderDetailActivity : AppCompatActivity() {
         binding.recycleView.adapter = mAdapter
 
         viewModel.serviceList.observe(this, androidx.lifecycle.Observer {
+            progressDialog.dismiss()
             binding.progressBar.visibility = View.GONE
             Log.d(TAG, "onViewCreated: $it")
             mAdapter.setServiceList(it)
@@ -221,6 +227,7 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun getServiceDetails(orderNo: String, serviceType: String) {
+        progressDialog.dismiss()
         orderDetailsViewModel.orderDetailsData.observe(this) {
             if (it != null) {
                 val data = it[0]

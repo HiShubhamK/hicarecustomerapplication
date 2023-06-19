@@ -79,31 +79,42 @@ class BookInspectionActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            if(binding.etname.text.toString().equals("")){
+            if(binding.etname.text.toString().trim().equals("") && binding.edtmobileno.text.toString().trim().equals("") &&
+                binding.etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
+                binding.etflatno.text.toString().trim().equals("") && binding.etbuildname.text.toString().trim().equals("") &&
+                binding.etstreet.text.toString().trim().equals("") && binding.etlocality.text.toString().trim().equals("") &&
+                binding.etlandmark.text.toString().trim().equals("") && binding.etpincode.text.toString().trim().equals("")) {
+
+                Toast.makeText(this,"All fields are mandatory",Toast.LENGTH_LONG).show()
+
+            }
+            else if(binding.etname.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter name",Toast.LENGTH_LONG).show()
-            }else if(binding.edtmobileno.text.toString().equals("") && !binding.edtmobileno.text.toString().equals("0000000000")){
+            }else if(binding.edtmobileno.text.toString().trim().equals("") && !binding.edtmobileno.text.toString().equals("0000000000")){
                 Toast.makeText(this,"Enter mobile number",Toast.LENGTH_LONG).show()
-            }else if(binding.edtmobileno.text.toString().length<10){
+            }else if(binding.edtmobileno.text.toString().trim().length<10){
                 Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
-            } else if(binding.etemps.text.toString().equals("") ){
+            }else if(binding.edtmobileno.text.toString().trim().equals("0000000000")){
+                Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
+            } else if(binding.etemps.text.toString().trim().equals("") ){
                 Toast.makeText(this,"Enter email adress",Toast.LENGTH_LONG).show()
             }else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etemps.text.toString()).matches()){
                 Toast.makeText(this,"Enter correct email adress",Toast.LENGTH_LONG).show()
-            } else if(selectedLocation.toString().equals("Select Type")){
-                Toast.makeText(this,"Please select item", Toast.LENGTH_SHORT).show()
-            }else if(binding.etflatno.text.toString().equals("")){
+            } else if(selectedLocation.toString().trim().equals("Select Type")){
+                Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
+            }else if(binding.etflatno.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter flat number",Toast.LENGTH_LONG).show()
-            }else if(binding.etbuildname.text.toString().equals("")){
+            }else if(binding.etbuildname.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter Building name",Toast.LENGTH_LONG).show()
-            }else if(binding.etstreet.text.toString().equals("")){
+            }else if(binding.etstreet.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter street name",Toast.LENGTH_LONG).show()
-            }else if(binding.etlocality.text.toString().equals("")){
+            }else if(binding.etlocality.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter locatity",Toast.LENGTH_LONG).show()
-            }else if(binding.etlandmark.text.toString().equals("")){
+            }else if(binding.etlandmark.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter landkmark",Toast.LENGTH_LONG).show()
-            }else if(binding.etpincodes.text.toString().length<6){
+            }else if(binding.etpincodes.text.toString().trim().length<6){
                 Toast.makeText(this,"Enter  pincode",Toast.LENGTH_LONG).show()
-            } else if(binding.etpincodes.text.toString().length<6){
+            } else if(binding.etpincodes.text.toString().trim().length<6){
                 Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
             }else{
                 var data = HashMap<String, Any>()
@@ -156,7 +167,7 @@ class BookInspectionActivity : AppCompatActivity() {
 
                 viewModels.leadResponse.observe(this, Observer {
                     if(it.IsSuccess==true){
-                        Toast.makeText(this,"Booked Inspection Appointment",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,"Inspection appointment booked",Toast.LENGTH_LONG).show()
                         onBackPressed()
                     }else{
                         Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()

@@ -206,7 +206,13 @@ class HomeFragment : Fragment() {
             adapter.serBanner(it!!.BannerData)
             mAdapter.setServiceList(it.MenuData)
             msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
-            mpayentdashboardadapter.setPaymentData(it.UpcomingService,it.CODOrders,it.TodaysService)
+            if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
+                mpayentdashboardadapter.setPaymentData(
+                    it.UpcomingService,
+                    it.CODOrders,
+                    it.TodaysService
+                )
+            }
             mvideoAdapter.setvideo(it.VideoData)
             mOfferAdapter.serBanner(it.OfferData)
             madapterbrand.serBrand(it.BrandData)

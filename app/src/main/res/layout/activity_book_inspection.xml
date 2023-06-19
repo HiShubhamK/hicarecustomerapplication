@@ -249,6 +249,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@null"
                 android:padding="12dp"
+                android:maxLength="50"
                 android:textColor="@color/grey_font"
                 android:textSize="12sp" />
 
@@ -451,6 +452,7 @@
                         android:background="@null"
                         android:padding="12dp"
                         android:maxLength="10"
+                        android:inputType="number"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -491,6 +493,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:maxLength="20"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -671,6 +674,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:maxLength="10"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -712,6 +716,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:maxLength="50"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -762,6 +767,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:maxLength="50"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -803,6 +809,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:maxLength="50"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
@@ -843,6 +850,7 @@
                     android:elevation="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:maxLength="50"
                     app:cardCornerRadius="5dp">
 
                     <EditText
@@ -893,6 +901,8 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
+                        android:inputType="number"
+                        android:maxLength="6"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>

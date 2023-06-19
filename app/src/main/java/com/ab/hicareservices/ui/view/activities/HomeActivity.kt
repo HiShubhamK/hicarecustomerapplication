@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var paymentListener: PaymentListener? = null
     var titles: String? = null
     private val viewModel: OtpViewModel by viewModels()
-    var token:String?=null
+    var token: String? = null
     lateinit var datalist: ArrayList<String>
     private val requestCall = 1
     private val viewModels: HomeActivityViewModel by viewModels()
@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        datalist=ArrayList()
+        datalist = ArrayList()
         datalist.add("Select Type")
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
@@ -72,16 +72,16 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
-            if(!task.isSuccessful) {
+            if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
 
             token = task.result
 
-            Log.e("Token",token.toString())
+            Log.e("Token", token.toString())
 
             var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("text",token)
+            val clipData = ClipData.newPlainText("text", token)
             clipboardManager.setPrimaryClip(clipData)
 
         })
@@ -90,47 +90,51 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             viewModel.getNotificationtoken(token.toString())
         }, 1500)
 
-        binding.addFab.visibility=View.VISIBLE
+        binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, HomeFragment.newInstance()).commit();
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
-        binding.bottomNavigation.setOnItemSelectedListener  {
+        binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    binding.addFab.visibility=View.VISIBLE
+                    binding.addFab.visibility = View.VISIBLE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("HomeFragment").commit()
+                        .replace(R.id.container, HomeFragment.newInstance())
+                        .addToBackStack("HomeFragment").commit()
                     true
 
                 }
                 R.id.nav_bookings -> {
                     Toast.makeText(
-                    this,
-                    "Coming Soon!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                        this,
+                        "Coming Soon!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     true
 
 
                 }
                 R.id.nav_account -> {
-                    binding.addFab.visibility=View.GONE
+                    binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, AccountFragment.newInstance()).addToBackStack("AccountFragment").commit()
+                        .replace(R.id.container, AccountFragment.newInstance())
+                        .addToBackStack("AccountFragment").commit()
                     true
                 }
                 R.id.nav_cart -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag").commit()
+                        .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
+                        .commit()
 
                     true
                 }
                 R.id.nav_orders -> {
-                    binding.addFab.visibility=View.GONE
+                    binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("OrdersFragment").commit()
+                        .replace(R.id.container, OrdersFragment.newInstance())
+                        .addToBackStack("OrdersFragment").commit()
                     true
                 }
                 else -> false
@@ -138,7 +142,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
         binding.bottomNavigation.selectedItemId = R.id.nav_home
 
-        binding.addFab.setOnClickListener{
+        binding.addFab.setOnClickListener {
             showLeadDialog()
         }
 
@@ -149,7 +153,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     private fun getLeadMethod() {
-        viewModels.spinnerList.observe(this, Observer{
+        viewModels.spinnerList.observe(this, Observer {
             datalist.addAll(it)
         })
 
@@ -159,7 +163,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     private fun showLeadDialog() {
         var selectedLocation = ""
-        var dateTime=""
+        var dateTime = ""
         val li = LayoutInflater.from(this)
         val promptsView = li.inflate(R.layout.layout_lead, null)
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
@@ -173,11 +177,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val lnrcall = promptsView.findViewById<View>(R.id.getcall) as LinearLayoutCompat
         val btnSubmit = promptsView.findViewById<View>(R.id.btnlead) as Button
         val email = promptsView.findViewById<View>(R.id.textemail) as TextView
-       val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
+        val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
 
         alertDialog.setCancelable(false)
 
-        imgcancels.setOnClickListener {  alertDialog.cancel() }
+        imgcancels.setOnClickListener { alertDialog.cancel() }
 
         email.setOnClickListener {
 
@@ -188,66 +192,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             intent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
 
             startActivity(Intent.createChooser(intent, "Email via..."))
-
-
-//            val i = Intent(Intent.ACTION_SEND)
-//            i.type = "message/rfc822"
-//            i.putExtra(Intent.EXTRA_EMAIL, arrayOf("recipient@example.com"))
-//            i.putExtra(Intent.EXTRA_SUBJECT, "subject of email")
-//            i.putExtra(Intent.EXTRA_TEXT, "body of email")
-//            try {
-//                startActivity(Intent.createChooser(i, "Send mail..."))
-//            } catch (ex: ActivityNotFoundException) {
-//                Toast.makeText(
-//                    this,
-//                    "There are no email clients installed.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-
-
-
-
-
-
-
-
-
-
-
-
-//            val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
-//            emailIntent.type("")
-//            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@hicare.in"))
-//            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "support services")
-////            emailIntent.putExtra(Intent.EXTRA_TEXT, body)
-////emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, body); //If you are using HTML in your body text
-//
-////emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, body); //If you are using HTML in your body text
-//            startActivity(Intent.createChooser(emailIntent, "Chooser Title"))
-
-
-
-
-
-
-
-
-
-
-//            val shareIntent = Intent(Intent.ACTION_SEND)
-//            shareIntent.type = "text/plain"
-//            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "HiCare Services")
-//            var shareMessage = othertxt
-//            shareMessage =
-//                "${shareMessage}Download HiCare app from the google play store\n" +
-//                        "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
-//            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
-//            startActivity(Intent.createChooser(shareIntent, "choose one"))
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-//        viewModel.validateAccount(AppUtils2.mobileno)
         val calendar = Calendar.getInstance()
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss aaa z")
         dateTime = simpleDateFormat.format(calendar.time).toString()
@@ -296,74 +243,77 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         btnSubmit.setOnClickListener {
 
-            if(edtname.text.toString().equals("")){
+            if (edtname.text.toString().trim().equals("")) {
                 edtname.setError("Enter name")
-            }else if(edtmobile.text.toString().equals("")){
+            } else if (edtmobile.text.toString().trim().equals("")) {
                 edtmobile.setError("Enter mobile number")
-            }else if(edtmobile.text.toString().length<10){
+            } else if (edtmobile.text.toString().trim().length < 10) {
                 edtmobile.setError("Enter correct mobile number")
-            } else if(edtpincode.text.toString().equals("") ){
+            } else if (edtmobile.text.toString().trim().equals("0000000000")) {
+                edtmobile.setError("Enter correct mobile number")
+            } else if (edtpincode.text.toString().trim().equals("")) {
                 edtpincode.setError("Enter pincode")
-            }else if(edtpincode.text.toString().length<6){
+            } else if (edtpincode.text.toString().length < 6) {
                 edtpincode.setError("Enter correct pincode")
-            }else if(selectedLocation.toString().equals("Select Type")){
-                Toast.makeText(this,"Please select item",Toast.LENGTH_SHORT).show()
-            }else {
+            } else if (edtpincode.text.toString().trim().equals("000000")) {
+                edtpincode.setError("Enter correct pincode")
+            } else if (selectedLocation.toString().trim().equals("Select Type")) {
+                Toast.makeText(this, "Please select Service type", Toast.LENGTH_SHORT).show()
+            } else {
                 var data = HashMap<String, Any>()
-                data["LMSId"] =""
-                data["SFDCId"] =""
-                data["CallCenterId"] =""
-                data["ServiceType"] ="pest"
-                data["Batch_Name"] =""
-                data["Original_Batch_Name"] =""
-                data["Created_On"] =""
-                data["LeadType"] =""
-                data["Salutation"] =""
+                data["LMSId"] = ""
+                data["SFDCId"] = ""
+                data["CallCenterId"] = ""
+                data["ServiceType"] = "pest"
+                data["Batch_Name"] = ""
+                data["Original_Batch_Name"] = ""
+                data["Created_On"] = ""
+                data["LeadType"] = ""
+                data["Salutation"] = ""
                 data["FirstName"] = edtname.text.toString()
-                data["LastName"] ="."
-                data["Mobile"] =edtmobile.text.toString()
-                data["AltMobile"] =""
-                data["Email"] =""
-                data["Company"] =""
+                data["LastName"] = "."
+                data["Mobile"] = edtmobile.text.toString()
+                data["AltMobile"] = ""
+                data["Email"] = ""
+                data["Company"] = ""
                 data["EmployeeCount"] = 0
-                data["Service"] =selectedLocation.toString()
-                data["ServiceCategory"] =""
-                data["ServiceSubCategory"] =""
-                data["FlatNo"] =""
-                data["Building"] =""
-                data["Street"] =""
-                data["Locality"] =""
-                data["Landmark"] =""
-                data["City"] =""
-                data["State"] =""
-                data["Pincode"] =edtpincode.text.toString()
-                data["Lat"] =""
-                data["Long"] =""
+                data["Service"] = selectedLocation.toString()
+                data["ServiceCategory"] = ""
+                data["ServiceSubCategory"] = ""
+                data["FlatNo"] = ""
+                data["Building"] = ""
+                data["Street"] = ""
+                data["Locality"] = ""
+                data["Landmark"] = ""
+                data["City"] = ""
+                data["State"] = ""
+                data["Pincode"] = edtpincode.text.toString()
+                data["Lat"] = ""
+                data["Long"] = ""
                 data["Priority"] = 0
-                data["Agency"] =""
-                data["Utm_Campaign"] ="Mobile app"
-                data["Utm_Source"] ="Mobile app"
-                data["Utm_Sub_Source"] ="Mobile app"
-                data["BHK"] =""
-                data["Status"] =""
-                data["Service_Value"] =""
-                data["PaymentMode"] =""
-                data["Lead_Source"] ="Mobile app"
-                data["Lead_Sub_Source"] ="Mobile app"
-                data["Remark"] =""
-                data["Gclid"] =""
-                data["Utm_Medium"] ="Mobile app"
-                data["Utm_Content"] ="Mobile app"
-                data["Utm_Term"] ="Mobile app"
-                data["Campaign_Url"] =""
-
+                data["Agency"] = ""
+                data["Utm_Campaign"] = "Mobile app"
+                data["Utm_Source"] = "Mobile app"
+                data["Utm_Sub_Source"] = "Mobile app"
+                data["BHK"] = ""
+                data["Status"] = ""
+                data["Service_Value"] = ""
+                data["PaymentMode"] = ""
+                data["Lead_Source"] = "Mobile app"
+                data["Lead_Sub_Source"] = "Mobile app"
+                data["Remark"] = ""
+                data["Gclid"] = ""
+                data["Utm_Medium"] = "Mobile app"
+                data["Utm_Content"] = "Mobile app"
+                data["Utm_Term"] = "Mobile app"
+                data["Campaign_Url"] = ""
 
                 viewModels.leadResponse.observe(this, Observer {
-                    if(it.IsSuccess==true){
+                    if (it.IsSuccess == true) {
                         alertDialog.cancel()
-                    }else{
+                    } else {
                         alertDialog.cancel()
-                        Toast.makeText(this,"Something went to wrong",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
                     }
                 })
                 viewModels.postleaderdata(data)
@@ -376,7 +326,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     private fun makePhoneCall() {
-        var number:String="8976399055"
+        var number: String = "8976399055"
         if (number.trim { it <= ' ' }.isNotEmpty()) {
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -397,7 +347,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
-//
+    //
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -448,9 +398,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        if(binding.bottomNavigation.getSelectedItemId() === R.id.nav_home){
+        if (binding.bottomNavigation.getSelectedItemId() === R.id.nav_home) {
             finishAffinity()
-        }else{
+        } else {
             binding.bottomNavigation.selectedItemId = R.id.nav_home
         }
     }
