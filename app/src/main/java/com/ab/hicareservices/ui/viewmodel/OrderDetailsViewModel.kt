@@ -15,7 +15,7 @@ class OrderDetailsViewModel : ViewModel() {
     val repository = MainRepository()
 
     val orderDetailsData = MutableLiveData<List<Data>>()
-    val savePaymentResponse = MutableLiveData<String>()
+    val savePaymentResponse = MutableLiveData<SavePaymentResponse>()
     fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String){
         repository.getOrderDetailsByOrderNo(orderNo, serviceType)
             .enqueue(object : Callback<OrderDetails>{
@@ -36,7 +36,7 @@ class OrderDetailsViewModel : ViewModel() {
                     if (response.body()?.isSuccess == true){
                         val responseBody = response.body()?.data
                         AppUtils2.paymentsucess= response.body()!!.data.toString()
-                        savePaymentResponse.postValue("Success")
+                        savePaymentResponse.postValue(response.body())
                     }
                 }
                 override fun onFailure(call: Call<SavePaymentResponse>, t: Throwable) {
