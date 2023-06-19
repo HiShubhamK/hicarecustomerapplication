@@ -67,7 +67,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 //        }else{
 //            holder.binding.lnrRecheduleButton.visibility = View.GONE
 //        }
-        holder.binding.tvPayNow.setOnClickListener {
+        holder.binding.btnPayNows.setOnClickListener {
             onResceduleInterface!!.onRecheduleClick(position, services as ArrayList<UpcomingService>)
         }
 

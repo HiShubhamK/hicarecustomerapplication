@@ -94,7 +94,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         complaintid = intent.getStringExtra("Complaintid").toString()
 
 
-        binding.title.text = "Complaint Detail"
+        binding.title.text = "Complaint Details"
         binding.txtStatus.text = status
         binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
         binding.txtcomplaintno.text = complaintnum

@@ -138,7 +138,7 @@ class ComplaintDetailsFragment : Fragment() {
 //            requireActivity().supportFragmentManager.beginTransaction()
 //                .replace(R.id.container, OrdersFragment.newInstance()).commit();
 //        }
-        binding.title.text = "Complaint Detail"
+        binding.title.text = "Complaint Details"
         binding.txtStatus.text = status
         binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
         binding.txtcomplaintno.text = complaintnum

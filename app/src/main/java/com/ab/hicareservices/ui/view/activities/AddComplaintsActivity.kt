@@ -222,6 +222,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             intent.putExtra("getServiceType", getServiceType)
             intent.putExtra("captureby", "Image1")
             startActivity(intent)
+            finish()
         }
         binding.lnrUpload2.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
@@ -229,6 +230,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             intent.putExtra("getServiceType", getServiceType)
             intent.putExtra("captureby", "Image2")
             startActivity(intent)
+            finish()
         }
         binding.lnrUpload3.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
@@ -236,6 +238,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             intent.putExtra("getServiceType", getServiceType)
             intent.putExtra("captureby", "Image3")
             startActivity(intent)
+            finish()
         }
 
     }
