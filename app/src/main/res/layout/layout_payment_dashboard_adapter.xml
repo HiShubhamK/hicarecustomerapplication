@@ -74,8 +74,6 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-
-
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,7 +100,7 @@
                         android:singleLine="true"
                         android:text="Order Number :"
                         android:textColor="@color/grey_font"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvOrderNumber"
@@ -137,15 +135,14 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="2"
                         android:singleLine="true"
-                        android:text="Service Date       :"
+                        android:text="Service Date      :"
                         android:textColor="@color/grey_font"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvPlanDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="3dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/lato_regular"
@@ -153,7 +150,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="2"
                         android:singleLine="true"
-                        android:text=""
+                        android:text="aa"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -172,10 +169,11 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorPrimary"
                         android:elevation="10dp"
-                        android:padding="5dp"
                         android:layout_gravity="center"
                         android:visibility="visible"
                         app:cardCornerRadius="5dp"
+
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="30dp">
 
                         <TextView
@@ -187,17 +185,13 @@
                             android:gravity="center"
                             android:padding="5dp"
                             android:singleLine="true"
-                            android:text="Pay Now"
+                            android:text="reschedule"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="14sp">
 
                         </TextView>
                     </androidx.cardview.widget.CardView>
-
-<!--                    </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-
 
 
 
@@ -207,7 +201,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/lnrtime"
                     android:visibility="gone">
 
                     <TextView
@@ -347,7 +340,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:elevation="10dp"
                     android:padding="15dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardCornerRadius="5dp">
 
                     <TextView
@@ -365,6 +358,7 @@
                         android:textSize="14sp">
 
                     </TextView>
+
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
@@ -372,7 +366,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:gravity="end"
+                    android:gravity="start"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -387,7 +381,7 @@
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/lato_semibold"
                         android:singleLine="true"
-                        android:text="ETA "
+                        android:text="Expected Arrival "
                         android:textAllCaps="false"
                         android:textColor="@color/colorAccent"
                         android:textSize="12sp">

@@ -45,7 +45,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
             holder.binding.tvScheduletime.text=recipe.AppointmentTime
-
+            holder.binding.tvOrderNumber.text=recipe.OrderNumber_c
 
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
@@ -56,12 +56,12 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
                 holder.binding.lnrdate.visibility=View.GONE
             }
 
-            holder.binding.tvPayNow.visibility=View.GONE
-            holder.binding.lnrETA.visibility=View.VISIBLE
+            holder.binding.tvPayNows.visibility=View.VISIBLE
+            holder.binding.lnrETA.visibility=View.GONE
 
             holder.binding.imgAvatar.visibility = View.GONE
 
-            holder.binding.tvPayNow.text = "Reschedule"
+            holder.binding.tvPayNows.text = "Reschedule"
             holder.binding.imgAvatar.visibility = View.GONE
 //        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
 //        if (recipe.isButtonCancel){
@@ -81,7 +81,8 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             val recipe = codOrders[position]
             holder.binding.ServiceName.text = recipe.ServicePlanName_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
-            holder.binding.tvPayNow.text="Pay Now"
+            holder.binding.tvPayNows.visibility=View.VISIBLE
+            holder.binding.tvPayNows.text="Pay Now"
             holder.binding.lnrorderno.visibility=View.VISIBLE
             holder.binding.tvOrderNumber.text=recipe.OrderNumber_c
             holder.binding.lnrtime.visibility=View.GONE
@@ -102,7 +103,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 //            holder.binding.imgClose.visibility = View.GONE
 //        }
 
-            holder.binding.tvPayNow.setOnClickListener {
+            holder.binding.tvPayNows.setOnClickListener {
                 onResceduleInterface!!.onPaymentClick(position,codOrders as ArrayList<CODOrders>)
             }
 
@@ -140,7 +141,6 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
             holder.binding.tvPayNow.visibility=View.GONE
             holder.binding.lnrETA.visibility=View.VISIBLE
-
             holder.binding.imgAvatar.visibility = View.GONE
 
         }
