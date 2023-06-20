@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.ActivityMainBinding
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
@@ -33,6 +34,7 @@ import com.ab.hicareservices.ui.view.fragments.OrderDetailsFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -40,6 +42,7 @@ import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -54,6 +57,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     lateinit var datalist: ArrayList<String>
     private val requestCall = 1
     private val viewModels: HomeActivityViewModel by viewModels()
+    private val viewProductModel:ProductViewModel by viewModels()
+    var customerid:Int=0
+    var  pincode:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -107,14 +114,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 }
                 R.id.nav_bookings -> {
-                    Toast.makeText(
-                        this,
-                        "Coming Soon!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    binding.addFab.visibility = View.GONE
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, ProductFragment.newInstance())
+                        .addToBackStack("HomeFragment").commit()
                     true
-
-
                 }
                 R.id.nav_account -> {
                     binding.addFab.visibility = View.GONE
@@ -149,6 +153,28 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         Handler(Looper.getMainLooper()).postDelayed({
             getLeadMethod()
         }, 1500)
+
+
+//        viewProductModel.customerlogininfo.observe(this, Observer {
+//            Toast.makeText(this,it.Data!!.Id.toString(),Toast.LENGTH_LONG).toString()
+//            customerid= it.Data!!.Id!!
+//        })
+
+        viewProductModel.getCustomerid("7208408308")
+
+        viewProductModel.getProductlist("400601")
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            getCustomerAddress()
+        }, 1500)
+
+    }
+
+    private fun getCustomerAddress() {
+        viewProductModel.cutomeraddress.observe(this, Observer {
+        })
+
+        viewProductModel.getCustomerAddress(customerid)
 
     }
 

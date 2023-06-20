@@ -11,7 +11,6 @@ import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
 import com.ab.hicareservices.data.model.dashboard.ScheduledService
-import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
@@ -19,6 +18,9 @@ import com.ab.hicareservices.data.model.orders.OrdersResponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
+import com.ab.hicareservices.data.model.product.CustomerAddress
+import com.ab.hicareservices.data.model.product.CustomerLoginInfo
+import com.ab.hicareservices.data.model.product.ProductListResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
@@ -31,76 +33,46 @@ import retrofit2.http.Query
 interface IRetrofit {
 
     @GET("Order/GetAllOrdersByMobileNo")
-    fun getOrders(
-        @Query("mobileNo") mobileNo: String,
-        @Query("orderType") orderType: String
-    ): Call<OrdersResponse>
+    fun getOrders(@Query("mobileNo") mobileNo: String, @Query("orderType") orderType: String): Call<OrdersResponse>
 
     @GET("Order/GetCustomerOrdersByMobileNo")
-    fun getCustomerOrdersByMobileNo(
-        @Query("mobileNo") mobileNo: String
-    ): Call<OrdersResponse>
+    fun getCustomerOrdersByMobileNo(@Query("mobileNo") mobileNo: String): Call<OrdersResponse>
 
     @GET("SMS/SendOTP")
-    fun getOtpResponse(
-        @Query("mobileNo") mobileNo: String,
-    ): Call<OtpResponse>
+    fun getOtpResponse(@Query("mobileNo") mobileNo: String): Call<OtpResponse>
 
     @GET("Account/ValidateAccount")
-    fun validateAccount(
-        @Query("mobileNo") mobileNo: String,
-    ): Call<ValidateResponse>
+    fun validateAccount(@Query("mobileNo") mobileNo: String): Call<ValidateResponse>
 
     @GET("Complaint/GetAllComplaintByMobileNo")
-    fun getAllComplaints(
-        @Query("mobileNo") mobileNo: String,
-    ): Call<ComplaintResponse>
+    fun getAllComplaints(@Query("mobileNo") mobileNo: String): Call<ComplaintResponse>
 
     @GET("ServiceRequest/GetServiceRequestByOrderNo")
-    fun getServiceRequest(
-        @Query("orderNo") mobileNo: String,
-        @Query("serviceType") serviceType: String
-    ): Call<ServiceResponse>
+    fun getServiceRequest(@Query("orderNo") mobileNo: String, @Query("serviceType") serviceType: String): Call<ServiceResponse>
 
     @GET("Complaint/GetComplaintReasons")
-    fun getComplaintReasonResponse(
-        @Query("serviceType") serviceType: String,
-    ): Call<ComplaintReasons>
+    fun getComplaintReasonResponse(@Query("serviceType") serviceType: String): Call<ComplaintReasons>
 
     @POST("Complaint/CreateComplaint")
-    fun createComplaintResponse(
-        @Body request: HashMap<String, Any>,
-    ): Call<CreateComplaint>
+    fun createComplaintResponse(@Body request: HashMap<String, Any>): Call<CreateComplaint>
 
     @GET("Account/GetAccountReferralCode")
-    fun getReferralCodeResponse(
-        @Query("mobileNo") mobileNo: String
-    ): Call<ReferralResponse>
+    fun getReferralCodeResponse(@Query("mobileNo") mobileNo: String): Call<ReferralResponse>
 
     @GET("Order/GetOrderDetailsByOrderNo")
-    fun getOrderDetailsByOrderNo(
-        @Query("orderNo") orderNo: String,
-        @Query("serviceType") serviceType: String
-    ): Call<OrderDetails>
+    fun getOrderDetailsByOrderNo(@Query("orderNo") orderNo: String, @Query("serviceType") serviceType: String): Call<OrderDetails>
 
     @POST("Payment/SaveAppPaymentDetails")
     fun saveAppPaymentDetails(@Body data: HashMap<String, Any>): Call<SavePaymentResponse>
 
     @GET("Order/GetAllOrdersByMobileNo")
-    fun getCustomerOrdersByMobileNo(
-        @Query("mobileNo") mobileNo: String,
-        @Query("orderType") orderType: String
-    ): Call<OrdersResponse>
+    fun getCustomerOrdersByMobileNo(@Query("mobileNo") mobileNo: String, @Query("orderType") orderType: String): Call<OrdersResponse>
 
     @GET("Notification/SubscribeApplicationAsync")
-    fun getNotificationToken(
-        @Query("appToken") appToken: String,
-    ): Call<NotificationToken>
+    fun getNotificationToken(@Query("appToken") appToken: String): Call<NotificationToken>
 
     @GET("Lead/GetInterestedServices")
-    fun getLead(
-        @Query("serviceType") serviceType: String,
-    ): Call<leadResopnse>
+    fun getLead(@Query("serviceType") serviceType: String): Call<leadResopnse>
 
     @POST("Attachment/UploadAttachment")
     fun UploadAttachment(@Body data: HashMap<String, Any>): Call<AttachmentResponse>
@@ -114,17 +86,11 @@ interface IRetrofit {
     @POST("Slot/BookSlot")
     fun BookSlot(@Body data: HashMap<String, Any>): Call<BookSlotResponce>
 
-
     @POST("Dashboard/GetDashboard")
-    fun GetDashboard(
-        @Query("mobileNo") mobileNo: String,
-    ): Call<DashboardModel>
+    fun GetDashboard(@Query("mobileNo") mobileNo: String): Call<DashboardModel>
 
     @GET("Complaint/GetComplaintAttachment")
-    fun GetComplaintAttachments(
-        @Query("complaintId") complaintId: String,
-    ): Call<GetAttachmentResponse>
-
+    fun GetComplaintAttachments(@Query("complaintId") complaintId: String): Call<GetAttachmentResponse>
 
     @POST("Lead/AddLeadAsync")
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
@@ -133,14 +99,18 @@ interface IRetrofit {
     fun getWhatappVerification(@Query("waToken") waToken:String):Call<Whatappresponse>
 
     @GET("ServiceRequest/GetUpcomingScheduledService")
-    fun getUpcomingScheduledService(
-        @Query("mobileNo") mobileNo: String
-    ): Call<ScheduledService>
+    fun getUpcomingScheduledService(@Query("mobileNo") mobileNo: String): Call<ScheduledService>
 
     @GET("ServiceRequest/GetTodayScheduledService")
-    fun getTodayScheduledService(
-        @Query("mobileNo") mobileNo: String
-    ): Call<ScheduledService>
+    fun getTodayScheduledService(@Query("mobileNo") mobileNo: String): Call<ScheduledService>
 
+    @GET("CustomerAddress/GetCustomerLoginInfo")
+    fun getcustomerid(@Query("mobileno") mobileno:String):Call<CustomerLoginInfo>
+
+    @GET("CustomerAddress/GetCustomerAddressByCustomerId")
+    fun getcustomerAddress(@Query("customerId") customerId:Int):Call<CustomerAddress>
+
+    @GET("Product/GetProductListByPincode")
+    fun getProductlist(@Query("pincode") pincode: String):Call<ProductListResponse>
 
 }

@@ -5,6 +5,8 @@ import com.ab.hicareservices.data.api.RetrofitService
 class MainRepository {
     private val retrofitService = RetrofitService.getInstance()
 
+    private val retrofitProduct=RetrofitService.getProductInstance()
+
     fun getOrders(mobileNO: String, type: String) = retrofitService.getOrders(mobileNO, type)
     fun getCustomerOrdersByMobileNo(mobileNo: String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo)
     fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype:String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo,ordertype)
@@ -16,8 +18,7 @@ class MainRepository {
     fun getComplaintReasonResponse(serviceType: String) = retrofitService.getComplaintReasonResponse(serviceType)
     fun getReferralCodeResponse(mobileNo: String) = retrofitService.getReferralCodeResponse(mobileNo)
     fun createComplaintResponse(request: HashMap<String, Any>) = retrofitService.createComplaintResponse(request)
-    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String) =
-        retrofitService.getOrderDetailsByOrderNo(orderNo, serviceType)
+    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String) = retrofitService.getOrderDetailsByOrderNo(orderNo, serviceType)
     fun saveAppPaymentDetails(data: HashMap<String, Any>) = retrofitService.saveAppPaymentDetails(data)
     fun UploadAttachment(data: HashMap<String, Any>) = retrofitService.UploadAttachment(data)
     fun notification(apptoken:String) = retrofitService.getNotificationToken(apptoken)
@@ -31,5 +32,8 @@ class MainRepository {
     fun getWhatappVerify(watoken: String) = retrofitService.getWhatappVerification(watoken)
     fun getUpcomingScheduledService(mobileNo: String)=retrofitService.getUpcomingScheduledService(mobileNo)
     fun getTodayScheduledService(mobileNo: String)=retrofitService.getTodayScheduledService(mobileNo)
+    fun getcustomerloginid(mobileNo: String) = retrofitProduct.getcustomerid(mobileNo)
+    fun getcustomerAddress(customerid: Int) = retrofitProduct.getcustomerAddress(customerid)
+    fun getproductlist(pincoode:String) = retrofitProduct.getProductlist(pincoode)
 
 }
