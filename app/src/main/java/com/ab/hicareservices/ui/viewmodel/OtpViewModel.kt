@@ -11,7 +11,6 @@ import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.handler.ValidateAccountListener
-import com.ab.hicareservices.ui.view.activities.OTPActivity
 import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,10 +47,10 @@ class OtpViewModel : ViewModel(){
         val response = repository.validateAccount(mobileNo)
         response.enqueue(object : Callback<ValidateResponse> {
             override fun onResponse(call: Call<ValidateResponse?>, response: Response<ValidateResponse>?) {
-                if (response != null && response.body()?.isSuccess == true) {
+                if (response != null && response.body()?.IsSuccess == true) {
                     val body = response.body()
-                    AppUtils2.TOKEN=response.body()?.data.toString()
-                    validateAccountListener?.onSuccess(body?.data.toString())
+                    AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()
+                    validateAccountListener?.onSuccess(response.body()?.Data!!.Token.toString())
                 }else{
                     validateAccountListener?.onSuccess("")
                 }
@@ -67,11 +66,14 @@ class OtpViewModel : ViewModel(){
         val response = repository.validateAccount(mobileNo)
         response.enqueue(object : Callback<ValidateResponse> {
             override fun onResponse(call: Call<ValidateResponse?>, response: Response<ValidateResponse>?) {
-                if (response != null && response.body()?.isSuccess == true) {
+                if (response != null && response.body()?.IsSuccess == true) {
                     val body = response.body()
-                    AppUtils2.TOKEN=response.body()?.data.toString()
-                    SharedPreferenceUtil.setData(context, "bToken", response.body()?.data.toString())
-                    validateAccountListener?.onSuccess(body?.data.toString())
+                    AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()
+                    SharedPreferenceUtil.setData(context, "bToken",response.body()?.Data!!.Token.toString())
+                    SharedPreferenceUtil.setData(context, "pincode",response.body()?.Data!!.PestCustomerData!!.BillingPostalCode.toString())
+                    SharedPreferenceUtil.setData(context, "customerid",response.body()?.Data!!.ProductCustomerData!!.Id.toString())
+
+                    validateAccountListener?.onSuccess(response.body()?.Data!!.Token.toString())
                 }else{
                     validateAccountListener?.onSuccess("")
                 }

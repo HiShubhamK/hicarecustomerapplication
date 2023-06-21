@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityPaymentBinding
@@ -47,10 +48,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         serviceType=intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
 
-//
 //        Toast.makeText(
 //            this,
-//            "payment: " + payment + "  " + "orderno: " + order_no,
+//            "service: " + service + "  " + "serviceType: " + serviceType,
 //            Toast.LENGTH_SHORT
 //        ).show()
 
@@ -94,7 +94,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("Account_Id", accountId)
         notes.put("InvoiceNo", "")
         notes.put("OrderNo", orderNo)
-        notes.put("Service", "pest")
+        notes.put("Service", service)
         notes.put("OrderValue", service)
         notes.put("OrderValueAfterDiscount", orderValue)
         notes.put("ETDiscount", 5)
@@ -124,13 +124,45 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
         var data = HashMap<String, Any>()
+
+        orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
+            if(it.isSuccess==true){
+                binding.imgOffer.visibility= View.VISIBLE
+                binding.txtpayment.visibility=View.VISIBLE
+                binding.imgOffererror.visibility=View.GONE
+
+            }else{
+
+                binding.imgOffer.visibility= View.GONE
+                binding.imgOffererror.visibility=View.VISIBLE
+                binding.txtpayment.visibility=View.VISIBLE
+                binding.txtpayment.text="Payment Failed"
+
+            }
+        })
+
         data["razorpay_payment_id"] = response?.paymentId.toString()
         data["razorpay_order_id"] = order_no
         data["razorpay_signature"] = response?.signature.toString()
+
         orderDetailsViewModel.saveAppPaymentDetails(data)
-        binding.imgOffer.visibility= View.VISIBLE
-        binding.txtpayment.visibility=View.VISIBLE
-        binding.imgOffererror.visibility=View.GONE
+
+
+//        orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
+//            if(it.isSuccess==true){
+//                binding.imgOffer.visibility= View.VISIBLE
+//                binding.txtpayment.visibility=View.VISIBLE
+//                binding.imgOffererror.visibility=View.GONE
+//
+//            }else{
+//
+//                binding.imgOffer.visibility= View.GONE
+//                binding.imgOffererror.visibility=View.VISIBLE
+//                binding.txtpayment.visibility=View.VISIBLE
+//                binding.txtpayment.text="Payment Failed"
+//
+//            }
+//        })
 
         Handler(Looper.getMainLooper()).postDelayed({
             onBackPressed()

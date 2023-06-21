@@ -82,9 +82,9 @@ class AccountFragment : Fragment() {
         }
 
         binding.terms.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TermsAndConditionFragment.newInstance())
-                .addToBackStack("AccountFragment").commit()
+            val intent = Intent(requireContext(), TermsAndConditionFragment::class.java)
+            startActivity(intent)
+
         }
 
         binding.signOut.setOnClickListener {
