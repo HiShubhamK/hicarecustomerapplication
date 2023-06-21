@@ -3,8 +3,10 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityProductDetailBinding
@@ -24,13 +26,18 @@ class ProductDetailActivity : AppCompatActivity() {
         binding= ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent= intent
-        productid = intent.getStringExtra("ORDER_NO").toString()
+        productid = intent.getStringExtra("productid").toString()
 
         customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 
+//        viewProductModel.getProductDetails(productid!!.toInt(), "400601", 10)
 
-        viewProductModel.getProductDetails(productid!!, pincode!!, customerid!!.toInt())
+        viewProductModel.producDetailsResponse.observe(this, Observer {
+            Toast.makeText(this,it.IsSuccess.toString(),Toast.LENGTH_LONG).show()
+        })
+
+        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
     }
 }

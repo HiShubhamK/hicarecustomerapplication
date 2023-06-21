@@ -115,7 +115,7 @@ interface IRetrofit {
     fun getProductlist(@Query("pincode") pincode: String):Call<ProductListResponse>
 
     @GET("Product/GetProductDetailById")
-    fun getProductlistbyId(@Query("productId") productId: String,
+    fun getProductlistbyId(@Query("productId") productId: Int,
                            @Query("pincode") pincode: String,
                            @Query("userId") userId: Int):Call<ProducDetailsResponse>
 
