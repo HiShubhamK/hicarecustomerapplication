@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Intent
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.LayoutProductlistBinding
+import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.squareup.picasso.Picasso
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
     var productlist = mutableListOf<ProductListResponseData>()
+    lateinit var requireActivity:FragmentActivity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
 
@@ -35,13 +38,19 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
 
             if (productlists.Discount!=0) {
-                holder.binding.txtdealodday.text = "\u20B9" + productlists.Discount.toString()
-                holder.binding.txtprice.text = "\u20B9" + productlists.DiscountedPrice.toString()
+                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
+                holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
                 holder.binding.txtpriceline.text = "M.R.P : "+"\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             } else {
                 holder.binding.txtprice.text = "\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.visibility= View.GONE
+            }
+
+            holder.itemView.setOnClickListener {
+                val intent= Intent(requireActivity,ProductDetailActivity::class.java)
+                intent.putExtra("productid",productlists.ProductId)
+                requireActivity.startActivity(intent)
             }
 
         }else{
@@ -54,6 +63,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
     }
 
     fun setProductList(productlist: List<ProductListResponseData>?, requireActivity: FragmentActivity) {
+        this.requireActivity=requireActivity
         if (productlist != null) {
             this.productlist = productlist.toMutableList()
             notifyDataSetChanged()

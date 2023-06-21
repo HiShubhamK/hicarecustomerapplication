@@ -2,10 +2,7 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ab.hicareservices.data.model.product.CustomerAddress
-import com.ab.hicareservices.data.model.product.CustomerLoginInfo
-import com.ab.hicareservices.data.model.product.ProductListResponse
-import com.ab.hicareservices.data.model.product.ProductListResponseData
+import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.repository.MainRepository
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,7 +14,7 @@ class ProductViewModel: ViewModel() {
     val cutomeraddress= MutableLiveData<CustomerAddress>()
     val productlist= MutableLiveData<List<ProductListResponseData>>()
     val errorMessage = MutableLiveData<String>()
-
+    val producDetailsResponse=MutableLiveData<ProducDetailsResponse>()
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
         response.enqueue(object : Callback<CustomerLoginInfo> {
@@ -52,6 +49,20 @@ class ProductViewModel: ViewModel() {
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
             }
+        })
+    }
+
+    fun getProductDetails(productid:String,pincode: String,customerid: Int){
+        val response=repository.getProductDetails(productid,pincode,customerid)
+        response.enqueue(object  : Callback<ProducDetailsResponse>{
+            override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
+                producDetailsResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ProducDetailsResponse>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
+            }
+
         })
     }
 
