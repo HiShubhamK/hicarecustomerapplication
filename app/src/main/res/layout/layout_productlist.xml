@@ -49,9 +49,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:indeterminateTint="@color/md_yellow_50"
                     android:max="5"
                     android:scaleX=".8"
                     android:scaleY=".8"
+                    android:progressBackgroundTint="@color/md_yellow_A700"
                     android:isIndicator="true"
                     android:transformPivotX="0dp"
                     android:transformPivotY="10dp" />
@@ -130,10 +132,12 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnaddtocart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add TO CART"
+                    android:text="Add to Cart"
                     android:textSize="14sp"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorAccent"

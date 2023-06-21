@@ -49,8 +49,6 @@ class ProductFragment : Fragment() {
         customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
-        Toast.makeText(requireActivity(),"Customerid"+customerid +"  "+ "pincode"+ pincode,Toast.LENGTH_LONG).show()
-
         if(pincode!=null){
               getProductslist(pincode!!)
         }else{

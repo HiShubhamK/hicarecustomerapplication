@@ -47,9 +47,13 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.txtpriceline.visibility= View.GONE
             }
 
+            holder.binding.btnaddtocart.setOnClickListener {
+
+            }
+
             holder.itemView.setOnClickListener {
                 val intent= Intent(requireActivity,ProductDetailActivity::class.java)
-                intent.putExtra("productid",productlists.ProductId)
+                intent.putExtra("productid",productlists.ProductId.toString())
                 requireActivity.startActivity(intent)
             }
 

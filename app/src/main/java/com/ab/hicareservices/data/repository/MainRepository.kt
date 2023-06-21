@@ -35,6 +35,6 @@ class MainRepository {
     fun getcustomerloginid(mobileNo: String) = retrofitProduct.getcustomerid(mobileNo)
     fun getcustomerAddress(customerid: Int) = retrofitProduct.getcustomerAddress(customerid)
     fun getproductlist(pincoode:String) = retrofitProduct.getProductlist(pincoode)
-    fun getProductDetails(productid:String,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
+    fun getProductDetails(productid:Int,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
 
 }

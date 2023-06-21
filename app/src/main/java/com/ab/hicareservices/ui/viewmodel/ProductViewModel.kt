@@ -52,7 +52,7 @@ class ProductViewModel: ViewModel() {
         })
     }
 
-    fun getProductDetails(productid:String,pincode: String,customerid: Int){
+    fun getProductDetails(productid:Int,pincode: String,customerid: Int){
         val response=repository.getProductDetails(productid,pincode,customerid)
         response.enqueue(object  : Callback<ProducDetailsResponse>{
             override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
