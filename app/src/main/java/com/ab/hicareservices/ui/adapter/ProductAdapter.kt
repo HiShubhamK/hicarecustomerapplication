@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.LayoutProductlistBinding
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.squareup.picasso.Picasso
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
     var productlist = mutableListOf<ProductListResponseData>()
     lateinit var requireActivity:FragmentActivity
+    lateinit var viewProductModel: ProductViewModel
+//    private val viewProductModel: ProductViewModel by viewModels()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
 
@@ -35,8 +37,6 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
 
-
-
             if (productlists.Discount!=0) {
                 holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
@@ -48,7 +48,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             holder.binding.btnaddtocart.setOnClickListener {
-
+                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
             }
 
             holder.itemView.setOnClickListener {
@@ -66,8 +66,13 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
         return productlist.size
     }
 
-    fun setProductList(productlist: List<ProductListResponseData>?, requireActivity: FragmentActivity) {
+    fun setProductList(
+        productlist: List<ProductListResponseData>?,
+        requireActivity: FragmentActivity,
+        viewProductModel: ProductViewModel
+    ) {
         this.requireActivity=requireActivity
+        this.viewProductModel=viewProductModel
         if (productlist != null) {
             this.productlist = productlist.toMutableList()
             notifyDataSetChanged()

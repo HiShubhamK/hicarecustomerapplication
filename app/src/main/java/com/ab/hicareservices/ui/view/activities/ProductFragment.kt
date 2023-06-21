@@ -68,7 +68,7 @@ class ProductFragment : Fragment() {
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
 
-            mAdapter.setProductList(it, requireActivity())
+            mAdapter.setProductList(it, requireActivity(),viewProductModel)
 
         })
 
