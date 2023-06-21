@@ -6,23 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityUpcomingServicesBinding
-import com.ab.hicareservices.databinding.FragmentOrdersBinding
 import com.ab.hicareservices.databinding.FragmentProductBinding
-import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.ProductAdapter
-import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.utils.AppUtils2
-import okio.ByteString.Companion.encode
 
 class ProductFragment : Fragment() {
 
@@ -58,14 +52,14 @@ class ProductFragment : Fragment() {
         Toast.makeText(requireActivity(),"Customerid"+customerid +"  "+ "pincode"+ pincode,Toast.LENGTH_LONG).show()
 
         if(pincode!=null){
-              getProductslist()
+              getProductslist(pincode!!)
         }else{
             showalertDailogbox()
         }
 
     }
 
-    private fun getProductslist() {
+    private fun getProductslist(pincode: String) {
 
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -73,17 +67,16 @@ class ProductFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
-            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
 
             mAdapter.setProductList(it, requireActivity())
 
         })
 
-        viewProductModel.getProductlist("400601")
+        viewProductModel.getProductlist(pincode)
 
+        viewProductModel.getProductlist("400601")
     }
 
     private fun showalertDailogbox() {
@@ -94,11 +87,23 @@ class ProductFragment : Fragment() {
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
-//        val edtname = promptsView.findViewById<View>(R.id.edtname) as EditText
-//
-//        alertDialog.setCancelable(false)
-
+        val edtpincode = promptsView.findViewById<View>(R.id.edtpincode) as EditText
+        val button=promptsView.findViewById<View>(R.id.btnpincode) as Button
         alertDialog.show()
+        alertDialog.setCancelable(false)
+
+        button.setOnClickListener {
+
+            if(edtpincode.text.trim().toString().equals("")){
+                Toast.makeText(requireActivity(),"Please enter pincode",Toast.LENGTH_LONG).show()
+            }else if(edtpincode.text.trim().toString().equals("000000")){
+                Toast.makeText(requireActivity(),"Please enter correct pincode",Toast.LENGTH_LONG).show()
+            }else{
+                var pincode=edtpincode.text.trim().toString()
+                alertDialog.dismiss()
+                getProductslist(pincode)
+            }
+        }
     }
 
     companion object {

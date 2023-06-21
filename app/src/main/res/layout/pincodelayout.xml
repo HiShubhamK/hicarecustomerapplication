@@ -93,7 +93,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnlead"
+            android:id="@+id/btnpincode"
             android:layout_width="match_parent"
             android:elevation="10dp"
             android:layout_height="55dp"
