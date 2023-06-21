@@ -20,6 +20,7 @@ import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
 import com.ab.hicareservices.data.model.product.CustomerAddress
 import com.ab.hicareservices.data.model.product.CustomerLoginInfo
+import com.ab.hicareservices.data.model.product.ProducDetailsResponse
 import com.ab.hicareservices.data.model.product.ProductListResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
@@ -112,5 +113,10 @@ interface IRetrofit {
 
     @GET("Product/GetProductListByPincode")
     fun getProductlist(@Query("pincode") pincode: String):Call<ProductListResponse>
+
+    @GET("Product/GetProductDetailById")
+    fun getProductlistbyId(@Query("productId") productId: String,
+                           @Query("pincode") pincode: String,
+                           @Query("userId") userId: Int):Call<ProducDetailsResponse>
 
 }
