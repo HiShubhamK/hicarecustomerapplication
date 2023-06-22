@@ -72,7 +72,7 @@ class ProductFragment : Fragment() {
 
         })
 
-        viewProductModel.getProductlist(pincode)
+//        viewProductModel.getProductlist(pincode)
 
         viewProductModel.getProductlist("400601")
     }

@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -18,11 +19,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
@@ -43,6 +54,8 @@ import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class AddComplaintsActivity : AppCompatActivity() {
 
@@ -65,6 +78,12 @@ class AddComplaintsActivity : AppCompatActivity() {
     private var bitmap: Bitmap? = null
     private var selectedImagePath = ""
 
+    //camera init
+    private var imageCapture: ImageCapture? = null
+    private lateinit var outputDirectory: File
+    private lateinit var cameraExecutor: ExecutorService
+    private lateinit var viewFinder: PreviewView
+
     var REQUEST_CODE = 1234
     private lateinit var imageuri1: Uri
     private lateinit var imageuri2: Uri
@@ -76,34 +95,20 @@ class AddComplaintsActivity : AppCompatActivity() {
         binding = ActivityAddComplaintsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        viewFinder = findViewById<PreviewView>(R.id.viewFinder)
+
 
         val intent = intent
         orderNo = intent.getStringExtra("orderNo").toString()
         getServiceType = intent.getStringExtra("serviceType").toString()
 
         service_url_image = intent.getStringExtra("service_url_image").toString()
-        captureby = intent.getStringExtra("captureby").toString()
+//        captureby = intent.getStringExtra("captureby").toString()
 
         val extrass = getIntent().extras
 
 
-        if (captureby.equals("Image1")) {
-            imageuri1 = Uri.parse(extrass!!.getString("imageUri"))
-            if (imageuri1 != null) {
-                setCaptureImage(imageuri1, captureby)
-            }
-        } else if (captureby.equals("Image2")) {
-            imageuri2 = Uri.parse(extrass!!.getString("imageUri2"))
-            if (imageuri2 != null) {
-                setCaptureImage(imageuri2, captureby)
-            }
-        } else if (captureby.equals("Image3")) {
-            imageuri3 = Uri.parse(extrass!!.getString("imageUri3"))
-            if (imageuri3 != null) {
-                setCaptureImage(imageuri3, captureby)
-            }
 
-        }
         arraylistImages = ArrayList()
         val extras = getIntent().extras
         if (orderNo != "") {
@@ -118,29 +123,29 @@ class AddComplaintsActivity : AppCompatActivity() {
         val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
 
 
-        if (img1 != null && !img1.equals("")) {
-            binding.lnrUpload.visibility = View.GONE
-            binding.lnrImage.visibility = View.VISIBLE
-            Picasso.get().load(img1).into(binding.imgUploadedCheque)
-        } else {
-            binding.relPhoto.visibility = View.VISIBLE
-        }
+//        if (img1 != null && !img1.equals("")) {
+//            binding.lnrUpload.visibility = View.GONE
+//            binding.lnrImage.visibility = View.VISIBLE
+//            Picasso.get().load(img1).into(binding.imgUploadedCheque)
+//        } else {
+//            binding.relPhoto.visibility = View.VISIBLE
+//        }
 
 
         val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
 
 //        Picasso.get().load(img2).into(binding.imgUploadedCheque2)
 
-        if (img2 != null && !img2.equals("")) {
-            binding.lnrUpload2.visibility = View.GONE
-            binding.lnrImage2.visibility = View.VISIBLE
-            Picasso.get().load(img2).into(binding.imgUploadedCheque2)
-        } else {
-            binding.relPhoto2.visibility = View.VISIBLE
-        }
+//        if (img2 != null && !img2.equals("")) {
+//            binding.lnrUpload2.visibility = View.GONE
+//            binding.lnrImage2.visibility = View.VISIBLE
+//            Picasso.get().load(img2).into(binding.imgUploadedCheque2)
+//        } else {
+//            binding.relPhoto2.visibility = View.VISIBLE
+//        }
 
-        arraylistImages.add(img1)
-        arraylistImages.add(img2)
+//        arraylistImages.add(img1)
+//        arraylistImages.add(img2)
 //        arraylistImages.add(img3)
 //        arraylistImages.add(img4)
 //        arraylistImages.add(img5)
@@ -217,30 +222,107 @@ class AddComplaintsActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.lnrUpload.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            intent.putExtra("orderNo", orderNo)
-            intent.putExtra("getServiceType", getServiceType)
-            intent.putExtra("captureby", "Image1")
-            startActivity(intent)
-            finish()
+//            val intent = Intent(this, CameraActivity::class.java)
+//            intent.putExtra("orderNo", orderNo)
+//            intent.putExtra("getServiceType", getServiceType)
+//            intent.putExtra("captureby", "Image1")
+//            startActivity(intent)
+//            finish()
+            captureby = "img1"
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                )
+            }
         }
         binding.lnrUpload2.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            intent.putExtra("orderNo", orderNo)
-            intent.putExtra("getServiceType", getServiceType)
-            intent.putExtra("captureby", "Image2")
-            startActivity(intent)
-            finish()
+            captureby = "img2"
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                )
+            }
+//            val intent = Intent(this, CameraActivity::class.java)
+//            intent.putExtra("orderNo", orderNo)
+//            intent.putExtra("getServiceType", getServiceType)
+//            intent.putExtra("captureby", "Image2")
+//            startActivity(intent)
+//            finish()
         }
         binding.lnrUpload3.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            intent.putExtra("orderNo", orderNo)
-            intent.putExtra("getServiceType", getServiceType)
-            intent.putExtra("captureby", "Image3")
-            startActivity(intent)
-            finish()
+//            val intent = Intent(this, CameraActivity::class.java)
+//            intent.putExtra("orderNo", orderNo)
+//            intent.putExtra("getServiceType", getServiceType)
+//            intent.putExtra("captureby", "Image3")
+//            startActivity(intent)
+//            finish()
+            captureby = "img3"
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                )
+            }
+        }
+        binding.lnrUpload4.setOnClickListener {
+//            val intent = Intent(this, CameraActivity::class.java)
+//            intent.putExtra("orderNo", orderNo)
+//            intent.putExtra("getServiceType", getServiceType)
+//            intent.putExtra("captureby", "Image3")
+//            startActivity(intent)
+//            finish()
+            captureby = "img4"
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                )
+            }
+        }
+        binding.lnrUpload5.setOnClickListener {
+//            val intent = Intent(this, CameraActivity::class.java)
+//            intent.putExtra("orderNo", orderNo)
+//            intent.putExtra("getServiceType", getServiceType)
+//            intent.putExtra("captureby", "Image3")
+//            startActivity(intent)
+//            finish()
+            captureby = "img5"
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                )
+            }
         }
 
+
+        // set on click listener for the button of capture photo
+        // it calls a method which is implemented below
+        findViewById<Button>(R.id.camera_capture_button).setOnClickListener {
+
+            binding.scrollView2.visibility = View.VISIBLE
+            binding.layoutCamera.visibility = View.GONE
+            takePhoto(captureby)
+        }
+        outputDirectory = getOutputDirectory()
+        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private fun getSubTypeFromType() {
@@ -341,18 +423,157 @@ class AddComplaintsActivity : AppCompatActivity() {
             selectedImage.compress(Bitmap.CompressFormat.JPEG, 50, baos)
             val b = baos.toByteArray()
             val encodedString: String = Base64.encodeToString(b, Base64.DEFAULT)
-            binding.progressBar.visibility = View.VISIBLE
+//            binding.progressBar.visibility = View.VISIBLE
 
-            if (captureby.equals("Image1")) {
-                uploadattachment(encodedString, captureby)
+            Log.e("TAG", "Bse64Str: " + encodedString)
+//            if (captureby.equals("Image1")) {
 
-            } else if (captureby == "Image2") {
-                uploadattachment(encodedString, captureby)
+            val hashMap = HashMap<String, Any>()
 
-            } else if (captureby == "Image3") {
-                uploadattachment(encodedString, captureby)
 
+            hashMap["FileName"] = "complaint1"
+            hashMap["FileExtension"] = ".jpeg"
+            hashMap["FileData"] = encodedString
+
+
+            uploadAttachmentViewModel.attachmenturl.observe(this, {
+                binding.scrollView2.visibility = View.VISIBLE
+                binding.layoutCamera.visibility = View.GONE
+                try {
+                    if (it != "") {
+
+//                    binding.lnrImage.visibility = View.VISIBLE
+//                    binding.lnrUpload.visibi lity = View.GONE
+//                    Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
+//                    SharedPreferenceUtil.setData(this, captureby, it)
+//                    arraylistImages.add(it)
+//                    if (it != null || it != "") {
+//                        Picasso.get().load(it).into(binding.imgUploadedCheque)
+//                    }
+//                    if (arraylistImages.isNotEmpty()) {
+
+                        if (captureby == "img2") {
+//
+
+
+                            if (arraylistImages.isNotEmpty()) {
+                                binding.lnrUpload2.visibility = View.GONE
+                                binding.lnrImage2.visibility = View.VISIBLE
+                                Picasso.get().load(arraylistImages[1].toString())
+                                    .into(binding.imgUploadedCheque2)
+                            } else {
+                                binding.lnrUpload2.visibility = View.GONE
+                                binding.lnrImage2.visibility = View.VISIBLE
+                                arraylistImages.add(1,it)
+                                Picasso.get().load(arraylistImages[1].toString()).into(binding.imgUploadedCheque2)
+
+                            }
+                        } else if (captureby == "img1") {
+//
+                            if (arraylistImages.isNotEmpty()) {
+                                binding.lnrUpload.visibility = View.GONE
+                                binding.lnrImage.visibility = View.VISIBLE
+                                Picasso.get().load(arraylistImages[0].toString())
+                                    .into(binding.imgUploadedCheque2)
+
+                            } else {
+                                if (it != null && !it.equals("")) {
+                                    binding.lnrUpload.visibility = View.GONE
+                                    binding.lnrImage.visibility = View.VISIBLE
+                                    arraylistImages.add(0,it)
+                                    Picasso.get().load(arraylistImages[0].toString()).into(binding.imgUploadedCheque)
+
+                                }
+                            }
+
+                        } else if (captureby == "img3") {
+                            if (arraylistImages.isNotEmpty()){
+                                binding.lnrUpload3.visibility = View.GONE
+                                binding.lnrImage3.visibility = View.VISIBLE
+                                Picasso.get().load(arraylistImages[2].toString()).into(binding.imgUploadedCheque3)
+                            }else{
+                                if (it != null && !it.equals("")) {
+                                    binding.lnrUpload3.visibility = View.GONE
+                                    binding.lnrImage3.visibility = View.VISIBLE
+                                    arraylistImages.add(2,it)
+                                    Picasso.get().load(arraylistImages[2].toString()).into(binding.imgUploadedCheque3)
+
+                                }
+                            }
+
+
+                        } else if (captureby == "img4") {
+                            if (arraylistImages.isNotEmpty()){
+                                binding.lnrUpload4.visibility = View.GONE
+                                binding.lnrImage4.visibility = View.VISIBLE
+                                Picasso.get().load(arraylistImages[3].toString()).into(binding.imgUploadedCheque4)
+                            }else{
+                                if (it != null && !it.equals("")) {
+                                    binding.lnrUpload4.visibility = View.GONE
+                                    binding.lnrImage4.visibility = View.VISIBLE
+                                    arraylistImages.add(it)
+                                    Picasso.get().load(arraylistImages[3].toString()).into(binding.imgUploadedCheque4)
+
+                                }
+                            }
+
+
+                        }else if (captureby == "img5") {
+                            if (arraylistImages.isNotEmpty()){
+                                binding.lnrUpload5.visibility = View.GONE
+                                binding.lnrImage5.visibility = View.VISIBLE
+                                Picasso.get().load(arraylistImages[4].toString()).into(binding.imgUploadedCheque5)
+                            }else{
+                                if (it != null && !it.equals("")) {
+                                    binding.lnrUpload5.visibility = View.GONE
+                                    binding.lnrImage5.visibility = View.VISIBLE
+                                    arraylistImages.add(it)
+
+                                    Picasso.get().load(arraylistImages[4].toString()).into(binding.imgUploadedCheque5)
+
+                                }
+                            }
+
+
+                        }
+                    }
+
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+
+
+//                }
+
+            })
+
+
+            uploadAttachmentViewModel.UploadAttachment(hashMap)
+            binding.imageCancel.setOnClickListener {
+                arraylistImages.removeAt(0)
+                binding.lnrImage.visibility = View.GONE
+                binding.lnrUpload.visibility = View.VISIBLE
             }
+            binding.imageCancel2.setOnClickListener {
+                arraylistImages.removeAt(1)
+                binding.lnrImage2.visibility = View.GONE
+                binding.lnrUpload2.visibility = View.VISIBLE
+            }
+            binding.imageCancel3.setOnClickListener {
+                arraylistImages.removeAt(2)
+                binding.lnrImage3.visibility = View.GONE
+                binding.lnrUpload3.visibility = View.VISIBLE
+            }
+
+//            uploadattachment(encodedString, captureby)
+
+//            } else if (captureby == "Image2") {
+//                uploadattachment(encodedString, captureby)
+//
+//            } else if (captureby == "Image3") {
+//                uploadattachment(encodedString, captureby)
+//
+//            }
 
         } catch (e: IOException) {
             e.printStackTrace()
@@ -427,35 +648,17 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         if (captureby.equals("Image1")) {
             val hashMap = HashMap<String, Any>()
+
+
+
             hashMap["FileName"] = "complaint1"
             hashMap["FileExtension"] = ".jpeg"
             hashMap["FileData"] = imagebase64
 
 
             uploadAttachmentViewModel.UploadAttachment(hashMap)
-            uploadAttachmentViewModel.attachmenturl.observe(this, {
-                if (it != "") {
-                    binding.lnrImage.visibility = View.VISIBLE
-                    binding.lnrUpload.visibility = View.GONE
-//                    Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
-                    SharedPreferenceUtil.setData(this, captureby, it)
-//                    arraylistImages.add(it)
-//                    if (it != null || it != "") {
-//                        Picasso.get().load(it).into(binding.imgUploadedCheque)
-//                    }
-                    Log.e("TAG", "imageArray:- " + arraylistImages.toString())
 
-                    binding.progressBar.visibility = View.GONE
 
-                }
-
-            })
-
-            binding.imageCancel.setOnClickListener {
-                arraylistImages.removeAt(0)
-                binding.lnrImage.visibility = View.GONE
-                binding.lnrUpload.visibility = View.VISIBLE
-            }
         } else if (captureby.equals("Image2")) {
             val hashMap = HashMap<String, Any>()
             hashMap["FileName"] = "complaint2"
@@ -784,20 +987,180 @@ class AddComplaintsActivity : AppCompatActivity() {
     }
 
 
+    private fun takePhoto(captureby: String) {
+        // Get a stable reference of the
+        // modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+        // Create time-stamped output file to hold the image
+        val photoFile = File(
+            outputDirectory,
+            SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis()) + ".jpg"
+        )
+
+        // Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+        // Set up image capture listener,
+        // which is triggered after photo has
+        // been taken
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val savedUri = Uri.fromFile(photoFile)
+
+                    // set the saved uri to the image view
+                    findViewById<ImageView>(R.id.iv_capture).visibility = View.VISIBLE
+//                    findViewById<ImageView>(R.id.iv_capture).setImageURI(savedUri)
+
+
+                    Log.e("TAG", "UriData:- " + savedUri.toString())
+
+                    goBackToPreview(savedUri, captureby)
+
+
+//                    val msg = "Photo capture succeeded: $savedUri"
+//                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+//                    Log.d(TAG, msg)
+                }
+            })
+
+
+    }
+
+    private fun goBackToPreview(savedUri: Uri, capturebyy: String) {
+        Log.e("TAG", "UriData:- " + savedUri.toString())
+
+//        if (captureby == "Image2") {
+//            val intent = Intent(this, AddComplaintsActivity::class.java)
+//            intent.putExtra("imageUri2",savedUri.toString())
+//            intent.putExtra("orderNo",orderNo)
+//            intent.putExtra("serviceType",getServiceType)
+//            intent.putExtra("captureby","Image2")
+//            startActivity(intent)
+//            finish()
+
+
+        setCaptureImage(savedUri, capturebyy)
+
+
+//        } else if (captureby == "Image1") {
+//            val intent = Intent(this, AddComplaintsActivity::class.java)
+//            intent.putExtra("imageUri",savedUri.toString())
+//            intent.putExtra("orderNo",orderNo)
+//            intent.putExtra("serviceType",getServiceType)
+//            intent.putExtra("captureby","Image1")
+//            startActivity(intent)
+//            finish()
+
+
+//            setCaptureImage(savedUri, captureby)
+
+//            binding.lnrUpload.visibility = View.GONE
+//            binding.lnrImage.visibility = View.VISIBLE
+//            Picasso.get().load(it.toString()).into(binding.imgUploadedCheque)
+//            arraylistImages.add(it)
+//        } else if (captureby == "Image3") {
+//
+//            setCaptureImage(savedUri, captureby)
+//
+//
+//
+//
+//        }
+
+
+    }
+
+    private fun startCamera() {
+        binding.scrollView2.visibility = View.GONE
+        binding.layoutCamera.visibility = View.VISIBLE
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
+        cameraProviderFuture.addListener(Runnable {
+
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
+            // Preview
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(viewFinder.surfaceProvider)
+                }
+
+            imageCapture = ImageCapture.Builder().build()
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture
+                )
+
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    // creates a folder inside internal storage
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
+    }
+
+    // checks the camera permission
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE) {
-//            if (TmsUtils.mPermissions) {
-//                TmsUtils.init(this, REQUEST_CODE)
-//            } else {
-//                TmsUtils.verifyPermissions(this, REQUEST_CODE)
-//            }
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            // If all permissions granted , then start Camera
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                // If permissions are not granted,
+                // present a toast to notify the user that
+                // the permissions were not granted.
+                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT)
+                    .show()
+                finish()
+            }
         }
     }
+
+    companion object {
+        private const val TAG = "CameraXGFG"
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val REQUEST_CODE_PERMISSIONS = 20
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraExecutor.shutdown()
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -805,10 +1168,6 @@ class AddComplaintsActivity : AppCompatActivity() {
         getComplaintReason("Pest")
 
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 
@@ -822,4 +1181,11 @@ class AddComplaintsActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK){
+
+
+        }
+    }
 }

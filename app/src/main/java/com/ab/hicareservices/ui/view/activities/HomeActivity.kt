@@ -179,11 +179,16 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     private fun getLeadMethod() {
-        viewModels.spinnerList.observe(this, Observer {
-            datalist.addAll(it)
-        })
+        try {
+            viewModels.spinnerList.observe(this, Observer {
+                datalist.addAll(it)
+            })
 
-        viewModels.getleaderspinner("pest")
+            viewModels.getleaderspinner("pest")
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
 
@@ -379,6 +384,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         permissions: Array<String?>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == requestCall) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall()
