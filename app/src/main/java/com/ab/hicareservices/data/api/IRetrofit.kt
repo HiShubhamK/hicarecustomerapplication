@@ -18,10 +18,7 @@ import com.ab.hicareservices.data.model.orders.OrdersResponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
-import com.ab.hicareservices.data.model.product.CustomerAddress
-import com.ab.hicareservices.data.model.product.CustomerLoginInfo
-import com.ab.hicareservices.data.model.product.ProducDetailsResponse
-import com.ab.hicareservices.data.model.product.ProductListResponse
+import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
@@ -118,5 +115,12 @@ interface IRetrofit {
     fun getProductlistbyId(@Query("productId") productId: Int,
                            @Query("pincode") pincode: String,
                            @Query("userId") userId: Int):Call<ProducDetailsResponse>
+
+    @GET("Cart/AddProductInCart")
+    fun getAddProductInCart(@Query("quantity") quantity: Int,
+                           @Query("productId") productId: Int,
+                           @Query("userId") userId: Int):Call<AddProductInCart>
+
+
 
 }
