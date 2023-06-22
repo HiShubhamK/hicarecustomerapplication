@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
@@ -12,12 +13,15 @@ import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
+import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.view.activities.UpcomingServicesActivity
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
 
-class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : RecyclerView.Adapter<DashboardMenuAdapter.MainViewHolder>() {
+class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
+    RecyclerView.Adapter<DashboardMenuAdapter.MainViewHolder>() {
 
     var service = mutableListOf<MenuData>()
 
@@ -40,61 +44,68 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
         try {
             val service = service[position]
             holder.binding.tvOrderName.text = service.Title
-            if (service.IsIcon==true){
-                holder.binding.imgLogo2.visibility=View.VISIBLE
-                holder.binding.imgLogo.visibility=View.GONE
-                Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo2)
+            if (service.IsIcon == true) {
+                holder.binding.imgLogo2.visibility = View.VISIBLE
+                holder.binding.imgLogo.visibility = View.GONE
+                Picasso.get().load(service.ImageUrl).into(holder.binding.imgLogo2)
 
-            }else{
-                holder.binding.imgLogo2.visibility=View.GONE
-                holder.binding.imgLogo.visibility=View.VISIBLE
-                Picasso.get().load(service.ImageUrl).into( holder.binding.imgLogo)
+            } else {
+                holder.binding.imgLogo2.visibility = View.GONE
+                holder.binding.imgLogo.visibility = View.VISIBLE
+                Picasso.get().load(service.ImageUrl).into(holder.binding.imgLogo)
 
             }
-            holder.itemView.setOnClickListener{
-                if(service.IsExternalAppBrowserLink==true){
-                    fragmentActivity!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(service.PageLink)))
-                }else if (service.IsAppLink==true){
-                    if (service.Title.equals("My Orders")){
-                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("HomeFragment").commit()
+            holder.itemView.setOnClickListener {
+                if (service.IsExternalAppBrowserLink == true) {
+                    fragmentActivity!!.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(service.PageLink)
+                        )
+                    )
+                } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
+                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, OrdersFragment.newInstance())
+                        .addToBackStack("HomeFragment").commit()
 
-                    }else if (service.Title.equals("Complaints")){
-                        val intent=Intent(fragmentActivity,ComplaintsActivity::class.java)
-                        fragmentActivity!!.startActivity(intent)
+                } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
+                    val intent = Intent(fragmentActivity, ComplaintsActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("HomeFragment").commit()
-                    }else if (service.Title.equals("Renewals")){
+                } else if (service.Title.equals("Renewals") && service.IsAppLink == true) {
 
 
-                    }else if (service.Title.equals("Book an Inspection")){
+                } else if (service.Title.equals("Book an Inspection") && service.IsAppLink == true) {
 
-                        val intent=Intent(fragmentActivity,BookInspectionActivity::class.java)
-                        fragmentActivity!!.startActivity(intent)
-
-//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-//                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
-
-                    }else if (service.Title.equals("Upcoming Service")){
-
-                        val intent=Intent(fragmentActivity,UpcomingServicesActivity::class.java)
-                        fragmentActivity!!.startActivity(intent)
+                    val intent = Intent(fragmentActivity, BookInspectionActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
 
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
 
-                    }else if (service.Title.equals("Support")){
-                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
-                    }
-                }else if (service.IsInAppBrowserLink==true){
+                } else if (service.Title.equals("Upcoming Service") && service.IsAppLink == true) {
 
-                }else{
+                    val intent = Intent(fragmentActivity, UpcomingServicesActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
 
+//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
+
+                } else if (service.Title.equals("Support") && service.IsAppLink == true) {
+                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, SupportFragments.newInstance())
+                        .addToBackStack("AccountFragment").commit()
+                } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
+                    val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
+                    intent.putExtra("PageLink", service.PageLink)
+                    fragmentActivity!!.startActivity(intent)
+                } else {
+                    Toast.makeText(fragmentActivity, "Coming Soon!", Toast.LENGTH_SHORT).show()
                 }
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -104,7 +115,8 @@ class DashboardMenuAdapter(private val  fragmentActivity: FragmentActivity?) : R
         return service.size
     }
 
-    class MainViewHolder(val binding: DashboardMenuAdapterBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MainViewHolder(val binding: DashboardMenuAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
     }
 }

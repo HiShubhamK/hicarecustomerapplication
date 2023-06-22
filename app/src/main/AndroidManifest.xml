@@ -190,6 +190,7 @@
                     android:scheme="otpless" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.view.activities.InAppWebViewActivity" />
     </application>
 
 </manifest>

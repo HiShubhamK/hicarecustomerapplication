@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -29,6 +30,7 @@ import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -95,6 +97,9 @@ class SlotComplinceActivity : AppCompatActivity() {
 //            }, 1000)
 //
 //        })
+        binding.imgLogo.setOnClickListener{
+            onBackPressed()
+        }
         binding.ivCalender.setOnClickListener{
             val c = Calendar.getInstance()
             c.add(Calendar.DAY_OF_YEAR, 1)
@@ -130,11 +135,7 @@ class SlotComplinceActivity : AppCompatActivity() {
             dialog.show()
         }
     }
-    fun DatePicker.getDate(): Date {
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, dayOfMonth)
-        return calendar.time
-    }
+
 
     private fun getOrdersList(date: String) {
 
@@ -161,10 +162,18 @@ class SlotComplinceActivity : AppCompatActivity() {
                 Long,
                 ServiceType
             )
-            progressDialog.dismiss()
+            try {
+                if (AppUtils2.formatDateTime4(it[0].ScheduledDate.toString()).isNotEmpty()){
+                    binding.lnrAvailableSlot.visibility=View.VISIBLE
+                    binding.tvSelectedDateFrom.text=AppUtils2.formatDateTime4(it[0].ScheduledDate.toString())
+                    binding.tvSelectedDateTo.text=AppUtils2.formatDateTime4(it[7].ScheduledDate.toString())
+                    progressDialog.dismiss()
+                    binding.recyclerView.visibility = View.VISIBLE
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
 
-
-            binding.recyclerView.visibility = View.VISIBLE
 
         })
         Handler(Looper.getMainLooper()).postDelayed({
@@ -206,7 +215,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 viewModel.GetSlots(data)
                 viewModel.getSlotresponse.observe(this@SlotComplinceActivity, Observer {
 //                    Log.d(TAG, "onViewCreated: $it orders fragment")
-                    ShowBookingDialog(it)
+                    ShowBookingDialog(it,Service_Date)
 
                 })
 
@@ -231,7 +240,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 
     }
 
-    private fun ShowBookingDialog(slotData: Data) {
+    private fun ShowBookingDialog(slotData: Data, Servicedate: String) {
         val li = LayoutInflater.from(this)
         val promptsView = li.inflate(R.layout.reschedule_layout, null)
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
@@ -240,6 +249,8 @@ class SlotComplinceActivity : AppCompatActivity() {
         alertDialog.setCancelable(false)
         alertDialog.show()
         val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
+        val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
+        txtMonth.text=AppUtils2.formatDateTime4(Servicedate)
         val recycleWeeks: RecyclerView =
             promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
         val recycleSlots: RecyclerView =

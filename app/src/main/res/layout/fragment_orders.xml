@@ -195,6 +195,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        app:reverseLayout="true"
         android:background="#f6f6f6"
         android:visibility="gone"
         tools:listitem="@layout/layout_orders_adapter" />
