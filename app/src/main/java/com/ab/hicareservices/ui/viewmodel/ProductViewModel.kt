@@ -16,6 +16,7 @@ class ProductViewModel: ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val producDetailsResponse=MutableLiveData<ProducDetailsResponse>()
     val addtocart=MutableLiveData<AddProductInCart>()
+    val productcount = MutableLiveData<ProductCount>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -80,6 +81,19 @@ class ProductViewModel: ViewModel() {
                errorMessage.postValue("Something went to wrong")
             }
 
+        })
+    }
+
+    fun getProductCountInCar(userid:Int){
+        val response = repository.getProductCountInCar(userid)
+        response.enqueue(object : Callback<ProductCount>{
+            override fun onResponse(call: Call<ProductCount>, response: Response<ProductCount>) {
+                productcount.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ProductCount>, t: Throwable) {
+
+            }
         })
     }
 

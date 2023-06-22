@@ -122,5 +122,7 @@ interface IRetrofit {
                            @Query("userId") userId: Int):Call<AddProductInCart>
 
 
+    @GET("Cart/GetProductCountInCart")
+    fun getProductCountInCar(@Query("userId") userId: Int):Call<ProductCount>
 
 }

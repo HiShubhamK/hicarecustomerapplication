@@ -11,29 +11,36 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.ProductListResponseData
-import com.ab.hicareservices.databinding.LayoutProductlistBinding
+import com.ab.hicareservices.databinding.LayoutCartlistBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
-import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
+import com.ab.hicareservices.ui.view.activities.AddToCartActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.squareup.picasso.Picasso
 
-
-class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
+class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
     var productlist = mutableListOf<ProductListResponseData>()
-    lateinit var requireActivity:FragmentActivity
+    lateinit var requireActivity: FragmentActivity
     lateinit var viewProductModel: ProductViewModel
     private var onProductClickedHandler: OnProductClickedHandler? = null
+
+
+    class MainViewHolder(val binding: LayoutCartlistBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = LayoutProductlistBinding.inflate(inflater, parent, false)
+        val binding = LayoutCartlistBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
 
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        val count=0
+        var counts=1
+
         val productlists=productlist[position]
 
         if(productlists.IsStockAvailable==true) {
@@ -53,46 +60,47 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.txtpriceline.visibility= View.GONE
             }
 
-            holder.binding.btnaddtocart.setOnClickListener {
-                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt()
-//                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
-                )
-
-            }
-
-            holder.itemView.setOnClickListener {
-                val intent= Intent(requireActivity,ProductDetailActivity::class.java)
-                intent.putExtra("productid",productlists.ProductId.toString())
-                requireActivity.startActivity(intent)
-            }
-
         }else{
 
         }
+
+
+        holder.binding.imgadd.setOnClickListener {
+                counts=counts+1
+            holder.binding.textcount.text=counts.toString()
+        }
+
+        holder.binding.imgremove.setOnClickListener {
+            counts=counts-1
+            holder.binding.textcount.text=counts.toString()
+            if(counts==1){
+                holder.binding.imgremove.visibility=View.GONE
+                holder.binding.imgdelete.visibility=View.VISIBLE
+            }else{
+                holder.binding.imgdelete.visibility=View.GONE
+            }
+        }
+
+        holder.binding.imgdelete.setOnClickListener {
+
+        }
+
     }
 
     override fun getItemCount(): Int {
         return productlist.size
     }
 
-    fun setProductList(
+    fun setCartList(
         productlist: List<ProductListResponseData>?,
-        requireActivity: FragmentActivity,
+        addToCartActivity: AddToCartActivity,
         viewProductModel: ProductViewModel
     ) {
-        this.requireActivity=requireActivity
-        this.viewProductModel=viewProductModel
+        this.requireActivity = addToCartActivity
+        this.viewProductModel = viewProductModel
         if (productlist != null) {
             this.productlist = productlist.toMutableList()
             notifyDataSetChanged()
         }
     }
-
-    fun setOnOrderItemClicked(l: OnProductClickedHandler) {
-        onProductClickedHandler = l
-    }
-
-    class MainViewHolder(val binding: LayoutProductlistBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
 }

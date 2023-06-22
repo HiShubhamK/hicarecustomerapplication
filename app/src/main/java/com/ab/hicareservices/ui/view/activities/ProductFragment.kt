@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.ui.adapter.ProductAdapter
+import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
+import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 
 class ProductFragment : Fragment() {
@@ -49,12 +52,28 @@ class ProductFragment : Fragment() {
         customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
+
+        viewProductModel.productcount.observe(requireActivity(), Observer {
+            if (it.IsSuccess==true){
+                binding.cartmenu.visibility=View.VISIBLE
+                binding.appCompatImageViewd.text=it.Data.toString()
+            }else{
+                binding.cartmenu.visibility=View.GONE
+            }
+        })
+
+        viewProductModel.getProductCountInCar(20)
+
         if(pincode!=null){
               getProductslist(pincode!!)
         }else{
             showalertDailogbox()
         }
 
+        binding.cartmenu.setOnClickListener{
+            val intent= Intent(requireActivity(),AddToCartActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getProductslist(pincode: String) {
@@ -70,6 +89,25 @@ class ProductFragment : Fragment() {
 
             mAdapter.setProductList(it, requireActivity(),viewProductModel)
 
+        })
+
+        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
+            override fun onProductClickedHandler(position: Int, productid: Int) {
+
+                viewProductModel.getAddProductInCart(1,productid,20)
+
+                viewProductModel.productcount.observe(requireActivity(), Observer {
+                    if (it.IsSuccess==true){
+                        binding.cartmenu.visibility=View.VISIBLE
+                        binding.appCompatImageViewd.text=it.Data.toString()
+                    }else{
+                        binding.cartmenu.visibility=View.GONE
+                    }
+                })
+
+                viewProductModel.getProductCountInCar(20)
+
+            }
         })
 
         viewProductModel.getProductlist(pincode)

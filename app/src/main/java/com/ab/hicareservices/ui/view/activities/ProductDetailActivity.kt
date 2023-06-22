@@ -34,7 +34,7 @@ class ProductDetailActivity : AppCompatActivity() {
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", 10)
 
         viewProductModel.producDetailsResponse.observe(this, Observer {
-            Toast.makeText(this,it.IsSuccess.toString(),Toast.LENGTH_LONG).show()
+            Toast.makeText(this,it.Data!!.ProductGallery.size,Toast.LENGTH_LONG).show()
         })
 
         viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())

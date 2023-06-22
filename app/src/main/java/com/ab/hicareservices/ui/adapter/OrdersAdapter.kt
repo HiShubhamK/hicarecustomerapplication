@@ -29,7 +29,6 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val binding = LayoutOrdersAdapterBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }

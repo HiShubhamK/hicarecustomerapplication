@@ -37,4 +37,5 @@ class MainRepository {
     fun getproductlist(pincoode:String) = retrofitProduct.getProductlist(pincoode)
     fun getProductDetails(productid:Int,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
     fun getAddProductInCart(quantity:Int,productid: Int,userId:Int) = retrofitProduct.getAddProductInCart(quantity,productid,userId)
+    fun getProductCountInCar(userId: Int)=retrofitProduct.getProductCountInCar(userId)
 }
