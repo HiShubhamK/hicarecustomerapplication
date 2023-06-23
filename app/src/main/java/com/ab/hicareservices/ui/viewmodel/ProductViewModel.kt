@@ -17,6 +17,8 @@ class ProductViewModel: ViewModel() {
     val producDetailsResponse=MutableLiveData<ProducDetailsResponse>()
     val addtocart=MutableLiveData<AddProductInCart>()
     val productcount = MutableLiveData<ProductCount>()
+    val cartlist=MutableLiveData<List<CartlistResponseData>>()
+    val getsummarydata=MutableLiveData<GetCartSummaryData>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -94,6 +96,38 @@ class ProductViewModel: ViewModel() {
             override fun onFailure(call: Call<ProductCount>, t: Throwable) {
 
             }
+        })
+    }
+
+    fun getProductCartByUserId(userid: Int){
+        val response = repository.getProductCartByUserId(userid)
+        response.enqueue(object : Callback<CartlistResponse>{
+            override fun onResponse(call: Call<CartlistResponse>, response: Response<CartlistResponse>) {
+                cartlist.postValue(response.body()!!.Data)
+            }
+
+            override fun onFailure(call: Call<CartlistResponse>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
+            }
+        })
+    }
+
+    fun getCartSummary(userid: Int,pincode: String,vouchercode:String){
+        val response=repository.getCartSummary(userid,pincode,vouchercode)
+        response.enqueue(object : Callback<GetCartSummaryResponse>{
+            override fun onResponse(
+                call: Call<GetCartSummaryResponse>,
+                response: Response<GetCartSummaryResponse>
+            ) {
+                if(response.body()?.IsSuccess ==true){
+                    getsummarydata.postValue(response.body()!!.Data)
+                }
+            }
+
+            override fun onFailure(call: Call<GetCartSummaryResponse>, t: Throwable) {
+
+            }
+
         })
     }
 

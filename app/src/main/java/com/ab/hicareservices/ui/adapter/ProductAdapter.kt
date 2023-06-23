@@ -37,7 +37,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
         val productlists=productlist[position]
 
         if(productlists.IsStockAvailable==true) {
-
+            holder.binding.txtratingvalues.text=productlists.ProductRating.toString()
             Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
             holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
@@ -57,7 +57,6 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt()
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
                 )
-
             }
 
             holder.itemView.setOnClickListener {

@@ -2,17 +2,12 @@ package com.ab.hicareservices.ui.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityAddToCartBinding
-import com.ab.hicareservices.databinding.ActivityProductDetailBinding
 import com.ab.hicareservices.ui.adapter.CartAdapter
-import com.ab.hicareservices.ui.adapter.ProductAdapter
-import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 
 class AddToCartActivity : AppCompatActivity() {
@@ -34,7 +29,7 @@ class AddToCartActivity : AppCompatActivity() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-        viewProductModel.productlist.observe(this, Observer {
+        viewProductModel.cartlist.observe(this, Observer {
 
 
             mAdapter.setCartList(it, this,viewProductModel)
@@ -42,7 +37,9 @@ class AddToCartActivity : AppCompatActivity() {
         })
 
 
-        viewProductModel.getProductlist("400601")
+        viewProductModel.getProductCartByUserId(20)
+
+        viewProductModel.getCartSummary(20,"400601","")
 
     }
 }

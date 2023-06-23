@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +21,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgthumbnail"
                 android:layout_width="130dp"
-                android:layout_height="190dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp" />
 
@@ -41,23 +40,38 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="abcd"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
-
-                <androidx.appcompat.widget.AppCompatRatingBar
-                    android:id="@+id/ratingbar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:indeterminateTint="@color/md_yellow_50"
-                    android:max="5"
-                    android:scaleX=".8"
-                    android:scaleY=".8"
-                    android:progressBackgroundTint="@color/md_yellow_A700"
-                    android:isIndicator="true"
-                    android:transformPivotX="0dp"
-                    android:transformPivotY="10dp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtratingvalues"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_semibold"
+                        android:padding="5dp"
+                        android:text="4.8"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/ratingbar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/md_yellow_50"
+                        android:isIndicator="true"
+                        android:max="5"
+                        android:progressBackgroundTint="@color/md_yellow_A700"
+                        android:scaleX=".9"
+                        android:scaleY=".9"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="10dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
                     android:id="@+id/txtdealodday"
@@ -84,14 +98,14 @@
                         android:text="₹"
                         android:textSize="12sp" />
 
-
                     <TextView
                         android:id="@+id/txtprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_semibold"
                         android:text="abcd"
-                        android:textSize="20sp" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtpriceline"
@@ -161,24 +175,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorAccent">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Buy"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        />
-
-                </LinearLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

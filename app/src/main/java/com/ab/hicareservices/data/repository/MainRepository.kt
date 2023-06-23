@@ -10,7 +10,6 @@ class MainRepository {
     fun getOrders(mobileNO: String, type: String) = retrofitService.getOrders(mobileNO, type)
     fun getCustomerOrdersByMobileNo(mobileNo: String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo)
     fun getCustomerOrdersByMobileNo(mobileNo: String,ordertype:String) = retrofitService.getCustomerOrdersByMobileNo(mobileNo,ordertype)
-
     fun getOtpResponse(mobileNo: String) = retrofitService.getOtpResponse(mobileNo)
     fun validateAccount(mobileNo: String) = retrofitService.validateAccount(mobileNo)
     fun getAllComplaints(mobile: String) = retrofitService.getAllComplaints(mobile)
@@ -38,4 +37,6 @@ class MainRepository {
     fun getProductDetails(productid:Int,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
     fun getAddProductInCart(quantity:Int,productid: Int,userId:Int) = retrofitProduct.getAddProductInCart(quantity,productid,userId)
     fun getProductCountInCar(userId: Int)=retrofitProduct.getProductCountInCar(userId)
+    fun getProductCartByUserId(userId: Int)=retrofitProduct.getProductCartByUserId(userId)
+    fun getCartSummary(userId: Int,pincoode: String,vouchercode:String)=retrofitProduct.getCartSummary(userId,pincoode,vouchercode)
 }

@@ -1,37 +1,28 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.complaints.ComplaintsData
-import com.ab.hicareservices.data.model.product.ProducDetailsData
 import com.ab.hicareservices.data.model.product.ProductGallery
 import com.ab.hicareservices.databinding.LayoutBannerItemBinding
-import com.ab.hicareservices.databinding.LayoutComplaintsAdaptersBinding
-import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
-import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.squareup.picasso.Picasso
 
 
-class ProductDetailAdapter(private val requireActivity: FragmentActivity) :
-    RecyclerView.Adapter<ProductDetailAdapter.MainViewHolder>() {
-    var ProductDetails = mutableListOf<ProductGallery>()
-//   lateinit var requireActivity:FragmentActivity
+class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainViewHolder>() {
+    var productDetails = mutableListOf<ProductGallery>()
+    lateinit var productDetailActivity: FragmentActivity
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrductdetail(branddata: ArrayList<ProductGallery>) {
-        this.ProductDetails = branddata!!
+    fun setPrductdetail(
+        productDetails: ArrayList<ProductGallery>,
+        productDetailActivity: ProductDetailActivity
+    ) {
+        this.productDetails = productDetails
+        this.productDetailActivity = productDetailActivity
         notifyDataSetChanged()
-
-
     }
 
 
@@ -44,19 +35,16 @@ class ProductDetailAdapter(private val requireActivity: FragmentActivity) :
 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-            Picasso.get().load(ProductDetails[position].GalleryImage).into(holder.binding.imgBanner)
 
-
-
-
+        val productlistdata = productDetails[position]
+        Picasso.get().load(productlistdata.GalleryImage).into(holder.binding.imgBanner)
     }
 
 
     override fun getItemCount(): Int {
-        return ProductDetails.size
+        return productDetails.size
     }
 
     class MainViewHolder(val binding: LayoutBannerItemBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 }
