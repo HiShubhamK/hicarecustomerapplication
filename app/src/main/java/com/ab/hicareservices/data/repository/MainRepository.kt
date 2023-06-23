@@ -39,4 +39,5 @@ class MainRepository {
     fun getProductCountInCar(userId: Int)=retrofitProduct.getProductCountInCar(userId)
     fun getProductCartByUserId(userId: Int)=retrofitProduct.getProductCartByUserId(userId)
     fun getCartSummary(userId: Int,pincoode: String,vouchercode:String)=retrofitProduct.getCartSummary(userId,pincoode,vouchercode)
+    fun getDeleteProductCart(cartId:Int,userId: Int)=retrofitProduct.getDeleteProductCart(cartId,userId)
 }

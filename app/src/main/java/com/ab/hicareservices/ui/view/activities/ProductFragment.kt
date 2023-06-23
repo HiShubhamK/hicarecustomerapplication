@@ -20,6 +20,7 @@ import com.ab.hicareservices.ui.adapter.ProductAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class ProductFragment : Fragment() {
 
@@ -55,14 +56,19 @@ class ProductFragment : Fragment() {
 
         viewProductModel.productcount.observe(requireActivity(), Observer {
             if (it.IsSuccess==true){
-                binding.cartmenu.visibility=View.VISIBLE
-                binding.appCompatImageViewd.text=it.Data.toString()
+
+                if(it.Data==0){
+                    binding.cartmenu.visibility=View.GONE
+                }else{
+                    binding.cartmenu.visibility=View.VISIBLE
+                    binding.appCompatImageViewd.text=it.Data.toString()
+                }
             }else{
                 binding.cartmenu.visibility=View.GONE
             }
         })
 
-        viewProductModel.getProductCountInCar(20)
+        viewProductModel.getProductCountInCar(customerid!!.toInt())
 
         if(pincode!=null){
               getProductslist(pincode!!)
@@ -86,7 +92,6 @@ class ProductFragment : Fragment() {
 
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
-
             mAdapter.setProductList(it, requireActivity(),viewProductModel)
 
         })
@@ -94,7 +99,7 @@ class ProductFragment : Fragment() {
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
-                viewProductModel.getAddProductInCart(1,productid,20)
+                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
 
                 viewProductModel.productcount.observe(requireActivity(), Observer {
                     if (it.IsSuccess==true){
@@ -105,14 +110,32 @@ class ProductFragment : Fragment() {
                     }
                 })
 
-                viewProductModel.getProductCountInCar(20)
+                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
             }
         })
 
-        viewProductModel.getProductlist(pincode)
+        viewProductModel.getProductlist("400078")
+    }
 
-        viewProductModel.getProductlist("400601")
+    override fun onResume() {
+        super.onResume()
+        viewProductModel.productcount.observe(requireActivity(), Observer {
+            if (it.IsSuccess==true){
+
+                if(it.Data==0){
+                    binding.cartmenu.visibility=View.GONE
+                }else{
+                    binding.cartmenu.visibility=View.VISIBLE
+                    AppUtils2.cartcounts=it.Data.toString()
+                    binding.appCompatImageViewd.text=it.Data.toString()
+                }
+            }else{
+                binding.cartmenu.visibility=View.GONE
+            }
+        })
+
+        viewProductModel.getProductCountInCar(customerid!!.toInt())
     }
 
     private fun showalertDailogbox() {

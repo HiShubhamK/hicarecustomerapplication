@@ -37,7 +37,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         productGallery = ArrayList()
 
-        Toast.makeText(this, AppUtils2.producDetailsResponse.toString(),Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, AppUtils2.producDetailsResponse.toString(),Toast.LENGTH_LONG).show()
 
 
         getlist()
@@ -47,7 +47,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private fun getlist() {
 
         binding.recyleproductdetails.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mAdapter = ProductDetailAdapter()
 
         binding.recyleproductdetails.adapter = mAdapter
@@ -57,7 +57,6 @@ class ProductDetailActivity : AppCompatActivity() {
             mAdapter.setPrductdetail(it.ProductGallery, this)
 
         })
-
 
         viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 

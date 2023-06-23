@@ -19,7 +19,7 @@ object AppUtils2 {
     var order_number=""
     var paymentsucess=""
      var leaderlist= ArrayList<String>()
-    var producDetailsResponse=""
+    var cartcounts=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

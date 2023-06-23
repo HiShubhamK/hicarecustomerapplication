@@ -15,6 +15,11 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp">
 
@@ -23,7 +28,8 @@
                 android:layout_width="130dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -38,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_semibold"
-                    android:text="abcd"
+                    android:text="Product name"
                     android:textColor="@color/black"
                     android:textSize="14dp" />
 
@@ -103,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_semibold"
-                        android:text="abcd"
+                        android:text="999"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -178,6 +184,8 @@
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
