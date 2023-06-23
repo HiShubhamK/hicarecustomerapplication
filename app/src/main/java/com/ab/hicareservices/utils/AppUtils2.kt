@@ -2,11 +2,15 @@ package com.ab.hicareservices.utils
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import com.ab.hicareservices.data.model.product.ProducDetailsData
+import com.ab.hicareservices.data.model.product.ProductGallery
 import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 object AppUtils2 {
 
@@ -15,6 +19,8 @@ object AppUtils2 {
     var order_number=""
     var paymentsucess=""
      var leaderlist= ArrayList<String>()
+    var producDetailsResponse=""
+
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

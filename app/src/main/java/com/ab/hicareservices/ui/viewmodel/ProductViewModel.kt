@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +15,7 @@ class ProductViewModel: ViewModel() {
     val cutomeraddress= MutableLiveData<CustomerAddress>()
     val productlist= MutableLiveData<List<ProductListResponseData>>()
     val errorMessage = MutableLiveData<String>()
-    val producDetailsResponse=MutableLiveData<ProducDetailsResponse>()
+    val producDetailsResponse=MutableLiveData<ProducDetailsData>()
     val addtocart=MutableLiveData<AddProductInCart>()
     val productcount = MutableLiveData<ProductCount>()
     val cartlist=MutableLiveData<List<CartlistResponseData>>()
@@ -61,7 +62,9 @@ class ProductViewModel: ViewModel() {
         val response=repository.getProductDetails(productid,pincode,customerid)
         response.enqueue(object  : Callback<ProducDetailsResponse>{
             override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
-                producDetailsResponse.postValue(response.body())
+                producDetailsResponse.postValue(response.body()!!.Data)
+                AppUtils2.producDetailsResponse= response.body()!!.IsSuccess.toString()
+
             }
 
             override fun onFailure(call: Call<ProducDetailsResponse>, t: Throwable) {
