@@ -56,9 +56,8 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             holder.binding.btnaddtocart.setOnClickListener {
-                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt()
-//                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
-                )
+                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
+                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
             }
 
             holder.itemView.setOnClickListener {

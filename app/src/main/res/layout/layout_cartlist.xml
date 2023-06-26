@@ -29,7 +29,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -50,18 +50,20 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtratingvalues"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="22dp"
                         android:fontFamily="@font/lato_semibold"
-                        android:padding="5dp"
+                        android:paddingTop="5dp"
                         android:text="4.8"
+                        android:gravity="start"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="11sp" />
+
 
                     <androidx.appcompat.widget.AppCompatRatingBar
                         android:id="@+id/ratingbar"
@@ -78,6 +80,7 @@
                         android:transformPivotX="0dp"
                         android:transformPivotY="10dp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <TextView
                     android:id="@+id/txtdealodday"

@@ -96,26 +96,28 @@ class ProductFragment : Fragment() {
 
         })
 
+        viewProductModel.getProductlist("400078")
+
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
-                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
-
-                viewProductModel.productcount.observe(requireActivity(), Observer {
-                    if (it.IsSuccess==true){
-                        binding.cartmenu.visibility=View.VISIBLE
-                        binding.appCompatImageViewd.text=it.Data.toString()
-                    }else{
-                        binding.cartmenu.visibility=View.GONE
-                    }
-                })
-
-                viewProductModel.getProductCountInCar(customerid!!.toInt())
+//                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
+//
+//                viewProductModel.productcount.observe(requireActivity(), Observer {
+//                    if (it.IsSuccess==true){
+//                        binding.cartmenu.visibility=View.VISIBLE
+//                        binding.appCompatImageViewd.text=it.Data.toString()
+//                    }else{
+//                        binding.cartmenu.visibility=View.GONE
+//                    }
+//                })
+//
+//                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
             }
         })
 
-        viewProductModel.getProductlist("400078")
+
     }
 
     override fun onResume() {

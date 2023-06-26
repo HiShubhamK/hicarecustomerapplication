@@ -80,6 +80,7 @@ class AddToCartActivity : AppCompatActivity() {
             binding.txttotoalvalue.text ="\u20B9" + it.TotalAmount.toString()
             binding.txtdiscount.text ="\u20B9" + it.TotalDiscount.toString()
             binding.txttoalamount.text ="\u20B9" + it.FinalAmount.toString()
+            binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })
 

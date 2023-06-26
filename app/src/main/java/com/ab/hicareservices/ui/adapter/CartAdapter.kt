@@ -52,7 +52,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
         if (productlists.Discount != 0) {
             holder.binding.txtdealodday.text = "Save " + "\u20B9" + productlists.Discount.toString()
-            holder.binding.txtprice.text = productlists.PricePerQuantity.toString()
+            holder.binding.txtprice.text = productlists.DiscountedPricePerQuantity.toString()
             holder.binding.txtpriceline.text = "M.R.P : " + "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

@@ -241,7 +241,8 @@ class OrderDetailActivity : AppCompatActivity() {
 //                 orderValueWithTaxAfterDiscount =
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                 binding.orderNameTv.text = data.service_Plan_Name__c
-                binding.orderNoTv.text = orderNo
+                binding.orderNoTv.text = ":"+orderNo
+                binding.dateTv.text=":"+ data.appointmentStartDateTime__c
                 binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
 //                binding.orderDateTv.text  = data.createdDateText
 //                binding.statusTv.text = data.status__c

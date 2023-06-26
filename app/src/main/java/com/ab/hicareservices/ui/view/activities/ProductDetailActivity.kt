@@ -116,7 +116,7 @@ class ProductDetailActivity : AppCompatActivity() {
             }
             binding.ratingbar.rating = it.ProductConfiguration!!.ProductRating!!.toFloat()
             val drawable: Drawable = binding.ratingbar.progressDrawable
-            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
+            drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
         })
 
 

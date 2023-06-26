@@ -27,7 +27,7 @@
                     android:id="@+id/txtdealodday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/md_red_900"
+                    android:background="@color/red"
                     android:fontFamily="@font/lato_semibold"
                     android:padding="5dp"
                     android:text="Deal of day"
@@ -40,7 +40,7 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="5dp"
                 android:orientation="vertical">
 
@@ -72,8 +72,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="22dp"
                         android:fontFamily="@font/lato_semibold"
-                        android:padding="5dp"
+                        android:paddingTop="5dp"
                         android:text="4.8"
+                        android:gravity="start"
                         android:textColor="@color/black"
                         android:textSize="11sp" />
 
