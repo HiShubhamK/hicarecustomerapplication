@@ -61,6 +61,7 @@ class OrderDetailActivity : AppCompatActivity() {
     var locationLatitudeS: String = ""
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
+    var stdvalue=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +93,7 @@ class OrderDetailActivity : AppCompatActivity() {
         locationLatitudeS = intent.getStringExtra("locationLatitudeS").toString()
         locationLongitudeS = intent.getStringExtra("locationLongitudeS").toString()
         ServiceCenterId = intent.getStringExtra("ServiceCenterId").toString()
+        stdvalue = intent.getStringExtra("Standard_Value__c").toString()
 
         Picasso.get().load(service_url_image).into(binding.imgType)
         getServiceDetails(orderNo, serviceType)
@@ -136,6 +138,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     intent.putExtra("SERVICETYPE_NO", service)
                     intent.putExtra("SERVICE_TYPE",serviceType)
                     intent.putExtra("PAYMENT", orderValueWithTax)
+                    intent.putExtra("Standard_Value__c",stdvalue)
                     activityResultLauncher.launch(intent)
 
 //                    val co = Checkout()

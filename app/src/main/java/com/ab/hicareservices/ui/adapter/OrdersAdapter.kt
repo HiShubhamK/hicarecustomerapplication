@@ -94,7 +94,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
                     orders.account_Name__r?.customer_id__c!!,
                     orders.service_Plan_Name__c!!,
                     orders.order_Value_with_Tax__c!!,
-                    orders.service_Type!!
+                    orders.service_Type!!,
+                    orders.standard_Value__c
                 )
             }
 

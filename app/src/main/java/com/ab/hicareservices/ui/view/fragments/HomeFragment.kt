@@ -403,6 +403,7 @@ class HomeFragment : Fragment() {
                 intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
                 intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
                 intent.putExtra("SERVICE_TYPE",order[position].ServiceType)
+                intent.putExtra("Standard_Value__c",order[position].StandardValue_c)
                 startActivity(intent)
             }
 

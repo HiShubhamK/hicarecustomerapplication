@@ -21,6 +21,8 @@ import com.ab.hicareservices.ui.view.activities.ReferralActivity
 class AccountFragment : Fragment() {
 
     lateinit var binding: FragmentAccountBinding
+    var mobileno=""
+    var first_name=""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,13 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        first_name = SharedPreferenceUtil.getData(requireContext(), "FirstName", "").toString()
+        mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "").toString()
+
+        binding.txtusernames.text=first_name.toString()
+        binding.txtUserdetailes.text=mobileno.toString()
 
         binding.edtAccount.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -106,6 +115,10 @@ class AccountFragment : Fragment() {
         SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
         SharedPreferenceUtil.setData(requireContext(), "bToken", "")
         SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
+        SharedPreferenceUtil.setData(requireContext(), "pincode","")
+        SharedPreferenceUtil.setData(requireContext(), "customerid","")
+        SharedPreferenceUtil.setData(requireContext(), "FirstName","")
+        SharedPreferenceUtil.setData(requireContext(), "MobileNo","")
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }
