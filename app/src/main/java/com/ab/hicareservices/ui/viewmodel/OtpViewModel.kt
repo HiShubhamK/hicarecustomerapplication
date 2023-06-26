@@ -72,6 +72,9 @@ class OtpViewModel : ViewModel(){
                     SharedPreferenceUtil.setData(context, "bToken",response.body()?.Data!!.Token.toString())
                     SharedPreferenceUtil.setData(context, "pincode",response.body()?.Data!!.PestCustomerData!!.BillingPostalCode.toString())
                     SharedPreferenceUtil.setData(context, "customerid",response.body()?.Data!!.ProductCustomerData!!.Id.toString())
+                    SharedPreferenceUtil.setData(context, "FirstName",response.body()?.Data!!.ProductCustomerData!!.FirstName.toString())
+                    SharedPreferenceUtil.setData(context, "MobileNo",response.body()?.Data!!.ProductCustomerData!!.MobileNo.toString())
+
 
                     validateAccountListener?.onSuccess(response.body()?.Data!!.Token.toString())
                 }else{

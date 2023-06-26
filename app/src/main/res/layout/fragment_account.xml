@@ -91,7 +91,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/txt_username"
+                        android:id="@+id/txtusernames"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -104,14 +104,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txt_userdetails"
+                        android:id="@+id/txt_userdetailes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="3dp"
                         android:text="7045621807 | shahid@gmail.com"
                         app:layout_constraintLeft_toRightOf="@+id/img_tumbnail"
-                        app:layout_constraintTop_toBottomOf="@id/txt_username" />
+                        app:layout_constraintTop_toBottomOf="@id/txtusernames" />
 
                     <ImageView
                         android:id="@+id/edit_profile"

@@ -7,11 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -33,6 +31,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var orderValueWithTax = ""
     var orderValueWithTaxAfterDiscount = ""
     private val orderDetailsViewModel: OrderDetailsViewModel by viewModels()
+    var stdvalues=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +46,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         service = intent.getStringExtra("SERVICETYPE_NO").toString()
         serviceType=intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
+        stdvalues=intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
+
+
 
 //        Toast.makeText(
 //            this,
@@ -59,7 +61,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             order_no,
             serviceType,
             payment,
-            service
+            service,
+            stdvalues
         )
         options = prepareOption(
             notes,
@@ -87,7 +90,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         orderNo: String,
         serviceType: String,
         orderValue: String,
-        service: String
+        service: String,
+        stdvalues: String
     ): JSONObject {
 
         val notes = JSONObject()
@@ -95,7 +99,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("InvoiceNo", "")
         notes.put("OrderNo", orderNo)
         notes.put("Service", service)
-        notes.put("OrderValue", service)
+        notes.put("OrderValue", stdvalues)
         notes.put("OrderValueAfterDiscount", orderValue)
         notes.put("ETDiscount", 5)
         notes.put("ETPaidAmount", orderValue)

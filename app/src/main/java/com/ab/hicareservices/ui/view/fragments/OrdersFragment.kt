@@ -284,7 +284,8 @@ class OrdersFragment() : Fragment() {
                 customerIdC: String,
                 servicePlanNameC: String,
                 orderValueWithTaxC: Double,
-                serviceType: String
+                serviceType: String,
+                standardValueC: Double?
             ) {
                 val intent = Intent(requireContext(), PaymentActivity::class.java)
                 intent.putExtra("ORDER_NO", orderNumberC)
@@ -292,6 +293,7 @@ class OrdersFragment() : Fragment() {
                 intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
                 intent.putExtra("PAYMENT", orderValueWithTaxC)
                 intent.putExtra("SERVICE_TYPE",serviceType)
+                intent.putExtra("Standard_Value__c",standardValueC)
                 activityResultLauncher.launch(intent)
             }
         })
@@ -325,6 +327,4 @@ class OrdersFragment() : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
-
-
 }
