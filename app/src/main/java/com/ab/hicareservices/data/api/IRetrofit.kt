@@ -133,4 +133,7 @@ interface IRetrofit {
                        @Query("pincode") pincode: String,
                        @Query("voucherCode") voucherCode:String):Call<GetCartSummaryResponse>
 
+    @GET("Cart/DeleteProductInCart")
+    fun getDeleteProductCart(@Query("cartId") cartId:Int,@Query("userId") userId: Int):Call<DeleteProductInCart>
+
 }

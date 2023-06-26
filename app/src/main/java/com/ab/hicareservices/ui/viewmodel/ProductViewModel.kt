@@ -20,6 +20,7 @@ class ProductViewModel: ViewModel() {
     val productcount = MutableLiveData<ProductCount>()
     val cartlist=MutableLiveData<List<CartlistResponseData>>()
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
+    val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -63,7 +64,7 @@ class ProductViewModel: ViewModel() {
         response.enqueue(object  : Callback<ProducDetailsResponse>{
             override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
                 producDetailsResponse.postValue(response.body()!!.Data)
-                AppUtils2.producDetailsResponse= response.body()!!.IsSuccess.toString()
+//                AppUtils2.producDetailsResponse= response.body()!!.IsSuccess.toString()
 
             }
 
@@ -128,6 +129,23 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<GetCartSummaryResponse>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+    fun getDeleteProductCart(cartId:Int,userid: Int){
+        val response=repository.getDeleteProductCart(cartId,userid)
+        response.enqueue(object : Callback<DeleteProductInCart>{
+            override fun onResponse(
+                call: Call<DeleteProductInCart>,
+                response: Response<DeleteProductInCart>
+            ) {
+                getDeleteProductCart.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<DeleteProductInCart>, t: Throwable) {
 
             }
 
