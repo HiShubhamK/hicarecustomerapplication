@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.ProductGallery
+import com.ab.hicareservices.data.model.product.RelatedProducts
 import com.ab.hicareservices.databinding.LayoutBannerItemBinding
+import com.ab.hicareservices.databinding.LayoutRelatedProductBinding
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.squareup.picasso.Picasso
 
 
-class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainViewHolder>() {
-    var productDetails = mutableListOf<ProductGallery>()
+class RelatedProductAdapter() : RecyclerView.Adapter<RelatedProductAdapter.MainViewHolder>() {
+    var productDetails = mutableListOf<RelatedProducts>()
     lateinit var productDetailActivity: FragmentActivity
 
 
@@ -21,7 +23,7 @@ class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = LayoutBannerItemBinding.inflate(inflater, parent, false)
+        val binding = LayoutRelatedProductBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
@@ -29,19 +31,16 @@ class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainVie
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
 
         val productlistdata = productDetails[position]
-        Picasso.get().load(productlistdata.GalleryImage).into(holder.binding.imgBanner)
+        Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
 
-        if (productlistdata.VideoUrl!!.isNotEmpty()){
-
-        }
     }
 
 
     override fun getItemCount(): Int {
         return productDetails.size
     }
-    fun setPrductdetail(
-        productDetails: ArrayList<ProductGallery>,
+    fun setRelatedProduct(
+        productDetails: ArrayList<RelatedProducts>,
         productDetailActivity: ProductDetailActivity
     ) {
         this.productDetails = productDetails
@@ -49,6 +48,7 @@ class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainVie
         notifyDataSetChanged()
     }
 
-    class MainViewHolder(val binding: LayoutBannerItemBinding) :
+
+    class MainViewHolder(val binding: LayoutRelatedProductBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
