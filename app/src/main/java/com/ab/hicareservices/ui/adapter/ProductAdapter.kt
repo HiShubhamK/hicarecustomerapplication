@@ -43,10 +43,10 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
 //            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
-            drawable.setColorFilter(Color.parseColor("#217d55"), PorterDuff.Mode.SRC_ATOP)
+            drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
 
             if (productlists.Discount!=0) {
-//                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
+                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
                 holder.binding.txtpriceline.text = "M.R.P : "+"\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
