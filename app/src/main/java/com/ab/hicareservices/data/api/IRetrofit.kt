@@ -105,7 +105,7 @@ interface IRetrofit {
     @GET("CustomerAddress/GetCustomerLoginInfo")
     fun getcustomerid(@Query("mobileno") mobileno:String):Call<CustomerLoginInfo>
 
-    @GET("CustomerAddress/GetCustomerAddressByCustomerId")
+    @GET("Address/GetCustomerAddressByCustomerId")
     fun getcustomerAddress(@Query("customerId") customerId:Int):Call<CustomerAddress>
 
     @GET("Product/GetProductListByPincode")

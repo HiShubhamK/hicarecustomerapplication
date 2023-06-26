@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -32,7 +33,10 @@ class AddToCartActivity : AppCompatActivity() {
 
         getproductlist()
         getSummarydata()
-
+        binding.txtplcaeorder.setOnClickListener{
+            val intent= Intent(this,AddressActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getproductlist() {
@@ -69,8 +73,8 @@ class AddToCartActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-
+//        viewProductModel.getProductCartByUserId(customerid!!.toInt())
+        viewProductModel.getProductCartByUserId(20)
     }
 
     fun getSummarydata() {
@@ -84,7 +88,9 @@ class AddToCartActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
+//        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
+
+        viewProductModel.getCartSummary(20,"400078", "")
 
     }
 

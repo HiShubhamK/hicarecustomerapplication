@@ -68,7 +68,8 @@ class ProductFragment : Fragment() {
             }
         })
 
-        viewProductModel.getProductCountInCar(customerid!!.toInt())
+//        viewProductModel.getProductCountInCar(customerid!!.toInt())
+        viewProductModel.getProductCountInCar(20)
 
         if(pincode!=null){
               getProductslist(pincode!!)
@@ -138,6 +139,8 @@ class ProductFragment : Fragment() {
         })
 
         viewProductModel.getProductCountInCar(customerid!!.toInt())
+        viewProductModel.getProductCountInCar(20)
+
     }
 
     private fun showalertDailogbox() {

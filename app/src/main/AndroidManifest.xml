@@ -26,6 +26,13 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.AddressActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.view.activities.AddToCartActivity"
             android:exported="false">
             <meta-data

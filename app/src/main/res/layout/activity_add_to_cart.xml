@@ -561,6 +561,7 @@
             android:layout_margin="5dp"
             android:layout_marginRight="13dp"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:background="@color/colorAccent"
             android:fontFamily="@font/lato_regular"
             android:text="Place Order"
