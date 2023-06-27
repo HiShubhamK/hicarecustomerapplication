@@ -10,15 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.CartlistResponseData
-import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.LayoutCartlistBinding
-import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddToCartActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
-import okhttp3.internal.notify
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
@@ -87,7 +83,14 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 holder.binding.imgadd.isClickable = false
             }
             holder.binding.textcount.text = counts.toString()
-            viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
+//            viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
+
+            onCartClickedHandler!!.setonaddclicklistener(
+                position,
+                productlists.ProductId!!.toInt(),
+                1
+            )
+
 
         }
 
@@ -103,7 +106,14 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = true
             }
-            viewProductModel.getAddProductInCart(-1, productlists.ProductId!!.toInt(), 20)
+
+            onCartClickedHandler!!.setonaddclicklistener(
+                position,
+                productlists.ProductId!!.toInt(),
+                -1
+            )
+
+
         }
 
         holder.binding.imgdelete.setOnClickListener {

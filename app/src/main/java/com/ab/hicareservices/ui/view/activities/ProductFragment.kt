@@ -26,8 +26,8 @@ class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
     private val viewProductModel: ProductViewModel by viewModels()
-    var customerid: String? = null
-    var pincode: String? = null
+    var customerid: String? = ""
+    var pincode: String? = ""
     private lateinit var mAdapter: ProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +72,7 @@ class ProductFragment : Fragment() {
 //        viewProductModel.getProductCountInCar(customerid!!.toInt())
         viewProductModel.getProductCountInCar(20)
 
-        if(pincode!=null){
+        if(pincode!=null || !pincode.equals("")){
               getProductslist(pincode!!)
         }else{
             showalertDailogbox()
@@ -103,17 +103,22 @@ class ProductFragment : Fragment() {
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
+
 //                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
-//
-//                viewProductModel.productcount.observe(requireActivity(), Observer {
-//                    if (it.IsSuccess==true){
-//                        binding.cartmenu.visibility=View.VISIBLE
-//                        binding.appCompatImageViewd.text=it.Data.toString()
-//                    }else{
-//                        binding.cartmenu.visibility=View.GONE
-//                    }
-//                })
-//
+
+                viewProductModel.getAddProductInCart(1,productid,20)
+
+                viewProductModel.productcount.observe(requireActivity(), Observer {
+                    if (it.IsSuccess==true){
+                        binding.cartmenu.visibility=View.VISIBLE
+                        binding.appCompatImageViewd.text=it.Data.toString()
+                    }else{
+                        binding.cartmenu.visibility=View.GONE
+                    }
+                })
+
+                viewProductModel.getProductCountInCar(20)
+
 //                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
             }
@@ -180,5 +185,4 @@ class ProductFragment : Fragment() {
                 }
             }
     }
-
 }

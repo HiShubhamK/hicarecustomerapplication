@@ -136,4 +136,8 @@ interface IRetrofit {
     @GET("Cart/DeleteProductInCart")
     fun getDeleteProductCart(@Query("cartId") cartId:Int,@Query("userId") userId: Int):Call<DeleteProductInCart>
 
+    @POST("Address/SaveAddress")
+    fun postSaveAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
+
+
 }

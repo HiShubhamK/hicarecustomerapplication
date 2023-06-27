@@ -21,6 +21,7 @@ class ProductViewModel: ViewModel() {
     val cartlist=MutableLiveData<List<CartlistResponseData>>()
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
+    val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -151,6 +152,24 @@ class ProductViewModel: ViewModel() {
 
         })
     }
+
+    fun postSaveAddress(data: HashMap<String, Any>){
+        val response=repository.postSaveAddress(data)
+        response.enqueue(object :Callback<SaveAddressResponse>{
+            override fun onResponse(
+                call: Call<SaveAddressResponse>,
+                response: Response<SaveAddressResponse>
+            ) {
+                getsaveaddressresponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
+
+            }
+
+        })
+    }
+
 
 }
 

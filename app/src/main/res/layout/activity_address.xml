@@ -99,6 +99,7 @@
             android:layout_margin="5dp"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnraddress"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal"

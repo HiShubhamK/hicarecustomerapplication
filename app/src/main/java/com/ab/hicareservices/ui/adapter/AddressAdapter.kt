@@ -29,8 +29,15 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
         val cutomeraddressdata=productlist[position]
         holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
+        if(productlist[position].IsDefault==true){
+            holder.binding.radiobuttons.isChecked=true
+        }
+
         holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
             if(b){
+                if(productlist[position].IsDefault==true){
+                    holder.binding.radiobuttons.isChecked=false
+                }
                 selectedPosition=holder.adapterPosition
                 notifyDataSetChanged()
             }
@@ -41,7 +48,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
                 cutomeraddressdata.Street+","+cutomeraddressdata.FlatNo+","+cutomeraddressdata.Locality+","+
                 cutomeraddressdata.Landmark+","+cutomeraddressdata.City+","+
                 cutomeraddressdata.State+","+cutomeraddressdata.Pincode
-        holder.binding.txtphoneno.text=cutomeraddressdata.ContactPersonMobile
+        holder.binding.txtphoneno.text="Phone No:" +cutomeraddressdata.ContactPersonMobile
 
     }
 

@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,6 +72,21 @@ class AddToCartActivity : AppCompatActivity() {
 //                getSummarydata()
             }
 
+            override fun setonaddclicklistener(position: Int, productid: Int, i: Int) {
+
+                viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
+
+                    if(it.IsSuccess==true){
+                        getSummarydata()
+                    }else{
+                        Toast.makeText(this@AddToCartActivity,"Something went to wromg",Toast.LENGTH_LONG).show()
+                    }
+
+                })
+
+                viewProductModel.getAddProductInCart(i, productid, 20)
+            }
+
         })
 
 //        viewProductModel.getProductCartByUserId(customerid!!.toInt())
@@ -97,6 +113,11 @@ class AddToCartActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getSummarydata()
     }
 
 }
