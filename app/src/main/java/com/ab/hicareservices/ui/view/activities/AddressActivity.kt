@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddressBinding
 import com.ab.hicareservices.ui.adapter.AddressAdapter
+import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -40,15 +42,15 @@ class AddressActivity : AppCompatActivity() {
 
         datalist = ArrayList()
         datalist.add("Select Type")
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            getLeadMethod()
-        }, 1500)
+//
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            getLeadMethod()
+//        }, 1500)
 
         getAddressList()
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog(true)
+            showAddNewAddressdialog(true, 0)
         }
 
     }
@@ -63,10 +65,22 @@ class AddressActivity : AppCompatActivity() {
         viewProductModel.cutomeraddress.observe(this, Observer {
 
             mAdapter.setAddressList(it, this,viewProductModel)
+            mAdapter.notifyDataSetChanged()
 
         })
 
         viewProductModel.getCustomerAddress(20)
+
+        mAdapter.setOnAddressItemClicked(object : onAddressClickedHandler{
+            override fun setonaddclicklistener(position: Int, id: Int?) {
+                showAddNewAddressdialog(false,id)
+            }
+
+            override fun setonaddclicklisteners(position: Int) {
+                mAdapter.notifyDataSetChanged()
+            }
+        })
+
     }
 
     private fun getLeadMethod() {
@@ -81,7 +95,7 @@ class AddressActivity : AppCompatActivity() {
         }
     }
 
-    private fun showAddNewAddressdialog(b: Boolean) {
+    private fun showAddNewAddressdialog(b: Boolean, id: Int?) {
         var selectedLocation = ""
         var dateTime = ""
         val li = LayoutInflater.from(this)
@@ -246,12 +260,13 @@ class AddressActivity : AppCompatActivity() {
             val etlocality = promptsView.findViewById<View>(R.id.etlocality) as TextView
             val etlandmark = promptsView.findViewById<View>(R.id.etlandmark) as EditText
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
-
+            val txttitle=promptsView.findViewById<View>(R.id.texttitle) as TextView
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
             val saveBtn = promptsView.findViewById<View>(R.id.saveBtn) as Button
 
+            txttitle.text="Billing Address"
 
             alertDialog.setCancelable(false)
 
@@ -357,13 +372,17 @@ class AddressActivity : AppCompatActivity() {
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         if(it.IsSuccess==true){
-                            val intent=intent
-                            finish()
+
+                            val billdata= SharedPreferenceUtil.setData(this@AddressActivity, "BillingAddress",it.Data.toString())
+
+                            val intent= Intent(this@AddressActivity,OverviewProductDetailsActivity::class.java)
+                            intent.putExtra("Billdata",billdata.toString())
+                            intent.putExtra("Shipdata",id.toString())
                             startActivity(intent)
                             alertDialog.dismiss()
-                            Toast.makeText(this,"Shipping address added successfully",Toast.LENGTH_LONG).show()
+//                            Toast.makeText(this,"Shipping address added successfully",Toast.LENGTH_LONG).show()
                         }else{
-                            Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()
+//                            Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()
                         }
                     })
 
@@ -372,18 +391,6 @@ class AddressActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
         alertDialog.show()
 
     }

@@ -2,11 +2,11 @@ package com.ab.hicareservices.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
+import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddressActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 
@@ -19,6 +19,9 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
     var selectedPosition = -1
 
 
+    private var onAddressClickedHandler: onAddressClickedHandler? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         var binding = LayoutAddressBinding.inflate(inflater, parent, false)
@@ -29,18 +32,25 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
         val cutomeraddressdata=productlist[position]
         holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
-        if(productlist[position].IsDefault==true){
+        if(cutomeraddressdata.IsDefault==true){
             holder.binding.radiobuttons.isChecked=true
+
+        }
+
+        holder.binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
+            onAddressClickedHandler!!.setonaddclicklistener(position,cutomeraddressdata.Id)
         }
 
         holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
-            if(b){
-                if(productlist[position].IsDefault==true){
-                    holder.binding.radiobuttons.isChecked=false
-                }
+
+            if(b.equals(cutomeraddressdata.IsDefault==false)){
+                selectedPosition=holder.adapterPosition
+                notifyDataSetChanged()
+            }else{
                 selectedPosition=holder.adapterPosition
                 notifyDataSetChanged()
             }
+
         }
 
         holder.binding.txtusername.text=cutomeraddressdata.Id.toString()
@@ -71,6 +81,9 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setOnAddressItemClicked(l: onAddressClickedHandler) {
+        onAddressClickedHandler = l
+    }
 
     class MainViewHolder(val binding: LayoutAddressBinding) : RecyclerView.ViewHolder(binding.root)
 

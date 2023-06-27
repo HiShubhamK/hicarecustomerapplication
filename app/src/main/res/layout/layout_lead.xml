@@ -19,7 +19,8 @@
             android:fontFamily="@font/lato_semibold"
             android:text="Request Callback"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:textSize="18dp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/imgbtncancel"
