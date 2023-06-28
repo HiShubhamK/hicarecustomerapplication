@@ -71,6 +71,12 @@ object AppUtils2 {
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+    fun formatDateTime5(dateTime: String): String{
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val simpleDateFormatOut = SimpleDateFormat("dd/MM/yyyy")
+        val parsedDate = simpleDateFormat.parse(dateTime)
+        return simpleDateFormatOut.format(parsedDate)
+    }
     fun formatDateTimeApi(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")

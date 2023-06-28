@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -32,7 +33,10 @@ class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainVie
         Picasso.get().load(productlistdata.GalleryImage).into(holder.binding.imgBanner)
 
         if (productlistdata.VideoUrl!!.isNotEmpty()){
-
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(productlistdata.VideoUrl));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setPackage("com.google.android.youtube");
+            productDetailActivity!!.startActivity(intent)
         }
     }
 

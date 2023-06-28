@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
@@ -9,9 +10,9 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,11 +21,12 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.ProductGallery
 import com.ab.hicareservices.databinding.ActivityProductDetailBinding
+import com.ab.hicareservices.ui.adapter.FAQAdapter
+import com.ab.hicareservices.ui.adapter.OffersAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
+import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
-import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.utils.AppUtils2
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -35,7 +37,9 @@ class ProductDetailActivity : AppCompatActivity() {
     var pincode: String? = null
     private lateinit var mAdapter: ProductDetailAdapter
     private lateinit var relatedProductAdapter: RelatedProductAdapter
+    private lateinit var faqAdapter: FAQAdapter
     private lateinit var productGallery: ArrayList<ProductGallery>
+    private lateinit var customerReviewAdapter: ProductDetailCustomerReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +62,12 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun getlist() {
+        var counts = 1
+
+
+        customerReviewAdapter = ProductDetailCustomerReviewAdapter(binding.vpTestomonial, this)
+        binding.vpTestomonial.adapter = customerReviewAdapter
+        binding.vpTestomonial.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
         binding.recyleproductdetails.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -76,53 +86,169 @@ class ProductDetailActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         relatedProductAdapter = RelatedProductAdapter()
 
+
         binding.recRelatedProduct.adapter = relatedProductAdapter
-        binding.recRelatedProduct.addItemDecoration(CirclePagerIndicatorDecoration())
+//        binding.recRelatedProduct.addItemDecoration(CirclePagerIndicatorDecoration())
         binding.recRelatedProduct.layoutManager!!.smoothScrollToPosition(
             binding.recRelatedProduct,
             RecyclerView.State(),
             binding.recRelatedProduct.adapter!!.itemCount
         )
 
+        //FAQ
+        binding.recFAQ.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        faqAdapter = FAQAdapter()
+        binding.recFAQ.adapter = faqAdapter
+//        binding.recRelatedProduct.addItemDecoration(CirclePagerIndicatorDecoration())
+        binding.recRelatedProduct.layoutManager!!.smoothScrollToPosition(
+            binding.recFAQ,
+            RecyclerView.State(),
+            binding.recFAQ.adapter!!.itemCount
+        )
 
         viewProductModel.producDetailsResponse.observe(this, Observer {
 
-//            if (it.ProductGallery!=null) {
-            mAdapter.setPrductdetail(it.ProductGallery, this)
-//            }
-            relatedProductAdapter.setRelatedProduct(it.RelatedProducts,this)
+
+            var maxquantity = it.ProductConfiguration!!.MaximumBuyQuantity
+            var productid = it.ProductConfiguration!!.ProductId
+            if (it.ProductTestimonialList != null) {
+                customerReviewAdapter.setProductReview(it.ProductTestimonialList)
+            }
+            if (it.ProductGallery != null) {
+                mAdapter.setPrductdetail(it.ProductGallery, this)
+            }
+            if (it.RelatedProducts != null) {
+                binding.lnrRelatedData.visibility = View.VISIBLE
+                relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+            } else {
+                binding.lnrRelatedData.visibility = View.GONE
+
+            }
+            if (it.ProductFAQ != null) {
+                binding.recFAQ.visibility = View.VISIBLE
+                faqAdapter.setFaq(it.ProductFAQ, this)
+            } else {
+                binding.recFAQ.visibility = View.GONE
+
+            }
 
             binding.tvProductName.text =
                 it.ProductDetails!!.ProductName + " (" + it.ProductDetails!!.ProductCode + ")"
-  binding.tvCategory.text =
+            binding.tvCategory.text =
                 it.ProductDetails!!.ProductSEOCategory.toString()
             binding.tvCategory.text =
                 it.ProductDetails!!.ProductSEOCategory.toString()
 
-            binding.txtpriceline.text = "M.R.P: " + "\u20B9" + it.ProductConfiguration!!.PricePerQuantity
-            binding.txtpriceline.paintFlags=binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.txtpriceline.text =
+                "M.R.P: " + "\u20B9" + it.ProductConfiguration!!.PricePerQuantity
+            binding.txtpriceline.paintFlags =
+                binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-            binding.txtprice.text =  "Our Price: " +"\u20B9" + it.ProductConfiguration!!.DiscountedPrice
-            binding.txtratingvalues.text= it.ProductConfiguration!!.ProductRating.toString()
-            binding.tvCustomerRatesCount.text= it.ProductConfiguration!!.CustomRatingMessage.toString()
-            if (it.ProductConfiguration!!.IsStockAvailable==true){
-                binding.tvStockAvailable.setTextColor(Color.parseColor("#217d55"))
-                binding.tvStockAvailable.text= it.ProductConfiguration!!.StockCount.toString() +" Available in stock"
+            binding.txtprice.text =
+                "Our Price: " + "\u20B9" + it.ProductConfiguration!!.DiscountedPrice
+            binding.txtratingvalues.text = it.ProductConfiguration!!.ProductRating.toString()
+            if (it.ProductConfiguration!!.Discount.toString() != "") {
+                binding.tvDisccount.text =
+                    "Save " + "\u20B9" + it.ProductConfiguration!!.Discount.toString()
 
-            }else {
-                binding.tvStockAvailable.setTextColor(Color.parseColor("#C62828"))
-                binding.tvStockAvailable.text= "Out of stock"
+            } else {
+                binding.tvDisccount.visibility = View.GONE
+            }
+            binding.tvCustomerRatesCount.text =
+                it.ProductConfiguration!!.CustomRatingMessage.toString()
+            if (it.ProductConfiguration!!.MinimumBuyQuantity == 0) {
+                binding.textcount.text = "1"
+                counts = 1
+            } else {
+                binding.textcount.text = it.ProductConfiguration!!.MinimumBuyQuantity.toString()
+                counts = it.ProductConfiguration!!.MinimumBuyQuantity!!.toInt()
+            }
+
+
+
+            binding.imgadd.setOnClickListener {
+                counts = counts + 1
+                if (counts > 1) {
+                    binding.imgremove.visibility = View.VISIBLE
+                    binding.imgdelete.visibility = View.GONE
+                } else if (counts <= maxquantity!!.toInt()) {
+                    binding.imgadd.isClickable = false
+                }
+                binding.textcount.text = counts.toString()
+//                viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
 
             }
+
+            if (it.ProductConfiguration!!.ProductShortDescription != null || it.ProductConfiguration!!.ProductShortDescription != "") {
+                binding.tvProductdesc.text =
+                    Html.fromHtml(it.ProductConfiguration!!.ProductShortDescription)
+
+            } else {
+                binding.tvProductdesc.visibility = View.GONE
+            }
+            if (it.ProductConfiguration!!.ProductDetailDescription != null || it.ProductConfiguration!!.ProductDetailDescription != "") {
+                binding.tvProductdescLong.text =
+                    Html.fromHtml(it.ProductConfiguration!!.ProductDetailDescription)
+
+            } else {
+                binding.tvProductdescLong.visibility = View.GONE
+            }
+            binding.lnrBottom.setOnClickListener {
+
+
+
+                if (binding.tvAddToCart.text == "Goto Cart") {
+                    val intent = Intent(this, AddToCartActivity::class.java)
+                    startActivity(intent)
+                }else {
+
+                    viewProductModel.addtocart.observe(this, Observer {
+
+                        if (it.IsSuccess == true) {
+                            binding.tvAddToCart.text = "Goto Cart"
+                        }
+
+                    })
+                    viewProductModel.getAddProductInCart(counts, productid!!.toInt(), 20)
+
+                }
+//
+            }
+
+
+
+            binding.imgremove.setOnClickListener {
+                counts = counts - 1
+                binding.textcount.text = counts.toString()
+                if (counts == 1) {
+                    binding.imgremove.isClickable = false
+                    binding.imgdelete.isClickable = false
+
+                    binding.imgremove.visibility = View.GONE
+                    binding.imgdelete.visibility = View.VISIBLE
+                } else {
+                    binding.imgdelete.visibility = View.GONE
+                }
+                if (counts <= maxquantity!!.toInt()) {
+                    binding.imgadd.isClickable = true
+                }
+            }
+
+
+
+
             binding.ratingbar.rating = it.ProductConfiguration!!.ProductRating!!.toFloat()
             val drawable: Drawable = binding.ratingbar.progressDrawable
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
         })
 
 
+
         viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
     }
+
     class CirclePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
         private val colorActive = 0x727272
         private val colorInactive = 0xF44336

@@ -182,10 +182,10 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <RelativeLayout
-
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -238,7 +238,7 @@
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
-            android:text=":-Available Slot:-"
+            android:text="-:Available Slot:-"
             android:textColor="@color/grey_font"
             android:textSize="16sp" />
         <LinearLayout
