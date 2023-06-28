@@ -42,9 +42,11 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
-            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
+//            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
+            drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
+
             if (productlists.Discount!=0) {
-//                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
+                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
                 holder.binding.txtpriceline.text = "M.R.P : "+"\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -54,9 +56,8 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             holder.binding.btnaddtocart.setOnClickListener {
-                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt()
+                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
-                )
             }
 
             holder.itemView.setOnClickListener {

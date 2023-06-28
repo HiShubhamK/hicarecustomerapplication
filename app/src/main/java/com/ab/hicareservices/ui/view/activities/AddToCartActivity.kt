@@ -1,7 +1,9 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +34,10 @@ class AddToCartActivity : AppCompatActivity() {
 
         getproductlist()
         getSummarydata()
-
+        binding.txtplcaeorder.setOnClickListener{
+            val intent= Intent(this,AddressActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getproductlist() {
@@ -67,11 +72,25 @@ class AddToCartActivity : AppCompatActivity() {
 //                getSummarydata()
             }
 
+            override fun setonaddclicklistener(position: Int, productid: Int, i: Int) {
+
+                viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
+
+                    if(it.IsSuccess==true){
+                        getSummarydata()
+                    }else{
+                        Toast.makeText(this@AddToCartActivity,"Something went to wromg",Toast.LENGTH_LONG).show()
+                    }
+
+                })
+
+                viewProductModel.getAddProductInCart(i, productid, 20)
+            }
+
         })
 
-        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-
-
+//        viewProductModel.getProductCartByUserId(customerid!!.toInt())
+        viewProductModel.getProductCartByUserId(20)
     }
 
     fun getSummarydata() {
@@ -81,16 +100,24 @@ class AddToCartActivity : AppCompatActivity() {
             binding.txttotoalvalue.text ="\u20B9" + it.TotalAmount.toString()
             binding.txtdiscount.text ="\u20B9" + it.TotalDiscount.toString()
             binding.txttoalamount.text ="\u20B9" + it.FinalAmount.toString()
+            binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })
 
-        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
+//        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
+
+        viewProductModel.getCartSummary(20,"400078", "")
 
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getSummarydata()
     }
 
 }

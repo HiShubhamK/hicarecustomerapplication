@@ -22,5 +22,4 @@ data class CustomerAddressData(
     @SerializedName("Contact_Person_Mobile") var ContactPersonMobile: String? = null,
     @SerializedName("Contact_Person_Email") var ContactPersonEmail: String? = null,
     @SerializedName("GST_No") var GSTNo: String? = null
-
 ) {}

@@ -26,8 +26,8 @@ class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
     private val viewProductModel: ProductViewModel by viewModels()
-    var customerid: String? = null
-    var pincode: String? = null
+    var customerid: String? = ""
+    var pincode: String? = ""
     private lateinit var mAdapter: ProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +53,7 @@ class ProductFragment : Fragment() {
         customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
+        Toast.makeText(requireActivity(),customerid+"  "+pincode,Toast.LENGTH_LONG).show()
 
         viewProductModel.productcount.observe(requireActivity(), Observer {
             if (it.IsSuccess==true){
@@ -68,9 +69,10 @@ class ProductFragment : Fragment() {
             }
         })
 
-        viewProductModel.getProductCountInCar(customerid!!.toInt())
+//        viewProductModel.getProductCountInCar(customerid!!.toInt())
+        viewProductModel.getProductCountInCar(20)
 
-        if(pincode!=null){
+        if(pincode!=null || !pincode.equals("")){
               getProductslist(pincode!!)
         }else{
             showalertDailogbox()
@@ -97,10 +99,15 @@ class ProductFragment : Fragment() {
 
         })
 
+        viewProductModel.getProductlist("400078")
+
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
-                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
+
+//                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
+
+                viewProductModel.getAddProductInCart(1,productid,20)
 
                 viewProductModel.productcount.observe(requireActivity(), Observer {
                     if (it.IsSuccess==true){
@@ -111,12 +118,14 @@ class ProductFragment : Fragment() {
                     }
                 })
 
-                viewProductModel.getProductCountInCar(customerid!!.toInt())
+                viewProductModel.getProductCountInCar(20)
+
+//                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
             }
         })
 
-        viewProductModel.getProductlist("400078")
+
     }
 
     override fun onResume() {
@@ -136,7 +145,9 @@ class ProductFragment : Fragment() {
             }
         })
 
-        viewProductModel.getProductCountInCar(customerid!!.toInt())
+//        viewProductModel.getProductCountInCar(customerid!!.toInt())
+        viewProductModel.getProductCountInCar(20)
+
     }
 
     private fun showalertDailogbox() {
@@ -175,5 +186,4 @@ class ProductFragment : Fragment() {
                 }
             }
     }
-
 }

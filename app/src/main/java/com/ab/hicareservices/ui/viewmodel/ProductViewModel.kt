@@ -12,7 +12,7 @@ import retrofit2.Response
 class ProductViewModel: ViewModel() {
     val repository = MainRepository()
     val customerlogininfo = MutableLiveData<CustomerLoginInfo>()
-    val cutomeraddress= MutableLiveData<CustomerAddress>()
+    val cutomeraddress= MutableLiveData<List<CustomerAddressData>>()
     val productlist= MutableLiveData<List<ProductListResponseData>>()
     val errorMessage = MutableLiveData<String>()
     val producDetailsResponse=MutableLiveData<ProducDetailsData>()
@@ -21,6 +21,7 @@ class ProductViewModel: ViewModel() {
     val cartlist=MutableLiveData<List<CartlistResponseData>>()
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
+    val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -38,7 +39,7 @@ class ProductViewModel: ViewModel() {
         val response = repository.getcustomerAddress(customerid)
         response.enqueue(object : Callback<CustomerAddress> {
             override fun onResponse(call: Call<CustomerAddress>, response: Response<CustomerAddress>) {
-                cutomeraddress.postValue(response.body())
+                cutomeraddress.postValue(response.body()!!.Data)
             }
             override fun onFailure(call: Call<CustomerAddress>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
@@ -151,6 +152,24 @@ class ProductViewModel: ViewModel() {
 
         })
     }
+
+    fun postSaveAddress(data: HashMap<String, Any>){
+        val response=repository.postSaveAddress(data)
+        response.enqueue(object :Callback<SaveAddressResponse>{
+            override fun onResponse(
+                call: Call<SaveAddressResponse>,
+                response: Response<SaveAddressResponse>
+            ) {
+                getsaveaddressresponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
+
+            }
+
+        })
+    }
+
 
 }
 

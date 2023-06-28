@@ -1,9 +1,9 @@
-package com.ab.hicareservices.data.model
+package com.ab.hicareservices.data.model.product
 
 import com.google.gson.annotations.SerializedName
 
-data class LeadResponse(
+data class SaveAddressResponse(
     @SerializedName("IsSuccess") var IsSuccess: Boolean? = null,
-    @SerializedName("Data") var Data: LeaderData? = LeaderData(),
+    @SerializedName("Data") var Data: Int? = null,
     @SerializedName("ResponseMessage") var ResponseMessage: String? = null
-) {}
+){}

@@ -58,7 +58,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private val requestCall = 1
     private val viewModels: HomeActivityViewModel by viewModels()
     private val viewProductModel:ProductViewModel by viewModels()
-    var customerid:Int=0
+    var customerid:String=""
     var  pincode:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +71,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 //        viewModel.validateAccount(AppUtils2.mobileno)
-
+        customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 
         Handler(Looper.getMainLooper()).postDelayed({
             checkUserStatus()
@@ -160,13 +161,13 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //            customerid= it.Data!!.Id!!
 //        })
 
-        viewProductModel.getCustomerid("7208408308")
-
-        viewProductModel.getProductlist("400601")
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            getCustomerAddress()
-        }, 1500)
+//        viewProductModel.getCustomerid("7208408308")
+//
+//        viewProductModel.getProductlist("400601")
+//
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            getCustomerAddress()
+//        }, 1500)
 
     }
 
@@ -174,7 +175,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         viewProductModel.cutomeraddress.observe(this, Observer {
         })
 
-        viewProductModel.getCustomerAddress(customerid)
+        viewProductModel.getCustomerAddress(1)
 
     }
 

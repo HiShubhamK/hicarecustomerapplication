@@ -105,7 +105,7 @@ interface IRetrofit {
     @GET("CustomerAddress/GetCustomerLoginInfo")
     fun getcustomerid(@Query("mobileno") mobileno:String):Call<CustomerLoginInfo>
 
-    @GET("CustomerAddress/GetCustomerAddressByCustomerId")
+    @GET("Address/GetCustomerAddressByCustomerId")
     fun getcustomerAddress(@Query("customerId") customerId:Int):Call<CustomerAddress>
 
     @GET("Product/GetProductListByPincode")
@@ -135,5 +135,9 @@ interface IRetrofit {
 
     @GET("Cart/DeleteProductInCart")
     fun getDeleteProductCart(@Query("cartId") cartId:Int,@Query("userId") userId: Int):Call<DeleteProductInCart>
+
+    @POST("Address/SaveAddress")
+    fun postSaveAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
+
 
 }

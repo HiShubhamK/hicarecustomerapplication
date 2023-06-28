@@ -2,7 +2,8 @@ package com.ab.hicareservices.data.model.orders
 
 import com.google.gson.annotations.SerializedName
 
-data class OrdersData(
+data class
+OrdersData(
     @SerializedName("Id") val id : String?,
     @SerializedName("Name") val name : String?,
     @SerializedName("Customer_Id__c") val customer_Id__c : String?,
