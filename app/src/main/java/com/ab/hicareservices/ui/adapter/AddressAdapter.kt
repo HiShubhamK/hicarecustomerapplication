@@ -55,7 +55,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
 
         holder.binding.txtusername.text=cutomeraddressdata.Id.toString()
         holder.binding.txtusername.text=cutomeraddressdata.FlatNo+","+cutomeraddressdata.BuildingName+","+
-                cutomeraddressdata.Street+","+cutomeraddressdata.FlatNo+","+cutomeraddressdata.Locality+","+
+                cutomeraddressdata.Street+","+cutomeraddressdata.Locality+","+
                 cutomeraddressdata.Landmark+","+cutomeraddressdata.City+","+
                 cutomeraddressdata.State+","+cutomeraddressdata.Pincode
         holder.binding.txtphoneno.text="Phone No:" +cutomeraddressdata.ContactPersonMobile

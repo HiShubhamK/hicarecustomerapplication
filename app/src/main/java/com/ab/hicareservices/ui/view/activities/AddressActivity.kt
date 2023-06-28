@@ -42,16 +42,26 @@ class AddressActivity : AppCompatActivity() {
 
         datalist = ArrayList()
         datalist.add("Select Type")
-//
+
+        getAddressListdata()
+        binding.txtchangeaddress.setOnClickListener{
+            val intent=Intent(this,OverviewProductDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+    //
 //        Handler(Looper.getMainLooper()).postDelayed({
 //            getLeadMethod()
 //        }, 1500)
 
-        getAddressList()
 
-        binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog(true, 0)
-        }
+//       addesslist data
+
+//        getAddressList()
+//
+//        binding.lnraddress.setOnClickListener {
+//            showAddNewAddressdialog(true, 0)
+//        }
 
     }
 
@@ -73,7 +83,12 @@ class AddressActivity : AppCompatActivity() {
 
         mAdapter.setOnAddressItemClicked(object : onAddressClickedHandler{
             override fun setonaddclicklistener(position: Int, id: Int?) {
-                showAddNewAddressdialog(false,id)
+//                showAddNewAddressdialog(false,id)
+                val intent= Intent(this@AddressActivity,OverviewProductDetailsActivity::class.java)
+//                intent.putExtra("Billdata",billdata.toString())
+//                intent.putExtra("Shipdata",id.toString())
+                startActivity(intent)
+
             }
 
             override fun setonaddclicklisteners(position: Int) {
@@ -83,17 +98,6 @@ class AddressActivity : AppCompatActivity() {
 
     }
 
-    private fun getLeadMethod() {
-        try {
-            viewModels.spinnerList.observe(this, Observer {
-                datalist.addAll(it)
-            })
-
-            viewModels.getleaderspinner("pest")
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-    }
 
     private fun showAddNewAddressdialog(b: Boolean, id: Int?) {
         var selectedLocation = ""
@@ -375,10 +379,10 @@ class AddressActivity : AppCompatActivity() {
 
                             val billdata= SharedPreferenceUtil.setData(this@AddressActivity, "BillingAddress",it.Data.toString())
 
-                            val intent= Intent(this@AddressActivity,OverviewProductDetailsActivity::class.java)
-                            intent.putExtra("Billdata",billdata.toString())
-                            intent.putExtra("Shipdata",id.toString())
-                            startActivity(intent)
+//                            val intent= Intent(this@AddressActivity,OverviewProductDetailsActivity::class.java)
+//                            intent.putExtra("Billdata",billdata.toString())
+//                            intent.putExtra("Shipdata",id.toString())
+//                            startActivity(intent)
                             alertDialog.dismiss()
 //                            Toast.makeText(this,"Shipping address added successfully",Toast.LENGTH_LONG).show()
                         }else{
@@ -393,5 +397,37 @@ class AddressActivity : AppCompatActivity() {
         }
         alertDialog.show()
 
+    }
+
+
+    private fun getAddressListdata() {
+
+        viewProductModel.cutomeraddress.observe(this, Observer {
+
+            for (i in 0 until it.size){
+
+
+                var data=it.get(i).Id
+
+                if(it.get(i).IsDefault==true){
+
+                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).Pincode.toString()
+
+                }
+
+//                if(data==117){
+//                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+//                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+//                }else if(data==118){
+////                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+//                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+//                }else{
+//
+//                }
+            }
+        })
+
+        viewProductModel.getCustomerAddress(20)
     }
 }

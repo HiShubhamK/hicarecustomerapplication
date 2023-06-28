@@ -31,7 +31,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         billdata = intent.getStringExtra("Billdata").toString()
         shipdaata = intent.getStringExtra("Shipdata").toString()
 
-
         getproductlist()
         getSummarydata()
         getAddressList()
@@ -40,16 +39,39 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     }
 
+    private fun getAddressListbilladdress(){
+        viewProductModel.cutomeraddress.observe(this, Observer {
+
+            for (i in 0 until it.size){
+                var data=it.get(i).Id
+                if(data==117){
+                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                }else if(data==118){
+                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                }else{
+
+                }
+            }
+        })
+
+        viewProductModel.getCustomerAddress(20)
+    }
+
+
     private fun getAddressList() {
 
         viewProductModel.cutomeraddress.observe(this, Observer {
 
             for (i in 0 until it.size){
                 var data=it.get(i).Id
-                if(data!!.equals(billdata)){
-                    Toast.makeText(this,"billingdata "+it.get(i).Id.toString(),Toast.LENGTH_LONG).show()
-                }else if(data!!.equals(shipdaata)){
-                    Toast.makeText(this,"shippingdata "+data.toString(),Toast.LENGTH_LONG).show()
+                if(data==117){
+                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                }else if(data==118){
+                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                 }else{
 
                 }
