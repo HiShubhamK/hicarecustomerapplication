@@ -155,6 +155,7 @@ class ProductDetailActivity : AppCompatActivity() {
             } else {
                 binding.tvDisccount.visibility = View.GONE
             }
+            //counter quantity
             binding.tvCustomerRatesCount.text =
                 it.ProductConfiguration!!.CustomRatingMessage.toString()
             if (it.ProductConfiguration!!.MinimumBuyQuantity == 0) {
@@ -164,6 +165,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.textcount.text = it.ProductConfiguration!!.MinimumBuyQuantity.toString()
                 counts = it.ProductConfiguration!!.MinimumBuyQuantity!!.toInt()
             }
+            
 
 
 
@@ -217,14 +219,19 @@ class ProductDetailActivity : AppCompatActivity() {
             }
 
 
+            if (counts == 1) {
+                binding.imgremove.visibility = View.GONE
+                binding.imgdelete.visibility = View.VISIBLE
+            } else if (counts > 1) {
+                binding.imgremove.visibility = View.VISIBLE
+                binding.imgdelete.visibility = View.GONE
+            }
 
             binding.imgremove.setOnClickListener {
                 counts = counts - 1
                 binding.textcount.text = counts.toString()
                 if (counts == 1) {
-                    binding.imgremove.isClickable = false
-                    binding.imgdelete.isClickable = false
-
+//
                     binding.imgremove.visibility = View.GONE
                     binding.imgdelete.visibility = View.VISIBLE
                 } else {

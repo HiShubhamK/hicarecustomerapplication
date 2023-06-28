@@ -35,6 +35,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -110,6 +111,11 @@ class AddComplaintsActivity : AppCompatActivity() {
 
 
         arraylistImages = ArrayList()
+        arraylistImages.add(0,"")
+        arraylistImages.add(1,"")
+        arraylistImages.add(2,"")
+        arraylistImages.add(3,"")
+        arraylistImages.add(4,"")
         val extras = getIntent().extras
         if (orderNo != "") {
             binding.bottomheadertext.visibility = View.VISIBLE
@@ -219,7 +225,6 @@ class AddComplaintsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
-            onBackPressed()
         }
         binding.lnrUpload.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
@@ -456,7 +461,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 //
 
 
-                            if (arraylistImages.isNotEmpty()) {
+                            if (arraylistImages.isNotEmpty()&&arraylistImages[1]!="") {
                                 binding.lnrUpload2.visibility = View.GONE
                                 binding.lnrImage2.visibility = View.VISIBLE
                                 Picasso.get().load(arraylistImages[1].toString())
@@ -470,7 +475,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                             }
                         } else if (captureby == "img1") {
 //
-                            if (arraylistImages.isNotEmpty()) {
+                            if (arraylistImages.isNotEmpty()&&arraylistImages[0]!="") {
                                 binding.lnrUpload.visibility = View.GONE
                                 binding.lnrImage.visibility = View.VISIBLE
                                 Picasso.get().load(arraylistImages[0].toString())
@@ -487,7 +492,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                             }
 
                         } else if (captureby == "img3") {
-                            if (arraylistImages.isNotEmpty()){
+                            if (arraylistImages.isNotEmpty()&&arraylistImages[2]!=""){
                                 binding.lnrUpload3.visibility = View.GONE
                                 binding.lnrImage3.visibility = View.VISIBLE
                                 Picasso.get().load(arraylistImages[2].toString()).into(binding.imgUploadedCheque3)
@@ -503,7 +508,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 
 
                         } else if (captureby == "img4") {
-                            if (arraylistImages.isNotEmpty()){
+                            if (arraylistImages.isNotEmpty()&&arraylistImages[3]!=""){
                                 binding.lnrUpload4.visibility = View.GONE
                                 binding.lnrImage4.visibility = View.VISIBLE
                                 Picasso.get().load(arraylistImages[3].toString()).into(binding.imgUploadedCheque4)
@@ -511,7 +516,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                                 if (it != null && !it.equals("")) {
                                     binding.lnrUpload4.visibility = View.GONE
                                     binding.lnrImage4.visibility = View.VISIBLE
-                                    arraylistImages.add(it)
+                                    arraylistImages.add(3,it)
                                     Picasso.get().load(arraylistImages[3].toString()).into(binding.imgUploadedCheque4)
 
                                 }
@@ -519,7 +524,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 
 
                         }else if (captureby == "img5") {
-                            if (arraylistImages.isNotEmpty()){
+                            if (arraylistImages.isNotEmpty()&&arraylistImages[4]!=""){
                                 binding.lnrUpload5.visibility = View.GONE
                                 binding.lnrImage5.visibility = View.VISIBLE
                                 Picasso.get().load(arraylistImages[4].toString()).into(binding.imgUploadedCheque5)
@@ -527,7 +532,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                                 if (it != null && !it.equals("")) {
                                     binding.lnrUpload5.visibility = View.GONE
                                     binding.lnrImage5.visibility = View.VISIBLE
-                                    arraylistImages.add(it)
+                                    arraylistImages.add(4,it)
 
                                     Picasso.get().load(arraylistImages[4].toString()).into(binding.imgUploadedCheque5)
 
@@ -549,20 +554,47 @@ class AddComplaintsActivity : AppCompatActivity() {
 
 
             uploadAttachmentViewModel.UploadAttachment(hashMap)
-            binding.imageCancel.setOnClickListener {
-                arraylistImages.removeAt(0)
-                binding.lnrImage.visibility = View.GONE
-                binding.lnrUpload.visibility = View.VISIBLE
-            }
-            binding.imageCancel2.setOnClickListener {
-                arraylistImages.removeAt(1)
-                binding.lnrImage2.visibility = View.GONE
-                binding.lnrUpload2.visibility = View.VISIBLE
-            }
-            binding.imageCancel3.setOnClickListener {
-                arraylistImages.removeAt(2)
-                binding.lnrImage3.visibility = View.GONE
-                binding.lnrUpload3.visibility = View.VISIBLE
+            try {
+                binding.imageCancel.setOnClickListener {
+                    if (arraylistImages[0]!="") {
+                        arraylistImages.removeAt(0)
+                        binding.lnrImage.visibility = View.GONE
+                        binding.lnrUpload.visibility = View.VISIBLE
+                    }
+                }
+                binding.imageCancel2.setOnClickListener {
+                    if (arraylistImages[1]!="") {
+
+                        arraylistImages.removeAt(1)
+                        binding.lnrImage2.visibility = View.GONE
+                        binding.lnrUpload2.visibility = View.VISIBLE
+                    }
+                }
+                binding.imageCancel3.setOnClickListener {
+                    if (arraylistImages[2]!="") {
+
+                        arraylistImages.removeAt(2)
+                        binding.lnrImage3.visibility = View.GONE
+                        binding.lnrUpload3.visibility = View.VISIBLE
+                    }
+                }
+                binding.imageCancel4.setOnClickListener {
+                    if (arraylistImages[3]!="") {
+                        arraylistImages.removeAt(3)
+                        binding.lnrImage4.visibility = View.GONE
+                        binding.lnrUpload4.visibility = View.VISIBLE
+                    }
+                }
+                binding.imageCancel5.setOnClickListener {
+                    if (arraylistImages[4]!="") {
+                        arraylistImages.removeAt(4)
+                        binding.lnrImage5.visibility = View.GONE
+                        binding.lnrUpload5.visibility = View.VISIBLE
+                    }
+                }
+
+            }catch (e:Exception){
+                e.printStackTrace()
             }
 
 //            uploadattachment(encodedString, captureby)
@@ -632,7 +664,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         complaintViewModel.createComplaintResponse.observe(this, {
             if (it.isSuccess == true) {
                 finish()
-                Toast.makeText(this, "Complaint Created", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
@@ -1172,13 +1204,20 @@ class AddComplaintsActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        SharedPreferenceUtil.setData(this, "Image1", "").toString()
-        SharedPreferenceUtil.setData(this, "Image2", "").toString()
-        SharedPreferenceUtil.setData(this, "Image3", "").toString()
+        if (binding.layoutCamera.isVisible==true){
+            binding.layoutCamera.visibility=View.GONE
+            binding.scrollView2.visibility = View.VISIBLE
+
+        }else {
+            super.onBackPressed()
+            SharedPreferenceUtil.setData(this, "Image1", "").toString()
+            SharedPreferenceUtil.setData(this, "Image2", "").toString()
+            SharedPreferenceUtil.setData(this, "Image3", "").toString()
 //        this.supportFragmentManager.beginTransaction()
 //            .replace(R.id.container, OrdersFragment.newInstance()).addToBackStack("AccountFragment").commit();
-        finish()
+            finish()
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
