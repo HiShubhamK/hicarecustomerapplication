@@ -71,6 +71,7 @@ class AddToCartActivity : AppCompatActivity() {
 
         viewProductModel.getProductCartByUserId(customerid!!.toInt())
 
+
     }
 
     fun getSummarydata() {

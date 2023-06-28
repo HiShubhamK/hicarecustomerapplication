@@ -11,7 +11,8 @@ interface onSlotclick {
         Lat: String,
         Long: String,
         ServiceType: String,
-        scheduledate: String
+        scheduledate: String,
+        scheduledatetext: String
     )
 
 }

@@ -76,6 +76,7 @@ class ProductFragment : Fragment() {
             showalertDailogbox()
         }
 
+
         binding.cartmenu.setOnClickListener{
             val intent= Intent(requireActivity(),AddToCartActivity::class.java)
             startActivity(intent)

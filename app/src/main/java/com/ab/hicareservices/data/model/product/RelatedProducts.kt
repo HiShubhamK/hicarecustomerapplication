@@ -19,7 +19,7 @@ data class RelatedProducts(
     @SerializedName("Discount") var Discount: Int? = null,
     @SerializedName("Discount_StartDate") var DiscountStartDate: String? = null,
     @SerializedName("Discount_EndDate") var DiscountEndDate: String? = null,
-    @SerializedName("Product_Rating") var ProductRating: Int? = null,
+    @SerializedName("Product_Rating") var ProductRating: Double? = null,
     @SerializedName("Is_HotProduct") var IsHotProduct: Boolean? = null,
     @SerializedName("Is_ToSellingProduct") var IsToSellingProduct: Boolean? = null,
     @SerializedName("Is_Stock_Available") var IsStockAvailable: Boolean? = null,
@@ -30,4 +30,5 @@ data class RelatedProducts(
     @SerializedName("Product_SEO_Name") var ProductSEOName: String? = null,
     @SerializedName("Product_SEOCategory") var ProductSEOCategory: String? = null,
     @SerializedName("Custom_Rating_Message") var CustomRatingMessage: String? = null
+
 ) {}

@@ -26,9 +26,9 @@ data class ProductConfiguration(
     @SerializedName("End_Date") var EndDate: String? = null,
     @SerializedName("Installation_Charges") var InstallationCharges: Int? = null,
     @SerializedName("Is_Active") var IsActive: Boolean? = null,
-    @SerializedName("Created_By") var CreatedBy: String? = null,
+    @SerializedName("Created_By") var CreatedBy: Int? = null,
     @SerializedName("Created_On") var CreatedOn: String? = null,
-    @SerializedName("Updated_By") var UpdatedBy: String? = null,
+    @SerializedName("Updated_By") var UpdatedBy: Int? = null,
     @SerializedName("Updated_On") var UpdatedOn: String? = null,
     @SerializedName("Discounted_Amount") var DiscountedAmount: Int? = null,
     @SerializedName("Discounted_Price") var DiscountedPrice: Int? = null,
@@ -40,9 +40,10 @@ data class ProductConfiguration(
     @SerializedName("Video_URL") var VideoURL: String? = null,
     @SerializedName("Stock_Status") var StockStatus: Boolean? = null,
     @SerializedName("StockCount") var StockCount: Int? = null,
-    @SerializedName("Delivery_Charges") var DeliveryCharges: Int? = null,
+    @SerializedName("Delivery_Charges") var DeliveryCharges: String? = null,
     @SerializedName("Free_Shipping") var FreeShipping: Boolean? = null,
     @SerializedName("Is_SubscribedProduct") var IsSubscribedProduct: Boolean? = null,
-    @SerializedName("SubscriptionDiscount") var SubscriptionDiscount: Int? = null,
-    @SerializedName("SubscribedProductTenureIndays") var SubscribedProductTenureIndays: Int? = null
+    @SerializedName("SubscriptionDiscount") var SubscriptionDiscount: String? = null,
+    @SerializedName("SubscribedProductTenureIndays") var SubscribedProductTenureIndays: String? = null
+
 ) {}
