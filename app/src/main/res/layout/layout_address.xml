@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/addresscard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
@@ -79,6 +80,8 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginTop="5dp"
+             android:visibility="gone"
+             android:textSize="12sp"
              android:text="My Billing and Shipping addrress are differnt"
              android:buttonTint="@color/colorAccent"/>
 

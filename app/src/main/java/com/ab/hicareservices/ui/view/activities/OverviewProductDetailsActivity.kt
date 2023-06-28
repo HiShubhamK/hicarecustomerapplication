@@ -43,11 +43,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         viewProductModel.cutomeraddress.observe(this, Observer {
 
             for (i in 0 until it.size){
-                var data=it.get(i).Id
-                if(data==117){
+                var data=it.get(i).Id.toString()
+                if(data.equals(shipdaata)){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data==118){
+                }else if(data.equals(billdata)){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                 }else{
@@ -65,11 +65,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         viewProductModel.cutomeraddress.observe(this, Observer {
 
             for (i in 0 until it.size){
-                var data=it.get(i).Id
-                if(data==117){
+                var data=it.get(i).Id.toString()
+                if(data.equals(shipdaata)){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data==118){
+                }else if(data.equals(billdata)){
                     binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                 }else{
