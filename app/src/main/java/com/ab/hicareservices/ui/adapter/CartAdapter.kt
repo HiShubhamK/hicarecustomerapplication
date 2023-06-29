@@ -100,6 +100,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             if (counts == 1) {
                 holder.binding.imgremove.visibility = View.GONE
                 holder.binding.imgdelete.visibility = View.VISIBLE
+
             } else {
                 holder.binding.imgdelete.visibility = View.GONE
             }
@@ -117,11 +118,16 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         }
 
         holder.binding.imgdelete.setOnClickListener {
+            if(count==1){
+                holder.binding.textcount.text=count.toString()
+            }
+            holder.binding.textcount.text="1"
             onCartClickedHandler!!.setondeleteclicklistener(
                 position,
                 productlists.CartId,
                 productlists.UserId
             )
+
 //            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())
             notifyDataSetChanged()
         }

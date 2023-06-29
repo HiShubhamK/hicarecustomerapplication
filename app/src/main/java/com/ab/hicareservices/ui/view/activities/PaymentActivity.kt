@@ -10,6 +10,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -32,12 +33,17 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var orderValueWithTaxAfterDiscount = ""
     private val orderDetailsViewModel: OrderDetailsViewModel by viewModels()
     var stdvalues=""
+    var product=false
+    var shippingdata=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
+
 
         val intent = intent
 
@@ -48,37 +54,61 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
         stdvalues=intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
 
+        product=intent.getBooleanExtra("Product",false)
 
+        if(product==true){
 
-//        Toast.makeText(
-//            this,
-//            "service: " + service + "  " + "serviceType: " + serviceType,
-//            Toast.LENGTH_SHORT
-//        ).show()
+            val notesproduct = prepareNotesProducts()
+            options = prepareOptionforProduct(
+                notesproduct,
+                AppUtils2.productamount
+            )
+            try {
+                val co = Checkout()
+                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.open(this, options)
+            } catch (e: Exception) {
+                Log.d("TAG", "$e")
+            }
 
-        val notes = prepareNotes(
-            accountId,
-            order_no,
-            serviceType,
-            payment,
-            service,
-            stdvalues
-        )
-        options = prepareOption(
-            notes,
-            serviceType,
-            payment
-        )
+        }else{
 
-        try {
-            val co = Checkout()
-            co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
-            co.open(this, options)
-        } catch (e: Exception) {
-            Log.d("TAG", "$e")
+            val notes = prepareNotes(
+                accountId,
+                order_no,
+                serviceType,
+                payment,
+                service,
+                stdvalues
+            )
+            options = prepareOption(
+                notes,
+                serviceType,
+                payment
+            )
+
+            try {
+                val co = Checkout()
+                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.open(this, options)
+            } catch (e: Exception) {
+                Log.d("TAG", "$e")
+            }
         }
-
     }
+
+    private fun prepareOptionforProduct(notesproduct: JSONObject, productamount: String): JSONObject {
+        val options = JSONObject()
+        options.put("name", "HiCare Services")
+        options.put("description", "Product")
+        options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
+        options.put("theme.color", "#2BB77A")
+        options.put("currency", "INR")
+        options.put("amount", "${productamount.toDouble().roundToInt()}00")
+        options.put("notes", notesproduct)
+        return options
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -220,6 +250,27 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val data1 = Intent()
         data1.putExtra("title", AppUtils2.paymentsucess)
         finish()
+    }
+
+
+
+    private fun prepareNotesProducts() :JSONObject{
+        val notes = JSONObject()
+        notes.put("Name", AppUtils2.cutomername)
+        notes.put("Contact", AppUtils2.customermobile)
+        notes.put("Email", AppUtils2.customeremail)
+        notes.put("InvoiceNo", "Product")
+        notes.put("ActualAmount", AppUtils2.productamount)
+        notes.put("UserId", AppUtils2.customerid)
+        notes.put("AddressId",shippingdata)
+//        notes.put("FlatNo", orderValue)
+//        notes.put("BuildingName", "")
+//        notes.put("Street", "")
+//        notes.put("Landmark", "")
+//        notes.put("Pincode", true)
+//        notes.put("City", false)
+//        notes.put("Locality", "")
+        return notes
     }
 
 }

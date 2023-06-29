@@ -51,10 +51,10 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
-        Toast.makeText(requireActivity(),customerid+"  "+pincode,Toast.LENGTH_LONG).show()
+        Toast.makeText(requireActivity(),customerid+"  pincode"+pincode,Toast.LENGTH_LONG).show()
 
         viewProductModel.productcount.observe(requireActivity(), Observer {
             if (it.IsSuccess==true){
@@ -70,13 +70,15 @@ class ProductFragment : Fragment() {
             }
         })
 
-//        viewProductModel.getProductCountInCar(customerid!!.toInt())
-        viewProductModel.getProductCountInCar(20)
+        viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+//        viewProductModel.getProductCountInCar(20)
 
-        if(pincode!=null || !pincode.equals("")){
-              getProductslist(pincode!!)
-        }else{
+        if(pincode.equals("")){
             showalertDailogbox()
+//            getProductslist(pincode!!)
+        }else{
+            getProductslist(pincode!!)
+//            showalertDailogbox()
         }
 
 
@@ -100,7 +102,9 @@ class ProductFragment : Fragment() {
 
         })
 
-        viewProductModel.getProductlist("400078")
+//        viewProductModel.getProductlist("400078")
+        viewProductModel.getProductlist(pincode)
+
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
             override fun onProductClickedHandler(position: Int, productid: Int) {
@@ -108,7 +112,7 @@ class ProductFragment : Fragment() {
 
 //                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
 
-                viewProductModel.getAddProductInCart(1,productid,20)
+                viewProductModel.getAddProductInCart(1,productid,AppUtils2.customerid.toInt())
 
                 viewProductModel.productcount.observe(requireActivity(), Observer {
                     if (it.IsSuccess==true){
@@ -119,7 +123,7 @@ class ProductFragment : Fragment() {
                     }
                 })
 
-                viewProductModel.getProductCountInCar(20)
+                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
 //                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
@@ -150,8 +154,8 @@ class ProductFragment : Fragment() {
             }
         })
 
-//        viewProductModel.getProductCountInCar(customerid!!.toInt())
-        viewProductModel.getProductCountInCar(20)
+        viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+//        viewProductModel.getProductCountInCar(20)
 
     }
 
@@ -176,6 +180,7 @@ class ProductFragment : Fragment() {
                 Toast.makeText(requireActivity(),"Please enter correct pincode",Toast.LENGTH_LONG).show()
             }else{
                 var pincode=edtpincode.text.trim().toString()
+                SharedPreferenceUtil.setData(requireActivity(), "pincode",pincode)
                 alertDialog.dismiss()
                 getProductslist(pincode)
             }

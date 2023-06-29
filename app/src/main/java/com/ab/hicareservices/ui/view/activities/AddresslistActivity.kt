@@ -2,7 +2,6 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -11,140 +10,89 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddressBinding
+import com.ab.hicareservices.databinding.ActivityAddresslistBinding
 import com.ab.hicareservices.ui.adapter.AddressAdapter
-import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
-import java.util.*
 
-class AddressActivity : AppCompatActivity() {
+class AddresslistActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddressBinding
-    private val viewProductModel: ProductViewModel by viewModels()
+    private lateinit var binding: ActivityAddresslistBinding
     private lateinit var mAdapter: AddressAdapter
-    lateinit var datalist: ArrayList<String>
-    private val viewModels: HomeActivityViewModel by viewModels()
-    var shippingdata: String? = ""
-    var billingdata: String? = ""
+    private val viewProductModel: ProductViewModel by viewModels()
+    var shipping=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_address)
-        binding = ActivityAddressBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_addresslist)
+        binding=ActivityAddresslistBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        datalist = ArrayList()
-        datalist.add("Select Type")
-
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
-        billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
-        binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            billingdata=shippingdata
-        }
 
-        if(billingdata.equals("") || billingdata==null){
-            binding.txtbilling.visibility=View.GONE
-            binding.checkbox.visibility=View.VISIBLE
-        }
+        val intent = intent
+        shipping = intent.getStringExtra("shippingaddress").toString()
 
-        getAddressListdata()
-        getAddressListdata2()
-        binding.txtchangeaddress.setOnClickListener {
-            val intent = Intent(this, AddresslistActivity::class.java)
-            intent.putExtra("shippingaddress", "true")
-            startActivity(intent)
-        }
+        Toast.makeText(this,shipping,Toast.LENGTH_LONG).show()
 
-        binding.txtbillingaddress.setOnClickListener {
-            val intent = Intent(this, AddresslistActivity::class.java)
-            intent.putExtra("shippingaddress", "false")
-            startActivity(intent)
-        }
-
-        binding.btnnext.setOnClickListener{
-            val intent=Intent(this,OverviewProductDetailsActivity::class.java)
-            intent.putExtra("Billdata",billingdata)
-            intent.putExtra("Shipdata",shippingdata)
-            startActivity(intent)
-        }
+        getAddressList(shipping)
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true",0)
-        }
-
-        binding.lnraddressbilling.setOnClickListener {
-            showAddNewAddressdialog("false",0)
+            showAddNewAddressdialog(shipping,0)
         }
 
     }
 
-    private fun getAddressListdata2() {
+    private fun getAddressList(shipping: String) {
+        binding.recycleviewaddress.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mAdapter = AddressAdapter()
+
+        binding.recycleviewaddress.adapter = mAdapter
 
         viewProductModel.cutomeraddress.observe(this, Observer {
 
-            for (i in 0 until it.size) {
+            mAdapter.setAddressList(it, this, viewProductModel,shipping)
+            mAdapter.notifyDataSetChanged()
 
-
-                var data = it.get(i).Id.toString()
-//                val num:Int=
-//                val num2:Int=billingdata.toInt()
-                if (data.equals(billingdata)) {
-                    binding.txtbilling.visibility = View.VISIBLE
-                    binding.txtbilling.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).Pincode.toString()
-                } else {
-
-                }
-            }
-        })
-
-        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt() )
-
-    }
-
-    private fun getAddressListdata() {
-
-//        billingdata=SharedPreferenceUtil.getData(this,"Billingdata","").toString()
-
-        Toast.makeText(this,"AlterBox: " +billingdata,Toast.LENGTH_LONG).show()
-
-        viewProductModel.cutomeraddress.observe(this, Observer {
-
-            for (i in 0 until it.size) {
-
-
-                var data = it.get(i).Id.toString()
-
-                if(data.equals(shippingdata)){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data.equals(billingdata)){
-                    binding.checkbox.visibility=View.GONE
-                    binding.txtbilling.visibility=View.VISIBLE
-                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(it.get(i).IsDefault==true){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else{
-                    binding.txtbilling.visibility=View.GONE
-                }
-            }
         })
 
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
+
+
+        mAdapter.setOnAddressItemClicked(object : onAddressClickedHandler {
+            override fun setonaddclicklistener(position: Int, id: Int?, b: Boolean) {
+                showAddNewAddressdialog(b.toString(),0)
+                binding.recycleviewaddress.post(Runnable { mAdapter.notifyDataSetChanged() })
+            }
+
+            override fun setradiobuttonclicklistern(position: Int) {
+                binding.recycleviewaddress.post(Runnable { mAdapter.notifyDataSetChanged() })
+
+            }
+
+            override fun setItemClickLister(position: Int, id: Int?, b: Boolean) {
+                if(b==true){
+                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
+                }else if(b==false){
+                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
+                }
+                val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
+                Toast.makeText(this@AddresslistActivity,id.toString(),Toast.LENGTH_LONG).show()
+                startActivity(intent)
+            }
+
+
+        })
+
     }
 
     private fun showAddNewAddressdialog(b: String, id: Int?) {
@@ -282,8 +230,9 @@ class AddressActivity : AppCompatActivity() {
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         if(it.IsSuccess==true){
-                            val newAddressid=it.Data.toString()
-                            SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
+                            val intent=intent
+                            finish()
+                            startActivity(intent)
                             alertDialog.dismiss()
                             Toast.makeText(this,"Shipping address added successfully", Toast.LENGTH_LONG).show()
                         }else{
@@ -427,15 +376,7 @@ class AddressActivity : AppCompatActivity() {
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         if(it.IsSuccess==true){
                             var newaddessid=it.Data.toString()
-                            billingdata=it.Data.toString()
-                            SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
-                            getAddressListdata()
-                            getAddressListdata2()
-                            alertDialog.dismiss()
-//                            val intent = intent
-//                            finish()
-//                            startActivity(intent)
-                            Toast.makeText(this,newaddessid, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@AddresslistActivity,newaddessid,Toast.LENGTH_LONG).show()
                             alertDialog.dismiss()
                         }else{
                         }
@@ -449,9 +390,7 @@ class AddressActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
-
 }

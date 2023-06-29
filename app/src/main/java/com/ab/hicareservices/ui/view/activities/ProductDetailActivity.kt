@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.text.Html
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,8 +55,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         productGallery = ArrayList()
 
-//        Toast.makeText(this, AppUtils2.producDetailsResponse.toString(), Toast.LENGTH_LONG).show()
-
+        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
         getlist()
 
@@ -251,6 +251,8 @@ class ProductDetailActivity : AppCompatActivity() {
         })
 
 
+
+//        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
         viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 

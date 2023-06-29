@@ -1,13 +1,15 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
-import com.ab.hicareservices.ui.view.activities.AddressActivity
+import com.ab.hicareservices.ui.view.activities.AddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 
 
@@ -17,6 +19,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
     lateinit var requireActivity:FragmentActivity
     lateinit var viewProductModel: ProductViewModel
     var selectedPosition = -1
+    var shipping:String=""
 
 
     private var onAddressClickedHandler: onAddressClickedHandler? = null
@@ -30,35 +33,68 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val cutomeraddressdata=productlist[position]
-        holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
-        if(cutomeraddressdata.IsDefault==true){
-            holder.binding.radiobuttons.isChecked=true
+        if(shipping.equals("true")) {
 
-        }
+            holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
-        holder.binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            onAddressClickedHandler!!.setonaddclicklistener(position,cutomeraddressdata.Id)
-        }
-
-        holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
-
-            if(b.equals(cutomeraddressdata.IsDefault==false)){
-                selectedPosition=holder.adapterPosition
-                notifyDataSetChanged()
-            }else{
-                selectedPosition=holder.adapterPosition
-                notifyDataSetChanged()
+            if (cutomeraddressdata.IsDefault == true) {
+                holder.binding.addresscard.setCardBackgroundColor(Color.GRAY)
             }
 
-        }
+            holder.binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
+                selectedPosition = holder.adapterPosition
+                onAddressClickedHandler!!.setonaddclicklistener(position, cutomeraddressdata.Id,true)
+            }
 
-        holder.binding.txtusername.text=cutomeraddressdata.Id.toString()
-        holder.binding.txtusername.text=cutomeraddressdata.FlatNo+","+cutomeraddressdata.BuildingName+","+
-                cutomeraddressdata.Street+","+cutomeraddressdata.FlatNo+","+cutomeraddressdata.Locality+","+
-                cutomeraddressdata.Landmark+","+cutomeraddressdata.City+","+
-                cutomeraddressdata.State+","+cutomeraddressdata.Pincode
-        holder.binding.txtphoneno.text="Phone No:" +cutomeraddressdata.ContactPersonMobile
+            holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
+
+                if (b) {
+
+                    holder.binding.checkbox.visibility = View.VISIBLE
+                    selectedPosition = holder.adapterPosition
+                    onAddressClickedHandler!!.setradiobuttonclicklistern(position)
+
+                }
+            }
+
+            holder.itemView.setOnClickListener {
+                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id, true)
+            }
+
+            holder.binding.txtusername.text = cutomeraddressdata.Id.toString()
+            holder.binding.txtusername.text =
+                cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName + "," +
+                        cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
+                        cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
+                        cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
+            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.ContactPersonMobile
+        }else if(shipping.equals("false")){
+            holder.binding.radiobuttons.setChecked(position == selectedPosition)
+
+            holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
+
+                if (b) {
+
+                    selectedPosition = holder.adapterPosition
+                    onAddressClickedHandler!!.setradiobuttonclicklistern(position)
+
+                }
+            }
+
+            holder.itemView.setOnClickListener {
+                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false)
+            }
+
+            holder.binding.txtusername.text = cutomeraddressdata.Id.toString()
+            holder.binding.txtusername.text =
+                cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName + "," +
+                        cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
+                        cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
+                        cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
+            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.ContactPersonMobile
+
+        }
 
     }
 
@@ -76,7 +112,13 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
         return productlist.size
     }
 
-    fun setAddressList(productlist: List<CustomerAddressData>?, addressActivity: AddressActivity, viewProductModel: ProductViewModel) {
+    fun setAddressList(
+        productlist: List<CustomerAddressData>?,
+        addressActivity: AddresslistActivity,
+        viewProductModel: ProductViewModel,
+        shipping: String
+    ) {
+        this.shipping=shipping
         this.productlist= productlist!!.toMutableList()
         notifyDataSetChanged()
     }
