@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#f6f6f6"
     android:orientation="vertical"
-    tools:context=".ui.view.activities.OrderDetailActivity">
+    tools:context=".ui.view.activities.ProductSummaryDetailActivity">
 
     <RelativeLayout
         android:id="@+id/headerView"
@@ -138,6 +138,7 @@
                             android:layout_marginBottom="8dp"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
+                            android:padding="3dp"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:singleLine="true"
@@ -242,8 +243,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:text="Ordered On :"
-                                        android:textSize="12sp"
+                                        android:text="Booked On :"
+                                        android:textSize="14sp"
                                         android:textColor="@color/grey_font"
                                         android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
@@ -779,24 +780,44 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txt_PaymentDetails"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="center"
-                        android:lineSpacingMultiplier="1.2"
-                        android:text="Payment Details"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/lato_semibold"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txt_PaymentDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="Payment Details"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/lato_semibold"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+
+                            android:layout_marginRight="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Amount"
+                            android:gravity="end"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:layout_gravity="end|center" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -895,6 +916,7 @@
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/lnrTax"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -1147,6 +1169,7 @@
                                 android:gravity="right"
                                 android:maxLines="2"
                                 android:text=""
+                                android:textAllCaps="true"
                                 android:textSize="12sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/black"/>
@@ -1184,6 +1207,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:gravity="right"
+                                android:textAllCaps="true"
                                 android:maxLines="2"
                                 android:text=""
                                 android:textSize="12sp"
@@ -1193,6 +1217,49 @@
                         </RelativeLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Order Status"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/lato_semibold"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                        <!--Progress Bar created-->
+                    <com.kofigyan.stateprogressbar.StateProgressBar
+                        android:id="@+id/your_state_progress_bar_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        app:spb_animateToCurrentProgressState="true"
+                        app:spb_checkStateCompleted="true"
+                        app:spb_currentStateDescriptionColor="#0F9D58"
+                        app:spb_currentStateNumber="one"
+                        app:spb_maxStateNumber="four"
+                        app:spb_stateBackgroundColor="#BDBDBD"
+                        app:spb_stateDescriptionColor="#808080"
+                        app:spb_stateForegroundColor="#0F9D58"
+                        app:spb_stateNumberBackgroundColor="#808080"
+                        app:spb_stateNumberForegroundColor="#eeeeee" />
+
+                        <!--Button to go on next step-->
+
+
+
 
 
                 </LinearLayout>

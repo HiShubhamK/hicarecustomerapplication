@@ -175,11 +175,12 @@
                     android:orientation="vertical">
 
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="Add to Cart"
+                        android:text="Add To Cart"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 

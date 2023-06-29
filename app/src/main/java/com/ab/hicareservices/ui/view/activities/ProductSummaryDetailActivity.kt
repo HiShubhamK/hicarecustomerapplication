@@ -1,40 +1,33 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.service.ServiceData
-import com.ab.hicareservices.databinding.ActivityOrderDetailBinding
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.kofigyan.stateprogressbar.StateProgressBar
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+
 
 class ProductSummaryDetailActivity : AppCompatActivity() {
 
@@ -59,7 +52,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var accountId = ""
     var service = ""
     var orderValueWithTax = 00.00
-//    var discount = ""
+
+    //    var discount = ""
     var orderValueWithTaxAfterDiscount = ""
     var Discount: String = ""
     var OrderValuePostDiscount: String = ""
@@ -75,6 +69,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var PaymentMethod = ""
     var Address = ""
     var OrderValue = ""
+    var descriptionData = arrayOf("Booked", "Packed", "Dispatch", "Delivered")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,6 +144,32 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //        }
 
         try {
+            binding.yourStateProgressBarId.setStateDescriptionData(descriptionData)
+//            when (descriptionData.equals(OrderStatus)) {
+//                "" -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
+//                2 -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
+//                3 -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
+//                4 -> binding.yourStateProgressBarId.setAllStatesCompleted(true)
+//            }
+
+            if (descriptionData.contains(OrderStatus)){
+                if (OrderStatus.equals("Booked")){
+                  binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
+                }else if (OrderStatus.equals("Packed")){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
+
+                }else if (OrderStatus.equals("Dispatch")||OrderStatus.equals("Shipped")){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
+
+                }else if (OrderStatus.equals("Delivered")){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
+
+                }else{
+                    binding.yourStateProgressBarId.visibility=View.GONE
+
+                }
+            }
+
 
             binding.payNowBtn.setOnClickListener {
                 try {
@@ -204,9 +225,9 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 ////                 orderValueWithTaxAfterDiscount =
 ////                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
             binding.orderNameTv.text = ProductDisplayName
-            binding.orderNoTv.text = ":" + orderNo
-            binding.dateTv.text = ":" +AppUtils2.formatDateTime4(OrderDate)
-            binding.tvTax.text = "" + Tax+"%"
+            binding.orderNoTv.text = ": " + orderNo
+            binding.dateTv.text = ": " + AppUtils2.formatDateTime4(OrderDate)
+            binding.tvTax.text = "" + Tax + "%"
             binding.tvInstallCharge.text = "₹ " + InstallationCharge
             binding.tvShippingCharges.text = "₹ " + ShippingCharge
 
@@ -256,17 +277,17 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //            binding.payNowBtn.visibility = View.GONE
 //        }
 
-            if (OrderStatus.toString()=="Booked"){
+            if (OrderStatus.toString() == "Booked") {
                 binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
                 binding.statusTv.text = OrderStatus
 
-            }else {
+            } else {
                 binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
                 binding.statusTv.text = OrderStatus
 
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
