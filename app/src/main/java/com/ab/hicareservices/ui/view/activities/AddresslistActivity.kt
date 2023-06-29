@@ -45,6 +45,10 @@ class AddresslistActivity : AppCompatActivity() {
 
         getAddressList(shipping)
 
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.lnraddress.setOnClickListener {
             showAddNewAddressdialog(shipping,0)
         }

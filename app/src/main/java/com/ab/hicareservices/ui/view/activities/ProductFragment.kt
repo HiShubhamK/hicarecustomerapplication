@@ -54,8 +54,6 @@ class ProductFragment : Fragment() {
         AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
-        Toast.makeText(requireActivity(),customerid+"  pincode"+pincode,Toast.LENGTH_LONG).show()
-
         viewProductModel.productcount.observe(requireActivity(), Observer {
             if (it.IsSuccess==true){
 

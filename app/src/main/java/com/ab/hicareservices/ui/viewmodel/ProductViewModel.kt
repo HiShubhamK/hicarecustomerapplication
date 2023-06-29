@@ -2,6 +2,8 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.SaveSalesResponse
+import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByDetailIdData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryResponse
@@ -25,7 +27,7 @@ class ProductViewModel: ViewModel() {
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
     val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
     val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
-    val getaddressbydetailid= MutableLiveData<List<AddressByDetailIdData>>()
+    val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -186,14 +188,31 @@ class ProductViewModel: ViewModel() {
         })
     }
     fun getAddressDetailbyId(addressid: Int) {
-        val response = repository.getordersummeryList(addressid)
-        response.enqueue(object : Callback<OrderSummeryResponse> {
-            override fun onResponse(call: Call<OrderSummeryResponse>, response: Response<OrderSummeryResponse>) {
-                getordersummeryList.postValue(response.body()!!.orderSummeryData)
+        val response = repository.getaddressdetailbyid(addressid)
+        response.enqueue(object : Callback<AddressByCustomerModel> {
+            override fun onResponse(call: Call<AddressByCustomerModel>, response: Response<AddressByCustomerModel>) {
+                getaddressbydetailid.postValue(response.body()!!.Data)
             }
-            override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AddressByCustomerModel>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
             }
+        })
+    }
+
+    fun postSaveSalesOrder(data: HashMap<String, Any>){
+        val response=repository.postSaveSalesOrder(data)
+        response.enqueue(object :Callback<SaveSalesResponse>{
+            override fun onResponse(
+                call: Call<SaveSalesResponse>,
+                response: Response<SaveSalesResponse>
+            ) {
+                errorMessage.postValue(response.body()!!.Data)
+            }
+
+            override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
+
+            }
+
         })
     }
 

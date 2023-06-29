@@ -193,6 +193,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:gravity="end"
+                    android:visibility="gone"
                     android:textColor="@color/colorAccent"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"

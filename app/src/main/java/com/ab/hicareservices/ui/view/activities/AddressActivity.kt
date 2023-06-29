@@ -47,6 +47,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
             billingdata=shippingdata
+            showAddNewAddressdialog("false",0)
         }
 
         if(billingdata.equals("") || billingdata==null){
@@ -55,7 +56,13 @@ class AddressActivity : AppCompatActivity() {
         }
 
         getAddressListdata()
-        getAddressListdata2()
+//        getAddressListdata2()
+        if(billingdata.equals("")) {
+        }else{
+            getAddressforbilling()
+        }
+
+
         binding.txtchangeaddress.setOnClickListener {
             val intent = Intent(this, AddresslistActivity::class.java)
             intent.putExtra("shippingaddress", "true")
@@ -79,10 +86,20 @@ class AddressActivity : AppCompatActivity() {
             showAddNewAddressdialog("true",0)
         }
 
-        binding.lnraddressbilling.setOnClickListener {
-            showAddNewAddressdialog("false",0)
-        }
+//        binding.lnraddressbilling.setOnClickListener {
+//            showAddNewAddressdialog("false",0)
+//        }
 
+    }
+
+    private fun getAddressforbilling() {
+        viewProductModel.getaddressbydetailid.observe(this, Observer {
+            binding.txtbilling.visibility = View.VISIBLE
+            binding.txtbilling.text =
+                it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+                        it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
+        })
+        viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
     }
 
     private fun getAddressListdata2() {
@@ -115,10 +132,6 @@ class AddressActivity : AppCompatActivity() {
     }
 
     private fun getAddressListdata() {
-
-//        billingdata=SharedPreferenceUtil.getData(this,"Billingdata","").toString()
-
-        Toast.makeText(this,"AlterBox: " +billingdata,Toast.LENGTH_LONG).show()
 
         viewProductModel.cutomeraddress.observe(this, Observer {
 
@@ -430,11 +443,8 @@ class AddressActivity : AppCompatActivity() {
                             billingdata=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
                             getAddressListdata()
-                            getAddressListdata2()
+                            getAddressforbilling()
                             alertDialog.dismiss()
-//                            val intent = intent
-//                            finish()
-//                            startActivity(intent)
                             Toast.makeText(this,newaddessid, Toast.LENGTH_LONG).show()
                             alertDialog.dismiss()
                         }else{

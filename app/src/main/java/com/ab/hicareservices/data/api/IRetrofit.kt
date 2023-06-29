@@ -1,8 +1,6 @@
 package com.ab.hicareservices.data.api
 
-import com.ab.hicareservices.data.model.LeadResponse
-import com.ab.hicareservices.data.model.NotificationToken
-import com.ab.hicareservices.data.model.Whatappresponse
+import com.ab.hicareservices.data.model.*
 import com.ab.hicareservices.data.model.attachment.AttachmentResponse
 import com.ab.hicareservices.data.model.attachment.GetAttachmentResponse
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
@@ -12,7 +10,6 @@ import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
 import com.ab.hicareservices.data.model.dashboard.ScheduledService
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
-import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.orders.OrdersResponse
@@ -147,5 +144,8 @@ interface IRetrofit {
 
     @GET("Address/GetAddressDetailById")
     fun getaddressdetailbyid(@Query("addressId") addressId: Int): Call<AddressByCustomerModel>
+
+    @POST("Order/SaveSalesOrder")
+    fun postSaveSalesOrder(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
 
 }
