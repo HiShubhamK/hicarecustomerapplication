@@ -32,6 +32,7 @@ import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.view.fragments.OrderDetailsFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
+import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
@@ -138,8 +139,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 R.id.nav_orders -> {
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragment.newInstance())
-                        .addToBackStack("OrdersFragment").commit()
+                        .replace(R.id.container, OrdersFragmentNew.newInstance())
+                        .addToBackStack("OrdersFragmentNew").commit()
                     true
                 }
                 else -> false

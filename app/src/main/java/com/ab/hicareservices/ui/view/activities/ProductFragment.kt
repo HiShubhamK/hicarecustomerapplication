@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.ui.adapter.ProductAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
@@ -122,6 +123,10 @@ class ProductFragment : Fragment() {
 
 //                viewProductModel.getProductCountInCar(customerid!!.toInt())
 
+            }
+
+            override fun onProductView(position: Int, productid: OrderSummeryData) {
+                TODO("Not yet implemented")
             }
         })
 

@@ -2,9 +2,11 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByDetailIdData
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryResponse
 import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.repository.MainRepository
-import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +24,8 @@ class ProductViewModel: ViewModel() {
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
     val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
+    val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
+    val getaddressbydetailid= MutableLiveData<List<AddressByDetailIdData>>()
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -48,6 +52,7 @@ class ProductViewModel: ViewModel() {
     }
 
 
+
     fun getProductlist(pincode: String) {
         val response = repository.getproductlist(pincode)
         response.enqueue(object : Callback<ProductListResponse> {
@@ -64,7 +69,7 @@ class ProductViewModel: ViewModel() {
         val response=repository.getProductDetails(productid,pincode,customerid)
         response.enqueue(object  : Callback<ProducDetailsResponse>{
             override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
-                producDetailsResponse.postValue(response.body()!!.Data)
+                producDetailsResponse.postValue(response.body()!!.Data!!)
 //                AppUtils2.producDetailsResponse= response.body()!!.IsSuccess.toString()
 
             }
@@ -125,7 +130,7 @@ class ProductViewModel: ViewModel() {
                 response: Response<GetCartSummaryResponse>
             ) {
                 if(response.body()?.IsSuccess ==true){
-                    getsummarydata.postValue(response.body()!!.Data)
+                    getsummarydata.postValue(response.body()!!.Data!!)
                 }
             }
 
@@ -167,6 +172,28 @@ class ProductViewModel: ViewModel() {
 
             }
 
+        })
+    }
+    fun getOrderSummeryList(userid: Int) {
+        val response = repository.getordersummeryList(userid)
+        response.enqueue(object : Callback<OrderSummeryResponse> {
+            override fun onResponse(call: Call<OrderSummeryResponse>, response: Response<OrderSummeryResponse>) {
+                getordersummeryList.postValue(response.body()!!.orderSummeryData)
+            }
+            override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
+            }
+        })
+    }
+    fun getAddressDetailbyId(addressid: Int) {
+        val response = repository.getordersummeryList(addressid)
+        response.enqueue(object : Callback<OrderSummeryResponse> {
+            override fun onResponse(call: Call<OrderSummeryResponse>, response: Response<OrderSummeryResponse>) {
+                getordersummeryList.postValue(response.body()!!.orderSummeryData)
+            }
+            override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
+            }
         })
     }
 

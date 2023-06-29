@@ -8,6 +8,7 @@
     tools:context=".ui.view.activities.ProductFragment">
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
@@ -28,7 +29,7 @@
                 android:layout_weight="1.6"
                 android:gravity="center"
                 android:layout_marginLeft="50dp"
-                android:text="Product"
+                android:text="Order Summary"
                 android:textSize="18sp"
                 android:fontFamily="@font/lato_semibold"
                 android:textColor="@color/colorAccent"/>
@@ -36,7 +37,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cartmenu"
-
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".05"

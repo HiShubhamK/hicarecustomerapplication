@@ -33,6 +33,8 @@ class MainRepository {
     fun getTodayScheduledService(mobileNo: String)=retrofitService.getTodayScheduledService(mobileNo)
     fun getcustomerloginid(mobileNo: String) = retrofitProduct.getcustomerid(mobileNo)
     fun getcustomerAddress(customerid: Int) = retrofitProduct.getcustomerAddress(customerid)
+    fun getordersummeryList(userid: Int) = retrofitProduct.getorderSummeryList(userid)
+    fun getAddressDetailById(addressid: Int) = retrofitProduct.getorderSummeryList(addressid)
     fun getproductlist(pincoode:String) = retrofitProduct.getProductlist(pincoode)
     fun getProductDetails(productid:Int,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
     fun getAddProductInCart(quantity:Int,productid: Int,userId:Int) = retrofitProduct.getAddProductInCart(quantity,productid,userId)

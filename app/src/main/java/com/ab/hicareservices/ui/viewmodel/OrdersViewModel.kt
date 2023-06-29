@@ -32,9 +32,9 @@ class OrdersViewModel : ViewModel() {
             ) {
 
                 if (response.body()?.isSuccess == false) {
-                    responseMessage.postValue(response.body()?.responseMessage)
+                    responseMessage.postValue(response.body()?.responseMessage!!)
                 } else {
-                    ordersList.postValue(response.body()?.data)
+                    ordersList.postValue(response.body()?.data!!)
                     progressDialog.dismiss()
                     Log.d("TAG", "Response " + response.body()?.data.toString())
                 }

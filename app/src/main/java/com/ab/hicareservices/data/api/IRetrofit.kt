@@ -11,10 +11,12 @@ import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.CreateComplaint
 import com.ab.hicareservices.data.model.dashboard.DashboardModel
 import com.ab.hicareservices.data.model.dashboard.ScheduledService
+import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
 import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.orderdetails.OrderDetails
 import com.ab.hicareservices.data.model.orders.OrdersResponse
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryResponse
 import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
@@ -139,5 +141,11 @@ interface IRetrofit {
     @POST("Address/SaveAddress")
     fun postSaveAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
 
+
+    @GET("Order/GetOrderList")
+    fun getorderSummeryList(@Query("userId") userId: Int): Call<OrderSummeryResponse>
+
+    @GET("Address/GetAddressDetailById")
+    fun getaddressdetailbyid(@Query("addressId") addressId: Int): Call<AddressByCustomerModel>
 
 }

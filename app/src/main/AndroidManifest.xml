@@ -203,6 +203,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.view.activities.InAppWebViewActivity" />
+        <activity android:name=".ui.view.activities.ProductSummaryDetailActivity" />
     </application>
 
 </manifest>
