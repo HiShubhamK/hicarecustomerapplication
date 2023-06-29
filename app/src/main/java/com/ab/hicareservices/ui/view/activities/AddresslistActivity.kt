@@ -35,6 +35,9 @@ class AddresslistActivity : AppCompatActivity() {
         binding=ActivityAddresslistBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+
+
         val intent = intent
         shipping = intent.getStringExtra("shippingaddress").toString()
 
@@ -62,7 +65,7 @@ class AddresslistActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getCustomerAddress(20)
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
 
 
         mAdapter.setOnAddressItemClicked(object : onAddressClickedHandler {
@@ -207,7 +210,7 @@ class AddresslistActivity : AppCompatActivity() {
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
-                    data["Customer_Id"] =20
+                    data["Customer_Id"] =AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
                     data["Contact_Person_Mobile"] =edtmobileno.text.toString()
                     data["Contact_Person_Email"] =etemps.text.toString()
@@ -352,7 +355,7 @@ class AddresslistActivity : AppCompatActivity() {
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
-                    data["Customer_Id"] =20
+                    data["Customer_Id"] =AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
                     data["Contact_Person_Mobile"] =edtmobileno.text.toString()
                     data["Contact_Person_Email"] =etemps.text.toString()
@@ -385,5 +388,9 @@ class AddresslistActivity : AppCompatActivity() {
             }
         }
         alertDialog.show()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

@@ -20,6 +20,12 @@ object AppUtils2 {
     var paymentsucess=""
      var leaderlist= ArrayList<String>()
     var cartcounts=""
+    var customerid=""
+    var cutomername=""
+    var customermobile=""
+    var customeremail=""
+    var productamount=""
+    var pincode=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

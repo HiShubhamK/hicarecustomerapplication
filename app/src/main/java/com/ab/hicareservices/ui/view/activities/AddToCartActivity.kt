@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -29,8 +30,8 @@ class AddToCartActivity : AppCompatActivity() {
         binding = ActivityAddToCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 
         getproductlist()
         getSummarydata()
@@ -50,8 +51,11 @@ class AddToCartActivity : AppCompatActivity() {
 
         viewProductModel.cartlist.observe(this, Observer {
 
-            mAdapter.setCartList(it, this, viewProductModel)
-
+            if(it!=null) {
+                mAdapter.setCartList(it, this, viewProductModel)
+            }else{
+                binding.cardviewprice.visibility= View.GONE
+            }
         })
 
         mAdapter.setOnOrderItemClicked(object : onCartClickedHandler {
@@ -66,7 +70,7 @@ class AddToCartActivity : AppCompatActivity() {
                     }
                 })
 
-                viewProductModel.getDeleteProductCart(cartId!!.toInt(), 20)
+                viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
 //
 //                getproductlist()
 //                getSummarydata()
@@ -84,29 +88,34 @@ class AddToCartActivity : AppCompatActivity() {
 
                 })
 
-                viewProductModel.getAddProductInCart(i, productid, 20)
+                viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
             }
 
         })
 
 //        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-        viewProductModel.getProductCartByUserId(20)
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
     }
 
     fun getSummarydata() {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-            binding.txttotoalvalue.text ="\u20B9" + it.TotalAmount.toString()
-            binding.txtdiscount.text ="\u20B9" + it.TotalDiscount.toString()
-            binding.txttoalamount.text ="\u20B9" + it.FinalAmount.toString()
-            binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
+            if(it.TotalAmount!=0) {
 
+                binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
+                binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
+                binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
+                binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
+
+            }else{
+                binding.cardviewprice.visibility=View.GONE
+            }
         })
 
 //        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
 
-        viewProductModel.getCartSummary(20,"400078", "")
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
 
     }
 
@@ -119,5 +128,6 @@ class AddToCartActivity : AppCompatActivity() {
         super.onResume()
         getSummarydata()
     }
+
 
 }

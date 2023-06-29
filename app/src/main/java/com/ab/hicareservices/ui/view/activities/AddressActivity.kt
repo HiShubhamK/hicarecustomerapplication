@@ -41,6 +41,7 @@ class AddressActivity : AppCompatActivity() {
         datalist = ArrayList()
         datalist.add("Select Type")
 
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
@@ -109,7 +110,7 @@ class AddressActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getCustomerAddress(20)
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt() )
 
     }
 
@@ -143,7 +144,7 @@ class AddressActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getCustomerAddress(20)
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
     private fun showAddNewAddressdialog(b: String, id: Int?) {
@@ -261,7 +262,7 @@ class AddressActivity : AppCompatActivity() {
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
-                    data["Customer_Id"] =20
+                    data["Customer_Id"] =AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
                     data["Contact_Person_Mobile"] =edtmobileno.text.toString()
                     data["Contact_Person_Email"] =etemps.text.toString()
@@ -405,7 +406,7 @@ class AddressActivity : AppCompatActivity() {
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
-                    data["Customer_Id"] =20
+                    data["Customer_Id"] =AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
                     data["Contact_Person_Mobile"] =edtmobileno.text.toString()
                     data["Contact_Person_Email"] =etemps.text.toString()

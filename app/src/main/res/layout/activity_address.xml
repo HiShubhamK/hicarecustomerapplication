@@ -297,11 +297,14 @@
         android:id="@+id/btnnext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:textSize="14sp"
-        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorAccent"
-        android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"/>
+        android:text="Next"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,11 +8,13 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOverviewProductDetailsBinding
 import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.adapter.OverviewDetailAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class OverviewProductDetailsActivity : AppCompatActivity() {
 
@@ -27,6 +30,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         binding=ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+
         val intent = intent
         billdata = intent.getStringExtra("Billdata").toString()
         shipdaata = intent.getStringExtra("Shipdata").toString()
@@ -35,7 +41,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getSummarydata()
         getAddressList()
 
-        Toast.makeText(this,billdata+"  "+ shipdaata,Toast.LENGTH_LONG).show()
+        binding.txtplcaeorder.setOnClickListener{
+            val intent= Intent(this,PaymentActivity::class.java)
+            intent.putExtra("Product",true)
+            startActivity(intent)
+        }
+
 
     }
 
@@ -56,7 +67,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getCustomerAddress(20)
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
 
@@ -67,6 +78,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             for (i in 0 until it.size){
                 var data=it.get(i).Id.toString()
                 if(data.equals(shipdaata)){
+                    AppUtils2.cutomername=it.get(i).ContactPersonName.toString()
+                    AppUtils2.customermobile=it.get(i).ContactPersonMobile.toString()
+                    AppUtils2.customeremail=it.get(i).ContactPersonEmail.toString()
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                 }else if(data.equals(billdata)){
@@ -78,7 +92,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getCustomerAddress(20)
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
 
@@ -98,21 +112,20 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         })
 
-//        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-        viewProductModel.getProductCartByUserId(20)
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
     }
 
     fun getSummarydata() {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
+            AppUtils2.productamount=it.FinalAmount.toString()
             binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })
 
-//        viewProductModel.getCartSummary(customerid!!.toInt(),"400078", "")
 
-        viewProductModel.getCartSummary(20,"400078", "")
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(),AppUtils2.pincode, "")
 
     }
 
