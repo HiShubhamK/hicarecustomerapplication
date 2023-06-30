@@ -2,6 +2,10 @@ package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -33,8 +37,17 @@ class RelatedProductAdapter() : RecyclerView.Adapter<RelatedProductAdapter.MainV
 
         val productlistdata = productDetails[position]
         Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
-
+        holder.binding.txtratingvalues.text = productlistdata.ProductRating.toString()
+        holder.binding.ratingbar.rating = productlistdata.ProductRating!!.toFloat()
+        val drawable: Drawable = holder.binding.ratingbar.progressDrawable
+        drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
         holder.binding.tvRelatedProductname.text=productlistdata.RelatedProductName
+        holder.binding.tvDisccount.text =
+            "Save " + "\u20B9" + productlistdata!!.Discount.toString()
+        holder.binding.txtpriceline.text = "\u20B9" + productlistdata!!.PricePerQuantity
+        holder.binding.txtprice.text = "\u20B9" + productlistdata!!.DiscountedPrice
+        holder.binding.txtpriceline.paintFlags =
+            holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
     }
 
 
