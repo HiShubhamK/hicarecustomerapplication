@@ -59,14 +59,14 @@ object AppUtils2 {
 
     fun formatDateTime2(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val simpleDateFormatOut = SimpleDateFormat("dd.LLLL.yyyy")
+        val simpleDateFormatOut = SimpleDateFormat("dd.LLL.yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
     fun formatDateTime3(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val simpleDateFormatOut = SimpleDateFormat("dd-LLL-yyyy")
+        val simpleDateFormatOut = SimpleDateFormat("E.LLLL.yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }

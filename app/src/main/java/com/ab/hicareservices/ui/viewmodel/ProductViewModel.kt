@@ -102,11 +102,14 @@ class ProductViewModel: ViewModel() {
         val response = repository.getProductCountInCar(userid)
         response.enqueue(object : Callback<ProductCount>{
             override fun onResponse(call: Call<ProductCount>, response: Response<ProductCount>) {
-                productcount.postValue(response.body())
+                if(response.isSuccessful==true) {
+                    productcount.postValue(response.body())
+                }else{
+                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                }
             }
 
             override fun onFailure(call: Call<ProductCount>, t: Throwable) {
-
             }
         })
     }
@@ -212,10 +215,7 @@ class ProductViewModel: ViewModel() {
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
 
             }
-
         })
     }
-
-
 }
 

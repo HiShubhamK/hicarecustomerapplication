@@ -52,8 +52,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             intent.putExtra("Product",true)
             startActivity(intent)
         }
-
-
     }
 
     private fun getAddressforbilling() {
@@ -122,7 +120,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })
-
 
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(),AppUtils2.pincode, "")
 

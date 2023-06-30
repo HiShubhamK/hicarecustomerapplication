@@ -41,10 +41,8 @@ class ProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentProductBinding.inflate(inflater, container, false)
         return binding.root
-//        return inflater.inflate(R.layout.fragment_product, container, false)
     }
 
 
@@ -52,7 +50,7 @@ class ProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
-        pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
+        AppUtils2.pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 
         viewProductModel.productcount.observe(requireActivity(), Observer {
             if (it.IsSuccess==true){
@@ -71,11 +69,11 @@ class ProductFragment : Fragment() {
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 //        viewProductModel.getProductCountInCar(20)
 
-        if(pincode.equals("")){
+        if(AppUtils2.pincode.equals("")){
             showalertDailogbox()
 //            getProductslist(pincode!!)
         }else{
-            getProductslist(pincode!!)
+            getProductslist(AppUtils2.pincode!!)
 //            showalertDailogbox()
         }
 
@@ -94,6 +92,10 @@ class ProductFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
+        viewProductModel.errorMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
+        })
+
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
             mAdapter.setProductList(it, requireActivity(),viewProductModel)
@@ -101,7 +103,7 @@ class ProductFragment : Fragment() {
         })
 
 //        viewProductModel.getProductlist("400078")
-        viewProductModel.getProductlist(pincode)
+        viewProductModel.getProductlist(AppUtils2.pincode)
 
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
@@ -121,14 +123,13 @@ class ProductFragment : Fragment() {
                     }
                 })
 
-                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
-//                viewProductModel.getProductCountInCar(customerid!!.toInt())
+                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
             }
 
             override fun onProductView(position: Int, productid: OrderSummeryData) {
-                TODO("Not yet implemented")
+
             }
         })
 

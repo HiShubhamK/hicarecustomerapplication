@@ -79,49 +79,37 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             if (counts > 1) {
                 holder.binding.imgremove.visibility = View.VISIBLE
                 holder.binding.imgdelete.visibility = View.GONE
-            } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
+            } else if (counts <= productlists.MinimumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
             }
             holder.binding.textcount.text = counts.toString()
-//            viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
-
             onCartClickedHandler!!.setonaddclicklistener(
                 position,
                 productlists.ProductId!!.toInt(),
                 1
             )
-
-
         }
 
         holder.binding.imgremove.setOnClickListener {
             counts = counts - 1
-            holder.binding.textcount.text = counts.toString()
-            if (counts == 1) {
-                holder.binding.imgremove.visibility = View.GONE
-                holder.binding.imgdelete.visibility = View.VISIBLE
+                holder.binding.textcount.text = counts.toString()
 
-            } else {
-                holder.binding.imgdelete.visibility = View.GONE
-            }
             if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = true
             }
-
             onCartClickedHandler!!.setonaddclicklistener(
                 position,
                 productlists.ProductId!!.toInt(),
                 -1
             )
 
-
         }
 
         holder.binding.imgdelete.setOnClickListener {
-            if(count==1){
-                holder.binding.textcount.text=count.toString()
-            }
-            holder.binding.textcount.text="1"
+//            if(count==1){
+//                holder.binding.textcount.text=count.toString()
+//            }
+//            holder.binding.textcount.text="1"
             onCartClickedHandler!!.setondeleteclicklistener(
                 position,
                 productlists.CartId,

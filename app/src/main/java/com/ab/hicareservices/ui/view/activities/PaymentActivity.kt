@@ -144,7 +144,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun getproductlist() {
         viewProductModel.cartlist.observe(this, Observer {
 
-
             for (i in 0 until it.size){
                 datalist.add(HomeProduct(it.get(i).ProductId,
                     it.get(i).ProductName,

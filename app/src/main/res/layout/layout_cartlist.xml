@@ -146,14 +146,14 @@
                     android:layout_margin="5dp"
                     android:weightSum="3">
 
-                    <ImageView
-                        android:id="@+id/imgdelete"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_baseline_delete_outline_24"
-                        android:gravity="center"
-                        android:visibility="gone"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgdelete"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/ic_baseline_delete_outline_24"-->
+<!--                        android:gravity="center"-->
+<!--                        android:visibility="gone"/>-->
 
 
                     <ImageView
@@ -185,6 +185,15 @@
 
                 </androidx.cardview.widget.CardView>
 
+
+                <ImageView
+                    android:id="@+id/imgdelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_baseline_delete_outline_24"
+                    android:gravity="center"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

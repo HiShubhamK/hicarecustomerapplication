@@ -91,19 +91,17 @@ class OrdersFragment() : Fragment() {
 //                ).addToBackStack("OrdersFragment").commit()
 //        }
 
-        val progressBar = ProgressBar(requireActivity())
-        //setting height and width of progressBar
-        progressBar.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        binding.relativelayout?.addView(progressBar)
+//        val progressBar = ProgressBar(requireActivity())
+//        //setting height and width of progressBar
+//        progressBar.layoutParams = LinearLayout.LayoutParams(
+//            ViewGroup.LayoutParams.WRAP_CONTENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        getOrdersList(progressBar, progressDialog)
+        getOrdersList(progressDialog)
 
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
@@ -124,7 +122,7 @@ class OrdersFragment() : Fragment() {
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-            getOrdersList(progressBar, progressDialog)
+            getOrdersList(progressDialog)
         }
 
         binding.txtexpire.setOnClickListener {
@@ -133,7 +131,7 @@ class OrdersFragment() : Fragment() {
                 progressDialog.show()
             }, 1000)
             ordertype = "Expired"
-            getOrdersList(progressBar, progressDialog)
+            getOrdersList(progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
@@ -147,7 +145,7 @@ class OrdersFragment() : Fragment() {
             }, 1000)
 
             ordertype = "Cancelled"
-            getOrdersList(progressBar, progressDialog)
+            getOrdersList(progressDialog)
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -221,7 +219,7 @@ class OrdersFragment() : Fragment() {
     }
 
 
-    private fun getOrdersList(progressBar: ProgressBar, progressDialog: ProgressDialog) {
+    private fun getOrdersList( progressDialog: ProgressDialog) {
 
         progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
@@ -317,9 +315,9 @@ class OrdersFragment() : Fragment() {
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressBar)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressBar)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
             }
         }
     }
