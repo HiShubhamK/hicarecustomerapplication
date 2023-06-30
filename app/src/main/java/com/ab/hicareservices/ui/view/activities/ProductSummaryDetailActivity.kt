@@ -3,7 +3,11 @@ package com.ab.hicareservices.ui.view.activities
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -12,9 +16,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
+import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
@@ -69,8 +76,12 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var PaymentMethod = ""
     var Address = ""
     var OrderValue = ""
+    var productid = ""
+    var customerid = ""
+    var pincode = ""
     var descriptionData = arrayOf("Booked", "Packed", "Dispatch", "Delivered")
 
+    private lateinit var relatedProductAdapter: RelatedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +123,9 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         PaymentMethod = intent.getStringExtra("PaymentMethod").toString()
         Address = intent.getStringExtra("Address").toString()
         OrderValue = intent.getStringExtra("OrderValue").toString()
+        productid = intent.getStringExtra("ProductId").toString()
+        customerid = intent.getStringExtra("CustomerId").toString()
+        pincode = intent.getStringExtra("Pincode").toString()
 
 
         if (ProductThumbnail != null) {
@@ -153,23 +167,55 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //            }
 
             if (descriptionData.contains(OrderStatus)){
-                if (OrderStatus.equals("Booked")){
+                if (OrderStatus == "Booked"){
                   binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
-                }else if (OrderStatus.equals("Packed")){
+                }else if (OrderStatus == "Packed"){
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
 
-                }else if (OrderStatus.equals("Dispatch")||OrderStatus.equals("Shipped")){
+                }else if (OrderStatus == "Dispatch" ||OrderStatus.equals("Shipped")){
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
 
-                }else if (OrderStatus.equals("Delivered")){
+                }else if (OrderStatus == "Delivered"){
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
 
                 }else{
                     binding.yourStateProgressBarId.visibility=View.GONE
+                    binding.txtStatusTitle.visibility=View.GONE
+                    binding.statusTv.visibility=View.VISIBLE
 
                 }
-            }
+            }else{
+                binding.yourStateProgressBarId.visibility=View.GONE
+                binding.txtStatusTitle.visibility=View.GONE
+                binding.statusTv.visibility=View.VISIBLE
 
+            }
+            binding.recRelatedProduct.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            relatedProductAdapter = RelatedProductAdapter()
+
+
+            binding.recRelatedProduct.adapter = relatedProductAdapter
+//        binding.recRelatedProduct.addItemDecoration(CirclePagerIndicatorDecoration())
+            binding.recRelatedProduct.layoutManager!!.smoothScrollToPosition(
+                binding.recRelatedProduct,
+                RecyclerView.State(),
+                binding.recRelatedProduct.adapter!!.itemCount
+            )
+            viewModel.producDetailsResponse.observe(this, Observer {
+                if (it.RelatedProducts != null) {
+                    binding.recRelatedProduct.visibility = View.VISIBLE
+                    relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+                } else {
+                    binding.recRelatedProduct.visibility = View.GONE
+
+                }
+
+
+            })
+
+
+            viewModel.getProductDetails(productid!!.toInt(), pincode, customerid!!.toInt())
 
             binding.payNowBtn.setOnClickListener {
                 try {

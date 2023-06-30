@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -42,10 +43,10 @@ class RelatedProductAdapter() : RecyclerView.Adapter<RelatedProductAdapter.MainV
     }
     fun setRelatedProduct(
         productDetails: ArrayList<RelatedProducts>,
-        productDetailActivity: ProductDetailActivity
+        fragmentActivity: FragmentActivity
     ) {
         this.productDetails = productDetails
-        this.productDetailActivity = productDetailActivity
+        this.productDetailActivity = fragmentActivity
         notifyDataSetChanged()
     }
 
