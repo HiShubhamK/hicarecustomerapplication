@@ -258,29 +258,35 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         var data = HashMap<String, Any>()
 
         if(product==true){
-            data["HomeProduct"] = datalist
-            data["AddressId"] = shippingdata.toInt()
-            data["BillToAddressId"] = billingdata.toInt()
-            data["Pincode"] = pincode
-            data["CartAmount"] = actualvalue.toInt()
-            data["PayableAmount"] = AppUtils2.productamount.toInt()
-            data["DiscountAmount"] = totaldiscount.toInt()
-            data["DelieveryCharges"] = 0
-            data["InstallationCharges"] = 0
-            data["VoucherCode"] = ""
-            data["SFDC_OrderNo"] = ""
-            data["PaymentId"] = response!!.paymentId
-            data["PayMethod"] = ""
-            data["PayStatus"] = ""
-            data["PayAmount"] = 0
-            data["Booking_Source"] = ""
-            data["Referred_By_Technician"] = ""
-            data["Order_Source"] = ""
-            data["Payment_LinkId"] = ""
-            data["Razorpay_Payment_Id"] = response!!.paymentId
-            data["User_Id"] = AppUtils2.customerid
 
-            viewProductModel.postSaveSalesOrder(data)
+            Toast.makeText(this,"Payment successufully done"+response!!.paymentId.toString(),Toast.LENGTH_LONG).show()
+
+            Toast.makeText(this,"data json"+datalist.size.toString(),Toast.LENGTH_LONG).show()
+
+
+//            data["HomeProduct"] = datalist
+//            data["AddressId"] = shippingdata.toInt()
+//            data["BillToAddressId"] = billingdata.toInt()
+//            data["Pincode"] = pincode
+//            data["CartAmount"] = actualvalue.toInt()
+//            data["PayableAmount"] = AppUtils2.productamount.toInt()
+//            data["DiscountAmount"] = totaldiscount.toInt()
+//            data["DelieveryCharges"] = 0
+//            data["InstallationCharges"] = 0
+//            data["VoucherCode"] = ""
+//            data["SFDC_OrderNo"] = ""
+//            data["PaymentId"] = response!!.paymentId
+//            data["PayMethod"] = ""
+//            data["PayStatus"] = ""
+//            data["PayAmount"] = 0
+//            data["Booking_Source"] = ""
+//            data["Referred_By_Technician"] = ""
+//            data["Order_Source"] = ""
+//            data["Payment_LinkId"] = ""
+//            data["Razorpay_Payment_Id"] = response!!.paymentId
+//            data["User_Id"] = AppUtils2.customerid
+//
+//            viewProductModel.postSaveSalesOrder(data)
 
         }else{
             orderDetailsViewModel.savePaymentResponse.observe(this, Observer {

@@ -67,41 +67,51 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
 
         if (counts == 1) {
-            holder.binding.imgremove.visibility = View.GONE
-            holder.binding.imgdelete.visibility = View.VISIBLE
+            holder.binding.imgremove.visibility = View.VISIBLE
         } else if (counts > 1) {
             holder.binding.imgremove.visibility = View.VISIBLE
-            holder.binding.imgdelete.visibility = View.GONE
         }
 
         holder.binding.imgadd.setOnClickListener {
+            holder.binding.imgremove.isClickable = true
             counts = counts + 1
             if (counts > 1) {
                 holder.binding.imgremove.visibility = View.VISIBLE
-                holder.binding.imgdelete.visibility = View.GONE
+                holder.binding.imgadd.isClickable = true
+                onCartClickedHandler!!.setonaddclicklistener(
+                    position,
+                    productlists.ProductId!!.toInt(),
+                    1
+                )
             } else if (counts <= productlists.MinimumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
             }
             holder.binding.textcount.text = counts.toString()
-            onCartClickedHandler!!.setonaddclicklistener(
-                position,
-                productlists.ProductId!!.toInt(),
-                1
-            )
+
         }
 
         holder.binding.imgremove.setOnClickListener {
             counts = counts - 1
+            if(counts==1) {
                 holder.binding.textcount.text = counts.toString()
-
+                holder.binding.imgremove.isClickable = false
+                onCartClickedHandler!!.setonaddclicklistener(
+                    position,
+                    productlists.ProductId!!.toInt(),
+                    -1
+                )
+            }else{
+                holder.binding.textcount.text = counts.toString()
+                onCartClickedHandler!!.setonaddclicklistener(
+                    position,
+                    productlists.ProductId!!.toInt(),
+                    -1
+                )
+            }
             if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = true
             }
-            onCartClickedHandler!!.setonaddclicklistener(
-                position,
-                productlists.ProductId!!.toInt(),
-                -1
-            )
+
 
         }
 

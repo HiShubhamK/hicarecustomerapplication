@@ -33,7 +33,11 @@ class ProductViewModel: ViewModel() {
         val response = repository.getcustomerloginid(mobileno)
         response.enqueue(object : Callback<CustomerLoginInfo> {
             override fun onResponse(call: Call<CustomerLoginInfo>, response: Response<CustomerLoginInfo>) {
-                customerlogininfo.postValue(response.body())
+                if(response.body()!!.IsSuccess==true) {
+                    customerlogininfo.postValue(response.body())
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
             override fun onFailure(call: Call<CustomerLoginInfo>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
@@ -45,7 +49,11 @@ class ProductViewModel: ViewModel() {
         val response = repository.getcustomerAddress(customerid)
         response.enqueue(object : Callback<CustomerAddress> {
             override fun onResponse(call: Call<CustomerAddress>, response: Response<CustomerAddress>) {
+                if(response.body()!!.IsSuccess==true) {
                 cutomeraddress.postValue(response.body()!!.Data)
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
             override fun onFailure(call: Call<CustomerAddress>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
@@ -59,7 +67,11 @@ class ProductViewModel: ViewModel() {
         val response = repository.getproductlist(pincode)
         response.enqueue(object : Callback<ProductListResponse> {
             override fun onResponse(call: Call<ProductListResponse>, response: Response<ProductListResponse>) {
-                productlist.postValue(response.body()!!.Data)
+                if(response.body()!!.IsSuccess==true) {
+                    productlist.postValue(response.body()!!.Data)
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
@@ -71,9 +83,11 @@ class ProductViewModel: ViewModel() {
         val response=repository.getProductDetails(productid,pincode,customerid)
         response.enqueue(object  : Callback<ProducDetailsResponse>{
             override fun onResponse(call: Call<ProducDetailsResponse>, response: Response<ProducDetailsResponse>) {
-                producDetailsResponse.postValue(response.body()!!.Data!!)
-//                AppUtils2.producDetailsResponse= response.body()!!.IsSuccess.toString()
-
+                if(response.body()!!.IsSuccess==true) {
+                    producDetailsResponse.postValue(response.body()!!.Data!!)
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
 
             override fun onFailure(call: Call<ProducDetailsResponse>, t: Throwable) {
@@ -88,7 +102,11 @@ class ProductViewModel: ViewModel() {
         val response=repository.getAddProductInCart(quantity,productid,customerid)
         response.enqueue(object : Callback<AddProductInCart>{
             override fun onResponse(call: Call<AddProductInCart>, response: Response<AddProductInCart>) {
-                addtocart.postValue(response.body())
+                if(response.body()!!.IsSuccess==true) {
+                    addtocart.postValue(response.body())
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
 
             override fun onFailure(call: Call<AddProductInCart>, t: Throwable) {
@@ -102,7 +120,7 @@ class ProductViewModel: ViewModel() {
         val response = repository.getProductCountInCar(userid)
         response.enqueue(object : Callback<ProductCount>{
             override fun onResponse(call: Call<ProductCount>, response: Response<ProductCount>) {
-                if(response.isSuccessful==true) {
+                if(response.body()!!.IsSuccess==true) {
                     productcount.postValue(response.body())
                 }else{
                     errorMessage.postValue(response.body()!!.ResponseMessage)
@@ -110,6 +128,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ProductCount>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
             }
         })
     }
@@ -118,7 +137,11 @@ class ProductViewModel: ViewModel() {
         val response = repository.getProductCartByUserId(userid)
         response.enqueue(object : Callback<CartlistResponse>{
             override fun onResponse(call: Call<CartlistResponse>, response: Response<CartlistResponse>) {
-                cartlist.postValue(response.body()!!.Data)
+                if(response.body()!!.IsSuccess==true) {
+                    cartlist.postValue(response.body()!!.Data)
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
+                }
             }
 
             override fun onFailure(call: Call<CartlistResponse>, t: Throwable) {
@@ -134,13 +157,15 @@ class ProductViewModel: ViewModel() {
                 call: Call<GetCartSummaryResponse>,
                 response: Response<GetCartSummaryResponse>
             ) {
-                if(response.body()?.IsSuccess ==true){
+                if(response.body()!!.IsSuccess ==true){
                     getsummarydata.postValue(response.body()!!.Data!!)
+                }else{
+                    errorMessage.postValue(response.body()?.ResponseMessage)
                 }
             }
 
             override fun onFailure(call: Call<GetCartSummaryResponse>, t: Throwable) {
-
+                errorMessage.postValue("Something went to wrong")
             }
 
         })
@@ -157,7 +182,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<DeleteProductInCart>, t: Throwable) {
-
+                errorMessage.postValue("Something went to wrong")
             }
 
         })
@@ -174,7 +199,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
-
+                errorMessage.postValue("Something went to wrong")
             }
 
         })
@@ -213,7 +238,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
-
+                errorMessage.postValue("Something went to wrong")
             }
         })
     }

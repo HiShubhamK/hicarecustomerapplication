@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,6 +31,8 @@ class ProductFragment : Fragment() {
     var customerid: String? = ""
     var pincode: String? = ""
     private lateinit var mAdapter: ProductAdapter
+    lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,42 +52,54 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
-        AppUtils2.pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
+        AppUtils2.customerid =
+            SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
+        AppUtils2.pincode =
+            SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
+
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
+
 
         viewProductModel.productcount.observe(requireActivity(), Observer {
-            if (it.IsSuccess==true){
+            progressDialog.show()
+            if (it.IsSuccess == true) {
 
-                if(it.Data==0){
-                    binding.cartmenu.visibility=View.GONE
-                }else{
-                    binding.cartmenu.visibility=View.VISIBLE
-                    binding.appCompatImageViewd.text=it.Data.toString()
+                progressDialog.dismiss()
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    binding.appCompatImageViewd.text = it.Data.toString()
                 }
-            }else{
-                binding.cartmenu.visibility=View.GONE
+            } else {
+                progressDialog.dismiss()
+                binding.cartmenu.visibility = View.GONE
             }
         })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 //        viewProductModel.getProductCountInCar(20)
 
-        if(AppUtils2.pincode.equals("")){
+        if (AppUtils2.pincode.equals("")) {
             showalertDailogbox()
 //            getProductslist(pincode!!)
-        }else{
+        } else {
             getProductslist(AppUtils2.pincode!!)
 //            showalertDailogbox()
         }
 
 
-        binding.cartmenu.setOnClickListener{
-            val intent= Intent(requireActivity(),AddToCartActivity::class.java)
+        binding.cartmenu.setOnClickListener {
+            val intent = Intent(requireActivity(), AddToCartActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun getProductslist(pincode: String) {
+
+        progressDialog.show()
 
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -92,34 +107,35 @@ class ProductFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-        viewProductModel.errorMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
-        })
-
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
-            mAdapter.setProductList(it, requireActivity(),viewProductModel)
+            progressDialog.dismiss()
+
+            mAdapter.setProductList(it, requireActivity(), viewProductModel)
 
         })
 
-//        viewProductModel.getProductlist("400078")
+        viewProductModel.errorMessage.observe(requireActivity(), Observer {
+            progressDialog.dismiss()
+            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+        })
+
         viewProductModel.getProductlist(AppUtils2.pincode)
 
-
-        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler{
+        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
+                progressDialog.show()
 
-//                viewProductModel.getAddProductInCart(1,productid,customerid!!.toInt())
-
-                viewProductModel.getAddProductInCart(1,productid,AppUtils2.customerid.toInt())
+                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
 
                 viewProductModel.productcount.observe(requireActivity(), Observer {
-                    if (it.IsSuccess==true){
-                        binding.cartmenu.visibility=View.VISIBLE
-                        binding.appCompatImageViewd.text=it.Data.toString()
-                    }else{
-                        binding.cartmenu.visibility=View.GONE
+                    progressDialog.dismiss()
+                    if (it.IsSuccess == true) {
+                        binding.cartmenu.visibility = View.VISIBLE
+                        binding.appCompatImageViewd.text = it.Data.toString()
+                    } else {
+                        binding.cartmenu.visibility = View.GONE
                     }
                 })
 
@@ -139,17 +155,17 @@ class ProductFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewProductModel.productcount.observe(requireActivity(), Observer {
-            if (it.IsSuccess==true){
+            if (it.IsSuccess == true) {
 
-                if(it.Data==0){
-                    binding.cartmenu.visibility=View.GONE
-                }else{
-                    binding.cartmenu.visibility=View.VISIBLE
-                    AppUtils2.cartcounts=it.Data.toString()
-                    binding.appCompatImageViewd.text=it.Data.toString()
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    AppUtils2.cartcounts = it.Data.toString()
+                    binding.appCompatImageViewd.text = it.Data.toString()
                 }
-            }else{
-                binding.cartmenu.visibility=View.GONE
+            } else {
+                binding.cartmenu.visibility = View.GONE
             }
         })
 
@@ -167,19 +183,20 @@ class ProductFragment : Fragment() {
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
         val edtpincode = promptsView.findViewById<View>(R.id.edtpincode) as EditText
-        val button=promptsView.findViewById<View>(R.id.btnpincode) as Button
+        val button = promptsView.findViewById<View>(R.id.btnpincode) as Button
         alertDialog.show()
         alertDialog.setCancelable(false)
 
         button.setOnClickListener {
 
-            if(edtpincode.text.trim().toString().equals("")){
-                Toast.makeText(requireActivity(),"Please enter pincode",Toast.LENGTH_LONG).show()
-            }else if(edtpincode.text.trim().toString().equals("000000")){
-                Toast.makeText(requireActivity(),"Please enter correct pincode",Toast.LENGTH_LONG).show()
-            }else{
-                var pincode=edtpincode.text.trim().toString()
-                SharedPreferenceUtil.setData(requireActivity(), "pincode",pincode)
+            if (edtpincode.text.trim().toString().equals("")) {
+                Toast.makeText(requireActivity(), "Please enter pincode", Toast.LENGTH_LONG).show()
+            } else if (edtpincode.text.trim().toString().equals("000000")) {
+                Toast.makeText(requireActivity(), "Please enter correct pincode", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                var pincode = edtpincode.text.trim().toString()
+                SharedPreferenceUtil.setData(requireActivity(), "pincode", pincode)
                 alertDialog.dismiss()
                 getProductslist(pincode)
             }

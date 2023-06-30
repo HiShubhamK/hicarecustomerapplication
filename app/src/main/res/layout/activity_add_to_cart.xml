@@ -275,7 +275,6 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
                                 android:text="Deliver Charge"
-                                android:textStyle="italic"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -285,6 +284,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
                                 android:gravity="end"
+                                android:textStyle="italic"
                                 android:text="Free Delivary"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
