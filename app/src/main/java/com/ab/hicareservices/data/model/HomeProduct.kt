@@ -1,8 +1,7 @@
 package com.ab.hicareservices.data.model
 
 import com.google.gson.annotations.SerializedName
-import org.joda.time.DateTime
-import java.util.Date
+
 
 data class HomeProduct(
     @SerializedName("Product_Id") var ProductId: Int? = null,
