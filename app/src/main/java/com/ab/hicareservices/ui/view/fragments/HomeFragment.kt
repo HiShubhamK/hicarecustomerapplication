@@ -667,7 +667,7 @@ class HomeFragment : Fragment() {
             c: Canvas, indicatorStartX: Float, indicatorPosY: Float,
             highlightPosition: Int, progress: Float, itemCount: Int
         ) {
-            mPaint.color = Color.GREEN
+            mPaint.color = Color.parseColor("#2bb77a")
 
             // width of item indicator including padding
             val itemWidth = mIndicatorItemLength + mIndicatorItemPadding

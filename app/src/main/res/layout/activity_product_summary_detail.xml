@@ -1601,7 +1601,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:padding="5dp"
-                android:text="Related Product"
+                android:text="Our Products"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16dp" />
 
