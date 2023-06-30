@@ -103,7 +103,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
-//       
+//
 //
 
         val intent = intent
@@ -168,7 +168,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
             if (descriptionData.contains(OrderStatus)){
                 if (OrderStatus == "Booked"){
-                  binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
                 }else if (OrderStatus == "Packed"){
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
 

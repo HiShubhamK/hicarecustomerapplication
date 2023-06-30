@@ -27,6 +27,7 @@ import com.ab.hicareservices.ui.adapter.OffersAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
+import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
@@ -56,7 +57,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         productGallery = ArrayList()
 
-        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
         getlist()
 
@@ -96,6 +97,14 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.recRelatedProduct.adapter!!.itemCount
         )
 
+        relatedProductAdapter.setOnRelatedProductClick(object : OnRelatedProductClick {
+            override fun onRelatedProdAddtoCart(position: Int, productid: Int) {
+
+                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+
+            }
+
+        })
         //FAQ
         binding.recFAQ.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -166,7 +175,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.textcount.text = it.ProductConfiguration!!.MinimumBuyQuantity.toString()
                 counts = it.ProductConfiguration!!.MinimumBuyQuantity!!.toInt()
             }
-            
+
 
 
 
@@ -201,13 +210,17 @@ class ProductDetailActivity : AppCompatActivity() {
                 if (binding.tvAddToCart.text == "Goto Cart") {
                     val intent = Intent(this, AddToCartActivity::class.java)
                     startActivity(intent)
-                }else {
+                } else {
                     viewProductModel.addtocart.observe(this, Observer {
                         if (it.IsSuccess == true) {
                             binding.tvAddToCart.text = "Goto Cart"
                         }
                     })
-                    viewProductModel.getAddProductInCart(counts, productid!!.toInt(), AppUtils2.customerid.toInt())
+                    viewProductModel.getAddProductInCart(
+                        counts,
+                        productid!!.toInt(),
+                        AppUtils2.customerid.toInt()
+                    )
                 }
             }
 
@@ -244,10 +257,13 @@ class ProductDetailActivity : AppCompatActivity() {
         })
 
 
-
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
-        viewProductModel.getProductDetails(productid!!.toInt(), AppUtils2.pincode, AppUtils2.customerid.toInt())
+        viewProductModel.getProductDetails(
+            productid!!.toInt(),
+            AppUtils2.pincode,
+            AppUtils2.customerid.toInt()
+        )
 
     }
 
