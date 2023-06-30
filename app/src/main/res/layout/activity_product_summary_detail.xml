@@ -126,6 +126,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+
                     <!--Progress Bar created-->
                     <com.kofigyan.stateprogressbar.StateProgressBar
                         android:id="@+id/your_state_progress_bar_id"
@@ -147,6 +148,14 @@
                         app:spb_stateForegroundColor="#0F9D58"
                         app:spb_stateNumberBackgroundColor="#808080"
                         app:spb_stateNumberForegroundColor="#eeeeee" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/greyPrimary" />
 
 
                     <LinearLayout
