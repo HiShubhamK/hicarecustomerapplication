@@ -1,40 +1,40 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.text.Html
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.service.ServiceData
-import com.ab.hicareservices.databinding.ActivityOrderDetailBinding
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
+import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
-import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.kofigyan.stateprogressbar.StateProgressBar
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+
 
 class ProductSummaryDetailActivity : AppCompatActivity() {
 
@@ -59,7 +59,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var accountId = ""
     var service = ""
     var orderValueWithTax = 00.00
-//    var discount = ""
+
+    //    var discount = ""
     var orderValueWithTaxAfterDiscount = ""
     var Discount: String = ""
     var OrderValuePostDiscount: String = ""
@@ -75,7 +76,12 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var PaymentMethod = ""
     var Address = ""
     var OrderValue = ""
+    var productid = ""
+    var customerid = ""
+    var pincode = ""
+    var descriptionData = arrayOf("Booked", "Packed", "Dispatch", "Delivered")
 
+    private lateinit var relatedProductAdapter: RelatedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +103,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
-//       
+//
 //
 
         val intent = intent
@@ -117,6 +123,9 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         PaymentMethod = intent.getStringExtra("PaymentMethod").toString()
         Address = intent.getStringExtra("Address").toString()
         OrderValue = intent.getStringExtra("OrderValue").toString()
+        productid = intent.getStringExtra("ProductId").toString()
+        customerid = intent.getStringExtra("CustomerId").toString()
+        pincode = intent.getStringExtra("Pincode").toString()
 
 
         if (ProductThumbnail != null) {
@@ -149,6 +158,64 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //        }
 
         try {
+            binding.yourStateProgressBarId.setStateDescriptionData(descriptionData)
+//            when (descriptionData.equals(OrderStatus)) {
+//                "" -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
+//                2 -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
+//                3 -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
+//                4 -> binding.yourStateProgressBarId.setAllStatesCompleted(true)
+//            }
+
+            if (descriptionData.contains(OrderStatus)){
+                if (OrderStatus == "Booked"){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
+                }else if (OrderStatus == "Packed"){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
+
+                }else if (OrderStatus == "Dispatch" ||OrderStatus.equals("Shipped")){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
+
+                }else if (OrderStatus == "Delivered"){
+                    binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
+
+                }else{
+                    binding.yourStateProgressBarId.visibility=View.GONE
+                    binding.txtStatusTitle.visibility=View.GONE
+                    binding.statusTv.visibility=View.VISIBLE
+
+                }
+            }else{
+                binding.yourStateProgressBarId.visibility=View.GONE
+                binding.txtStatusTitle.visibility=View.GONE
+                binding.statusTv.visibility=View.VISIBLE
+
+            }
+            binding.recRelatedProduct.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            relatedProductAdapter = RelatedProductAdapter()
+
+
+            binding.recRelatedProduct.adapter = relatedProductAdapter
+//        binding.recRelatedProduct.addItemDecoration(CirclePagerIndicatorDecoration())
+            binding.recRelatedProduct.layoutManager!!.smoothScrollToPosition(
+                binding.recRelatedProduct,
+                RecyclerView.State(),
+                binding.recRelatedProduct.adapter!!.itemCount
+            )
+            viewModel.producDetailsResponse.observe(this, Observer {
+                if (it.RelatedProducts != null) {
+                    binding.recRelatedProduct.visibility = View.VISIBLE
+                    relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+                } else {
+                    binding.recRelatedProduct.visibility = View.GONE
+
+                }
+
+
+            })
+
+
+            viewModel.getProductDetails(productid!!.toInt(), pincode, customerid!!.toInt())
 
             binding.payNowBtn.setOnClickListener {
                 try {
@@ -204,9 +271,9 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 ////                 orderValueWithTaxAfterDiscount =
 ////                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
             binding.orderNameTv.text = ProductDisplayName
-            binding.orderNoTv.text = ":" + orderNo
-            binding.dateTv.text = ":" +AppUtils2.formatDateTime4(OrderDate)
-            binding.tvTax.text = "" + Tax+"%"
+            binding.orderNoTv.text = ": " + orderNo
+            binding.dateTv.text = ": " + AppUtils2.formatDateTime4(OrderDate)
+            binding.tvTax.text = "" + Tax + "%"
             binding.tvInstallCharge.text = "₹ " + InstallationCharge
             binding.tvShippingCharges.text = "₹ " + ShippingCharge
 
@@ -256,17 +323,17 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //            binding.payNowBtn.visibility = View.GONE
 //        }
 
-            if (OrderStatus.toString()=="Booked"){
+            if (OrderStatus.toString() == "Booked") {
                 binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
                 binding.statusTv.text = OrderStatus
 
-            }else {
+            } else {
                 binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
                 binding.statusTv.text = OrderStatus
 
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

@@ -82,13 +82,17 @@ class ProductFragment : Fragment() {
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 //        viewProductModel.getProductCountInCar(20)
 
-        if (AppUtils2.pincode.equals("")) {
-            showalertDailogbox()
+        binding.btnPincode.setOnClickListener{
+            if (AppUtils2.pincode.equals("")) {
+                showalertDailogbox()
 //            getProductslist(pincode!!)
-        } else {
-            getProductslist(AppUtils2.pincode!!)
+            } else {
+                getProductslist(AppUtils2.pincode!!)
 //            showalertDailogbox()
+            }
         }
+//
+
 
 
         binding.cartmenu.setOnClickListener {
@@ -108,10 +112,17 @@ class ProductFragment : Fragment() {
         binding.recycleviewproduct.adapter = mAdapter
 
         viewProductModel.productlist.observe(requireActivity(), Observer {
-
             progressDialog.dismiss()
 
-            mAdapter.setProductList(it, requireActivity(), viewProductModel)
+            if (it!=null){
+                binding.recycleviewproduct.visibility=View.VISIBLE
+                binding.textnotfound.visibility=View.GONE
+                mAdapter.setProductList(it, requireActivity(), viewProductModel)
+            }else {
+                binding.recycleviewproduct.visibility=View.GONE
+                binding.textnotfound.visibility=View.VISIBLE
+            }
+
 
         })
 
