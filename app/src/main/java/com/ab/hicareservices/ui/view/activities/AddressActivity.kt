@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -31,12 +32,17 @@ class AddressActivity : AppCompatActivity() {
     private val viewModels: HomeActivityViewModel by viewModels()
     var shippingdata: String? = ""
     var billingdata: String? = ""
+    lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address)
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressDialog = ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
 
         datalist = ArrayList()
         datalist.add("Select Type")
@@ -93,7 +99,9 @@ class AddressActivity : AppCompatActivity() {
     }
 
     private fun getAddressforbilling() {
+        progressDialog.show()
         viewProductModel.getaddressbydetailid.observe(this, Observer {
+            progressDialog.dismiss()
             binding.txtbilling.visibility = View.VISIBLE
             binding.txtbilling.text =
                 it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
@@ -133,7 +141,11 @@ class AddressActivity : AppCompatActivity() {
 
     private fun getAddressListdata() {
 
+        progressDialog.show()
+
         viewProductModel.cutomeraddress.observe(this, Observer {
+
+            progressDialog.dismiss()
 
             for (i in 0 until it.size) {
 
@@ -272,6 +284,7 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
                 }else{
+                    progressDialog.show()
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
@@ -294,6 +307,7 @@ class AddressActivity : AppCompatActivity() {
                     data["IsDefault"] =false
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
+                        progressDialog.dismiss()
                         if(it.IsSuccess==true){
                             val newAddressid=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
@@ -416,6 +430,7 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
                 }else{
+                    progressDialog.show()
                     var data = HashMap<String, Any>()
                     data["Id"] =0
                     data["OrderId"] =0
@@ -438,6 +453,7 @@ class AddressActivity : AppCompatActivity() {
                     data["IsDefault"] =false
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
+                        progressDialog.dismiss()
                         if(it.IsSuccess==true){
                             var newaddessid=it.Data.toString()
                             billingdata=it.Data.toString()

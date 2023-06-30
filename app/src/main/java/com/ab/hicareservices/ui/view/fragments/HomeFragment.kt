@@ -104,11 +104,7 @@ class HomeFragment : Fragment() {
             binding.horizontalScrollView.scrollTo(0, 0)
         }
 
-
-        progressDialog = ProgressDialog(
-            requireActivity(),
-            com.ab.hicareservices.R.style.TransparentProgressDialog
-        )
+        progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

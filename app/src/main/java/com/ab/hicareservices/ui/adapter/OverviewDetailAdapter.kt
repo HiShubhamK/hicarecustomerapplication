@@ -42,6 +42,7 @@ class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainVie
         Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
         holder.binding.txtname.text = productlists.ProductName
         holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
+        holder.binding.txtpricelineqty.text=productlists.Quantity.toString()
         val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
         drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
         if (productlists.Discount != 0) {
@@ -76,5 +77,4 @@ class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainVie
             notifyDataSetChanged()
         }
     }
-
 }

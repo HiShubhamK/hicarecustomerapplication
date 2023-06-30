@@ -3,6 +3,7 @@ package com.ab.hicareservices.utils
 import android.app.Activity
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.product.ProducDetailsData
 import com.ab.hicareservices.data.model.product.ProductGallery
 import com.razorpay.Checkout
@@ -18,14 +19,17 @@ object AppUtils2 {
     var mobileno=""
     var order_number=""
     var paymentsucess=""
-     var leaderlist= ArrayList<String>()
+    var leaderlist= ArrayList<CartlistResponseData>()
     var cartcounts=""
     var customerid=""
     var cutomername=""
     var customermobile=""
     var customeremail=""
     var productamount=""
+    var actualvalue=""
+    var totaldiscount=""
     var pincode=""
+
 
     @JvmStatic
     fun startPayment(activity: Activity) {

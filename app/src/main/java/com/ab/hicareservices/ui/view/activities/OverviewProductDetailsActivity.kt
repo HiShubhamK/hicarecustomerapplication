@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.databinding.ActivityOverviewProductDetailsBinding
 import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.adapter.OverviewDetailAdapter
@@ -26,12 +28,19 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     private lateinit var mAdapter: OverviewDetailAdapter
     var shippingdata: String? = ""
     var billingdata: String? = ""
+    lateinit var datalist:ArrayList<CartlistResponseData>
+    lateinit var progressDialog: ProgressDialog
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview_product_details)
         binding=ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressDialog = ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
 
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
@@ -55,7 +64,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun getAddressforbilling() {
+        progressDialog.show()
         viewProductModel.getaddressbydetailid.observe(this, Observer {
+            progressDialog.dismiss()
             binding.txtbilling.visibility = View.VISIBLE
             binding.txtbilling.text =
                 it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
@@ -68,7 +79,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     private fun getAddressList() {
 
+        progressDialog.show()
+
         viewProductModel.cutomeraddress.observe(this, Observer {
+
+            progressDialog.dismiss()
 
             for (i in 0 until it.size){
                 var data=it.get(i).Id.toString()
@@ -96,6 +111,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     private fun getproductlist() {
 
+        progressDialog.show()
+
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -105,6 +122,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         viewProductModel.cartlist.observe(this, Observer {
 
+            progressDialog.dismiss()
+
+            AppUtils2.leaderlist= it as ArrayList<CartlistResponseData>
+//             datalist= it as ArrayList<CartlistResponseData>
+            Toast.makeText(this,AppUtils2.leaderlist.size.toString(),Toast.LENGTH_LONG).show()
             mAdapter.setCartList(it, this, viewProductModel)
 
         })
@@ -114,9 +136,15 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     fun getSummarydata() {
 
+        progressDialog.show()
+
         viewProductModel.getsummarydata.observe(this, Observer {
 
+            progressDialog.dismiss()
+
             AppUtils2.productamount=it.FinalAmount.toString()
+            AppUtils2.actualvalue=it.TotalAmount.toString()
+            AppUtils2.totaldiscount=it.TotalDiscount.toString()
             binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })

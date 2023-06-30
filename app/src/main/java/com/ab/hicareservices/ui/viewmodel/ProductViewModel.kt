@@ -234,7 +234,7 @@ class ProductViewModel: ViewModel() {
                 call: Call<SaveSalesResponse>,
                 response: Response<SaveSalesResponse>
             ) {
-                errorMessage.postValue(response.body()!!.Data)
+                errorMessage.postValue(response.body()?.Data)
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {

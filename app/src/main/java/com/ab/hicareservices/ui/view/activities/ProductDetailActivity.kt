@@ -56,7 +56,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         productGallery = ArrayList()
 
-        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
         getlist()
 

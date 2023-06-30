@@ -21,14 +21,22 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
+import org.joda.time.DateTime
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.roundToInt
 
 class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     private lateinit var binding: ActivityPaymentBinding
     var cartlist = mutableListOf<CartlistResponseData>()
-    lateinit var datalist: ArrayList<HomeProduct>
+    lateinit var datalist: ArrayList<CartlistResponseData>
+    lateinit var homeproduct: ArrayList<HomeProduct>
 
     private val viewProductModel: ProductViewModel by viewModels()
     var payment = ""
@@ -50,8 +58,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var locality = ""
     var builingname = ""
     var pincode = ""
-    var totaldiscount=""
-    var actualvalue=""
+    var totaldiscount = ""
+    var actualvalue = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +73,61 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         getSummarydata()
 
+        homeproduct = ArrayList()
+
         val intent = intent
 
-        datalist= ArrayList()
+        datalist = ArrayList()
+
+        datalist = AppUtils2.leaderlist
+
+        var calendar = Calendar.getInstance()
+        var simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss aaa z")
+
+
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//        val current = LocalDateTime.now().format(formatter)
+
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val date = Date()
+        val current = formatter.format(date)
+
+        for (i in 0 until datalist.size) {
+            homeproduct.add(
+                HomeProduct(
+                    datalist.get(i).ProductId,
+                    datalist.get(i).ProductName,
+                    datalist.get(i).ProductCode,
+                    datalist.get(i).ProductDisplayName,
+                    datalist.get(i).ProductThumbnail,
+                    "",
+                    datalist.get(i).DiscountType,
+                    datalist.get(i).Discount?.toDouble(),
+                    datalist.get(i).PricePerQuantity?.toDouble(),
+                    datalist.get(i).DiscountedPrice?.toDouble(),
+                    "",
+                    "",
+                    0.0,
+                    datalist.get(i).ProductWeight,
+                    false,
+                    false,
+                    false,
+                    false,
+                    0.0,
+                    0,
+                    "",
+                    datalist.get(i).Quantity,
+                    0,
+                    "",
+                    ""
+                )
+            )
+        }
+
+        Toast.makeText(this, datalist.size.toString(), Toast.LENGTH_LONG).show()
+
+        Toast.makeText(this, homeproduct.size.toString(), Toast.LENGTH_LONG).show()
+
 
         order_no = intent.getStringExtra("ORDER_NO").toString()
         accountId = intent.getStringExtra("ACCOUNT_NO").toString()
@@ -81,7 +141,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         if (product == true) {
 
-            getproductlist()
+//            getproductlist()
 
             getAddressforbilling()
 
@@ -128,15 +188,15 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-            AppUtils2.productamount=it.FinalAmount.toString()
-            totaldiscount=it.TotalDiscount.toString()
-            actualvalue=it.TotalAmount.toString()
+            AppUtils2.productamount = it.FinalAmount.toString()
+            totaldiscount = it.TotalDiscount.toString()
+            actualvalue = it.TotalAmount.toString()
 
 
         })
 
 
-        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(),AppUtils2.pincode, "")
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
 
     }
 
@@ -144,34 +204,34 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun getproductlist() {
         viewProductModel.cartlist.observe(this, Observer {
 
-            for (i in 0 until it.size){
-                datalist.add(HomeProduct(it.get(i).ProductId,
-                    it.get(i).ProductName,
-                    it.get(i).ProductCode,
-                    it.get(i).ProductDisplayName,
-                    it.get(i).ProductThumbnail,
-                    "",
-                    it.get(i).DiscountType,
-                    it.get(i).Discount,
-                    it.get(i).PricePerQuantity,
-                    it.get(i).DiscountedPrice,
-                    "",
-                    "",
-                    0,
-                    it.get(i).ProductWeight,
-                    false,
-                    false,
-                    false,
-                    false,
-                    0,
-                    0,
-                    "",
-                    it.get(i).Quantity,
-                    0,
-                    "",
-                    ""
-                    ))
-            }
+//            for (i in 0 until it.size){
+//                datalist.add(HomeProduct(it.get(i).ProductId,
+//                    it.get(i).ProductName,
+//                    it.get(i).ProductCode,
+//                    it.get(i).ProductDisplayName,
+//                    it.get(i).ProductThumbnail,
+//                    "",
+//                    it.get(i).DiscountType,
+//                    it.get(i).Discount,
+//                    it.get(i).PricePerQuantity,
+//                    it.get(i).DiscountedPrice,
+//                    "",
+//                    "",
+//                    0,
+//                    it.get(i).ProductWeight,
+//                    false,
+//                    false,
+//                    false,
+//                    false,
+//                    0,
+//                    0,
+//                    "",
+//                    it.get(i).Quantity,
+//                    0,
+//                    "",
+//                    ""
+//                    ))
+//            }
 
         })
 
@@ -255,40 +315,41 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
-        var data = HashMap<String, Any>()
 
-        if(product==true){
+        Toast.makeText(this, "data json" + datalist.size.toString(), Toast.LENGTH_LONG).show()
 
-            Toast.makeText(this,"Payment successufully done"+response!!.paymentId.toString(),Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "data json" + AppUtils2.productamount, Toast.LENGTH_LONG).show()
 
-            Toast.makeText(this,"data json"+datalist.size.toString(),Toast.LENGTH_LONG).show()
+        if (product == true) {
 
 
-//            data["HomeProduct"] = datalist
-//            data["AddressId"] = shippingdata.toInt()
-//            data["BillToAddressId"] = billingdata.toInt()
-//            data["Pincode"] = pincode
-//            data["CartAmount"] = actualvalue.toInt()
-//            data["PayableAmount"] = AppUtils2.productamount.toInt()
-//            data["DiscountAmount"] = totaldiscount.toInt()
-//            data["DelieveryCharges"] = 0
-//            data["InstallationCharges"] = 0
-//            data["VoucherCode"] = ""
-//            data["SFDC_OrderNo"] = ""
-//            data["PaymentId"] = response!!.paymentId
-//            data["PayMethod"] = ""
-//            data["PayStatus"] = ""
-//            data["PayAmount"] = 0
-//            data["Booking_Source"] = ""
-//            data["Referred_By_Technician"] = ""
-//            data["Order_Source"] = ""
-//            data["Payment_LinkId"] = ""
-//            data["Razorpay_Payment_Id"] = response!!.paymentId
-//            data["User_Id"] = AppUtils2.customerid
-//
-//            viewProductModel.postSaveSalesOrder(data)
+            var data = HashMap<String, Any>()
 
-        }else{
+            data["HomeProduct"] = homeproduct
+            data["AddressId"] = shippingdata.toInt()
+            data["BillToAddressId"] = billingdata.toInt()
+            data["Pincode"] = pincode
+            data["CartAmount"] = AppUtils2.actualvalue.toDouble()
+            data["PayableAmount"] = AppUtils2.productamount.toDouble()
+            data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()
+            data["DelieveryCharges"] = 0.0
+            data["InstallationCharges"] = 0.0
+            data["VoucherCode"] = ""
+            data["SFDC_OrderNo"] = ""
+            data["PaymentId"] = response!!.paymentId
+            data["PayMethod"] = ""
+            data["PayStatus"] = ""
+            data["PayAmount"] = 0.0
+            data["Booking_Source"] = ""
+            data["Referred_By_Technician"] = ""
+            data["Order_Source"] = ""
+            data["Payment_LinkId"] = ""
+            data["Razorpay_Payment_Id"] = response!!.paymentId
+            data["User_Id"] = AppUtils2.customerid
+
+            viewProductModel.postSaveSalesOrder(data)
+
+        } else {
             orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
                 if (it.isSuccess == true) {
                     binding.imgOffer.visibility = View.VISIBLE
@@ -304,6 +365,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 }
             })
+
+
+            var data = HashMap<String, Any>()
+
 
             data["razorpay_payment_id"] = response?.paymentId.toString()
             data["razorpay_order_id"] = order_no
