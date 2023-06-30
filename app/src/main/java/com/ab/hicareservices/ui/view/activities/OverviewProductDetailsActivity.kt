@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -23,6 +24,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOverviewProductDetailsBinding
     private val viewProductModel: ProductViewModel by viewModels()
     private lateinit var mAdapter: OverviewDetailAdapter
+    var shippingdata: String? = ""
+    var billingdata: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         binding=ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
+        billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
         AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
@@ -40,35 +45,25 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getproductlist()
         getSummarydata()
         getAddressList()
+        getAddressforbilling()
 
         binding.txtplcaeorder.setOnClickListener{
             val intent= Intent(this,PaymentActivity::class.java)
             intent.putExtra("Product",true)
             startActivity(intent)
         }
-
-
     }
 
-    private fun getAddressListbilladdress(){
-        viewProductModel.cutomeraddress.observe(this, Observer {
-
-            for (i in 0 until it.size){
-                var data=it.get(i).Id.toString()
-                if(data.equals(shipdaata)){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data.equals(billdata)){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else{
-
-                }
-            }
+    private fun getAddressforbilling() {
+        viewProductModel.getaddressbydetailid.observe(this, Observer {
+            binding.txtbilling.visibility = View.VISIBLE
+            binding.txtbilling.text =
+                it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+                        it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
-
-        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
+        viewProductModel.getAddressDetailbyId(billdata!!.toInt())
     }
+
 
 
     private fun getAddressList() {
@@ -83,10 +78,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                     AppUtils2.customeremail=it.get(i).ContactPersonEmail.toString()
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data.equals(billdata)){
-                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else{
+                }
+//                else if(data.equals(billdata)){
+//                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
+//                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+//                }
+                else{
 
                 }
             }
@@ -123,7 +120,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
 
         })
-
 
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(),AppUtils2.pincode, "")
 

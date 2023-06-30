@@ -193,6 +193,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:gravity="end"
+                    android:visibility="gone"
                     android:textColor="@color/colorAccent"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
@@ -222,7 +223,7 @@
                 android:layout_marginTop="5dp"
                 android:visibility="visible"
                 android:textSize="12sp"
-                android:text="same as above Address"
+                android:text=" My Billing &amp; Shipping address are different"
                 android:buttonTint="@color/colorAccent"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -233,7 +234,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:background="#f6f6f6"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginBottom="10dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -263,6 +265,7 @@
                 android:orientation="horizontal"
                 android:background="#f6f6f6"
                 android:weightSum="1"
+                android:visibility="gone"
                 android:layout_marginBottom="10dp">
 
                 <androidx.appcompat.widget.AppCompatTextView

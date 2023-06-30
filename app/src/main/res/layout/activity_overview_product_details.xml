@@ -55,7 +55,6 @@
                 android:textSize="10sp"
                 android:visibility="gone" />
 
-
             <TextView
                 android:id="@+id/help"
                 android:layout_width="match_parent"
@@ -110,21 +109,21 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/lato_semibold"
                             android:text="Shipping Address"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
-
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/txtshipping"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
-                            android:textSize="12sp" />
-
+                            android:textSize="12sp"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
@@ -132,21 +131,22 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/lato_semibold"
                             android:text="Billing Address"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="10dp"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
-
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/txtbilling"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"/>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 

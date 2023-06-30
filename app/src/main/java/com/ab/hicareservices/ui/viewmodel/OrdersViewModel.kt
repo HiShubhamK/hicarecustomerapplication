@@ -48,9 +48,11 @@ class OrdersViewModel : ViewModel() {
     }
 
 
-    fun getCustomerOrdersByMobileNo(mobileNo: String, ordertype: String, progressBar: ProgressBar) {
+    fun getCustomerOrdersByMobileNo(mobileNo: String, ordertype: String, progressBar: ProgressDialog) {
 
-        progressBar.visibility = View.VISIBLE
+//        progressBar.visibility = View.VISIBLE
+
+        progressBar.show()
 
         val response = repository.getCustomerOrdersByMobileNo(mobileNo, ordertype)
         response.enqueue(object : Callback<OrdersResponse> {
@@ -67,13 +69,13 @@ class OrdersViewModel : ViewModel() {
 
                     ordersList.postValue(response.body()?.data)
                     Log.d("TAG", "Response " + response.body()?.data.toString())
-                    progressBar.visibility = View.GONE
+                    progressBar.dismiss()
                 }
             }
 
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
                 errorMessage.postValue(t.message)
-                progressBar.visibility = View.GONE
+                progressBar.dismiss()
             }
         })
     }

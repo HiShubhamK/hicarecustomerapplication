@@ -28,6 +28,7 @@ import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -50,8 +51,8 @@ class ProductDetailActivity : AppCompatActivity() {
         val intent = intent
         productid = intent.getStringExtra("productid").toString()
 
-        customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 
         productGallery = ArrayList()
 
@@ -197,25 +198,17 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.tvProductdescLong.visibility = View.GONE
             }
             binding.lnrBottom.setOnClickListener {
-
-
-
                 if (binding.tvAddToCart.text == "Goto Cart") {
                     val intent = Intent(this, AddToCartActivity::class.java)
                     startActivity(intent)
                 }else {
-
                     viewProductModel.addtocart.observe(this, Observer {
-
                         if (it.IsSuccess == true) {
                             binding.tvAddToCart.text = "Goto Cart"
                         }
-
                     })
-                    viewProductModel.getAddProductInCart(counts, productid!!.toInt(), 20)
-
+                    viewProductModel.getAddProductInCart(counts, productid!!.toInt(), AppUtils2.customerid.toInt())
                 }
-//
             }
 
 
@@ -254,7 +247,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
-        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
+        viewProductModel.getProductDetails(productid!!.toInt(), AppUtils2.pincode, AppUtils2.customerid.toInt())
 
     }
 
