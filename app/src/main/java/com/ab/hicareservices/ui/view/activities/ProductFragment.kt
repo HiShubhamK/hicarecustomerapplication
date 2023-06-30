@@ -82,13 +82,18 @@ class ProductFragment : Fragment() {
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 //        viewProductModel.getProductCountInCar(20)
 
-        if (AppUtils2.pincode.equals("")) {
+        binding.btnPincode.setOnClickListener{
             showalertDailogbox()
-//            getProductslist(pincode!!)
-        } else {
-            getProductslist(AppUtils2.pincode!!)
-//            showalertDailogbox()
+
         }
+//
+//        if (AppUtils2.pincode.equals("")) {
+//            showalertDailogbox()
+////            getProductslist(pincode!!)
+//        } else {
+//            getProductslist(AppUtils2.pincode!!)
+////            showalertDailogbox()
+//        }
 
 
         binding.cartmenu.setOnClickListener {
