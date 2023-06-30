@@ -126,7 +126,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             AppUtils2.leaderlist= it as ArrayList<CartlistResponseData>
 //             datalist= it as ArrayList<CartlistResponseData>
-            Toast.makeText(this,AppUtils2.leaderlist.size.toString(),Toast.LENGTH_LONG).show()
+//            Toast.makeText(this,AppUtils2.leaderlist.size.toString(),Toast.LENGTH_LONG).show()
             mAdapter.setCartList(it, this, viewProductModel)
 
         })

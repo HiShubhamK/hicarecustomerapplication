@@ -81,17 +81,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         datalist = AppUtils2.leaderlist
 
-        var calendar = Calendar.getInstance()
-        var simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss aaa z")
-
-
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//        val current = LocalDateTime.now().format(formatter)
-
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        val date = Date()
-        val current = formatter.format(date)
-
         for (i in 0 until datalist.size) {
             homeproduct.add(
                 HomeProduct(
@@ -123,11 +112,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 )
             )
         }
-
-        Toast.makeText(this, datalist.size.toString(), Toast.LENGTH_LONG).show()
-
-        Toast.makeText(this, homeproduct.size.toString(), Toast.LENGTH_LONG).show()
-
 
         order_no = intent.getStringExtra("ORDER_NO").toString()
         accountId = intent.getStringExtra("ACCOUNT_NO").toString()
@@ -192,52 +176,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             totaldiscount = it.TotalDiscount.toString()
             actualvalue = it.TotalAmount.toString()
 
-
         })
-
-
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
-
     }
-
-
-    private fun getproductlist() {
-        viewProductModel.cartlist.observe(this, Observer {
-
-//            for (i in 0 until it.size){
-//                datalist.add(HomeProduct(it.get(i).ProductId,
-//                    it.get(i).ProductName,
-//                    it.get(i).ProductCode,
-//                    it.get(i).ProductDisplayName,
-//                    it.get(i).ProductThumbnail,
-//                    "",
-//                    it.get(i).DiscountType,
-//                    it.get(i).Discount,
-//                    it.get(i).PricePerQuantity,
-//                    it.get(i).DiscountedPrice,
-//                    "",
-//                    "",
-//                    0,
-//                    it.get(i).ProductWeight,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    0,
-//                    0,
-//                    "",
-//                    it.get(i).Quantity,
-//                    0,
-//                    "",
-//                    ""
-//                    ))
-//            }
-
-        })
-
-        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
-    }
-
 
     private fun getAddressforbilling() {
         viewProductModel.getaddressbydetailid.observe(this, Observer {
@@ -316,9 +257,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
-        Toast.makeText(this, "data json" + datalist.size.toString(), Toast.LENGTH_LONG).show()
-
-        Toast.makeText(this, "data json" + AppUtils2.productamount, Toast.LENGTH_LONG).show()
 
         if (product == true) {
 
