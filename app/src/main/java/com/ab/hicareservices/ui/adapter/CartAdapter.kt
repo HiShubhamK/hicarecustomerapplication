@@ -67,7 +67,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
 
         if (counts == 1) {
-            holder.binding.imgremove.visibility = View.VISIBLE
+            holder.binding.imgremove.visibility = View.GONE
+            holder.binding.imgdelete.visibility = View.VISIBLE
         } else if (counts > 1) {
             holder.binding.imgremove.visibility = View.VISIBLE
         }
@@ -128,6 +129,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 productlists.CartId,
                 productlists.UserId
             )
+
 
 //            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())
             notifyDataSetChanged()
