@@ -79,7 +79,8 @@ class ProductFragment : Fragment() {
         })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-//        viewProductModel.getProductCountInCar(20)
+
+        binding.getpincodetext.setText(AppUtils2.pincode)
 
         if (AppUtils2.pincode.equals("")) {
             Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()

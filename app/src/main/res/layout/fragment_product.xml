@@ -22,13 +22,24 @@
             android:gravity="center"
             android:weightSum="2">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                app:cardCornerRadius="5dp"
+                android:elevation="5dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginBottom="13dp"
+                android:layout_marginLeft="15dp"
+                >
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:layout_gravity="center"
-                android:layout_weight="1.6">
+                android:layout_gravity="center">
 
                 <EditText
                     android:id="@+id/getpincodetext"
@@ -45,13 +56,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.1"
                     android:tint="@color/white"
+                    android:layout_margin="3dp"
                     android:padding="10dp"
                     android:src="@drawable/ic_search_primary_light"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            </androidx.cardview.widget.CardView>
 
 <!--            <androidx.appcompat.widget.AppCompatTextView-->
 <!--                android:layout_width="match_parent"-->
@@ -125,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="Enter Pincode"
+            android:visibility="gone"
             android:textColor="@color/white">
 
         </Button>
