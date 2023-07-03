@@ -20,14 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.ProductGallery
 import com.ab.hicareservices.databinding.ActivityProductDetailBinding
 import com.ab.hicareservices.ui.adapter.FAQAdapter
-import com.ab.hicareservices.ui.adapter.OffersAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
-import com.ab.hicareservices.ui.handler.OnRelatedProductClick
+import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
@@ -86,7 +86,7 @@ class ProductDetailActivity : AppCompatActivity() {
         //Related product
         binding.recRelatedProduct.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        relatedProductAdapter = RelatedProductAdapter()
+        relatedProductAdapter = RelatedProductAdapter(viewProductModel)
 
 
         binding.recRelatedProduct.adapter = relatedProductAdapter
@@ -97,18 +97,22 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.recRelatedProduct.adapter!!.itemCount
         )
 
-        relatedProductAdapter.setOnRelatedProductClick(object : OnRelatedProductClick {
-            override fun onRelatedProdAddtoCart(position: Int, productid: Int) {
-
-                try {
-                    viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
-                }catch (e:Exception){
-                    e.printStackTrace()
-                }
-
-            }
-
-        })
+//        relatedProductAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
+//
+//
+//            override fun onProductClickedHandler(position: Int, productid: Int) {
+////                viewProductModel.getAddProductInCart(
+////                    1,
+////                    productid!!.toInt(),
+////                    AppUtils2.customerid.toInt()
+////                )
+//            }
+//
+//            override fun onProductView(position: Int, productid: OrderSummeryData) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
         //FAQ
         binding.recFAQ.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -218,8 +222,17 @@ class ProductDetailActivity : AppCompatActivity() {
                     viewProductModel.addtocart.observe(this, Observer {
                         if (it.IsSuccess == true) {
                             binding.tvAddToCart.text = "Goto Cart"
+                            Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Something went wrong! Unable to add product into cart",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
                         }
                     })
+
                     viewProductModel.getAddProductInCart(
                         counts,
                         productid!!.toInt(),

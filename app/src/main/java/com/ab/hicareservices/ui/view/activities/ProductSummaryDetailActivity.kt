@@ -3,11 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -192,7 +188,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             }
             binding.recRelatedProduct.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            relatedProductAdapter = RelatedProductAdapter()
+            relatedProductAdapter = RelatedProductAdapter(viewModel)
 
 
             binding.recRelatedProduct.adapter = relatedProductAdapter

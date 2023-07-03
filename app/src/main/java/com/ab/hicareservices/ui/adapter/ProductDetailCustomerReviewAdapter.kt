@@ -10,19 +10,18 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.dashboard.BannerData
-import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.data.model.product.ProductTestimonialList
-import com.ab.hicareservices.data.model.product.RelatedProducts
 import com.ab.hicareservices.ui.handler.OffersInterface
 import com.ab.hicareservices.ui.handler.offerinterface
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
 
-class ProductDetailCustomerReviewAdapter(private val viewpa: ViewPager2, private val activity: FragmentActivity) :
+class ProductDetailCustomerReviewAdapter(
+    private val viewpa: ViewPager2,
+    private val activity: FragmentActivity
+) :
     RecyclerView.Adapter<ProductDetailCustomerReviewAdapter.ImageViewHolder>() {
     private var offersInterface: offerinterface? = null
 
