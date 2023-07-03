@@ -100,7 +100,11 @@ class ProductDetailActivity : AppCompatActivity() {
         relatedProductAdapter.setOnRelatedProductClick(object : OnRelatedProductClick {
             override fun onRelatedProdAddtoCart(position: Int, productid: Int) {
 
-                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+                try {
+                    viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
 
             }
 

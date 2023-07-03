@@ -41,6 +41,13 @@ class AddToCartActivity : AppCompatActivity() {
 
         getproductlist()
         getSummarydata()
+        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        if (!pincode.isNullOrEmpty()){
+            binding.tvPincode.text=pincode
+
+        }else {
+            binding.tvPincode.visibility=View.GONE
+        }
         binding.txtplcaeorder.setOnClickListener{
             val intent= Intent(this,AddressActivity::class.java)
             startActivity(intent)

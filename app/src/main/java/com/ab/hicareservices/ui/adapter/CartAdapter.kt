@@ -49,7 +49,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         if (productlists.Discount != 0) {
             holder.binding.txtdealodday.text = "Save " + "\u20B9" + productlists.Discount.toString()
             holder.binding.txtprice.text = productlists.DiscountedPricePerQuantity.toString()
-            holder.binding.txtpriceline.text = "M.R.P : " + "\u20B9" + productlists.PricePerQuantity.toString()
+            holder.binding.txtpriceline.text =  "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {

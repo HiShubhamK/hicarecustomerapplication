@@ -48,7 +48,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             if (productlists.Discount!=0) {
                 holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
-                holder.binding.txtpriceline.text = "M.R.P : "+"\u20B9" + productlists.PricePerQuantity.toString()
+                holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             } else {
                 holder.binding.txtprice.text = "\u20B9" + productlists.PricePerQuantity.toString()
