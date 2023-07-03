@@ -145,7 +145,7 @@ interface IRetrofit {
     @GET("Address/GetAddressDetailById")
     fun getaddressdetailbyid(@Query("addressId") addressId: Int): Call<AddressByCustomerModel>
 
-    @POST("Order/SaveSalesOrder")
+    @POST("Order/SaveMobileProductOrder")
     fun postSaveSalesOrder(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
 
 }

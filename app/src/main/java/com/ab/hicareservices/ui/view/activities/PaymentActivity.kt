@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
@@ -21,11 +20,7 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
-import org.joda.time.DateTime
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -89,26 +84,14 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     datalist.get(i).ProductCode,
                     datalist.get(i).ProductDisplayName,
                     datalist.get(i).ProductThumbnail,
-                    "",
                     datalist.get(i).DiscountType,
                     datalist.get(i).Discount?.toDouble(),
                     datalist.get(i).PricePerQuantity?.toDouble(),
                     datalist.get(i).DiscountedPrice?.toDouble(),
-                    "",
-                    "",
                     0.0,
-                    datalist.get(i).ProductWeight,
-                    false,
-                    false,
-                    false,
-                    false,
-                    0.0,
-                    0,
-                    "",
+                    datalist.get(i).ProductWeight?.toDouble(),
                     datalist.get(i).Quantity,
-                    0,
-                    "",
-                    ""
+                    0.0f
                 )
             )
         }
@@ -283,7 +266,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             data["Order_Source"] = ""
             data["Payment_LinkId"] = ""
             data["Razorpay_Payment_Id"] = response!!.paymentId
-            data["User_Id"] = AppUtils2.customerid
+            data["User_Id"] = AppUtils2.customerid.toInt()
 
             viewProductModel.postSaveSalesOrder(data)
 

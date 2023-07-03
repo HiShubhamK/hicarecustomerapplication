@@ -83,6 +83,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.ProductId!!.toInt(),
                     1
                 )
+                holder.binding.imgdelete.visibility=View.GONE
             } else if (counts <= productlists.MinimumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
             }
@@ -100,6 +101,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.ProductId!!.toInt(),
                     -1
                 )
+                holder.binding.imgdelete.visibility=View.VISIBLE
+                holder.binding.imgremove.visibility=View.GONE
             }else{
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(

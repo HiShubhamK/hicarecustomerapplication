@@ -19,19 +19,51 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:orientation="horizontal"
+            android:gravity="center"
             android:weightSum="2">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="50dp"
-                android:layout_weight="1.6"
-                android:fontFamily="@font/lato_semibold"
-                android:gravity="center"
-                android:text="Product"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:layout_weight="1.6">
+
+                <EditText
+                    android:id="@+id/getpincodetext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:hint="Enter pincode here"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.8"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgsearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:layout_weight="0.2"
+                    android:tint="@color/white"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_search_primary_light"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_marginLeft="50dp"-->
+<!--                android:layout_weight="1.6"-->
+<!--                android:fontFamily="@font/lato_semibold"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Product"-->
+<!--                android:textColor="@color/colorAccent"-->
+<!--                android:textSize="18sp" />-->
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Ente Pincode"
+            android:text="Enter Pincode"
             android:textColor="@color/white">
 
         </Button>

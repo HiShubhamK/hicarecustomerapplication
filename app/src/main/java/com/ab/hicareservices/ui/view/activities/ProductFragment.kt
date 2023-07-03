@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -60,8 +61,6 @@ class ProductFragment : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
-
         viewProductModel.productcount.observe(requireActivity(), Observer {
             progressDialog.show()
             if (it.IsSuccess == true) {
@@ -82,18 +81,21 @@ class ProductFragment : Fragment() {
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 //        viewProductModel.getProductCountInCar(20)
 
-        binding.btnPincode.setOnClickListener{
-            if (AppUtils2.pincode.equals("")) {
-                showalertDailogbox()
-//            getProductslist(pincode!!)
-            } else {
-                getProductslist(AppUtils2.pincode!!)
-//            showalertDailogbox()
-            }
+        if (AppUtils2.pincode.equals("")) {
+            Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
+        } else {
+            getProductslist(AppUtils2.pincode!!)
         }
-//
 
+        binding.imgsearch.setOnClickListener{
+            if(binding.getpincodetext.text.equals("")){
+                Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
+            } else{
+                SharedPreferenceUtil.setData(requireActivity(), "pincode",binding.getpincodetext.text.toString())
+                getProductslist(binding.getpincodetext.text.toString())
+            }
 
+        }
 
         binding.cartmenu.setOnClickListener {
             val intent = Intent(requireActivity(), AddToCartActivity::class.java)
@@ -195,8 +197,13 @@ class ProductFragment : Fragment() {
         val alertDialog: AlertDialog = alertDialogBuilder.create()
         val edtpincode = promptsView.findViewById<View>(R.id.edtpincode) as EditText
         val button = promptsView.findViewById<View>(R.id.btnpincode) as Button
+        val cancel=promptsView.findViewById<View>(R.id.imgbtncancel)  as ImageView
         alertDialog.show()
         alertDialog.setCancelable(false)
+
+        cancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
 
         button.setOnClickListener {
 
