@@ -21,25 +21,25 @@ import com.ab.hicareservices.utils.AppUtils2
 
 class OverviewProductDetailsActivity : AppCompatActivity() {
 
-    var billdata=""
-    var shipdaata=""
+    var billdata = ""
+    var shipdaata = ""
     private lateinit var binding: ActivityOverviewProductDetailsBinding
     private val viewProductModel: ProductViewModel by viewModels()
     private lateinit var mAdapter: OverviewDetailAdapter
     var shippingdata: String? = ""
     var billingdata: String? = ""
-    lateinit var datalist:ArrayList<CartlistResponseData>
+    lateinit var datalist: ArrayList<CartlistResponseData>
     lateinit var progressDialog: ProgressDialog
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview_product_details)
-        binding=ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
+        binding = ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        progressDialog = ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
+        progressDialog =
+            ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
@@ -56,9 +56,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getAddressList()
         getAddressforbilling()
 
-        binding.txtplcaeorder.setOnClickListener{
-            val intent= Intent(this,PaymentActivity::class.java)
-            intent.putExtra("Product",true)
+        binding.txtplcaeorder.setOnClickListener {
+            val intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("Product", true)
             startActivity(intent)
         }
     }
@@ -69,12 +69,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             progressDialog.dismiss()
             binding.txtbilling.visibility = View.VISIBLE
             binding.txtbilling.text =
-                it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+                it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(billdata!!.toInt())
     }
-
 
 
     private fun getAddressList() {
@@ -85,20 +84,25 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             progressDialog.dismiss()
 
-            for (i in 0 until it.size){
-                var data=it.get(i).Id.toString()
-                if(data.equals(shipdaata)){
-                    AppUtils2.cutomername=it.get(i).ContactPersonName.toString()
-                    AppUtils2.customermobile=it.get(i).ContactPersonMobile.toString()
-                    AppUtils2.customeremail=it.get(i).ContactPersonEmail.toString()
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+            for (i in 0 until it.size) {
+                var data = it.get(i).Id.toString()
+                if (data.equals(shipdaata)) {
+                    AppUtils2.cutomername = it.get(i).ContactPersonName.toString()
+                    AppUtils2.customermobile = it.get(i).ContactPersonMobile.toString()
+                    AppUtils2.customeremail = it.get(i).ContactPersonEmail.toString()
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
+                            i
+                        ).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
+                            i
+                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
                 }
 //                else if(data.equals(billdata)){
 //                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
 //                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
 //                }
-                else{
+                else {
 
                 }
             }
@@ -106,7 +110,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
-
 
 
     private fun getproductlist() {
@@ -124,7 +127,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             progressDialog.dismiss()
 
-            AppUtils2.leaderlist= it as ArrayList<CartlistResponseData>
+            AppUtils2.leaderlist = it as ArrayList<CartlistResponseData>
 //             datalist= it as ArrayList<CartlistResponseData>
 //            Toast.makeText(this,AppUtils2.leaderlist.size.toString(),Toast.LENGTH_LONG).show()
             mAdapter.setCartList(it, this, viewProductModel)
@@ -146,10 +149,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             AppUtils2.actualvalue=it.TotalAmount.toString()
             AppUtils2.totaldiscount=it.TotalDiscount.toString()
             binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
-
+            binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
+            binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
+            binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
         })
 
-        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(),AppUtils2.pincode, "")
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
 
     }
 
