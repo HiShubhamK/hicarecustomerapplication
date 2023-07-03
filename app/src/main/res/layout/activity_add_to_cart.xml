@@ -38,7 +38,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Cart"
+                android:text="My Cart"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
@@ -73,231 +73,275 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    <TextView
-        android:background="@color/colorAccent"
-        android:id="@+id/tvPincode"
-        android:paddingLeft="15dp"
+    <!--    <TextView-->
+    <!--        android:background="@color/colorAccent"-->
+    <!--        android:id="@+id/tvPincode"-->
+    <!--        android:paddingLeft="15dp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_below="@+id/headerView"-->
+    <!--        android:fontFamily="@font/lato_semibold"-->
+    <!--        android:gravity="center_horizontal"-->
+    <!--        android:text="400601"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="18sp" />-->
+    <LinearLayout
+        android:id="@+id/lnrMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_below="@+id/headerView"
-        android:fontFamily="@font/lato_semibold"
-        android:gravity="center_horizontal"
-        android:text="400601"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_location"
+            app:tint="@color/white">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/tvPincode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerView"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/lato_semibold"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
-
-        android:layout_below="@+id/tvPincode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/cardviewprice"
+        android:layout_above="@+id/lnrbuttoncart"
+        android:layout_below="@+id/lnrMain"
         android:background="#f6f6f6"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleviewproduct"
+        <ScrollView
+            android:nestedScrollingEnabled="false"
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:overScrollMode="never"
-            />
-
-    </LinearLayout>
-    <androidx.cardview.widget.CardView
-        android:layout_above="@+id/lnrbuttoncart"
-        android:id="@+id/cardviewprice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        app:cardCornerRadius="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginBottom="20dp">
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="visible"
-            android:padding="10dp">
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Price"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/grey_font" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="Price (2 items)"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txttotoalvalue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="end"
-                    android:text="₹24000"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="Discount"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtdiscount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="end"
-                    android:text="-4000"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="Deliver Charge"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="end"
-                    android:textStyle="italic"
-                    android:text="Free Delivary"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/grey_font" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginBottom="10dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="Total Amount"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txttoalamount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/lato_regular"
-                    android:gravity="end"
-                    android:textStyle="bold"
-                    android:text="₹ 20000"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/grey_font"
-                android:visibility="gone" />
+            android:layout_height="match_parent"
+            android:background="#f6f6f6">
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorAccent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewprice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Proceed to Buy(4 Items)"
-                    android:textColor="@color/white" />
+                    android:layout_above="@+id/lnrbuttoncart"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="13dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp">
 
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:visibility="visible">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Price"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/grey_font" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Price (2 items)"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txttotoalvalue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:gravity="end"
+                                android:text="₹24000"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Discount"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txtdiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:gravity="end"
+                                android:text="-4000"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Deliver Charge"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:gravity="end"
+                                android:text="Free Delivary"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="italic" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/grey_font" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Total Amount"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txttoalamount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_regular"
+                                android:gravity="end"
+                                android:text="₹ 20000"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/grey_font"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/colorAccent"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Proceed to Buy(4 Items)"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleviewproduct"
+                    android:layout_width="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:overScrollMode="never" />
             </LinearLayout>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    </androidx.cardview.widget.CardView>
+        </ScrollView>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -328,10 +372,10 @@
             android:layout_margin="5dp"
             android:layout_marginRight="13dp"
             android:layout_weight="1"
-            android:textAllCaps="false"
             android:background="@color/colorAccent"
             android:fontFamily="@font/lato_regular"
             android:text="Place Order"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp" />
 

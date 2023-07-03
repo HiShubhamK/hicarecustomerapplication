@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,6 +33,8 @@ class OrderSummeryFragment : Fragment() {
     var customerid: String? = ""
     var pincode: String? = ""
     private lateinit var mAdapter: OrderSummeryAdapter
+    lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,12 +60,15 @@ class OrderSummeryFragment : Fragment() {
 //        pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 ////
 //
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
         getProductsSummerylist()
 
     }
 
     private fun getProductsSummerylist() {
 
+        progressDialog.show()
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrderSummeryAdapter()
@@ -70,6 +76,7 @@ class OrderSummeryFragment : Fragment() {
         binding.recycleviewproduct.adapter = mAdapter
 
         viewProductModel.getordersummeryList.observe(requireActivity(), Observer {
+
 
             mAdapter.setProductList(it, requireActivity(), viewProductModel)
 
@@ -132,6 +139,7 @@ class OrderSummeryFragment : Fragment() {
             }
         })
 
+        progressDialog.dismiss()
 
     }
 

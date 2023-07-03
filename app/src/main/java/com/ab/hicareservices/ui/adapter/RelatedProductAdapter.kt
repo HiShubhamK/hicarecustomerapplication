@@ -1,28 +1,35 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.RelatedProducts
 import com.ab.hicareservices.databinding.LayoutRelatedProductBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.handler.OnRelatedProductClick
+import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
 
-class RelatedProductAdapter(viewProductModel: ProductViewModel) : RecyclerView.Adapter<RelatedProductAdapter.MainViewHolder>() {
+class RelatedProductAdapter(
+    activity: FragmentActivity,
+    viewProductModel: ProductViewModel
+) : RecyclerView.Adapter<RelatedProductAdapter.MainViewHolder>() {
     var productDetails = mutableListOf<RelatedProducts>()
     lateinit var productDetailActivity: FragmentActivity
     private var onRelatedProductClick: OnRelatedProductClick? = null
     private var onProductClickedHandler: OnProductClickedHandler? = null
     val viewmodel=viewProductModel
+    val activityy=activity
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -54,6 +61,16 @@ class RelatedProductAdapter(viewProductModel: ProductViewModel) : RecyclerView.A
                     productlistdata.ProductId!!.toInt(),
                     AppUtils2.customerid.toInt()
                 )
+                viewmodel.addtocart.observe(activityy,{
+                    if (it.IsSuccess==true){
+                        Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
+
+
+                    }
+
+                })
 //                onProductClickedHandler!!.onProductClickedHandler(position,productlistdata.ProductId!!.toInt())
             }
         } catch (e: Exception) {

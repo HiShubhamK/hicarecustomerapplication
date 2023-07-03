@@ -55,6 +55,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getSummarydata()
         getAddressList()
         getAddressforbilling()
+        if (!AppUtils2.pincode.isNullOrEmpty()){
+            binding.tvPincode.text="Deliver to pincode "+AppUtils2.pincode
+        }else {
+            binding.tvPincode.visibility=View.GONE
+        }
 
         binding.txtplcaeorder.setOnClickListener {
             val intent = Intent(this, PaymentActivity::class.java)
@@ -143,7 +148,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-            progressDialog.dismiss()
 
             AppUtils2.productamount=it.FinalAmount.toString()
             AppUtils2.actualvalue=it.TotalAmount.toString()
@@ -152,6 +156,13 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
             binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
+            if (it.DeliveryCharges!=null&&it.DeliveryCharges==0){
+                binding.tvDeliveryCharge.text="Free Delivery"
+            }else{
+                binding.tvDeliveryCharge.text=it.DeliveryCharges.toString()
+            }
+            progressDialog.dismiss()
+
         })
 
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")

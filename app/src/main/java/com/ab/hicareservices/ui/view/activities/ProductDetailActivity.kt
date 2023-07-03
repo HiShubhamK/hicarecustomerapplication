@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -20,14 +21,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.ProductGallery
 import com.ab.hicareservices.databinding.ActivityProductDetailBinding
 import com.ab.hicareservices.ui.adapter.FAQAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
-import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
@@ -43,10 +42,13 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var faqAdapter: FAQAdapter
     private lateinit var productGallery: ArrayList<ProductGallery>
     private lateinit var customerReviewAdapter: ProductDetailCustomerReviewAdapter
+    lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
@@ -65,6 +67,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun getlist() {
         var counts = 1
+        progressDialog.show()
 
 
         customerReviewAdapter = ProductDetailCustomerReviewAdapter(binding.vpTestomonial, this)
@@ -86,7 +89,7 @@ class ProductDetailActivity : AppCompatActivity() {
         //Related product
         binding.recRelatedProduct.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        relatedProductAdapter = RelatedProductAdapter(viewProductModel)
+        relatedProductAdapter = RelatedProductAdapter(this,viewProductModel)
 
 
         binding.recRelatedProduct.adapter = relatedProductAdapter
@@ -271,6 +274,7 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.ratingbar.rating = it.ProductConfiguration!!.ProductRating!!.toFloat()
             val drawable: Drawable = binding.ratingbar.progressDrawable
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
+            progressDialog.dismiss()
         })
 
 

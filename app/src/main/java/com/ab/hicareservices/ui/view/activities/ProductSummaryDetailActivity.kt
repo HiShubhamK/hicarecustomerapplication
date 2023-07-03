@@ -154,6 +154,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //        }
 
         try {
+            progressDialog.show()
             binding.yourStateProgressBarId.setStateDescriptionData(descriptionData)
 //            when (descriptionData.equals(OrderStatus)) {
 //                "" -> binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
@@ -188,7 +189,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             }
             binding.recRelatedProduct.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            relatedProductAdapter = RelatedProductAdapter(viewModel)
+            relatedProductAdapter = RelatedProductAdapter(this, viewModel)
 
 
             binding.recRelatedProduct.adapter = relatedProductAdapter
@@ -202,6 +203,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                 if (it.RelatedProducts != null) {
                     binding.recRelatedProduct.visibility = View.VISIBLE
                     relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+                    progressDialog.dismiss()
                 } else {
                     binding.recRelatedProduct.visibility = View.GONE
 
@@ -256,7 +258,6 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
     private fun getServiceDetails() {
         try {
-            progressDialog.dismiss()
 //        orderDetailsViewModel.orderDetailsData.observe(this) {
 //            if (it != null) {
 //                val data = it[0]

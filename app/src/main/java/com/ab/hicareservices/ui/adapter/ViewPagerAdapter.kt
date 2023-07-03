@@ -32,6 +32,6 @@ class ViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return "Tab " + (position + 1)
+        return mFragmentsTitle[position]
     }
 }
