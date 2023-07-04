@@ -46,8 +46,9 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
 
             if (productlists.Discount!=0) {
-                holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
+                holder.binding.txtdealodday.text ="Saved " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
+                holder.binding.txtpriceline.visibility=View.GONE
                 holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             } else {

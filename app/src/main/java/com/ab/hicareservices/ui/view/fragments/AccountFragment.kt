@@ -17,6 +17,7 @@ import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.HelpActivity
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.ReferralActivity
+import com.ab.hicareservices.ui.view.activities.TermsAndConditionActivity
 
 class AccountFragment : Fragment() {
 
@@ -45,11 +46,11 @@ class AccountFragment : Fragment() {
         binding.txtusernames.text=first_name.toString()
         binding.txtUserdetailes.text=mobileno.toString()
 
-        binding.edtAccount.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance())
-                .addToBackStack("AccountFragment").commit()
-        }
+//        binding.edtAccount.setOnClickListener {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ProfileFragment.newInstance())
+//                .addToBackStack("AccountFragment").commit()
+//        }
 
         binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -91,7 +92,7 @@ class AccountFragment : Fragment() {
         }
 
         binding.terms.setOnClickListener {
-            val intent = Intent(requireContext(), TermsAndConditionFragment::class.java)
+            val intent = Intent(requireContext(), TermsAndConditionActivity::class.java)
             startActivity(intent)
 
         }

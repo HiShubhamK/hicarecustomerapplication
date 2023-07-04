@@ -44,6 +44,9 @@ class UpcomingServicesActivity : AppCompatActivity() {
 //        viewModel.getUpcomingServices(AppUtils2.mobileno)
         progressDialog.show()
         getAllComplaints(progressDialog)
+        binding.imgLogo.setOnClickListener{
+            onBackPressed()
+        }
     }
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {

@@ -94,7 +94,7 @@ class OrdersFragmentNew() : Fragment() {
         val extraList = OrderSummeryFragment()
         val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(orderfragment, "Services")
-        adapter.addFragment(extraList, "Order Summary")
+        adapter.addFragment(extraList, "Products")
 
         val viewPager = binding.vpFragments
         viewPager.adapter = adapter
