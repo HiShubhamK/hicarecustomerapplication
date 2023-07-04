@@ -43,7 +43,7 @@ class AddToCartActivity : AppCompatActivity() {
         getSummarydata()
         pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
         if (!pincode.isNullOrEmpty()){
-            binding.tvPincode.text=pincode
+            binding.tvPincode.text="Deliver to pincode "+pincode
 
         }else {
             binding.tvPincode.visibility=View.GONE

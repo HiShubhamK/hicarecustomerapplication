@@ -52,8 +52,12 @@ class AddressActivity : AppCompatActivity() {
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            billingdata=shippingdata
-            showAddNewAddressdialog("false",0)
+            if (b==true){
+                billingdata=shippingdata
+                showAddNewAddressdialog("false",0)
+            }else {
+
+            }
         }
 
         if(billingdata.equals("") || billingdata==null){

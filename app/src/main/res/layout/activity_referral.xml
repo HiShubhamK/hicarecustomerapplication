@@ -273,7 +273,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"
-                    android:text="Click &amp; Hold To Copy Above Code"
+                    android:text="Click To Copy Above Code"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

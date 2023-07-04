@@ -93,8 +93,9 @@ class OrdersFragmentNew() : Fragment() {
         val orderfragment = OrdersFragment()
         val extraList = OrderSummeryFragment()
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(orderfragment, "OrderFragment")
-        adapter.addFragment(extraList, "OrderSummeryFragment")
+        adapter.addFragment(orderfragment, "Services")
+        adapter.addFragment(extraList, "Products")
+
         val viewPager = binding.vpFragments
         viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.vpFragments)

@@ -13,7 +13,11 @@ import androidx.fragment.app.Fragment
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
-import com.ab.hicareservices.ui.view.activities.*
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.HelpActivity
+import com.ab.hicareservices.ui.view.activities.LoginActivity
+import com.ab.hicareservices.ui.view.activities.ReferralActivity
+import com.ab.hicareservices.ui.view.activities.TermsAndConditionActivity
 
 class AccountFragment : Fragment() {
 
@@ -42,11 +46,11 @@ class AccountFragment : Fragment() {
         binding.txtusernames.text=first_name.toString()
         binding.txtUserdetailes.text=mobileno.toString()
 
-        binding.edtAccount.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance())
-                .addToBackStack("AccountFragment").commit()
-        }
+//        binding.edtAccount.setOnClickListener {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ProfileFragment.newInstance())
+//                .addToBackStack("AccountFragment").commit()
+//        }
 
         binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()

@@ -170,7 +170,7 @@ class OrdersFragment() : Fragment() {
 
     private fun getOrdersList2(progressDialog: ProgressDialog) {
 
-//        progressDialog.show()
+        progressDialog.show()
         binding.recyclerView2.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
@@ -179,7 +179,8 @@ class OrdersFragment() : Fragment() {
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            if (it != null) {
+            var data=it
+            if (it != null||data.isEmpty()) {
                 nAdapter.setOrdersList(it)
                 binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()

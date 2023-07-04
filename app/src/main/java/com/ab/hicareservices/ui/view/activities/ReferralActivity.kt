@@ -50,13 +50,10 @@ class ReferralActivity : AppCompatActivity() {
             }
         }
 
-        binding.referralCodeTv.setOnLongClickListener {
+        binding.referralCodeTv.setOnClickListener {
             if (binding.referralCodeTv.text != "") {
                 copyToClipboard(binding.referralCodeTv.text)
-            } else {
-                Toast.makeText(this, "Please wait...", Toast.LENGTH_SHORT).show()
             }
-            true
         }
 
         binding.whatsappBtn.setOnClickListener {

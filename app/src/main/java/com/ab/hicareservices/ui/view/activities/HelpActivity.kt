@@ -12,5 +12,13 @@ class HelpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_help)
         binding = ActivityHelpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.imgLogo.setOnClickListener{
+            onBackPressed()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
