@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
@@ -17,9 +18,7 @@ import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
-import com.razorpay.Checkout
-import com.razorpay.PaymentData
-import com.razorpay.PaymentResultWithDataListener
+import com.razorpay.*
 import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
@@ -55,6 +54,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var pincode = ""
     var totaldiscount = ""
     var actualvalue = ""
+    var razorpayorderid=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,10 +101,31 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         service = intent.getStringExtra("SERVICETYPE_NO").toString()
         serviceType = intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
-        stdvalues =
-            intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
+        stdvalues = intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
 
         product = intent.getBooleanExtra("Product", false)
+
+        Checkout.sdkCheckIntegration(this)
+
+        if(product==true){
+
+            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+
+                if(it.IsSuccess==true){
+                    razorpayorderid=it.Data.toString()
+                    AppUtils2.razorpayorderid=it.Data.toString()
+                    Toast.makeText(this,it.Data.toString(),Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
+                }
+
+            })
+
+            viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(),12342)
+        }else{
+            viewProductModel.CreateRazorpayOrderId(payment.toDouble(),12342)
+        }
+
 
         if (product == true) {
 
@@ -117,12 +138,22 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 notesproduct,
                 AppUtils2.productamount
             )
+
+            Log.d("OptionTag",options.toString())
+
+
             try {
+                Checkout.preload(applicationContext)
+                val activity:PaymentActivity = this
                 val co = Checkout()
                 co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+
+
                 co.open(this, options)
-            } catch (e: Exception) {
-                Log.d("TAG", "$e")
+            }
+            catch (e: Exception){
+                Toast.makeText(this,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
+                e.printStackTrace()
             }
 
         } else {
@@ -166,12 +197,12 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun getAddressforbilling() {
         viewProductModel.getaddressbydetailid.observe(this, Observer {
 
-            flat = it.FlatNo.toString()
-            builingname = it.BuildingName.toString()
-            street = it.Street.toString()
-            locality = it.Locality.toString()
-            landmark = it.Landmark.toString()
-            pincode = it.Pincode.toString()
+            AppUtils2.flat = it.FlatNo.toString()
+            AppUtils2.builingname = it.BuildingName.toString()
+            AppUtils2.street = it.Street.toString()
+            AppUtils2.locality = it.Locality.toString()
+            AppUtils2.landmark = it.Landmark.toString()
+            AppUtils2.pincodelast = it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
     }
@@ -183,11 +214,19 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", "Product")
+        options.put("order_id", AppUtils2.razorpayorderid)
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
-        options.put("amount", "${productamount.toDouble().roundToInt()}00")
+        options.put("amount", "${AppUtils2.productamount.toDouble().roundToInt()}00")
         options.put("notes", notesproduct)
+        val prefill = JSONObject()
+        prefill.put("email","akshay.tabib@hicare@in")
+        prefill.put("contact","7208408308")
+
+        options.put("prefill",prefill)
+//        options.put("prefill.contact", AppUtils2.mobileno)
+//        options.put("prefill.email", AppUtils2.email)
         return options
     }
 
@@ -240,35 +279,41 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
+        Log.d("Paymenttag",response!!.paymentId+" "+response.signature+" "+response.signature)
 
         if (product == true) {
 
+            try {
 
-            var data = HashMap<String, Any>()
+                var data = HashMap<String, Any>()
 
-            data["HomeProduct"] = homeproduct
-            data["AddressId"] = shippingdata.toInt()
-            data["BillToAddressId"] = billingdata.toInt()
-            data["Pincode"] = pincode
-            data["CartAmount"] = AppUtils2.actualvalue.toDouble()
-            data["PayableAmount"] = AppUtils2.productamount.toDouble()
-            data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()
-            data["DelieveryCharges"] = 0.0
-            data["InstallationCharges"] = 0.0
-            data["VoucherCode"] = ""
-            data["SFDC_OrderNo"] = ""
-            data["PaymentId"] = response!!.paymentId
-            data["PayMethod"] = ""
-            data["PayStatus"] = ""
-            data["PayAmount"] = 0.0
-            data["Booking_Source"] = ""
-            data["Referred_By_Technician"] = ""
-            data["Order_Source"] = ""
-            data["Payment_LinkId"] = ""
-            data["Razorpay_Payment_Id"] = response!!.paymentId
-            data["User_Id"] = AppUtils2.customerid.toInt()
+                data["HomeProduct"] = homeproduct
+                data["AddressId"] = shippingdata.toInt()
+                data["BillToAddressId"] = billingdata.toInt()
+                data["Pincode"] = AppUtils2.pincode
+                data["CartAmount"] = AppUtils2.actualvalue.toDouble()
+                data["PayableAmount"] = AppUtils2.productamount.toDouble()
+                data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()
+                data["DelieveryCharges"] = 0.0
+                data["InstallationCharges"] = 0.0
+                data["VoucherCode"] = ""
+                data["SFDC_OrderNo"] = ""
+                data["PaymentId"] = response!!.paymentId
+                data["PayMethod"] = ""
+                data["PayStatus"] = ""
+                data["PayAmount"] = 0.0
+                data["Booking_Source"] = ""
+                data["Referred_By_Technician"] = ""
+                data["Order_Source"] = ""
+                data["Payment_LinkId"] = ""
+                data["Razorpay_Payment_Id"] = response!!.paymentId
+                data["User_Id"] = AppUtils2.customerid.toInt()
 
-            viewProductModel.postSaveSalesOrder(data)
+                viewProductModel.postSaveSalesOrder(data)
+
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
 
         } else {
             orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
@@ -292,7 +337,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
 
             data["razorpay_payment_id"] = response?.paymentId.toString()
-            data["razorpay_order_id"] = order_no
+            data["razorpay_order_id"] = response?.orderId
             data["razorpay_signature"] = response?.signature.toString()
 
             orderDetailsViewModel.saveAppPaymentDetails(data)
@@ -334,13 +379,13 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("ActualAmount", AppUtils2.productamount)
         notes.put("UserId", AppUtils2.customerid)
         notes.put("AddressId", shippingdata)
-        notes.put("FlatNo", flat)
-        notes.put("BuildingName", builingname)
-        notes.put("Street", street)
-        notes.put("Landmark", landmark)
-        notes.put("Pincode", pincode)
-        notes.put("City", "")
-        notes.put("Locality", locality)
+        notes.put("FlatNo", AppUtils2.flat)
+        notes.put("BuildingName", AppUtils2.builingname)
+        notes.put("Street", AppUtils2.street)
+        notes.put("Landmark", AppUtils2.landmark)
+        notes.put("Pincode", AppUtils2.pincode)
+        notes.put("City", "Mumbai")
+        notes.put("Locality", AppUtils2.locality)
         return notes
     }
 

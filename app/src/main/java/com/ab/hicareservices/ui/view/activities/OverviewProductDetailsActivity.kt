@@ -47,6 +47,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
+        AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
+
+
         val intent = intent
         billdata = intent.getStringExtra("Billdata").toString()
         shipdaata = intent.getStringExtra("Shipdata").toString()

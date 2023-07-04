@@ -96,7 +96,7 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.0.7'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'joda-time:joda-time:2.10.4'
-    implementation 'com.razorpay:checkout:1.6.16'
+    implementation 'com.razorpay:checkout:1.6.26'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.9.0'

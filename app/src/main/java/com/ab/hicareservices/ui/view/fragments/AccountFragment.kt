@@ -13,10 +13,7 @@ import androidx.fragment.app.Fragment
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.HelpActivity
-import com.ab.hicareservices.ui.view.activities.LoginActivity
-import com.ab.hicareservices.ui.view.activities.ReferralActivity
+import com.ab.hicareservices.ui.view.activities.*
 
 class AccountFragment : Fragment() {
 
@@ -91,7 +88,7 @@ class AccountFragment : Fragment() {
         }
 
         binding.terms.setOnClickListener {
-            val intent = Intent(requireContext(), TermsAndConditionFragment::class.java)
+            val intent = Intent(requireContext(), TermsAndConditionActivity::class.java)
             startActivity(intent)
 
         }

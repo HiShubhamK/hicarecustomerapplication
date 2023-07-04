@@ -92,8 +92,9 @@ class ProductFragment : Fragment() {
             if(binding.getpincodetext.text.equals("")){
                 Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
             } else{
+                AppUtils2.pincode=binding.getpincodetext.text.trim().toString()
                 SharedPreferenceUtil.setData(requireActivity(), "pincode",binding.getpincodetext.text.toString())
-                getProductslist(binding.getpincodetext.text.toString())
+                getProductslist(AppUtils2.pincode)
             }
 
         }

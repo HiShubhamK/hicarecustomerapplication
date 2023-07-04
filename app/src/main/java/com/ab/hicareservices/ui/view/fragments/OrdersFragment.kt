@@ -196,7 +196,7 @@ class OrdersFragment() : Fragment() {
 
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
             binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
@@ -298,14 +298,14 @@ class OrdersFragment() : Fragment() {
 
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
             binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
-            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
             binding.textnotfound.text = it.toString()
             progressDialog.dismiss()

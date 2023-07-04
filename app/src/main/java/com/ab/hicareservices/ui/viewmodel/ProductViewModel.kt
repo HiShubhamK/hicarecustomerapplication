@@ -28,6 +28,8 @@ class ProductViewModel: ViewModel() {
     val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
     val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
     val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
+    val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
+
 
     fun getCustomerid(mobileno: String) {
         val response = repository.getcustomerloginid(mobileno)
@@ -242,5 +244,22 @@ class ProductViewModel: ViewModel() {
             }
         })
     }
+
+    fun CreateRazorpayOrderId(amount:Double,mobilenumber:Int){
+        val response=repository.CreateRazorpayOrderId(amount,mobilenumber)
+        response.enqueue(object  : Callback<RazorpayOrderIdResponse>{
+            override fun onResponse(call: Call<RazorpayOrderIdResponse>,
+                                    response: Response<RazorpayOrderIdResponse>) {
+
+                razorpayOrderIdResponse.postValue(response.body())
+
+            }
+
+            override fun onFailure(call: Call<RazorpayOrderIdResponse>, t: Throwable) {
+                errorMessage.postValue("Something went to wrong")
+            }
+        })
+    }
+
 }
 

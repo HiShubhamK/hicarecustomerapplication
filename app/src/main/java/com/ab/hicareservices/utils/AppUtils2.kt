@@ -29,7 +29,14 @@ object AppUtils2 {
     var actualvalue=""
     var totaldiscount=""
     var pincode=""
-
+    var email=""
+    var razorpayorderid=""
+    var flat = ""
+    var street = ""
+    var landmark = ""
+    var locality = ""
+    var builingname = ""
+    var pincodelast = ""
 
     @JvmStatic
     fun startPayment(activity: Activity) {
@@ -81,18 +88,21 @@ object AppUtils2 {
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+
     fun formatDateTime5(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("dd/MM/yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+
     fun formatDateTimeApi(dateTime: String): String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
+
     fun getCurrentTimeStamp(): String? {
         var s = ""
         try {

@@ -166,6 +166,7 @@
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/lato_semibold"
                         android:text="abcd"
+                        android:visibility="gone"
                         android:textSize="14sp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
