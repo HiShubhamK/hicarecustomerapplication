@@ -75,6 +75,15 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         progressDialog.show()
         viewProductModel.getaddressbydetailid.observe(this, Observer {
             progressDialog.dismiss()
+
+            AppUtils2.flat = it.FlatNo.toString()
+            AppUtils2.builingname = it.BuildingName.toString()
+            AppUtils2.street = it.Street.toString()
+            AppUtils2.locality = it.Locality.toString()
+            AppUtils2.landmark = it.Landmark.toString()
+            AppUtils2.pincodelast = it.Pincode.toString()
+            AppUtils2.city=it.City.toString()
+            AppUtils2.state=it.State.toString()
             binding.txtbilling.visibility = View.VISIBLE
             binding.txtbilling.text =
                 it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +

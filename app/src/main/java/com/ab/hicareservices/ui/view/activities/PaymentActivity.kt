@@ -148,7 +148,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 val co = Checkout()
                 co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
 
-
                 co.open(this, options)
             }
             catch (e: Exception){
@@ -203,6 +202,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             AppUtils2.locality = it.Locality.toString()
             AppUtils2.landmark = it.Landmark.toString()
             AppUtils2.pincodelast = it.Pincode.toString()
+            AppUtils2.city=it.City.toString()
+            AppUtils2.state=it.State.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
     }
@@ -221,8 +222,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("amount", "${AppUtils2.productamount.toDouble().roundToInt()}00")
         options.put("notes", notesproduct)
         val prefill = JSONObject()
-        prefill.put("email","akshay.tabib@hicare@in")
-        prefill.put("contact","7208408308")
+        prefill.put("email",AppUtils2.customeremail)
+        prefill.put("contact",AppUtils2.mobileno)
 
         options.put("prefill",prefill)
 //        options.put("prefill.contact", AppUtils2.mobileno)
@@ -384,7 +385,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("Street", AppUtils2.street)
         notes.put("Landmark", AppUtils2.landmark)
         notes.put("Pincode", AppUtils2.pincode)
-        notes.put("City", "Mumbai")
+        notes.put("City", AppUtils2.city)
         notes.put("Locality", AppUtils2.locality)
         return notes
     }

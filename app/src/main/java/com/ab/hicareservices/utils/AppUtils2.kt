@@ -37,6 +37,8 @@ object AppUtils2 {
     var locality = ""
     var builingname = ""
     var pincodelast = ""
+    var city=""
+    var state=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

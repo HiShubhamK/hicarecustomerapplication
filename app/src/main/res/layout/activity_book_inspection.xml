@@ -229,6 +229,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/lato_semibold"
                 android:text="Name"
+                android:paddingLeft="9dp"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -431,6 +432,7 @@
                     android:enabled="false"
                     android:fontFamily="@font/lato_semibold"
                     android:text="Mobile No"
+                    android:paddingLeft="9dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -517,6 +519,7 @@
             android:enabled="false"
             android:fontFamily="@font/lato_semibold"
             android:text="Service Type"
+            android:paddingLeft="9dp"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -615,6 +618,7 @@
             android:enabled="false"
             android:fontFamily="@font/lato_semibold"
             android:text="Address"
+            android:paddingLeft="9dp"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
