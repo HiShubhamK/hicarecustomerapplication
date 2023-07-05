@@ -210,7 +210,6 @@ class SlotComplinceActivity : AppCompatActivity() {
             )
             try {
                 if (AppUtils2.formatDateTime4(it[0].ScheduledDate.toString()).isNotEmpty()) {
-                    binding.lnrAvailableSlot.visibility = View.VISIBLE
                     binding.tvSelectedDateFrom.text =
                         AppUtils2.formatDateTime4(it[0].ScheduledDate.toString())
                     binding.tvSelectedDateTo.text =
