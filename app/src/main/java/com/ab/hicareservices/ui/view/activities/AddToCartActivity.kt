@@ -56,7 +56,7 @@ class AddToCartActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.imgLogo.setOnClickListener{
-         onBackPressed()
+            onBackPressed()
         }
     }
 
@@ -115,22 +115,22 @@ class AddToCartActivity : AppCompatActivity() {
 //                progressDialog.show()
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
-                    progressDialog.dismiss()
-                    if(it.IsSuccess==true){
-                        imgadd.isClickable=true
-                        imgadd.isEnabled=true
+                    viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
+                        progressDialog.dismiss()
+                        if(it.IsSuccess==true){
+                            imgadd.isClickable=true
+                            imgadd.isEnabled=true
 //                        progressDialog.dismiss()
-                        getSummarydata()
-                        AppUtils2.changebuttonstatus=false
-                    }else{
+                            getSummarydata()
+                            AppUtils2.changebuttonstatus=false
+                        }else{
 //                        progressDialog.dismiss()
-                        Toast.makeText(this@AddToCartActivity,"Something went to wromg",Toast.LENGTH_LONG).show()
-                    }
+                            Toast.makeText(this@AddToCartActivity,"Something went to wromg",Toast.LENGTH_LONG).show()
+                        }
 
-                })
+                    })
 
-                viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                    viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
                 }, 1000)
             }
 
@@ -146,23 +146,23 @@ class AddToCartActivity : AppCompatActivity() {
 
 //        Handler(Looper.getMainLooper()).postDelayed({
 
-            viewProductModel.getsummarydata.observe(this, Observer {
+        viewProductModel.getsummarydata.observe(this, Observer {
 
 
-                if (it.TotalAmount != 0) {
-                    progressDialog.dismiss()
-                    binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
-                    binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
-                    binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
-                    binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
+            if (it.TotalAmount != 0) {
+                progressDialog.dismiss()
+                binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
+                binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
+                binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
+                binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
 
-                } else {
-                    binding.lnrbuttoncart.visibility = View.GONE
-                    binding.cardviewprice.visibility = View.GONE
-                    progressDialog.dismiss()
+            } else {
+                binding.lnrbuttoncart.visibility = View.GONE
+                binding.cardviewprice.visibility = View.GONE
+                progressDialog.dismiss()
 
-                }
-            })
+            }
+        })
 //        },1000)
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
 

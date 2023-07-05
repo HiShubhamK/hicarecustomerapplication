@@ -96,10 +96,6 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             holder.binding.imgremove.visibility = View.VISIBLE
             holder.binding.imgdelete.visibility = View.GONE
             holder.binding.textcount.text = productlists.Quantity!!.toString()
-        if (productlists.Quantity == 0) {
-            holder.binding.textcount.text = "1"
-            counts = 1
-        } else {
             holder.binding.textcount.text = productlists.Quantity.toString()
             counts = productlists.Quantity!!.toInt()
         }
@@ -156,7 +152,6 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 }
 
             }, 1000)
-
 
         }
 
