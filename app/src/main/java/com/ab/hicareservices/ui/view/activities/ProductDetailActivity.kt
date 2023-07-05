@@ -61,6 +61,9 @@ class ProductDetailActivity : AppCompatActivity() {
 
 //        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
+        binding.imgLogo.setOnClickListener{
+            onBackPressed()
+        }
         getlist()
 
     }
@@ -285,6 +288,11 @@ class ProductDetailActivity : AppCompatActivity() {
             AppUtils2.pincode,
             AppUtils2.customerid.toInt()
         )
+
+        binding.cartmenu.setOnClickListener {
+            val intent = Intent(this, AddToCartActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

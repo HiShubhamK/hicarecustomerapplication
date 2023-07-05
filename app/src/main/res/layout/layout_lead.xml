@@ -284,7 +284,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Conatct Details"
+                android:text="Contact Details"
                 android:textSize="14sp"
                 android:fontFamily="@font/lato_semibold"
                 android:textColor="@color/black" />

@@ -22,12 +22,12 @@
 
             <ImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/title"
@@ -164,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_semibold"
-                            android:text="Price"
+                            android:text="Order Summary"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -188,7 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="Price (2 items)"
+                                android:text="Price"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -244,7 +244,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="Deliver Charge"
+                                android:text="Deliver Charges"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -252,10 +252,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/lato_regular"
+                                android:fontFamily="@font/lato_semibold"
                                 android:gravity="end"
-                                android:text="Free Delivary"
-                                android:textColor="@color/black"
+                                android:text="Free"
+                                android:textColor="@color/colorAccent"
                                 android:textSize="12sp"
                                 android:textStyle="italic" />
                         </androidx.appcompat.widget.LinearLayoutCompat>

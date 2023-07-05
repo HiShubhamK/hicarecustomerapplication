@@ -52,6 +52,9 @@ class AddToCartActivity : AppCompatActivity() {
             val intent= Intent(this,AddressActivity::class.java)
             startActivity(intent)
         }
+        binding.imgLogo.setOnClickListener{
+         onBackPressed()
+        }
     }
 
     private fun getproductlist() {
@@ -128,7 +131,7 @@ class AddToCartActivity : AppCompatActivity() {
             if(it.TotalAmount!=0) {
 
                 binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
-                binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
+                binding.txtdiscount.text = "- "+"\u20B9" + it.TotalDiscount.toString()
                 binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
                 binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
 

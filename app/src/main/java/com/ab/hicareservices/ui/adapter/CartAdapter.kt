@@ -49,7 +49,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         if (productlists.Discount != 0) {
             holder.binding.txtdealodday.text = "Save " + "\u20B9" + productlists.Discount.toString()
             holder.binding.txtprice.text = productlists.DiscountedPricePerQuantity.toString()
-            holder.binding.txtpriceline.text =  "\u20B9" + productlists.PricePerQuantity.toString()
+            holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
@@ -57,12 +57,12 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             holder.binding.txtpriceline.visibility = View.GONE
         }
 
-        if(productlists.Quantity==0){
+        if (productlists.Quantity == 0) {
             holder.binding.textcount.text = "1"
-            counts=1
-        }else{
+            counts = 1
+        } else {
             holder.binding.textcount.text = productlists.Quantity.toString()
-            counts=productlists.Quantity!!.toInt()
+            counts = productlists.Quantity!!.toInt()
         }
 
 
@@ -84,7 +84,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.ProductId!!.toInt(),
                     1
                 )
-                holder.binding.imgdelete.visibility=View.GONE
+                holder.binding.imgdelete.visibility = View.GONE
             } else if (counts <= productlists.MinimumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
             }
@@ -94,7 +94,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
         holder.binding.imgremove.setOnClickListener {
             counts = counts - 1
-            if(counts==1) {
+            if (counts == 1) {
                 holder.binding.textcount.text = counts.toString()
                 holder.binding.imgremove.isClickable = false
                 onCartClickedHandler!!.setonaddclicklistener(
@@ -102,9 +102,9 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.ProductId!!.toInt(),
                     -1
                 )
-                holder.binding.imgdelete.visibility=View.VISIBLE
-                holder.binding.imgremove.visibility=View.GONE
-            }else{
+                holder.binding.imgdelete.visibility = View.VISIBLE
+                holder.binding.imgremove.visibility = View.GONE
+            } else {
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(
                     position,

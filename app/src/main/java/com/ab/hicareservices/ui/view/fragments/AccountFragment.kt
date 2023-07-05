@@ -87,7 +87,7 @@ class AccountFragment : Fragment() {
             val message=""
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
-                Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber&text=$message")
+                Uri.parse("https://wa.me/9324747360?text=Hello")
             startActivity(intent)
         }
 

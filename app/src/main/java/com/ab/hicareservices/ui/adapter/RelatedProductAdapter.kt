@@ -42,6 +42,7 @@ class RelatedProductAdapter(
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         try {
+            holder.setIsRecyclable(false)
             val productlistdata = productDetails[position]
             Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
             holder.binding.txtratingvalues.text = productlistdata.ProductRating.toString()
@@ -63,6 +64,8 @@ class RelatedProductAdapter(
                 )
                 viewmodel.addtocart.observe(activityy,{
                     if (it.IsSuccess==true){
+                        onProductClickedHandler?.onProductClickedHandler(position,productlistdata.ProductId!!.toInt())
+
                         Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()

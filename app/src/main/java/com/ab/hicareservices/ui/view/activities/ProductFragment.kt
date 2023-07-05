@@ -80,6 +80,7 @@ class ProductFragment : Fragment() {
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
+
         binding.getpincodetext.setText(AppUtils2.pincode)
 
         if (AppUtils2.pincode.equals("")) {
@@ -89,7 +90,7 @@ class ProductFragment : Fragment() {
         }
 
         binding.imgsearch.setOnClickListener{
-            if(binding.getpincodetext.text.equals("")){
+            if(binding.getpincodetext.text.equals("")||binding.getpincodetext.text.length!=6){
                 Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
             } else{
                 AppUtils2.pincode=binding.getpincodetext.text.trim().toString()
