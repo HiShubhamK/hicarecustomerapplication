@@ -196,6 +196,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         }
 
         holder.binding.imgdelete.setOnClickListener {
+            holder.binding.textcount.text="1"
+
             progressDialogs.dismiss()
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -205,9 +207,13 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.CartId,
                     productlists.UserId
                 )
+
+
                 progressDialogs.dismiss()
 
             },1500)
+
+
 //            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())
             notifyDataSetChanged()
         }
