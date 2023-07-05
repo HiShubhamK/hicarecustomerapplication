@@ -148,4 +148,7 @@ interface IRetrofit {
     @POST("Order/SaveMobileProductOrder")
     fun postSaveSalesOrder(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
 
+    @GET("Order/CreateRazorpayOrderId")
+    fun CreateRazorpayOrderId(@Query("amount") amount: Double,@Query("mobilenumber") mobilenumer:Int): Call<RazorpayOrderIdResponse>
+
 }

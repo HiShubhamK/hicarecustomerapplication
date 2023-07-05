@@ -190,7 +190,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }catch (e:Exception){
             e.printStackTrace()
         }
-
     }
 
 
@@ -343,6 +342,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 viewModels.leadResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
+                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
                         alertDialog.cancel()
                     } else {
                         alertDialog.cancel()
