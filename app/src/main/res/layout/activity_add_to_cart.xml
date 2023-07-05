@@ -255,6 +255,7 @@
                                 android:fontFamily="@font/lato_semibold"
                                 android:gravity="end"
                                 android:text="Free"
+                                android:layout_marginRight="3dp"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="12sp"
                                 android:textStyle="italic" />
