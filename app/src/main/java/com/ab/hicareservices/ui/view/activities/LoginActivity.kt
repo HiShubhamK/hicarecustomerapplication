@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             if(binding.mobileNoEt.text.toString().equals("0000000000")){
                 Toast.makeText(this,"Please Enter Valid Mobile Number",Toast.LENGTH_LONG).show()
             }else if (mobileNo.length != 10){
-                Toast.makeText(this,"Please Enter Mobile Number",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Please Enter Valid Mobile Number",Toast.LENGTH_LONG).show()
 //                binding.mobileNoEt.setError("Invalid Phone Number")
                 return@setOnClickListener
             }else{

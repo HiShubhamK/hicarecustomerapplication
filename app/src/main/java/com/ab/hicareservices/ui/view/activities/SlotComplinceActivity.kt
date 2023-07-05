@@ -136,7 +136,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 ).show()
             } else {
                 binding.recyclerView.visibility=View.VISIBLE
-                binding.lnrAvailableSlot.visibility=View.VISIBLE
+//                binding.lnrAvailableSlot.visibility=View.VISIBLE
 
                 getOrdersList(output.toString())
             }
@@ -217,6 +217,8 @@ class SlotComplinceActivity : AppCompatActivity() {
                         AppUtils2.formatDateTime4(it[7].ScheduledDate.toString())
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.VISIBLE
+                    binding.lnrAvailableSlot.visibility=View.VISIBLE
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

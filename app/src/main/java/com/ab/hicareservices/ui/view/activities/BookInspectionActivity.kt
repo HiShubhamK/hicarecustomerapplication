@@ -112,8 +112,8 @@ class BookInspectionActivity : AppCompatActivity() {
                 Toast.makeText(this,"Enter locatity",Toast.LENGTH_LONG).show()
             }else if(binding.etlandmark.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter landkmark",Toast.LENGTH_LONG).show()
-            }else if(binding.etpincodes.text.toString().trim().length<6){
-                Toast.makeText(this,"Enter  pincode",Toast.LENGTH_LONG).show()
+            }else if(binding.etpincodes.text.toString().trim().equals("")){
+                Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
             } else if(binding.etpincodes.text.toString().trim().length<6){
                 Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
             }else{

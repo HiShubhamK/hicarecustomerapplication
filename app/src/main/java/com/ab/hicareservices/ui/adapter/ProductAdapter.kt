@@ -34,6 +34,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val productlists=productlist[position]
+        holder.setIsRecyclable(false)
 
         if(productlists.IsStockAvailable==true) {
             holder.binding.txtratingvalues.text=productlists.ProductRating.toString()

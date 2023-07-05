@@ -54,7 +54,7 @@ class AccountFragment : Fragment() {
 
         binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance())
+                .replace(R.id.container, OrdersFragment.newInstance(true))
                 .addToBackStack("AccountFragment").commit()
         }
 
@@ -87,7 +87,7 @@ class AccountFragment : Fragment() {
             val message=""
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
-                Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber&text=$message")
+                Uri.parse("https://wa.me/9324747360?text=Hello")
             startActivity(intent)
         }
 

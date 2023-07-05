@@ -55,6 +55,9 @@ class AddToCartActivity : AppCompatActivity() {
             val intent= Intent(this,AddressActivity::class.java)
             startActivity(intent)
         }
+        binding.imgLogo.setOnClickListener{
+         onBackPressed()
+        }
     }
 
     private fun getproductlist() {
