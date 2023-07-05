@@ -39,6 +39,7 @@ object AppUtils2 {
     var pincodelast = ""
     var city=""
     var state=""
+    var changebuttonstatus:Boolean=false
 
     @JvmStatic
     fun startPayment(activity: Activity) {

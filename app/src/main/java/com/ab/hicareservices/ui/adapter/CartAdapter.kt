@@ -1,19 +1,24 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.app.ProgressDialog
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.databinding.LayoutCartlistBinding
 import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddToCartActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
@@ -21,7 +26,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
     var productlist = mutableListOf<CartlistResponseData>()
     lateinit var requireActivity: FragmentActivity
     lateinit var viewProductModel: ProductViewModel
+    lateinit var progressDialog: ProgressDialog
+    var changebuttonstatus: Boolean = false
     private var onCartClickedHandler: onCartClickedHandler? = null
+    lateinit var progressDialogs: ProgressDialog
 
     class MainViewHolder(val binding: LayoutCartlistBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -38,7 +46,30 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         val count = 0
         var counts = 1
 
+//        if(changebuttonstatus==false){
+//            holder.binding.imgadd.isClickable=true
+//            holder.binding.imgremove.isClickable=true
+//            holder.binding.imgdelete.isClickable=true
+//        }else{
+//            holder.binding.imgadd.isClickable=true
+//            holder.binding.imgremove.isClickable=true
+//            holder.binding.imgdelete.isClickable=true
+//        }
+
+        progressDialogs = ProgressDialog(requireActivity, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
         val productlists = productlist[position]
+
+        if (AppUtils2.changebuttonstatus == false) {
+            holder.binding.imgadd.isClickable = true
+            holder.binding.imgremove.isClickable = true
+            holder.binding.imgdelete.isClickable=true
+        } else {
+            holder.binding.imgadd.isClickable = false
+            holder.binding.imgremove.isClickable = false
+            holder.binding.imgdelete.isClickable=false
+        }
 
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
         Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
@@ -47,9 +78,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
         drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
         if (productlists.Discount != 0) {
-            holder.binding.txtdealodday.text = "Save " + "\u20B9" + productlists.Discount.toString()
+            holder.binding.txtdealodday.text =
+                "Saved " + "\u20B9" + productlists.Discount.toString()
             holder.binding.txtprice.text = productlists.DiscountedPricePerQuantity.toString()
-            holder.binding.txtpriceline.text =  "\u20B9" + productlists.PricePerQuantity.toString()
+            holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
@@ -57,80 +89,126 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             holder.binding.txtpriceline.visibility = View.GONE
         }
 
-        if(productlists.Quantity==0){
-            holder.binding.textcount.text = "1"
-            counts=1
-        }else{
-            holder.binding.textcount.text = productlists.Quantity.toString()
-            counts=productlists.Quantity!!.toInt()
-        }
-
-
-        if (counts == 1) {
+        if (productlists.Quantity == 1) {
             holder.binding.imgremove.visibility = View.GONE
             holder.binding.imgdelete.visibility = View.VISIBLE
-        } else if (counts > 1) {
+        } else if (productlists.Quantity!!.toInt() > 1) {
             holder.binding.imgremove.visibility = View.VISIBLE
+            holder.binding.imgdelete.visibility = View.GONE
+            holder.binding.textcount.text = productlists.Quantity!!.toString()
+            holder.binding.textcount.text = productlists.Quantity.toString()
+            counts = productlists.Quantity!!.toInt()
         }
 
         holder.binding.imgadd.setOnClickListener {
-            holder.binding.imgremove.isClickable = true
-            counts = counts + 1
-            if (counts > 1) {
+            if (counts == 1){
                 holder.binding.imgremove.visibility = View.VISIBLE
-                holder.binding.imgadd.isClickable = true
-                onCartClickedHandler!!.setonaddclicklistener(
-                    position,
-                    productlists.ProductId!!.toInt(),
-                    1
-                )
-                holder.binding.imgdelete.visibility=View.GONE
-            } else if (counts <= productlists.MinimumBuyQuantity!!.toInt()) {
-                holder.binding.imgadd.isClickable = false
+                holder.binding.imgdelete.visibility = View.GONE
             }
-            holder.binding.textcount.text = counts.toString()
+
+            progressDialogs.show()
+            holder.binding.imgadd.isClickable = false
+            holder.binding.imgadd.isEnabled = false
+            holder.binding.imgremove.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (counts > 1) {
+                    holder.binding.imgremove.visibility = View.VISIBLE
+                    counts = counts + 1
+                    holder.binding.imgadd.isClickable = false
+                    holder.binding.imgadd.isEnabled = false
+                    holder.binding.textcount.text = counts.toString()
+                    AppUtils2.changebuttonstatus = true
+                    onCartClickedHandler!!.setonaddclicklistener(
+                        position,
+                        productlists.ProductId!!.toInt(),
+                        1,
+                        holder.binding.imgadd
+                    )
+                    holder.binding.textcount.text = counts.toString()
+                    holder.binding.imgdelete.visibility = View.GONE
+                    progressDialogs.dismiss()
+                }else if (counts == 1) {
+                    holder.binding.imgremove.visibility = View.VISIBLE
+                    counts = counts + 1
+                    holder.binding.imgadd.isClickable = false
+                    holder.binding.imgadd.isEnabled = false
+                    holder.binding.textcount.text = counts.toString()
+                    AppUtils2.changebuttonstatus = true
+                    onCartClickedHandler!!.setonaddclicklistener(
+                        position,
+                        productlists.ProductId!!.toInt(),
+                        1,
+                        holder.binding.imgadd
+                    )
+                    holder.binding.textcount.text = counts.toString()
+                    holder.binding.imgdelete.visibility = View.GONE
+                    progressDialogs.dismiss()
+                } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
+                    holder.binding.imgadd.isClickable = false
+                    progressDialogs.dismiss()
+                } else {
+                    holder.binding.imgadd.isClickable = false
+                    progressDialogs.dismiss()
+                }
+
+            }, 1000)
+
 
         }
 
         holder.binding.imgremove.setOnClickListener {
-            counts = counts - 1
-            if(counts==1) {
-                holder.binding.textcount.text = counts.toString()
-                holder.binding.imgremove.isClickable = false
-                onCartClickedHandler!!.setonaddclicklistener(
-                    position,
-                    productlists.ProductId!!.toInt(),
-                    -1
-                )
-                holder.binding.imgdelete.visibility=View.VISIBLE
-                holder.binding.imgremove.visibility=View.GONE
-            }else{
-                holder.binding.textcount.text = counts.toString()
-                onCartClickedHandler!!.setonaddclicklistener(
-                    position,
-                    productlists.ProductId!!.toInt(),
-                    -1
-                )
-            }
-            if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
-                holder.binding.imgadd.isClickable = true
-            }
+            progressDialogs.show()
+            holder.binding.imgremove.isClickable = false
+            holder.binding.imgremove.isEnabled = false
+            Handler(Looper.getMainLooper()).postDelayed({
+                counts = counts - 1
+                if (counts == 1) {
+                    holder.binding.imgdelete.visibility = View.VISIBLE
+                    holder.binding.imgremove.visibility = View.GONE
+                    holder.binding.textcount.text = counts.toString()
+                    AppUtils2.changebuttonstatus = true
+                    onCartClickedHandler!!.setonaddclicklistener(
+                        position,
+                        productlists.ProductId!!.toInt(),
+                        -1, holder.binding.imgremove
+                    )
+                    progressDialogs.dismiss()
+                } else if (counts > 1) {
+//                    counts = counts - 1
+//                holder.binding.imgremove.isClickable = false
+//                holder.binding.imgremove.isEnabled = false
+                    holder.binding.textcount.text = counts.toString()
+                    onCartClickedHandler!!.setonaddclicklistener(
+                        position,
+                        productlists.ProductId!!.toInt(),
+                        -1,
+                        holder.binding.imgremove,
+                    )
 
-
+                    AppUtils2.changebuttonstatus = true
+                    progressDialogs.dismiss()
+                } else {
+                    progressDialogs.dismiss()
+                }
+                if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
+                    holder.binding.imgadd.isClickable = false
+                }
+            }, 1000)
         }
 
         holder.binding.imgdelete.setOnClickListener {
-//            if(count==1){
-//                holder.binding.textcount.text=count.toString()
-//            }
-//            holder.binding.textcount.text="1"
-            onCartClickedHandler!!.setondeleteclicklistener(
-                position,
-                productlists.CartId,
-                productlists.UserId
-            )
+            progressDialogs.dismiss()
 
+            Handler(Looper.getMainLooper()).postDelayed({
 
+                onCartClickedHandler!!.setondeleteclicklistener(
+                    position,
+                    productlists.CartId,
+                    productlists.UserId
+                )
+                progressDialogs.dismiss()
+
+            },1500)
 //            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())
             notifyDataSetChanged()
         }
@@ -147,10 +225,14 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
     fun setCartList(
         productlist: List<CartlistResponseData>,
         addToCartActivity: AddToCartActivity,
-        viewProductModel: ProductViewModel
+        viewProductModel: ProductViewModel,
+        progressDialog: ProgressDialog,
+        changebuttonstatus: Boolean
     ) {
         this.requireActivity = addToCartActivity
         this.viewProductModel = viewProductModel
+        this.progressDialog = progressDialog
+        this.changebuttonstatus = changebuttonstatus
         if (productlist != null) {
             this.productlist = productlist.toMutableList()
             notifyDataSetChanged()

@@ -4,7 +4,10 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -67,7 +70,7 @@ class AddToCartActivity : AppCompatActivity() {
         viewProductModel.cartlist.observe(this, Observer {
 
             if(it!=null) {
-                mAdapter.setCartList(it, this, viewProductModel)
+                mAdapter.setCartList(it, this, viewProductModel,progressDialog,AppUtils2.changebuttonstatus)
                 progressDialog.dismiss()
             }else{
                 progressDialog.dismiss()
@@ -78,37 +81,54 @@ class AddToCartActivity : AppCompatActivity() {
 
         mAdapter.setOnOrderItemClicked(object : onCartClickedHandler {
             override fun setondeleteclicklistener(position: Int, cartId: Int?, userId: Int?) {
+
                 progressDialog.show()
-                viewProductModel.getDeleteProductCart.observe(this@AddToCartActivity, Observer {
-                    if(it.IsSuccess==true){
-                        progressDialog.dismiss()
-                        AppUtils2.cartcounts=""
-                        val intent=intent
-                        finish()
-                        startActivity(intent)
-                    }
-                })
-                viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewProductModel.getDeleteProductCart.observe(this@AddToCartActivity, Observer {
+                        if(it.IsSuccess==true){
+                            progressDialog.dismiss()
+                            AppUtils2.cartcounts=""
+                            val intent=intent
+                            AppUtils2.changebuttonstatus=false
+                            finish()
+                            startActivity(intent)
+                        }
+                    })
+                    viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
+
+                }, 1000)
 
             }
 
-            override fun setonaddclicklistener(position: Int, productid: Int, i: Int) {
+            override fun setonaddclicklistener(
+                position: Int,
+                productid: Int,
+                i: Int,
+                imgadd: ImageView
+            ) {
 
-                progressDialog.show()
 
+//                progressDialog.show()
+
+                Handler(Looper.getMainLooper()).postDelayed({
                 viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
                     progressDialog.dismiss()
                     if(it.IsSuccess==true){
-                        progressDialog.dismiss()
+                        imgadd.isClickable=true
+                        imgadd.isEnabled=true
+//                        progressDialog.dismiss()
                         getSummarydata()
+                        AppUtils2.changebuttonstatus=false
                     }else{
-                        progressDialog.dismiss()
+//                        progressDialog.dismiss()
                         Toast.makeText(this@AddToCartActivity,"Something went to wromg",Toast.LENGTH_LONG).show()
                     }
 
                 })
 
                 viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                }, 1000)
             }
 
         })
@@ -121,22 +141,26 @@ class AddToCartActivity : AppCompatActivity() {
 
         progressDialog.show()
 
-        viewProductModel.getsummarydata.observe(this, Observer {
+//        Handler(Looper.getMainLooper()).postDelayed({
 
-            progressDialog.dismiss()
+            viewProductModel.getsummarydata.observe(this, Observer {
 
-            if(it.TotalAmount!=0) {
 
-                binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
-                binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
-                binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
-                binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
+                if (it.TotalAmount != 0) {
+                    progressDialog.dismiss()
+                    binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
+                    binding.txtdiscount.text = "\u20B9" + it.TotalDiscount.toString()
+                    binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
+                    binding.txtfinaltext.text = "\u20B9" + it.FinalAmount.toString()
 
-            }else{
-                binding.cardviewprice.visibility=View.GONE
-            }
-        })
+                } else {
+                    binding.lnrbuttoncart.visibility = View.GONE
+                    binding.cardviewprice.visibility = View.GONE
+                    progressDialog.dismiss()
 
+                }
+            })
+//        },1000)
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
 
     }

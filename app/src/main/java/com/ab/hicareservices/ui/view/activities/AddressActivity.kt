@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
@@ -33,6 +34,7 @@ class AddressActivity : AppCompatActivity() {
     var shippingdata: String? = ""
     var billingdata: String? = ""
     lateinit var progressDialog: ProgressDialog
+    var checkboxcheck:Boolean=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +53,27 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
+        if(checkboxcheck==false) {
+            checkboxcheck==true
+            binding.checkbox.isChecked == false
+            binding.checkbox.isClickable == true
+        }else{
+            checkboxcheck==false
+            binding.checkbox.isChecked == true
+            binding.checkbox.isClickable == false
+        }
+
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
             if (b==true){
                 billingdata=shippingdata
-                showAddNewAddressdialog("false",0)
+                showAddNewAddressdialog("false",binding.checkbox)
             }else {
 
             }
+        }
+
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
         }
 
         if(billingdata.equals("") || billingdata==null){
@@ -93,7 +109,7 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true",0)
+            showAddNewAddressdialog("true",binding.checkbox)
         }
 
 //        binding.lnraddressbilling.setOnClickListener {
@@ -176,7 +192,7 @@ class AddressActivity : AppCompatActivity() {
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
-    private fun showAddNewAddressdialog(b: String, id: Int?) {
+    private fun showAddNewAddressdialog(b: String, appCompatCheckBox: AppCompatCheckBox) {
         var selectedLocation = ""
         var dateTime = ""
         val li = LayoutInflater.from(this)
@@ -211,7 +227,11 @@ class AddressActivity : AppCompatActivity() {
 
             alertDialog.setCancelable(false)
 
-            imgcancels.setOnClickListener { alertDialog.cancel() }
+            imgcancels.setOnClickListener {
+                alertDialog.cancel()
+                binding.checkbox.isChecked==false
+                appCompatCheckBox.isChecked=false
+            }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
             val arrayAdapter =
@@ -323,6 +343,9 @@ class AddressActivity : AppCompatActivity() {
                             val newAddressid=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
                             alertDialog.dismiss()
+                            binding.checkbox.isChecked==false
+                            appCompatCheckBox.isChecked=false
+
                             Toast.makeText(this,"Shipping address added successfully", Toast.LENGTH_LONG).show()
                         }else{
                             Toast.makeText(this,"Something went to wrong.", Toast.LENGTH_LONG).show()
@@ -362,7 +385,11 @@ class AddressActivity : AppCompatActivity() {
 
             lnraddresstypes.visibility=View.GONE
 
-            imgcancels.setOnClickListener { alertDialog.cancel() }
+            imgcancels.setOnClickListener {
+                alertDialog.cancel()
+                checkboxcheck==false
+                appCompatCheckBox.isChecked=false
+            }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
             val arrayAdapter =
@@ -471,9 +498,10 @@ class AddressActivity : AppCompatActivity() {
                             SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
                             getAddressListdata()
                             getAddressforbilling()
+                            binding.checkbox.isChecked==false
+                            appCompatCheckBox.isChecked=false
                             alertDialog.dismiss()
-                            Toast.makeText(this,newaddessid, Toast.LENGTH_LONG).show()
-                            alertDialog.dismiss()
+
                         }else{
                         }
                     })
@@ -489,6 +517,10 @@ class AddressActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 }

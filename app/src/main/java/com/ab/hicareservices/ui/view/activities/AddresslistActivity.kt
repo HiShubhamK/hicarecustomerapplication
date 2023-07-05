@@ -43,11 +43,8 @@ class AddresslistActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
         val intent = intent
         shipping = intent.getStringExtra("shippingaddress").toString()
-
-        Toast.makeText(this,shipping,Toast.LENGTH_LONG).show()
 
         getAddressList(shipping)
 

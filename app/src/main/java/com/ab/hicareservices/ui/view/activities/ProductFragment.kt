@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -109,54 +111,59 @@ class ProductFragment : Fragment() {
 
         progressDialog.show()
 
-        binding.recycleviewproduct.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        mAdapter = ProductAdapter()
+            binding.recycleviewproduct.layoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            mAdapter = ProductAdapter()
 
-        binding.recycleviewproduct.adapter = mAdapter
+            binding.recycleviewproduct.adapter = mAdapter
 
-        viewProductModel.productlist.observe(requireActivity(), Observer {
-            progressDialog.dismiss()
+        Handler(Looper.getMainLooper()).postDelayed({
 
-            if (it!=null){
-                binding.recycleviewproduct.visibility=View.VISIBLE
-                binding.textnotfound.visibility=View.GONE
-                mAdapter.setProductList(it, requireActivity(), viewProductModel)
-            }else {
-                binding.recycleviewproduct.visibility=View.GONE
-                binding.textnotfound.visibility=View.VISIBLE
-            }
+            viewProductModel.productlist.observe(requireActivity(), Observer {
+                progressDialog.dismiss()
+
+                if (it != null) {
+                    binding.recycleviewproduct.visibility = View.VISIBLE
+                    binding.textnotfound.visibility = View.GONE
+                    mAdapter.setProductList(it, requireActivity(), viewProductModel)
+                } else {
+                    binding.recycleviewproduct.visibility = View.GONE
+                    binding.textnotfound.visibility = View.VISIBLE
+                }
 
 
-        })
+            })
 
-        viewProductModel.errorMessage.observe(requireActivity(), Observer {
-            progressDialog.dismiss()
-            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-        })
+            viewProductModel.errorMessage.observe(requireActivity(), Observer {
+                progressDialog.dismiss()
+                Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            })
 
-        viewProductModel.getProductlist(AppUtils2.pincode)
+            viewProductModel.getProductlist(AppUtils2.pincode)
+
+        },500)
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
 
                 progressDialog.show()
 
-                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
 
-                viewProductModel.productcount.observe(requireActivity(), Observer {
-                    progressDialog.dismiss()
-                    if (it.IsSuccess == true) {
-                        binding.cartmenu.visibility = View.VISIBLE
-                        binding.appCompatImageViewd.text = it.Data.toString()
-                    } else {
-                        binding.cartmenu.visibility = View.GONE
-                    }
-                })
+                    viewProductModel.productcount.observe(requireActivity(), Observer {
+                        progressDialog.dismiss()
+                        if (it.IsSuccess == true) {
+                            binding.cartmenu.visibility = View.VISIBLE
+                            binding.appCompatImageViewd.text = it.Data.toString()
+                        } else {
+                            binding.cartmenu.visibility = View.GONE
+                        }
+                    })
 
 
-                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-
+                    viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+                },500)
             }
 
             override fun onProductView(position: Int, productid: OrderSummeryData) {

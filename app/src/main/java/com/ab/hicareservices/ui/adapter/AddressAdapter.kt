@@ -21,9 +21,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
     var selectedPosition = -1
     var shipping:String=""
 
-
     private var onAddressClickedHandler: onAddressClickedHandler? = null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
