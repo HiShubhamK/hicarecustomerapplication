@@ -54,7 +54,7 @@ class AccountFragment : Fragment() {
 
         binding.constraintorderid.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance())
+                .replace(R.id.container, OrdersFragment.newInstance(true))
                 .addToBackStack("AccountFragment").commit()
         }
 

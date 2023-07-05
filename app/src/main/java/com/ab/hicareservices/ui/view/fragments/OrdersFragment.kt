@@ -10,8 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -42,6 +40,7 @@ class OrdersFragment() : Fragment() {
     private lateinit var nAdapter: OrderMenuAdapter
     private var mobile = ""
     private var ordertype = ""
+    private var isfromMenu = false
     lateinit var homeActivity: HomeActivity
     lateinit var orderactivityforadapter: FragmentActivity
     lateinit var options: JSONObject
@@ -58,6 +57,10 @@ class OrdersFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            isfromMenu = it.getBoolean("isfromMenu")
+
+        }
     }
 
 
@@ -74,9 +77,11 @@ class OrdersFragment() : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(isfromMenu: Boolean) =
             OrdersFragment().apply {
                 arguments = Bundle().apply {
+                    this.putBoolean("isfromMenu", isfromMenu)
+
                 }
             }
     }
@@ -102,6 +107,13 @@ class OrdersFragment() : Fragment() {
         progressDialog.setCancelable(false)
 
         getOrdersList(progressDialog)
+        if (isfromMenu){
+            binding.headerView.visibility=View.VISIBLE
+
+        }else {
+            binding.headerView.visibility=View.GONE
+
+        }
 
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({

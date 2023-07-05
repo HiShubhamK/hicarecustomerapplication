@@ -14,7 +14,6 @@ import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
-import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.view.activities.UpcomingServicesActivity
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
@@ -65,7 +64,7 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                     )
                 } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
                     fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragment.newInstance())
+                        .replace(R.id.container, OrdersFragment.newInstance(true))
                         .addToBackStack("HomeFragment").commit()
 
                 } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {

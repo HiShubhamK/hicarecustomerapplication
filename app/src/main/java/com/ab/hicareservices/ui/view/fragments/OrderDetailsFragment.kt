@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -152,7 +151,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
 
         binding.imgLogo.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance()).commit();
+                .replace(R.id.container, OrdersFragment.newInstance(true)).commit();
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
