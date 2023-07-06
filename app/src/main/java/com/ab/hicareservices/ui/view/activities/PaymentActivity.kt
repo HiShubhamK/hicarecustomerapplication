@@ -32,6 +32,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     lateinit var datalist: ArrayList<CartlistResponseData>
     lateinit var homeproduct: ArrayList<HomeProduct>
 
+    var data1 = HashMap<String, Any>()
+
+
+
     private val viewProductModel: ProductViewModel by viewModels()
     var payment = ""
     var order_no = ""
@@ -65,8 +69,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
 
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
-
-        getSummarydata()
 
         homeproduct = ArrayList()
 
@@ -109,20 +111,40 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         if(product==true){
 
+            getSummarydata()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+
+                    if (it.IsSuccess == true) {
+                        razorpayorderid = it.Data.toString()
+                        AppUtils2.razorpayorderid = it.Data.toString()
+                        Toast.makeText(this, it.Data.toString(), Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this, it.ResponseMessage.toString(), Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                })
+
+                viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
+            },1000)
+        }else{
+
             viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
 
-                if(it.IsSuccess==true){
-                    razorpayorderid=it.Data.toString()
-                    AppUtils2.razorpayorderid=it.Data.toString()
-                    Toast.makeText(this,it.Data.toString(),Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(this,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
+                if (it.IsSuccess == true) {
+                    razorpayorderid = it.Data.toString()
+                    AppUtils2.razorpayorderid = it.Data.toString()
+                    Toast.makeText(this, it.Data.toString(), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, it.ResponseMessage.toString(), Toast.LENGTH_LONG)
+                        .show()
                 }
 
             })
 
-            viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(),12342)
-        }else{
             viewProductModel.CreateRazorpayOrderId(payment.toDouble(),12342)
         }
 
@@ -274,17 +296,41 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("currency", "INR")
         options.put("amount", "${amount.toDouble().roundToInt()}00")
         options.put("notes", notes)
+        options.put("order_id", AppUtils2.razorpayorderid)
+        val prefill = JSONObject()
+        prefill.put("email","akshay.tabib@hicare.in")
+        prefill.put("contact","7738753827")
+
+        options.put("prefill",prefill)
+
         return options
     }
 
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
+
         Log.d("Paymenttag",response!!.paymentId+" "+response.signature+" "+response.signature)
 
         if (product == true) {
 
             try {
+                viewProductModel.errorMessage.observe(this, Observer {
+                    if(it!=null){
+                        binding.imgOffer.visibility = View.VISIBLE
+                        binding.txtpayment.visibility = View.VISIBLE
+                        binding.imgOffererror.visibility = View.GONE
+                        SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                        val intent=Intent(this@PaymentActivity,ProductViewModel::class.java)
+                        startActivity(intent)
+                    } else {
+                        binding.imgOffer.visibility = View.GONE
+                        binding.imgOffererror.visibility = View.VISIBLE
+                        binding.txtpayment.visibility = View.VISIBLE
+                        binding.txtpayment.text = "Payment Failed"
+
+                    }
+                })
 
                 var data = HashMap<String, Any>()
 
@@ -310,6 +356,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Razorpay_Payment_Id"] = response!!.paymentId
                 data["User_Id"] = AppUtils2.customerid.toInt()
 
+
+
+
                 viewProductModel.postSaveSalesOrder(data)
 
             }catch (e:Exception){
@@ -317,12 +366,17 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             }
 
         } else {
+//
+//           Toast.makeText(this@PaymentActivity,response!!.paymentId+" "+response.orderId,Toast.LENGTH_LONG).show()
+//
             orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
                 if (it.isSuccess == true) {
                     binding.imgOffer.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
-
+//                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                    val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
+                    startActivity(intent)
                 } else {
 
                     binding.imgOffer.visibility = View.GONE
@@ -333,15 +387,11 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 }
             })
 
+            data1["razorpay_payment_id"] = response?.paymentId.toString()
+            data1["razorpay_order_id"] = AppUtils2.razorpayorderid
+            data1["razorpay_signature"] = response?.signature.toString()
 
-            var data = HashMap<String, Any>()
-
-
-            data["razorpay_payment_id"] = response?.paymentId.toString()
-            data["razorpay_order_id"] = response?.orderId
-            data["razorpay_signature"] = response?.signature.toString()
-
-            orderDetailsViewModel.saveAppPaymentDetails(data)
+            orderDetailsViewModel.saveAppPaymentDetails(data1)
 
         }
 

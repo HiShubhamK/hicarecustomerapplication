@@ -400,6 +400,8 @@ class HomeFragment : Fragment() {
                 intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
                 intent.putExtra("SERVICE_TYPE",order[position].ServiceType)
                 intent.putExtra("Standard_Value__c",order[position].StandardValue_c)
+                intent.putExtra("Product", false)
+
                 startActivity(intent)
             }
 

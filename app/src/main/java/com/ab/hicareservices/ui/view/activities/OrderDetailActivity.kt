@@ -139,6 +139,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     intent.putExtra("SERVICE_TYPE",serviceType)
                     intent.putExtra("PAYMENT", orderValueWithTax)
                     intent.putExtra("Standard_Value__c",stdvalue)
+                    intent.putExtra("Product", false)
                     activityResultLauncher.launch(intent)
 
 //                    val co = Checkout()
@@ -279,8 +280,10 @@ class OrderDetailActivity : AppCompatActivity() {
 //                )
                 if (data.enable_Payment_Link == true) {
                     binding.payNowBtn.visibility = View.VISIBLE
+                    binding.txtamountpaidornot.text="Amount To be Paid"
                 } else {
                     binding.payNowBtn.visibility = View.GONE
+                    binding.txtamountpaidornot.text="Amount Paid"
                 }
 
                 binding.statusTv.text = data.status__c
