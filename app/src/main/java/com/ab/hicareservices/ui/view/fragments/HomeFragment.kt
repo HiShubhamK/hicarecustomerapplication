@@ -1,17 +1,26 @@
 package com.ab.hicareservices.ui.view.fragments
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.*
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +30,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,7 +54,12 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -70,6 +85,11 @@ class HomeFragment : Fragment() {
     private val viewModels: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
     private lateinit var codOrders: ArrayList<String>
+    var client: FusedLocationProviderClient? = null
+    private var lat: String? = ""
+    private var longg: String? = ""
+    private var lastlat: String? = ""
+    private var lastlongg: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +124,42 @@ class HomeFragment : Fragment() {
             binding.horizontalScrollView.scrollTo(0, 0)
         }
 
+        client = LocationServices
+            .getFusedLocationProviderClient(
+                requireActivity()
+            )
+
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // When permission is granted
+            // Call method
+            getCurrentLocations()
+        } else {
+            // When permission is not granted
+            // Call method
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    100
+                )
+            }
+        }
+
+
+
+
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
@@ -118,9 +174,6 @@ class HomeFragment : Fragment() {
             )
         }
 
-//        binding.recMenu.setOnClickListener {
-//            AppUtils2.startPayment(requireActivity())
-//        }
         init(progressDialog)
         binding.idViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
@@ -145,6 +198,8 @@ class HomeFragment : Fragment() {
 
 //        setHomeBanner()
     }
+
+
 
 
     override fun onPause() {
@@ -733,5 +788,114 @@ class HomeFragment : Fragment() {
         Toast.makeText(applicationContext, "Copied!", Toast.LENGTH_SHORT).show();
 
     }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocations() {
+        val locationManager: LocationManager =
+            requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
+        // Check condition
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+            )
+        ) {
+            // When location service is enabled
+            // Get last location
+            client!!.lastLocation.addOnCompleteListener(
+                object : OnCompleteListener<Location?> {
+
+                    override fun onComplete(
+                        task: Task<Location?>
+                    ) {
+
+                        // Initialize location
+                        val location: Location = task.getResult()!!
+                        // Check condition
+                        if (location != null) {
+                            // When location result is not
+                            // null set latitude
+//                            Toasty.success(
+//                                this@Checkin_Out_Home,
+//                                "Lat: " + location.getLatitude() + "long: " + location.getLongitude()
+//                            )
+                            lat = location.latitude.toString()
+                            longg = location.longitude.toString()
+
+//                            tvLatitude.setText(java.lang.String.valueOf(location.getLatitude()))
+//                            // set longitude
+//                            tvLongitude.setText(java.lang.String.valueOf(location.getLongitude()))
+                        } else {
+                            // When location result is null
+                            // initialize location request
+                            val locationRequest =
+                                LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1)
+
+                            // Initialize location call back
+                            val locationCallback: LocationCallback = object : LocationCallback() {
+                                fun voidonLocationResult(
+                                    locationResult: LocationResult
+                                ) {
+                                    // Initialize
+                                    // location
+                                    val location1: Location = locationResult.lastLocation
+                                    // Set latitude
+//                                    Toasty.success(
+//                                        this@Checkin_Out_Home,
+//                                        "Lat: " + location1.getLatitude() + "long: " + location1.getLongitude()
+//                                    )
+                                    lastlat = location1.latitude.toString()
+                                    lastlongg = location1.longitude.toString()
+                                    val mGeocoder = Geocoder(requireActivity(), Locale.getDefault())
+                                    if (mGeocoder != null) {
+                                        var postalcode: MutableList<Address>? = mGeocoder.getFromLocation(lastlat!!.toDouble(), lastlongg!!.toDouble(), 5)
+                                        if (postalcode != null && postalcode.size > 0) {
+                                            for (i in 0 until postalcode.size){
+                                                AppUtils2.pincode=postalcode.get(i).postalCode.toString()
+                                                SharedPreferenceUtil.setData(requireActivity(), "pincode",postalcode.get(i).postalCode.toString())
+                                                break
+                                            }
+                                        }
+                                    }
+//                                    tvLatitude.setText(java.lang.String.valueOf(location1.getLatitude()))
+//                                    // Set longitude
+//                                    tvLongitude.setText(java.lang.String.valueOf(location1.getLongitude()))
+                                }
+                            }
+
+                            // Request location updates
+                            if (ActivityCompat.checkSelfPermission(
+                                    requireActivity(),
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                    requireActivity(),
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return
+                            }
+                            Looper.myLooper()?.let {
+                                client!!.requestLocationUpdates(
+                                    locationRequest,
+                                    locationCallback,
+                                    it
+                                )
+                            }
+                        }
+                    }
+                })
+        } else {
+            // When location service is not enabled
+            // open location setting
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
+    }
+
 }
 

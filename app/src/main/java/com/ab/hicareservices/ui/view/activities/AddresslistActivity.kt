@@ -94,7 +94,6 @@ class AddresslistActivity : AppCompatActivity() {
                     SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
                 }
                 val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
-                Toast.makeText(this@AddresslistActivity,id.toString(),Toast.LENGTH_LONG).show()
                 startActivity(intent)
             }
 
@@ -127,7 +126,8 @@ class AddresslistActivity : AppCompatActivity() {
             val etlocality = promptsView.findViewById<View>(R.id.etlocality) as TextView
             val etlandmark = promptsView.findViewById<View>(R.id.etlandmark) as EditText
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
-
+            val etstate=promptsView.findViewById<View>(R.id.etstate) as EditText
+            val etcity=promptsView.findViewById<View>(R.id.etcitites) as EditText
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
@@ -181,7 +181,8 @@ class AddresslistActivity : AppCompatActivity() {
                     etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                     etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
-                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("")) {
+                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("") &&
+                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
 
                     Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
 
@@ -207,10 +208,14 @@ class AddresslistActivity : AppCompatActivity() {
                 }else if(etstreet.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
                 }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter locatity", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter locality", Toast.LENGTH_LONG).show()
                 }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter landkmark", Toast.LENGTH_LONG).show()
-                }else if(etpincode.text.toString().trim().length<6){
+                    Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
+                }else if(etcity.text.toString().trim().equals("")){
+                    Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
+                } else if(etstate.text.toString().trim().equals("")){
+                    Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
+                }else if(etpincode.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()

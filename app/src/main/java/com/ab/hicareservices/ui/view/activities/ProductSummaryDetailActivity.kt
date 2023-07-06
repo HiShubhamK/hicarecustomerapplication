@@ -1,9 +1,19 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -12,11 +22,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
@@ -25,11 +39,14 @@ import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.kofigyan.stateprogressbar.StateProgressBar
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 
 class ProductSummaryDetailActivity : AppCompatActivity() {
@@ -77,6 +94,12 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var pincode = ""
     var descriptionData = arrayOf("Booked", "Packed", "Dispatch", "Delivered")
 
+    var client: FusedLocationProviderClient? = null
+    private var lat: String? = ""
+    private var longg: String? = ""
+    private var lastlat: String? = ""
+    private var lastlongg: String? = ""
+
     private lateinit var relatedProductAdapter: RelatedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +107,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_detail)
         binding = ActivityProductSummaryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MyLocationListener(this)
 
         var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
@@ -239,6 +264,44 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
         }
 
+
+        client = LocationServices
+            .getFusedLocationProviderClient(
+                this
+            )
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // When permission is granted
+            // Call method
+            getCurrentLocations()
+        } else {
+            // When permission is not granted
+            // Call method
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    100
+                )
+            }
+        }
+
+
+
+
+
     }
 
     private fun getServiceLists(progressDialog: ProgressDialog) {
@@ -351,6 +414,115 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocations() {
+        val locationManager: LocationManager =
+            this.getSystemService(LOCATION_SERVICE) as LocationManager
+        // Check condition
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+            )
+        ) {
+            // When location service is enabled
+            // Get last location
+            client!!.lastLocation.addOnCompleteListener(
+                object : OnCompleteListener<Location?> {
+
+                    override fun onComplete(
+                        task: Task<Location?>
+                    ) {
+
+                        // Initialize location
+                        val location: Location = task.getResult()!!
+                        // Check condition
+                        if (location != null) {
+                            // When location result is not
+                            // null set latitude
+//                            Toasty.success(
+//                                this@Checkin_Out_Home,
+//                                "Lat: " + location.getLatitude() + "long: " + location.getLongitude()
+//                            )
+                            lat = location.latitude.toString()
+                            longg = location.longitude.toString()
+
+//                            tvLatitude.setText(java.lang.String.valueOf(location.getLatitude()))
+//                            // set longitude
+//                            tvLongitude.setText(java.lang.String.valueOf(location.getLongitude()))
+                        } else {
+                            // When location result is null
+                            // initialize location request
+                            val locationRequest =
+                                LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1)
+
+                            // Initialize location call back
+                            val locationCallback: LocationCallback = object : LocationCallback() {
+                                fun voidonLocationResult(
+                                    locationResult: LocationResult
+                                ) {
+                                    // Initialize
+                                    // location
+                                    val location1: Location = locationResult.lastLocation
+                                    // Set latitude
+//                                    Toasty.success(
+//                                        this@Checkin_Out_Home,
+//                                        "Lat: " + location1.getLatitude() + "long: " + location1.getLongitude()
+//                                    )
+                                    lastlat = location1.latitude.toString()
+                                    lastlongg = location1.longitude.toString()
+                                    val mGeocoder = Geocoder(this@ProductSummaryDetailActivity, Locale.getDefault())
+                                    if (mGeocoder != null) {
+                                        var postalcode: MutableList<Address>? = mGeocoder.getFromLocation(lastlat!!.toDouble(), lastlongg!!.toDouble(), 5)
+                                        if (postalcode != null && postalcode.size > 0) {
+                                            for (i in 0 until postalcode.size){
+                                                AppUtils2.pincode=postalcode.get(i).postalCode.toString()
+                                                SharedPreferenceUtil.setData(this@ProductSummaryDetailActivity, "pincode",postalcode.get(i).postalCode.toString())
+                                                break
+                                            }
+                                        }
+                                    }
+//                                    tvLatitude.setText(java.lang.String.valueOf(location1.getLatitude()))
+//                                    // Set longitude
+//                                    tvLongitude.setText(java.lang.String.valueOf(location1.getLongitude()))
+                                }
+                            }
+
+                            // Request location updates
+                            if (ActivityCompat.checkSelfPermission(
+                                    this@ProductSummaryDetailActivity,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                    this@ProductSummaryDetailActivity,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return
+                            }
+                            Looper.myLooper()?.let {
+                                client!!.requestLocationUpdates(
+                                    locationRequest,
+                                    locationCallback,
+                                    it
+                                )
+                            }
+                        }
+                    }
+                })
+        } else {
+            // When location service is not enabled
+            // open location setting
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
     }
 
 }

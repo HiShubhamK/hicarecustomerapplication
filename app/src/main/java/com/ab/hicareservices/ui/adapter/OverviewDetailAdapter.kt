@@ -48,6 +48,7 @@ class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainVie
         if (productlists.Discount != 0) {
             holder.binding.txtdealodday.text = "Save " + "\u20B9" + productlists.Discount.toString()
             holder.binding.txtprice.text = productlists.DiscountedPricePerQuantity.toString()
+            holder.binding.txtpriceline.visibility=View.GONE
             holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

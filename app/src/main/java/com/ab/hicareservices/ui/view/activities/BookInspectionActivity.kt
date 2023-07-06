@@ -100,7 +100,7 @@ class BookInspectionActivity : AppCompatActivity() {
             } else if(binding.etemps.text.toString().trim().equals("") ){
                 Toast.makeText(this,"Enter email address",Toast.LENGTH_LONG).show()
             }else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etemps.text.toString()).matches()){
-                Toast.makeText(this,"Enter correct email adress",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter correct email address",Toast.LENGTH_LONG).show()
             } else if(selectedLocation.toString().trim().equals("Select Type")){
                 Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
             }else if(binding.etflatno.text.toString().trim().equals("")){
@@ -114,9 +114,9 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etlandmark.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter landkmark",Toast.LENGTH_LONG).show()
             }else if( binding.etcity.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter city name",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
             }else if(binding.etstate.text.toString().trim().equals("")) {
-                Toast.makeText(this,"Enter state name",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter state",Toast.LENGTH_LONG).show()
             }else if(binding.etpincodes.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
             } else if(binding.etpincodes.text.toString().trim().length<6){

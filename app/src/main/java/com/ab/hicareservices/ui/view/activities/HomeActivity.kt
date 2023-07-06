@@ -27,6 +27,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.ActivityMainBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
@@ -69,6 +70,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(binding.root)
         datalist = ArrayList()
         datalist.add("Select Type")
+
+        MyLocationListener(this)
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 //        viewModel.validateAccount(AppUtils2.mobileno)
