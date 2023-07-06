@@ -48,7 +48,11 @@ class OrdersViewModel : ViewModel() {
     }
 
 
-    fun getCustomerOrdersByMobileNo(mobileNo: String, ordertype: String, progressBar: ProgressDialog) {
+    fun getCustomerOrdersByMobileNo(
+        mobileNo: String,
+        ordertype: String,
+        progressBar: ProgressDialog
+    ) {
 
 //        progressBar.visibility = View.VISIBLE
 
@@ -63,9 +67,9 @@ class OrdersViewModel : ViewModel() {
                 response: Response<OrdersResponse>
             ) {
 
-                if(response.body()?.isSuccess==false){
+                if (response.body()?.isSuccess == false) {
                     responseMessage.postValue(response.body()?.responseMessage)
-                }else {
+                } else {
 
                     ordersList.postValue(response.body()?.data)
                     Log.d("TAG", "Response " + response.body()?.data.toString())

@@ -903,7 +903,6 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
-                        android:inputType="number"
                         android:maxLength="6"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />

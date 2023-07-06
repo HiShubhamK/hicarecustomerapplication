@@ -291,9 +291,9 @@ class AddressActivity : AppCompatActivity() {
                 }else if(edtmobileno.text.toString().trim().equals("0000000000")){
                     Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if(etemps.text.toString().trim().equals("") ){
-                    Toast.makeText(this,"Enter email adress", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter email address", Toast.LENGTH_LONG).show()
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()){
-                    Toast.makeText(this,"Enter correct email adress", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter correct email address", Toast.LENGTH_LONG).show()
                 } else if(selectedLocation.toString().trim().equals("Select Type")){
                     Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
                 }else if(etflatno.text.toString().trim().equals("")){
@@ -310,7 +310,7 @@ class AddressActivity : AppCompatActivity() {
                     Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
                 } else if(etstate.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
-                } else if(etpincode.text.toString().trim().length<6){
+                } else if(etpincode.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
@@ -373,6 +373,8 @@ class AddressActivity : AppCompatActivity() {
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
             val txttitle=promptsView.findViewById<View>(R.id.texttitle) as TextView
             val lnraddresstypes=promptsView.findViewById<View>(R.id.lnraddresstypes) as LinearLayout
+            val etstate=promptsView.findViewById<View>(R.id.etstate) as EditText
+            val etcity=promptsView.findViewById<View>(R.id.etcitites) as EditText
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
@@ -434,7 +436,8 @@ class AddressActivity : AppCompatActivity() {
                     etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                     etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
-                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("")) {
+                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("") &&
+                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
 
                     Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
 
@@ -462,8 +465,12 @@ class AddressActivity : AppCompatActivity() {
                 }else if(etlocality.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter locatity", Toast.LENGTH_LONG).show()
                 }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter landkmark", Toast.LENGTH_LONG).show()
-                }else if(etpincode.text.toString().trim().length<6){
+                    Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
+                }else if(etcity.text.toString().trim().equals("")){
+                    Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
+                } else if(etstate.text.toString().trim().equals("")){
+                    Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
+                }else if(etpincode.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
@@ -481,8 +488,8 @@ class AddressActivity : AppCompatActivity() {
                     data["Street"] =etstreet.text.toString()
                     data["Locality"] =etlocality.text.toString()
                     data["Landmark"] =etlandmark.text.toString()
-                    data["City"] =""
-                    data["State"] =""
+                    data["City"] =etcity.text.toString()
+                    data["State"] =etstate.text.toString()
                     data["Pincode"] =etpincode.text.toString()
                     data["Address_Lat"] =""
                     data["Address_Long"] =""

@@ -26,6 +26,13 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.MyOrderActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.view.activities.AddresslistActivity"
             android:exported="false">
             <meta-data

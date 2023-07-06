@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
-import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
-import com.ab.hicareservices.ui.view.activities.UpcomingServicesActivity
+import com.ab.hicareservices.ui.view.activities.*
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
@@ -63,11 +60,16 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                         )
                     )
                 } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
-                    fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragment.newInstance(true))
-                        .addToBackStack("HomeFragment").commit()
+                    val intent = Intent(fragmentActivity, MyOrderActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
+
+
+//                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, OrdersFragment.newInstance(true))
+//                        .addToBackStack("HomeFragment").commit()
 
                 } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
+
                     val intent = Intent(fragmentActivity, ComplaintsActivity::class.java)
                     fragmentActivity!!.startActivity(intent)
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
@@ -115,7 +117,5 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
     }
 
     class MainViewHolder(val binding: DashboardMenuAdapterBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-    }
+        RecyclerView.ViewHolder(binding.root) {}
 }

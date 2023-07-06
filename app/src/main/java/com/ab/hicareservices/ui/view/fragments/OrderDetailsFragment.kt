@@ -204,6 +204,8 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
                     intent.putExtra("ACCOUNT_NO", accountId)
                     intent.putExtra("SERVICETYPE_NO", service)
                     intent.putExtra("PAYMENT", orderValueWithTax)
+                    intent.putExtra("Product", false)
+
                     activityResultLauncher.launch(intent)
 
 //                    val co = Checkout()

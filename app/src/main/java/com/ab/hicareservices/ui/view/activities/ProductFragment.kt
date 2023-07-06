@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.location.LocationListener
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,6 +22,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.databinding.FragmentProductBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.ProductAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
@@ -55,6 +57,8 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        MyLocationListener(requireActivity())
+
         AppUtils2.customerid =
             SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         AppUtils2.pincode =
@@ -82,22 +86,26 @@ class ProductFragment : Fragment() {
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
-
         binding.getpincodetext.setText(AppUtils2.pincode)
 
         if (AppUtils2.pincode.equals("")) {
-            Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
+            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
         } else {
             getProductslist(AppUtils2.pincode!!)
         }
 
-        binding.imgsearch.setOnClickListener{
-            if(binding.getpincodetext.text.equals("")||binding.getpincodetext.text.length!=6){
-                Toast.makeText(requireActivity(),"please enter correct pincode",Toast.LENGTH_LONG).show()
-            } else{
-                AppUtils2.pincode=binding.getpincodetext.text.trim().toString()
-                SharedPreferenceUtil.setData(requireActivity(), "pincode",binding.getpincodetext.text.toString())
-                getProductslist(AppUtils2.pincode)
+        binding.imgsearch.setOnClickListener {
+            if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
+                Toast.makeText(requireActivity(), "Enter correct pincode", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+//                AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
+//                SharedPreferenceUtil.setData(
+//                    requireActivity(),
+//                    "pincode",
+//                    binding.getpincodetext.text.toString()
+//                )
+                getProductslist(binding.getpincodetext.text.trim().toString())
             }
 
         }
@@ -112,11 +120,11 @@ class ProductFragment : Fragment() {
 
         progressDialog.show()
 
-            binding.recycleviewproduct.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            mAdapter = ProductAdapter()
+        binding.recycleviewproduct.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        mAdapter = ProductAdapter()
 
-            binding.recycleviewproduct.adapter = mAdapter
+        binding.recycleviewproduct.adapter = mAdapter
 
         Handler(Looper.getMainLooper()).postDelayed({
 
@@ -124,6 +132,7 @@ class ProductFragment : Fragment() {
                 progressDialog.dismiss()
 
                 if (it != null) {
+                    SharedPreferenceUtil.setData(requireActivity(), "pincode", pincode)
                     binding.recycleviewproduct.visibility = View.VISIBLE
                     binding.textnotfound.visibility = View.GONE
                     mAdapter.setProductList(it, requireActivity(), viewProductModel)
@@ -137,12 +146,13 @@ class ProductFragment : Fragment() {
 
             viewProductModel.errorMessage.observe(requireActivity(), Observer {
                 progressDialog.dismiss()
+                binding.recycleviewproduct.visibility = View.GONE
                 Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             })
 
-            viewProductModel.getProductlist(AppUtils2.pincode)
+                viewProductModel.getProductlist(pincode)
 
-        },500)
+        }, 500)
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
@@ -164,15 +174,13 @@ class ProductFragment : Fragment() {
 
 
                     viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-                },500)
+                }, 500)
             }
 
             override fun onProductView(position: Int, productid: OrderSummeryData) {
 
             }
         })
-
-
     }
 
     override fun onResume() {
@@ -197,39 +205,6 @@ class ProductFragment : Fragment() {
 
     }
 
-    private fun showalertDailogbox() {
-        var selectedLocation = ""
-        var dateTime = ""
-        val li = LayoutInflater.from(requireActivity())
-        val promptsView = li.inflate(R.layout.pincodelayout, null)
-        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-        alertDialogBuilder.setView(promptsView)
-        val alertDialog: AlertDialog = alertDialogBuilder.create()
-        val edtpincode = promptsView.findViewById<View>(R.id.edtpincode) as EditText
-        val button = promptsView.findViewById<View>(R.id.btnpincode) as Button
-        val cancel=promptsView.findViewById<View>(R.id.imgbtncancel)  as ImageView
-        alertDialog.show()
-        alertDialog.setCancelable(false)
-
-        cancel.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        button.setOnClickListener {
-
-            if (edtpincode.text.trim().toString().equals("")) {
-                Toast.makeText(requireActivity(), "Please enter pincode", Toast.LENGTH_LONG).show()
-            } else if (edtpincode.text.trim().toString().equals("000000")) {
-                Toast.makeText(requireActivity(), "Please enter correct pincode", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                var pincode = edtpincode.text.trim().toString()
-                SharedPreferenceUtil.setData(requireActivity(), "pincode", pincode)
-                alertDialog.dismiss()
-                getProductslist(pincode)
-            }
-        }
-    }
 
     companion object {
         @JvmStatic

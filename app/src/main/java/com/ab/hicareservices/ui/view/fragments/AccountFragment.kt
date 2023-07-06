@@ -13,11 +13,7 @@ import androidx.fragment.app.Fragment
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.HelpActivity
-import com.ab.hicareservices.ui.view.activities.LoginActivity
-import com.ab.hicareservices.ui.view.activities.ReferralActivity
-import com.ab.hicareservices.ui.view.activities.TermsAndConditionActivity
+import com.ab.hicareservices.ui.view.activities.*
 
 class AccountFragment : Fragment() {
 
@@ -53,9 +49,12 @@ class AccountFragment : Fragment() {
 //        }
 
         binding.constraintorderid.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance(true))
-                .addToBackStack("AccountFragment").commit()
+            val intent=Intent(requireActivity(),MyOrderActivity::class.java)
+            startActivity(intent)
+
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, OrdersFragment.newInstance(true))
+//                .addToBackStack("AccountFragment").commit()
         }
 
         binding.constraintcomplaints.setOnClickListener {

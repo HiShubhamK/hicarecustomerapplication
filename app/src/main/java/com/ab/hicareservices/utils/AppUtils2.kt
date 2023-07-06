@@ -40,6 +40,7 @@ object AppUtils2 {
     var city=""
     var state=""
     var changebuttonstatus:Boolean=false
+    var postalcode=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {
