@@ -45,7 +45,6 @@ class ComplaintsActivity : AppCompatActivity() {
         }
 
         imageList=ArrayList()
-        progressDialog.show()
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
         }, 1500)
@@ -53,6 +52,8 @@ class ComplaintsActivity : AppCompatActivity() {
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
+            progressDialog.show()
+
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
             mAdapter = ComplaintsAdapter(this)
 
@@ -84,6 +85,7 @@ class ComplaintsActivity : AppCompatActivity() {
             }
             binding.progressBar.visibility= View.GONE
 
+            progressDialog.dismiss()
         }catch (e:Exception){
             e.printStackTrace()
         }
