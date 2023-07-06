@@ -15,21 +15,19 @@ import com.ab.hicareservices.ui.view.fragments.ComplaintDetailsFragment
 import com.ab.hicareservices.utils.AppUtils2
 
 
-class ComplaintsAdapter(requireActivity: ComplaintsActivity) : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
+class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
 
     var complaints = mutableListOf<ComplaintsData>()
     var imageList = ArrayList<String>()
-    private lateinit var requireActivity: ComplaintsActivity
+    val requireActivity=requireActivity
+//    private lateinit var requireActivity: ComplaintsActivity
 
     fun setComplaintsList(
         complaintdata: List<ComplaintsData>?,
-        imageList: ArrayList<String>,
-        requireActivity: ComplaintsActivity
-    ) {
+        imageList: ArrayList<String>) {
         if (complaintdata != null) {
             this.complaints = complaintdata.toMutableList()
             this.imageList = imageList
-            this.requireActivity = requireActivity
         }
         notifyDataSetChanged()
     }

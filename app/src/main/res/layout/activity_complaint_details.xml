@@ -488,33 +488,41 @@
 
 
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/txtSeeAttachment"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:id="@+id/lnrAttachments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:textColor="@color/colorAccent"
-        android:fontFamily="@font/lato_semibold"
-        android:gravity="start"
-        android:text="See Attachments"
-        android:textSize="14sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="15sp"
-        android:background="@color/greyPrimary" />
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtSeeAttachment"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/lato_semibold"
+            android:gravity="start"
+            android:text="See Attachments"
+            android:textSize="14sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15sp"
+            android:background="@color/greyPrimary" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            />
+
+    </LinearLayout>
 
     <TextView
 

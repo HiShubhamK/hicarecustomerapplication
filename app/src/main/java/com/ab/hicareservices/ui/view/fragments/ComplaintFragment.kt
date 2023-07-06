@@ -58,25 +58,25 @@ class ComplaintFragment() : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        binding.imgLogo.setOnClickListener {
-            requireActivity().finish()
-        }
+//        binding.imgLogo.setOnClickListener {
+//            requireActivity().finish()
+//        }
 
         imageList=ArrayList()
         progressDialog.show()
-        Handler(Looper.getMainLooper()).postDelayed({
+//        Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
-        }, 1500)
+//        }, 1500)
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            mAdapter = ComplaintsAdapter(requireActivity = ComplaintsActivity())
+            mAdapter = ComplaintsAdapter(requireActivity = requireActivity())
 
             viewModel.complaintList.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it")
-                mAdapter.setComplaintsList(it,imageList, requireActivity() as ComplaintsActivity)
+                mAdapter.setComplaintsList(it,imageList)
                 progressDialog.dismiss()
                 binding.recyclerView.visibility=View.VISIBLE
                 binding.txtnotfound.visibility=View.GONE

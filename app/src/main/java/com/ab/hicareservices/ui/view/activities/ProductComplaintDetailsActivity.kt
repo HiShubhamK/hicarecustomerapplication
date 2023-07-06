@@ -26,7 +26,7 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import org.json.JSONObject
 
-class ComplaintDetailsActivity : AppCompatActivity() {
+class ProductComplaintDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityComplaintDetailsBinding
     lateinit var progressDialog: ProgressDialog
@@ -66,13 +66,14 @@ class ComplaintDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complaint_details)
-        binding=ActivityComplaintDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        try {
+            binding=ActivityComplaintDetailsBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        progressDialog= ProgressDialog(this,R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
+            progressDialog= ProgressDialog(this,R.style.TransparentProgressDialog)
+            progressDialog.setCancelable(false)
 
-        val intent=intent
+            val intent=intent
 //
 //        intent.putExtra("Dateformat", AppUtils2.formatDateTime4(complaints.CreatedDate.toString()))
 //        intent.putExtra("ComplaintNo",complaints.ComplaintNo_c.toString())
@@ -87,53 +88,57 @@ class ComplaintDetailsActivity : AppCompatActivity() {
 //        intent.putStringArrayListExtra("Imagelist",imageList)
 //        intent.putExtra("Complaintid",complaints.Id.toString())
 
-        complaintdate = intent.getStringExtra("Dateformat").toString()
-        complaintnum = intent.getStringExtra("ComplaintNo").toString()
-        orderNo = intent.getStringExtra("OrderNO").toString()
-        category = intent.getStringExtra("Pest").toString()
-        complainttype = intent.getStringExtra("Cdescription").toString()
-        serviceplan = intent.getStringExtra("ServicePlan").toString()
-        subject = intent.getStringExtra("Subject").toString()
-        description = intent.getStringExtra("Description").toString()
-        status = intent.getStringExtra("status").toString()
-        casenum = intent.getStringExtra("CaseNo").toString()
-        imageListnew = intent.getStringArrayListExtra("Imagelist") as ArrayList<String>
-        complaintid = intent.getStringExtra("Complaintid").toString()
+            complaintdate = intent.getStringExtra("Dateformat").toString()
+            complaintnum = intent.getStringExtra("ComplaintNo").toString()
+            orderNo = intent.getStringExtra("OrderNO").toString()
+            category = intent.getStringExtra("Pest").toString()
+            complainttype = intent.getStringExtra("Cdescription").toString()
+            serviceplan = intent.getStringExtra("ServicePlan").toString()
+            subject = intent.getStringExtra("Subject").toString()
+            description = intent.getStringExtra("Description").toString()
+            status = intent.getStringExtra("status").toString()
+            casenum = intent.getStringExtra("CaseNo").toString()
+            imageListnew = intent.getStringArrayListExtra("Imagelist") as ArrayList<String>
+            complaintid = intent.getStringExtra("Complaintid").toString()
 
 
-        binding.title.text = "Complaint Details"
-        binding.txtStatus.text = status
-        binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
-        binding.txtcomplaintno.text = complaintnum
-        binding.txtorderno.text = orderNo
-        binding.txtCategory.text = category
-        binding.txtcomplainttype.text = complainttype
-        binding.txtServicePlan.text = serviceplan
-        binding.txtSubject.text = subject
-        binding.txtDescription.text = description
+            binding.title.text = "Complaint Details"
+            binding.txtStatus.text = status
+            binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
+            binding.txtcomplaintno.text = complaintnum
+            binding.txtorderno.text = orderNo
+            binding.txtCategory.text = category
+            binding.txtcomplainttype.text = complainttype
+            binding.txtServicePlan.text = serviceplan
+            binding.txtSubject.text = subject
+            binding.txtDescription.text = description
 
-        if (status == "Open") {
+            if (status == "Open") {
 
-            binding.txtStatus.setTextColor(Color.parseColor("#D50000"))
+                binding.txtStatus.setTextColor(Color.parseColor("#D50000"))
 
-        } else if (status == "Pending") {
+            } else if (status == "Pending") {
 
-            binding.txtStatus.setTextColor(Color.parseColor("#FB8C00"))
+                binding.txtStatus.setTextColor(Color.parseColor("#FB8C00"))
 
-        } else if (status == "Resolved" || status == "Closed") {
+            } else if (status == "Resolved" || status == "Closed") {
 
-            binding.txtStatus.setTextColor(Color.parseColor("#2bb77a"))
+                binding.txtStatus.setTextColor(Color.parseColor("#2bb77a"))
 
-        } else {
+            } else {
 
+            }
+            binding.imgLogo.setOnClickListener {
+                onBackPressed()
+            }
+
+            AppUtils2.mobileno =
+                SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+            getcomplaintAttachment()
+
+        }catch (e:Exception){
+            e.printStackTrace()
         }
-        binding.imgLogo.setOnClickListener {
-            onBackPressed()
-        }
-
-        AppUtils2.mobileno =
-            SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-        getcomplaintAttachment()
 
 
     }
@@ -142,20 +147,9 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         progressDialog.show()
         binding.recyclerView.layoutManager =LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mAdapter = ComplaintAttachmentAdapter()
-
-//        viewModel.attachments.observe(requireActivity(),{
-//
-//           if (it!=null){
-//               imageList.addAll(it)
-//           }
-//        })
-        viewModel.attachments.observe(this, Observer {
-//            Log.d(TAG, "onViewCreated: $it")
-//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-        if (it!=null) {
-            if (it.isNotEmpty()) {
-                mAdapter.setAttachment(it as ArrayList<String>)
+        if (imageListnew!=null) {
+            if (imageListnew.isNotEmpty()) {
+                mAdapter.setAttachment(imageListnew)
                 progressDialog.dismiss()
 
                 binding.lnrAttachments.visibility = View.VISIBLE
@@ -169,26 +163,38 @@ class ComplaintDetailsActivity : AppCompatActivity() {
             binding.lnrAttachments.visibility = View.GONE
             binding.tvNodata.visibility = View.VISIBLE
         }
-            progressDialog.dismiss()
 
-//        Log.e("TAG", "Attachments: $imageList")
-//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
-
-        })
-        viewModel.errorMessage.observe(this, Observer {
-//            Log.d(TAG, "onViewCreated: $it")
-//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-//            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-            progressDialog.dismiss()
-//            binding.recyclerView.visibility=View.GONE
-//            binding.tvNodata.visibility=View.VISIBLE
-//            binding.tvNodata.text = it
-
-//        Log.e("TAG", "Attachments: $imageList")
-//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
-
-        })
-
+//        viewModel.attachments.observe(requireActivity(),{
+//
+//           if (it!=null){
+//               imageList.addAll(it)
+//           }
+//        })
+//        viewModel.attachments.observe(this, Observer {
+////            Log.d(TAG, "onViewCreated: $it")
+////            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+////            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+//
+//            progressDialog.dismiss()
+//
+////        Log.e("TAG", "Attachments: $imageList")
+////            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+//
+//        })
+//        viewModel.errorMessage.observe(this, Observer {
+////            Log.d(TAG, "onViewCreated: $it")
+////            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+////            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+//            progressDialog.dismiss()
+////            binding.recyclerView.visibility=View.GONE
+////            binding.tvNodata.visibility=View.VISIBLE
+////            binding.tvNodata.text = it
+//
+////        Log.e("TAG", "Attachments: $imageList")
+////            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+//
+//        })
+//
 
 
         binding.recyclerView.adapter = mAdapter

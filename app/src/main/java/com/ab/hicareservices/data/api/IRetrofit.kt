@@ -18,6 +18,7 @@ import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
 import com.ab.hicareservices.data.model.product.*
+import com.ab.hicareservices.data.model.productcomplaint.ProductComplaintListResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
@@ -30,7 +31,10 @@ import retrofit2.http.Query
 interface IRetrofit {
 
     @GET("Order/GetAllOrdersByMobileNo")
-    fun getOrders(@Query("mobileNo") mobileNo: String, @Query("orderType") orderType: String): Call<OrdersResponse>
+    fun getOrders(
+        @Query("mobileNo") mobileNo: String,
+        @Query("orderType") orderType: String
+    ): Call<OrdersResponse>
 
     @GET("Order/GetCustomerOrdersByMobileNo")
     fun getCustomerOrdersByMobileNo(@Query("mobileNo") mobileNo: String): Call<OrdersResponse>
@@ -45,7 +49,10 @@ interface IRetrofit {
     fun getAllComplaints(@Query("mobileNo") mobileNo: String): Call<ComplaintResponse>
 
     @GET("ServiceRequest/GetServiceRequestByOrderNo")
-    fun getServiceRequest(@Query("orderNo") mobileNo: String, @Query("serviceType") serviceType: String): Call<ServiceResponse>
+    fun getServiceRequest(
+        @Query("orderNo") mobileNo: String,
+        @Query("serviceType") serviceType: String
+    ): Call<ServiceResponse>
 
     @GET("Complaint/GetComplaintReasons")
     fun getComplaintReasonResponse(@Query("serviceType") serviceType: String): Call<ComplaintReasons>
@@ -57,13 +64,19 @@ interface IRetrofit {
     fun getReferralCodeResponse(@Query("mobileNo") mobileNo: String): Call<ReferralResponse>
 
     @GET("Order/GetOrderDetailsByOrderNo")
-    fun getOrderDetailsByOrderNo(@Query("orderNo") orderNo: String, @Query("serviceType") serviceType: String): Call<OrderDetails>
+    fun getOrderDetailsByOrderNo(
+        @Query("orderNo") orderNo: String,
+        @Query("serviceType") serviceType: String
+    ): Call<OrderDetails>
 
     @POST("Payment/SaveAppPaymentDetails")
     fun saveAppPaymentDetails(@Body data: HashMap<String, Any>): Call<SavePaymentResponse>
 
     @GET("Order/GetAllOrdersByMobileNo")
-    fun getCustomerOrdersByMobileNo(@Query("mobileNo") mobileNo: String, @Query("orderType") orderType: String): Call<OrdersResponse>
+    fun getCustomerOrdersByMobileNo(
+        @Query("mobileNo") mobileNo: String,
+        @Query("orderType") orderType: String
+    ): Call<OrdersResponse>
 
     @GET("Notification/SubscribeApplicationAsync")
     fun getNotificationToken(@Query("appToken") appToken: String): Call<NotificationToken>
@@ -93,7 +106,7 @@ interface IRetrofit {
     fun postLead(@Body data: HashMap<String, Any>): Call<LeadResponse>
 
     @GET("Account/VerifyWhatsAppUser")
-    fun getWhatappVerification(@Query("waToken") waToken:String):Call<Whatappresponse>
+    fun getWhatappVerification(@Query("waToken") waToken: String): Call<Whatappresponse>
 
     @GET("ServiceRequest/GetUpcomingScheduledService")
     fun getUpcomingScheduledService(@Query("mobileNo") mobileNo: String): Call<ScheduledService>
@@ -102,38 +115,47 @@ interface IRetrofit {
     fun getTodayScheduledService(@Query("mobileNo") mobileNo: String): Call<ScheduledService>
 
     @GET("CustomerAddress/GetCustomerLoginInfo")
-    fun getcustomerid(@Query("mobileno") mobileno:String):Call<CustomerLoginInfo>
+    fun getcustomerid(@Query("mobileno") mobileno: String): Call<CustomerLoginInfo>
 
     @GET("Address/GetCustomerAddressByCustomerId")
-    fun getcustomerAddress(@Query("customerId") customerId:Int):Call<CustomerAddress>
+    fun getcustomerAddress(@Query("customerId") customerId: Int): Call<CustomerAddress>
 
     @GET("Product/GetProductListByPincode")
-    fun getProductlist(@Query("pincode") pincode: String):Call<ProductListResponse>
+    fun getProductlist(@Query("pincode") pincode: String): Call<ProductListResponse>
 
     @GET("Product/GetProductDetailById")
-    fun getProductlistbyId(@Query("productId") productId: Int,
-                           @Query("pincode") pincode: String,
-                           @Query("userId") userId: Int):Call<ProducDetailsResponse>
+    fun getProductlistbyId(
+        @Query("productId") productId: Int,
+        @Query("pincode") pincode: String,
+        @Query("userId") userId: Int
+    ): Call<ProducDetailsResponse>
 
     @GET("Cart/AddProductInCart")
-    fun getAddProductInCart(@Query("quantity") quantity: Int,
-                           @Query("productId") productId: Int,
-                           @Query("userId") userId: Int):Call<AddProductInCart>
+    fun getAddProductInCart(
+        @Query("quantity") quantity: Int,
+        @Query("productId") productId: Int,
+        @Query("userId") userId: Int
+    ): Call<AddProductInCart>
 
 
     @GET("Cart/GetProductCountInCart")
-    fun getProductCountInCar(@Query("userId") userId: Int):Call<ProductCount>
+    fun getProductCountInCar(@Query("userId") userId: Int): Call<ProductCount>
 
     @GET("Cart/GetProductCartByUserId")
-    fun getProductCartByUserId(@Query("userId") userId: Int) : Call<CartlistResponse>
+    fun getProductCartByUserId(@Query("userId") userId: Int): Call<CartlistResponse>
 
     @GET("Cart/GetCartSummary")
-    fun getCartSummary(@Query("userId") userId: Int,
-                       @Query("pincode") pincode: String,
-                       @Query("voucherCode") voucherCode:String):Call<GetCartSummaryResponse>
+    fun getCartSummary(
+        @Query("userId") userId: Int,
+        @Query("pincode") pincode: String,
+        @Query("voucherCode") voucherCode: String
+    ): Call<GetCartSummaryResponse>
 
     @GET("Cart/DeleteProductInCart")
-    fun getDeleteProductCart(@Query("cartId") cartId:Int,@Query("userId") userId: Int):Call<DeleteProductInCart>
+    fun getDeleteProductCart(
+        @Query("cartId") cartId: Int,
+        @Query("userId") userId: Int
+    ): Call<DeleteProductInCart>
 
     @POST("Address/SaveAddress")
     fun postSaveAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
@@ -148,7 +170,18 @@ interface IRetrofit {
     @POST("Order/SaveMobileProductOrder")
     fun postSaveSalesOrder(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
 
+
     @GET("Order/CreateRazorpayOrderId")
-    fun CreateRazorpayOrderId(@Query("amount") amount: Double,@Query("mobilenumber") mobilenumer:Int): Call<RazorpayOrderIdResponse>
+    fun CreateRazorpayOrderId(
+        @Query("amount") amount: Double,
+        @Query("mobilenumber") mobilenumer: Int
+    ): Call<RazorpayOrderIdResponse>
+
+    @POST("ProductComplaint/CreateComplaint")
+    fun CreateProductComplaint(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
+
+    @GET("ProductComplaint/ComplaintListByUserId")
+    fun ProductComplaintListByUserId(@Query("userId") userId: Int): Call<ProductComplaintListResponse>
+
 
 }

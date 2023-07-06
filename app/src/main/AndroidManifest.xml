@@ -213,6 +213,8 @@
         </activity>
         <activity android:name=".ui.view.activities.InAppWebViewActivity" />
         <activity android:name=".ui.view.activities.ProductSummaryDetailActivity" />
+        <activity android:name=".ui.view.activities.ProductComplaintsActivity" />
+        <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity" />
     </application>
 
 </manifest>

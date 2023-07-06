@@ -56,6 +56,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtrupees.text = "₹ ${orders.order_Value_with_Tax__c}"
 
             if(orders.status__c.equals("Expired")){
+                holder.binding.txtappointmentdate.visibility=View.GONE
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#D50000"))
 
