@@ -12,6 +12,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.MenuData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.*
+import com.ab.hicareservices.ui.view.fragments.ComplaintFragmentNew
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
@@ -70,10 +71,11 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 
                 } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
 
-                    val intent = Intent(fragmentActivity, ComplaintsActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
-//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-//                            .replace(R.id.container, ComplaintFragment.newInstance()).addToBackStack("HomeFragment").commit()
+//                    val intent = Intent(fragmentActivity, ComplaintsActivity::class.java)
+//                    fragmentActivity!!.startActivity(intent)
+                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, ComplaintFragmentNew.newInstance())
+                        .addToBackStack("HomeFragment").commit()
                 } else if (service.Title.equals("Renewals") && service.IsAppLink == true) {
 
 
@@ -96,6 +98,10 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                 } else if (service.Title.equals("Support") && service.IsAppLink == true) {
                     fragmentActivity!!.supportFragmentManager.beginTransaction()
                         .replace(R.id.container, SupportFragments.newInstance())
+                        .addToBackStack("AccountFragment").commit()
+                } else if (service.Title.equals("Products") && service.IsAppLink == true) {
+                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, ProductFragment.newInstance())
                         .addToBackStack("AccountFragment").commit()
                 } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
                     val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)

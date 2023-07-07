@@ -42,7 +42,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Upcoming Services"
+                android:text="My Upcoming Services"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />

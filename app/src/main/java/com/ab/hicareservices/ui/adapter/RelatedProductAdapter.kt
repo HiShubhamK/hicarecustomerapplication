@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.app.Activity
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
@@ -14,7 +13,6 @@ import com.ab.hicareservices.data.model.product.RelatedProducts
 import com.ab.hicareservices.databinding.LayoutRelatedProductBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.handler.OnRelatedProductClick
-import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
@@ -64,9 +62,10 @@ class RelatedProductAdapter(
                 )
                 viewmodel.addtocart.observe(activityy,{
                     if (it.IsSuccess==true){
-                        onProductClickedHandler?.onProductClickedHandler(position,productlistdata.ProductId!!.toInt())
 
                         Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
+                        onRelatedProductClick?.onRelatedProdAddtoCart(position,productlistdata.ProductId!!.toInt(),it.Data)
+
                     }else{
                         Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
 
@@ -95,8 +94,8 @@ class RelatedProductAdapter(
         this.productDetailActivity = fragmentActivity
         notifyDataSetChanged()
     }
-    fun setOnOrderItemClicked(l: OnProductClickedHandler) {
-        onProductClickedHandler = l
+    fun setOnOrderItemClicked(l: OnRelatedProductClick) {
+        onRelatedProductClick = l
     }
 
     class MainViewHolder(val binding: LayoutRelatedProductBinding) :

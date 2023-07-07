@@ -12,6 +12,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
@@ -29,12 +30,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
+import com.ab.hicareservices.ui.handler.OnProductClickedHandler
+import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
@@ -63,6 +67,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var ProductDisplayName = ""
     var orderNo = ""
     var OrderDate = ""
+    var OrderId = ""
     private val ORDER_NO = "ORDER_NO"
     private val SERVICE_TYPE = "SERVICE_TYPE"
     private val SERVICE_TYPE_IMG = "SERVICE_TYPE_IMG"
@@ -108,7 +113,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding = ActivityProductSummaryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        MyLocationListener(this)
+        MyLocationListener(this)
 
         var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
@@ -124,11 +129,16 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+        binding.cartmenu.setOnClickListener {
+            val intent = Intent(this, AddToCartActivity::class.java)
+            startActivity(intent)
+        }
 //
 //
 
         val intent = intent
         ProductDisplayName = intent.getStringExtra("ProductDisplayName").toString()
+        OrderId = intent.getStringExtra("OrderId").toString()
         orderNo = intent.getStringExtra("orderNo").toString()
         OrderDate = intent.getStringExtra("OrderDate").toString()
         OrderStatus = intent.getStringExtra("OrderStatus").toString()
@@ -188,28 +198,28 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //                4 -> binding.yourStateProgressBarId.setAllStatesCompleted(true)
 //            }
 
-            if (descriptionData.contains(OrderStatus)){
-                if (OrderStatus == "Booked"){
+            if (descriptionData.contains(OrderStatus)) {
+                if (OrderStatus == "Booked") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
-                }else if (OrderStatus == "Packed"){
+                } else if (OrderStatus == "Packed") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
 
-                }else if (OrderStatus == "Dispatch" ||OrderStatus.equals("Shipped")){
+                } else if (OrderStatus == "Dispatch" || OrderStatus.equals("Shipped")) {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
 
-                }else if (OrderStatus == "Delivered"){
+                } else if (OrderStatus == "Delivered") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
 
-                }else{
-                    binding.yourStateProgressBarId.visibility=View.GONE
-                    binding.txtStatusTitle.visibility=View.GONE
-                    binding.statusTv.visibility=View.VISIBLE
+                } else {
+                    binding.yourStateProgressBarId.visibility = View.GONE
+                    binding.txtStatusTitle.visibility = View.GONE
+                    binding.statusTv.visibility = View.VISIBLE
 
                 }
-            }else{
-                binding.yourStateProgressBarId.visibility=View.GONE
-                binding.txtStatusTitle.visibility=View.GONE
-                binding.statusTv.visibility=View.VISIBLE
+            } else {
+                binding.yourStateProgressBarId.visibility = View.GONE
+                binding.txtStatusTitle.visibility = View.GONE
+                binding.statusTv.visibility = View.VISIBLE
 
             }
             binding.recRelatedProduct.layoutManager =
@@ -261,7 +271,68 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
+
         }
+
+
+        client = LocationServices
+            .getFusedLocationProviderClient(
+                this
+            )
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // When permission is granted
+            // Call method
+            getCurrentLocations()
+        } else {
+            // When permission is not granted
+            // Call method
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    100
+                )
+            }
+        }
+
+
+        relatedProductAdapter.setOnOrderItemClicked(object : OnRelatedProductClick {
+            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
+                binding.appCompatImageViewd.text = data.toString()
+            }
+
+        })
+        binding.btnNeedhelp.setOnClickListener {
+            val intent = Intent(this, AddProductComplaintsActivity::class.java)
+            try {
+                intent.putExtra("ProductId", productid)
+                intent.putExtra("orderNo", orderNo)
+                intent.putExtra("displayname", ProductDisplayName)
+                intent.putExtra("Created_On", OrderDate)
+                intent.putExtra("Complaint_Status",OrderStatus)
+                intent.putExtra("OrderId",OrderId)
+                intent.putExtra("OrderValuePostDiscount",OrderValuePostDiscount)
+                startActivity(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+
+        }
+
+
     }
 
     private fun getServiceLists(progressDialog: ProgressDialog) {
@@ -376,6 +447,127 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocations() {
+        val locationManager: LocationManager =
+            this.getSystemService(LOCATION_SERVICE) as LocationManager
+        // Check condition
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+            )
+        ) {
+            // When location service is enabled
+            // Get last location
+            client!!.lastLocation.addOnCompleteListener(
+                object : OnCompleteListener<Location?> {
+
+                    override fun onComplete(
+                        task: Task<Location?>
+                    ) {
+
+                        // Initialize location
+                        val location: Location = task.getResult()!!
+                        // Check condition
+                        if (location != null) {
+                            // When location result is not
+                            // null set latitude
+//                            Toasty.success(
+//                                this@Checkin_Out_Home,
+//                                "Lat: " + location.getLatitude() + "long: " + location.getLongitude()
+//                            )
+                            lat = location.latitude.toString()
+                            longg = location.longitude.toString()
+
+//                            tvLatitude.setText(java.lang.String.valueOf(location.getLatitude()))
+//                            // set longitude
+//                            tvLongitude.setText(java.lang.String.valueOf(location.getLongitude()))
+                        } else {
+                            // When location result is null
+                            // initialize location request
+                            val locationRequest =
+                                LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1)
+
+                            // Initialize location call back
+                            val locationCallback: LocationCallback = object : LocationCallback() {
+                                fun voidonLocationResult(
+                                    locationResult: LocationResult
+                                ) {
+                                    // Initialize
+                                    // location
+                                    val location1: Location = locationResult.lastLocation
+                                    // Set latitude
+//                                    Toasty.success(
+//                                        this@Checkin_Out_Home,
+//                                        "Lat: " + location1.getLatitude() + "long: " + location1.getLongitude()
+//                                    )
+                                    lastlat = location1.latitude.toString()
+                                    lastlongg = location1.longitude.toString()
+                                    val mGeocoder = Geocoder(
+                                        this@ProductSummaryDetailActivity,
+                                        Locale.getDefault()
+                                    )
+                                    if (mGeocoder != null) {
+                                        var postalcode: MutableList<Address>? =
+                                            mGeocoder.getFromLocation(
+                                                lastlat!!.toDouble(),
+                                                lastlongg!!.toDouble(),
+                                                5
+                                            )
+                                        if (postalcode != null && postalcode.size > 0) {
+                                            for (i in 0 until postalcode.size) {
+                                                AppUtils2.pincode =
+                                                    postalcode.get(i).postalCode.toString()
+                                                SharedPreferenceUtil.setData(
+                                                    this@ProductSummaryDetailActivity,
+                                                    "pincode",
+                                                    postalcode.get(i).postalCode.toString()
+                                                )
+                                                break
+                                            }
+                                        }
+                                    }
+//                                    tvLatitude.setText(java.lang.String.valueOf(location1.getLatitude()))
+//                                    // Set longitude
+//                                    tvLongitude.setText(java.lang.String.valueOf(location1.getLongitude()))
+                                }
+                            }
+
+                            // Request location updates
+                            if (ActivityCompat.checkSelfPermission(
+                                    this@ProductSummaryDetailActivity,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                    this@ProductSummaryDetailActivity,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return
+                            }
+                            Looper.myLooper()?.let {
+                                client!!.requestLocationUpdates(
+                                    locationRequest,
+                                    locationCallback,
+                                    it
+                                )
+                            }
+                        }
+                    }
+                })
+        } else {
+            // When location service is not enabled
+            // open location setting
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
+    }
 
 }
 
