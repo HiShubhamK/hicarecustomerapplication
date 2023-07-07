@@ -47,4 +47,5 @@ class MainRepository {
     fun  getaddressdetailbyid(addressId:Int)=retrofitProduct.getaddressdetailbyid(addressId)
     fun postSaveSalesOrder(data: HashMap<String, Any>)=retrofitProduct.postSaveSalesOrder(data)
     fun CreateRazorpayOrderId(amount:Double,mobilenumber:Int) = retrofitProduct.CreateRazorpayOrderId(amount,mobilenumber)
+    fun getValidateVoucher(vouchercode: String,userId: Int,pincoode: String)=retrofitProduct.getValidateVoucher(vouchercode,userId,pincoode)
 }

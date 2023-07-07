@@ -35,6 +35,7 @@ class AddressActivity : AppCompatActivity() {
     var billingdata: String? = ""
     lateinit var progressDialog: ProgressDialog
     var checkboxcheck:Boolean=false
+    var pincodeshipping=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +66,6 @@ class AddressActivity : AppCompatActivity() {
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
             if (b==true){
-                billingdata=shippingdata
                 showAddNewAddressdialog("false",binding.checkbox)
             }else {
 
@@ -102,10 +102,22 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.btnnext.setOnClickListener{
-            val intent=Intent(this,OverviewProductDetailsActivity::class.java)
-            intent.putExtra("Billdata",billingdata)
-            intent.putExtra("Shipdata",shippingdata)
-            startActivity(intent)
+            if(pincodeshipping.equals(AppUtils2.pincode)) {
+                if (billingdata.equals("") || billingdata!!.isEmpty()) {
+                    billingdata = shippingdata
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                }
+            }else{
+                Toast.makeText(this,"Invalid pincode selected",Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.lnraddress.setOnClickListener {
@@ -172,17 +184,15 @@ class AddressActivity : AppCompatActivity() {
 
                 var data = it.get(i).Id.toString()
 
-                if(data.equals(shippingdata)){
+                if(data.equals(shippingdata) || shippingdata!=null){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data.equals(billingdata)){
-                    binding.checkbox.visibility=View.GONE
-                    binding.txtbilling.visibility=View.VISIBLE
-                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    break
                 }else if(it.get(i).IsDefault==true){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    break
                 }else{
                     binding.txtbilling.visibility=View.GONE
                 }
@@ -311,9 +321,9 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etstate.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
                 }else{
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -471,9 +481,9 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etstate.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
                 }else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
                 }else{
                     progressDialog.show()
                     var data = HashMap<String, Any>()

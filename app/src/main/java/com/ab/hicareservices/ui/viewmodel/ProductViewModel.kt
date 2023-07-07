@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.SaveSalesResponse
+import com.ab.hicareservices.data.model.ValidateVoucherResponse
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByDetailIdData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
@@ -29,6 +30,7 @@ class ProductViewModel: ViewModel() {
     val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
     val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
+    val validateVoucherResponse = MutableLiveData<ValidateVoucherResponse>()
 
 
     fun getCustomerid(mobileno: String) {
@@ -260,6 +262,21 @@ class ProductViewModel: ViewModel() {
             }
         })
     }
+
+    fun getValidateVoucher(vouchercode: String,userid: Int,pincode: String){
+        val response=repository.getValidateVoucher(vouchercode,userid,pincode)
+        response.enqueue(object : Callback<ValidateVoucherResponse>{
+            override fun onResponse(call: Call<ValidateVoucherResponse>, response: Response<ValidateVoucherResponse>) {
+                validateVoucherResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ValidateVoucherResponse>, t: Throwable) {
+                    errorMessage.postValue("Something went to wrong")
+            }
+
+        })
+    }
+
 
 }
 

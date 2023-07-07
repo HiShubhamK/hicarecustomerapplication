@@ -120,10 +120,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     if (it.IsSuccess == true) {
                         razorpayorderid = it.Data.toString()
                         AppUtils2.razorpayorderid = it.Data.toString()
-                        Toast.makeText(this, it.Data.toString(), Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this, it.ResponseMessage.toString(), Toast.LENGTH_LONG)
-                            .show()
+
                     }
 
                 })
@@ -137,10 +135,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 if (it.IsSuccess == true) {
                     razorpayorderid = it.Data.toString()
                     AppUtils2.razorpayorderid = it.Data.toString()
-                    Toast.makeText(this, it.Data.toString(), Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this, it.ResponseMessage.toString(), Toast.LENGTH_LONG)
-                        .show()
+
                 }
 
             })
@@ -207,9 +203,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-            AppUtils2.productamount = it.FinalAmount.toString()
-            totaldiscount = it.TotalDiscount.toString()
-            actualvalue = it.TotalAmount.toString()
+            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
+            totaldiscount = it.TotalDiscount!!.toDouble().toString()
+            actualvalue = it.TotalAmount!!.toDouble().toString()
 
         })
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
@@ -320,8 +316,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
+                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                         SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
-                        val intent=Intent(this@PaymentActivity,ProductViewModel::class.java)
+                        val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
                         startActivity(intent)
                     } else {
                         binding.imgOffer.visibility = View.GONE
@@ -375,6 +372,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
 //                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                    Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                     val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
                     startActivity(intent)
                 } else {

@@ -96,9 +96,10 @@ class ProductFragment : Fragment() {
 
         binding.imgsearch.setOnClickListener {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
-                Toast.makeText(requireActivity(), "Enter correct pincode", Toast.LENGTH_LONG)
-                    .show()
-            } else {
+                Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG).show()
+            } else if(binding.getpincodetext.text.toString().trim().length<6){
+                Toast.makeText(requireActivity(), "Enter correct pincode", Toast.LENGTH_LONG).show()
+            }else{
 //                AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
 //                SharedPreferenceUtil.setData(
 //                    requireActivity(),

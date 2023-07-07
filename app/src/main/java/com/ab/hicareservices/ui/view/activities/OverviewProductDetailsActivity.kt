@@ -1,40 +1,22 @@
 package com.ab.hicareservices.ui.view.activities
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.databinding.ActivityOverviewProductDetailsBinding
-import com.ab.hicareservices.location.MyLocationListener
-import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.adapter.OverviewDetailAdapter
-import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import java.util.*
 import kotlin.collections.ArrayList
 
 class OverviewProductDetailsActivity : AppCompatActivity() {
@@ -61,46 +43,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         binding = ActivityOverviewProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        MyLocationListener(this)
-
-        MyLocationListener(this)
-        client = LocationServices
-            .getFusedLocationProviderClient(
-                this
-            )
-
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            // When permission is granted
-            // Call method
-            getCurrentLocations()
-        } else {
-            // When permission is not granted
-            // Call method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    100
-                )
-            }
-        }
-
-
-
-
-
         progressDialog =
             ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -113,18 +55,22 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
 
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
+
         val intent = intent
         billdata = intent.getStringExtra("Billdata").toString()
         shipdaata = intent.getStringExtra("Shipdata").toString()
 
         getproductlist()
-        getSummarydata()
+        getSummarydata("")
         getAddressList()
         getAddressforbilling()
-        if (!AppUtils2.pincode.isNullOrEmpty()){
-            binding.tvPincode.text="Deliver to pincode "+AppUtils2.pincode
-        }else {
-            binding.tvPincode.visibility=View.GONE
+        if (!AppUtils2.pincode.isNullOrEmpty()) {
+            binding.tvPincode.text = "Deliver to pincode " + AppUtils2.pincode
+        } else {
+            binding.tvPincode.visibility = View.GONE
         }
 
         binding.txtplcaeorder.setOnClickListener {
@@ -133,8 +79,44 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnappiledcoupon.setOnClickListener {
 
+            if (binding.coupunname.text.toString().equals("Remove Coupon")) {
+                binding.coupunname.text = "Apply Coupon"
+                binding.txtcoupon.setText("")
+                getSummarydata("")
+            } else {
+                if (binding.txtcoupon.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+                } else {
 
+                    viewProductModel.validateVoucherResponse.observe(this, Observer {
+                        if (it.IsSuccess == true) {
+                            if (it.Data.toString() != null) {
+                                binding.coupunname.text = "Remove Coupon"
+                                getSummarydata( binding.txtcoupon.text.toString())
+                                Toast.makeText(
+                                    this,
+                                    "Applied coupon successfully",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(this, it.ResponseMessage, Toast.LENGTH_LONG).show()
+                            }
+                        } else {
+                            Toast.makeText(this, it.ResponseMessage, Toast.LENGTH_LONG).show()
+                        }
+                    })
+
+                    viewProductModel.getValidateVoucher(
+                        binding.txtcoupon.text.toString(),
+                        AppUtils2.customerid.toInt(),
+                        AppUtils2.pincode
+                    )
+                }
+
+            }
+        }
 
     }
 
@@ -149,8 +131,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             AppUtils2.locality = it.Locality.toString()
             AppUtils2.landmark = it.Landmark.toString()
             AppUtils2.pincodelast = it.Pincode.toString()
-            AppUtils2.city=it.City.toString()
-            AppUtils2.state=it.State.toString()
+            AppUtils2.city = it.City.toString()
+            AppUtils2.state = it.State.toString()
             binding.txtbilling.visibility = View.VISIBLE
             binding.txtbilling.text =
                 it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
@@ -221,145 +203,35 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
     }
 
-    fun getSummarydata() {
+    fun getSummarydata(toString: String) {
 
         progressDialog.show()
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
 
-            AppUtils2.productamount=it.FinalAmount.toString()
-            AppUtils2.actualvalue=it.TotalAmount.toString()
-            AppUtils2.totaldiscount=it.TotalDiscount.toString()
-            binding.txtfinaltext.text="\u20B9" + it.FinalAmount.toString()
-            binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount.toString()
-            binding.txtdiscount.text = "-"+"\u20B9" + it.TotalDiscount.toString()
-            binding.txttoalamount.text = "\u20B9" + it.FinalAmount.toString()
-            if (it.DeliveryCharges!=null&&it.DeliveryCharges==0){
-                binding.tvDeliveryCharge.text="Free"
-            }else{
-                binding.tvDeliveryCharge.text=it.DeliveryCharges.toString()
+            AppUtils2.productamount = it.FinalAmount.toString()
+            AppUtils2.actualvalue = it.TotalAmount.toString()
+            AppUtils2.totaldiscount = it.TotalDiscount.toString()
+            binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
+            binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
+            binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
+            binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
+            if (it.DeliveryCharges != null && it.DeliveryCharges!!.toDouble().toInt() == 0) {
+                binding.tvDeliveryCharge.text = "Free"
+            } else {
+                binding.tvDeliveryCharge.text = it.DeliveryCharges!!.toDouble().toString()
             }
             progressDialog.dismiss()
 
         })
 
-        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, toString)
 
     }
 
     override fun onResume() {
         super.onResume()
-        getSummarydata()
+        getSummarydata("")
     }
-
-
-    @SuppressLint("MissingPermission")
-    private fun getCurrentLocations() {
-        val locationManager: LocationManager =
-            this.getSystemService(LOCATION_SERVICE) as LocationManager
-        // Check condition
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-            )
-        ) {
-            // When location service is enabled
-            // Get last location
-            client!!.lastLocation.addOnCompleteListener(
-                object : OnCompleteListener<Location?> {
-
-                    override fun onComplete(
-                        task: Task<Location?>
-                    ) {
-
-                        // Initialize location
-                        val location: Location = task.getResult()!!
-                        // Check condition
-                        if (location != null) {
-                            // When location result is not
-                            // null set latitude
-//                            Toasty.success(
-//                                this@Checkin_Out_Home,
-//                                "Lat: " + location.getLatitude() + "long: " + location.getLongitude()
-//                            )
-                            lat = location.latitude.toString()
-                            longg = location.longitude.toString()
-
-//                            tvLatitude.setText(java.lang.String.valueOf(location.getLatitude()))
-//                            // set longitude
-//                            tvLongitude.setText(java.lang.String.valueOf(location.getLongitude()))
-                        } else {
-                            // When location result is null
-                            // initialize location request
-                            val locationRequest =
-                                LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1)
-
-                            // Initialize location call back
-                            val locationCallback: LocationCallback = object : LocationCallback() {
-                                fun voidonLocationResult(
-                                    locationResult: LocationResult
-                                ) {
-                                    // Initialize
-                                    // location
-                                    val location1: Location = locationResult.lastLocation
-                                    // Set latitude
-//                                    Toasty.success(
-//                                        this@Checkin_Out_Home,
-//                                        "Lat: " + location1.getLatitude() + "long: " + location1.getLongitude()
-//                                    )
-                                    lastlat = location1.latitude.toString()
-                                    lastlongg = location1.longitude.toString()
-                                    val mGeocoder = Geocoder(this@OverviewProductDetailsActivity, Locale.getDefault())
-                                    if (mGeocoder != null) {
-                                        var postalcode: MutableList<Address>? = mGeocoder.getFromLocation(lastlat!!.toDouble(), lastlongg!!.toDouble(), 5)
-                                        if (postalcode != null && postalcode.size > 0) {
-                                            for (i in 0 until postalcode.size){
-                                                AppUtils2.pincode=postalcode.get(i).postalCode.toString()
-                                                SharedPreferenceUtil.setData(this@OverviewProductDetailsActivity, "pincode",postalcode.get(i).postalCode.toString())
-                                                break
-                                            }
-                                        }
-                                    }
-//                                    tvLatitude.setText(java.lang.String.valueOf(location1.getLatitude()))
-//                                    // Set longitude
-//                                    tvLongitude.setText(java.lang.String.valueOf(location1.getLongitude()))
-                                }
-                            }
-
-                            // Request location updates
-                            if (ActivityCompat.checkSelfPermission(
-                                    this@OverviewProductDetailsActivity,
-                                    Manifest.permission.ACCESS_FINE_LOCATION
-                                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                                    this@OverviewProductDetailsActivity,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION
-                                ) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                // TODO: Consider calling
-                                //    ActivityCompat#requestPermissions
-                                // here to request the missing permissions, and then overriding
-                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                //                                          int[] grantResults)
-                                // to handle the case where the user grants the permission. See the documentation
-                                // for ActivityCompat#requestPermissions for more details.
-                                return
-                            }
-                            Looper.myLooper()?.let {
-                                client!!.requestLocationUpdates(
-                                    locationRequest,
-                                    locationCallback,
-                                    it
-                                )
-                            }
-                        }
-                    }
-                })
-        } else {
-            // When location service is not enabled
-            // open location setting
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        }
-    }
-
 }

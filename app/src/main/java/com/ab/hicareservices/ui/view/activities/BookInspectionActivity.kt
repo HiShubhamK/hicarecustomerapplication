@@ -110,7 +110,7 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etstreet.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter street name",Toast.LENGTH_LONG).show()
             }else if(binding.etlocality.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter locatity",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
             }else if(binding.etlandmark.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter landkmark",Toast.LENGTH_LONG).show()
             }else if( binding.etcity.text.toString().trim().equals("")){
@@ -118,9 +118,9 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etstate.text.toString().trim().equals("")) {
                 Toast.makeText(this,"Enter state",Toast.LENGTH_LONG).show()
             }else if(binding.etpincodes.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter pincode",Toast.LENGTH_LONG).show()
             } else if(binding.etpincodes.text.toString().trim().length<6){
-                Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Incorrect pincode",Toast.LENGTH_LONG).show()
             }else{
                 var data = HashMap<String, Any>()
                 data["LMSId"] =""

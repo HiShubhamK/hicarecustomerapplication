@@ -55,20 +55,16 @@ class UpcomingServicesActivity : AppCompatActivity() {
 
             viewModel.ScheduledService.observe(this, Observer {
                 Log.d("TAG", "onViewCreated: $it")
+                if(it!=null){
                 mAdapter.setUpcomingService(it.UpcommingService)
                 binding.recUpcomingData.visibility=View.VISIBLE
-                binding.txtnotfound.visibility=View.GONE
+                binding.upcomingservices.visibility=View.GONE
                 progressDialog.dismiss()
-
+                }else{
+                    binding.recUpcomingData.visibility=View.GONE
+                    binding.upcomingservices.visibility=View.VISIBLE
+                }
             })
-
-//            viewModel.responseMessage.observe(this, Observer {
-//                binding.recyclerView.visibility=View.GONE
-//                binding.txtnotfound.visibility=View.VISIBLE
-//                binding.txtnotfound.text=it.toString()
-//                progressDialog.dismiss()
-//            })
-
             viewModel.errorMessage.observe(this, Observer {
                 Toast.makeText(this,"Something went wrong!", Toast.LENGTH_SHORT).show()
             })

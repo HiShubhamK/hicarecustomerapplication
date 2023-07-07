@@ -59,6 +59,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_above="@+id/saveBtn"
             android:layout_below="@+id/headerView">
 
@@ -938,7 +939,7 @@
                                     android:layout_marginTop="4dp"
                                     android:background="@null"
                                     android:padding="12dp"
-                                    android:maxLength="6"
+                                    android:maxLength="50"
                                     android:textColor="@color/grey_font"
                                     android:textSize="12sp" />
                             </androidx.cardview.widget.CardView>
@@ -1054,25 +1055,40 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="Save"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorAccent"
+                android:layout_alignParentBottom="true"/>
 
 
         </LinearLayout>
 
+
+
         </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@id/saveBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:text="Save"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorAccent"
-        android:layout_alignParentBottom="true"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@id/saveBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:text="Save"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:background="@color/colorAccent"-->
+<!--        android:layout_alignParentBottom="true"/>-->
 
 
 
