@@ -94,6 +94,7 @@ class OrderSummeryFragment : Fragment() {
                     if (ordersummerydata != null) {
                         val intent =
                             Intent(requireActivity(), ProductSummaryDetailActivity::class.java)
+                        intent.putExtra("OrderId", ordersummerydata.Id.toString())
                         intent.putExtra("ProductId", ordersummerydata.ProductId.toString())
                         intent.putExtra("CustomerId", ordersummerydata.CustomerId.toString())
                         intent.putExtra("Pincode", ordersummerydata.Pincode.toString())

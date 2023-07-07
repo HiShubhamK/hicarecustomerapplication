@@ -119,23 +119,23 @@ class SlotComplinceActivity : AppCompatActivity() {
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-                c.add(
+            c.add(
                 Calendar.DAY_OF_MONTH,
                 1
             ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
             var output = sdf1.format(c.time)
             val output1 = sdf1.format(c1.time)
-            if (c1.time>c.time) {
-                binding.recyclerView.visibility=View.GONE
-                binding.lnrAvailableSlot.visibility=View.GONE
+            if (c1.time > c.time) {
+                binding.recyclerView.visibility = View.GONE
+                binding.lnrAvailableSlot.visibility = View.GONE
                 Toast.makeText(
                     this,
                     "Please select valid date or date greater then current date to book a slot",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                binding.recyclerView.visibility=View.VISIBLE
+                binding.recyclerView.visibility = View.VISIBLE
 //                binding.lnrAvailableSlot.visibility=View.VISIBLE
 
                 getOrdersList(output.toString())
@@ -216,7 +216,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                         AppUtils2.formatDateTime4(it[7].ScheduledDate.toString())
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.VISIBLE
-                    binding.lnrAvailableSlot.visibility=View.VISIBLE
+                    binding.lnrAvailableSlot.visibility = View.VISIBLE
 
                 }
             } catch (e: Exception) {
@@ -265,7 +265,12 @@ class SlotComplinceActivity : AppCompatActivity() {
                 viewModel.GetSlots(data)
                 viewModel.getSlotresponse.observe(this@SlotComplinceActivity, Observer {
 //                    Log.d(TAG, "onViewCreated: $it orders fragment")
-                    ShowBookingDialog(it, Service_Date, scheduledatetext,progressDialog)
+                    if (it.IsSuccess == true) {
+
+                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
+
+
+                    }
 
                 })
 
@@ -302,8 +307,6 @@ class SlotComplinceActivity : AppCompatActivity() {
         alertDialogBuilder.setView(promptsView)
         alertDialog = alertDialogBuilder.create()
         alertDialog.setCancelable(false)
-        alertDialog.show()
-        progressDialog.dismiss()
         val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
         val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
         val imgClose = promptsView.findViewById<View>(R.id.imgClose) as ImageView
@@ -323,10 +326,14 @@ class SlotComplinceActivity : AppCompatActivity() {
         recycleSlots.adapter = mSlotAdapter
 
         imgClose.setOnClickListener {
-            alertDialog.dismiss()
+            if(alertDialog.isShowing){
+                alertDialog.dismiss()
+                progressDialog.dismiss()
+            }
+
         }
         btnSubmit.setOnClickListener {
-            this.progressDialog.show()
+            progressDialog.show()
 
             var data = HashMap<String, Any>()
             data["TaskId"] = TaskId
@@ -337,16 +344,26 @@ class SlotComplinceActivity : AppCompatActivity() {
             data["ServiceType"] = ServiceType
 
             viewModel.bookSlotResponce.observe(this, Observer {
-                if (it.IsSuccess) {
+                if (it.IsSuccess == true) {
                     alertDialog.dismiss()
+                    Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
+                        .show()
+                    progressDialog.dismiss()
+
+                } else {
+                    Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
+                        .show()
+                    alertDialog.dismiss()
+                    progressDialog.dismiss()
+
+
                 }
 
             })
 
             viewModel.BookSlot(data)
 
-            Toast.makeText(this, "Appointment Booked", Toast.LENGTH_SHORT)
-                .show()
+
             alertDialog.dismiss()
             this.progressDialog.dismiss()
 
@@ -372,6 +389,8 @@ class SlotComplinceActivity : AppCompatActivity() {
                 Source = source!!
             }
         })
+        alertDialog.show()
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,8 @@ class BookInspectionActivity : AppCompatActivity() {
     lateinit var datalist: ArrayList<String>
     private val viewModels: HomeActivityViewModel by viewModels()
     var selectedLocation:String?=null
+    lateinit var progressDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_inspection)
@@ -30,6 +33,8 @@ class BookInspectionActivity : AppCompatActivity() {
         setContentView(binding.root)
         datalist= ArrayList()
         datalist.add("Select Type")
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
 
         viewModels.spinnerList.observe(this, Observer{
             datalist.addAll(it)
@@ -122,6 +127,8 @@ class BookInspectionActivity : AppCompatActivity() {
             } else if(binding.etpincodes.text.toString().trim().length<6){
                 Toast.makeText(this,"Enter correct pincode",Toast.LENGTH_LONG).show()
             }else{
+                progressDialog.show()
+
                 var data = HashMap<String, Any>()
                 data["LMSId"] =""
                 data["SFDCId"] =""
@@ -174,9 +181,12 @@ class BookInspectionActivity : AppCompatActivity() {
                     if(it.IsSuccess==true){
                         Toast.makeText(this,"Inspection appointment booked",Toast.LENGTH_LONG).show()
                         onBackPressed()
+
                     }else{
                         Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()
                     }
+                    progressDialog.dismiss()
+
                 })
 
                 viewModels.postleaderdata(data)

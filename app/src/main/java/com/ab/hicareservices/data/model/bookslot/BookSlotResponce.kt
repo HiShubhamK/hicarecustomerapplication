@@ -1,7 +1,10 @@
 package com.ab.hicareservices.data.model.bookslot
 
+import com.google.gson.annotations.SerializedName
+
 data class BookSlotResponce(
-    val Data: String,
-    val IsSuccess: Boolean,
-    val ResponseMessage: String
+
+    @SerializedName("IsSuccess") var IsSuccess: Boolean? = null,
+    @SerializedName("Data") var Data: Data? = Data(),
+    @SerializedName("ResponseMessage") var ResponseMessage: String? = null
 )

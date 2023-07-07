@@ -4,5 +4,6 @@ interface OnRelatedProductClick {
     fun onRelatedProdAddtoCart(
         position: Int,
         productid: Int,
+        data: Int?,
     )
 }

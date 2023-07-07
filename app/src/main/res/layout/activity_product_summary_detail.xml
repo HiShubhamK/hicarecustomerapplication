@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="45dp"
+                android:layout_toLeftOf="@+id/cartmenu"
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
@@ -77,6 +77,46 @@
                 android:text="Raise Complaint"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cartmenu"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".05"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/appCompatImageViewd1"
+                    android:layout_width="35dp"
+                    android:layout_height="33dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_shopping_cart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.165"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/appCompatImageViewd"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/appCompatImageViewd1"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </RelativeLayout>
 
@@ -1280,6 +1320,15 @@
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btnNeedhelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Need Help?"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/lnrSDetails"

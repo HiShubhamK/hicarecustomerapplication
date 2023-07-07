@@ -348,15 +348,20 @@ class SlotComplinceFragment() : Fragment() {
             viewModel.bookSlotResponce.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it orders fragment")
 //                ShowBookingDialog(it)
-                if (it.IsSuccess) {
+                if (it.IsSuccess==true) {
+                    Toast.makeText(requireContext(), it.Data!!.ResponseMessage , Toast.LENGTH_SHORT)
+                        .show()
+                    alertDialog.dismiss()
 
+                }else{
+                    Toast.makeText(requireContext(), it.ResponseMessage , Toast.LENGTH_SHORT)
+                        .show()
+                    alertDialog.dismiss()
 
                 }
 
             })
-            Toast.makeText(requireContext(), "Appointment Booked" , Toast.LENGTH_SHORT)
-                .show()
-            alertDialog.dismiss()
+
             progressDialog.dismiss()
 
         }

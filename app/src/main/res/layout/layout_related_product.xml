@@ -44,7 +44,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/imgaddtocart">
+                android:src="@drawable/addtocartnew"
+                app:tint="@color/colorAccent">
 
             </ImageView>
         </RelativeLayout>

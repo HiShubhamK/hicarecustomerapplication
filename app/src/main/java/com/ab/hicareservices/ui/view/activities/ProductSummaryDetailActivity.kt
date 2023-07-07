@@ -12,6 +12,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
@@ -29,12 +30,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.databinding.ActivityProductSummaryDetailBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
+import com.ab.hicareservices.ui.handler.OnProductClickedHandler
+import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
@@ -63,6 +67,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var ProductDisplayName = ""
     var orderNo = ""
     var OrderDate = ""
+    var OrderId = ""
     private val ORDER_NO = "ORDER_NO"
     private val SERVICE_TYPE = "SERVICE_TYPE"
     private val SERVICE_TYPE_IMG = "SERVICE_TYPE_IMG"
@@ -124,11 +129,16 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+        binding.cartmenu.setOnClickListener {
+            val intent = Intent(this, AddToCartActivity::class.java)
+            startActivity(intent)
+        }
 //
 //
 
         val intent = intent
         ProductDisplayName = intent.getStringExtra("ProductDisplayName").toString()
+        OrderId = intent.getStringExtra("OrderId").toString()
         orderNo = intent.getStringExtra("orderNo").toString()
         OrderDate = intent.getStringExtra("OrderDate").toString()
         OrderStatus = intent.getStringExtra("OrderStatus").toString()
@@ -188,28 +198,28 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //                4 -> binding.yourStateProgressBarId.setAllStatesCompleted(true)
 //            }
 
-            if (descriptionData.contains(OrderStatus)){
-                if (OrderStatus == "Booked"){
+            if (descriptionData.contains(OrderStatus)) {
+                if (OrderStatus == "Booked") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.ONE)
-                }else if (OrderStatus == "Packed"){
+                } else if (OrderStatus == "Packed") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
 
-                }else if (OrderStatus == "Dispatch" ||OrderStatus.equals("Shipped")){
+                } else if (OrderStatus == "Dispatch" || OrderStatus.equals("Shipped")) {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
 
-                }else if (OrderStatus == "Delivered"){
+                } else if (OrderStatus == "Delivered") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
 
-                }else{
-                    binding.yourStateProgressBarId.visibility=View.GONE
-                    binding.txtStatusTitle.visibility=View.GONE
-                    binding.statusTv.visibility=View.VISIBLE
+                } else {
+                    binding.yourStateProgressBarId.visibility = View.GONE
+                    binding.txtStatusTitle.visibility = View.GONE
+                    binding.statusTv.visibility = View.VISIBLE
 
                 }
-            }else{
-                binding.yourStateProgressBarId.visibility=View.GONE
-                binding.txtStatusTitle.visibility=View.GONE
-                binding.statusTv.visibility=View.VISIBLE
+            } else {
+                binding.yourStateProgressBarId.visibility = View.GONE
+                binding.txtStatusTitle.visibility = View.GONE
+                binding.statusTv.visibility = View.VISIBLE
 
             }
             binding.recRelatedProduct.layoutManager =
@@ -299,7 +309,28 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         }
 
 
+        relatedProductAdapter.setOnOrderItemClicked(object : OnRelatedProductClick {
+            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
+                binding.appCompatImageViewd.text = data.toString()
+            }
 
+        })
+        binding.btnNeedhelp.setOnClickListener {
+            val intent = Intent(this, AddProductComplaintsActivity::class.java)
+            try {
+                intent.putExtra("ProductId", productid)
+                intent.putExtra("orderNo", orderNo)
+                intent.putExtra("displayname", ProductDisplayName)
+                intent.putExtra("Created_On", OrderDate)
+                intent.putExtra("Complaint_Status",OrderStatus)
+                intent.putExtra("OrderId",OrderId)
+                intent.putExtra("OrderValuePostDiscount",OrderValuePostDiscount)
+                startActivity(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+
+        }
 
 
     }
@@ -473,13 +504,26 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 //                                    )
                                     lastlat = location1.latitude.toString()
                                     lastlongg = location1.longitude.toString()
-                                    val mGeocoder = Geocoder(this@ProductSummaryDetailActivity, Locale.getDefault())
+                                    val mGeocoder = Geocoder(
+                                        this@ProductSummaryDetailActivity,
+                                        Locale.getDefault()
+                                    )
                                     if (mGeocoder != null) {
-                                        var postalcode: MutableList<Address>? = mGeocoder.getFromLocation(lastlat!!.toDouble(), lastlongg!!.toDouble(), 5)
+                                        var postalcode: MutableList<Address>? =
+                                            mGeocoder.getFromLocation(
+                                                lastlat!!.toDouble(),
+                                                lastlongg!!.toDouble(),
+                                                5
+                                            )
                                         if (postalcode != null && postalcode.size > 0) {
-                                            for (i in 0 until postalcode.size){
-                                                AppUtils2.pincode=postalcode.get(i).postalCode.toString()
-                                                SharedPreferenceUtil.setData(this@ProductSummaryDetailActivity, "pincode",postalcode.get(i).postalCode.toString())
+                                            for (i in 0 until postalcode.size) {
+                                                AppUtils2.pincode =
+                                                    postalcode.get(i).postalCode.toString()
+                                                SharedPreferenceUtil.setData(
+                                                    this@ProductSummaryDetailActivity,
+                                                    "pincode",
+                                                    postalcode.get(i).postalCode.toString()
+                                                )
                                                 break
                                             }
                                         }
