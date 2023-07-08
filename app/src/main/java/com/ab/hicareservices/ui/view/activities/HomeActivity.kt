@@ -186,7 +186,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun getLeadMethod() {
         try {
             viewModels.spinnerList.observe(this, Observer {
-                datalist.addAll(it)
+                if(it!=null) {
+                    datalist.addAll(it)
+                }
             })
 
             viewModels.getleaderspinner("pest")

@@ -64,11 +64,11 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         if (AppUtils2.changebuttonstatus == false) {
             holder.binding.imgadd.isClickable = true
             holder.binding.imgremove.isClickable = true
-            holder.binding.imgdelete.isClickable=true
+            holder.binding.imgdelete.isClickable = true
         } else {
             holder.binding.imgadd.isClickable = false
             holder.binding.imgremove.isClickable = false
-            holder.binding.imgdelete.isClickable=false
+            holder.binding.imgdelete.isClickable = false
         }
 
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
@@ -101,7 +101,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         }
 
         holder.binding.imgadd.setOnClickListener {
-            if (counts == 1){
+            if (counts == 1) {
                 holder.binding.imgremove.visibility = View.VISIBLE
                 holder.binding.imgdelete.visibility = View.GONE
             }
@@ -127,7 +127,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     holder.binding.textcount.text = counts.toString()
                     holder.binding.imgdelete.visibility = View.GONE
                     progressDialogs.dismiss()
-                }else if (counts == 1) {
+                } else if (counts == 1) {
                     holder.binding.imgremove.visibility = View.VISIBLE
                     counts = counts + 1
                     holder.binding.imgadd.isClickable = false
@@ -161,7 +161,26 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             holder.binding.imgremove.isEnabled = false
             Handler(Looper.getMainLooper()).postDelayed({
                 counts = counts - 1
-                if (counts == 1) {
+//                if (counts == 1) {
+//                    holder.binding.imgdelete.visibility = View.VISIBLE
+//                    holder.binding.imgremove.visibility = View.GONE
+//                    holder.binding.textcount.text = counts.toString()
+//                    AppUtils2.changebuttonstatus = true
+//                    onCartClickedHandler!!.setonaddclicklistener(
+//                        position,
+//                        productlists.ProductId!!.toInt(),
+//                        -1, holder.binding.imgremove
+//                    )
+//                    progressDialogs.dismiss()
+
+
+                if (counts < 1) {
+                    holder.binding.imgremove.isClickable = false
+                    holder.binding.imgremove.isEnabled = false
+                    holder.binding.imgdelete.visibility = View.VISIBLE
+                    holder.binding.imgremove.visibility = View.GONE
+                    holder.binding.textcount.text = "1"
+                } else if (counts == 1) {
                     holder.binding.imgdelete.visibility = View.VISIBLE
                     holder.binding.imgremove.visibility = View.GONE
                     holder.binding.textcount.text = counts.toString()
@@ -196,7 +215,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         }
 
         holder.binding.imgdelete.setOnClickListener {
-            holder.binding.textcount.text="1"
+            holder.binding.textcount.text = "1"
 
             progressDialogs.dismiss()
 
@@ -211,7 +230,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
                 progressDialogs.dismiss()
 
-            },1500)
+            }, 1500)
 
 
 //            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())

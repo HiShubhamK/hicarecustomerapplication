@@ -316,6 +316,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
+                        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+                        SharedPreferenceUtil.setData(this, "Billingdata", "")
                         Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                         SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
                         val intent=Intent(this@PaymentActivity,HomeActivity::class.java)

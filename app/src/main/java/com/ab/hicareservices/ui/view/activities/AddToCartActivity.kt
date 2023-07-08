@@ -97,7 +97,6 @@ class AddToCartActivity : AppCompatActivity() {
         viewProductModel.cartlist.observe(this, Observer {
 
             if(it!=null) {
-
                 binding.recycleviewproduct.visibility=View.VISIBLE
                 binding.cardviewprice.visibility= View.VISIBLE
                 binding.lnrbuttoncart.visibility=View.VISIBLE

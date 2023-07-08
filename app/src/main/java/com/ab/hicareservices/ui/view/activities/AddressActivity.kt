@@ -54,6 +54,7 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
+
         if(checkboxcheck==false) {
             checkboxcheck==true
             binding.checkbox.isChecked == false
@@ -81,8 +82,14 @@ class AddressActivity : AppCompatActivity() {
             binding.checkbox.visibility=View.VISIBLE
         }
 
-        getAddressListdata()
-//        getAddressListdata2()
+        if(shippingdata.equals("") || shippingdata==null){
+            getAddressListdata("")
+        }else{
+            getAddressListdata(shippingdata.toString())
+        }
+
+
+        getAddressListdata2()
         if(billingdata.equals("")) {
         }else{
             getAddressforbilling()
@@ -152,16 +159,20 @@ class AddressActivity : AppCompatActivity() {
                 var data = it.get(i).Id.toString()
 //                val num:Int=
 //                val num2:Int=billingdata.toInt()
-                if (data.equals(billingdata)) {
-                    binding.txtbilling.visibility = View.VISIBLE
-                    binding.txtbilling.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).Pincode.toString()
-                } else {
+                if (data.equals(shippingdata)) {
+                    binding.txtshipping.visibility = View.VISIBLE
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(i).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+
+                    break
+                } else if(it.get(i).IsDefault==true) {
+                    it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(i).Street.toString() + "," +
+                            it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(i).Pincode.toString()
+
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    break
 
                 }
             }
@@ -171,7 +182,7 @@ class AddressActivity : AppCompatActivity() {
 
     }
 
-    private fun getAddressListdata() {
+    private fun getAddressListdata(shippingdata:String) {
 
         progressDialog.show()
 
@@ -185,6 +196,7 @@ class AddressActivity : AppCompatActivity() {
                 var data = it.get(i).Id.toString()
 
                 if(data.equals(shippingdata) || shippingdata!=null){
+
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                     pincodeshipping=it.get(i).Pincode.toString()
@@ -352,6 +364,7 @@ class AddressActivity : AppCompatActivity() {
                         if(it.IsSuccess==true){
                             val newAddressid=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
+                            getAddressListdata(newAddressid)
                             alertDialog.dismiss()
                             binding.checkbox.isChecked==false
                             appCompatCheckBox.isChecked=false
@@ -513,7 +526,7 @@ class AddressActivity : AppCompatActivity() {
                             var newaddessid=it.Data.toString()
                             billingdata=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
-                            getAddressListdata()
+                            getAddressListdata("")
                             getAddressforbilling()
                             binding.checkbox.isChecked==false
                             appCompatCheckBox.isChecked=false
@@ -538,6 +551,7 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+        SharedPreferenceUtil.setData(this, "Billingdata", "")
     }
-
 }

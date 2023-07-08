@@ -179,13 +179,14 @@ class BookInspectionActivity : AppCompatActivity() {
 
                 viewModels.leadResponse.observe(this, Observer {
                     if(it.IsSuccess==true){
+                        progressDialog.dismiss()
                         Toast.makeText(this,"Inspection appointment booked",Toast.LENGTH_LONG).show()
                         onBackPressed()
 
                     }else{
+                        progressDialog.dismiss()
                         Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()
                     }
-                    progressDialog.dismiss()
 
                 })
 

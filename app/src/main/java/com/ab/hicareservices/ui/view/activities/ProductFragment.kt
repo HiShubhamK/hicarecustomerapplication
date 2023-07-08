@@ -161,6 +161,22 @@ class ProductFragment : Fragment() {
                 progressDialog.show()
 
                 Handler(Looper.getMainLooper()).postDelayed({
+
+                    viewProductModel.addtocart.observe(requireActivity(), Observer {
+                        if (it.IsSuccess == true) {
+                            Toast.makeText(requireActivity(), "Product Added To Cart", Toast.LENGTH_SHORT).show()
+                            getproductcount()
+                        } else {
+                            Toast.makeText(
+                                requireActivity(),
+                                "Something went wrong! Unable to add product into cart",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    })
+
+
                     viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
 
                     viewProductModel.productcount.observe(requireActivity(), Observer {
@@ -175,13 +191,31 @@ class ProductFragment : Fragment() {
 
 
                     viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-                }, 500)
+                }, 1500)
             }
 
             override fun onProductView(position: Int, productid: OrderSummeryData) {
 
             }
         })
+    }
+
+    private fun getproductcount() {
+
+        progressDialog.show()
+
+        viewProductModel.productcount.observe(requireActivity(), Observer {
+            progressDialog.dismiss()
+            if (it.IsSuccess == true) {
+                progressDialog.dismiss()
+                binding.cartmenu.visibility = View.VISIBLE
+                binding.appCompatImageViewd.text = it.Data.toString()
+            } else {
+                binding.cartmenu.visibility = View.GONE
+            }
+        })
+
+        viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
     }
 
     override fun onResume() {

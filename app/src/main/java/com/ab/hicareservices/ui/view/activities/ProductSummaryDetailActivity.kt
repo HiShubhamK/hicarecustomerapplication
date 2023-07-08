@@ -113,7 +113,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding = ActivityProductSummaryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        MyLocationListener(this)
+//        MyLocationListener(this)
 
         var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
