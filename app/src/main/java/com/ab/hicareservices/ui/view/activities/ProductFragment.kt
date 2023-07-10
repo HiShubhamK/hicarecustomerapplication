@@ -142,7 +142,6 @@ class ProductFragment : Fragment() {
                     binding.textnotfound.visibility = View.VISIBLE
                 }
 
-
             })
 
             viewProductModel.errorMessage.observe(requireActivity(), Observer {
