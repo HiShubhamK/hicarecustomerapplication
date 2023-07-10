@@ -49,7 +49,7 @@
                     android:layout_toRightOf="@id/imgLogo"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="center_horizontal"
-                    android:text="Help"
+                    android:text="Help &amp; Support"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp" />
 

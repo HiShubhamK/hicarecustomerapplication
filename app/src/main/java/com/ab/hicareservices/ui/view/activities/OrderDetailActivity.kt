@@ -61,7 +61,7 @@ class OrderDetailActivity : AppCompatActivity() {
     var locationLatitudeS: String = ""
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
-    var stdvalue=""
+    var stdvalue = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,9 +136,9 @@ class OrderDetailActivity : AppCompatActivity() {
                     intent.putExtra("ORDER_NO", orderNo)
                     intent.putExtra("ACCOUNT_NO", accountId)
                     intent.putExtra("SERVICETYPE_NO", service)
-                    intent.putExtra("SERVICE_TYPE",serviceType)
+                    intent.putExtra("SERVICE_TYPE", serviceType)
                     intent.putExtra("PAYMENT", orderValueWithTax)
-                    intent.putExtra("Standard_Value__c",stdvalue)
+                    intent.putExtra("Standard_Value__c", stdvalue)
                     intent.putExtra("Product", false)
                     activityResultLauncher.launch(intent)
 
@@ -242,8 +242,9 @@ class OrderDetailActivity : AppCompatActivity() {
 //                 orderValueWithTaxAfterDiscount =
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                 binding.orderNameTv.text = data.service_Plan_Name__c
-                binding.orderNoTv.text = ":"+orderNo
-                binding.dateTv.text=":"+ AppUtils2.formatDateTime4(data.appointmentStartDateTime__c.toString())
+                binding.orderNoTv.text = ":" + orderNo
+                binding.dateTv.text =
+                    ":" + AppUtils2.formatDateTime4(data.appointmentStartDateTime__c.toString())
                 binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
 //                binding.orderDateTv.text  = data.createdDateText
 //                binding.statusTv.text = data.status__c
@@ -280,10 +281,10 @@ class OrderDetailActivity : AppCompatActivity() {
 //                )
                 if (data.enable_Payment_Link == true) {
                     binding.payNowBtn.visibility = View.VISIBLE
-                    binding.txtamountpaidornot.text="Amount To be Paid"
+                    binding.txtamountpaidornot.text = "Amount To be Paid"
                 } else {
                     binding.payNowBtn.visibility = View.GONE
-                    binding.txtamountpaidornot.text="Amount Paid"
+                    binding.txtamountpaidornot.text = "Amount Paid"
                 }
 
                 binding.statusTv.text = data.status__c
@@ -307,6 +308,7 @@ class OrderDetailActivity : AppCompatActivity() {
 
                 } else if (data.status__c.equals("Cancelled")) {
 
+                    binding.title.visibility = View.GONE
                     binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
 
                 } else if (data.status__c.equals("Active")) {

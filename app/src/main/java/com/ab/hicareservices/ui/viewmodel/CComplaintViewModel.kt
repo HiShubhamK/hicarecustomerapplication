@@ -53,9 +53,9 @@ class CComplaintViewModel : ViewModel() {
 
             override fun onResponse(call: Call<SaveSalesResponse>, response: Response<SaveSalesResponse>) {
                 if (response.isSuccessful){
-                    SaveSalesResponse.postValue(response.body()?.Data!!)
+                    SaveSalesResponse.postValue(response.body()?.ResponseMessage!!)
                 }
-                Log.d("TAG", "Response " + response.body()?.Data.toString())
+                Log.d("TAG", "Response " + response.body()?.ResponseMessage.toString())
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {

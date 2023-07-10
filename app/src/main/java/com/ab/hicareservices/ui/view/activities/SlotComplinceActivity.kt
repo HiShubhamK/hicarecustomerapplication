@@ -326,10 +326,8 @@ class SlotComplinceActivity : AppCompatActivity() {
         recycleSlots.adapter = mSlotAdapter
 
         imgClose.setOnClickListener {
-            if(alertDialog.isShowing){
                 alertDialog.dismiss()
                 progressDialog.dismiss()
-            }
 
         }
         btnSubmit.setOnClickListener {
