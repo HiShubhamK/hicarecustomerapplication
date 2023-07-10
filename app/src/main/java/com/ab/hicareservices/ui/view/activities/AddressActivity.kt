@@ -54,7 +54,6 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
-
         if(checkboxcheck==false) {
             checkboxcheck==true
             binding.checkbox.isChecked == false
@@ -85,11 +84,12 @@ class AddressActivity : AppCompatActivity() {
         if(shippingdata.equals("") || shippingdata==null){
             getAddressListdata("")
         }else{
-            getAddressListdata(shippingdata.toString())
+            getAddressforshipping()
+//            getAddressListdata(shippingdata.toString())
         }
 
 
-        getAddressListdata2()
+//        getAddressListdata2()
         if(billingdata.equals("")) {
         }else{
             getAddressforbilling()
@@ -112,6 +112,8 @@ class AddressActivity : AppCompatActivity() {
             if(pincodeshipping.equals(AppUtils2.pincode)) {
                 if (billingdata.equals("") || billingdata!!.isEmpty()) {
                     billingdata = shippingdata
+                    SharedPreferenceUtil.setData(this,"Billingdata",billingdata)
+
                     val intent = Intent(this, OverviewProductDetailsActivity::class.java)
                     intent.putExtra("Billdata", billingdata)
                     intent.putExtra("Shipdata", shippingdata)
@@ -147,6 +149,19 @@ class AddressActivity : AppCompatActivity() {
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
+    }
+
+    private fun getAddressforshipping() {
+        progressDialog.show()
+        viewProductModel.getaddressbydetailid.observe(this, Observer {
+            progressDialog.dismiss()
+            binding.txtshipping.visibility = View.VISIBLE
+            binding.txtshipping.text =
+                it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+                        it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
+            pincodeshipping=it.Pincode.toString()
+        })
+        viewProductModel.getAddressDetailbyId(shippingdata!!.toInt())
     }
 
     private fun getAddressListdata2() {
@@ -195,17 +210,19 @@ class AddressActivity : AppCompatActivity() {
 
                 var data = it.get(i).Id.toString()
 
-                if(data.equals(shippingdata) || shippingdata!=null){
+                if(data.equals(shippingdata)){
 
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                     pincodeshipping=it.get(i).Pincode.toString()
                     break
-                }else if(it.get(i).IsDefault==true){
+                }
+                else if(it.get(i).IsDefault==true){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                     break
-                }else{
+                }
+                else{
                     binding.txtbilling.visibility=View.GONE
                 }
             }
@@ -553,5 +570,8 @@ class AddressActivity : AppCompatActivity() {
         super.onBackPressed()
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         SharedPreferenceUtil.setData(this, "Billingdata", "")
+        val intent= Intent(this,AddToCartActivity::class.java)
+        startActivity(intent)
+
     }
 }

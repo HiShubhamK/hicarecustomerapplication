@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imgClose"
+        android:id="@+id/imgCloseS"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_gravity="end"

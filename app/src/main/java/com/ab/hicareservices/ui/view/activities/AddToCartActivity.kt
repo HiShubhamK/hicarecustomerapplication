@@ -120,6 +120,7 @@ class AddToCartActivity : AppCompatActivity() {
                     viewProductModel.getDeleteProductCart.observe(this@AddToCartActivity, Observer {
                         if(it.IsSuccess==true){
                             progressDialog.dismiss()
+                            getSummarydata()
                             AppUtils2.cartcounts=""
                             val intent=intent
                             AppUtils2.changebuttonstatus=false
@@ -177,9 +178,9 @@ class AddToCartActivity : AppCompatActivity() {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-
             if (it.TotalAmount!!.toDouble().toInt() != 0) {
                 progressDialog.dismiss()
+                binding.upcomingservices.visibility=View.GONE
                 binding.cardviewprice.visibility= View.VISIBLE
                 binding.lnrbuttoncart.visibility=View.VISIBLE
                 binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
@@ -187,11 +188,11 @@ class AddToCartActivity : AppCompatActivity() {
                 binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
                 binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
 
-            } else {
+            } else if (it.TotalAmount!!.toDouble().toInt() == 0) {
+                binding.upcomingservices.visibility=View.VISIBLE
                 binding.lnrbuttoncart.visibility = View.GONE
                 binding.cardviewprice.visibility = View.GONE
                 progressDialog.dismiss()
-
             }
         })
 //        },1000)

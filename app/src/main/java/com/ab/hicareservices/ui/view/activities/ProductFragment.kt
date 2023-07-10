@@ -98,14 +98,14 @@ class ProductFragment : Fragment() {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
                 Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG).show()
             } else if(binding.getpincodetext.text.toString().trim().length<6){
-                Toast.makeText(requireActivity(), "Enter correct pincode", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_LONG).show()
             }else{
-//                AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
-//                SharedPreferenceUtil.setData(
-//                    requireActivity(),
-//                    "pincode",
-//                    binding.getpincodetext.text.toString()
-//                )
+                AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
+                SharedPreferenceUtil.setData(
+                    requireActivity(),
+                    "pincode",
+                    binding.getpincodetext.text.toString()
+                )
                 getProductslist(binding.getpincodetext.text.trim().toString())
             }
 
@@ -133,7 +133,7 @@ class ProductFragment : Fragment() {
                 progressDialog.dismiss()
 
                 if (it != null) {
-                    SharedPreferenceUtil.setData(requireActivity(), "pincode", pincode)
+
                     binding.recycleviewproduct.visibility = View.VISIBLE
                     binding.textnotfound.visibility = View.GONE
                     mAdapter.setProductList(it, requireActivity(), viewProductModel)
@@ -172,7 +172,6 @@ class ProductFragment : Fragment() {
                                 "Something went wrong! Unable to add product into cart",
                                 Toast.LENGTH_SHORT
                             ).show()
-
                         }
                     })
 

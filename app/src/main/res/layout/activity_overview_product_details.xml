@@ -401,7 +401,7 @@
                                     android:fontFamily="@font/lato_regular"
                                     android:gravity="end"
                                     android:text=""
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/md_red_700"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -476,7 +476,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/lato_regular"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/md_red_700"
             android:textSize="14sp"
             android:textStyle="bold" />
 

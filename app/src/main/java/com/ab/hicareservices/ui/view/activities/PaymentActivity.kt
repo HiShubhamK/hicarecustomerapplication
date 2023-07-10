@@ -164,7 +164,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 Checkout.preload(applicationContext)
                 val activity:PaymentActivity = this
                 val co = Checkout()
-                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
 
                 co.open(this, options)
             }
@@ -191,7 +192,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             try {
                 val co = Checkout()
-                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
                 co.open(this, options)
             } catch (e: Exception) {
                 Log.d("TAG", "$e")
