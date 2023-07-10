@@ -55,8 +55,18 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(orders.appointmentEndDateTime__c.toString())
             holder.binding.txtrupees.text = "₹ ${orders.order_Value_with_Tax__c}"
 
+            if(orders.appointmentEndDateTime__c.equals("")){
+                holder.binding.txtappointmentdate.visibility=View.GONE
+                holder.binding.nextappointmentdate.visibility=View.GONE
+            }else{
+                holder.binding.txtappointmentdate.visibility=View.VISIBLE
+                holder.binding.nextappointmentdate.visibility=View.VISIBLE
+
+            }
+
             if(orders.status__c.equals("Expired")){
                 holder.binding.txtappointmentdate.visibility=View.GONE
+                holder.binding.nextappointmentdate.visibility=View.GONE
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#D50000"))
 

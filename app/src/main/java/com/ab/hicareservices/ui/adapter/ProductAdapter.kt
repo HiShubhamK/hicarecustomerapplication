@@ -38,8 +38,10 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
         if(productlists.IsStockAvailable==true) {
             holder.binding.txtratingvalues.text=productlists.ProductRating.toString()
-            Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
-            holder.binding.txtname.text = productlists.ProductName
+            if(productlists.ProductThumbnail!=null) {
+                Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+            }
+                holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
 //            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)

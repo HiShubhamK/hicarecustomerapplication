@@ -240,11 +240,9 @@ class AddressActivity : AppCompatActivity() {
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
 
-
         if(b.equals("true")){
 
-            var courses = arrayOf<String?>("Home", "Office",
-                "Others")
+            var courses = arrayOf<String?>("Home", "Office", "Others")
 
             val etname = promptsView.findViewById<View>(R.id.etname) as EditText
             val edtmobileno = promptsView.findViewById<View>(R.id.edtmobileno) as EditText
@@ -257,7 +255,6 @@ class AddressActivity : AppCompatActivity() {
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
             val etstate=promptsView.findViewById<View>(R.id.etstate) as EditText
             val etcity=promptsView.findViewById<View>(R.id.etcitites) as EditText
-
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner

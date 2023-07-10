@@ -183,7 +183,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 } else if (counts == 1) {
                     holder.binding.imgdelete.visibility = View.VISIBLE
                     holder.binding.imgremove.visibility = View.GONE
-                    holder.binding.textcount.text = counts.toString()
+                    holder.binding.textcount.text = "1"
                     AppUtils2.changebuttonstatus = true
                     onCartClickedHandler!!.setonaddclicklistener(
                         position,
@@ -226,7 +226,6 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     productlists.CartId,
                     productlists.UserId
                 )
-
 
                 progressDialogs.dismiss()
 
