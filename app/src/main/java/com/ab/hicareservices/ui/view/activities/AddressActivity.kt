@@ -35,6 +35,7 @@ class AddressActivity : AppCompatActivity() {
     var billingdata: String? = ""
     lateinit var progressDialog: ProgressDialog
     var checkboxcheck:Boolean=false
+    var pincodeshipping=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,7 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
+
         if(checkboxcheck==false) {
             checkboxcheck==true
             binding.checkbox.isChecked == false
@@ -65,7 +67,6 @@ class AddressActivity : AppCompatActivity() {
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
             if (b==true){
-                billingdata=shippingdata
                 showAddNewAddressdialog("false",binding.checkbox)
             }else {
 
@@ -81,8 +82,14 @@ class AddressActivity : AppCompatActivity() {
             binding.checkbox.visibility=View.VISIBLE
         }
 
-        getAddressListdata()
-//        getAddressListdata2()
+        if(shippingdata.equals("") || shippingdata==null){
+            getAddressListdata("")
+        }else{
+            getAddressListdata(shippingdata.toString())
+        }
+
+
+        getAddressListdata2()
         if(billingdata.equals("")) {
         }else{
             getAddressforbilling()
@@ -102,10 +109,22 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.btnnext.setOnClickListener{
-            val intent=Intent(this,OverviewProductDetailsActivity::class.java)
-            intent.putExtra("Billdata",billingdata)
-            intent.putExtra("Shipdata",shippingdata)
-            startActivity(intent)
+            if(pincodeshipping.equals(AppUtils2.pincode)) {
+                if (billingdata.equals("") || billingdata!!.isEmpty()) {
+                    billingdata = shippingdata
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                }
+            }else{
+                Toast.makeText(this,"Invalid pincode selected",Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.lnraddress.setOnClickListener {
@@ -140,16 +159,20 @@ class AddressActivity : AppCompatActivity() {
                 var data = it.get(i).Id.toString()
 //                val num:Int=
 //                val num2:Int=billingdata.toInt()
-                if (data.equals(billingdata)) {
-                    binding.txtbilling.visibility = View.VISIBLE
-                    binding.txtbilling.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).Pincode.toString()
-                } else {
+                if (data.equals(shippingdata)) {
+                    binding.txtshipping.visibility = View.VISIBLE
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(i).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+
+                    break
+                } else if(it.get(i).IsDefault==true) {
+                    it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(i).Street.toString() + "," +
+                            it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(i).Pincode.toString()
+
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    break
 
                 }
             }
@@ -159,7 +182,7 @@ class AddressActivity : AppCompatActivity() {
 
     }
 
-    private fun getAddressListdata() {
+    private fun getAddressListdata(shippingdata:String) {
 
         progressDialog.show()
 
@@ -172,17 +195,16 @@ class AddressActivity : AppCompatActivity() {
 
                 var data = it.get(i).Id.toString()
 
-                if(data.equals(shippingdata)){
+                if(data.equals(shippingdata) || shippingdata!=null){
+
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                }else if(data.equals(billingdata)){
-                    binding.checkbox.visibility=View.GONE
-                    binding.txtbilling.visibility=View.VISIBLE
-                    binding.txtbilling.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    break
                 }else if(it.get(i).IsDefault==true){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    break
                 }else{
                     binding.txtbilling.visibility=View.GONE
                 }
@@ -311,9 +333,9 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etstate.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
                 }else{
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -342,6 +364,7 @@ class AddressActivity : AppCompatActivity() {
                         if(it.IsSuccess==true){
                             val newAddressid=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
+                            getAddressListdata(newAddressid)
                             alertDialog.dismiss()
                             binding.checkbox.isChecked==false
                             appCompatCheckBox.isChecked=false
@@ -471,9 +494,9 @@ class AddressActivity : AppCompatActivity() {
                 } else if(etstate.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
                 }else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
                 }else{
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -503,7 +526,7 @@ class AddressActivity : AppCompatActivity() {
                             var newaddessid=it.Data.toString()
                             billingdata=it.Data.toString()
                             SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
-                            getAddressListdata()
+                            getAddressListdata("")
                             getAddressforbilling()
                             binding.checkbox.isChecked==false
                             appCompatCheckBox.isChecked=false
@@ -528,6 +551,7 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+        SharedPreferenceUtil.setData(this, "Billingdata", "")
     }
-
 }

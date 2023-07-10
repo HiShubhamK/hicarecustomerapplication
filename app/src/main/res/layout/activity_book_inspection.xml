@@ -903,7 +903,7 @@
                         android:layout_marginTop="4dp"
                         android:background="@null"
                         android:padding="12dp"
-                        android:maxLength="6"
+                        android:maxLength="50"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>

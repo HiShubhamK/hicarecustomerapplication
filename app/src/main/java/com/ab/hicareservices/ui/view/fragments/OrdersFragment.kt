@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -92,7 +91,7 @@ class OrdersFragment() : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        getOrdersList(progressDialog)
+        getOrdersList(progressDialog,"No Active Orders")
         if (isfromMenu){
             binding.headerView.visibility=View.VISIBLE
 
@@ -114,7 +113,7 @@ class OrdersFragment() : Fragment() {
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog, "No Active Orders")
         }
 
         binding.txtexpire.setOnClickListener {
@@ -123,7 +122,7 @@ class OrdersFragment() : Fragment() {
                 progressDialog.show()
             }, 1000)
             ordertype = "Expired"
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog, "No Expired Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
@@ -137,7 +136,7 @@ class OrdersFragment() : Fragment() {
             }, 1000)
 
             ordertype = "Cancelled"
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog, "No Cancelled Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -212,7 +211,7 @@ class OrdersFragment() : Fragment() {
     }
 
 
-    private fun getOrdersList( progressDialog: ProgressDialog) {
+    private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
 
         progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
@@ -230,16 +229,19 @@ class OrdersFragment() : Fragment() {
                 if (it.isNotEmpty()) {
                     mAdapter.setOrdersList(it, requireActivity())
                     binding.recyclerView.visibility = View.VISIBLE
+                    binding.textnotfound.visibility = View.GONE
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
+                    binding.textnotfound.text=s
                 }
             }else{
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text=s
             }
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {

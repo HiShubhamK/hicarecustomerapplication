@@ -7,27 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddressBinding
 import com.ab.hicareservices.databinding.ActivityMyOrderBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-import org.json.JSONObject
 
 class MyOrderActivity : AppCompatActivity() {
 
@@ -61,7 +55,7 @@ class MyOrderActivity : AppCompatActivity() {
 
          paymentdone = SharedPreferenceUtil.getData(this, "Paymentback", "-1").toString()
 
-        getOrdersList(progressDialog)
+        getOrdersList(progressDialog, "No Active Orders")
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
@@ -86,7 +80,7 @@ class MyOrderActivity : AppCompatActivity() {
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog,"No Active Orders")
         }
 
         binding.txtexpire.setOnClickListener {
@@ -95,7 +89,7 @@ class MyOrderActivity : AppCompatActivity() {
                 progressDialog.show()
             }, 1000)
             ordertype = "Expired"
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog, "No Expire Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
@@ -109,7 +103,7 @@ class MyOrderActivity : AppCompatActivity() {
             }, 1000)
 
             ordertype = "Cancelled"
-            getOrdersList(progressDialog)
+            getOrdersList(progressDialog, "No Cancelled Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -184,7 +178,7 @@ class MyOrderActivity : AppCompatActivity() {
     }
 
 
-    private fun getOrdersList( progressDialog: ProgressDialog) {
+    private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
 
         progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
@@ -199,6 +193,7 @@ class MyOrderActivity : AppCompatActivity() {
             if(it!=null) {
 
                 if (it.isNotEmpty()) {
+                    binding.textnotfound.visibility = View.GONE
                     mAdapter.setOrdersList(it, this)
                     binding.recyclerView.visibility = View.VISIBLE
                     progressDialog.dismiss()
@@ -206,11 +201,13 @@ class MyOrderActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
+                    binding.textnotfound.text=s
                 }
             }else{
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text=s
             }
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {

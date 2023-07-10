@@ -84,20 +84,30 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recUpcomingData"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/upcomingservices"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
     <TextView
         android:id="@+id/txtnotfound"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lato_semibold"
-        android:gravity="center"
         android:layout_centerInParent="true"
-        android:text="No Services Found"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/lato_semibold"
+        android:text="No Upservices Found"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
-        android:visibility="gone">
+        android:visibility="visible">
 
     </TextView>
+    </RelativeLayout>
+
 </LinearLayout>

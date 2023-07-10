@@ -196,7 +196,7 @@ class AddresslistActivity : AppCompatActivity() {
                 }else if(edtmobileno.text.toString().trim().equals("0000000000")){
                     Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if(etemps.text.toString().trim().equals("") ){
-                    Toast.makeText(this,"Enter email adress", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter email address", Toast.LENGTH_LONG).show()
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()){
                     Toast.makeText(this,"Enter correct email address", Toast.LENGTH_LONG).show()
                 } else if(selectedLocation.toString().trim().equals("Select Type")){

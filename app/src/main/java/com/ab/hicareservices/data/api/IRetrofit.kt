@@ -183,5 +183,7 @@ interface IRetrofit {
     @GET("ProductComplaint/ComplaintListByUserId")
     fun ProductComplaintListByUserId(@Query("userId") userId: Int): Call<ProductComplaintListResponse>
 
+    @GET("Voucher/ValidateVoucher")
+    fun  getValidateVoucher(@Query("voucherCode") voucherCode: String,@Query("userId") userId: Int,@Query("pincode") pincode: String): Call<ValidateVoucherResponse>
 
 }
