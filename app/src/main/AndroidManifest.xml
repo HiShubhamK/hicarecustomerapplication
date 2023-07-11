@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
 
-    <uses-permission
-        android:name="android.permission.POST_NOTIFICATIONS"
-        tools:node="remove" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -175,11 +173,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.view.activities.ComplaintsActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+<!--        <activity-->
+<!--            android:name=".ui.view.activities.ComplaintsActivity"-->
+<!--            android:exported="true"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            tools:ignore="LockedOrientationActivity" />-->
         <activity
             android:name=".ui.view.activities.OTPActivity"
             android:exported="true"
@@ -256,7 +254,6 @@
         </activity>
         <activity android:name=".ui.view.activities.InAppWebViewActivity" />
         <activity android:name=".ui.view.activities.ProductSummaryDetailActivity" />
-        <activity android:name=".ui.view.activities.ProductComplaintsActivity" />
         <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity" />
         <activity android:name=".ui.view.activities.AddProductComplaintsActivity" />
     </application>

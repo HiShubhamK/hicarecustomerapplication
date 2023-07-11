@@ -29,7 +29,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="fitXY"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -144,17 +144,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="5dp"
-                    android:weightSum="3">
-
-                    <ImageView
-                        android:id="@+id/imgdelete"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_baseline_delete_outline_24"
-                        android:gravity="center"
-                        android:visibility="gone"/>
-
+                    android:weightSum="4">
 
                     <ImageView
                         android:id="@+id/imgremove"
@@ -162,7 +152,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_baseline_remove_24"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:background="#f6f6f6"/>
 
                     <TextView
                         android:id="@+id/textcount"
@@ -179,8 +170,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_baseline_add_24"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:background="#f6f6f6"/>
 
+                    <ImageView
+                        android:id="@+id/imgdelete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/ic_baseline_delete_outline_24"
+                        android:gravity="center"
+                        android:background="#f6f6f6"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.cardview.widget.CardView>

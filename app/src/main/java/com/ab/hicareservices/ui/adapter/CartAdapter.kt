@@ -29,7 +29,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
     lateinit var progressDialog: ProgressDialog
     var changebuttonstatus: Boolean = false
     private var onCartClickedHandler: onCartClickedHandler? = null
-    lateinit var progressDialogs: ProgressDialog
+//    lateinit var progressDialogs: ProgressDialog
 
     class MainViewHolder(val binding: LayoutCartlistBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -56,21 +56,13 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 //            holder.binding.imgdelete.isClickable=true
 //        }
 
-        progressDialogs = ProgressDialog(requireActivity, R.style.TransparentProgressDialog)
+        progressDialog = ProgressDialog(requireActivity, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         val productlists = productlist[position]
 
-        if (AppUtils2.changebuttonstatus == false) {
-            holder.binding.imgadd.isClickable = true
-            holder.binding.imgremove.isClickable = true
-            holder.binding.imgdelete.isClickable = true
-        } else {
-            holder.binding.imgadd.isClickable = false
-            holder.binding.imgremove.isClickable = false
-            holder.binding.imgdelete.isClickable = false
-        }
-
+        holder.binding.textcount.text= productlists.Quantity!!.toInt().toString()
+        counts = productlists.Quantity!!.toInt()
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
         Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
         holder.binding.txtname.text = productlists.ProductName
@@ -88,152 +80,62 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             holder.binding.txtprice.text = "\u20B9" + productlists.PricePerQuantity.toString()
             holder.binding.txtpriceline.visibility = View.GONE
         }
+        holder.binding.imgdelete.setOnClickListener {
 
-        if (productlists.Quantity == 1) {
-            holder.binding.imgremove.visibility = View.GONE
-            holder.binding.imgdelete.visibility = View.VISIBLE
-        } else if (productlists.Quantity!!.toInt() > 1) {
-            holder.binding.imgremove.visibility = View.VISIBLE
-            holder.binding.imgdelete.visibility = View.GONE
-            holder.binding.textcount.text = productlists.Quantity!!.toString()
-            holder.binding.textcount.text = productlists.Quantity.toString()
-            counts = productlists.Quantity!!.toInt()
+            progressDialog.dismiss()
+
+            onCartClickedHandler!!.setondeleteclicklistener(
+                position,
+                productlists.CartId,
+                productlists.UserId
+            )
+
+            progressDialog.dismiss()
+            notifyDataSetChanged()
         }
 
         holder.binding.imgadd.setOnClickListener {
-            if (counts == 1) {
-                holder.binding.imgremove.visibility = View.VISIBLE
-                holder.binding.imgdelete.visibility = View.GONE
+//            progressDialog.show()
+            counts = counts + 1
+            if (counts > 1) {
+                holder.binding.imgremove.isEnabled = true
+                onCartClickedHandler!!.setonaddclicklistener(
+                    position,
+                    productlists.ProductId!!.toInt(),
+                    1, holder.binding.imgadd
+                )
+            } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
+                holder.binding.imgadd.isClickable = false
             }
-
-            progressDialogs.show()
-            holder.binding.imgadd.isClickable = false
-            holder.binding.imgadd.isEnabled = false
-            holder.binding.imgremove.visibility = View.VISIBLE
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (counts > 1) {
-                    holder.binding.imgremove.visibility = View.VISIBLE
-                    counts = counts + 1
-                    holder.binding.imgadd.isClickable = false
-                    holder.binding.imgadd.isEnabled = false
-                    holder.binding.textcount.text = counts.toString()
-                    AppUtils2.changebuttonstatus = true
-                    onCartClickedHandler!!.setonaddclicklistener(
-                        position,
-                        productlists.ProductId!!.toInt(),
-                        1,
-                        holder.binding.imgadd
-                    )
-                    holder.binding.textcount.text = counts.toString()
-                    holder.binding.imgdelete.visibility = View.GONE
-                    progressDialogs.dismiss()
-                } else if (counts == 1) {
-                    holder.binding.imgremove.visibility = View.VISIBLE
-                    counts = counts + 1
-                    holder.binding.imgadd.isClickable = false
-                    holder.binding.imgadd.isEnabled = false
-                    holder.binding.textcount.text = counts.toString()
-                    AppUtils2.changebuttonstatus = true
-                    onCartClickedHandler!!.setonaddclicklistener(
-                        position,
-                        productlists.ProductId!!.toInt(),
-                        1,
-                        holder.binding.imgadd
-                    )
-                    holder.binding.textcount.text = counts.toString()
-                    holder.binding.imgdelete.visibility = View.GONE
-                    progressDialogs.dismiss()
-                } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
-                    holder.binding.imgadd.isClickable = false
-                    progressDialogs.dismiss()
-                } else {
-                    holder.binding.imgadd.isClickable = false
-                    progressDialogs.dismiss()
-                }
-
-            }, 1000)
+            holder.binding.textcount.text = counts.toString()
+//                viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
 
         }
 
         holder.binding.imgremove.setOnClickListener {
-            progressDialogs.show()
-            holder.binding.imgremove.isClickable = false
-            holder.binding.imgremove.isEnabled = false
-            Handler(Looper.getMainLooper()).postDelayed({
-                counts = counts - 1
-//                if (counts == 1) {
-//                    holder.binding.imgdelete.visibility = View.VISIBLE
-//                    holder.binding.imgremove.visibility = View.GONE
-//                    holder.binding.textcount.text = counts.toString()
-//                    AppUtils2.changebuttonstatus = true
-//                    onCartClickedHandler!!.setonaddclicklistener(
-//                        position,
-//                        productlists.ProductId!!.toInt(),
-//                        -1, holder.binding.imgremove
-//                    )
-//                    progressDialogs.dismiss()
-
-
-                if (counts < 1) {
-                    holder.binding.imgremove.isClickable = false
-                    holder.binding.imgremove.isEnabled = false
-                    holder.binding.imgdelete.visibility = View.VISIBLE
-                    holder.binding.imgremove.visibility = View.GONE
-                    holder.binding.textcount.text = "1"
-                } else if (counts == 1) {
-                    holder.binding.imgdelete.visibility = View.VISIBLE
-                    holder.binding.imgremove.visibility = View.GONE
-                    holder.binding.textcount.text = "1"
-                    AppUtils2.changebuttonstatus = true
-                    onCartClickedHandler!!.setonaddclicklistener(
-                        position,
-                        productlists.ProductId!!.toInt(),
-                        -1, holder.binding.imgremove
-                    )
-                    progressDialogs.dismiss()
-                } else if (counts > 1) {
-//                    counts = counts - 1
-//                holder.binding.imgremove.isClickable = false
-//                holder.binding.imgremove.isEnabled = false
-                    holder.binding.textcount.text = counts.toString()
-                    onCartClickedHandler!!.setonaddclicklistener(
-                        position,
-                        productlists.ProductId!!.toInt(),
-                        -1,
-                        holder.binding.imgremove,
-                    )
-
-                    AppUtils2.changebuttonstatus = true
-                    progressDialogs.dismiss()
-                } else {
-                    progressDialogs.dismiss()
-                }
-                if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
-                    holder.binding.imgadd.isClickable = false
-                }
-            }, 1000)
-        }
-
-        holder.binding.imgdelete.setOnClickListener {
-            holder.binding.textcount.text = "1"
-
-            progressDialogs.dismiss()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-
-                onCartClickedHandler!!.setondeleteclicklistener(
+            counts = counts - 1
+            if (counts == 1) {
+                holder.binding.textcount.text = "1"
+                holder.binding.imgremove.isEnabled = false
+                onCartClickedHandler!!.setonaddclicklistener(
                     position,
-                    productlists.CartId,
-                    productlists.UserId
+                    productlists.ProductId!!.toInt(),
+                    -1, holder.binding.imgremove
                 )
-
-                progressDialogs.dismiss()
-
-            }, 1500)
-
-
-//            viewProductModel.getDeleteProductCart(productlists.CartId!!.toInt(),productlists.UserId!!.toInt())
-            notifyDataSetChanged()
+            } else if (counts < 1) {
+                holder.binding.textcount.text = "1"
+                holder.binding.imgremove.isEnabled = false
+            } else {
+                holder.binding.textcount.text = counts.toString()
+                onCartClickedHandler!!.setonaddclicklistener(
+                    position,
+                    productlists.ProductId!!.toInt(),
+                    -1, holder.binding.imgremove
+                )
+            }
+            if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
+                holder.binding.imgadd.isClickable = true
+            }
         }
     }
 
@@ -254,7 +156,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
     ) {
         this.requireActivity = addToCartActivity
         this.viewProductModel = viewProductModel
-        this.progressDialog = progressDialog
+//        this.progressDialog = progressDialog
         this.changebuttonstatus = changebuttonstatus
         if (productlist != null) {
             this.productlist = productlist.toMutableList()

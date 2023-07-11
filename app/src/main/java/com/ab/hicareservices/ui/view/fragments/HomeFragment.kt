@@ -30,6 +30,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -90,6 +91,7 @@ class HomeFragment : Fragment() {
     private var longg: String? = ""
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
+    private val viewModel: OtpViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,6 +125,10 @@ class HomeFragment : Fragment() {
         binding.horizontalScrollView.post {
             binding.horizontalScrollView.scrollTo(0, 0)
         }
+
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+
+        viewModels.validateAccount(AppUtils2.mobileno)
 
         client = LocationServices
             .getFusedLocationProviderClient(
@@ -258,11 +264,11 @@ class HomeFragment : Fragment() {
             mAdapter.setServiceList(it.MenuData)
             msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
             if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
-                mpayentdashboardadapter.setPaymentData(
-                    it.UpcomingService,
-                    it.CODOrders,
-                    it.TodaysService
-                )
+//                mpayentdashboardadapter.setPaymentData(
+//                    it.UpcomingService,
+//                    it.CODOrders,
+//                    it.TodaysService
+//                )
             }
             mvideoAdapter.setvideo(it.VideoData)
             mOfferAdapter.serBanner(it.OfferData)
