@@ -25,8 +25,6 @@
         android:roundIcon="@drawable/hicarelogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.view.activities.MyOrderActivity"

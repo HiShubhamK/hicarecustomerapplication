@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
+import com.ab.hicareservices.data.model.complaints.Data
 import com.ab.hicareservices.databinding.LayoutComplaintsAdaptersBinding
 import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
@@ -26,7 +27,7 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
         complaintdata: List<ComplaintsData>?,
         imageList: ArrayList<String>) {
         if (complaintdata != null) {
-            this.complaints = complaintdata.toMutableList()
+            complaints = complaintdata.toMutableList()
             this.imageList = imageList
         }
         notifyDataSetChanged()
@@ -68,6 +69,7 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
 //            imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
             holder.itemView.setOnClickListener {
 
+                try {
                     val intent = Intent(requireActivity, ComplaintDetailsActivity::class.java)
                     intent.putExtra(
                         "Dateformat",
@@ -85,6 +87,11 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
                     intent.putStringArrayListExtra("Imagelist", imageList)
                     intent.putExtra("Complaintid", complaints.Id.toString())
                     requireActivity.startActivity(intent)
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+
+
 
             }
         } catch (e: Exception) {

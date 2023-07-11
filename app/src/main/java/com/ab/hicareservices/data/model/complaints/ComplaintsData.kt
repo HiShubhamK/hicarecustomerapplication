@@ -3,7 +3,7 @@ package com.ab.hicareservices.data.model.complaints
 import com.google.gson.annotations.SerializedName
 
 
-data class ComplaintsData (
+data class ComplaintsData(
     @SerializedName("Id") var Id: String? = null,
     @SerializedName("Name") var Name: String? = null,
     @SerializedName("CaseNumber") var CaseNumber: Int? = null,
@@ -35,5 +35,6 @@ data class ComplaintsData (
     @SerializedName("Service_Code__c") var ServiceCode_c: String? = null,
     @SerializedName("Service_Plan__c") var ServicePlan_c: String? = null,
     @SerializedName("Address") var Address: String? = null,
-    @SerializedName("Order_Number__r") var OrderNumber_r: Order_Number__r? = Order_Number__r()
+    @SerializedName("Order_Number__r") var OrderNumber_r: Order_Number__r? = Order_Number__r(),
+    @SerializedName("Attachments") var Attachments: String? = null
 )

@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.ab.hicareservices.databinding.FragmentComplaintDetailBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel

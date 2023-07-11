@@ -84,8 +84,9 @@ class ProductComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView
                     intent.putExtra("Description", complaints.ComplaintDescription.toString())
                     intent.putExtra("status", holder.binding.txtStatus.text.toString())
                     intent.putExtra("CaseNo", complaints.OrderValuePostDiscount.toString())
-                    intent.putStringArrayListExtra("Imagelist", complaints.AttachmentList)
+//                    intent.putStringArrayListExtra("Imagelist", complaints.AttachmentList)
                     intent.putExtra("Complaintid", complaints.ProductId.toString())
+                    intent.putExtra("complaintid", complaints.Id.toString())
                     requireActivity.startActivity(intent)
                 }catch (e:Exception){
                     e.printStackTrace()

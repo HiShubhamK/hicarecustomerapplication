@@ -121,7 +121,7 @@ class SlotComplinceActivity : AppCompatActivity() {
             }
             c.add(
                 Calendar.DAY_OF_MONTH,
-                1
+                0
             ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
             var output = sdf1.format(c.time)

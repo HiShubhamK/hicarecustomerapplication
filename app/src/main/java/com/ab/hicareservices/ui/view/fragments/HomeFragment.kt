@@ -91,7 +91,6 @@ class HomeFragment : Fragment() {
     private var longg: String? = ""
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
-    private val viewModel: OtpViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -260,22 +259,27 @@ class HomeFragment : Fragment() {
 
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
             Log.d(TAG, "onDashboardData: $it orders fragment")
-            adapter.serBanner(it!!.BannerData)
-            mAdapter.setServiceList(it.MenuData)
-            msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
-            if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
-//                mpayentdashboardadapter.setPaymentData(
-//                    it.UpcomingService,
-//                    it.CODOrders,
-//                    it.TodaysService
-//                )
-            }
-            mvideoAdapter.setvideo(it.VideoData)
-            mOfferAdapter.serBanner(it.OfferData)
-            madapterbrand.serBrand(it.BrandData)
+            try {
+                adapter.serBanner(it!!.BannerData)
+                mAdapter.setServiceList(it.MenuData)
+                msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
+                if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
+                    mpayentdashboardadapter.setPaymentData(
+                        it.UpcomingService,
+                        it.CODOrders,
+                        it.TodaysService
+                    )
+                }
+                mvideoAdapter.setvideo(it.VideoData)
+                mOfferAdapter.serBanner(it.OfferData)
+                madapterbrand.serBrand(it.BrandData)
 
-            progressDialog.dismiss()
-            binding.rltMain.visibility = View.VISIBLE
+                progressDialog.dismiss()
+                binding.rltMain.visibility = View.VISIBLE
+
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
 
 //            binding.idViewPager.adapter = adapter
         })

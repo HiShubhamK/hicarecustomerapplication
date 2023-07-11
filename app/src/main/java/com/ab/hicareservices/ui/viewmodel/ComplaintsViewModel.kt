@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.attachment.GetAttachmentResponse
 import com.ab.hicareservices.data.model.complaints.ComplaintResponse
 import com.ab.hicareservices.data.model.complaints.ComplaintsData
+import com.ab.hicareservices.data.model.complaints.Data
 import com.ab.hicareservices.data.model.productcomplaint.ProductComplaintData
 import com.ab.hicareservices.data.model.productcomplaint.ProductComplaintListResponse
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ProductDetailResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +20,7 @@ class ComplaintsViewModel : ViewModel() {
 
     val complaintList = MutableLiveData<List<ComplaintsData>>()
     val procuctcomplaintList = MutableLiveData<List<ProductComplaintData>>()
+    val getproductcomplaintlist = MutableLiveData<com.ab.hicareservices.data.model.productcomplaint.productdetails.Data>()
     val attachments = MutableLiveData<List<String>>()
     val errorMessage = MutableLiveData<String>()
     val responseMessage = MutableLiveData<String>()
@@ -46,6 +49,29 @@ class ComplaintsViewModel : ViewModel() {
             }
         })
     }
+    fun GetComplaintDetailId(complaintid: Int) {
+
+        val response = repository.GetComplaintDetailId(complaintid)
+        response.enqueue(object : Callback<ProductDetailResponse> {
+
+            override fun onResponse(
+                call: Call<ProductDetailResponse>,
+                response: Response<ProductDetailResponse>
+            ) {
+                if (response.body()?.IsSuccess==true) {
+                    getproductcomplaintlist.postValue(response.body()?.Data)
+//                    attachments.postValue(response.body()?.Attachments)
+                } else {
+                    Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage!!)
+                }
+            }
+
+            override fun onFailure(call: Call<ProductDetailResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
 
     fun getAllComplaints(mobileNo: String) {
 
@@ -57,7 +83,7 @@ class ComplaintsViewModel : ViewModel() {
                 response: Response<ComplaintResponse>
             ) {
                 if (response.body()?.IsSuccess==true) {
-                    complaintList.postValue(response.body()?.data)
+                    complaintList.postValue(response.body()?.Data)
 //                    attachments.postValue(response.body()?.Attachments)
                 } else {
                     Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)

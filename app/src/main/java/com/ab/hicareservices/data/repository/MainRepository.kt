@@ -14,6 +14,7 @@ class MainRepository {
     fun validateAccount(mobileNo: String) = retrofitService.validateAccount(mobileNo)
     fun getAllComplaints(mobile: String) = retrofitService.getAllComplaints(mobile)
     fun ProductComplaintListByUserId(userid: Int) = retrofitProduct.ProductComplaintListByUserId(userid)
+    fun GetComplaintDetailId(complantid: Int) = retrofitProduct.GetComplaintDetailId(complantid)
     fun getServiceRequest(orderNo: String, type: String) = retrofitService.getServiceRequest(orderNo, type)
     fun getComplaintReasonResponse(serviceType: String) = retrofitService.getComplaintReasonResponse(serviceType)
     fun getReferralCodeResponse(mobileNo: String) = retrofitService.getReferralCodeResponse(mobileNo)
