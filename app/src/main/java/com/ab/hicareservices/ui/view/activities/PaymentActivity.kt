@@ -34,8 +34,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     var data1 = HashMap<String, Any>()
 
-
-
     private val viewProductModel: ProductViewModel by viewModels()
     var payment = ""
     var order_no = ""
@@ -164,7 +162,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 Checkout.preload(applicationContext)
                 val activity:PaymentActivity = this
                 val co = Checkout()
-                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
 
                 co.open(this, options)
             }
@@ -191,7 +190,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             try {
                 val co = Checkout()
-                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
                 co.open(this, options)
             } catch (e: Exception) {
                 Log.d("TAG", "$e")
@@ -311,7 +311,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         if (product == true) {
 
             try {
-                viewProductModel.errorMessage.observe(this, Observer {
+                viewProductModel.paymentsuceess.observe(this, Observer {
                     if(it!=null){
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE

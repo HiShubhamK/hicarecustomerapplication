@@ -19,6 +19,7 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.text.Html
@@ -40,6 +41,7 @@ import com.ab.hicareservices.ui.adapter.FAQAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailAdapter
 import com.ab.hicareservices.ui.adapter.ProductDetailCustomerReviewAdapter
 import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
+import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.location.*
@@ -204,6 +206,41 @@ class ProductDetailActivity : AppCompatActivity() {
 
             }
 
+
+            relatedProductAdapter.setOnOrderItemClicked(object : OnRelatedProductClick {
+                //            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
+//                binding.appCompatImageViewd.text = data.toString()
+//            }
+                override fun setonaddclicklistener(
+                    position: Int,
+                    productid: Int,
+                    i: Int, ) {
+
+                    progressDialog.show()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        viewProductModel.addtocart.observe(this@ProductDetailActivity, Observer {
+                            progressDialog.dismiss()
+                            if(it.IsSuccess==true){
+                                progressDialog.dismiss()
+                                getSummarydata()
+                            }else{
+                                progressDialog.dismiss()
+                                Toast.makeText(this@ProductDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
+                            }
+
+                        })
+
+                        viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                    }, 500)
+
+                }
+
+            })
+
+
+
+
             binding.tvProductName.text =
                 it.ProductDetails!!.ProductName + " (" + it.ProductDetails!!.ProductCode + ")"
             binding.tvCategory.text =
@@ -341,6 +378,26 @@ class ProductDetailActivity : AppCompatActivity() {
             val intent = Intent(this, AddToCartActivity::class.java)
             startActivity(intent)
         }
+
+    }
+
+    private fun getSummarydata() {
+        viewProductModel.productcount.observe(this, Observer {
+            if (it.IsSuccess == true) {
+
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    AppUtils2.cartcounts = it.Data.toString()
+                    binding.appCompatImageViewd.text = it.Data.toString()
+                }
+            } else {
+                binding.cartmenu.visibility = View.GONE
+            }
+        })
+
+        viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
     }
 

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
 
-    <uses-permission
-        android:name="android.permission.POST_NOTIFICATIONS"
-        tools:node="remove" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -177,7 +175,7 @@
 <!--            android:name=".ui.view.activities.ComplaintsActivity"-->
 <!--            android:exported="true"-->
 <!--            android:screenOrientation="portrait"-->
-<!--            tools:ignore="Instantiatable,LockedOrientationActivity" />-->
+<!--            tools:ignore="LockedOrientationActivity" />-->
         <activity
             android:name=".ui.view.activities.OTPActivity"
             android:exported="true"

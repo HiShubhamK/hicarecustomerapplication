@@ -168,7 +168,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.8"
                     android:fontFamily="@font/lato_semibold"
-                    android:text="Add a New Shipping Address"
+                    android:text="Add New Shipping Address"
                     android:textColor="#262626"
                     android:textSize="14sp" />
 

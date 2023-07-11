@@ -30,6 +30,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -123,6 +124,10 @@ class HomeFragment : Fragment() {
         binding.horizontalScrollView.post {
             binding.horizontalScrollView.scrollTo(0, 0)
         }
+
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+
+        viewModels.validateAccount(AppUtils2.mobileno)
 
         client = LocationServices
             .getFusedLocationProviderClient(

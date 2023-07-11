@@ -15,6 +15,7 @@ import com.ab.hicareservices.databinding.LayoutProductlistBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
@@ -38,8 +39,11 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
         if(productlists.IsStockAvailable==true) {
             holder.binding.txtratingvalues.text=productlists.ProductRating.toString()
-            Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
-            holder.binding.txtname.text = productlists.ProductName
+            if(productlists.ProductThumbnail!=null) {
+//                Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+                Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+            }
+                holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
 //            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
@@ -48,7 +52,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             if (productlists.Discount!=0) {
                 holder.binding.txtdealodday.text ="Save " +"\u20B9" + productlists.Discount.toString()
                 holder.binding.txtprice.text = productlists.DiscountedPrice.toString()
-                holder.binding.txtpriceline.visibility=View.GONE
+                holder.binding.txtpriceline.visibility=View.VISIBLE
                 holder.binding.txtpriceline.text = "\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.paintFlags=holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             } else {

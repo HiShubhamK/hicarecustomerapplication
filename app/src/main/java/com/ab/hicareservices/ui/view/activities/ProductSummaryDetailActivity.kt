@@ -17,6 +17,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -313,9 +314,26 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
 
         relatedProductAdapter.setOnOrderItemClicked(object : OnRelatedProductClick {
-            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
-                binding.appCompatImageViewd.text = data.toString()
+            override fun setonaddclicklistener(position: Int, productid: Int, i: Int) {
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewModel.addtocart.observe(this@ProductSummaryDetailActivity, Observer {
+                        progressDialog.dismiss()
+                        if(it.IsSuccess==true){
+                            getSummarydata()
+                        }else{
+                            progressDialog.dismiss()
+                            Toast.makeText(this@ProductSummaryDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
+                        }
+
+                    })
+
+                    viewModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                }, 1000)
+
+
             }
+
 
         })
         binding.btnNeedhelp.setOnClickListener {
@@ -338,6 +356,26 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
     }
 
+
+    private fun getSummarydata() {
+        viewModel.productcount.observe(this, Observer {
+            if (it.IsSuccess == true) {
+
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    AppUtils2.cartcounts = it.Data.toString()
+                    binding.appCompatImageViewd.text = it.Data.toString()
+                }
+            } else {
+                binding.cartmenu.visibility = View.GONE
+            }
+        })
+
+        viewModel.getProductCountInCar(AppUtils2.customerid.toInt())
+
+    }
     private fun getServiceLists(progressDialog: ProgressDialog) {
 
         binding.recycleView.layoutManager = LinearLayoutManager(this)

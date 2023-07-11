@@ -42,7 +42,7 @@ class OTPActivity : AppCompatActivity() {
         mOtp = intent.getStringExtra("otp").toString()
         binding.mobileNoTv.text = "$mobileNo"
 
-        binding.otpView.setOTP(mOtp)
+//        binding.otpView.setOTP(mOtp)
 
         AppUtils2.mobileno = mobileNo
 
@@ -82,7 +82,7 @@ class OTPActivity : AppCompatActivity() {
                 finish()
             } else {
                 progressDialog.dismiss()
-                Toast.makeText(this, "Enter Valid code", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Invalid Otp", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -95,8 +95,10 @@ class OTPActivity : AppCompatActivity() {
     private fun resendOtp(mobileNo: String) {
         viewModel.otpResponse.observe(this) {
             if (it.isSuccess == true) {
-                binding.resentSuccessTv.visibility = View.VISIBLE
+//                binding.resentSuccessTv.visibility = View.VISIBLE
+                mOtp=""
                 mOtp = it.data.toString()
+                Toast.makeText(this, "Otp Resend Successfully", Toast.LENGTH_SHORT).show()
                 startCounter()
             } else {
                 binding.resentSuccessTv.visibility = View.GONE
@@ -109,13 +111,17 @@ class OTPActivity : AppCompatActivity() {
     private fun startCounter() {
         object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                var millisUntilFinisheds=millisUntilFinished/1000
                 binding.resendCodeTv.text = "Resend code in 00: " + millisUntilFinished / 1000
+
+
                 //here you can have your logic to set text to edittext
             }
 
             override fun onFinish() {
                 binding.resendCodeTv.setTypeface(null, Typeface.BOLD)
                 binding.resendCodeTv.text = "Resend code"
+                mOtp=""
             }
         }.start()
     }

@@ -401,7 +401,7 @@
                                     android:fontFamily="@font/lato_regular"
                                     android:gravity="end"
                                     android:text=""
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/md_red_700"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -441,9 +441,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleviewproduct"
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
@@ -476,7 +475,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/lato_regular"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/md_red_700"
             android:textSize="14sp"
             android:textStyle="bold" />
 

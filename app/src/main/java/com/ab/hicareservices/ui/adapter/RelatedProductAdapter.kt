@@ -15,6 +15,7 @@ import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 
@@ -42,7 +43,8 @@ class RelatedProductAdapter(
         try {
             holder.setIsRecyclable(false)
             val productlistdata = productDetails[position]
-            Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
+//            Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
+            Glide.with(activityy).load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
             holder.binding.txtratingvalues.text = productlistdata.ProductRating.toString()
             holder.binding.ratingbar.rating = productlistdata.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.progressDrawable
@@ -55,24 +57,28 @@ class RelatedProductAdapter(
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.binding.imgddToCart.setOnClickListener{
-                viewmodel.getAddProductInCart(
-                    1,
-                    productlistdata.ProductId!!.toInt(),
-                    AppUtils2.customerid.toInt()
-                )
-                viewmodel.addtocart.observe(activityy,{
-                    if (it.IsSuccess==true){
 
-                        Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
-                        onRelatedProductClick?.onRelatedProdAddtoCart(position,productlistdata.ProductId!!.toInt(),it.Data)
-
-                    }else{
-                        Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
+                onRelatedProductClick?.setonaddclicklistener(position,productlistdata.ProductId!!.toInt(),1)
 
 
-                    }
 
-                })
+                //                viewmodel.getAddProductInCart(
+//                    1,
+//                    productlistdata.ProductId!!.toInt(),
+//                    AppUtils2.customerid.toInt()
+//                )
+//                viewmodel.addtocart.observe(activityy,{
+//                    if (it.IsSuccess==true){
+//
+//                        Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
+//
+//                    }else{
+//                        Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
+//
+//
+//                    }
+
+//                })
 //                onProductClickedHandler!!.onProductClickedHandler(position,productlistdata.ProductId!!.toInt())
             }
         } catch (e: Exception) {
