@@ -18,9 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityComplaintDetailsBinding
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.ab.hicareservices.databinding.ActivityProductComplaintDetailBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
+import com.ab.hicareservices.ui.adapter.ProductComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -42,6 +43,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
     var status = ""
     var casenum = ""
     var complaintid = ""
+    var complaintidd = ""
     private val COMPLANTDATE = "COMPLANTDATE"
     private val COMPLAINTNO = "COMPLAINTNO"
     private val COMPLAINTID = "COMPLAINTID"
@@ -54,9 +56,9 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
     private val STATUS = "STATUS"
     private val CASENUM = "CASENUM"
     private val ATTACHMENTS = "ATTACHMENTS"
-    private lateinit var imageListnew: ArrayList<String>
+    private lateinit var imageListnew: ArrayList<ComplaintAttachment>
 
-    private lateinit var mAdapter: ComplaintAttachmentAdapter
+    private lateinit var mAdapter: ProductComplaintAttachmentAdapter
 
     private val viewModel: ComplaintsViewModel by viewModels()
 
@@ -66,7 +68,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_complaint_details)
+        setContentView(R.layout.activity_product_complaint_detail)
         try {
             binding=ActivityProductComplaintDetailBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -89,21 +91,26 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 //        intent.putStringArrayListExtra("Imagelist",imageList)
 //        intent.putExtra("Complaintid",complaints.Id.toString())
 
-            complaintdate = intent.getStringExtra("Dateformat").toString()
-            complaintnum = intent.getStringExtra("ComplaintNo").toString()
-            orderNo = intent.getStringExtra("OrderNO").toString()
-            category = intent.getStringExtra("Pest").toString()
-            complainttype = intent.getStringExtra("Cdescription").toString()
-            serviceplan = intent.getStringExtra("ServicePlan").toString()
-            subject = intent.getStringExtra("Subject").toString()
-            description = intent.getStringExtra("Description").toString()
-            status = intent.getStringExtra("status").toString()
-            casenum = intent.getStringExtra("CaseNo").toString()
-            imageListnew = intent.getStringArrayListExtra("Imagelist") as ArrayList<String>
-            complaintid = intent.getStringExtra("Complaintid").toString()
+            try {
+                complaintdate = intent.getStringExtra("Dateformat").toString()
+                complaintnum = intent.getStringExtra("ComplaintNo").toString()
+                orderNo = intent.getStringExtra("OrderNO").toString()
+                category = intent.getStringExtra("Pest").toString()
+                complainttype = intent.getStringExtra("Cdescription").toString()
+                serviceplan = intent.getStringExtra("ServicePlan").toString()
+                subject = intent.getStringExtra("Subject").toString()
+                description = intent.getStringExtra("Description").toString()
+                status = intent.getStringExtra("status").toString()
+                casenum = intent.getStringExtra("CaseNo").toString()
+//                imageListnew = intent.getStringArrayListExtra("Imagelist") as ArrayList<String>
+                complaintid = intent.getStringExtra("Complaintid").toString()
+                complaintidd = intent.getStringExtra("complaintid").toString()
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
 
 
-            binding.title.text = "Complaint Details"
+
             binding.txtStatus.text = status
             binding.txtComplaintDate.text = AppUtils2.formatDateTime4(complaintdate)
             binding.txtcomplaintno.text = complaintnum
@@ -145,25 +152,45 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
     }
 
     private fun getcomplaintAttachment() {
-        progressDialog.show()
+//        progressDialog.show()
+        imageListnew= ArrayList()
+        viewModel.getproductcomplaintlist.observe(this, Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
+            if (it!=null){
+                imageListnew.addAll(it.ComplaintAttachment)
+            }
+            progressDialog.dismiss()
+
+//        Log.e("TAG", "Attachments: $imageList")
+//            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
+
+        })
         binding.recyclerView.layoutManager =LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mAdapter = ComplaintAttachmentAdapter()
+        mAdapter = ProductComplaintAttachmentAdapter()
         if (imageListnew!=null) {
             if (imageListnew.isNotEmpty()) {
                 mAdapter.setAttachment(imageListnew)
-                progressDialog.dismiss()
-
                 binding.lnrAttachments.visibility = View.VISIBLE
                 binding.tvNodata.visibility = View.GONE
-            } else {
                 progressDialog.dismiss()
+
+            } else {
                 binding.lnrAttachments.visibility = View.GONE
                 binding.tvNodata.visibility = View.VISIBLE
             }
+
         }else{
+            progressDialog.dismiss()
             binding.lnrAttachments.visibility = View.GONE
             binding.tvNodata.visibility = View.VISIBLE
         }
+
+
+        viewModel.GetComplaintDetailId(complaintidd.toInt())
+
+
 
 //        viewModel.attachments.observe(requireActivity(),{
 //
@@ -171,17 +198,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 //               imageList.addAll(it)
 //           }
 //        })
-//        viewModel.attachments.observe(this, Observer {
-////            Log.d(TAG, "onViewCreated: $it")
-////            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-////            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
-//
-//            progressDialog.dismiss()
-//
-////        Log.e("TAG", "Attachments: $imageList")
-////            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
-//
-//        })
+
 //        viewModel.errorMessage.observe(this, Observer {
 ////            Log.d(TAG, "onViewCreated: $it")
 ////            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
@@ -206,7 +223,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 
 //        binding.progressBar.visibility= View.GONE
 
-        viewModel.getComlaintAttachment(complaintid)
+//        viewModel.getComlaintAttachment(complaintid)
 //        viewModel.getAllComplaints(SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString())
     }
     class CirclePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
@@ -354,10 +371,10 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
         }
 
         init {
-            mPaint.setStrokeCap(Paint.Cap.ROUND)
-            mPaint.setStrokeWidth(mIndicatorStrokeWidth)
-            mPaint.setStyle(Paint.Style.FILL)
-            mPaint.setAntiAlias(true)
+            mPaint.strokeCap = Paint.Cap.ROUND
+            mPaint.strokeWidth = mIndicatorStrokeWidth
+            mPaint.style = Paint.Style.FILL
+            mPaint.isAntiAlias = true
         }
     }
 

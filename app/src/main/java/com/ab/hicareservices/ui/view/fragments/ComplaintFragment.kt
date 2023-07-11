@@ -58,21 +58,21 @@ class ComplaintFragment() : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-//        binding.imgLogo.setOnClickListener {
-//            requireActivity().finish()
-//        }
+        binding.imgLogo.setOnClickListener {
+            requireActivity().finish()
+        }
 
         imageList=ArrayList()
         progressDialog.show()
-//        Handler(Looper.getMainLooper()).postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
-//        }, 1500)
+        }, 1500)
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            mAdapter = ComplaintsAdapter(requireActivity = requireActivity())
+            mAdapter = ComplaintsAdapter(requireActivity())
 
             viewModel.complaintList.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it")
@@ -100,7 +100,7 @@ class ComplaintFragment() : Fragment() {
             if (mobile != "-1") {
                 viewModel.getAllComplaints(mobile)
             }
-            binding.progressBar.visibility= View.GONE
+            progressDialog.dismiss()
 
         }catch (e:Exception){
             e.printStackTrace()

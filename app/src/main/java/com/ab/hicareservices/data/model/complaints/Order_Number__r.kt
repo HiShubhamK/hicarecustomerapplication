@@ -3,7 +3,6 @@ package com.ab.hicareservices.data.model.complaints
 import com.google.gson.annotations.SerializedName
 
 data class Order_Number__r(
-
     @SerializedName("Id") var Id: String? = null,
     @SerializedName("Name") var Name: String? = null,
     @SerializedName("Customer_Id__c") var CustomerId_c: String? = null,
@@ -43,8 +42,13 @@ data class Order_Number__r(
     @SerializedName("Service_Plan_Image_Url") var ServicePlanImageUrl: String? = null,
     @SerializedName("Payment_Subscription_Id__c") var PaymentSubscriptionId_c: String? = null,
     @SerializedName("Payment_Subscription_Plan_Id__c") var PaymentSubscriptionPlanId_c: String? = null,
+    @SerializedName("Is_Subscription_Active__c") var IsSubscriptionActive_c: Boolean? = null,
+    @SerializedName("Subscription_Payment_Method__c") var SubscriptionPaymentMethod_c: String? = null,
     @SerializedName("Redeem_Hygine_Points__c") var RedeemHyginePoints_c: String? = null,
     @SerializedName("Service_Group__c") var ServiceGroup_c: String? = null,
-    @SerializedName("EnableRenewal") var EnableRenewal: Boolean? = null
+    @SerializedName("EnableRenewal") var EnableRenewal: Boolean? = null,
+    @SerializedName("LastServiceDate") var LastServiceDate: String? = null,
+    @SerializedName("NextServiceDate") var NextServiceDate: String? = null
+
 
 )

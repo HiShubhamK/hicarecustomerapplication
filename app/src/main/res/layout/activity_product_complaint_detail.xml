@@ -44,7 +44,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Complaint Detail"
+                android:text="Product Complaint Detail"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -131,7 +131,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:text="Active"
+                    android:text=""
                     android:textSize="13sp"
                     android:textStyle="bold" />
 

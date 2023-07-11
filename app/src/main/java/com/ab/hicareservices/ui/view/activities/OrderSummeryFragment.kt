@@ -56,7 +56,7 @@ class OrderSummeryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
 //        pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 ////
 //
@@ -82,7 +82,7 @@ class OrderSummeryFragment : Fragment() {
 
         })
 
-        viewProductModel.getOrderSummeryList(1)
+        viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {

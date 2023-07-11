@@ -19,6 +19,7 @@ import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.model.payment.SavePaymentResponse
 import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.model.productcomplaint.ProductComplaintListResponse
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ProductDetailResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
@@ -183,7 +184,14 @@ interface IRetrofit {
     @GET("ProductComplaint/ComplaintListByUserId")
     fun ProductComplaintListByUserId(@Query("userId") userId: Int): Call<ProductComplaintListResponse>
 
+    @GET("ProductComplaint/GetComplaintDetailId")
+    fun GetComplaintDetailId(@Query("complaitId") userId: Int): Call<ProductDetailResponse>
+
     @GET("Voucher/ValidateVoucher")
-    fun  getValidateVoucher(@Query("voucherCode") voucherCode: String,@Query("userId") userId: Int,@Query("pincode") pincode: String): Call<ValidateVoucherResponse>
+    fun getValidateVoucher(
+        @Query("voucherCode") voucherCode: String,
+        @Query("userId") userId: Int,
+        @Query("pincode") pincode: String
+    ): Call<ValidateVoucherResponse>
 
 }

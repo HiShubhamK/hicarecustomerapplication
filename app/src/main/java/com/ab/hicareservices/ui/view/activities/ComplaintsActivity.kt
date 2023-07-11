@@ -6,31 +6,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
-import com.ab.hicareservices.databinding.ActivityProductComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
-import com.ab.hicareservices.ui.view.fragments.ProductComplaintsFragment
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
-class ComplaintsActivity : Fragment() {
+class ComplaintsActivity : AppCompatActivity() {
     private val TAG = "ComplaintsActivity"
     var mobileNo = ""
-    private lateinit var imageList:ArrayList<String>
+    private lateinit var imageList: ArrayList<String>
     lateinit var binding: ActivityComplaintsBinding
     private val viewModel: ComplaintsViewModel by viewModels()
     private lateinit var mAdapter: ComplaintsAdapter
@@ -38,53 +30,50 @@ class ComplaintsActivity : Fragment() {
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityComplaintsBinding.inflate(layoutInflater)
         val view = binding.root
-//        setContentView(view)
+        setContentView(view)
 
-        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
-        progressDialog = ProgressDialog(requireContext(), R.style.TransparentProgressDialog)
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-//        binding.imgLogo.setOnClickListener {
-//            onBackPressed()
-//        }
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
 
-        imageList=ArrayList()
+        imageList = ArrayList()
         Handler(Looper.getMainLooper()).postDelayed({
-            getAllComplaints()
-        }, 500)
+            getAllComplaints(progressDialog)
+        }, 1500)
     }
 
-    private fun getAllComplaints() {
+    private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             progressDialog.show()
 
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            mAdapter = ComplaintsAdapter(requireActivity())
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+            mAdapter = ComplaintsAdapter(this)
 
             viewModel.complaintList.observe(this, Observer {
                 Log.d(TAG, "onViewCreated: $it")
                 mAdapter.setComplaintsList(it,imageList)
                 progressDialog.dismiss()
-                binding.recyclerView.visibility=View.VISIBLE
-                binding.txtnotfound.visibility=View.GONE
-                progressDialog.dismiss()
-
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.txtnotfound.visibility = View.GONE
             })
 
             viewModel.responseMessage.observe(this, Observer {
-                binding.recyclerView.visibility=View.GONE
-                binding.txtnotfound.visibility=View.VISIBLE
-                binding.txtnotfound.text=it.toString()
+                binding.recyclerView.visibility = View.GONE
+                binding.txtnotfound.visibility = View.VISIBLE
+                binding.txtnotfound.text = it.toString()
                 progressDialog.dismiss()
             })
 
             viewModel.errorMessage.observe(this, Observer {
-                Toast.makeText(requireActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
                 progressDialog.dismiss()
             })
 
@@ -94,45 +83,10 @@ class ComplaintsActivity : Fragment() {
             if (mobile != "-1") {
                 viewModel.getAllComplaints(AppUtils2.mobileno)
             }
-            binding.progressBar.visibility= View.GONE
-
-        }catch (e:Exception){
+            progressDialog.dismiss()
+            progressDialog.dismiss()
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            ProductComplaintsFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = ActivityComplaintsBinding.inflate(inflater, container, false)
-        //viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(MainRepository(api))).get(OrdersViewModel::class.java)
-        mobile = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
-        return binding.root
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
-        progressDialog = ProgressDialog(requireContext(), R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
-
-
-
-        imageList=ArrayList()
-        Handler(Looper.getMainLooper()).postDelayed({
-            getAllComplaints()
-        }, 500)
-    }
-
 }

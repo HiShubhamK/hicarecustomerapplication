@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.ab.hicareservices.databinding.ActivityComplaintDetailsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.view.fragments.HomeFragment

@@ -17,14 +17,14 @@ import com.ab.hicareservices.ui.viewmodel.OfferViewModel
 import com.squareup.picasso.Picasso
 
 
-class ComplaintAttachmentAdapter() :
-    RecyclerView.Adapter<ComplaintAttachmentAdapter.ImageViewHolder>() {
-    var imageList = mutableListOf<String>()
+class ProductComplaintAttachmentAdapter() :
+    RecyclerView.Adapter<ProductComplaintAttachmentAdapter.ImageViewHolder>() {
+    var imageList = mutableListOf<ComplaintAttachment>()
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivComplaintAttachment: ImageView = itemView.findViewById(R.id.ivComplaintAttachment)
     }
-    fun setAttachment(complaintdata: ArrayList<String>) {
+    fun setAttachment(complaintdata: ArrayList<ComplaintAttachment>) {
         if (complaintdata != null) {
             this.imageList = complaintdata
             notifyDataSetChanged()
@@ -40,7 +40,7 @@ class ComplaintAttachmentAdapter() :
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         try {
-            Picasso.get().load(imageList[position]).into(holder.ivComplaintAttachment)
+            Picasso.get().load(imageList[position].Attachment_URL).into(holder.ivComplaintAttachment)
 
         }catch (e:Exception){
             e.printStackTrace()
