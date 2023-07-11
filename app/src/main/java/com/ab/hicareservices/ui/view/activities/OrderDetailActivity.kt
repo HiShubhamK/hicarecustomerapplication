@@ -287,7 +287,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     binding.txtamountpaidornot.text = "Amount Paid"
                 }
 
-                binding.statusTv.text = data.status__c
+                binding.statusTv.text =" "+data.status__c+" "
 
 //
 //                if(data.status__c.equals("Active")){
