@@ -85,7 +85,7 @@
                 android:fontFamily="@font/lato_semibold"
                 android:text="Enter the 4-digit code sent to you at"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_marginTop="6dp"
                 android:text="+91 8899779978"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <in.aabhasjindal.otptextview.OtpTextView
                 android:id="@+id/otpView"

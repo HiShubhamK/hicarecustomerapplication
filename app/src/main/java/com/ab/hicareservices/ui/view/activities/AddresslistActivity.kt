@@ -50,6 +50,8 @@ class AddresslistActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
+            val intent=Intent(this,AddressActivity::class.java)
+            startActivity(intent)
         }
 
         binding.lnraddress.setOnClickListener {
@@ -415,5 +417,7 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent=Intent(this,AddressActivity::class.java)
+        startActivity(intent)
     }
 }
