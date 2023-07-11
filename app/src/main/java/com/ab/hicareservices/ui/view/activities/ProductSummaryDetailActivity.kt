@@ -211,12 +211,15 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR)
 
                 } else {
+                    binding.btnNeedhelp.visibility=View.GONE
                     binding.yourStateProgressBarId.visibility = View.GONE
                     binding.txtStatusTitle.visibility = View.GONE
                     binding.statusTv.visibility = View.VISIBLE
 
                 }
             } else {
+                binding.btnNeedhelp.visibility=View.GONE
+
                 binding.yourStateProgressBarId.visibility = View.GONE
                 binding.txtStatusTitle.visibility = View.GONE
                 binding.statusTv.visibility = View.VISIBLE

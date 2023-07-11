@@ -266,11 +266,20 @@ class SlotComplinceActivity : AppCompatActivity() {
                 viewModel.getSlotresponse.observe(this@SlotComplinceActivity, Observer {
 //                    Log.d(TAG, "onViewCreated: $it orders fragment")
                     if (it.IsSuccess == true) {
+
                         ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
+
+
                     }
+
                 })
+
             }
+
+
         })
+
+
 
 
         viewModel.errorMessage.observe(this, Observer {
@@ -300,18 +309,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         alertDialog.setCancelable(false)
         val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
         val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
-        val imgClose = promptsView.findViewById<View>(R.id.imgCloseS) as ImageView
-
-
-
-        imgClose.setOnClickListener {
-                alertDialog.dismiss()
-            this.progressDialog.dismiss()
-        }
-
-
-
-
+        val imgClose = promptsView.findViewById<View>(R.id.imgClose) as ImageView
         txtMonth.text = scheduledatetext
         val recycleWeeks: RecyclerView =
             promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
@@ -327,6 +325,11 @@ class SlotComplinceActivity : AppCompatActivity() {
         mSlotAdapter = SlotsAdapter(this, slotData.TimeSlots, TaskId)
         recycleSlots.adapter = mSlotAdapter
 
+        imgClose.setOnClickListener {
+                alertDialog.dismiss()
+                progressDialog.dismiss()
+
+        }
         btnSubmit.setOnClickListener {
             progressDialog.show()
 

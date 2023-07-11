@@ -441,7 +441,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
-                        android:text="Help"
+                        android:text="Support"
                         android:textColor="@color/black"
                         android:textSize="13dp"
                         android:textStyle="bold"

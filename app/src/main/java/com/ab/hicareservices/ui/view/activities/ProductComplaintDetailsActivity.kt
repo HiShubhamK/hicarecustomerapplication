@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintDetailsBinding
+import com.ab.hicareservices.databinding.ActivityProductComplaintDetailBinding
 import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
@@ -28,7 +29,7 @@ import org.json.JSONObject
 
 class ProductComplaintDetailsActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityComplaintDetailsBinding
+    private lateinit var binding:ActivityProductComplaintDetailBinding
     lateinit var progressDialog: ProgressDialog
     private var complaintdate = ""
     private var complaintnum = ""
@@ -67,7 +68,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complaint_details)
         try {
-            binding=ActivityComplaintDetailsBinding.inflate(layoutInflater)
+            binding=ActivityProductComplaintDetailBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
             progressDialog= ProgressDialog(this,R.style.TransparentProgressDialog)

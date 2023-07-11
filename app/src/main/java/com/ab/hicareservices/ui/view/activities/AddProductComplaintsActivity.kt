@@ -741,7 +741,7 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         hashMap["OrderDate"] = Created_On
         hashMap["Contact_Person_Name"] = AppUtils2.cutomername
         hashMap["Contact_Person_Mobile"] = AppUtils2.customermobile
-        hashMap["Product_Display_Name"] = AppUtils2.cutomername
+        hashMap["Product_Display_Name"] = displayname
         hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toInt()
         hashMap["Last_Interaction"] = ""
 
@@ -750,8 +750,9 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         complaintViewModel.CreateProductComplaint(hashMap)
         complaintViewModel.SaveSalesResponse.observe(this, {
             if (it.isNotEmpty()) {
-                finish()
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                finish()
+
             } else {
 
             }

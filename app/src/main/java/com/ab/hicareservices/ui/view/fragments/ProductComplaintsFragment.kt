@@ -46,6 +46,7 @@ class ProductComplaintsFragment : Fragment() {
         progressDialog = ProgressDialog(requireContext(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        AppUtils2.customerid = SharedPreferenceUtil.getData(requireContext(), "customerid", "").toString()
 
 
         imageList=ArrayList()
@@ -98,8 +99,8 @@ class ProductComplaintsFragment : Fragment() {
             binding.recyclerView.adapter = mAdapter
 
 //        viewModel.getAllComplaints("9967994682")
-            if (mobile != "-1") {
-                viewModel.ProductComplaintListByUserId(9)
+            if ( AppUtils2.customerid != "") {
+                viewModel.ProductComplaintListByUserId(AppUtils2.customerid.toInt())
             }
             binding.progressBar.visibility= View.GONE
 

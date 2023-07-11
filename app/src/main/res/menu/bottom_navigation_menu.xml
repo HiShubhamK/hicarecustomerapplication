@@ -22,7 +22,7 @@
     <item
         android:id="@+id/nav_bookings"
         android:title="Products"
-        android:icon="@drawable/calendar"
+        android:icon="@drawable/trolley"
         app:showAsAction="ifRoom"
         android:enabled="true"
 

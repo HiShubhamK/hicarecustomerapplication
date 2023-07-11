@@ -16,6 +16,9 @@
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +32,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.view.activities.MyOrderActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,6 +40,7 @@
         </activity>
         <activity
             android:name=".ui.view.activities.AddresslistActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -43,6 +48,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.OverviewProductDetailsActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -50,6 +57,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.AddressActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -57,6 +66,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.AddToCartActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -64,6 +75,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.ProductDetailActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -71,6 +84,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.UpcomingServicesActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -78,6 +93,8 @@
         </activity>
         <activity
             android:name=".ui.view.activities.BookInspectionActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -85,24 +102,39 @@
         </activity>
         <activity
             android:name=".ui.view.activities.TermsAndConditionActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".ui.view.activities.ComplaintDetailsActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
         <activity
             android:name=".ui.view.activities.MyServiceDetailsActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
         <activity
             android:name=".ui.view.activities.SlotComplinceActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
         <activity
             android:name=".ui.view.activities.OrderDetailActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
         <activity
             android:name=".ui.view.activities.LoginActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
+
         <activity
             android:name=".ui.view.activities.PaymentActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -130,6 +162,8 @@
 
         <activity
             android:name=".ui.view.activities.HelpActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true" />
         <activity
             android:name=".ui.view.activities.ReferralActivity"
