@@ -200,8 +200,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
-
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(runnable)
@@ -245,7 +243,7 @@ class HomeFragment : Fragment() {
         imageList = ArrayList()
         offerlist = ArrayList()
         courseList = ArrayList<MenuData>()
-        codOrders =ArrayList()
+        codOrders = ArrayList()
         binding.crdpest.visibility = View.GONE
 
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>, binding.recOffers)
@@ -272,7 +270,7 @@ class HomeFragment : Fragment() {
                 progressDialog.dismiss()
                 binding.rltMain.visibility = View.VISIBLE
 
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -432,14 +430,14 @@ class HomeFragment : Fragment() {
             RecyclerView.State(),
             binding.recPayments.adapter!!.itemCount
         )
-        mpayentdashboardadapter.setRescudullClick(object :onResceduleInterface{
+        mpayentdashboardadapter.setRescudullClick(object : onResceduleInterface {
             override fun onRecheduleClick(position: Int, upcomingdata: ArrayList<UpcomingService>) {
                 val intent = Intent(requireActivity(), SlotComplinceActivity::class.java)
                 intent.putExtra("ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
-                if (upcomingdata[position].AppointmentDate!=null){
-                    intent.putExtra("SlotDate",upcomingdata[position].AppointmentDate)
-                }else{
-                    intent.putExtra("SlotDate",upcomingdata[position].SRPlanDate)
+                if (upcomingdata[position].AppointmentDate != null) {
+                    intent.putExtra("SlotDate", upcomingdata[position].AppointmentDate)
+                } else {
+                    intent.putExtra("SlotDate", upcomingdata[position].SRPlanDate)
                 }
                 intent.putExtra("TaskId", upcomingdata[position].Id)
                 intent.putExtra("SkillId", upcomingdata[position].TaskSkill_c)
@@ -453,25 +451,31 @@ class HomeFragment : Fragment() {
             }
 
             override fun onPaymentClick(position: Int, order: ArrayList<CODOrders>) {
-                val intent=Intent(requireActivity(),PaymentActivity::class.java)
-                intent.putExtra("ORDER_NO",  order[position].OrderNumber_c)
+                val intent = Intent(requireActivity(), PaymentActivity::class.java)
+                intent.putExtra("ORDER_NO", order[position].OrderNumber_c)
                 intent.putExtra("ACCOUNT_NO", order[position].CustomerId_c)
                 intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
                 intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
-                intent.putExtra("SERVICE_TYPE",order[position].ServiceType)
-                intent.putExtra("Standard_Value__c",order[position].StandardValue_c)
+                intent.putExtra("SERVICE_TYPE", order[position].ServiceType)
+                intent.putExtra("Standard_Value__c", order[position].StandardValue_c)
                 intent.putExtra("Product", false)
 
                 startActivity(intent)
             }
 
             override fun onPaymentitemsClick(position: Int, order: ArrayList<CODOrders>) {
-                val intent=Intent(requireActivity(),OrderDetailActivity::class.java)
+                val intent = Intent(requireActivity(), OrderDetailActivity::class.java)
                 intent.putExtra("orderNo", order[position].OrderNumber_c)
                 intent.putExtra("serviceType", order[position].ServiceType)
                 intent.putExtra("service_url_image", order[position].ServicePlanImageUrl)
-                intent.putExtra("locationLatitudeS", order[position].AccountName_r!!.Location_Latitude_s)
-                intent.putExtra("locationLongitudeS", order[position].AccountName_r!!.Location_Longitude_s)
+                intent.putExtra(
+                    "locationLatitudeS",
+                    order[position].AccountName_r!!.Location_Latitude_s
+                )
+                intent.putExtra(
+                    "locationLongitudeS",
+                    order[position].AccountName_r!!.Location_Longitude_s
+                )
                 intent.putExtra("ServiceCenterId", order[position]!!.HRShippingRegion_r!!.Id)
 
                 startActivity(intent)
@@ -496,9 +500,7 @@ class HomeFragment : Fragment() {
 
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            dashboardViewModel.GetDashboard(AppUtils2.mobileno)
-        }, 500)
+        dashboardViewModel.GetDashboard(AppUtils2.mobileno)
 
 
     }
@@ -562,8 +564,6 @@ class HomeFragment : Fragment() {
 //                Toast.LENGTH_SHORT
 //            ).show()
 //        }
-
-
 
 
 //        binding.recOffers.layoutManager =
@@ -834,39 +834,52 @@ class HomeFragment : Fragment() {
                                 // initialize location request
                                 val locationRequest =
                                     LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                        .setInterval(10000).setFastestInterval(1000).setNumUpdates(1)
+                                        .setInterval(10000).setFastestInterval(1000)
+                                        .setNumUpdates(1)
 
                                 // Initialize location call back
-                                val locationCallback: LocationCallback = object : LocationCallback() {
-                                    fun voidonLocationResult(
-                                        locationResult: LocationResult
-                                    ) {
-                                        // Initialize
-                                        // location
-                                        val location1: Location = locationResult.lastLocation
-                                        // Set latitude
+                                val locationCallback: LocationCallback =
+                                    object : LocationCallback() {
+                                        fun voidonLocationResult(
+                                            locationResult: LocationResult
+                                        ) {
+                                            // Initialize
+                                            // location
+                                            val location1: Location = locationResult.lastLocation
+                                            // Set latitude
 //                                    Toasty.success(
 //                                        this@Checkin_Out_Home,
 //                                        "Lat: " + location1.getLatitude() + "long: " + location1.getLongitude()
 //                                    )
-                                        lastlat = location1.latitude.toString()
-                                        lastlongg = location1.longitude.toString()
-                                        val mGeocoder = Geocoder(requireActivity(), Locale.getDefault())
-                                        if (mGeocoder != null) {
-                                            var postalcode: MutableList<Address>? = mGeocoder.getFromLocation(lastlat!!.toDouble(), lastlongg!!.toDouble(), 5)
-                                            if (postalcode != null && postalcode.size > 0) {
-                                                for (i in 0 until postalcode.size){
-                                                    AppUtils2.pincode=postalcode.get(i).postalCode.toString()
-                                                    SharedPreferenceUtil.setData(requireActivity(), "pincode",postalcode.get(i).postalCode.toString())
-                                                    break
+                                            lastlat = location1.latitude.toString()
+                                            lastlongg = location1.longitude.toString()
+                                            val mGeocoder =
+                                                Geocoder(requireActivity(), Locale.getDefault())
+                                            if (mGeocoder != null) {
+                                                var postalcode: MutableList<Address>? =
+                                                    mGeocoder.getFromLocation(
+                                                        lastlat!!.toDouble(),
+                                                        lastlongg!!.toDouble(),
+                                                        5
+                                                    )
+                                                if (postalcode != null && postalcode.size > 0) {
+                                                    for (i in 0 until postalcode.size) {
+                                                        AppUtils2.pincode =
+                                                            postalcode.get(i).postalCode.toString()
+                                                        SharedPreferenceUtil.setData(
+                                                            requireActivity(),
+                                                            "pincode",
+                                                            postalcode.get(i).postalCode.toString()
+                                                        )
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
 //                                    tvLatitude.setText(java.lang.String.valueOf(location1.getLatitude()))
 //                                    // Set longitude
 //                                    tvLongitude.setText(java.lang.String.valueOf(location1.getLongitude()))
+                                        }
                                     }
-                                }
 
                                 // Request location updates
                                 if (ActivityCompat.checkSelfPermission(
@@ -901,7 +914,7 @@ class HomeFragment : Fragment() {
                 // open location setting
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

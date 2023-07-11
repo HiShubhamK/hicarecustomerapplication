@@ -1,6 +1,7 @@
 package com.ab.hicareservices.data.model.getslots
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Data(
 

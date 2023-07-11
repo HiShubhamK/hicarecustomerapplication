@@ -164,22 +164,42 @@ class ProductDetailActivity : AppCompatActivity() {
             var maxquantity = it.ProductConfiguration!!.MaximumBuyQuantity
             var productid = it.ProductConfiguration!!.ProductId
             if (it.ProductTestimonialList != null) {
-                customerReviewAdapter.setProductReview(it.ProductTestimonialList)
+                if (it.ProductTestimonialList.isEmpty()){
+                    binding.lnrCustomerReview.visibility=View.GONE
+                }else{
+                    customerReviewAdapter.setProductReview(it.ProductTestimonialList)
+                }
+            }else{
+                binding.lnrCustomerReview.visibility=View.GONE
             }
             if (it.ProductGallery != null) {
                 mAdapter.setPrductdetail(it.ProductGallery, this)
             }
             if (it.RelatedProducts != null) {
-                binding.lnrRelatedData.visibility = View.VISIBLE
-                relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+                if(it.RelatedProducts.isEmpty()) {
+                    binding.lnrRelatedData.visibility = View.GONE
+                }else{
+                    binding.lnrRelatedData.visibility = View.VISIBLE
+                    relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
+                }
+
             } else {
                 binding.lnrRelatedData.visibility = View.GONE
 
             }
             if (it.ProductFAQ != null) {
-                binding.recFAQ.visibility = View.VISIBLE
-                faqAdapter.setFaq(it.ProductFAQ, this)
+                if (it.ProductFAQ.isEmpty()){
+                    binding.lnrFAQ.visibility=View.GONE
+                }else{
+                    binding.lnrFAQ.visibility=View.VISIBLE
+
+                    binding.recFAQ.visibility = View.VISIBLE
+                    faqAdapter.setFaq(it.ProductFAQ, this)
+                }
+
             } else {
+                binding.lnrFAQ.visibility=View.GONE
+
                 binding.recFAQ.visibility = View.GONE
 
             }
@@ -245,6 +265,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     Html.fromHtml(it.ProductConfiguration!!.ProductDetailDescription)
 
             } else {
+                binding.lnrMoreItem.visibility = View.GONE
                 binding.tvProductdescLong.visibility = View.GONE
             }
             binding.lnrBottom.setOnClickListener {

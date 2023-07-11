@@ -100,7 +100,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         Handler(Looper.getMainLooper()).postDelayed({
             viewModel.getNotificationtoken(token.toString())
-        }, 1500)
+        }, 500)
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()

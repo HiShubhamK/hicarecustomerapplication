@@ -40,7 +40,7 @@ class GetSlotViewModel : ViewModel() {
                 override fun onResponse(call: Call<GetSlots>, response: Response<GetSlots>) {
                     if (response.body()?.IsSuccess == true) {
                         val responseBody = response.body()?.Data
-                        getSlotresponse.postValue(responseBody)
+                        getSlotresponse.postValue(responseBody!!)
                     }
                 }
 
@@ -58,7 +58,7 @@ class GetSlotViewModel : ViewModel() {
                 ) {
                     if (response.body()?.IsSuccess == true) {
                         val responseBody = response.body()?.Data
-                        getcomplainceresponse.postValue(responseBody)
+                        getcomplainceresponse.postValue(responseBody!!)
                     }
                 }
 

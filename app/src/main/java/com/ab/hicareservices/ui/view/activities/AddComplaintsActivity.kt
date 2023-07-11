@@ -211,23 +211,29 @@ class AddComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "") {
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != ""&& selectedCType != "Complaint Type") {
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
+                    progressDialog.dismiss()
                 } else {
+                    progressDialog.dismiss()
+
                     Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""&&selectedCType != ""&& selectedCType != "Complaint Type"
                 ) {
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
+                    progressDialog.dismiss()
                 } else {
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+
                 }
             }
         }

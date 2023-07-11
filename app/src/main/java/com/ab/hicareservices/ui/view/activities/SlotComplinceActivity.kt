@@ -1,9 +1,11 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +17,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.getslots.Data
+import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivitySlotComplinceBinding
 import com.ab.hicareservices.ui.adapter.SlotCompliceAdapater
@@ -32,8 +36,8 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.util.ArrayList
 import java.util.Calendar
-import java.util.Date
 
 class SlotComplinceActivity : AppCompatActivity() {
 
@@ -214,9 +218,9 @@ class SlotComplinceActivity : AppCompatActivity() {
                         AppUtils2.formatDateTime4(it[0].ScheduledDate.toString())
                     binding.tvSelectedDateTo.text =
                         AppUtils2.formatDateTime4(it[7].ScheduledDate.toString())
-                    progressDialog.dismiss()
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.lnrAvailableSlot.visibility = View.VISIBLE
+                    progressDialog.dismiss()
 
                 }
             } catch (e: Exception) {
@@ -249,14 +253,15 @@ class SlotComplinceActivity : AppCompatActivity() {
                 Lat: String,
                 Long: String,
                 ServiceType: String,
-                toString: String,
+                scheduledate: String,
                 scheduledatetext: String
             ) {
                 progressDialog.show()
+                AppUtils2.ServiceDate=AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
                 data["Service_Code"] = Service_Code
-                data["Service_Date"] = AppUtils2.formatDateTimeApi(Service_Date)
+                data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
                 data["Service_Subscription"] = ""
                 data["Unit"] = unit.toString()
                 data["Lat"] = Lat
@@ -266,8 +271,18 @@ class SlotComplinceActivity : AppCompatActivity() {
                 viewModel.getSlotresponse.observe(this@SlotComplinceActivity, Observer {
 //                    Log.d(TAG, "onViewCreated: $it orders fragment")
                     if (it.IsSuccess == true) {
+                        progressDialog.dismiss()
+                        AppUtils2.timeslotslist = it.TimeSlots
+                        val intent = Intent(this@SlotComplinceActivity, SlotDetailActivity::class.java)
+                        intent.putExtra(
+                            "Service_Date",
+                            AppUtils2.ServiceDate
+                        )
+                        intent.putExtra("scheduledatetext", scheduledatetext)
+                        intent.putExtra("TaskId", TaskId)
+                        startActivity(intent)
 
-                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
+//                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
 
 
                     }
@@ -289,7 +304,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         })
         Log.e(
             "TAG",
-            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType
+            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType+""+Unit
         )
 
 
@@ -305,19 +320,21 @@ class SlotComplinceActivity : AppCompatActivity() {
         val promptsView = li.inflate(R.layout.reschedule_layout, null)
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialogBuilder.setView(promptsView)
-        alertDialog = alertDialogBuilder.create()
+        val alertDialog: AlertDialog = alertDialogBuilder.create()
+
+//        alertDialog = alertDialogBuilder.create()
         alertDialog.setCancelable(false)
         val btnSubmit = promptsView.findViewById<View>(R.id.btnSubmit) as Button
         val txtMonth = promptsView.findViewById<View>(R.id.txtMonth) as TextView
         val imgClose = promptsView.findViewById<View>(R.id.imgClose) as ImageView
         txtMonth.text = scheduledatetext
-        val recycleWeeks: RecyclerView =
-            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
+//        val recycleWeeks: RecyclerView =
+//            promptsView.findViewById<View>(R.id.recycleView) as RecyclerView
         val recycleSlots: RecyclerView =
             promptsView.findViewById<View>(R.id.recycleSlots) as RecyclerView
-        recycleWeeks.setHasFixedSize(true)
+//        recycleWeeks.setHasFixedSize(true)
         var layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycleWeeks.layoutManager = layoutManager
+//        recycleWeeks.layoutManager = layoutManager
         recycleSlots.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(this)
         recycleSlots.layoutManager = layoutManager
@@ -326,8 +343,8 @@ class SlotComplinceActivity : AppCompatActivity() {
         recycleSlots.adapter = mSlotAdapter
 
         imgClose.setOnClickListener {
-                alertDialog.dismiss()
-                progressDialog.dismiss()
+            alertDialog.dismiss()
+            progressDialog.dismiss()
 
         }
         btnSubmit.setOnClickListener {
@@ -363,7 +380,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 
 
             alertDialog.dismiss()
-            this.progressDialog.dismiss()
+            progressDialog.dismiss()
 
         }
 
@@ -390,5 +407,9 @@ class SlotComplinceActivity : AppCompatActivity() {
         alertDialog.show()
 
     }
+
+}
+
+private fun Bundle.putParcelableArrayList(s: String, timeSlots: ArrayList<TimeSlot>) {
 
 }

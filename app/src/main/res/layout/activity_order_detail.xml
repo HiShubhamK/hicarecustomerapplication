@@ -42,7 +42,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Order"
+                android:text="Order Detail"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -63,18 +63,18 @@
                 android:visibility="gone" />
 
 
-            <TextView
-                android:id="@+id/help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/imgLogo"
-                android:fontFamily="@font/lato_semibold"
-                android:gravity="end"
-                android:text="Raise Complaint"
-                android:textColor="@color/colorAccent"
-                android:textSize="14sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/help"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_toRightOf="@id/imgLogo"-->
+<!--                android:fontFamily="@font/lato_semibold"-->
+<!--                android:gravity="end"-->
+<!--                android:text="Raise Complaint"-->
+<!--                android:textColor="@color/colorAccent"-->
+<!--                android:textSize="14sp" />-->
 
         </RelativeLayout>
 
@@ -1033,6 +1033,16 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/help"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Need Help?"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
 
             <androidx.cardview.widget.CardView
@@ -1040,7 +1050,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="15dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp"

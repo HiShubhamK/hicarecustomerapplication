@@ -32,12 +32,15 @@ class ProductDetailAdapter() : RecyclerView.Adapter<ProductDetailAdapter.MainVie
         val productlistdata = productDetails[position]
         Picasso.get().load(productlistdata.GalleryImage).into(holder.binding.imgBanner)
 
-        if (productlistdata.VideoUrl!!.isNotEmpty()){
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(productlistdata.VideoUrl));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setPackage("com.google.android.youtube");
-            productDetailActivity!!.startActivity(intent)
+        holder.binding.imgBanner.setOnClickListener{
+            if (productlistdata.VideoUrl!!.isNotEmpty()){
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(productlistdata.VideoUrl));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setPackage("com.google.android.youtube");
+                productDetailActivity!!.startActivity(intent)
+            }
         }
+
     }
 
 

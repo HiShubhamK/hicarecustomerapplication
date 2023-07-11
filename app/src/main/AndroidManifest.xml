@@ -256,6 +256,7 @@
         <activity android:name=".ui.view.activities.ProductSummaryDetailActivity" />
         <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity" />
         <activity android:name=".ui.view.activities.AddProductComplaintsActivity" />
+        <activity android:name=".ui.view.activities.SlotDetailActivity" />
     </application>
 
 </manifest>

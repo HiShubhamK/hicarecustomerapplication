@@ -159,7 +159,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
             if (it!=null){
-                imageListnew.addAll(it.ComplaintAttachment)
+                mAdapter.setAttachment(it.ComplaintAttachment as ArrayList<ComplaintAttachment>)
             }
             progressDialog.dismiss()
 

@@ -80,8 +80,8 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
         }
         holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
-          onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,AppUtils2.formatDateTime4(complincelist.ScheduledDate.toString()),
-              "",Unitt,Lat,Long,ServiceType,complincelist.ScheduledDate.toString(),complincelist.ScheduledDateText.toString())
+          onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
+              "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())
         }
 //        holder.binding.crdMain.setOnClickListener {
 //

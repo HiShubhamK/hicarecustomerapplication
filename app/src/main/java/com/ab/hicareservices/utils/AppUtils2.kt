@@ -3,9 +3,11 @@ package com.ab.hicareservices.utils
 import android.app.Activity
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.product.ProducDetailsData
 import com.ab.hicareservices.data.model.product.ProductGallery
+import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
@@ -18,8 +20,10 @@ object AppUtils2 {
     var TOKEN = ""
     var mobileno=""
     var order_number=""
+    var ServiceDate=""
     var paymentsucess=""
     var leaderlist= ArrayList<CartlistResponseData>()
+    var timeslotslist=  ArrayList<TimeSlot>()
     var cartcounts=""
     var customerid=""
     var cutomername=""
@@ -41,6 +45,9 @@ object AppUtils2 {
     var state=""
     var changebuttonstatus:Boolean=false
     var postalcode=""
+    private lateinit var imageListnew: ArrayList<ComplaintAttachment>
+
+
 
     @JvmStatic
     fun startPayment(activity: Activity) {
@@ -66,8 +73,8 @@ object AppUtils2 {
     }
 
     fun formatDateTime(dateTime: String): String{
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val simpleDateFormatOut = SimpleDateFormat("dd-MM-yyyy")
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }

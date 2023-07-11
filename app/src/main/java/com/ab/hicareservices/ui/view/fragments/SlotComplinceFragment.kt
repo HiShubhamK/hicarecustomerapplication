@@ -274,7 +274,7 @@ class SlotComplinceFragment() : Fragment() {
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
                 data["Service_Code"] = Service_Code
-                data["Service_Date"] = AppUtils2.formatDateTimeApi(Service_Date)
+                data["Service_Date"] = Service_Date
                 data["Service_Subscription"] = ""
                 data["Unit"] = unit.toString()
                 data["Lat"] = Lat

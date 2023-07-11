@@ -246,7 +246,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="Deliver Charges"
+                                android:text="Delivery Charges"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -257,10 +257,10 @@
                                 android:fontFamily="@font/lato_semibold"
                                 android:gravity="end"
                                 android:text="Free"
-                                android:layout_marginRight="3dp"
+                                android:paddingEnd="5dp"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="12sp"
-                                android:textStyle="italic" />
+                                android:textStyle="italic|bold" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <View
@@ -295,8 +295,8 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_regular"
                                 android:gravity="end"
-                                android:text="₹ 20000"
-                                android:textColor="@color/black"
+                                android:text=""
+                                android:textColor="@color/md_red_700"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
