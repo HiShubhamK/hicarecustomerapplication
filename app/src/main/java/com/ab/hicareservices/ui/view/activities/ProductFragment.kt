@@ -130,16 +130,19 @@ class ProductFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
 
             viewProductModel.productlist.observe(requireActivity(), Observer {
-                progressDialog.dismiss()
 
                 if (it != null) {
 
                     binding.recycleviewproduct.visibility = View.VISIBLE
                     binding.textnotfound.visibility = View.GONE
                     mAdapter.setProductList(it, requireActivity(), viewProductModel)
+                    progressDialog.dismiss()
+
                 } else {
                     binding.recycleviewproduct.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
+                    progressDialog.dismiss()
+
                 }
 
             })
@@ -152,7 +155,9 @@ class ProductFragment : Fragment() {
 
                 viewProductModel.getProductlist(pincode)
 
-        }, 500)
+            progressDialog.dismiss()
+
+        }, 1500)
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {

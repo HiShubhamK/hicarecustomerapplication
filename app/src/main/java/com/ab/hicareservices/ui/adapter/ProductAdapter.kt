@@ -15,6 +15,7 @@ import com.ab.hicareservices.databinding.LayoutProductlistBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
@@ -39,7 +40,8 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
         if(productlists.IsStockAvailable==true) {
             holder.binding.txtratingvalues.text=productlists.ProductRating.toString()
             if(productlists.ProductThumbnail!=null) {
-                Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+//                Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+                Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
             }
                 holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()

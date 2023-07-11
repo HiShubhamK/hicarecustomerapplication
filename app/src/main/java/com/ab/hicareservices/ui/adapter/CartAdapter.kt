@@ -19,6 +19,7 @@ import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddToCartActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
@@ -54,7 +55,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         holder.binding.textcount.text= productlists.Quantity!!.toInt().toString()
         counts = productlists.Quantity!!.toInt()
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
-        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+//        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+        Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
         holder.binding.txtname.text = productlists.ProductName
         holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
         val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()

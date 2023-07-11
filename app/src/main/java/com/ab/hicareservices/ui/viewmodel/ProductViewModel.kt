@@ -31,6 +31,8 @@ class ProductViewModel: ViewModel() {
     val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
     val validateVoucherResponse = MutableLiveData<ValidateVoucherResponse>()
+    val paymentsuceess = MutableLiveData<String>()
+
 
 
     fun getCustomerid(mobileno: String) {
@@ -238,7 +240,7 @@ class ProductViewModel: ViewModel() {
                 call: Call<SaveSalesResponse>,
                 response: Response<SaveSalesResponse>
             ) {
-                errorMessage.postValue(response.body()?.Data)
+                paymentsuceess.postValue(response.body()?.Data)
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {

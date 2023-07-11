@@ -34,8 +34,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     var data1 = HashMap<String, Any>()
 
-
-
     private val viewProductModel: ProductViewModel by viewModels()
     var payment = ""
     var order_no = ""
@@ -313,7 +311,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         if (product == true) {
 
             try {
-                viewProductModel.errorMessage.observe(this, Observer {
+                viewProductModel.paymentsuceess.observe(this, Observer {
                     if(it!=null){
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE

@@ -15,6 +15,7 @@ import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 
@@ -42,7 +43,8 @@ class RelatedProductAdapter(
         try {
             holder.setIsRecyclable(false)
             val productlistdata = productDetails[position]
-            Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
+//            Picasso.get().load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
+            Glide.with(activityy).load(productlistdata.ProductThumbnail).into(holder.binding.imgBanner)
             holder.binding.txtratingvalues.text = productlistdata.ProductRating.toString()
             holder.binding.ratingbar.rating = productlistdata.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.progressDrawable

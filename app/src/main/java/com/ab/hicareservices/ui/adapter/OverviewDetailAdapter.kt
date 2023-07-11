@@ -14,6 +14,7 @@ import com.ab.hicareservices.databinding.LayoutOverviewdetailsBinding
 import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.view.activities.OverviewProductDetailsActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainViewHolder>() {
@@ -39,7 +40,8 @@ class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainVie
         val productlists = productlist[position]
 
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
-        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+//        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+        Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
         holder.binding.txtname.text = productlists.ProductName
         holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
         holder.binding.txtpricelineqty.text=productlists.Quantity.toString()
