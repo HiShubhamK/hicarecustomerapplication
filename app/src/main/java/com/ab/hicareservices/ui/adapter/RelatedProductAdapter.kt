@@ -55,24 +55,28 @@ class RelatedProductAdapter(
             holder.binding.txtpriceline.paintFlags =
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.binding.imgddToCart.setOnClickListener{
-                viewmodel.getAddProductInCart(
-                    1,
-                    productlistdata.ProductId!!.toInt(),
-                    AppUtils2.customerid.toInt()
-                )
-                viewmodel.addtocart.observe(activityy,{
-                    if (it.IsSuccess==true){
 
-                        Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
-                        onRelatedProductClick?.onRelatedProdAddtoCart(position,productlistdata.ProductId!!.toInt(),it.Data)
-
-                    }else{
-                        Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
+                onRelatedProductClick?.setonaddclicklistener(position,productlistdata.ProductId!!.toInt(),1)
 
 
-                    }
 
-                })
+                //                viewmodel.getAddProductInCart(
+//                    1,
+//                    productlistdata.ProductId!!.toInt(),
+//                    AppUtils2.customerid.toInt()
+//                )
+//                viewmodel.addtocart.observe(activityy,{
+//                    if (it.IsSuccess==true){
+//
+//                        Toast.makeText(activityy,"Product Added To Cart",Toast.LENGTH_SHORT).show()
+//
+//                    }else{
+//                        Toast.makeText(activityy,"Unable to add product, please try again later",Toast.LENGTH_SHORT).show()
+//
+//
+//                    }
+
+//                })
 //                onProductClickedHandler!!.onProductClickedHandler(position,productlistdata.ProductId!!.toInt())
             }
         } catch (e: Exception) {

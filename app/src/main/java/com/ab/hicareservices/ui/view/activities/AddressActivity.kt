@@ -66,7 +66,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
             if (b==true){
-                showAddNewAddressdialog("false",binding.checkbox)
+                showAddNewAddressdialog("false",binding.checkbox,AppUtils2.pincode)
             }else {
 
             }
@@ -130,7 +130,7 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true",binding.checkbox)
+            showAddNewAddressdialog("true",binding.checkbox,AppUtils2.pincode)
         }
 
 //        binding.lnraddressbilling.setOnClickListener {
@@ -207,7 +207,6 @@ class AddressActivity : AppCompatActivity() {
 
             for (i in 0 until it.size) {
 
-
                 var data = it.get(i).Id.toString()
 
                 if(data.equals(shippingdata)){
@@ -231,7 +230,11 @@ class AddressActivity : AppCompatActivity() {
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
-    private fun showAddNewAddressdialog(b: String, appCompatCheckBox: AppCompatCheckBox) {
+    private fun showAddNewAddressdialog(
+        b: String,
+        appCompatCheckBox: AppCompatCheckBox,
+        pincode: String
+    ) {
         var selectedLocation = ""
         var dateTime = ""
         val li = LayoutInflater.from(this)
@@ -307,12 +310,17 @@ class AddressActivity : AppCompatActivity() {
                 }
             }
 
+            etpincode.setText(pincode)
+
+            etpincode.isEnabled=false
+            etpincode.isClickable=false
+
             saveBtn.setOnClickListener {
                 if(etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim().equals("") &&
                     etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                     etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
-                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("") &&
+                    etlandmark.text.toString().trim().equals("") &&
                     etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
 
                     Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
@@ -565,10 +573,10 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        SharedPreferenceUtil.setData(this, "Shippingdata", "")
-        SharedPreferenceUtil.setData(this, "Billingdata", "")
         val intent= Intent(this,AddToCartActivity::class.java)
         startActivity(intent)
+        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+        SharedPreferenceUtil.setData(this, "Billingdata", "")
 
     }
 }

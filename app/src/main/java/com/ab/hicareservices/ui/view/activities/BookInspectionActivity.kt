@@ -190,6 +190,8 @@ class BookInspectionActivity : AppCompatActivity() {
 
                 })
 
+                progressDialog.dismiss()
+
                 viewModels.postleaderdata(data)
 
             }

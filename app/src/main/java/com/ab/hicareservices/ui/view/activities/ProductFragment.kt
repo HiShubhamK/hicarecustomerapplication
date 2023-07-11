@@ -163,7 +163,6 @@ class ProductFragment : Fragment() {
 
                     viewProductModel.addtocart.observe(requireActivity(), Observer {
                         if (it.IsSuccess == true) {
-                            Toast.makeText(requireActivity(), "Product Added To Cart", Toast.LENGTH_SHORT).show()
                             getproductcount()
                         } else {
                             Toast.makeText(

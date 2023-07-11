@@ -134,6 +134,12 @@ class AddresslistActivity : AppCompatActivity() {
             val saveBtn = promptsView.findViewById<View>(R.id.saveBtn) as Button
 
 
+            etpincode.setText(AppUtils2.pincode)
+
+            etpincode.isEnabled=false
+            etpincode.isClickable=false
+
+
             alertDialog.setCancelable(false)
 
             imgcancels.setOnClickListener { alertDialog.cancel() }
@@ -181,7 +187,7 @@ class AddresslistActivity : AppCompatActivity() {
                     etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                     etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
-                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("") &&
+                    etlandmark.text.toString().trim().equals("") &&
                     etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
 
                     Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
