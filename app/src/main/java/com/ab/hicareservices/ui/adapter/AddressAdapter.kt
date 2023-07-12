@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
+import com.ab.hicareservices.ui.view.activities.AddressActivity
 import com.ab.hicareservices.ui.view.activities.AddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 
@@ -81,6 +83,9 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
             }
 
             holder.itemView.setOnClickListener {
+                val intent= Intent(requireActivity, AddressActivity::class.java)
+                requireActivity.startActivity(intent)
+                requireActivity.finish()
                 onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false)
             }
 
@@ -91,9 +96,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
                         cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
                         cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
             holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.ContactPersonMobile
-
         }
-
     }
 
     override fun getItemId(position: Int): Long {

@@ -125,10 +125,8 @@ class AddToCartActivity : AppCompatActivity() {
                             progressDialog.dismiss()
                             getSummarydata()
                             AppUtils2.cartcounts=""
-//                            val intent=intent
                             AppUtils2.changebuttonstatus=false
-//                            finish()
-//                            startActivity(intent)
+
                             val mIntent = intent
                             finish()
                             startActivity(mIntent)

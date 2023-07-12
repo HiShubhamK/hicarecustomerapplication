@@ -82,7 +82,7 @@ class OTPActivity : AppCompatActivity() {
                 finish()
             } else {
                 progressDialog.dismiss()
-                Toast.makeText(this, "Invalid Otp", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Invalid OTP", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -98,7 +98,7 @@ class OTPActivity : AppCompatActivity() {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
                 mOtp=""
                 mOtp = it.data.toString()
-                Toast.makeText(this, "Otp Resend Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "OTP Resend Successfully", Toast.LENGTH_SHORT).show()
                 startCounter()
             } else {
                 binding.resentSuccessTv.visibility = View.GONE

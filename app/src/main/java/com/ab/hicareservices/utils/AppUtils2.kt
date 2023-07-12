@@ -45,6 +45,7 @@ object AppUtils2 {
     var state=""
     var changebuttonstatus:Boolean=false
     var postalcode=""
+    var shippingdata=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
 
 

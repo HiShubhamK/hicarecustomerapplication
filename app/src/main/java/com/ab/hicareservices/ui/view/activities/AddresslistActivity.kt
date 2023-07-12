@@ -50,9 +50,9 @@ class AddresslistActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-            val intent=Intent(this,AddressActivity::class.java)
-            startActivity(intent)
-            finish()
+//            val intent=Intent(this,AddressActivity::class.java)
+//            startActivity(intent)
+//            finish()
         }
 
         binding.lnraddress.setOnClickListener {
@@ -92,13 +92,13 @@ class AddresslistActivity : AppCompatActivity() {
 
             override fun setItemClickLister(position: Int, id: Int?, b: Boolean) {
                 if(b==true){
+                    AppUtils2.shippingdata=id.toString()
                     SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
+                    onBackPressed()
                 }else if(b==false){
-                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
+//                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
                 }
-                val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
-                startActivity(intent)
-                finish()
+
             }
 
 
@@ -255,9 +255,6 @@ class AddresslistActivity : AppCompatActivity() {
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         progressDialog.dismiss()
                         if(it.IsSuccess==true){
-                            val intent=intent
-                            finish()
-                            startActivity(intent)
                             alertDialog.dismiss()
                             Toast.makeText(this,"Shipping address added successfully", Toast.LENGTH_LONG).show()
                         }else{
@@ -419,8 +416,5 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this,AddressActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }
