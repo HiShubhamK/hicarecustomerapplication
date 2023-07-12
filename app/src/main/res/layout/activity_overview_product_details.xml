@@ -106,7 +106,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="Deliver  to Pincode 400601"
+                android:text="Deliver to Pincode 400601"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -282,7 +282,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/lato_regular"
-                                    android:text="Deliver Charge"
+                                    android:text="Delivery Charge"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
 

@@ -52,6 +52,7 @@ class AddresslistActivity : AppCompatActivity() {
             onBackPressed()
             val intent=Intent(this,AddressActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.lnraddress.setOnClickListener {
@@ -97,6 +98,7 @@ class AddresslistActivity : AppCompatActivity() {
                 }
                 val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
                 startActivity(intent)
+                finish()
             }
 
 
@@ -419,5 +421,6 @@ class AddresslistActivity : AppCompatActivity() {
         super.onBackPressed()
         val intent=Intent(this,AddressActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

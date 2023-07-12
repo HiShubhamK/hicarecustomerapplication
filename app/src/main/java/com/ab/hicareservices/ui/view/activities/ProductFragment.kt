@@ -157,7 +157,7 @@ class ProductFragment : Fragment() {
 
             progressDialog.dismiss()
 
-        }, 1500)
+        }, 100)
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
@@ -238,8 +238,6 @@ class ProductFragment : Fragment() {
         })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-//        viewProductModel.getProductCountInCar(20)
-
     }
 
 

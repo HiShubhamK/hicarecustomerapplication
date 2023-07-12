@@ -228,14 +228,10 @@ class ProductDetailActivity : AppCompatActivity() {
                                 progressDialog.dismiss()
                                 Toast.makeText(this@ProductDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
                             }
-
                         })
-
                         viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
                     }, 500)
-
                 }
-
             })
 
 
@@ -551,5 +547,23 @@ class ProductDetailActivity : AppCompatActivity() {
             mPaint.setStyle(Paint.Style.FILL)
             mPaint.setAntiAlias(true)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        viewProductModel.productcount.observe(this, Observer {
+            if (it.IsSuccess == true) {
+
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    AppUtils2.cartcounts = it.Data.toString()
+                    binding.appCompatImageViewd.text = it.Data.toString()
+                }
+            } else {
+                binding.cartmenu.visibility = View.GONE
+            }
+        })
+        viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
     }
 }

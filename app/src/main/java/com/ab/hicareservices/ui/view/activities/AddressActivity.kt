@@ -74,8 +74,9 @@ class AddressActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
-            startActivity(intent)
+//            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
+//            startActivity(intent)
+//            finish()
         }
 
         if(billingdata.equals("") || billingdata==null){
@@ -575,10 +576,11 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
-        startActivity(intent)
-        SharedPreferenceUtil.setData(this, "Shippingdata", "")
-        SharedPreferenceUtil.setData(this, "Billingdata", "")
+//        val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+//        SharedPreferenceUtil.setData(this, "Billingdata", "")
 
     }
 }

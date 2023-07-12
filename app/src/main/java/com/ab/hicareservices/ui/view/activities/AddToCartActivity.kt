@@ -34,6 +34,7 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import okhttp3.internal.notify
 import java.util.*
 
 class AddToCartActivity : AppCompatActivity() {
@@ -78,9 +79,11 @@ class AddToCartActivity : AppCompatActivity() {
         binding.txtplcaeorder.setOnClickListener{
             val intent= Intent(this,AddressActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.imgLogo.setOnClickListener{
             onBackPressed()
+            finish()
         }
     }
 
@@ -122,10 +125,13 @@ class AddToCartActivity : AppCompatActivity() {
                             progressDialog.dismiss()
                             getSummarydata()
                             AppUtils2.cartcounts=""
-                            val intent=intent
+//                            val intent=intent
                             AppUtils2.changebuttonstatus=false
+//                            finish()
+//                            startActivity(intent)
+                            val mIntent = intent
                             finish()
-                            startActivity(intent)
+                            startActivity(mIntent)
                         }
                     })
                     viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
@@ -202,13 +208,11 @@ class AddToCartActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
+        finish()
     }
 
     override fun onResume() {
         super.onResume()
         getSummarydata()
     }
-
-
 }
