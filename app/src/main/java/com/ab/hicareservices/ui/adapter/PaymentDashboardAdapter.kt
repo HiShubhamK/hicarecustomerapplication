@@ -118,9 +118,9 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
                 onResceduleInterface!!.onPaymentClick(position,codOrders as ArrayList<CODOrders>)
             }
 
-            holder.itemView.setOnClickListener {
-                onResceduleInterface!!.onPaymentitemsClick(position, codOrders as ArrayList<CODOrders>)
-            }
+//            holder.itemView.setOnClickListener {
+//                onResceduleInterface!!.onPaymentitemsClick(position, codOrders as ArrayList<CODOrders>)
+//            }
 
 
 

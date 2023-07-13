@@ -50,6 +50,7 @@ class ComplaintFragmentNew() : Fragment() {
         binding = FragmentOrdersNewBinding.inflate(inflater, container, false)
         //viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(MainRepository(api))).get(OrdersViewModel::class.java)
         mobile = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
+
         return binding.root
     }
 

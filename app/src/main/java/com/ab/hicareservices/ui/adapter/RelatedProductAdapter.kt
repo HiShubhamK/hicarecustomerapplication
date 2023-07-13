@@ -58,7 +58,7 @@ class RelatedProductAdapter(
                 holder.binding.txtpriceline.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.binding.imgddToCart.setOnClickListener{
 
-                onRelatedProductClick?.setonaddclicklistener(position,productlistdata.ProductId!!.toInt(),1)
+                onRelatedProductClick?.setonaddclicklistener(position,productlistdata.RelatedProductId!!.toInt(),1)
 
 
 

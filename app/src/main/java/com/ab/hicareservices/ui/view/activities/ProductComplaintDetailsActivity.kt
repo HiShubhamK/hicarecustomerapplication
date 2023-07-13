@@ -154,12 +154,19 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
     private fun getcomplaintAttachment() {
 //        progressDialog.show()
         imageListnew= ArrayList()
+        binding.recyclerView.layoutManager =LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        mAdapter = ProductComplaintAttachmentAdapter()
         viewModel.getproductcomplaintlist.observe(this, Observer {
 //            Log.d(TAG, "onViewCreated: $it")
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
             if (it!=null){
                 mAdapter.setAttachment(it.ComplaintAttachment as ArrayList<ComplaintAttachment>)
+                binding.lnrAttachments.visibility = View.VISIBLE
+                binding.tvNodata.visibility = View.GONE
+            }else{
+                binding.lnrAttachments.visibility = View.GONE
+                binding.tvNodata.visibility = View.GONE
             }
             progressDialog.dismiss()
 
@@ -167,25 +174,23 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 //            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()
 
         })
-        binding.recyclerView.layoutManager =LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mAdapter = ProductComplaintAttachmentAdapter()
-        if (imageListnew!=null) {
+
+//        if (imageListnew!=null) {
             if (imageListnew.isNotEmpty()) {
                 mAdapter.setAttachment(imageListnew)
-                binding.lnrAttachments.visibility = View.VISIBLE
-                binding.tvNodata.visibility = View.GONE
-                progressDialog.dismiss()
 
+                progressDialog.dismiss()
+//
             } else {
                 binding.lnrAttachments.visibility = View.GONE
                 binding.tvNodata.visibility = View.VISIBLE
             }
 
-        }else{
-            progressDialog.dismiss()
-            binding.lnrAttachments.visibility = View.GONE
-            binding.tvNodata.visibility = View.VISIBLE
-        }
+//        }else{
+//            progressDialog.dismiss()
+//            binding.lnrAttachments.visibility = View.GONE
+//            binding.tvNodata.visibility = View.VISIBLE
+//        }
 
 
         viewModel.GetComplaintDetailId(complaintidd.toInt())

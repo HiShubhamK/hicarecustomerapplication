@@ -318,7 +318,7 @@ class OrderDetailActivity : AppCompatActivity() {
 
                 } else if (data.status__c.equals("Cancelled")) {
 
-                    binding.title.visibility = View.GONE
+                    binding.payNowBtn.visibility = View.GONE
                     binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
 
                 } else if (data.status__c.equals("Active")) {

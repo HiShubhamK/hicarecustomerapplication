@@ -26,7 +26,7 @@ class ProductComplaintAttachmentAdapter() :
     }
     fun setAttachment(complaintdata: ArrayList<ComplaintAttachment>) {
         if (complaintdata != null) {
-            this.imageList = complaintdata
+            imageList = complaintdata
             notifyDataSetChanged()
 
         }

@@ -71,11 +71,11 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 
                 } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
 
-//                    val intent = Intent(fragmentActivity, ComplaintsActivity::class.java)
-//                    fragmentActivity!!.startActivity(intent)
-                    fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, ComplaintFragmentNew.newInstance())
-                        .addToBackStack("HomeFragment").commit()
+                    val intent = Intent(fragmentActivity, ComplaintsActivityNew::class.java)
+                    fragmentActivity!!.startActivity(intent)
+//                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, ComplaintFragmentNew.newInstance())
+//                        .addToBackStack("HomeFragment").commit()
                 } else if (service.Title.equals("Renewals") && service.IsAppLink == true) {
 
 
