@@ -32,6 +32,7 @@ class ProductViewModel: ViewModel() {
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
     val validateVoucherResponse = MutableLiveData<ValidateVoucherResponse>()
     val paymentsuceess = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
 
 
 
@@ -146,7 +147,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     cartlist.postValue(response.body()!!.Data)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage)
                 }
             }
 

@@ -53,6 +53,12 @@ class UpcomingServicesActivity : AppCompatActivity() {
             binding.recUpcomingData.layoutManager = LinearLayoutManager(this)
             mAdapter = UpcomingServicesAdapter()
 
+
+            viewModel.responseMessage.observe(this, Observer {
+                binding.recUpcomingData.visibility=View.GONE
+                binding.upcomingservices.visibility=View.VISIBLE
+            })
+
             viewModel.ScheduledService.observe(this, Observer {
                 Log.d("TAG", "onViewCreated: $it")
                 if(it!=null){
@@ -85,8 +91,9 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     intent.putExtra("Long", upcomingdata[position].GoogleLong_c)
                     intent.putExtra("ServiceType", "Pest")
                     intent.putExtra("Pincode", upcomingdata[position].HRZipPostalCode_c)
-                    intent.putExtra("SPCode", upcomingdata[position].OrderServiceArea_r!!.SPCode_c)
+                    intent.putExtra("SPCode", upcomingdata[position].OrderSPCode)
                     intent.putExtra("ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
+                    intent.putExtra("Unit",upcomingdata[position].Unit)
                     startActivity(intent)
                 }
 

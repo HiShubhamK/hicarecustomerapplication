@@ -91,7 +91,12 @@ class ProductFragment : Fragment() {
         if (AppUtils2.pincode.equals("")) {
             Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
         } else {
-            getProductslist(AppUtils2.pincode!!)
+            Handler(Looper.getMainLooper()).postDelayed({
+                progressDialog.show()
+                getProductslist(AppUtils2.pincode!!)
+            },2000)
+
+
         }
 
         binding.imgsearch.setOnClickListener {
@@ -118,7 +123,8 @@ class ProductFragment : Fragment() {
     }
 
     private fun getProductslist(pincode: String) {
-
+//        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+//        progressDialog.setCancelable(false)
         progressDialog.show()
 
         binding.recycleviewproduct.layoutManager =
@@ -126,6 +132,8 @@ class ProductFragment : Fragment() {
         mAdapter = ProductAdapter()
 
         binding.recycleviewproduct.adapter = mAdapter
+
+        Handler(Looper.getMainLooper()).postDelayed({
 
             viewProductModel.productlist.observe(requireActivity(), Observer {
 
@@ -150,9 +158,11 @@ class ProductFragment : Fragment() {
                 Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             })
 
+
+
                 viewProductModel.getProductlist(pincode)
 
-            progressDialog.dismiss()
+        },3000)
 
 
 

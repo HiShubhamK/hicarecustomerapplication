@@ -97,9 +97,20 @@ class AddToCartActivity : AppCompatActivity() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
+
+        viewProductModel.responseMessage.observe(this,Observer{
+            binding.upcomingservices.visibility=View.VISIBLE
+            binding.scrollview.visibility=View.GONE
+            binding.recycleviewproduct.visibility=View.GONE
+            binding.cardviewprice.visibility= View.GONE
+            binding.lnrbuttoncart.visibility=View.GONE
+        })
+
         viewProductModel.cartlist.observe(this, Observer {
 
             if(it!=null) {
+
+                binding.upcomingservices.visibility=View.GONE
                 binding.recycleviewproduct.visibility=View.VISIBLE
                 binding.cardviewprice.visibility= View.VISIBLE
                 binding.lnrbuttoncart.visibility=View.VISIBLE
@@ -107,7 +118,8 @@ class AddToCartActivity : AppCompatActivity() {
                 progressDialog.dismiss()
             }else{
                 progressDialog.dismiss()
-                binding.scrollview.visibility=View.VISIBLE
+                binding.upcomingservices.visibility=View.VISIBLE
+                binding.scrollview.visibility=View.GONE
                 binding.recycleviewproduct.visibility=View.GONE
                 binding.cardviewprice.visibility= View.GONE
                 binding.lnrbuttoncart.visibility=View.GONE

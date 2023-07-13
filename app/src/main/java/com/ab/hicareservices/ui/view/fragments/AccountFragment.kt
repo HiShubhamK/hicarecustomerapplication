@@ -80,8 +80,9 @@ class AccountFragment : Fragment() {
         }
 
         binding.help.setOnClickListener {
-//            val intent = Intent(requireContext(), HelpActivity::class.java)
+//            val intent = Intent(requireContext(), SupportActivity::class.java)
 //            startActivity(intent)
+//            requireActivity().finish()
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.container, SupportFragments.newInstance())
                 .addToBackStack("AccountFragment").commit()

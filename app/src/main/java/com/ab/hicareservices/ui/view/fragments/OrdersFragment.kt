@@ -212,7 +212,7 @@ class OrdersFragment() : Fragment() {
 
 
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
-
+        binding.textnotfound.visibility = View.GONE
         progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerView.layoutManager =

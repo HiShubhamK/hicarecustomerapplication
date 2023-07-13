@@ -19,6 +19,7 @@ class ServiceViewModel : ViewModel() {
     val serviceList = MutableLiveData<List<ServiceData>>()
     val ScheduledService = MutableLiveData<ScheduledService>()
     val errorMessage = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
 
     fun getServiceRequest(orderNo: String, type: String) {
         val response = repository.getServiceRequest(orderNo, type)
@@ -50,8 +51,11 @@ class ServiceViewModel : ViewModel() {
                 call: Call<ScheduledService>,
                 response: Response<ScheduledService>
             ) {
-                ScheduledService.postValue(response.body())
-
+                if(response.body()!!.IsSuccess==true) {
+                    ScheduledService.postValue(response.body())
+                }else{
+                    responseMessage.postValue(response.body()!!.ResponseMessage)
+                }
             }
         })
     }

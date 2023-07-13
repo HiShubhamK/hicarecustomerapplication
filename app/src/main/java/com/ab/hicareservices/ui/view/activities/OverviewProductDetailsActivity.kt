@@ -218,7 +218,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
             if (it.DeliveryCharges != null && it.DeliveryCharges!!.toDouble().toInt() == 0) {
-                binding.tvDeliveryCharge.text = "Free"
+                binding.tvDeliveryCharge.text = "Free "
             } else {
                 binding.tvDeliveryCharge.text = it.DeliveryCharges!!.toDouble().toString()
             }

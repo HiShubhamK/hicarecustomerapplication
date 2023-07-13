@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
@@ -96,9 +97,12 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 //                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
 
                 } else if (service.Title.equals("Support") && service.IsAppLink == true) {
-                    fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, SupportFragments.newInstance())
-                        .addToBackStack("AccountFragment").commit()
+                    val intent = Intent(fragmentActivity, SupportActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
+                    fragmentActivity!!.finish()
+//                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, SupportFragments.newInstance())
+//                        .addToBackStack("AccountFragment").commit()
                 } else if (service.Title.equals("Products") && service.IsAppLink == true) {
                     fragmentActivity!!.supportFragmentManager.beginTransaction()
                         .replace(R.id.container, ProductFragment.newInstance())

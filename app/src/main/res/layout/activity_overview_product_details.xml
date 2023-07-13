@@ -291,13 +291,26 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/lato_regular"
+                                    android:fontFamily="@font/lato_semibold"
                                     android:gravity="end"
-                                    android:text="Free"
-                                    android:layout_marginRight="3dp"
+                                    android:text="Free "
+                                    android:paddingEnd="5dp"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="12sp"
                                     android:textStyle="italic" />
+
+<!--                                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                    android:id="@+id/tvDeliveryCharge"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:fontFamily="@font/lato_regular"-->
+<!--                                    android:gravity="end"-->
+<!--                                    android:text="Free "-->
+<!--                                    android:layout_marginRight="3dp"-->
+<!--                                    android:textColor="@color/colorAccent"-->
+<!--                                    android:textSize="12sp"-->
+<!--                                    android:textStyle="italic"/>-->
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <View

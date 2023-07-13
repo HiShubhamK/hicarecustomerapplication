@@ -256,11 +256,11 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/lato_semibold"
                                 android:gravity="end"
-                                android:text="Free"
+                                android:text="Free "
                                 android:paddingEnd="5dp"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="12sp"
-                                android:textStyle="italic|bold" />
+                                android:textStyle="italic" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <View
@@ -357,7 +357,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/lato_semibold"
-                android:text="Cart is empty"
+                android:text="Cart is Empty"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:visibility="visible">

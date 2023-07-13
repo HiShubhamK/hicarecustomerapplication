@@ -230,7 +230,7 @@ class AddressActivity : AppCompatActivity() {
 
         if(b.equals("true")){
 
-            var courses = arrayOf<String?>("Home", "Office", "Others")
+            var courses = arrayOf<String?>("Select Address Type","Home", "Office", "Others")
 
             val etname = promptsView.findViewById<View>(R.id.etname) as EditText
             val edtmobileno = promptsView.findViewById<View>(R.id.edtmobileno) as EditText
@@ -285,7 +285,7 @@ class AddressActivity : AppCompatActivity() {
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     selectedLocation = spinner.selectedItem.toString()
-                    if (selectedLocation != "Select Type") {
+                    if (selectedLocation != "Select Address Type") {
 
                     } else {
                     }
@@ -558,6 +558,8 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        SharedPreferenceUtil.setData(this,"Billingdata","")
+        SharedPreferenceUtil.setData(this,"Shippingdata","")
         val intent=Intent(this@AddressActivity,AddToCartActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
