@@ -127,8 +127,6 @@ class ProductFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-        Handler(Looper.getMainLooper()).postDelayed({
-
             viewProductModel.productlist.observe(requireActivity(), Observer {
 
                 if (it != null) {
@@ -144,7 +142,6 @@ class ProductFragment : Fragment() {
                     progressDialog.dismiss()
 
                 }
-
             })
 
             viewProductModel.errorMessage.observe(requireActivity(), Observer {
@@ -157,7 +154,7 @@ class ProductFragment : Fragment() {
 
             progressDialog.dismiss()
 
-        }, 100)
+
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
