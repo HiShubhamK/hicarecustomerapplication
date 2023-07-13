@@ -34,8 +34,7 @@
                     android:id="@+id/imgespest"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_user" />
+                    android:layout_gravity="start" />
 
 
                 <LinearLayout
@@ -133,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
-                        android:text="hello"
+                        android:text=""
                         android:textSize="12sp" />
 
                     <!--                    <androidx.appcompat.widget.AppCompatTextView-->
@@ -163,7 +162,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/lato_semibold"
                         android:gravity="end"
-                        android:text="hello"
+                        android:text=""
                         android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatImageView

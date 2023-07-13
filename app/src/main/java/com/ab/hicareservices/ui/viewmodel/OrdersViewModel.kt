@@ -70,7 +70,6 @@ class OrdersViewModel : ViewModel() {
                 if (response.body()?.isSuccess == false) {
                     responseMessage.postValue(response.body()?.responseMessage)
                 } else {
-
                     ordersList.postValue(response.body()?.data)
                     Log.d("TAG", "Response " + response.body()?.data.toString())
                     progressBar.dismiss()

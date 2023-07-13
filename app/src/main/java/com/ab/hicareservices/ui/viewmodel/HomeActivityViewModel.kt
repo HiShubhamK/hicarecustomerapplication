@@ -20,6 +20,8 @@ class HomeActivityViewModel: ViewModel() {
     val spinnerList = MutableLiveData<ArrayList<String>>()
     val errorMessage = MutableLiveData<String>()
     val leadResponse = MutableLiveData<LeadResponse>()
+    val responseMessgae = MutableLiveData<String>()
+
 
     fun getleaderspinner(servicetype: String) {
 
@@ -45,9 +47,12 @@ class HomeActivityViewModel: ViewModel() {
                         val responseBody = response.body()?.Data
                         AppUtils2.paymentsucess= response.body()!!.Data.toString()
                         leadResponse.postValue(response.body())
+                    }else{
+                        responseMessgae.postValue(response.body()?.Data!!.ResponseMessage)
                     }
                 }
                 override fun onFailure(call: Call<LeadResponse>, t: Throwable) {
+                    errorMessage.postValue(t.message)
                 }
             })
     }

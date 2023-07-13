@@ -55,8 +55,6 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
-
-
         if(checkboxcheck==false) {
             checkboxcheck==true
             binding.checkbox.isChecked == false
@@ -88,7 +86,6 @@ class AddressActivity : AppCompatActivity() {
             binding.txtshipping.text=""
             getAddressListdata()
         }else{
-            binding.txtshipping.text=""
             getAddressListdata2()
 //            getAddressforshipping()
         }
@@ -561,5 +558,9 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent=Intent(this@AddressActivity,AddToCartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+
     }
 }

@@ -160,6 +160,8 @@ data class UpcomingService(
 //    @SerializedName("Callback_Url_WA") var CallbackUrlWA: String? = null,
 //    @SerializedName("OrdinalAppointmentStartDate") var OrdinalAppointmentStartDate: String? = null,
 //    @SerializedName("SlotUrlExpiry") var SlotUrlExpiry: String? = null,
-    @SerializedName("FeedbackLink") var FeedbackLink: String? = null
+    @SerializedName("FeedbackLink") var FeedbackLink: String? = null,
+    @SerializedName("Order_SP_Code") var OrderSPCode: String? = null,
+    @SerializedName("Unit") var Unit: String? = null
 
 ) {}

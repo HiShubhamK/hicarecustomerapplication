@@ -1,9 +1,12 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
@@ -125,74 +128,88 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etpincodes.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter pincode",Toast.LENGTH_LONG).show()
             } else if(binding.etpincodes.text.toString().trim().length<6){
-                Toast.makeText(this,"Incorrect pincode",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Invalid pincode",Toast.LENGTH_LONG).show()
             }else{
-                progressDialog.show()
 
-                var data = HashMap<String, Any>()
-                data["LMSId"] =""
-                data["SFDCId"] =""
-                data["CallCenterId"] =""
-                data["ServiceType"] ="pest"
-                data["Batch_Name"] =""
-                data["Original_Batch_Name"] =""
-                data["Created_On"] =""
-                data["LeadType"] =""
-                data["Salutation"] =""
-                data["FirstName"] = binding.etname.text.toString()
-                data["LastName"] ="."
-                data["Mobile"] =binding.edtmobileno.text.toString()
-                data["AltMobile"] =""
-                data["Email"] =binding.etemps.text.toString()
-                data["Company"] =""
-                data["EmployeeCount"] = 0
-                data["Service"] =selectedLocation.toString()
-                data["ServiceCategory"] =""
-                data["ServiceSubCategory"] =""
-                data["FlatNo"] =binding.etflatno.text.toString()
-                data["Building"] =binding.etbuildname.text.toString()
-                data["Street"] =binding.etstreet.text.toString()
-                data["Locality"] =binding.etlocality.text.toString()
-                data["Landmark"] =binding.etlandmark.text.toString()
-                data["City"] =binding.etcity.text.toString()
-                data["State"] =binding.etstate.text.toString()
-                data["Pincode"] =binding.etpincode.text.toString()
-                data["Lat"] =""
-                data["Long"] =""
-                data["Priority"] = 0
-                data["Agency"] =""
-                data["Utm_Campaign"] ="Mobile app"
-                data["Utm_Source"] ="Mobile app"
-                data["Utm_Sub_Source"] ="Mobile app"
-                data["BHK"] =""
-                data["Status"] =""
-                data["Service_Value"] =""
-                data["PaymentMode"] =""
-                data["Lead_Source"] ="Mobile app"
-                data["Lead_Sub_Source"] ="Mobile app"
-                data["Remark"] =""
-                data["Gclid"] =""
-                data["Utm_Medium"] ="Mobile app"
-                data["Utm_Content"] ="Mobile app"
-                data["Utm_Term"] ="Mobile app"
-                data["Campaign_Url"] =""
+                Handler(Looper.getMainLooper()).postDelayed({
 
-                viewModels.leadResponse.observe(this, Observer {
-                    if(it.IsSuccess==true){
+                    progressDialog.show()
+
+                    var data = HashMap<String, Any>()
+                    data["LMSId"] = ""
+                    data["SFDCId"] = ""
+                    data["CallCenterId"] = ""
+                    data["ServiceType"] = "pest"
+                    data["Batch_Name"] = ""
+                    data["Original_Batch_Name"] = ""
+                    data["Created_On"] = ""
+                    data["LeadType"] = ""
+                    data["Salutation"] = ""
+                    data["FirstName"] = binding.etname.text.toString()
+                    data["LastName"] = "."
+                    data["Mobile"] = binding.edtmobileno.text.toString()
+                    data["AltMobile"] = ""
+                    data["Email"] = binding.etemps.text.toString()
+                    data["Company"] = ""
+                    data["EmployeeCount"] = 0
+                    data["Service"] = selectedLocation.toString()
+                    data["ServiceCategory"] = ""
+                    data["ServiceSubCategory"] = ""
+                    data["FlatNo"] = binding.etflatno.text.toString()
+                    data["Building"] = binding.etbuildname.text.toString()
+                    data["Street"] = binding.etstreet.text.toString()
+                    data["Locality"] = binding.etlocality.text.toString()
+                    data["Landmark"] = binding.etlandmark.text.toString()
+                    data["City"] = binding.etcity.text.toString()
+                    data["State"] = binding.etstate.text.toString()
+                    data["Pincode"] = binding.etpincode.text.toString()
+                    data["Lat"] = ""
+                    data["Long"] = ""
+                    data["Priority"] = 0
+                    data["Agency"] = ""
+                    data["Utm_Campaign"] = "Mobile app"
+                    data["Utm_Source"] = "Mobile app"
+                    data["Utm_Sub_Source"] = "Mobile app"
+                    data["BHK"] = ""
+                    data["Status"] = ""
+                    data["Service_Value"] = ""
+                    data["PaymentMode"] = ""
+                    data["Lead_Source"] = "Mobile app"
+                    data["Lead_Sub_Source"] = "Mobile app"
+                    data["Remark"] = ""
+                    data["Gclid"] = ""
+                    data["Utm_Medium"] = "Mobile app"
+                    data["Utm_Content"] = "Mobile app"
+                    data["Utm_Term"] = "Mobile app"
+                    data["Campaign_Url"] = ""
+
+                    viewModels.responseMessgae.observe(this, Observer {
                         progressDialog.dismiss()
-                        Toast.makeText(this,"Inspection appointment booked",Toast.LENGTH_LONG).show()
-                        onBackPressed()
+                        Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+                    })
 
-                    }else{
-                        progressDialog.dismiss()
-                        Toast.makeText(this,"Something went to wrong.",Toast.LENGTH_LONG).show()
-                    }
+                    viewModels.leadResponse.observe(this, Observer {
+                        if (it.IsSuccess == true) {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG)
+                                .show()
+                            val intent=Intent(this,HomeActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
 
-                })
+                        } else {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
+                                .show()
+                        }
 
-                progressDialog.dismiss()
+                    })
 
-                viewModels.postleaderdata(data)
+                    progressDialog.dismiss()
+
+                    viewModels.postleaderdata(data)
+                },1000)
 
             }
         }

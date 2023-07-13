@@ -62,6 +62,8 @@ class OrderDetailActivity : AppCompatActivity() {
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
     var stdvalue = ""
+    var service_SP_Code__c=""
+    var unit=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -166,8 +168,12 @@ class OrderDetailActivity : AppCompatActivity() {
             progressDialog.dismiss()
             binding.progressBar.visibility = View.GONE
             Log.d(TAG, "onViewCreated: $it")
+            if(it!=null){
             mAdapter.setServiceList(it)
             progressDialog.dismiss()
+            }else{
+                progressDialog.dismiss()
+            }
         })
 
         mAdapter.setOnServiceItemClicked(object : OnServiceRequestClickHandler {
@@ -191,8 +197,10 @@ class OrderDetailActivity : AppCompatActivity() {
                 intent.putExtra("Long", locationLongitudeS)
                 intent.putExtra("ServiceType", serviceType)
                 intent.putExtra("Pincode", service.Pincode)
-                intent.putExtra("SPCode", service.SPCode)
+                intent.putExtra("SPCode", service_SP_Code__c)
                 intent.putExtra("ServiceUnit", service.ServiceUnit)
+                intent.putExtra("Unit",unit)
+
                 startActivity(intent)
 
 //                supportFragmentManager.beginTransaction()
@@ -266,6 +274,8 @@ class OrderDetailActivity : AppCompatActivity() {
                 binding.textdatestart.text =
                     AppUtils2.formatDateTime4(data.start_Date__c.toString())
                 binding.textdateend.text = AppUtils2.formatDateTime4(data.end_Date__c.toString())
+                service_SP_Code__c=data.service_SP_Code__c.toString()
+                unit=data.unit1__c.toString()
 //                val notes = prepareNotes(
 //                    accountId,
 //                    orderNo,

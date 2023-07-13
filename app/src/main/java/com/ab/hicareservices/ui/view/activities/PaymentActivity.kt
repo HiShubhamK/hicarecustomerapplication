@@ -203,7 +203,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
+//            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
             totaldiscount = it.TotalDiscount!!.toDouble().toString()
             actualvalue = it.TotalAmount!!.toDouble().toString()
 

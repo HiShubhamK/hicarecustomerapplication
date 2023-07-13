@@ -450,8 +450,10 @@ class HomeFragment : Fragment() {
                 intent.putExtra("Long", upcomingdata[position].GoogleLong_c)
                 intent.putExtra("ServiceType", "Pest")
                 intent.putExtra("Pincode", upcomingdata[position].HRZipPostalCode_c)
-                intent.putExtra("SPCode", upcomingdata[position].OrderServiceArea_r!!.SPCode_c)
+                intent.putExtra("SPCode", upcomingdata[position].OrderSPCode)
                 intent.putExtra("ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
+                intent.putExtra("Unit",upcomingdata[position].Unit)
+
                 startActivity(intent)
             }
 

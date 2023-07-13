@@ -56,6 +56,7 @@ class SlotComplinceActivity : AppCompatActivity() {
     private var Pincode = ""
     private var Service_Code = ""
     private var Unit = ""
+    private var spcode=""
     private var AppointmentDate = ""
     private var AppointmentStart = ""
     private var AppointmentEnd = ""
@@ -85,6 +86,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         Pincode = intent.getStringExtra("Pincode").toString()
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = intent.getStringExtra("Unit").toString()
+        spcode = intent.getStringExtra("SPCode").toString()
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -206,11 +208,12 @@ class SlotComplinceActivity : AppCompatActivity() {
                 it,
                 this,
                 Pincode,
-                Service_Code,
+                spcode,
                 Unit,
                 Lat,
                 Long,
-                ServiceType
+                ServiceType,
+
             )
             try {
                 if (AppUtils2.formatDateTime4(it[0].ScheduledDate.toString()).isNotEmpty()) {
@@ -281,6 +284,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                         intent.putExtra("scheduledatetext", scheduledatetext)
                         intent.putExtra("TaskId", TaskId)
                         startActivity(intent)
+                        finish()
 
 //                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
 

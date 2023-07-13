@@ -94,7 +94,10 @@ class AddresslistActivity : AppCompatActivity() {
                 if(b==true){
                     AppUtils2.shippingdata=id.toString()
                     SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
-                    onBackPressed()
+                    val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    finish()
                 }else if(b==false){
 //                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
                 }

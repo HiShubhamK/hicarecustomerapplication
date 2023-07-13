@@ -223,6 +223,7 @@ class ProductDetailActivity : AppCompatActivity() {
                             progressDialog.dismiss()
                             if(it.IsSuccess==true){
                                 progressDialog.dismiss()
+                                Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
                                 getSummarydata()
                             }else{
                                 progressDialog.dismiss()

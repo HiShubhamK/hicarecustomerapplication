@@ -187,6 +187,9 @@ class SlotDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")
 //            val intent=Intent(this@SlotDetailActivity,HomeActivity::class.java)

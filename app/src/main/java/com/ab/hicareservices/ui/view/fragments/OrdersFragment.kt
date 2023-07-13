@@ -227,9 +227,9 @@ class OrdersFragment() : Fragment() {
             if(it!=null) {
 
                 if (it.isNotEmpty()) {
-                    mAdapter.setOrdersList(it, requireActivity())
-                    binding.recyclerView.visibility = View.VISIBLE
                     binding.textnotfound.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
+                    mAdapter.setOrdersList(it, requireActivity())
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()
@@ -305,15 +305,17 @@ class OrdersFragment() : Fragment() {
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
+            binding.textnotfound.text = s
             progressDialog.dismiss()
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
+            binding.textnotfound.text=s
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE
