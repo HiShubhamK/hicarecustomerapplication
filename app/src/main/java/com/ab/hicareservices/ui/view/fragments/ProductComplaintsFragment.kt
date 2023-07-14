@@ -42,11 +42,11 @@ class ProductComplaintsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "-1").toString()
-        progressDialog = ProgressDialog(requireContext(), R.style.TransparentProgressDialog)
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        AppUtils2.customerid = SharedPreferenceUtil.getData(requireContext(), "customerid", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
 
 
         imageList=ArrayList()
@@ -74,7 +74,7 @@ class ProductComplaintsFragment : Fragment() {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             mAdapter = ProductComplaintsAdapter(requireActivity())
 
-            viewModel.procuctcomplaintList.observe(this, Observer {
+            viewModel.procuctcomplaintList.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it")
                 mAdapter.setComplaintsList(it,imageList,requireActivity())
                 progressDialog.dismiss()
@@ -84,14 +84,14 @@ class ProductComplaintsFragment : Fragment() {
 
             })
 
-            viewModel.responseMessage.observe(this, Observer {
+            viewModel.responseMessage.observe(requireActivity(), Observer {
                 binding.recyclerView.visibility=View.GONE
                 binding.txtnotfound.visibility=View.VISIBLE
                 binding.txtnotfound.text=it.toString()
                 progressDialog.dismiss()
             })
 
-            viewModel.errorMessage.observe(this, Observer {
+            viewModel.errorMessage.observe(requireActivity(), Observer {
                 Toast.makeText(requireContext(),"Something went wrong!",Toast.LENGTH_SHORT).show()
                 progressDialog.dismiss()
             })

@@ -71,10 +71,7 @@ class ProductComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView
 
                 try {
                     val intent = Intent(requireActivity, ProductComplaintDetailsActivity::class.java)
-                    intent.putExtra(
-                        "Dateformat",
-                        AppUtils2.formatDateTime4(complaints.CreatedOn.toString())
-                    )
+                    intent.putExtra("Dateformat", complaints.CreatedOn.toString())
                     intent.putExtra("ComplaintNo", complaints.OrderId.toString())
                     intent.putExtra("OrderNO", complaints.OrderNumber.toString())
                     intent.putExtra("Pest", "Pest")

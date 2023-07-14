@@ -39,7 +39,7 @@ class ComplaintsViewModel : ViewModel() {
                     procuctcomplaintList.postValue(response.body()?.Data)
 //                    attachments.postValue(response.body()?.Attachments)
                 } else {
-                    Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
+//                    Log.d("TAGFail", "Response " + response.body()!!.ResponseMessage)
                     responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
