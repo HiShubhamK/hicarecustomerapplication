@@ -17,17 +17,23 @@ class CComplaintViewModel : ViewModel() {
     val SaveSalesResponse = MutableLiveData<String>()
     val complaintReasons = MutableLiveData<ComplaintReasons>()
     val errorMessage = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
 
     fun getComplaintReasons(serviceType: String) {
         val response = repository.getComplaintReasonResponse(serviceType)
         response.enqueue(object : Callback<ComplaintReasons> {
             override fun onResponse(call: Call<ComplaintReasons>, response: Response<ComplaintReasons>) {
-                complaintReasons.postValue(response.body())
+                if(response.body()!!.isSuccess==true) {
+                    complaintReasons.postValue(response.body())
+                }else{
+                    responseMessage.postValue(response.body()!!.responseMessage)
+                }
+
                 Log.d("TAG", "Response " + response.body()?.data.toString())
             }
 
             override fun onFailure(call: Call<ComplaintReasons>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -38,12 +44,16 @@ class CComplaintViewModel : ViewModel() {
         response.enqueue(object : Callback<CreateComplaint> {
 
             override fun onResponse(call: Call<CreateComplaint>, response: Response<CreateComplaint>) {
-                createComplaintResponse.postValue(response.body())
+                if(response.body()?.isSuccess ==true) {
+                    createComplaintResponse.postValue(response.body())
+                }else{
+                    responseMessage.postValue(response.body()!!.responseMessage)
+                }
                 Log.d("TAG", "Response " + response.body()?.data.toString())
             }
 
             override fun onFailure(call: Call<CreateComplaint>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -54,12 +64,14 @@ class CComplaintViewModel : ViewModel() {
             override fun onResponse(call: Call<SaveSalesResponse>, response: Response<SaveSalesResponse>) {
                 if (response.isSuccessful){
                     SaveSalesResponse.postValue(response.body()?.ResponseMessage!!)
+                }else{
+                    responseMessage.postValue(response.body()!!.ResponseMessage)
                 }
                 Log.d("TAG", "Response " + response.body()?.ResponseMessage.toString())
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }

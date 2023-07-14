@@ -14,12 +14,17 @@ class ReferralViewModel : ViewModel() {
 
     val referralResponse = MutableLiveData<ReferralResponse>()
     val errorMessage = MutableLiveData<String>()
+    val responseMessage = MutableLiveData<String>()
 
     fun getReferralCode(mobileNo: String) {
         val response = repository.getReferralCodeResponse(mobileNo)
         response.enqueue(object : Callback<ReferralResponse> {
             override fun onResponse(call: Call<ReferralResponse>, response: Response<ReferralResponse>) {
-                referralResponse.postValue(response.body())
+                if(response.body()!!.IsSuccess==true) {
+                    referralResponse.postValue(response.body())
+                }else{
+                    responseMessage.postValue(response.body()!!.ResponseMessage)
+                }
                 Log.d("TAG", "Response " + response.body()?.Data.toString())
             }
 

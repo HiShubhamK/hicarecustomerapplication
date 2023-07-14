@@ -81,10 +81,44 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/lnrMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerView"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_location"
+            app:tint="@color/white">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/tvPincode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerView"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/lato_semibold"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/headerView"
+        android:layout_below="@+id/lnrMain"
         android:layout_above="@+id/btnnext"
         android:background="#f6f6f6">
 

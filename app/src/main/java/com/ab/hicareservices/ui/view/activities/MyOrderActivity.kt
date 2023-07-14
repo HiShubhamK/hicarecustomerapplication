@@ -190,12 +190,13 @@ class MyOrderActivity : AppCompatActivity() {
 
         viewModel.ordersList.observe(this, Observer {
 //            Log.d(TAG, "onViewCreated: $it orders fragment")
+
             if(it!=null) {
 
                 if (it.isNotEmpty()) {
                     binding.textnotfound.visibility = View.GONE
-                    mAdapter.setOrdersList(it, this)
                     binding.recyclerView.visibility = View.VISIBLE
+                    mAdapter.setOrdersList(it, this)
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()

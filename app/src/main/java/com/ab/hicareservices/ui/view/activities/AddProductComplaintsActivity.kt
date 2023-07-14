@@ -745,7 +745,13 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toInt()
         hashMap["Last_Interaction"] = ""
 
+        complaintViewModel.errorMessage.observe(this,{
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
 
+        complaintViewModel.responseMessage.observe(this,{
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
 
         complaintViewModel.CreateProductComplaint(hashMap)
         complaintViewModel.SaveSalesResponse.observe(this, {

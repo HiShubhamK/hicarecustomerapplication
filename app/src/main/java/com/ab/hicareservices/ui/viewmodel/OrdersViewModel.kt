@@ -77,7 +77,7 @@ class OrdersViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
                 progressBar.dismiss()
             }
         })

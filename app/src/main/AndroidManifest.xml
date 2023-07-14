@@ -30,7 +30,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.view.activities.SupportActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -243,12 +244,18 @@
                     android:scheme="otpless" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.activities.InAppWebViewActivity" />
-        <activity android:name=".ui.view.activities.ProductSummaryDetailActivity" />
-        <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity" />
-        <activity android:name=".ui.view.activities.AddProductComplaintsActivity" />
-        <activity android:name=".ui.view.activities.SlotDetailActivity" />
-        <activity android:name=".ui.view.activities.ComplaintsActivityNew" />
+        <activity android:name=".ui.view.activities.InAppWebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.ProductSummaryDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.AddProductComplaintsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.SlotDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.ComplaintsActivityNew"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

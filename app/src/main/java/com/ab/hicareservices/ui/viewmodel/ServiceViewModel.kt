@@ -33,7 +33,7 @@ class ServiceViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -44,7 +44,7 @@ class ServiceViewModel : ViewModel() {
 
 
             override fun onFailure(call: Call<ScheduledService>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
 
             override fun onResponse(

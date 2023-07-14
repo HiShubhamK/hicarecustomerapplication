@@ -645,6 +645,15 @@ class AddComplaintsActivity : AppCompatActivity() {
     private fun getComplaintReason(serviceType: String) {
         val type = ArrayList<String>()
         val subtype = ArrayList<String>()
+
+        complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
+            Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
+        })
+
+        complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
+            Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
+        })
+
         complaintViewModel.complaintReasons.observe(this) {
             if (it?.isSuccess == true) {
                 type.clear()
@@ -689,6 +698,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         hashMap["Source"] = "mobileApp"
         hashMap["SubSource"] = "mobileApp"
         hashMap["ComplaintAttachment"] = arraylistImages
+
 
         complaintViewModel.createComplaint(hashMap)
         complaintViewModel.createComplaintResponse.observe(this, {

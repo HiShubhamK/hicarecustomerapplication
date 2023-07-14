@@ -47,7 +47,7 @@ class ProductViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<CustomerLoginInfo>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -63,7 +63,7 @@ class ProductViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<CustomerAddress>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -81,7 +81,7 @@ class ProductViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -98,7 +98,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ProducDetailsResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })
@@ -117,7 +117,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<AddProductInCart>, t: Throwable) {
-               errorMessage.postValue("Something went to wrong")
+               errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })
@@ -135,7 +135,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ProductCount>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -152,7 +152,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<CartlistResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -172,7 +172,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<GetCartSummaryResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })
@@ -189,7 +189,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<DeleteProductInCart>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })
@@ -206,7 +206,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })
@@ -229,7 +229,7 @@ class ProductViewModel: ViewModel() {
                 getaddressbydetailid.postValue(response.body()!!.Data)
             }
             override fun onFailure(call: Call<AddressByCustomerModel>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -245,7 +245,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -261,7 +261,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<RazorpayOrderIdResponse>, t: Throwable) {
-                errorMessage.postValue("Something went to wrong")
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -274,7 +274,7 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ValidateVoucherResponse>, t: Throwable) {
-                    errorMessage.postValue("Something went to wrong")
+                    errorMessage.postValue("Please Check Internet Connection.")
             }
 
         })

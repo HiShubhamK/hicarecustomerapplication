@@ -166,7 +166,7 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
                 binding.tvNodata.visibility = View.GONE
             }else{
                 binding.lnrAttachments.visibility = View.GONE
-                binding.tvNodata.visibility = View.GONE
+                binding.tvNodata.visibility = View.VISIBLE
             }
             progressDialog.dismiss()
 

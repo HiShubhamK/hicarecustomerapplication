@@ -45,7 +45,7 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ProductComplaintListResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -68,7 +68,7 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ProductDetailResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -92,7 +92,7 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ComplaintResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
@@ -115,7 +115,7 @@ class ComplaintsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<GetAttachmentResponse>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }

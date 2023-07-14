@@ -262,7 +262,7 @@ class OrderDetailActivity : AppCompatActivity() {
                 binding.totalTv.text = "₹ ${data.standard_Value__c}"
                 binding.priceTv.text = "₹ ${Math.round(data.standard_Value__c!!.toDouble())}"
                 binding.discountTv.text =
-                    if (data.orderDiscountValue != null) "₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "₹ 0"
+                    if (data.orderDiscountValue != null) "- ₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "- ₹ 0"
                 binding.totalAmountTv.text =
                     "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"

@@ -36,6 +36,7 @@ class AddressActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     var checkboxcheck:Boolean=false
     var pincodeshipping=""
+    var pincode: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,8 @@ class AddressActivity : AppCompatActivity() {
         datalist = ArrayList()
         datalist.add("Select Type")
 
+        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
@@ -63,6 +66,13 @@ class AddressActivity : AppCompatActivity() {
             checkboxcheck==false
             binding.checkbox.isChecked == true
             binding.checkbox.isClickable == false
+        }
+
+        if (!pincode.isNullOrEmpty()){
+            binding.tvPincode.text="Deliver to pincode "+pincode
+
+        }else {
+            binding.tvPincode.visibility=View.GONE
         }
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
@@ -178,11 +188,17 @@ class AddressActivity : AppCompatActivity() {
                 else if(it.get(i).IsDefault==true){
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
+                    shippingdata=it.get(i).Id.toString()
                     break
                 }
                 else{
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
+                    pincodeshipping=it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
+                    shippingdata=it.get(i).Id.toString()
                     break
                 }
             }

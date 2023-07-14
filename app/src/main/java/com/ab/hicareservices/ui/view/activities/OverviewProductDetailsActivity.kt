@@ -55,6 +55,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
 
+
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
@@ -67,6 +68,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getSummarydata("")
         getAddressList()
         getAddressforbilling()
+
         if (!AppUtils2.pincode.isNullOrEmpty()) {
             binding.tvPincode.text = "Deliver to pincode " + AppUtils2.pincode
         } else {
@@ -138,7 +140,10 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                 it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
-        viewProductModel.getAddressDetailbyId(billdata!!.toInt())
+
+
+            viewProductModel.getAddressDetailbyId(billdata!!.toInt())
+
     }
 
 

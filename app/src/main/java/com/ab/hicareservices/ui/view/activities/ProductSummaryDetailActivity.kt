@@ -425,7 +425,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             binding.totalTv.text = "₹ ${OrderValuePostDiscount}"
             binding.priceTv.text = "₹ ${Math.round(OrderValue.toDouble())}"
             binding.discountTv.text =
-                if (Discount != null) "₹ ${Math.round(Discount.toDouble())}" else "₹ 0"
+                if (Discount != null) "- ₹ ${Math.round(Discount.toDouble())}" else "- ₹ 0"
             binding.totalAmountTv.text =
                 "₹ ${Math.round(OrderValuePostDiscount!!.toDouble())}"
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
