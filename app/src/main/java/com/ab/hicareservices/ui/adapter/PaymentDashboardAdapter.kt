@@ -56,8 +56,10 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvappointmentdate.text="Appointment Date"
                 holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
+                holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }else if(recipe.SRDate_c!=null){
                 holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
+                holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }else{
 //                holder.binding.lnrtime.visibility=View.GONE
 //                holder.binding.lnrdate.visibility=View.GONE

@@ -162,6 +162,22 @@
                         android:textSize="12sp" />
 
 
+                    <TextView
+                        android:id="@+id/tvappointmenttime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/lato_regular"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:text="Time"
+                        android:textColor="@color/grey_font"
+                        android:textSize="12sp" />
+
+
                     <!--                    <TextView-->
 <!--                        android:id="@+id/tvPlanDate"-->
 <!--                        android:layout_width="wrap_content"-->
@@ -216,6 +232,20 @@
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/tvPlanDatetime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/lato_regular"
+                            android:gravity="center"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="2"
+                            android:singleLine="true"
+                            android:text="ghello akahsya"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                  </androidx.appcompat.widget.LinearLayoutCompat>

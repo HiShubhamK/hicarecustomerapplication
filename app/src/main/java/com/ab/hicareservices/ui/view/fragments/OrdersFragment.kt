@@ -243,6 +243,8 @@ class OrdersFragment() : Fragment() {
                 binding.textnotfound.visibility = View.VISIBLE
                 binding.textnotfound.text=s
             }
+            progressDialog.dismiss()
+
         })
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
 

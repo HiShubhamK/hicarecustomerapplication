@@ -310,34 +310,54 @@ class OrderDetailActivity : AppCompatActivity() {
 
                 if (data.status__c.equals("Expired")) {
 
+                    if (data.enable_Payment_Link == false) {
+                        binding.paymentStatusTv.text = "Paid"
+                    } else {
+                        binding.paymentStatusTv.text = "Unpaid"
+                    }
                     binding.statusTv.setTextColor(Color.parseColor("#D50000"))
 
                 } else if (data.status__c.equals("Short Close")) {
 
+                    if (data.enable_Payment_Link == false) {
+                        binding.paymentStatusTv.text = "Paid"
+                    } else {
+                        binding.paymentStatusTv.text = "Unpaid"
+                    }
                     binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
 
                 } else if (data.status__c.equals("Cancelled")) {
-
+                    binding.lnrStatus.visibility= View.GONE
                     binding.payNowBtn.visibility = View.GONE
                     binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
 
                 } else if (data.status__c.equals("Active")) {
 
+                    if (data.enable_Payment_Link == false) {
+                        binding.paymentStatusTv.text = "Paid"
+                    } else {
+                        binding.paymentStatusTv.text = "Unpaid"
+                    }
                     binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
 
                 } else if (data.status__c.equals("Rejected")) {
 
+                    if (data.enable_Payment_Link == false) {
+                        binding.paymentStatusTv.text = "Paid"
+                    } else {
+                        binding.paymentStatusTv.text = "Unpaid"
+                    }
                     binding.statusTv.setTextColor(Color.parseColor("#FFAB00"))
 
                 } else {
 
                 }
-
-                if (data.enable_Payment_Link == false) {
-                    binding.paymentStatusTv.text = "Paid"
-                } else {
-                    binding.paymentStatusTv.text = "Unpaid"
-                }
+//
+//                if (data.enable_Payment_Link == false) {
+//                    binding.paymentStatusTv.text = "Paid"
+//                } else {
+//                    binding.paymentStatusTv.text = "Unpaid"
+//                }
             }
         }
         orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)

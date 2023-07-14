@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -60,6 +61,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private val requestCall = 1
     private val viewModels: HomeActivityViewModel by viewModels()
     private val viewProductModel:ProductViewModel by viewModels()
+    private val viewModelss: OtpViewModel by viewModels()
+
     var customerid:String=""
     var  pincode:String?=null
 
@@ -82,6 +85,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             checkUserStatus()
         }, 3000)
 
+
+        viewModelss.validateAccounts(AppUtils2.mobileno,this)
+
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
             if (!task.isSuccessful) {
@@ -100,7 +107,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         Handler(Looper.getMainLooper()).postDelayed({
             viewModel.getNotificationtoken(token.toString())
-        }, 500)
+        }, 1500)
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
