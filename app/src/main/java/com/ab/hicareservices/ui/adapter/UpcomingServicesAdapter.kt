@@ -36,6 +36,18 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
         try {
             val service = services[position]
 
+
+            if(service.AppointmentTime.equals(" - ")){
+
+                holder.binding.tvappointmenttime.visibility=View.GONE
+                holder.binding.tvScheduletime.visibility=View.GONE
+                holder.binding.tvPlanDatetime.visibility=View.GONE
+            }else{
+                holder.binding.tvappointmenttime.visibility=View.VISIBLE
+                holder.binding.tvScheduletime.visibility=View.VISIBLE
+                holder.binding.tvPlanDatetime.text=": "+service.AppointmentTime
+            }
+
             holder.binding.tvPayNow.text = "Reschedule"
             if (service.SRDate_c.equals(null)||service.SRDate_c.equals("")){
                 holder.binding.tvPlanDate.text = AppUtils2.formatDateTime2(service.AppointmentDate_c.toString())
@@ -50,6 +62,8 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
                 holder.binding.tvScheduletime.text = service.HRAppointmentStartTimeAMPM_c.toString() +" to "+service.HRAppointmentFinishTimeAMPM_c
 
             }
+
+
             holder.binding.tvServicestep.text = service.ServiceStep_c
             holder.binding.tvOrderNumber.text = service.OrderNumber_c
             holder.binding.ServiceName.text = service.ServicePlan_c

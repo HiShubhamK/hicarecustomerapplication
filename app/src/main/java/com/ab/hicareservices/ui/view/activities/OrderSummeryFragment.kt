@@ -75,6 +75,10 @@ class OrderSummeryFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
+        viewProductModel.responseMessage.observe(requireActivity(), Observer {
+            Toast.makeText(requireActivity(),it.toString(),Toast.LENGTH_LONG).show()
+        })
+
         viewProductModel.getordersummeryList.observe(requireActivity(), Observer {
 
 

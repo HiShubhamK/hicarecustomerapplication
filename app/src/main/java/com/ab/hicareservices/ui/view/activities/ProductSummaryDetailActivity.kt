@@ -179,6 +179,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             binding.bottomheadertext.visibility = View.GONE
         }
 
+        getSummarydata()
+
 
 //        binding.help.setOnClickListener {
 //            val intent = Intent(this, AddComplaintsActivity::class.java)
@@ -608,6 +610,11 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             // open location setting
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getSummarydata()
     }
 
 }

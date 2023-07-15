@@ -215,7 +215,11 @@ class ProductViewModel: ViewModel() {
         val response = repository.getordersummeryList(userid)
         response.enqueue(object : Callback<OrderSummeryResponse> {
             override fun onResponse(call: Call<OrderSummeryResponse>, response: Response<OrderSummeryResponse>) {
-                getordersummeryList.postValue(response.body()!!.orderSummeryData)
+                if(response.body()!!.IsSuccess==true) {
+                    getordersummeryList.postValue(response.body()!!.orderSummeryData)
+                }else{
+                    responseMessage.postValue(response.body()!!.ResponseMessage)
+                }
             }
             override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
                 errorMessage.postValue("Something went to wrong")
