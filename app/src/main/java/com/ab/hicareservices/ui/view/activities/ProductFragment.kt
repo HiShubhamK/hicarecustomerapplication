@@ -91,12 +91,10 @@ class ProductFragment : Fragment() {
         if (AppUtils2.pincode.equals("")) {
             Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
         } else {
-            Handler(Looper.getMainLooper()).postDelayed({
+//            Handler(Looper.getMainLooper()).postDelayed({
                 progressDialog.show()
                 getProductslist(AppUtils2.pincode!!)
-            },2000)
-
-
+//            },2000)
         }
 
         binding.imgsearch.setOnClickListener {
@@ -133,7 +131,7 @@ class ProductFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-        Handler(Looper.getMainLooper()).postDelayed({
+//        Handler(Looper.getMainLooper()).postDelayed({
 
             viewProductModel.productlist.observe(requireActivity(), Observer {
 
@@ -152,17 +150,14 @@ class ProductFragment : Fragment() {
                 }
             })
 
-            viewProductModel.errorMessage.observe(requireActivity(), Observer {
+            viewProductModel.responseMessage.observe(requireActivity(), Observer {
                 progressDialog.dismiss()
                 binding.recycleviewproduct.visibility = View.GONE
-                Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
             })
-
-
-
                 viewProductModel.getProductlist(pincode)
 
-        },3000)
+//        },3000)
 
 
 

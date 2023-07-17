@@ -77,7 +77,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productlist.postValue(response.body()!!.Data)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage)
                 }
             }
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
