@@ -46,7 +46,7 @@
                     android:layout_margin="5dp"
                     android:id="@+id/getpincodetext"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="32dp"
                     android:maxLines="1"
                     android:background="@drawable/round_border"
                     android:maxLength="6"

@@ -77,6 +77,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
             progressDialog.dismiss()
 
+            counts=1
+            holder.binding.textcount.text = counts.toString()
             onCartClickedHandler!!.setondeleteclicklistener(
                 position,
                 productlists.CartId,

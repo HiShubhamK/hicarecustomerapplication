@@ -39,7 +39,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
             holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
             if (cutomeraddressdata.IsDefault == true) {
-                holder.binding.addresscard.setCardBackgroundColor(Color.GRAY)
+                holder.binding.addresscard.setCardBackgroundColor(Color.parseColor("#F6F6F6"))
             }
 
             holder.binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->

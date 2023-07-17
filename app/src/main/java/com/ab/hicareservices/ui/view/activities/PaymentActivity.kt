@@ -64,6 +64,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
 
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
@@ -294,8 +296,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("notes", notes)
         options.put("order_id", AppUtils2.razorpayorderid)
         val prefill = JSONObject()
-        prefill.put("email","akshay.tabib@hicare.in")
-        prefill.put("contact","7738753827")
+        prefill.put("email",AppUtils2.customeremail)
+        prefill.put("contact",AppUtils2.mobileno)
 
         options.put("prefill",prefill)
 
@@ -320,6 +322,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         SharedPreferenceUtil.setData(this, "Billingdata", "")
                         Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                         SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                        getClearchache()
                         val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -374,6 +377,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
 //                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                    getClearchache()
+
                     Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                     val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
                     startActivity(intent)
@@ -396,6 +401,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
 
 
+    }
+
+    private fun getClearchache() {
+        viewProductModel.getClearCache(AppUtils2.mobileno)
     }
 
     override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
