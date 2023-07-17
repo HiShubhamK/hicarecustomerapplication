@@ -127,7 +127,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 holder.binding.textcount.text = "1"
                 holder.binding.imgremove.isEnabled = false
                 progressDialog.dismiss()
-            } else {
+            } else if (counts > 1){
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(
                     position,

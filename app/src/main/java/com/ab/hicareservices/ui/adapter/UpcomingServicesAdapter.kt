@@ -50,10 +50,10 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 
             holder.binding.tvPayNow.text = "Reschedule"
             if (service.SRDate_c.equals(null)||service.SRDate_c.equals("")){
-                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime2(service.AppointmentDate_c.toString())
+                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentDate_c.toString())
 
             }else{
-                holder.binding.tvPlanDate.text = service.SRDate_c
+                holder.binding.tvPlanDate.text =": " + service.SRDate_c
             }
             if (service.HRAppointmentStartTimeAMPM_c.equals(null)||service.HRAppointmentFinishTimeAMPM_c.equals(null)){
                 holder.binding.tvScheduletime.text = " - "
@@ -63,9 +63,8 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 
             }
 
-
             holder.binding.tvServicestep.text = service.ServiceStep_c
-            holder.binding.tvOrderNumber.text = service.OrderNumber_c
+            holder.binding.tvOrderNumber.text = ": "+service.OrderNumber_c
             holder.binding.ServiceName.text = service.ServicePlan_c
 
         }catch (e:Exception){

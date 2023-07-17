@@ -243,7 +243,7 @@
                             android:marqueeRepeatLimit="marquee_forever"
                             android:maxLines="2"
                             android:singleLine="true"
-                            android:text="ghello akahsya"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 

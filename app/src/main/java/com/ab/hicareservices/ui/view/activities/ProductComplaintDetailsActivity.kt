@@ -161,9 +161,15 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,"FAiles",Toast.LENGTH_SHORT).show()
             if (it!=null){
-                mAdapter.setAttachment(it.ComplaintAttachment as ArrayList<ComplaintAttachment>)
-                binding.lnrAttachments.visibility = View.VISIBLE
-                binding.tvNodata.visibility = View.GONE
+                if (it.ComplaintAttachment.isNotEmpty()){
+                    mAdapter.setAttachment(it.ComplaintAttachment as ArrayList<ComplaintAttachment>)
+                    binding.lnrAttachments.visibility = View.VISIBLE
+                    binding.tvNodata.visibility = View.GONE
+                }else{
+                    binding.lnrAttachments.visibility = View.GONE
+                    binding.tvNodata.visibility = View.VISIBLE
+                }
+
             }else{
                 binding.lnrAttachments.visibility = View.GONE
                 binding.tvNodata.visibility = View.VISIBLE

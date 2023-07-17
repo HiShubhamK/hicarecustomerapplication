@@ -54,13 +54,13 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
 
             if(recipe.AppointmentTime.equals(" - ")){
-
                 holder.binding.tvappointmenttime.visibility=View.GONE
                 holder.binding.tvScheduletime.visibility=View.GONE
                 holder.binding.tvPlanDatetime.visibility=View.GONE
             }else{
                 holder.binding.tvappointmenttime.visibility=View.VISIBLE
                 holder.binding.tvScheduletime.visibility=View.VISIBLE
+                holder.binding.tvPlanDatetime.visibility=View.VISIBLE
                 holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }
 
@@ -70,7 +70,6 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
             }else if(recipe.SRDate_c!=null){
                 holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
-//                holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }else{
 //                holder.binding.lnrtime.visibility=View.GONE
 //                holder.binding.lnrdate.visibility=View.GONE
@@ -118,7 +117,9 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             }
             holder.binding.imgAvatar.visibility = View.GONE
 
-
+            holder.binding.tvappointmenttime.visibility=View.GONE
+            holder.binding.tvScheduletime.visibility=View.GONE
+            holder.binding.tvPlanDatetime.visibility=View.GONE
 
 //        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
 //        if (recipe.isButtonCancel){
@@ -144,6 +145,18 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
 //            holder.binding.tveta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
+
+            if(recipe.AppointmentTime.equals(" - ")){
+                holder.binding.tvappointmenttime.visibility=View.GONE
+                holder.binding.tvScheduletime.visibility=View.GONE
+                holder.binding.tvPlanDatetime.visibility=View.GONE
+            }else{
+                holder.binding.tvappointmenttime.visibility=View.VISIBLE
+                holder.binding.tvScheduletime.visibility=View.VISIBLE
+                holder.binding.tvPlanDatetime.visibility=View.VISIBLE
+                holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
+            }
+
 
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvappointmentdate.text="Appointment Date"
