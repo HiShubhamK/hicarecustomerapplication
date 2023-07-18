@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
+    android:background="#fff"
     tools:context=".ui.view.activities.AddComplaintsActivity">
 
 
@@ -129,10 +129,10 @@
 
     <ScrollView
 
-        android:visibility="visible"
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -281,31 +281,38 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="4dp"
                     android:enabled="false"
                     android:fontFamily="@font/lato_semibold"
                     android:text="Complaint Type"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1"
-                    android:gravity="right">
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:background="@drawable/round_border"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="40dp"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginHorizontal="6dp"-->
+                <!--                    android:layout_marginVertical="5dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:gravity="right">-->
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="4dp"
+                    android:background="@drawable/round_border"
+                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/complaintSpnType"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="6dp"
-                        android:backgroundTint="@color/black"
                         android:clickable="true"
                         android:ems="10"
                         android:gravity="start"
@@ -317,7 +324,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <!--                </androidx.cardview.widget.CardView>-->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -377,35 +387,36 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="4dp"
                     android:enabled="false"
                     android:fontFamily="@font/lato_semibold"
                     android:text="Complaint Subject"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <androidx.cardview.widget.CardView
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginHorizontal="6dp"-->
+                <!--                    android:layout_marginVertical="5dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:elevation="10dp"-->
+                <!--                    android:gravity="center"-->
+                <!--                    app:cardCornerRadius="5dp">-->
+
+                <EditText
+                    android:id="@+id/complaintTitleEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1"
-                    android:elevation="10dp"
-                    android:gravity="center"
-                    app:cardCornerRadius="5dp">
-
-                    <EditText
-                        android:id="@+id/complaintTitleEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:background="@null"
-                        android:hint="Enter complaint subject here"
-                        android:padding="12dp"
-                        android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
-                </androidx.cardview.widget.CardView>
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/round_border"
+                    android:hint="Enter complaint subject here"
+                    android:padding="12dp"
+                    android:textColor="@color/grey_font"
+                    android:textSize="12sp" />
+                <!--                </androidx.cardview.widget.CardView>-->
             </LinearLayout>
 
             <LinearLayout
@@ -416,34 +427,35 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="4dp"
                     android:enabled="false"
                     android:fontFamily="@font/lato_semibold"
                     android:text="Description"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:layout_marginVertical="5dp"
-                    android:elevation="5dp"
-                    app:cardCornerRadius="5dp">
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                   -->
+                <!--                    android:elevation="5dp"-->
+                <!--                    app:cardCornerRadius="5dp">-->
 
-                    <EditText
-                        android:id="@+id/complaintDescrEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Enter complaint description here"
-                        android:padding="12dp"
-                        android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
-                </androidx.cardview.widget.CardView>
+                <EditText
+                    android:id="@+id/complaintDescrEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="4dp"
+                    android:background="@drawable/round_border"
+                    android:gravity="start"
+                    android:hint="Enter complaint description here"
+                    android:padding="12dp"
+                    android:textColor="@color/grey_font"
+                    android:textSize="12sp" />
+                <!--                </androidx.cardview.widget.CardView>-->
 
 
             </LinearLayout>
@@ -458,7 +470,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
                     android:enabled="false"
                     android:fontFamily="@font/lato_semibold"
                     android:padding="2dp"
@@ -845,12 +859,13 @@
 
 
     </ScrollView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_camera"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/camera_capture_button"

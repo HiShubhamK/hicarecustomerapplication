@@ -196,24 +196,18 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/btnaddtocart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorAccent"
-                    android:orientation="vertical">
 
-                    <TextView
+
+                    <Button
+                        android:id="@+id/btnaddtocart"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_margin="10dp"
                         android:gravity="center"
                         android:text="View Detail"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <!--                <Button-->
                 <!--                    android:id="@+id/btnaddtocart"-->

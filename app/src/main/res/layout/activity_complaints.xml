@@ -91,30 +91,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headerView"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:gravity="center"
+        android:layout_below="@id/headerView" >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtnotfound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="No Record Found"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
     </RelativeLayout>
+
 
 </RelativeLayout>

@@ -302,7 +302,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.lnrMoreItem.visibility = View.GONE
                 binding.tvProductdescLong.visibility = View.GONE
             }
-            binding.lnrBottom.setOnClickListener {
+            binding.tvAddToCart.setOnClickListener {
                 if (binding.tvAddToCart.text == "Goto Cart") {
                     val intent = Intent(this, AddToCartActivity::class.java)
                     startActivity(intent)

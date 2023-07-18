@@ -121,8 +121,8 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
         AppUtils2.customeremail = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
-        binding.tvProductName.text=displayname
-        binding.tvOrderdate.text=AppUtils2.formatDateTime4(Created_On)
+        binding.tvProductName.text = displayname
+        binding.tvOrderdate.text = AppUtils2.formatDateTime4(Created_On)
 
 
 //        captureby = intent.getStringExtra("captureby").toString()
@@ -222,19 +222,38 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            progressDialog.show()
             val orderNo = binding.bottomheadertext.text.toString().trim()
             val serviceNo = binding.serviceNoEt.text.toString().trim()
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "") {
-                    addComplaint(
-                        orderNo, serviceNo, selectedCType,
-                        selectedCSubType, complaintTitle, complaintDescr, serviceType
-                    )
+                if (orderNo != "") {
+                    if (binding.complaintTitleEt.text.equals("")) {
+                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT)
+                            .show()
+
+                    } else if (binding.complaintDescrEt.text.equals("")) {
+                        Toast.makeText(
+                            this,
+                            "Please fill complaint description!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else {
+//                        Toast.makeText(this, "Please mention valid required details", Toast.LENGTH_SHORT).show()
+                        addComplaint(
+                            orderNo, serviceNo, selectedCType,
+                            selectedCSubType, complaintTitle, complaintDescr, serviceType
+                        )
+                    }
+
                 } else {
-                    Toast.makeText(this, "Please fill complaint details properly.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Invalid Order Number",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                 }
             } else {
                 if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
@@ -244,8 +263,34 @@ class AddProductComplaintsActivity : AppCompatActivity() {
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, "Please fill complaint details properly.", Toast.LENGTH_SHORT).show()
-                }
+                    if (orderNo != "") {
+                        if (binding.complaintTitleEt.text.equals("")) {
+                            Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT)
+                                .show()
+
+                        } else if (binding.complaintDescrEt.text.equals("")) {
+                            Toast.makeText(
+                                this,
+                                "Please fill complaint description!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        } else {
+//                        Toast.makeText(this, "Please mention valid required details", Toast.LENGTH_SHORT).show()
+                            addComplaint(
+                                orderNo, serviceNo, selectedCType,
+                                selectedCSubType, complaintTitle, complaintDescr, serviceType
+                            )
+                        }
+
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Invalid Order Number",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }                }
             }
         }
         binding.lnrUpload.setOnClickListener {
@@ -688,6 +733,8 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         complaintType: String, complaintSubType: String,
         complaintTitle: String, complaintDescr: String, serviceType: String
     ) {
+        progressDialog.show()
+
         arraylistImages.removeAll(listOf("", null))
         val hashMap = HashMap<String, Any>()
 //        {
@@ -719,7 +766,7 @@ class AddProductComplaintsActivity : AppCompatActivity() {
 //            "OrderValuePostDiscount": OrderValuePostDiscount.toInt(),
 //            "Last_Interaction": "string"
 //        }
-        hashMap["Id"] =0
+        hashMap["Id"] = 0
         hashMap["Complaint_Type"] = ""
         hashMap["Complaint_Subject"] = complaintTitle
         hashMap["Complaint_Description"] = complaintDescr
@@ -736,7 +783,7 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         hashMap["Created_On"] = Created_On
         hashMap["Updated_On"] = Created_On
         hashMap["User_Name"] = AppUtils2.cutomername
-        hashMap["Mobile_No"] =AppUtils2.customermobile
+        hashMap["Mobile_No"] = AppUtils2.customermobile
         hashMap["Email"] = AppUtils2.customeremail
         hashMap["OrderDate"] = Created_On
         hashMap["Contact_Person_Name"] = AppUtils2.cutomername
@@ -745,11 +792,11 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toInt()
         hashMap["Last_Interaction"] = ""
 
-        complaintViewModel.errorMessage.observe(this,{
+        complaintViewModel.errorMessage.observe(this, {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
-        complaintViewModel.responseMessage.observe(this,{
+        complaintViewModel.responseMessage.observe(this, {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
@@ -758,11 +805,12 @@ class AddProductComplaintsActivity : AppCompatActivity() {
             if (it.isNotEmpty()) {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                 finish()
+                progressDialog.dismiss()
 
             } else {
+                progressDialog.dismiss()
 
             }
-            progressDialog.dismiss()
 
         })
     }
