@@ -227,33 +227,13 @@ class AddProductComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "") {
-                    if (binding.complaintTitleEt.text.equals("")) {
-                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT)
-                            .show()
-
-                    } else if (binding.complaintDescrEt.text.equals("")) {
-                        Toast.makeText(
-                            this,
-                            "Please fill complaint description!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    } else {
-//                        Toast.makeText(this, "Please mention valid required details", Toast.LENGTH_SHORT).show()
-                        addComplaint(
-                            orderNo, serviceNo, selectedCType,
-                            selectedCSubType, complaintTitle, complaintDescr, serviceType
-                        )
-                    }
-
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "") {
+                    addComplaint(
+                        orderNo, serviceNo, selectedCType,
+                        selectedCSubType, complaintTitle, complaintDescr, serviceType
+                    )
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Invalid Order Number",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    Toast.makeText(this, "Please fill complaint details properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
@@ -263,36 +243,9 @@ class AddProductComplaintsActivity : AppCompatActivity() {
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    if (orderNo != "") {
-                        if (binding.complaintTitleEt.text.equals("")) {
-                            Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT)
-                                .show()
-
-                        } else if (binding.complaintDescrEt.text.equals("")) {
-                            Toast.makeText(
-                                this,
-                                "Please fill complaint description!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        } else {
-//                        Toast.makeText(this, "Please mention valid required details", Toast.LENGTH_SHORT).show()
-                            addComplaint(
-                                orderNo, serviceNo, selectedCType,
-                                selectedCSubType, complaintTitle, complaintDescr, serviceType
-                            )
-                        }
-
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Invalid Order Number",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }                }
-            }
-        }
+                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+                }
+            }        }
         binding.lnrUpload.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)

@@ -210,55 +210,23 @@ class AddComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" ) {
-                    if (binding.complaintTitleEt.text.equals("")){
-                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
-
-                    }else if (binding.complaintDescrEt.text.equals("")){
-
-                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
-
-                    }else if (selectedCType != ""&& selectedCType != "Complaint Type"){
-                        Toast.makeText(this, "Please select valid complaint type!", Toast.LENGTH_SHORT).show()
-                    }else {
-
-                        addComplaint(
-                            orderNo, serviceNo, selectedCType,
-                            selectedCSubType, complaintTitle, complaintDescr, serviceType
-                        )
-                    }
-
-                    progressDialog.dismiss()
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != ""&& selectedCType != "Complaint Type") {
+                    addComplaint(
+                        orderNo, serviceNo, selectedCType,
+                        selectedCSubType, complaintTitle, complaintDescr, serviceType
+                    )
                 } else {
-                    progressDialog.dismiss()
-
-                    Toast.makeText(this, "Please fill valid data to raise a complaint!", Toast.LENGTH_SHORT).show()
-
+                    Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (orderNo != "") {
-                    if (binding.complaintTitleEt.text.equals("")){
-                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
-
-                    }else if (binding.complaintDescrEt.text.equals("")){
-
-                        Toast.makeText(this, "Please fill complaint description!", Toast.LENGTH_SHORT).show()
-
-                    }else if (selectedCType != ""&& selectedCType != "Complaint Type"){
-                        Toast.makeText(this, "Please select valid complaint type!", Toast.LENGTH_SHORT).show()
-                    }else{
-                        addComplaint(
-                            orderNo, serviceNo, selectedCType,
-                            selectedCSubType, complaintTitle, complaintDescr, serviceType
-                        )
-                    }
-
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
+                ) {
+                    addComplaint(
+                        orderNo, serviceNo, selectedCType,
+                        selectedCSubType, complaintTitle, complaintDescr, serviceType
+                    )
                 } else {
-                    progressDialog.dismiss()
-                    Toast.makeText(this, "Please fill valid data to raise a complaint!", Toast.LENGTH_SHORT).show()
-
-//                    progressDialog.dismiss()
-
+                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
         }
