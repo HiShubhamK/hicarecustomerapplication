@@ -64,8 +64,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Toast.makeText(this,AppUtils2.customeremail,Toast.LENGTH_LONG).show()
-
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
