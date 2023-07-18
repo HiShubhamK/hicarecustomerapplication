@@ -27,6 +27,7 @@ import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
 class SlotDetailActivity : AppCompatActivity() {
@@ -39,6 +40,8 @@ class SlotDetailActivity : AppCompatActivity() {
     private var ordertype = ""
     lateinit var progressDialog: ProgressDialog
     var paymentdone = ""
+    private val viewProductModel: ProductViewModel by viewModels()
+
 
     private var Service_Date = ""
     private var scheduledatetext = ""
@@ -130,10 +133,9 @@ class SlotDetailActivity : AppCompatActivity() {
 //                ShowBookingDialog(it)
                 if (it.IsSuccess == true) {
                     if (it.Data!!.IsSuccess == true) {
-
-                        Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
+                        getClearchache()
                         finish()
                     } else {
                         Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
@@ -199,4 +201,10 @@ class SlotDetailActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
     }
+
+    private fun getClearchache() {
+        viewProductModel.getClearCache(AppUtils2.mobileno)
+    }
+
+
 }

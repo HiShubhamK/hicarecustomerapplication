@@ -50,4 +50,5 @@ class MainRepository {
     fun CreateProductComplaint(data: HashMap<String, Any>)=retrofitProduct.CreateProductComplaint(data)
     fun CreateRazorpayOrderId(amount:Double,mobilenumber:Int) = retrofitProduct.CreateRazorpayOrderId(amount,mobilenumber)
     fun getValidateVoucher(vouchercode: String,userId: Int,pincoode: String)=retrofitProduct.getValidateVoucher(vouchercode,userId,pincoode)
+    fun getClearCache(mobileNo: String)=retrofitService.getClearCache(mobileNo)
 }

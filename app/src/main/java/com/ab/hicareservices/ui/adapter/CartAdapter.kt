@@ -77,6 +77,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
             progressDialog.dismiss()
 
+            counts=1
+            holder.binding.textcount.text = counts.toString()
             onCartClickedHandler!!.setondeleteclicklistener(
                 position,
                 productlists.CartId,
@@ -92,7 +94,9 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             progressDialog.setCancelable(false)
             counts = counts + 1
             if (counts > 1) {
+                holder.binding.textcount.text = counts.toString()
                 holder.binding.imgremove.isEnabled = true
+                holder.binding.imgremove.isClickable = true
                 onCartClickedHandler!!.setonaddclicklistener(
                     position,
                     productlists.ProductId!!.toInt(),
@@ -102,8 +106,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
                 progressDialog.dismiss()
+            }else {
+                counts=1
+                holder.binding.textcount.text = counts.toString()
             }
-            holder.binding.textcount.text = counts.toString()
 
             progressDialog.dismiss()
 //                viewProductModel.getAddProductInCart(counts, productlists.ProductId!!.toInt(), 20)
@@ -113,21 +119,24 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
         holder.binding.imgremove.setOnClickListener {
             progressDialog.show()
             progressDialog.setCancelable(false)
-            counts = counts - 1
             if (counts == 1) {
+                counts = counts - 1
+                counts=1
                 holder.binding.textcount.text = "1"
                 holder.binding.imgremove.isEnabled = false
-                onCartClickedHandler!!.setonaddclicklistener(
-                    position,
-                    productlists.ProductId!!.toInt(),
-                    -1, holder.binding.imgremove
-                )
+//                onCartClickedHandler!!.setonaddclicklistener(
+//                    position,
+//                    productlists.ProductId!!.toInt(),
+//                    -1, holder.binding.imgremove
+//                )
                 progressDialog.dismiss()
             } else if (counts < 1) {
+                counts=1
                 holder.binding.textcount.text = "1"
                 holder.binding.imgremove.isEnabled = false
                 progressDialog.dismiss()
             } else if (counts > 1){
+                counts = counts - 1
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(
                     position,
@@ -135,6 +144,12 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     -1, holder.binding.imgremove
                 )
                 progressDialog.dismiss()
+            }else{
+                counts=1
+                holder.binding.imgremove.isEnabled=false
+                holder.binding.imgremove.isClickable=false
+                holder.binding.imgremove.isEnabled=true
+                holder.binding.imgadd.isClickable = true
             }
             if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = true

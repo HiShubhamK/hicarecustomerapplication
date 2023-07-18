@@ -89,6 +89,8 @@
         android:orientation="horizontal"
         android:layout_below="@id/headerView"
         android:background="#f6f6f6"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:weightSum="4">
 
         <androidx.cardview.widget.CardView

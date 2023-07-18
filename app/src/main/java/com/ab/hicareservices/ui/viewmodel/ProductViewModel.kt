@@ -33,6 +33,7 @@ class ProductViewModel: ViewModel() {
     val validateVoucherResponse = MutableLiveData<ValidateVoucherResponse>()
     val paymentsuceess = MutableLiveData<String>()
     val responseMessage = MutableLiveData<String>()
+    val clearCacheResponse=MutableLiveData<ClearCacheResponse>()
 
 
 
@@ -77,7 +78,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productlist.postValue(response.body()!!.Data)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage)
                 }
             }
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
@@ -284,6 +285,19 @@ class ProductViewModel: ViewModel() {
         })
     }
 
+    fun getClearCache(mobileno: String){
+        val response=repository.getClearCache(mobileno)
+        response.enqueue(object : Callback<ClearCacheResponse>{
+            override fun onResponse(call: Call<ClearCacheResponse>, response: Response<ClearCacheResponse>) {
+                clearCacheResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ClearCacheResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+
+        })
+    }
 
 }
 

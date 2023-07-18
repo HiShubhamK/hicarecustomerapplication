@@ -36,9 +36,10 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="-1dp"
                 android:layout_toLeftOf="@+id/cartmenu"
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
@@ -83,8 +84,8 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_gravity="center"
-                android:layout_weight=".05"
                 android:padding="10dp">
 
                 <ImageView

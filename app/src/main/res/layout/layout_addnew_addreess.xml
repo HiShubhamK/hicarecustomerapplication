@@ -16,8 +16,13 @@
             android:id="@+id/texttitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="106dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
             android:fontFamily="@font/lato_semibold"
             android:text="Add Shipping Address"
             android:textColor="@color/colorAccent"
@@ -45,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/md_grey_200"
-        android:layout_marginTop="3dp"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/real"/>
@@ -53,13 +58,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/saveBtn"
+        android:layout_above="@+id/cardbutton"
         android:layout_below="@id/view1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/saveBtn"
+            android:layout_above="@+id/cardbutton"
             android:layout_below="@+id/headerView"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
@@ -674,6 +679,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginVertical="5dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="right"
                 android:padding="10dp">
 
@@ -1073,7 +1079,6 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>
@@ -1092,11 +1097,18 @@
 <!--                android:text="Save"-->
 <!--                android:textColor="@color/white" />-->
 
-
         </LinearLayout>
 
-
     </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="5sp">
 
         <androidx.appcompat.widget.AppCompatButton
         android:id="@id/saveBtn"
@@ -1105,11 +1117,9 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:text="Save"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"/>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

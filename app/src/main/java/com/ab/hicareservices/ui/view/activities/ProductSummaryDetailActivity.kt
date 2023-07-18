@@ -364,14 +364,14 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             if (it.IsSuccess == true) {
 
                 if (it.Data == 0) {
-                    binding.cartmenu.visibility = View.GONE
+                    binding.cartmenu.visibility = View.INVISIBLE
                 } else {
                     binding.cartmenu.visibility = View.VISIBLE
                     AppUtils2.cartcounts = it.Data.toString()
                     binding.appCompatImageViewd.text = it.Data.toString()
                 }
             } else {
-                binding.cartmenu.visibility = View.GONE
+                binding.cartmenu.visibility = View.INVISIBLE
             }
         })
 

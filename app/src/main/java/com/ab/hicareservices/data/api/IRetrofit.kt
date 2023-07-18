@@ -194,4 +194,9 @@ interface IRetrofit {
         @Query("pincode") pincode: String
     ): Call<ValidateVoucherResponse>
 
+    @GET("Dashboard/ClearCache")
+    fun getClearCache(
+        @Query("mobileNo") mobileNo: String,
+    ): Call<ClearCacheResponse>
+
 }
