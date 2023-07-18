@@ -68,6 +68,9 @@ class OtpViewModel : ViewModel(){
             override fun onResponse(call: Call<ValidateResponse?>, response: Response<ValidateResponse>?) {
                 if (response != null && response.body()?.IsSuccess == true) {
                     val body = response.body()
+
+                    validateResponses.postValue(response.body())
+
                     AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()
                     AppUtils2.customerid= response.body()!!.Data!!.ProductCustomerData!!.Id.toString()
                     SharedPreferenceUtil.setData(context, "bToken",response.body()?.Data!!.Token.toString())

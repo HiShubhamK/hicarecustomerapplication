@@ -30,7 +30,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     var billingdata: String? = ""
     lateinit var datalist: ArrayList<CartlistResponseData>
     lateinit var progressDialog: ProgressDialog
-    var client: FusedLocationProviderClient? = null
     private var lat: String? = ""
     private var longg: String? = ""
     private var lastlat: String? = ""
@@ -57,7 +56,11 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
 
         binding.imgLogo.setOnClickListener {
-            onBackPressed()
+            SharedPreferenceUtil.setData(this,"Billingdata","")
+            SharedPreferenceUtil.setData(this,"Shippingdata","")
+            val intent=Intent(this@OverviewProductDetailsActivity,AddressActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
         }
 
         val intent = intent
@@ -103,10 +106,10 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
-                                Toast.makeText(this, it.ResponseMessage, Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_LONG).show()
                             }
                         } else {
-                            Toast.makeText(this, it.ResponseMessage, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_LONG).show()
                         }
                     })
 
@@ -239,4 +242,14 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         super.onResume()
         getSummarydata("")
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        SharedPreferenceUtil.setData(this,"Billingdata","")
+        SharedPreferenceUtil.setData(this,"Shippingdata","")
+        val intent=Intent(this@OverviewProductDetailsActivity,AddressActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
+
 }

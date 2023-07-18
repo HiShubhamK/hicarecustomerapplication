@@ -109,7 +109,7 @@ class ProductFragment : Fragment() {
                     "pincode",
                     binding.getpincodetext.text.toString()
                 )
-                getProductslist(binding.getpincodetext.text.trim().toString())
+                getProductslist2(binding.getpincodetext.text.trim().toString())
             }
 
         }
@@ -166,7 +166,7 @@ class ProductFragment : Fragment() {
 
                 progressDialog.show()
 
-                Handler(Looper.getMainLooper()).postDelayed({
+//                Handler(Looper.getMainLooper()).postDelayed({
 
                     viewProductModel.addtocart.observe(requireActivity(), Observer {
                         if (it.IsSuccess == true) {
@@ -195,7 +195,7 @@ class ProductFragment : Fragment() {
 
 
                     viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-                }, 1500)
+//                }, 1500)
             }
 
             override fun onProductView(position: Int, productid: OrderSummeryData) {
@@ -203,6 +203,91 @@ class ProductFragment : Fragment() {
             }
         })
     }
+
+    private fun getProductslist2(pincode: String) {
+//        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+//        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        binding.recycleviewproduct.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        mAdapter = ProductAdapter()
+
+        binding.recycleviewproduct.adapter = mAdapter
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+        viewProductModel.productlist.observe(requireActivity(), Observer {
+
+            if (it != null) {
+
+                binding.recycleviewproduct.visibility = View.VISIBLE
+                binding.textnotfound.visibility = View.GONE
+                mAdapter.setProductList(it, requireActivity(), viewProductModel)
+                progressDialog.dismiss()
+
+            } else {
+                binding.recycleviewproduct.visibility = View.GONE
+                binding.textnotfound.visibility = View.VISIBLE
+                progressDialog.dismiss()
+
+            }
+        })
+
+        viewProductModel.responseMessage.observe(requireActivity(), Observer {
+            progressDialog.dismiss()
+            binding.recycleviewproduct.visibility = View.GONE
+            Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
+        })
+        viewProductModel.getProductlist(pincode)
+
+        },1000)
+
+
+
+        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
+            override fun onProductClickedHandler(position: Int, productid: Int) {
+
+                progressDialog.show()
+
+//                Handler(Looper.getMainLooper()).postDelayed({
+
+                viewProductModel.addtocart.observe(requireActivity(), Observer {
+                    if (it.IsSuccess == true) {
+                        getproductcount()
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            "Something went wrong! Unable to add product into cart",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+
+
+                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+
+                viewProductModel.productcount.observe(requireActivity(), Observer {
+                    progressDialog.dismiss()
+                    if (it.IsSuccess == true) {
+                        binding.cartmenu.visibility = View.VISIBLE
+                        binding.appCompatImageViewd.text = it.Data.toString()
+                    } else {
+                        binding.cartmenu.visibility = View.GONE
+                    }
+                })
+
+
+                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+//                }, 1500)
+            }
+
+            override fun onProductView(position: Int, productid: OrderSummeryData) {
+
+            }
+        })
+    }
+
 
     private fun getproductcount() {
 

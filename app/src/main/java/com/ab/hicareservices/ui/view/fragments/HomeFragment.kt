@@ -44,6 +44,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.*
 import com.ab.hicareservices.databinding.FragmentHomeBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
@@ -129,41 +130,40 @@ class HomeFragment : Fragment() {
 
         viewModels.validateAccounts(AppUtils2.mobileno, requireActivity())
 
-        client = LocationServices
-            .getFusedLocationProviderClient(
-                requireActivity()
-            )
+        MyLocationListener(requireActivity())
 
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            // When permission is granted
-            // Call method
-            getCurrentLocations()
-        } else {
-            // When permission is not granted
-            // Call method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    100
-                )
-            }
-        }
-
-
-
+//        client = LocationServices
+//            .getFusedLocationProviderClient(
+//                requireActivity()
+//            )
+//
+//        if (ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // When permission is granted
+//            // Call method
+//            getCurrentLocations()
+//        } else {
+//            // When permission is not granted
+//            // Call method
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(
+//                    arrayOf(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION
+//                    ),
+//                    100
+//                )
+//            }
+//        }
 
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

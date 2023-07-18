@@ -63,7 +63,6 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var productGallery: ArrayList<ProductGallery>
     private lateinit var customerReviewAdapter: ProductDetailCustomerReviewAdapter
     lateinit var progressDialog: ProgressDialog
-    var client: FusedLocationProviderClient? = null
     private var lat: String? = ""
     private var longg: String? = ""
     private var lastlat: String? = ""

@@ -45,7 +45,6 @@ class AddToCartActivity : AppCompatActivity() {
     var customerid: String? = null
     var pincode: String? = null
     lateinit var progressDialog: ProgressDialog
-    var client: FusedLocationProviderClient? = null
     private var lat: String? = ""
     private var longg: String? = ""
     private var lastlat: String? = ""

@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
@@ -66,20 +67,43 @@ class OTPActivity : AppCompatActivity() {
             finish()
         }
         binding.continueBtn.setOnClickListener {
-//            progressDialog.show()
+            progressDialog.show()
             if (binding.otpView.otp.toString().equals("")) {
                 Toast.makeText(this, "Please enter code", Toast.LENGTH_LONG).show()
             } else if (mOtp.equals(binding.otpView.otp.toString())) {
 
+                viewModel.validateResponses.observe(this, Observer {
+                    if(it.IsSuccess==true){
+                        progressDialog.dismiss()
+                        AppUtils2.TOKEN=it.Data!!.Token.toString()
+                        AppUtils2.customerid= it!!.Data!!.ProductCustomerData!!.Id.toString()
+                        SharedPreferenceUtil.setData(this, "bToken",it.Data!!.Token.toString())
+                        if(it?.Data?.PestCustomerData?.BillingPostalCode==null){
+                            SharedPreferenceUtil.setData(this, "pincode","")
+                        }else{
+                            SharedPreferenceUtil.setData(this, "pincode",it?.Data?.PestCustomerData?.BillingPostalCode.toString())
+                        }
+                        SharedPreferenceUtil.setData(this, "customerid",it?.Data?.ProductCustomerData?.Id.toString())
+                        SharedPreferenceUtil.setData(this, "FirstName",it?.Data?.ProductCustomerData?.FirstName.toString())
+                        SharedPreferenceUtil.setData(this, "MobileNo",it?.Data?.ProductCustomerData?.MobileNo.toString())
+                        SharedPreferenceUtil.setData(this, "EMAIL",it?.Data?.ProductCustomerData?.Email.toString())
+
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    }else{
+                        progressDialog.dismiss()
+                    }
+                })
+
                 validateAccount(mobileNo)
-                progressDialog.dismiss()
                 SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
                 SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
 
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                progressDialog.dismiss()
+
             } else {
 //                progressDialog.dismiss()
                 Toast.makeText(this, "Invalid OTP", Toast.LENGTH_LONG).show()
