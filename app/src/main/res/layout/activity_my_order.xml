@@ -37,7 +37,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center_horizontal"
-                android:text="My Orders"
+                android:text="My Booked Orders"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
