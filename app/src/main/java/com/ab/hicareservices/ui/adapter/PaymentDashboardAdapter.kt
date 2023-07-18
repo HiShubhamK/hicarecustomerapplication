@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,12 +65,19 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
                 holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }
 
-            if (recipe.AppointmentDate!=null){
+//            if (!recipe.AppointmentDateTime.equals(null)||!recipe.AppointmentDateTime.equals("")){
+//                holder.binding.tvPlanDate.text =": " +recipe.AppointmentStartDate
+//            }else{
+//                holder.binding.tvPlanDate.text =": " +recipe.SRPlanDate
+//            }
+//
+
+            if (!recipe.AppointmentDateTime.equals(null)||!recipe.AppointmentDateTime.equals("")){
                 holder.binding.tvappointmentdate.text="Appointment Date"
-                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
+                holder.binding.tvPlanDate.text =": "+ recipe.AppointmentStartDate
 
             }else if(recipe.SRDate_c!=null){
-                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
+                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.SRPlanDate.toString())
             }else{
 //                holder.binding.lnrtime.visibility=View.GONE
 //                holder.binding.lnrdate.visibility=View.GONE
@@ -96,11 +104,19 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
         }else if (codOrders.isNotEmpty()){
 
-
             holder.binding.btneta.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
 
             val recipe = codOrders[position]
+            holder.binding.tvappointmenttime.visibility=View.VISIBLE
+            holder.binding.tvScheduletime.visibility=View.GONE
+            holder.binding.tvPlanDatetime.visibility=View.VISIBLE
+            holder.binding.tvappointmentdate.visibility=View.GONE
+            holder.binding.tvPlanDate.visibility=View.GONE
+
+            holder.binding.tvappointmenttime.text="Amount to be pay"
+
+            holder.binding.tvPlanDatetime.text=":"+"₹ "+recipe.OrderValueWithTax_c
             holder.binding.ServiceName.text = recipe.ServicePlanName_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
             holder.binding.tvPayNows.visibility=View.VISIBLE
@@ -108,18 +124,18 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 //            holder.binding.lnrorderno.visibility=View.VISIBLE
             holder.binding.tvOrderNumber.text=": "+recipe.OrderNumber_c
 //            holder.binding.lnrtime.visibility=View.GONE
-            if (recipe.AppointmentStartDateTime_c!=null){
-                holder.binding.tvappointmentdate.text="Appointment Date"
-                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.AppointmentEndDateTime_c.toString())
-            }else{
-                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.CreatedDate.toString())
-
-            }
+//            if (recipe.AppointmentStartDateTime_c!=null){
+//                holder.binding.tvappointmentdate.text="Appointment Date"
+//                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.AppointmentEndDateTime_c.toString())
+//            }else{
+//                holder.binding.tvPlanDate.text =": "+ AppUtils2.formatDateTime4(recipe.CreatedDate.toString())
+//
+//            }
             holder.binding.imgAvatar.visibility = View.GONE
 
-            holder.binding.tvappointmenttime.visibility=View.GONE
-            holder.binding.tvScheduletime.visibility=View.GONE
-            holder.binding.tvPlanDatetime.visibility=View.GONE
+//            holder.binding.tvappointmenttime.visibility=View.GONE
+//            holder.binding.tvScheduletime.visibility=View.GONE
+//            holder.binding.tvPlanDatetime.visibility=View.GONE
 
 //        Picasso.get().load(recipe.courseImg).into( holder.binding.imgAvatar)
 //        if (recipe.isButtonCancel){

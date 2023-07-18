@@ -132,38 +132,38 @@ class HomeFragment : Fragment() {
 
         MyLocationListener(requireActivity())
 
-//        client = LocationServices
-//            .getFusedLocationProviderClient(
-//                requireActivity()
-//            )
-//
-//        if (ContextCompat.checkSelfPermission(
-//                requireActivity(),
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            )
-//            == PackageManager.PERMISSION_GRANTED
-//            && ContextCompat.checkSelfPermission(
-//                requireActivity(),
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            )
-//            == PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // When permission is granted
-//            // Call method
-//            getCurrentLocations()
-//        } else {
-//            // When permission is not granted
-//            // Call method
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                requestPermissions(
-//                    arrayOf(
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION
-//                    ),
-//                    100
-//                )
-//            }
-//        }
+        client = LocationServices
+            .getFusedLocationProviderClient(
+                requireActivity()
+            )
+
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // When permission is granted
+            // Call method
+            getCurrentLocations()
+        } else {
+            // When permission is not granted
+            // Call method
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    100
+                )
+            }
+        }
 
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

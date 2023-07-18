@@ -52,17 +52,27 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtname.text=orders.service_Plan_Name__c
             holder.binding.txtnameorder.text=orders.order_Number__c
             holder.binding.txtnamestatus.text=orders.status__c
-            holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(orders.appointmentEndDateTime__c.toString())
             holder.binding.txtrupees.text = "₹ ${orders.order_Value_with_Tax__c}"
 
-            if(orders.appointmentEndDateTime__c.equals("")){
+//            if(orders.appointmentEndDateTime__c.equals("")){
+//                holder.binding.txtappointmentdate.visibility=View.GONE
+//                holder.binding.nextappointmentdate.visibility=View.GONE
+//            }else{
+//                holder.binding.txtappointmentdate.visibility=View.VISIBLE
+//                holder.binding.nextappointmentdate.visibility=View.VISIBLE
+//
+//            }
+
+
+            if( orders.NextServiceDate==null || orders.NextServiceDate.equals("") ){
                 holder.binding.txtappointmentdate.visibility=View.GONE
                 holder.binding.nextappointmentdate.visibility=View.GONE
             }else{
                 holder.binding.txtappointmentdate.visibility=View.VISIBLE
                 holder.binding.nextappointmentdate.visibility=View.VISIBLE
-
+                holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(orders.NextServiceDate.toString())
             }
+
 
             if(orders.status__c.equals("Expired")){
                 holder.binding.txtappointmentdate.visibility=View.GONE
