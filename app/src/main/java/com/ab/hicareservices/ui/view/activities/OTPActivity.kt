@@ -66,7 +66,7 @@ class OTPActivity : AppCompatActivity() {
             finish()
         }
         binding.continueBtn.setOnClickListener {
-            progressDialog.show()
+//            progressDialog.show()
             if (binding.otpView.otp.toString().equals("")) {
                 Toast.makeText(this, "Please enter code", Toast.LENGTH_LONG).show()
             } else if (mOtp.equals(binding.otpView.otp.toString())) {
@@ -81,7 +81,7 @@ class OTPActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                progressDialog.dismiss()
+//                progressDialog.dismiss()
                 Toast.makeText(this, "Invalid OTP", Toast.LENGTH_LONG).show()
             }
         }
@@ -96,6 +96,7 @@ class OTPActivity : AppCompatActivity() {
         viewModel.otpResponse.observe(this) {
             if (it.isSuccess == true) {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
+                binding.otpView.setOTP("")
                 mOtp=""
                 mOtp = it.data.toString()
                 Toast.makeText(this, "OTP Resend Successfully", Toast.LENGTH_SHORT).show()
