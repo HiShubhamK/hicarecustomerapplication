@@ -64,6 +64,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Toast.makeText(this,AppUtils2.customeremail,Toast.LENGTH_LONG).show()
+
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
@@ -242,6 +244,11 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("amount", "${AppUtils2.productamount.toDouble().roundToInt()}00")
         options.put("notes", notesproduct)
         val prefill = JSONObject()
+
+//
+//        prefill.put("email","akshay.tabib@hicare.in")
+//        prefill.put("contact","7738753827")
+
         prefill.put("email",AppUtils2.customeremail)
         prefill.put("contact",AppUtils2.mobileno)
 
@@ -314,7 +321,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             try {
                 viewProductModel.paymentsuceess.observe(this, Observer {
-                    if(it!=null){
+                    if(it.IsSuccess==true){
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
@@ -342,10 +349,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Pincode"] = AppUtils2.pincode
                 data["CartAmount"] = AppUtils2.actualvalue.toDouble()
                 data["PayableAmount"] = AppUtils2.productamount.toDouble()
-                data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()
+                data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()+AppUtils2.voucherdiscount.toDouble()
                 data["DelieveryCharges"] = 0.0
                 data["InstallationCharges"] = 0.0
-                data["VoucherCode"] = ""
+                data["VoucherCode"] = AppUtils2.vouchercode
                 data["SFDC_OrderNo"] = ""
                 data["PaymentId"] = response!!.paymentId
                 data["PayMethod"] = ""

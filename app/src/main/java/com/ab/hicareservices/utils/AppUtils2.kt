@@ -46,6 +46,8 @@ object AppUtils2 {
     var changebuttonstatus:Boolean=false
     var postalcode=""
     var shippingdata=""
+    var voucherdiscount=""
+    var vouchercode=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
 
 

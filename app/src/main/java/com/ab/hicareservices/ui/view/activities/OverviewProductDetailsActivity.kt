@@ -221,6 +221,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             AppUtils2.productamount = it.FinalAmount.toString()
             AppUtils2.actualvalue = it.TotalAmount.toString()
             AppUtils2.totaldiscount = it.TotalDiscount.toString()
+            AppUtils2.vouchercode=it.VoucherCode.toString()
+            AppUtils2.voucherdiscount=it.VoucherDiscount.toString()
             binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
