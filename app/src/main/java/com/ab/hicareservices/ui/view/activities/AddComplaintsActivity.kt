@@ -205,34 +205,59 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            progressDialog.show()
             val orderNo = binding.bottomheadertext.text.toString().trim()
             val serviceNo = binding.serviceNoEt.text.toString().trim()
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != ""&& selectedCType != "Complaint Type") {
-                    addComplaint(
-                        orderNo, serviceNo, selectedCType,
-                        selectedCSubType, complaintTitle, complaintDescr, serviceType
-                    )
+                if (orderNo != "" ) {
+                    if (binding.complaintTitleEt.text.equals("")){
+                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
+
+                    }else if (binding.complaintDescrEt.text.equals("")){
+
+                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
+
+                    }else if (selectedCType != ""&& selectedCType != "Complaint Type"){
+                        Toast.makeText(this, "Please select valid complaint type!", Toast.LENGTH_SHORT).show()
+                    }else {
+
+                        addComplaint(
+                            orderNo, serviceNo, selectedCType,
+                            selectedCSubType, complaintTitle, complaintDescr, serviceType
+                        )
+                    }
+
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()
 
-                    Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please fill valid data to raise a complaint!", Toast.LENGTH_SHORT).show()
+
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""&&selectedCType != ""&& selectedCType != "Complaint Type"
-                ) {
-                    addComplaint(
-                        orderNo, serviceNo, selectedCType,
-                        selectedCSubType, complaintTitle, complaintDescr, serviceType
-                    )
-                    progressDialog.dismiss()
+                if (orderNo != "") {
+                    if (binding.complaintTitleEt.text.equals("")){
+                        Toast.makeText(this, "Please fill complaint subject!", Toast.LENGTH_SHORT).show()
+
+                    }else if (binding.complaintDescrEt.text.equals("")){
+
+                        Toast.makeText(this, "Please fill complaint description!", Toast.LENGTH_SHORT).show()
+
+                    }else if (selectedCType != ""&& selectedCType != "Complaint Type"){
+                        Toast.makeText(this, "Please select valid complaint type!", Toast.LENGTH_SHORT).show()
+                    }else{
+                        addComplaint(
+                            orderNo, serviceNo, selectedCType,
+                            selectedCSubType, complaintTitle, complaintDescr, serviceType
+                        )
+                    }
+
                 } else {
-                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()
+                    Toast.makeText(this, "Please fill valid data to raise a complaint!", Toast.LENGTH_SHORT).show()
+
+//                    progressDialog.dismiss()
 
                 }
             }
@@ -686,6 +711,8 @@ class AddComplaintsActivity : AppCompatActivity() {
         complaintType: String, complaintSubType: String,
         complaintTitle: String, complaintDescr: String, serviceType: String
     ) {
+        progressDialog.show()
+
         arraylistImages.removeAll(listOf("", null))
         val hashMap = HashMap<String, Any>()
         hashMap["OrderNo"] = orderNo
