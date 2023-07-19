@@ -99,9 +99,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             Log.e("Token", token.toString())
 
-            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("text", token)
-            clipboardManager.setPrimaryClip(clipData)
+//            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clipData = ClipData.newPlainText("text", token)
+//            clipboardManager.setPrimaryClip(clipData)
 
         })
 

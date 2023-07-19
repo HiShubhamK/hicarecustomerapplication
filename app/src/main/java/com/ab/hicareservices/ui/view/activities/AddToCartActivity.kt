@@ -76,6 +76,7 @@ class AddToCartActivity : AppCompatActivity() {
             binding.tvPincode.visibility=View.GONE
         }
         binding.txtplcaeorder.setOnClickListener{
+            SharedPreferenceUtil.setData(this,"Billingdata","")
             val intent= Intent(this,AddressActivity::class.java)
             startActivity(intent)
             finish()

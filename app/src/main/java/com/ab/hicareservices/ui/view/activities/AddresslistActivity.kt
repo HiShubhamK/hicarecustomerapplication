@@ -121,8 +121,7 @@ class AddresslistActivity : AppCompatActivity() {
 
         if(b.equals("true")){
 
-            var courses = arrayOf<String?>("Home", "Office",
-                "Others")
+            var courses = arrayOf<String?>("Select Address Type","Home", "Office", "Others")
 
             val etname = promptsView.findViewById<View>(R.id.etname) as EditText
             val edtmobileno = promptsView.findViewById<View>(R.id.edtmobileno) as EditText

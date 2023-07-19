@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.product.ProductListResponseData
@@ -61,6 +62,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             holder.binding.btnaddtocart.setOnClickListener {
+                Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
                 onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
             }
