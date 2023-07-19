@@ -69,7 +69,8 @@ class OTPActivity : AppCompatActivity() {
         binding.continueBtn.setOnClickListener {
             progressDialog.show()
             if (binding.otpView.otp.toString().equals("")) {
-                Toast.makeText(this, "Please enter code", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please enter OTP", Toast.LENGTH_LONG).show()
+                progressDialog.dismiss()
             } else if (mOtp.equals(binding.otpView.otp.toString())) {
 
                 viewModel.validateResponses.observe(this, Observer {
