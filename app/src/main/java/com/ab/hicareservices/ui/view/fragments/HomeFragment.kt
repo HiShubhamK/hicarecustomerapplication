@@ -8,6 +8,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.IntentSender.SendIntentException
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.*
@@ -20,7 +21,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +30,6 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -56,12 +55,14 @@ import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -93,6 +94,7 @@ class HomeFragment : Fragment() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
 
+    val REQUEST_CODE_PERMISSIONS = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,7 +132,7 @@ class HomeFragment : Fragment() {
 
         viewModels.validateAccounts(AppUtils2.mobileno, requireActivity())
 
-        MyLocationListener(requireActivity())
+//        MyLocationListener(requireActivity())
 
         client = LocationServices
             .getFusedLocationProviderClient(
@@ -151,7 +153,10 @@ class HomeFragment : Fragment() {
             // When permission is granted
             // Call method
             getCurrentLocations()
+
         } else {
+//            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
+
             // When permission is not granted
             // Call method
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -917,14 +922,105 @@ class HomeFragment : Fragment() {
                         }
                     })
             } else {
-                // When location service is not enabled
-                // open location setting
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                enableLoc()
+
+//                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
+
+
+
+    }
+
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+//            var foreground = false
+//            var background = false
+//            for (i in permissions.indices) {
+//                if (permissions[i].equals(
+//                        Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        ignoreCase = true
+//                    )
+//                ) {
+//                    //foreground permission allowed
+//                    if (grantResults[i] >= 0) {
+//                        foreground = true
+//
+//                                                Toast.makeText(getActivity(), "Foreground location permission allowed", Toast.LENGTH_SHORT).show();
+//                        continue
+//                    } else {
+//                        Toast.makeText(getActivity(), "Location Permission denied", Toast.LENGTH_SHORT).show();
+//                        break
+//                    }
+//                }
+//                if (permissions[i].equals(
+//                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+//                        ignoreCase = true
+//                    )
+//                ) {
+//                    if (grantResults[i] >= 0) {
+//                        foreground = true
+//                        background = true
+//                    }
+//                }
+//            }
+////            if (foreground) {
+////                if (background) {
+////                    handleLocationUpdates()
+////                } else {
+////                    handleForegroundLocationUpdates()
+////                }
+////            }
+//        }
+//    }
+
+
+    private fun enableLoc() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000
+        locationRequest.fastestInterval = 5 * 1000
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+        val result = LocationServices.getSettingsClient(requireActivity()).checkLocationSettings(builder.build())
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(
+                    ApiException::class.java
+                )
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
+                        // user a dialog.
+                        try {
+                            // Cast to a resolvable exception.
+                            val resolvable = exception as ResolvableApiException
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(
+                                requireActivity(),
+                                REQUEST_CODE_PERMISSIONS
+                            )
+                        } catch (e: SendIntentException) {
+                            // Ignore the error.
+                        } catch (e: ClassCastException) {
+                            // Ignore, should be an impossible error.
+                        }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+                }
+            }
+        }
     }
 
 }
