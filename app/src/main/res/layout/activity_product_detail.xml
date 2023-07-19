@@ -528,8 +528,6 @@
 
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/vpTestomonial"
-                            android:layout_marginHorizontal="10dp"
-                            android:paddingEnd="50dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp" />
