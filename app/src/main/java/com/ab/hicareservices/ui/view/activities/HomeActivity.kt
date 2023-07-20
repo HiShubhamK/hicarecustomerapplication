@@ -435,16 +435,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         this.paymentListener = paymentListener
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
 
         if (binding.bottomNavigation.getSelectedItemId() === R.id.nav_home) {
+            finish()
             finishAffinity()
         } else {
             binding.bottomNavigation.selectedItemId = R.id.nav_home

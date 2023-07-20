@@ -100,7 +100,7 @@
                     android:layout_height="15dp"
                     android:background="@drawable/circle"
                     android:gravity="center"
-                    android:text="3"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"

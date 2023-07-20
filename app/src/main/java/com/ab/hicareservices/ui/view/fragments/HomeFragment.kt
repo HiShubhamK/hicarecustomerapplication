@@ -129,8 +129,8 @@ class HomeFragment : Fragment() {
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
-
-        viewModels.validateAccounts(AppUtils2.mobileno, requireActivity())
+//
+//        viewModels.validateAccounts(AppUtils2.mobileno, requireActivity())
 
 //        MyLocationListener(requireActivity())
 

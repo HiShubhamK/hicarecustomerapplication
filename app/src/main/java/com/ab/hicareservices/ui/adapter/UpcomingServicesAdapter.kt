@@ -50,7 +50,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 
             holder.binding.tvPayNow.text = "Reschedule"
             if (!service.AppointmentDateTime.equals(null)||!service.AppointmentDateTime.equals("")){
-                holder.binding.tvPlanDate.text =": " +service.AppointmentStartDate
+                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
             }else{
                 holder.binding.tvPlanDate.text =": " +service.SRPlanDate
             }
