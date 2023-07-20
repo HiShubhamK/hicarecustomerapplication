@@ -57,6 +57,8 @@ class SlotDetailActivity : AppCompatActivity() {
     private var AppointmentStart = ""
     private var AppointmentEnd = ""
     private var Source = ""
+    private var ServiceCenter_Id = ""
+    private var SkillId = ""
     var service = mutableListOf<ServiceData>()
     private val viewModels: OtpViewModel by viewModels()
     lateinit var mSlotAdapter: SlotsAdapter
@@ -84,7 +86,12 @@ class SlotDetailActivity : AppCompatActivity() {
         paymentdone = SharedPreferenceUtil.getData(this, "Paymentback", "-1").toString()
         Service_Date = intent.getStringExtra("Service_Date").toString()
         scheduledatetext = intent.getStringExtra("scheduledatetext").toString()
+        ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+        SkillId = intent.getStringExtra("SkillId").toString()
         TaskId = intent.getStringExtra("TaskId").toString()
+        Lat = intent.getStringExtra("Lat").toString()
+        Long = intent.getStringExtra("Long").toString()
+        ServiceType = intent.getStringExtra("ServiceType").toString()
 
         var data = AppUtils2.timeslotslist
         getOrdersList(data, Service_Date, scheduledatetext)
@@ -189,8 +196,21 @@ class SlotDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+//        val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        startActivity(intent)
         val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra(
+            "Service_Date",
+            AppUtils2.ServiceDate
+        )
+        intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
+        intent.putExtra("scheduledatetext", scheduledatetext)
+        intent.putExtra("TaskId", TaskId)
+        intent.putExtra("SkillId", SkillId)
+        intent.putExtra("Lat", Lat)
+        intent.putExtra("Long", Long)
+        intent.putExtra("ServiceType", ServiceType)
         startActivity(intent)
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")

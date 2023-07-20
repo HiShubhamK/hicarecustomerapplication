@@ -50,8 +50,8 @@ class SlotComplinceActivity : AppCompatActivity() {
     private var SkillId = ""
     private var SlotDate = ""
     private var TaskId = ""
-    private var Lat = ""
-    private var Long = ""
+    private var Latt = ""
+    private var Longg = ""
     private var ServiceType = ""
     private var Pincode = ""
     private var Service_Code = ""
@@ -80,8 +80,8 @@ class SlotComplinceActivity : AppCompatActivity() {
         SlotDate = intent.getStringExtra("SlotDate").toString()
         TaskId = intent.getStringExtra("TaskId").toString()
         SkillId = intent.getStringExtra("SkillId").toString()
-        Lat = intent.getStringExtra("Lat").toString()
-        Long = intent.getStringExtra("Long").toString()
+        Latt = intent.getStringExtra("Lat").toString()
+        Longg = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
         Pincode = intent.getStringExtra("Pincode").toString()
         Service_Code = intent.getStringExtra("Service_Code").toString()
@@ -210,8 +210,8 @@ class SlotComplinceActivity : AppCompatActivity() {
                 Pincode,
                 spcode,
                 Unit,
-                Lat,
-                Long,
+                Latt,
+                Longg,
                 ServiceType,
 
             )
@@ -238,11 +238,11 @@ class SlotComplinceActivity : AppCompatActivity() {
             data["SlotDate"] = date
             data["TaskId"] = TaskId
             data["SkillId"] = SkillId
-            data["Lat"] = Lat
-            data["Long"] = Long
+            data["Lat"] = Latt
+            data["Long"] = Longg
             data["ServiceType"] = ServiceType
             viewModel.getComplainceData(data)
-        }, 1000)
+        }, 500)
 
 
         mAdapter.onSlotclick(object : onSlotclick {
@@ -265,7 +265,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 data["Pincode"] = Pincode
                 data["Service_Code"] = Service_Code
                 data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
-                data["Service_Subscription"] = ""
+                data["Service_Subscription"] = Service_Subscription.toString()
                 data["Unit"] = unit.toString()
                 data["Lat"] = Lat
                 data["Long"] = Long
@@ -281,8 +281,13 @@ class SlotComplinceActivity : AppCompatActivity() {
                             "Service_Date",
                             AppUtils2.ServiceDate
                         )
+                        intent.putExtra("SkillId", SkillId)
+                        intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
                         intent.putExtra("scheduledatetext", scheduledatetext)
                         intent.putExtra("TaskId", TaskId)
+                        intent.putExtra("Lat", Latt)
+                        intent.putExtra("Long", Longg)
+                        intent.putExtra("ServiceType", ServiceType)
                         startActivity(intent)
                         finish()
 
@@ -308,7 +313,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         })
         Log.e(
             "TAG",
-            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Lat + ", " + Long + ", " + ServiceType+""+Unit
+            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Latt + ", " + Longg+ ", " + ServiceType+""+Unit
         )
 
 

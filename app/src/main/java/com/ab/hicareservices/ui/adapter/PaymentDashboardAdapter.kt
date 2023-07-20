@@ -114,7 +114,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.tvappointmentdate.visibility=View.GONE
             holder.binding.tvPlanDate.visibility=View.GONE
 
-            holder.binding.tvappointmenttime.text="Amount to be pay"
+            holder.binding.tvappointmenttime.text="Amount to be paid"
 
             holder.binding.tvPlanDatetime.text=":"+"₹ "+recipe.OrderValueWithTax_c
             holder.binding.ServiceName.text = recipe.ServicePlanName_c

@@ -123,85 +123,99 @@
             android:textSize="16sp">
 
         </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recTnc"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:id="@+id/lnrStatisTnc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:padding="10dp"
-                android:textColor="@color/dark_grey"
-                android:text="\u25CF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </TextView>
-            <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/lato_regular"
-                android:gravity="start"
-                android:text="Efficacy will be effective post 15 days of service"
-                android:textColor="@color/grey_font"
-                android:textSize="14sp">
-
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:padding="10dp"
-                android:textColor="@color/dark_grey"
-                android:text="\u25CF"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:padding="10dp"
+                    android:textColor="@color/dark_grey"
+                    android:text="\u25CF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            </TextView>
-            <TextView
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="start"
+                    android:text="Efficacy will be effective post 15 days of service"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp">
+
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/lato_regular"
-                android:gravity="start"
-                android:text="Service needs to be taken within 30 days of the scheduled date"
-                android:textColor="@color/grey_font"
-                android:textSize="14sp">
-
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:padding="10dp"
-                android:textColor="@color/dark_grey"
-                android:text="\u25CF"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:padding="10dp"
+                    android:textColor="@color/dark_grey"
+                    android:text="\u25CF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            </TextView>
-            <TextView
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="start"
+                    android:text="Service needs to be taken within 30 days of the scheduled date"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp">
+
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/lato_regular"
-                android:gravity="start"
-                android:text="Important to maintain the hygiene of the kitchen for best effectiveness"
-                android:textColor="@color/grey_font"
-                android:textSize="14sp">
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="10dp"
+                    android:textColor="@color/dark_grey"
+                    android:text="\u25CF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            </TextView>
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="start"
+                    android:text="Important to maintain the hygiene of the kitchen for best effectiveness"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp">
+
+                </TextView>
 
 
+            </LinearLayout>
         </LinearLayout>
+
 
 
     </LinearLayout>

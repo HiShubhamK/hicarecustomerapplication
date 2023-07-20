@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
     private lateinit var mHomeAdapter: HomeServiceAdapter
     private lateinit var mpayentdashboardadapter: PaymentDashboardAdapter
     private lateinit var mOfferAdapter: OffersAdapter
+    private lateinit var mOfferTermsAdapter: OffersTermsAdapter
     lateinit var courseList: List<MenuData>
     lateinit var paymentcardlist: List<PaymentCardViewModel>
     val TAG = HomeFragment::class.java.simpleName
@@ -298,6 +299,7 @@ class HomeFragment : Fragment() {
         binding.idViewPager.adapter = adapter
         binding.idViewPager4.adapter = mOfferAdapter
         mOfferAdapter.setOnOfferClick(object : offerinterface {
+            @SuppressLint("MissingInflatedId")
             override fun onOfferClick(position: Int, offers: ArrayList<OfferData>) {
                 val modelBottomSheet =
                     LayoutInflater.from(requireContext())
@@ -313,8 +315,16 @@ class HomeFragment : Fragment() {
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvOfferTitle)
                 val tvCopy: Button =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.tvCopy)
+
                 val btnRedeem: Button =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.btnRedeem)
+
+                mOfferTermsAdapter=OffersTermsAdapter(requireActivity())
+                mOfferTermsAdapter.serBanner(offers)
+
+                val recTnc: RecyclerView =
+                    modelBottomSheet.findViewById(com.ab.hicareservices.R.id.recTnc)
+                recTnc.adapter=mOfferTermsAdapter
                 textapp.text = offers[position].VoucherCode
                 tvOfferTitle.text = offers[position].OfferTitle
                 if (offers[position].IsCopyEnabled == true) {

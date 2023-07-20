@@ -554,20 +554,20 @@ class ProductDetailActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-//        viewProductModel.productcount.observe(this, Observer {
-//            if (it.IsSuccess == true) {
-//
-//                if (it.Data == 0) {
-//                    binding.cartmenu.visibility = View.GONE
-//                } else {
-//                    binding.cartmenu.visibility = View.VISIBLE
-//                    AppUtils2.cartcounts = it.Data.toString()
-//                    binding.appCompatImageViewd.text = it.Data.toString()
-//                }
-//            } else {
-//                binding.cartmenu.visibility = View.GONE
-//            }
-//        })
+        viewProductModel.productcount.observe(this, Observer {
+            if (it.IsSuccess == true) {
+
+                if (it.Data == 0) {
+                    binding.cartmenu.visibility = View.GONE
+                } else {
+                    binding.cartmenu.visibility = View.VISIBLE
+                    AppUtils2.cartcounts = it.Data.toString()
+                    binding.appCompatImageViewd.text = it.Data.toString()
+                }
+            } else {
+                binding.cartmenu.visibility = View.GONE
+            }
+        })
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
     }
 }
