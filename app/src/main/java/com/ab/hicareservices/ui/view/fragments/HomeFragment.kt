@@ -317,12 +317,14 @@ class HomeFragment : Fragment() {
 
                 val btnRedeem: Button =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.btnRedeem)
+//                mOfferTermsAdapter.serBanner(offers[position].TermsnConditions)
 
-                mOfferTermsAdapter=OffersTermsAdapter(requireActivity())
-                mOfferTermsAdapter.serBanner(offers[position].TermsnConditions)
+                mOfferTermsAdapter=OffersTermsAdapter(requireActivity(),offers[position].TermsnConditions)
 
                 val recTnc: RecyclerView =
                     modelBottomSheet.findViewById(com.ab.hicareservices.R.id.recTnc)
+                recTnc.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 recTnc.adapter=mOfferTermsAdapter
                 textapp.text = offers[position].VoucherCode
                 tvOfferTitle.text = offers[position].OfferTitle
