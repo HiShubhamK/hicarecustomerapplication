@@ -6,13 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.data.model.dashboard.OfferData
-import com.ab.hicareservices.ui.handler.OffersInterface
 import com.ab.hicareservices.ui.handler.offerinterface
 
 
@@ -20,14 +15,14 @@ class OffersTermsAdapter(private val viewPager2: FragmentActivity) :
     RecyclerView.Adapter<OffersTermsAdapter.ImageViewHolder>() {
     private var offersInterface: offerinterface? = null
 
-    var bannerLis = mutableListOf<OfferData>()
+    var bannerLis = mutableListOf<String>()
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //        val imgOffer: LottieAnimationView = itemView.findViewById(R.id.imgOffer)
         val tvTerms: TextView = itemView.findViewById(R.id.tvTerms)
     }
-    fun serBanner(bannerListt: ArrayList<OfferData>){
-        this.bannerLis=bannerListt
+    fun serBanner(bannerListt: List<String>?){
+        this.bannerLis= bannerListt as MutableList<String>
         notifyDataSetChanged()
 
 
@@ -50,7 +45,7 @@ class OffersTermsAdapter(private val viewPager2: FragmentActivity) :
 
 //        Glide.with(this).load(imageList[position].courseImg)).into(holder.imgOffer)
 
-            holder.tvTerms.text = bannerLis[position].OfferTitle
+            holder.tvTerms.text = bannerLis[position].toString()
 
 //            if (position == bannerLis.size - 1) {
 //                viewpa.post(runnable)
@@ -68,10 +63,10 @@ class OffersTermsAdapter(private val viewPager2: FragmentActivity) :
         return bannerLis.size
     }
 
-    private val runnable = Runnable {
-        bannerLis.addAll(bannerLis)
-        notifyDataSetChanged()
-    }
+//    private val runnable = Runnable {
+//        bannerLis.addAll(bannerLis)
+//        notifyDataSetChanged()
+//    }
     fun setOnOfferClick(l: offerinterface) {
         offersInterface = l
     }

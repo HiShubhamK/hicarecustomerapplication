@@ -45,16 +45,16 @@ class OffersAdapter(private val viewpa: ViewPager2, private val viewPager2: Frag
 //        Picasso.get().load(imageList[position].courseImg).into(holder.imgOffer)
 //        holder.imgOffer.setAnimation(bannerLis[position].courseImg)
 
-            holder.imgOffer.repeatCount = LottieDrawable.INFINITE
-            holder.imgOffer.playAnimation()
+//            holder.imgOffer.repeatCount = LottieDrawable.INFINITE
+//            holder.imgOffer.playAnimation()
 
 //        Glide.with(this).load(imageList[position].courseImg)).into(holder.imgOffer)
 
             holder.tvOffers.text = bannerLis[position].OfferTitle
 
-            if (position == bannerLis.size - 1) {
-                viewpa.post(runnable)
-            }
+//            if (position == bannerLis.size - 1) {
+//                viewpa.post(runnable)
+//            }
             holder.itemView.setOnClickListener {
                 offersInterface!!.onOfferClick(position, bannerLis as ArrayList<OfferData>)
 

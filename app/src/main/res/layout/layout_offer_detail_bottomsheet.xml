@@ -125,7 +125,7 @@
         </TextView>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recTnc"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -133,6 +133,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lnrStatisTnc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

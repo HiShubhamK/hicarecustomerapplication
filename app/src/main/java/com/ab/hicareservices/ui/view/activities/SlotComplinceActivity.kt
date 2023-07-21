@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -56,7 +57,7 @@ class SlotComplinceActivity : AppCompatActivity() {
     private var Pincode = ""
     private var Service_Code = ""
     private var Unit = ""
-    private var spcode=""
+    private var spcode = ""
     private var AppointmentDate = ""
     private var AppointmentStart = ""
     private var AppointmentEnd = ""
@@ -120,24 +121,29 @@ class SlotComplinceActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             var c = Calendar.getInstance()
             var c1 = Calendar.getInstance()
+            var c2 = Calendar.getInstance()
             try {
                 c.time = sdf.parse(datenew)
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
+            c2.add(
+                Calendar.DAY_OF_MONTH,
+                8
+            )
             c.add(
                 Calendar.DAY_OF_MONTH,
                 0
-            ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+            ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE c is selected date
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
             var output = sdf1.format(c.time)
             val output1 = sdf1.format(c1.time)
-            if (c1.time > c.time) {
+            if (c1.time > c.time ||c2.time < c.time  ) {
                 binding.recyclerView.visibility = View.GONE
                 binding.lnrAvailableSlot.visibility = View.GONE
                 Toast.makeText(
                     this,
-                    "Please select valid date or date greater then current date to book a slot",
+                    "Please select a valid date in the range of "+c1.time + "to "+c2.time+" to reschedule a slot.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -214,7 +220,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 Longg,
                 ServiceType,
 
-            )
+                )
             try {
                 if (AppUtils2.formatDateTime4(it[0].ScheduledDate.toString()).isNotEmpty()) {
                     binding.tvSelectedDateFrom.text =
@@ -260,7 +266,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-                AppUtils2.ServiceDate=AppUtils2.formatDateTime(scheduledate)
+                AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
                 data["Service_Code"] = Service_Code
@@ -276,7 +282,8 @@ class SlotComplinceActivity : AppCompatActivity() {
                     if (it.IsSuccess == true) {
                         progressDialog.dismiss()
                         AppUtils2.timeslotslist = it.TimeSlots
-                        val intent = Intent(this@SlotComplinceActivity, SlotDetailActivity::class.java)
+                        val intent =
+                            Intent(this@SlotComplinceActivity, SlotDetailActivity::class.java)
                         intent.putExtra(
                             "Service_Date",
                             AppUtils2.ServiceDate
@@ -313,12 +320,13 @@ class SlotComplinceActivity : AppCompatActivity() {
         })
         Log.e(
             "TAG",
-            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Latt + ", " + Longg+ ", " + ServiceType+""+Unit
+            "Data11: " + ServiceCenter_Id + ", " + SlotDate + ", " + TaskId + ", " + SkillId + Latt + ", " + Longg + ", " + ServiceType + "" + Unit
         )
 
 
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun ShowBookingDialog(
         slotData: Data,
         Servicedate: String,

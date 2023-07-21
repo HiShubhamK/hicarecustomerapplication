@@ -75,7 +75,6 @@ class OTPActivity : AppCompatActivity() {
 
                 viewModel.validateResponses.observe(this, Observer {
                     if(it.IsSuccess==true){
-                        progressDialog.dismiss()
                         AppUtils2.TOKEN=it.Data!!.Token.toString()
                         AppUtils2.customerid= it!!.Data!!.ProductCustomerData!!.Id.toString()
                         SharedPreferenceUtil.setData(this, "bToken",it.Data!!.Token.toString())
@@ -92,6 +91,7 @@ class OTPActivity : AppCompatActivity() {
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
+                        progressDialog.dismiss()
 
                     }else{
                         progressDialog.dismiss()
@@ -106,7 +106,7 @@ class OTPActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
             } else {
-//                progressDialog.dismiss()
+                progressDialog.dismiss()
                 Toast.makeText(this, "Invalid OTP", Toast.LENGTH_LONG).show()
             }
         }

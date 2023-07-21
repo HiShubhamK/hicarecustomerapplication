@@ -7,7 +7,7 @@ data class OfferData(
     @SerializedName("OfferTitle") var OfferTitle: String? = null,
     @SerializedName("SecondaryOfferTitle") var SecondaryOfferTitle: String? = null,
     @SerializedName("VoucherCode") var VoucherCode: String? = null,
-    @SerializedName("TermsnConditions") var TermsnConditions: String? = null,
+    @SerializedName("TermsnConditions") var TermsnConditions: List<String>? = null,
     @SerializedName("IsCopyEnabled") var IsCopyEnabled: Boolean? = null,
     @SerializedName("IsRedeemEnabled") var IsRedeemEnabled: Boolean? = null,
     @SerializedName("IsAppLink") var IsAppLink: Boolean? = null,

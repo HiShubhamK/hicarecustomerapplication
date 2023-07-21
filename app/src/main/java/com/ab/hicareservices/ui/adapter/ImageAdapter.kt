@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.BannerData
+import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
 import com.squareup.picasso.Picasso
 
 
@@ -59,6 +60,9 @@ class ImageAdapter(private val viewPager2: ViewPager2,private val requireActivit
                 } else if (bannerLis[position].IsAppLink == true) {
 
                 } else if (bannerLis[position].IsInAppBrowserLink == true) {
+                    val intent = Intent(requireActivity, InAppWebViewActivity::class.java)
+                    intent.putExtra("PageLink", bannerLis[position].PageLink)
+                    requireActivity!!.startActivity(intent)
 
                 } else {
 

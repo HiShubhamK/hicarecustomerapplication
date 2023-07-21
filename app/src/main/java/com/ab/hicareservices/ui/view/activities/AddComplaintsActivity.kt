@@ -220,7 +220,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                 }
             } else {
                 if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
-                ) {
+                    && selectedCType != ""&& selectedCType != "Complaint Type") {
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
