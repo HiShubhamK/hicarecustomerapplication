@@ -1,4 +1,4 @@
-package com.ab.hicareservices.ui.view.fragments
+ package com.ab.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -202,7 +202,7 @@ class OrdersFragment() : Fragment() {
         })
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
-                ordertype = "Active"
+                ordertype = "All"
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             } else {
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)

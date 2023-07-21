@@ -75,9 +75,9 @@ class OTPActivity : AppCompatActivity() {
 
                 viewModel.validateResponses.observe(this, Observer {
                     if(it.IsSuccess==true){
-                        AppUtils2.TOKEN=it.Data!!.Token.toString()
-                        AppUtils2.customerid= it!!.Data!!.ProductCustomerData!!.Id.toString()
-                        SharedPreferenceUtil.setData(this, "bToken",it.Data!!.Token.toString())
+                        AppUtils2.TOKEN=it.Data?.Token.toString()
+                        AppUtils2.customerid= it?.Data?.ProductCustomerData?.Id.toString()
+                        SharedPreferenceUtil.setData(this, "bToken",it.Data?.Token.toString())
                         if(it?.Data?.PestCustomerData?.BillingPostalCode==null){
                             SharedPreferenceUtil.setData(this, "pincode","")
                         }else{

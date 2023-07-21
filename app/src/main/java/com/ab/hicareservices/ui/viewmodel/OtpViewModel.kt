@@ -72,7 +72,7 @@ class OtpViewModel : ViewModel(){
                     validateResponses.postValue(response.body())
 
                     AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()
-                    AppUtils2.customerid= response.body()!!.Data!!.ProductCustomerData!!.Id.toString()
+                    AppUtils2.customerid= response.body()?.Data?.ProductCustomerData?.Id.toString()
                     SharedPreferenceUtil.setData(context, "bToken",response.body()?.Data!!.Token.toString())
                     if(response.body()?.Data?.PestCustomerData?.BillingPostalCode==null){
                         SharedPreferenceUtil.setData(context, "pincode","")
