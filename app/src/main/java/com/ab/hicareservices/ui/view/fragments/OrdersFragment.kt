@@ -103,9 +103,6 @@ class OrdersFragment() : Fragment() {
         binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
 
         binding.txtactive.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-                progressDialog.show()
-            }, 1000)
 
             ordertype = "Active"
 
@@ -117,10 +114,6 @@ class OrdersFragment() : Fragment() {
         }
 
         binding.txtexpire.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.progressBar.visibility=View.VISIBLE
-                progressDialog.show()
-            }, 1000)
             ordertype = "Expired"
             getOrdersList(progressDialog, "No Expired Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -130,10 +123,6 @@ class OrdersFragment() : Fragment() {
         }
 
         binding.txtcancelled.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.progressBar.visibility=View.VISIBLE
-                progressDialog.show()
-            }, 1000)
 
             ordertype = "Cancelled"
             getOrdersList(progressDialog, "No Cancelled Orders")

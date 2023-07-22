@@ -61,18 +61,9 @@ class MyOrderActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-//        getOrdersList2()
-        Handler(Looper.getMainLooper()).postDelayed({
-//            getOrdersList()
-        }, 1000)
-
         binding.activetxt.setTextColor(Color.parseColor("#2bb77a"))
 
         binding.txtactive.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.progressBar.visibility=View.VISIBLE
-                progressDialog.show()
-            }, 1000)
 
             ordertype = "Active"
 
@@ -84,10 +75,6 @@ class MyOrderActivity : AppCompatActivity() {
         }
 
         binding.txtexpire.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.progressBar.visibility=View.VISIBLE
-                progressDialog.show()
-            }, 1000)
             ordertype = "Expired"
             getOrdersList(progressDialog, "No Expire Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
@@ -97,10 +84,6 @@ class MyOrderActivity : AppCompatActivity() {
         }
 
         binding.txtcancelled.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.progressBar.visibility=View.VISIBLE
-                progressDialog.show()
-            }, 1000)
 
             ordertype = "Cancelled"
             getOrdersList(progressDialog, "No Cancelled Orders")
