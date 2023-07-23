@@ -106,10 +106,10 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
-                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
                     })
 

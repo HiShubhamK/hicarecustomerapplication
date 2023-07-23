@@ -113,7 +113,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
                 onOrderClickedHandler?.onOrderPaynowClicked(
                     position,
                     orders.order_Number__c!!,
-                    orders.account_Name__r?.customer_id__c!!,
+                    orders.account_Name__r?.customer_id__c.toString(),
                     orders.service_Plan_Name__c!!,
                     orders.order_Value_with_Tax__c!!,
                     orders.service_Type!!,
@@ -124,7 +124,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
             holder.itemView.setOnClickListener {
                 try {
-                    onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r!!.location__Latitude__s,orders.account_Name__r!!.location__Longitude__s,orders.hR_Shipping_Region__r!!.id.toString())
+                    onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r?.location__Latitude__s?.toDouble(),orders.account_Name__r?.location__Longitude__s?.toDouble(),orders.hR_Shipping_Region__r?.id.toString())
                 }catch (e:Exception){
                     e.printStackTrace()
                 }
