@@ -372,7 +372,7 @@ class HomeFragment : Fragment() {
                         requireContext(),
                         ClipboardManager::class.java
                     )
-                    clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                    clipboard?.setPrimaryClip(ClipData.newPlainText("", textapp.text))
                     Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
 
 

@@ -38,11 +38,12 @@ class OrderSummeryAdapter() : RecyclerView.Adapter<OrderSummeryAdapter.MainViewH
 
 //        if(productlists.IsFeedbackSubmitted==true) {
             holder.binding.txtratingvalues.text=productlists.Quantity.toString()
-            if (productlists.OrderStatus.toString()=="Booked"){
-                holder.binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
-                holder.binding.statusTv.text=productlists.OrderStatus.toString()
-
-            }
+            holder.binding.statusTv.text=productlists.OrderStatus.toString()
+            holder.binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
+//
+//            if (productlists.OrderStatus.toString()=="Booked"){
+//
+//            }
 
             holder.binding.tvOrderdate.text=AppUtils2.formatDateTime4(productlists.OrderDate.toString())
             Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)

@@ -124,7 +124,7 @@ class OTPActivity : AppCompatActivity() {
                 binding.otpView.setOTP("")
                 mOtp=""
                 mOtp = it.data.toString()
-                Toast.makeText(this, "OTP Resend Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "OTP Resent Successfully", Toast.LENGTH_SHORT).show()
                 startCounter()
             } else {
                 binding.resentSuccessTv.visibility = View.GONE
@@ -138,7 +138,7 @@ class OTPActivity : AppCompatActivity() {
         object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 var millisUntilFinisheds=millisUntilFinished/1000
-                binding.resendCodeTv.text = "Resent code in 00: " + millisUntilFinished / 1000
+                binding.resendCodeTv.text = "Resend code in 00: " + millisUntilFinished / 1000
 
             }
 
