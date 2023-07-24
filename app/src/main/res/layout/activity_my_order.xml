@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f6f6"
     tools:context=".ui.view.activities.MyOrderActivity">
 
     <RelativeLayout
@@ -84,6 +85,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtactive"
+            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -104,6 +106,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtexpire"
+            android:backgroundTint="@color/white"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -125,6 +129,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtcancelled"
+            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -146,6 +151,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtall"
+            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.view.activities.ProductDetailActivity">
 
     <RelativeLayout
@@ -423,7 +424,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:fontFamily="@font/lato_regular"
+                    android:textColor="@color/black"
+                    android:background="@color/white"                    android:fontFamily="@font/lato_regular"
                     android:textSize="14sp">
 
                 </TextView>
@@ -466,6 +468,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
                         android:fontFamily="@font/lato_regular"
                         android:textSize="14sp">
 

@@ -93,6 +93,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -576,7 +577,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/white"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp">
 
@@ -766,7 +767,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/white"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp">
 
@@ -1047,6 +1048,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/lnrSDetails"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

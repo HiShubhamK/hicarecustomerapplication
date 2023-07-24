@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.view.activities.AddressActivity">
 
     <RelativeLayout
@@ -123,6 +124,7 @@
         android:background="#f6f6f6">
 
         <androidx.cardview.widget.CardView
+            android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
