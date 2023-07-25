@@ -112,12 +112,12 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.btnPayNow.setOnClickListener {
                 onOrderClickedHandler?.onOrderPaynowClicked(
                     position,
-                    orders.order_Number__c!!,
+                    orders.order_Number__c.toString(),
                     orders.account_Name__r?.customer_id__c.toString(),
-                    orders.service_Plan_Name__c!!,
-                    orders.order_Value_with_Tax__c!!,
-                    orders.service_Type!!,
-                    orders.standard_Value__c
+                    orders.service_Plan_Name__c.toString(),
+                    orders.order_Value_with_Tax__c!!.toDouble(),
+                    orders.service_Type.toString(),
+                    orders.standard_Value__c?.toDouble()
                 )
             }
 

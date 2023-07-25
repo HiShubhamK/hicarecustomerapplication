@@ -206,8 +206,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         viewProductModel.getsummarydata.observe(this, Observer {
 
 //            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
-            totaldiscount = it.TotalDiscount!!.toDouble().toString()
-            actualvalue = it.TotalAmount!!.toDouble().toString()
+            totaldiscount = it.TotalDiscount?.toDouble().toString()
+            actualvalue = it.TotalAmount?.toDouble().toString()
 
         })
         viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, "")
@@ -225,7 +225,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             AppUtils2.city=it.City.toString()
             AppUtils2.state=it.State.toString()
         })
-        viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
+        viewProductModel.getAddressDetailbyId(billingdata?.toInt())
     }
 
     private fun prepareOptionforProduct(
@@ -352,7 +352,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["InstallationCharges"] = 0.0
                 data["VoucherCode"] = AppUtils2.vouchercode
                 data["SFDC_OrderNo"] = ""
-                data["PaymentId"] = response!!.paymentId
+                data["PaymentId"] = response.paymentId.toString()
                 data["PayMethod"] = ""
                 data["PayStatus"] = ""
                 data["PayAmount"] = 0.0
@@ -360,7 +360,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Referred_By_Technician"] = ""
                 data["Order_Source"] = ""
                 data["Payment_LinkId"] = ""
-                data["Razorpay_Payment_Id"] = response!!.paymentId
+                data["Razorpay_Payment_Id"] = response.paymentId.toString()
                 data["User_Id"] = AppUtils2.customerid.toInt()
 
 
