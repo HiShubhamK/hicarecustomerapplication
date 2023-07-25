@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.view.activities.SlotComplinceActivity">
 
     <LinearLayout
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="#f6f6f6"
+        android:background="@color/white"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -337,7 +338,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#f6f6f6"
         android:visibility="visible"
         tools:listitem="@layout/layout_complaince_adapter" />
 

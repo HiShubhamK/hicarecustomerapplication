@@ -86,6 +86,7 @@
     <androidx.cardview.widget.CardView
         app:contentPadding="10dp"
         android:id="@+id/cardView"
+        android:backgroundTint="@color/white"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
@@ -96,9 +97,10 @@
         app:cardCornerRadius="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,9 +138,6 @@
                     android:textStyle="bold" />
 
 
-
-
-
             </RelativeLayout>
 
 
@@ -153,55 +152,57 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:text="Complaint No."
-                    android:textSize="12sp"
                     android:textColor="@color/grey_font"
-                    android:fontFamily="@font/lato_regular" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txtcomplaintno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/lato_regular" />
+                    android:textSize="12sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:text="Complaint type"
-                    android:textSize="12sp"
                     android:textColor="@color/grey_font"
-                    android:fontFamily="@font/lato_regular" />
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtcomplainttype"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/lato_regular" />
+                    android:textSize="12sp" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -210,36 +211,31 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
                 android:weightSum="2">
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:text="Complaint raised date:"
-                    android:textSize="12sp"
                     android:textColor="@color/grey_font"
-                    android:fontFamily="@font/lato_regular" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txtComplaintDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lato_regular"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/lato_regular" />
-
+                    android:textSize="12sp" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -249,6 +245,7 @@
 
     <androidx.cardview.widget.CardView
         app:contentPadding="10dp"
+        android:backgroundTint="@color/white"
         android:id="@+id/cardView2"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
@@ -384,6 +381,7 @@
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         app:contentPadding="10dp"
+        android:backgroundTint="@color/white"
         android:id="@+id/cardView3"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"

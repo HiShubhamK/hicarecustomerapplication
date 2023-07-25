@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativelayout">
 
@@ -80,6 +81,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -88,6 +90,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpFragments"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

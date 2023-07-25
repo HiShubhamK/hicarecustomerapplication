@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:backgroundTint="@color/white"
     android:elevation="5dp"
     app:cardCornerRadius="5dp">
 
@@ -143,7 +142,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="2"
                         android:singleLine="true"
-                        android:text="Order no"
+                        android:text=""
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
 
@@ -158,7 +157,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="2"
                         android:singleLine="true"
-                        android:text="Service Date"
+                        android:text=""
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
 
@@ -174,7 +173,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:maxLines="2"
                         android:singleLine="true"
-                        android:text="Time"
+                        android:text=""
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
 
@@ -263,7 +262,6 @@
                         android:id="@+id/btnPayNows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
                         android:elevation="10dp"
                         android:padding="5dp"
                         android:layout_gravity="center"
@@ -281,7 +279,7 @@
                             android:gravity="center"
                             android:padding="6dp"
                             android:singleLine="true"
-                            android:text="Reschedule"
+                            android:text=""
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="14sp">

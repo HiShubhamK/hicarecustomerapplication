@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
@@ -120,6 +121,7 @@ class ProductFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun getProductslist(pincode: String) {
 //        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
 //        progressDialog.setCancelable(false)

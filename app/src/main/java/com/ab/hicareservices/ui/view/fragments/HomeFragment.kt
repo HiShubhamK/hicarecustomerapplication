@@ -96,6 +96,7 @@ class HomeFragment : Fragment() {
 
     val REQUEST_CODE_PERMISSIONS = 101
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -242,8 +243,10 @@ class HomeFragment : Fragment() {
 //    }
 
     private fun init(progressDialog: ProgressDialog) {
-        progressDialog.show()
-        binding.rltMain.visibility = View.GONE
+//        progressDialog.show()
+        binding.shimmer.visibility=View.VISIBLE
+        binding.shimmer.isShimmerStarted
+        binding.nestedscroll.visibility = View.GONE
         AppUtils2.TOKEN = SharedPreferenceUtil.getData(requireContext(), "bToken", "").toString()
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
 //        viewModels.validateAccount(AppUtils2.mobileno)
@@ -277,8 +280,11 @@ class HomeFragment : Fragment() {
                 mOfferAdapter.serBanner(it.OfferData)
                 madapterbrand.serBrand(it.BrandData)
 
-                progressDialog.dismiss()
-                binding.rltMain.visibility = View.VISIBLE
+//                progressDialog.dismiss()
+                binding.shimmer.stopShimmer()
+                binding.shimmer.visibility=View.GONE
+
+                binding.nestedscroll.visibility = View.VISIBLE
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -372,7 +378,7 @@ class HomeFragment : Fragment() {
                         requireContext(),
                         ClipboardManager::class.java
                     )
-                    clipboard?.setPrimaryClip(ClipData.newPlainText("", tvCopy.text))
+                    clipboard?.setPrimaryClip(ClipData.newPlainText("", textapp.text))
                     Toast.makeText(requireContext(), "Copied!", Toast.LENGTH_SHORT).show()
 
 

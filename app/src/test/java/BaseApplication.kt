@@ -1,15 +1,21 @@
 import android.app.Application
 import android.content.Context
+import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.CrashlyticsCore
+import io.fabric.sdk.android.Fabric
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
+
 
 class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         instance = this
+
 
         // configuring the font for calligraphy
         try {
@@ -25,10 +31,12 @@ class BaseApplication : Application() {
                     )
                     .build()
             )
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
 
     companion object {
         var instance: BaseApplication? = null
