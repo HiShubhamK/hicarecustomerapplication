@@ -124,6 +124,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -155,6 +156,7 @@
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -178,6 +180,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
                         <View
                             android:layout_width="match_parent"
@@ -341,6 +344,7 @@
                                     android:textStyle="bold" />
 
                                 <androidx.cardview.widget.CardView
+                                    android:backgroundTint="@color/white"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.2"
@@ -349,6 +353,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/txtcoupon"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
@@ -472,6 +477,7 @@
 
 
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/lnrbuttoncart"
         android:layout_width="match_parent"
         android:layout_height="50dp"
