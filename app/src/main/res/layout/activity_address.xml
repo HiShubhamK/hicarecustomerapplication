@@ -185,6 +185,7 @@
                 android:textSize="12sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/lato_regular"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -279,6 +280,7 @@
                 android:textSize="12sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/lato_regular"/>
 
 
