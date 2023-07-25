@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.view.activities.ProductFragment">
 
     <RelativeLayout
@@ -51,6 +52,7 @@
                     android:background="@drawable/round_border"
                     android:maxLength="6"
                     android:textSize="13sp"
+                    android:textColor="@color/black"
                     android:inputType="numberDecimal"
                     android:layout_gravity="center"
                     android:hint="Enter pincode here"

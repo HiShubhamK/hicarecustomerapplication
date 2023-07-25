@@ -100,7 +100,8 @@
             app:cardCornerRadius="5dp"
             android:elevation="8dp"
             android:layout_margin="5dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/activetxt"
@@ -109,6 +110,7 @@
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
                 android:text="Active"
+                android:background="@color/white"
                 android:layout_gravity="center"/>
 
         </androidx.cardview.widget.CardView>
@@ -118,9 +120,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
+            android:background="@color/white"
             android:elevation="8dp"
             android:layout_weight="1"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/expiretxt"
@@ -129,7 +133,9 @@
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
                 android:layout_gravity="center"
-                android:text="Expired" />
+                android:text="Expired"
+                android:textColor="@color/grey_font"
+                android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -141,7 +147,8 @@
             app:cardCornerRadius="5dp"
             android:elevation="8dp"
             android:layout_margin="5dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/cancelledtxt"
@@ -149,8 +156,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
+                android:textColor="@color/grey_font"
                 android:layout_gravity="center"
-                android:text="Cancelled" />
+                android:text="Cancelled"
+                android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -162,7 +171,8 @@
             app:cardCornerRadius="5dp"
             android:elevation="8dp"
             android:layout_weight="1"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/alltext"
@@ -171,7 +181,9 @@
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
                 android:layout_gravity="center"
-                android:text="All" />
+                android:text="All"
+                android:textColor="@color/grey_font"
+                android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
 
