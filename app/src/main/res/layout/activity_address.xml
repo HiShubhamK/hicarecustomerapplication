@@ -267,9 +267,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/lato_semibold"/>
 
-
             </androidx.appcompat.widget.LinearLayoutCompat>
-
 
             <TextView
                 android:id="@+id/txtbilling"
@@ -282,7 +280,6 @@
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/lato_regular"/>
-
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkbox"

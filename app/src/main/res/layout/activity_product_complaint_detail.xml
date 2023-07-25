@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".ui.view.activities.ProductComplaintDetailsActivity">
 
-
     <RelativeLayout
         android:id="@+id/headerView"
         android:layout_width="match_parent"
@@ -94,6 +93,7 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="5dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -259,6 +259,7 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="5dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -384,6 +385,7 @@
 
 
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         app:contentPadding="10dp"
         android:id="@+id/cardView3"
@@ -394,6 +396,7 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="5dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -489,6 +492,7 @@
 
 
     </androidx.cardview.widget.CardView>
+
     <LinearLayout
         android:id="@+id/lnrAttachments"
         android:layout_width="match_parent"
@@ -538,7 +542,5 @@
         android:text="No attachments available!"
         android:visibility="gone"
         android:textSize="16sp" />
-
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

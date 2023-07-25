@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.view.activities.BookInspectionActivity">
 
     <RelativeLayout
@@ -79,6 +80,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/cardbutton"
         android:layout_below="@+id/headerView"
+        android:background="@color/white"
         android:fillViewport="true">
 
         <LinearLayout
@@ -639,7 +641,8 @@
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginVertical="5dp"
                 android:gravity="right"
-                android:padding="10dp">
+                android:padding="10dp"
+                app:cardBackgroundColor="@color/white">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -1164,7 +1167,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        app:cardCornerRadius="5sp">
+        app:cardCornerRadius="5sp"
+        app:cardBackgroundColor="@color/white">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@id/saveBtn"

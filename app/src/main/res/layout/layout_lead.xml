@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +76,8 @@
                 android:layout_weight="1"
                 android:elevation="10dp"
                 android:gravity="center"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/edtname"
@@ -117,7 +120,8 @@
                 android:layout_weight="1"
                 android:elevation="10dp"
                 android:gravity="center"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/edtmobile"
@@ -163,7 +167,8 @@
                 android:layout_weight="1"
                 android:elevation="10dp"
                 android:gravity="center"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/edtpincode"
@@ -211,7 +216,8 @@
                 android:layout_weight="1"
                 android:elevation="10dp"
                 android:gravity="center"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/white">
 
                 <Spinner
                     android:id="@+id/spinner_lead"

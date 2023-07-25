@@ -49,10 +49,10 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         try {
             val orders = orders[position]
-            holder.binding.txtname.text=orders.service_Plan_Name__c
-            holder.binding.txtnameorder.text=orders.order_Number__c
-            holder.binding.txtnamestatus.text=orders.status__c
-            holder.binding.txtrupees.text = "₹ ${orders.order_Value_with_Tax__c}"
+            holder.binding.txtname.text=orders.ServicePlanName_c
+            holder.binding.txtnameorder.text=orders.OrderNumber_c
+            holder.binding.txtnamestatus.text=orders.Status_c
+            holder.binding.txtrupees.text = "₹ ${orders.OrderValueWithTax_c}"
 
 //            if(orders.appointmentEndDateTime__c.equals("")){
 //                holder.binding.txtappointmentdate.visibility=View.GONE
@@ -63,6 +63,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 //
 //            }
 
+            holder.binding.addressorder.text=orders.AccountName_r?.AccountAddress.toString()
 
             if( orders.NextServiceDate==null || orders.NextServiceDate.equals("") ){
                 holder.binding.txtappointmentdate.visibility=View.GONE
@@ -71,29 +72,29 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
                 holder.binding.txtappointmentdate.visibility=View.VISIBLE
                 holder.binding.nextappointmentdate.visibility=View.VISIBLE
                 holder.binding.txtappointmentdate.text=AppUtils2.formatDateTime4(orders.NextServiceDate.toString())
+//                holder.binding.txtappointmentdate.text=orders.NextServiceDate.toString()
             }
 
 
-            if(orders.status__c.equals("Expired")){
+            if(orders.Status_c.equals("Expired")){
                 holder.binding.txtappointmentdate.visibility=View.GONE
                 holder.binding.nextappointmentdate.visibility=View.GONE
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#D50000"))
 
-            }else if(orders.status__c.equals("Short Close")){
+            }else if(orders.Status_c.equals("Short Close")){
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FB8C00"))
 
-            }else if(orders.status__c.equals("Cancelled")){
-
+            }else if(orders.Status_c.equals("Cancelled")){
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#ff9e9e9e"))
 
-            }else if(orders.status__c.equals("Active")){
+            }else if(orders.Status_c.equals("Active")){
 
                 holder.binding.txtnamestatus.setTextColor(Color.parseColor("#2bb77a"))
 
-            }else if (orders.status__c.equals("Rejected")){
+            }else if (orders.Status_c.equals("Rejected")){
 
             holder.binding.txtnamestatus.setTextColor(Color.parseColor("#FFAB00"))
 
@@ -101,7 +102,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
             }
 
-            if(orders.enable_Payment_Link==true) {
+            if(orders.EnablePaymentLink==true) {
                 holder.binding.addview.visibility=View.VISIBLE
                 holder.binding.btnPayNow.visibility=View.VISIBLE
             }else{
@@ -112,19 +113,19 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.btnPayNow.setOnClickListener {
                 onOrderClickedHandler?.onOrderPaynowClicked(
                     position,
-                    orders.order_Number__c.toString(),
-                    orders.account_Name__r?.customer_id__c.toString(),
-                    orders.service_Plan_Name__c.toString(),
-                    orders.order_Value_with_Tax__c!!.toDouble(),
-                    orders.service_Type.toString(),
-                    orders.standard_Value__c?.toDouble()
+                    orders.OrderNumber_c.toString(),
+                    orders.AccountName_r?.CustomerId_c.toString(),
+                    orders.ServicePlanName_c.toString(),
+                    orders.OrderValueWithTax_c!!.toDouble(),
+                    orders.ServiceType.toString(),
+                    orders.StandardValue_c?.toDouble()
                 )
             }
 
-            Picasso.get().load(orders.service_Plan_Image_Url).into(holder.binding.imgespest)
+            Picasso.get().load(orders.ServicePlanImageUrl).into(holder.binding.imgespest)
             holder.itemView.setOnClickListener {
                 try {
-                    onOrderClickedHandler?.onOrderItemClicked(position, orders.order_Number__c.toString(), orders.service_Type.toString(),orders.service_Plan_Image_Url.toString(),orders.account_Name__r?.location__Latitude__s?.toDouble(),orders.account_Name__r?.location__Longitude__s?.toDouble(),orders.hR_Shipping_Region__r?.id.toString())
+                    onOrderClickedHandler?.onOrderItemClicked(position, orders.OrderNumber_c.toString(), orders.ServiceType.toString(),orders.ServicePlanImageUrl.toString(),orders.AccountName_r?.Location_Latitude_s?.toDouble(),orders.AccountName_r?.Location_Longitude_s?.toDouble(),orders.HRShippingRegion_r?.Id.toString())
                 }catch (e:Exception){
                     e.printStackTrace()
                 }

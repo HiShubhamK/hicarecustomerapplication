@@ -22,7 +22,7 @@ class OrderMenuAdapter : RecyclerView.Adapter<OrderMenuAdapter.MainViewHolder>()
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val orders=orders[position]
-        holder.binding.ordersmenu.text=orders.status__c
+        holder.binding.ordersmenu.text=orders.Status_c
     }
 
 
@@ -39,7 +39,5 @@ class OrderMenuAdapter : RecyclerView.Adapter<OrderMenuAdapter.MainViewHolder>()
     }
 
     class MainViewHolder(val binding: LayoutOrderMenuListBinding) : RecyclerView.ViewHolder(binding.root)
-
-
 
 }
