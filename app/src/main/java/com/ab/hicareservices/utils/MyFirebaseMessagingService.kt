@@ -79,7 +79,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
             .setContentIntent(pendingIntent)
             .setContent(remoteViews)
 
-
         remoteViews.setTextViewText(R.id.notificationtitle, title)
         remoteViews.setTextViewText(R.id.notificationtext, message)
         remoteViews.setImageViewResource(R.id.image, R.drawable.hicarelogo)

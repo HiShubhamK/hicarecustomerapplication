@@ -63,7 +63,7 @@ data class UpcomingService(
     @SerializedName("HR_Assignment_Start_Time_AMPM__c") var HRAssignmentStartTimeAMPM_c: String? = null,
 //    @SerializedName("HR_Assignment_Finish_Date__c") var HRAssignmentFinishDate_c: String? = null,
     @SerializedName("HR_Assignment_Finish_Time_AMPM__c") var HRAssignmentFinishTimeAMPM_c: String? = null,
-//    @SerializedName("HR_Assigned_Resource__r") var HRAssignedResource_r: String? = null,
+    @SerializedName("HR_Assigned_Resource__r") var HRAssignedResource_r: HRAssignedResource_r? = HRAssignedResource_r(),
     @SerializedName("New_Task__c") var NewTask_c: String? = null,
 //    @SerializedName("Customer_Rating__c") var CustomerRating_c: String? = null,
 //    @SerializedName("Service_Request__r") var ServiceRequest_r: ServiceRequest_r? = ServiceRequest_r(),
@@ -81,10 +81,10 @@ data class UpcomingService(
 //    @SerializedName("HR_Duration__c") var HRDuration_c: Int? = null,
 //    @SerializedName("Duration_In_Minute") var DurationInMinute: Int? = null,
 //    @SerializedName("ScheduleDay") var ScheduleDay: String? = null,
-//    @SerializedName("Onsite_OTP__c") var OnsiteOTP_c: String? = null,
-//    @SerializedName("Onsiteotp") var Onsiteotp: String? = null,
-//    @SerializedName("Technician_Onsite_OTP__c") var TechnicianOnsiteOTP_c: String? = null,
-//    @SerializedName("Customer_OTP__c") var CustomerOTP_c: String? = null,
+    @SerializedName("Onsite_OTP__c") var OnsiteOTP_c: String? = null,
+    @SerializedName("Onsiteotp") var Onsiteotp: String? = null,
+    @SerializedName("Technician_Onsite_OTP__c") var TechnicianOnsiteOTP_c: String? = null,
+    @SerializedName("Customer_OTP__c") var CustomerOTP_c: String? = null,
 //    @SerializedName("TaskTypeName") var TaskTypeName: String? = null,
 //    @SerializedName("TaskTypeDescription") var TaskTypeDescription: String? = null,
     @SerializedName("AppointmentStartDate_YYYMMDD") var AppointmentStartDateYYYMMDD: String? = null,
@@ -163,5 +163,4 @@ data class UpcomingService(
     @SerializedName("FeedbackLink") var FeedbackLink: String? = null,
     @SerializedName("Order_SP_Code") var OrderSPCode: String? = null,
     @SerializedName("Unit") var Unit: String? = null
-
 ) {}

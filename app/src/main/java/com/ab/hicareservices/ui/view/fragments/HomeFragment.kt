@@ -61,6 +61,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -513,6 +514,10 @@ class HomeFragment : Fragment() {
                 intent.putExtra("ServiceCenterId", order[position]!!.HRShippingRegion_r!!.Id)
 
                 startActivity(intent)
+            }
+
+            override fun onToadaysClick(position: Int, offers: ArrayList<UpcomingService>) {
+
             }
 
         })

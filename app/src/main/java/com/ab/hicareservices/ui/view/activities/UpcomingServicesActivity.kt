@@ -105,6 +105,10 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     TODO("Not yet implemented")
                 }
 
+                override fun onToadaysClick(position: Int, offers: ArrayList<UpcomingService>) {
+                    TODO("Not yet implemented")
+                }
+
             })
 
 //        viewModel.getAllComplaints("9967994682")

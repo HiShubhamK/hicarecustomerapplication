@@ -19,4 +19,9 @@ interface onResceduleInterface {
     position: Int,
     offers: ArrayList<CODOrders>
     )
+
+    fun onToadaysClick(
+        position: Int,
+        offers: ArrayList<UpcomingService>
+    )
 }

@@ -44,7 +44,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
         if (upcomingservicelist.isNotEmpty()){
 
 
-            holder.binding.btneta.visibility=View.GONE
+            holder.binding.btnetas.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
 
 
@@ -104,7 +104,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
         }else if (codOrders.isNotEmpty()){
 
-            holder.binding.btneta.visibility=View.GONE
+            holder.binding.btnetas.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
 
             val recipe = codOrders[position]
@@ -156,10 +156,12 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
         }else{
             val recipe = todaysservices[position]
-            holder.binding.btneta.visibility=View.VISIBLE
+            holder.binding.btnetas.visibility=View.VISIBLE
             holder.binding.btnPayNows.visibility=View.GONE
             holder.binding.ServiceName.text = recipe.ServicePlan_c
-            holder.binding.tvServicestep.text=recipe.ServiceStep_c
+            holder.binding.tvServicestep.text=": "+recipe.ServiceStep_c
+            holder.binding.tvOrderNumber.text=": "+recipe.OrderNumber_c
+
 //            holder.binding.tveta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
 
             if(recipe.AppointmentTime.equals(" - ")){
@@ -173,12 +175,17 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
                 holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
             }
 
+            holder.itemView.setOnClickListener {
+                onResceduleInterface!!.onToadaysClick(position, upcomingservicelist as ArrayList<UpcomingService>)
+
+            }
+
 
             if (recipe.AppointmentDate!=null){
                 holder.binding.tvappointmentdate.text="Appointment Date"
-                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
+                holder.binding.tvPlanDate.text =": "+AppUtils2.formatDateTime4(recipe.AppointmentDate.toString())
             }else if(recipe.SRDate_c!=null){
-                holder.binding.tvPlanDate.text = AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
+                holder.binding.tvPlanDate.text =": "+AppUtils2.formatDateTime4(recipe.SRDate_c.toString())
             }else{
 //                holder.binding.lnrtime.visibility=View.GONE
 //                holder.binding.lnrdate.visibility=View.GONE
@@ -187,7 +194,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             if(recipe.HRAssignmentStartTimeAMPM_c!!.isNotEmpty() && recipe.HRAssignmentFinishTimeAMPM_c!!.isNotEmpty() ){
 //                holder.binding.lnrtime.visibility=View.GONE
                 holder.binding.lnrETA.visibility=View.VISIBLE
-                holder.binding.txteta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
+                holder.binding.txtetas.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
 
             }else{
                 holder.binding.lnrETA.visibility=View.GONE
