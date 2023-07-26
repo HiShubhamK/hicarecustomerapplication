@@ -251,7 +251,7 @@
                 android:padding="10dp"
                 app:cardCornerRadius="5dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
