@@ -83,12 +83,12 @@ class AccountFragment : Fragment() {
         }
 
         binding.help.setOnClickListener {
-//            val intent = Intent(requireContext(), SupportActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(requireContext(), ComplaintNewActivity::class.java)
+            startActivity(intent)
 //            requireActivity().finish()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SupportFragments.newInstance())
-                .addToBackStack("AccountFragment").commit()
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, SupportFragments.newInstance())
+//                .addToBackStack("AccountFragment").commit()
         }
 
         binding.contraintbutton.setOnClickListener{
