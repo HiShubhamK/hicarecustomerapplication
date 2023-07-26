@@ -11,6 +11,7 @@ import com.ab.hicareservices.data.model.otp.OtpResponse
 import com.ab.hicareservices.data.model.otp.ValidateResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.handler.ValidateAccountListener
+import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,13 +98,15 @@ class OtpViewModel : ViewModel(){
     }
 
 
-    fun getNotificationtoken(apptoken: String) {
+    fun getNotificationtoken(apptoken: String, homeActivity: HomeActivity) {
         val response = repository.notification(apptoken)
         response.enqueue(object : Callback<NotificationToken> {
             override fun onResponse(call: Call<NotificationToken?>, response: Response<NotificationToken>?) {
                 if (response != null) {
                    val body = response.body()?.Data.toString()
-//                    AppUtils2.TOKEN = response.body()?.Data.toString()
+                    AppUtils2.NotificationChannelid = response.body()?.Data.toString()
+                    SharedPreferenceUtil.setData(homeActivity, "notificationid",AppUtils2.NotificationChannelid)
+
                     validateAccountListener?.onSuccess(body)
                 }
             }

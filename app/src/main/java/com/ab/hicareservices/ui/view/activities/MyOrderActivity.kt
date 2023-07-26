@@ -1,18 +1,18 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
@@ -22,6 +22,8 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import java.util.Calendar
+
 
 class MyOrderActivity : AppCompatActivity() {
 
@@ -251,6 +253,11 @@ class MyOrderActivity : AppCompatActivity() {
                 intent.putExtra("Product", false)
                 activityResultLauncher.launch(intent)
             }
+
+            override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {
+                TODO("Not yet implemented")
+                createNotification()
+            }
         })
 
 
@@ -292,5 +299,27 @@ class MyOrderActivity : AppCompatActivity() {
 //            val intent=Intent(this@MyOrderActivity,HomeActivity::class.java)
 //            startActivity(intent)
 //        }
+    }
+    fun createNotification() {
+        val myIntent = Intent(applicationContext, NotifyService::class.java)
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getService(
+            this,
+            0,
+            myIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.AM_PM, Calendar.AM)
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            (1000 * 60 * 60 * 24).toLong(),
+            pendingIntent
+        )
     }
 }

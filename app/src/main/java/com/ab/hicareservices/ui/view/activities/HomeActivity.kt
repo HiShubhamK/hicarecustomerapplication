@@ -22,18 +22,14 @@ import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.ActivityMainBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.handler.PaymentListener
 import com.ab.hicareservices.ui.view.fragments.AccountFragment
 import com.ab.hicareservices.ui.view.fragments.HomeFragment
-import com.ab.hicareservices.ui.view.fragments.OrderDetailsFragment
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -106,8 +102,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         })
 
         Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getNotificationtoken(token.toString())
-        }, 1500)
+            viewModel.getNotificationtoken(token.toString(),this)
+        }, 500)
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()

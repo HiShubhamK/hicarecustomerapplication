@@ -130,6 +130,13 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
                     e.printStackTrace()
                 }
             }
+            holder.binding.btnNotifyme.setOnClickListener {
+                try {
+                    onOrderClickedHandler?.onNotifyMeclick(position, orders.OrderNumber_c.toString(), orders.ServiceType.toString())
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+            }
         }catch (e:Exception){
             e.printStackTrace()
         }

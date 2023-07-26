@@ -241,6 +241,33 @@
 
                 </TextView>
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnNotifyme"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="5dp"
+                android:layout_marginLeft="5dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:singleLine="true"
+                    android:text="Notify"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="13sp">
+
+                </TextView>
+            </androidx.cardview.widget.CardView>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

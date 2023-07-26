@@ -18,6 +18,7 @@ import kotlin.collections.ArrayList
 object AppUtils2 {
 
     var TOKEN = ""
+        var NotificationChannelid = ""
     var mobileno=""
     var order_number=""
     var ServiceDate=""

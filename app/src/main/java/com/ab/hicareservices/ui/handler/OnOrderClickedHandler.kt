@@ -19,4 +19,9 @@ interface OnOrderClickedHandler {
         serviceType: String,
         standardValueC: Double?
     )
+    fun onNotifyMeclick(
+        position: Int,
+        orderNumberC: String,
+        customerIdC: String
+    )
 }

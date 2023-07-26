@@ -92,6 +92,7 @@ class SlotComplinceActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        
         binding.calendarView.setOnDateChangeListener(CalendarView.OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
             var date = ""
             var months = month + 1

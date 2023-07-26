@@ -59,6 +59,7 @@
                 android:fontFamily="@font/lato_regular"
                 android:gravity="center_horizontal"
                 android:text="Home"
+                android:textColor="@color/grey_font"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
@@ -128,7 +129,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
-
+android:background="@color/white"
         android:visibility="visible"
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -482,6 +483,7 @@
                         android:layout_marginTop="4dp"
                         android:hint="Enter complaint subject here"
                         android:padding="12dp"
+                        android:textColorHint="@color/grey_font"
                         android:textColor="@color/grey_font"
                         android:textSize="12sp" />
 <!--                </androidx.cardview.widget.CardView>-->
@@ -519,6 +521,7 @@
                         android:background="@drawable/round_border"
                         android:layout_marginTop="4dp"
                         android:gravity="start"
+                        android:textColorHint="@color/grey_font"
                         android:hint="Enter complaint description here"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
@@ -548,6 +551,7 @@
                     android:textSize="14sp" />
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"

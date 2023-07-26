@@ -193,6 +193,7 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
     <CalendarView
+        android:theme="@style/Theme.AppCompat.Light"        android:background="@color/white"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
