@@ -58,11 +58,14 @@ class AccountFragment : Fragment() {
         }
 
         binding.constraintcomplaints.setOnClickListener {
-//            val intent=Intent(requireActivity(),ComplaintsActivity::class.java)
-//            startActivity(intent)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ComplaintFragmentNew.newInstance())
-                .addToBackStack("AccountFragment").commit()
+            val intent=Intent(requireActivity(),ComplaintsActivityNew::class.java)
+            startActivity(intent)
+
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ComplaintFragmentNew.newInstance())
+//                .addToBackStack("AccountFragment").commit()
+//
+
 //            requireActivity().supportFragmentManager.beginTransaction()
 //                .replace(R.id.container, ComplaintFragment.newInstance())
 //                .addToBackStack("AccountFragment").commit()

@@ -29,6 +29,13 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.ComplaintNewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.view.activities.SupportActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -244,18 +251,24 @@
                     android:scheme="otpless" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.activities.InAppWebViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.view.activities.ProductSummaryDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.view.activities.ProductComplaintDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.view.activities.AddProductComplaintsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.view.activities.SlotDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.view.activities.ComplaintsActivityNew"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.view.activities.InAppWebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.activities.ProductSummaryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.activities.ProductComplaintDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.activities.AddProductComplaintsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.activities.SlotDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.activities.ComplaintsActivityNew"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
