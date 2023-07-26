@@ -249,7 +249,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
 
         val arrayAdapter =
-            object : ArrayAdapter<String>(this, R.layout.spinner_layout_new, datalist) {
+            object : ArrayAdapter<String>(this, R.layout.spinner_popup, datalist) {
                 override fun isEnabled(position: Int): Boolean {
                     return position != 0
                 }

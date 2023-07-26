@@ -275,7 +275,7 @@ class AddressActivity : AppCompatActivity() {
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
             val arrayAdapter =
-                object : ArrayAdapter<String>(this, R.layout.spinner_layout_new, courses) {
+                object : ArrayAdapter<String>(this, R.layout.spinner_popup, courses) {
                     override fun isEnabled(position: Int): Boolean {
                         return position != 0
                     }

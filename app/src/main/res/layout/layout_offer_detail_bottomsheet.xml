@@ -6,6 +6,7 @@
     android:background="@color/transparent"
     android:padding="5dp"
     android:orientation="vertical">
+
     <LinearLayout
         android:orientation="vertical"
         android:background="@drawable/curve_bottmsheetbg"
