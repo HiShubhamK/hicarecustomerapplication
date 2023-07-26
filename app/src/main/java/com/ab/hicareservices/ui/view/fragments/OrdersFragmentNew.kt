@@ -41,8 +41,6 @@ class OrdersFragmentNew() : Fragment() {
     lateinit var progressDialog: ProgressDialog
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -99,6 +97,11 @@ class OrdersFragmentNew() : Fragment() {
         val viewPager = binding.vpFragments
         viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.vpFragments)
+//
+//        binding.tabLayout.setOnClickListener {
+//            binding.tabLayout.tavt
+//        }
+
     }
 
 

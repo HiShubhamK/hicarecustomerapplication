@@ -34,9 +34,7 @@ class ComplaintFragmentNew() : Fragment() {
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
 
-
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -96,8 +94,5 @@ class ComplaintFragmentNew() : Fragment() {
         viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.vpFragments)
     }
-
-
-
 
 }

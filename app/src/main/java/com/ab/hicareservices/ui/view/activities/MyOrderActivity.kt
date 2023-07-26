@@ -284,13 +284,13 @@ class MyOrderActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if(paymentdone.equals("true")){
-            SharedPreferenceUtil.setData(this@MyOrderActivity, "Paymentback","")
-            val intent=Intent(this@MyOrderActivity,HomeActivity::class.java)
-            startActivity(intent)
-        }else{
-            val intent=Intent(this@MyOrderActivity,HomeActivity::class.java)
-            startActivity(intent)
-        }
+//        if(paymentdone.equals("true")){
+//            SharedPreferenceUtil.setData(this@MyOrderActivity, "Paymentback","")
+//            val intent=Intent(this@MyOrderActivity,HomeActivity::class.java)
+//            startActivity(intent)
+//        }else{
+//            val intent=Intent(this@MyOrderActivity,HomeActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 }
