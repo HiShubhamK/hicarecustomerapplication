@@ -308,8 +308,13 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
                 } else {
                     binding.payNowBtn.visibility = View.GONE
                 }
+                if(data.status__c.equals("Cancelled")){
 
+                    binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
+
+                }
                 binding.statusTv.text = data.status__c
+
 
 //
 //                if(data.status__c.equals("Active")){

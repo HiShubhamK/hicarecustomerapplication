@@ -40,6 +40,13 @@
                 android:background="#f6f6f6"
                 android:fontFamily="@font/lato_semibold"
                 android:textStyle="bold"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/colorAccent"/>
 
