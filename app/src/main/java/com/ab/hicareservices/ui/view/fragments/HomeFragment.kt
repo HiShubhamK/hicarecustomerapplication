@@ -26,10 +26,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -40,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.*
 import com.ab.hicareservices.databinding.FragmentHomeBinding
@@ -516,8 +515,14 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            override fun onToadaysClick(position: Int, offers: ArrayList<UpcomingService>) {
-
+            override fun onToadaysClick(
+                position: Int,
+                offers: String?,
+                customerotpC: String?,
+                name: String?,
+                technicianmobileC: String?
+            ) {
+                showLeadDialog(offers,customerotpC,name,technicianmobileC)
             }
 
         })
@@ -1055,5 +1060,40 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun showLeadDialog(
+        offers: String?,
+        customerotpC: String?,
+        name: String?,
+        technicianmobileC: String?
+    ) {
+        val li = LayoutInflater.from(requireActivity())
+        val promptsView = li.inflate(R.layout.layout_today_dialog, null)
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+        alertDialogBuilder.setView(promptsView)
+        val alertDialog: AlertDialog = alertDialogBuilder.create()
+        val txtTechName = promptsView.findViewById<View>(R.id.txtTechName) as TextView
+        val txttxtmobile = promptsView.findViewById<View>(R.id.txttxtmobile) as TextView
+        val edtpincode = promptsView.findViewById<View>(R.id.txtonsiteotp) as TextView
+        val email = promptsView.findViewById<View>(R.id.txtcompltionotp) as TextView
+        val imgbtncancel=promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
+        val btnlead=promptsView.findViewById<View>(R.id.btnlead) as Button
+
+        txtTechName.text=": "+offers
+        txttxtmobile.text=": "+customerotpC
+        edtpincode.text=": "+name
+        email.text=": "+technicianmobileC
+
+        alertDialog.setCancelable(false)
+
+        btnlead.setOnClickListener {  }
+
+        imgbtncancel.setOnClickListener { alertDialog.cancel() }
+
+        alertDialog.show()
+    }
+
+
+
 }
 

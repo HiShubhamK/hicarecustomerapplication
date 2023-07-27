@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -176,7 +175,9 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             }
 
             holder.itemView.setOnClickListener {
-                onResceduleInterface!!.onToadaysClick(position, upcomingservicelist as ArrayList<UpcomingService>)
+                onResceduleInterface!!.onToadaysClick(position,recipe.Onsiteotp,recipe.CustomerOTP_c,
+                    recipe.HRAssignedResource_r?.Name, recipe.HRAssignedResource_r?.TechnicianMobile_c
+                )
 
             }
 

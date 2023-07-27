@@ -8,16 +8,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.CODOrders
 import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.databinding.ActivityUpcomingServicesBinding
-import com.ab.hicareservices.databinding.LayoutBinding
-import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.adapter.UpcomingServicesAdapter
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
@@ -105,7 +101,13 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     TODO("Not yet implemented")
                 }
 
-                override fun onToadaysClick(position: Int, offers: ArrayList<UpcomingService>) {
+                override fun onToadaysClick(
+                    position: Int,
+                    offers: String?,
+                    customerotpC: String?,
+                    name: String?,
+                    technicianmobileC: String?
+                ) {
                     TODO("Not yet implemented")
                 }
 

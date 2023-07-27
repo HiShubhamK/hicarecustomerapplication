@@ -1,7 +1,6 @@
 package com.ab.hicareservices.ui.handler
 
 import com.ab.hicareservices.data.model.dashboard.CODOrders
-import com.ab.hicareservices.data.model.dashboard.OfferData
 import com.ab.hicareservices.data.model.dashboard.UpcomingService
 
 interface onResceduleInterface {
@@ -22,6 +21,9 @@ interface onResceduleInterface {
 
     fun onToadaysClick(
         position: Int,
-        offers: ArrayList<UpcomingService>
+        offers: String?,
+        customerotpC: String?,
+        name: String?,
+        technicianmobileC: String?
     )
 }
