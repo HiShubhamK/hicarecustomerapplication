@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-
 class MyFirebaseMessagingService : FirebaseMessagingService(){
 
     override fun onNewToken(token: String) {
@@ -23,10 +22,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
-//        if (remoteMessage.notification!!.equals("")) {
-//            showNotification(remoteMessage.notification!!.title.toString(),
-//                          remoteMessage.notification!!.body.toString())
-//        }
+        if (remoteMessage.notification!!.equals("")) {
+            showNotification(remoteMessage.notification!!.title.toString(),
+                          remoteMessage.notification!!.body.toString(),
+            remoteMessage.notification!!.channelId)
+        }
     }
 
     // Method to get the custom Design for the display of
@@ -48,10 +48,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     // Method to display the notifications
     fun showNotification(
         title: String,
-        message: String ) {
+        message: String,
+        channelId: String?
+    ) {
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
-        val channel_id = "notification_channel"
+        val channel_id = channelId
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
@@ -68,10 +70,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
 
         val remoteViews = RemoteViews("com.ab.hicareservices",R.layout.layout_notification)
 
-        var builder: NotificationCompat.Builder = NotificationCompat.Builder(
-            applicationContext,
-            channel_id
-        )
+        var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channel_id.toString())
             .setSmallIcon(R.drawable.reviewdialog_round_icon)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
@@ -84,9 +83,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         remoteViews.setImageViewResource(R.id.image, R.drawable.hicarelogo)
 
 
-//        builder = builder.setCustomContentView(
-//            getCustomDesign(title, message)
-//        )
+        builder = builder.setCustomContentView(
+            getCustomDesign(title, message)
+        )
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?        // Check if the Android Version is greater than Oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(channel_id, "HicareServices", NotificationManager.IMPORTANCE_HIGH)
