@@ -23,10 +23,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
-//        if (remoteMessage.notification!!.equals("")) {
-//            showNotification(remoteMessage.notification!!.title.toString(),
-//                          remoteMessage.notification!!.body.toString())
-//        }
+        if (remoteMessage.notification!!.equals("")) {
+            showNotification(remoteMessage.notification!!.title.toString(),
+                          remoteMessage.notification!!.body.toString(),
+                remoteMessage.notification!!.channelId.toString())
+        }
     }
 
     // Method to get the custom Design for the display of
@@ -48,10 +49,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     // Method to display the notifications
     fun showNotification(
         title: String,
-        message: String ) {
+        message: String,
+        toString: String
+    ) {
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
-        val channel_id = "notification_channel"
+        val channel_id = toString
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
@@ -60,7 +63,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         // next Activity
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
 
         // Create a Builder object using NotificationCompat
@@ -84,9 +87,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         remoteViews.setImageViewResource(R.id.image, R.drawable.hicarelogo)
 
 
-//        builder = builder.setCustomContentView(
-//            getCustomDesign(title, message)
-//        )
+        builder = builder.setCustomContentView(
+            getCustomDesign(title, message)
+        )
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?        // Check if the Android Version is greater than Oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(channel_id, "HicareServices", NotificationManager.IMPORTANCE_HIGH)

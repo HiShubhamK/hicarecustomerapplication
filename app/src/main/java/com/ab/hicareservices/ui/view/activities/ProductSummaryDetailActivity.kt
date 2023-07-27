@@ -266,6 +266,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                     viewModel.addtocart.observe(this@ProductSummaryDetailActivity, Observer {
                         progressDialog.dismiss()
                         if(it.IsSuccess==true){
+                            Toast.makeText(this@ProductSummaryDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
                             getSummarydata()
                         }else{
                             progressDialog.dismiss()
