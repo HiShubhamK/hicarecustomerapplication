@@ -57,11 +57,8 @@ class AddToCartActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        MyLocationListener(this)
 
-
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-
-
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -158,7 +155,7 @@ class AddToCartActivity : AppCompatActivity() {
             ) {
 
 
-//                progressDialog.show()
+                progressDialog.show()
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
@@ -166,7 +163,7 @@ class AddToCartActivity : AppCompatActivity() {
                         if(it.IsSuccess==true){
                             imgadd.isClickable=true
                             imgadd.isEnabled=true
-//                        progressDialog.dismiss()
+                        progressDialog.dismiss()
                             getSummarydata()
                             AppUtils2.changebuttonstatus=false
                         }else{

@@ -10,6 +10,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
@@ -94,6 +95,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             progressDialog.setCancelable(false)
             counts = counts + 1
             if (counts > 1) {
+               Toast.makeText(requireActivity, "Product Added to Cart", Toast.LENGTH_SHORT).show()
                 holder.binding.textcount.text = counts.toString()
                 holder.binding.imgremove.isEnabled = true
                 holder.binding.imgremove.isClickable = true
@@ -136,6 +138,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 holder.binding.imgremove.isEnabled = false
                 progressDialog.dismiss()
             } else if (counts > 1){
+                Toast.makeText(requireActivity, "Product Removed from Cart", Toast.LENGTH_SHORT).show()
                 counts = counts - 1
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(

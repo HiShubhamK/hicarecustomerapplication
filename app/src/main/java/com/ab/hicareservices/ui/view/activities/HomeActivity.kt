@@ -69,6 +69,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(binding.root)
         datalist = ArrayList()
         datalist.add("Select Type")
+        AppUtils2.servicetype.clear()
+        AppUtils2.servicetype.add("Select Type")
+
 
         MyLocationListener(this)
 
@@ -191,6 +194,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             viewModels.spinnerList.observe(this, Observer {
                 if(it!=null) {
                     datalist.addAll(it)
+                    AppUtils2.servicetype.addAll(it)
                 }
             })
 

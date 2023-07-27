@@ -268,6 +268,7 @@ class HomeFragment : Fragment() {
             try {
                 adapter.serBanner(it!!.BannerData)
                 mAdapter.setServiceList(it.MenuData)
+                AppUtils2.socialmedia=it.SocialMediadata
                 msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
                 if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
                     mpayentdashboardadapter.setPaymentData(
@@ -967,59 +968,7 @@ class HomeFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
-
-
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            var foreground = false
-//            var background = false
-//            for (i in permissions.indices) {
-//                if (permissions[i].equals(
-//                        Manifest.permission.ACCESS_COARSE_LOCATION,
-//                        ignoreCase = true
-//                    )
-//                ) {
-//                    //foreground permission allowed
-//                    if (grantResults[i] >= 0) {
-//                        foreground = true
-//
-//                                                Toast.makeText(getActivity(), "Foreground location permission allowed", Toast.LENGTH_SHORT).show();
-//                        continue
-//                    } else {
-//                        Toast.makeText(getActivity(), "Location Permission denied", Toast.LENGTH_SHORT).show();
-//                        break
-//                    }
-//                }
-//                if (permissions[i].equals(
-//                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-//                        ignoreCase = true
-//                    )
-//                ) {
-//                    if (grantResults[i] >= 0) {
-//                        foreground = true
-//                        background = true
-//                    }
-//                }
-//            }
-////            if (foreground) {
-////                if (background) {
-////                    handleLocationUpdates()
-////                } else {
-////                    handleForegroundLocationUpdates()
-////                }
-////            }
-//        }
-//    }
-
 
     private fun enableLoc() {
         val locationRequest = LocationRequest.create()

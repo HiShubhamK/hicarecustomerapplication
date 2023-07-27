@@ -33,8 +33,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
                         android:src="@drawable/ic_baseline_account_circle_24"
-                        android:visibility="visible" />
-
+                        android:visibility="invisible" />
 
                     <TextView
                         android:id="@+id/title"
@@ -110,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="3dp"
-                        android:text="7045621807 | shahid@gmail.com"
+                        android:text=""
                         app:layout_constraintLeft_toRightOf="@+id/img_tumbnail"
                         app:layout_constraintTop_toBottomOf="@id/txtusernames" />
 

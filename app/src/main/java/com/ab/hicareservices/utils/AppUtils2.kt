@@ -3,6 +3,7 @@ package com.ab.hicareservices.utils
 import android.app.Activity
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.ab.hicareservices.data.model.dashboard.SocialMediadata
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.product.ProducDetailsData
@@ -50,6 +51,8 @@ object AppUtils2 {
     var voucherdiscount=""
     var vouchercode=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
+    var socialmedia = ArrayList<SocialMediadata>()
+    var servicetype=ArrayList<String>()
 
 
 
