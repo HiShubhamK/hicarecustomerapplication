@@ -68,7 +68,6 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     binding.txtnotfound.visibility = View.VISIBLE
                     binding.recUpcomingData.visibility = View.GONE
                     progressDialog.dismiss()
-
                 }
             })
             viewModel.errorMessage.observe(this, Observer {
