@@ -8,7 +8,6 @@
     android:background="@color/white"
     tools:context=".ui.view.activities.ComplaintNewActivity">
 
-
     <RelativeLayout
         android:id="@+id/headerView"
         android:layout_width="match_parent"
@@ -269,7 +268,7 @@ Vikhroli West, Mumbai - 400079."
                     android:layout_weight=".5"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="center"
-                    android:text="Follow Us On"
+                    android:text="Follow Us"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
