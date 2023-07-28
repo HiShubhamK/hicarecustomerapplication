@@ -110,6 +110,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="3dp"
                         android:text=""
+                        android:textColor="@color/black"
                         app:layout_constraintLeft_toRightOf="@+id/img_tumbnail"
                         app:layout_constraintTop_toBottomOf="@id/txtusernames" />
 

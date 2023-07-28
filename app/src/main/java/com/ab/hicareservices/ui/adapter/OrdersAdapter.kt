@@ -143,7 +143,6 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
     }
 
-
     override fun getItemCount(): Int {
         return orders.size
     }

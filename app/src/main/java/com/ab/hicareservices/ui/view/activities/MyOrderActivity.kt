@@ -1,5 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
@@ -11,7 +13,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
@@ -21,7 +22,6 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-import com.allyants.notifyme.NotifyMe
 import java.util.Calendar
 
 
@@ -301,17 +301,30 @@ class MyOrderActivity : AppCompatActivity() {
 //        }
     }
     fun createNotification() {
-        val notifyMe: NotifyMe.Builder = NotifyMe.Builder(applicationContext)
-        notifyMe.title("Order Notification");
-        notifyMe.content("Desc1");
-        notifyMe.color(R.color.red,R.color.md_green_100,R.color.md_blue_100,R.color.md_pink_100);//Color of notification header
-        notifyMe.led_color(R.color.red,R.color.md_green_100,R.color.md_blue_100,R.color.md_pink_100);//Color of LED when notification pops up
-        notifyMe.time(Calendar.getInstance().time);//The time to popup notification
-        notifyMe.delay(1000);//Delay in ms
-        notifyMe.large_icon(R.drawable.ic_orders);//Icon resource by ID
-        notifyMe.rrule("FREQ=MINUTELY;INTERVAL=5;COUNT=2")//RRULE for frequency of notification
-        notifyMe.addAction(intent,"My test"); //The action will call the intent when pressed
-        notifyMe.build();
+//        val myIntent = Intent(applicationContext, NotifyService::class.java)
+//        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+//        val pendingIntent = PendingIntent.getService(
+//            this,
+//            0,
+//            myIntent,
+//            PendingIntent.FLAG_IMMUTABLE
+//        )
+//        val calendar: Calendar = Calendar.getInstance()
+//        calendar.set(Calendar.SECOND, 0)
+//        calendar.set(Calendar.MINUTE, 0)
+//        calendar.set(Calendar.HOUR, 0)
+//        calendar.set(Calendar.AM_PM, Calendar.AM)
+//        calendar.add(Calendar.DAY_OF_MONTH, 1)
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            (1000 * 60 * 60 * 24).toLong(),
+//            pendingIntent
+//        )
+
+
+
+
 
     }
 }

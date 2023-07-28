@@ -240,14 +240,49 @@ Vikhroli West, Mumbai - 400079."
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="15dp">
+        <LinearLayout
+            android:id="@+id/lnrTitleNew"
+            android:layout_marginTop="6dp"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="3dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Follow Us On"
-        android:textSize="14sp"
-        android:fontFamily="@font/lato_semibold"
-        android:textColor="@color/black" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                android:layout_weight="1"
+                android:background="@color/grey_font">
+
+            </View>
+
+            <TextView
+                android:id="@+id/titleFollowUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight=".5"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="center"
+                android:text="Follow Us"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
+                android:layout_weight="1"
+                android:background="@color/grey_font">
+
+            </View>
+        </LinearLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
