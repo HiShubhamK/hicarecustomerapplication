@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-
 class MyFirebaseMessagingService : FirebaseMessagingService(){
 
     override fun onNewToken(token: String) {
@@ -26,7 +25,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         if (remoteMessage.notification!!.equals("")) {
             showNotification(remoteMessage.notification!!.title.toString(),
                           remoteMessage.notification!!.body.toString(),
-                remoteMessage.notification!!.channelId.toString())
+            remoteMessage.notification!!.channelId)
         }
     }
 
@@ -50,11 +49,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
     fun showNotification(
         title: String,
         message: String,
-        toString: String
+        channelId: String?
     ) {
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
-        val channel_id = toString
+        val channel_id = channelId
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
@@ -63,7 +62,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         // next Activity
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_ONE_SHOT
         )
 
         // Create a Builder object using NotificationCompat
@@ -71,10 +70,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
 
         val remoteViews = RemoteViews("com.ab.hicareservices",R.layout.layout_notification)
 
-        var builder: NotificationCompat.Builder = NotificationCompat.Builder(
-            applicationContext,
-            channel_id
-        )
+        var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channel_id.toString())
             .setSmallIcon(R.drawable.reviewdialog_round_icon)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
