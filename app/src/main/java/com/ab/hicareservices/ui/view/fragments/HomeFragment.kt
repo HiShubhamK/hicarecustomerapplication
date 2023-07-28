@@ -66,6 +66,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: DashboardMenuAdapter
+    private lateinit var mMenuadapter: DashboardMenuAdapterNew
     private lateinit var msocialMediaAdapter: SocialMediaAdapter
     private lateinit var mvideoAdapter: VideoAdapter
     private lateinit var mHomeAdapter: HomeServiceAdapter
@@ -88,6 +89,8 @@ class HomeFragment : Fragment() {
     private val viewModels: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
     private lateinit var codOrders: ArrayList<String>
+    private lateinit var menudata: ArrayList<MenuData>
+    private lateinit var menudatanew: ArrayList<MenuData>
     var client: FusedLocationProviderClient? = null
     private var lat: String? = ""
     private var longg: String? = ""
@@ -256,6 +259,8 @@ class HomeFragment : Fragment() {
         imageList = ArrayList()
         offerlist = ArrayList()
         courseList = ArrayList<MenuData>()
+        menudatanew = ArrayList<MenuData>()
+        menudata = ArrayList<MenuData>()
         codOrders = ArrayList()
         binding.crdpest.visibility = View.GONE
 
@@ -267,7 +272,18 @@ class HomeFragment : Fragment() {
             Log.d(TAG, "onDashboardData: $it orders fragment")
             try {
                 adapter.serBanner(it!!.BannerData)
-                mAdapter.setServiceList(it.MenuData)
+                it.MenuData.forEach{
+                    if(it.Title.equals("Products")){
+                        menudatanew.add(it)
+                    }else if (it.Title.equals("Commercial/B2B")){
+                        menudatanew.add(it)
+                    }else{
+                        menudata.add(it)
+                    }
+                }
+                mAdapter.setServiceList(menudata)
+                mMenuadapter.setServiceList(menudatanew)
+
                 AppUtils2.socialmedia=it.SocialMediadata
                 msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
                 if(it.UpcomingService!=null || it.CODOrders!=null || it.TodaysService!=null) {
@@ -440,12 +456,15 @@ class HomeFragment : Fragment() {
 
         binding.recMenu.layoutManager =
             GridLayoutManager(context, 3)
+        binding.recMenu2.layoutManager =
+            GridLayoutManager(context, 2)
 
         binding.recSocialMedia.layoutManager =
             GridLayoutManager(context, 3)
         binding.recOffers.layoutManager =
             GridLayoutManager(context, 3)
         mAdapter = DashboardMenuAdapter(requireActivity())
+        mMenuadapter = DashboardMenuAdapterNew(requireActivity())
         binding.recVideo.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         msocialMediaAdapter = SocialMediaAdapter(requireActivity())
@@ -528,6 +547,7 @@ class HomeFragment : Fragment() {
 
         mvideoAdapter = VideoAdapter(requireActivity())
         binding.recMenu.adapter = mAdapter
+        binding.recMenu2.adapter = mMenuadapter
         binding.recSocialMedia.adapter = msocialMediaAdapter
         binding.recVideo.adapter = mvideoAdapter
         binding.crdpest.visibility = View.VISIBLE
