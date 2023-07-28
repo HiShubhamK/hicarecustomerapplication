@@ -296,11 +296,9 @@ class HomeFragment : Fragment() {
         adapter = ImageAdapter(binding.idViewPager, requireActivity())
         mOfferAdapter = OffersAdapter(binding.idViewPager4, requireActivity())
 
-
 //        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6e3f5c3d-abdb-4158-b49a-d3e88d763851.jpg")
 //        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/cb8b73d2-da3c-4ce6-a172-ae774063d915.jpg")
 //        imageList.add("https://s3.ap-south-1.amazonaws.com/hicare-others/6796f0c8-0b67-48e2-884c-047f8991f7ce.jpg")
-
 
         binding.idViewPager.adapter = adapter
         binding.idViewPager4.adapter = mOfferAdapter
