@@ -60,7 +60,6 @@ class UpcomingServicesActivity : AppCompatActivity() {
                 Log.d("TAG", "onViewCreated: $it")
                 if (!it.UpcommingService.isEmpty()) {
                     progressDialog.dismiss()
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                     mAdapter.setUpcomingService(it.UpcommingService)
                     binding.recUpcomingData.visibility = View.VISIBLE
                     binding.upcomingservices.visibility = View.GONE
