@@ -273,17 +273,17 @@ class HomeFragment : Fragment() {
             Log.d(TAG, "onDashboardData: $it orders fragment")
             try {
                 adapter.serBanner(it!!.BannerData)
-                it.MenuData.forEach{
-                    if(it.Title.equals("Products")){
-                        menudatanew.add(it)
-                    }else if (it.Title.equals("Commercial/B2B")){
-                        menudatanew.add(it)
-                    }else{
-                        menudata.add(it)
-                    }
-                }
-                mAdapter.setServiceList(menudata)
-                mMenuadapter.setServiceList(menudatanew)
+//                it.MenuData.forEach{
+//                    if(it.Title.equals("Products")){
+//                        menudatanew.add(it)
+//                    }else if (it.Title.equals("Commercial/B2B")){
+//                        menudatanew.add(it)
+//                    }else{
+//                        menudata.add(it)
+//                    }
+//                }
+                mAdapter.setServiceList(it.MenuData)
+//                mMenuadapter.setServiceList(menudatanew)
 
                 AppUtils2.socialmedia=it.SocialMediadata
                 msocialMediaAdapter.setSocialMedialist(it.SocialMediadata)
@@ -457,15 +457,15 @@ class HomeFragment : Fragment() {
 
         binding.recMenu.layoutManager =
             GridLayoutManager(context, 3)
-        binding.recMenu2.layoutManager =
-            GridLayoutManager(context, 2)
+//        binding.recMenu2.layoutManager =
+//            GridLayoutManager(context, 2)
 
         binding.recSocialMedia.layoutManager =
             GridLayoutManager(context, 3)
         binding.recOffers.layoutManager =
             GridLayoutManager(context, 3)
         mAdapter = DashboardMenuAdapter(requireActivity())
-        mMenuadapter = DashboardMenuAdapterNew(requireActivity())
+//        mMenuadapter = DashboardMenuAdapterNew(requireActivity())
         binding.recVideo.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         msocialMediaAdapter = SocialMediaAdapter(requireActivity())
@@ -549,7 +549,7 @@ class HomeFragment : Fragment() {
 
         mvideoAdapter = VideoAdapter(requireActivity())
         binding.recMenu.adapter = mAdapter
-        binding.recMenu2.adapter = mMenuadapter
+//        binding.recMenu2.adapter = mMenuadapter
         binding.recSocialMedia.adapter = msocialMediaAdapter
         binding.recVideo.adapter = mvideoAdapter
         binding.crdpest.visibility = View.VISIBLE
