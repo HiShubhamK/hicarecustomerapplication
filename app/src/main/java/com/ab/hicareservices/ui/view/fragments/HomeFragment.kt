@@ -45,6 +45,7 @@ import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
+import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
@@ -538,9 +539,10 @@ class HomeFragment : Fragment() {
                 offers: String?,
                 customerotpC: String?,
                 name: String?,
-                technicianmobileC: String?
+                technicianmobileC: String?,
+                toString: String
             ) {
-                showLeadDialog(offers,customerotpC,name,technicianmobileC)
+                showLeadDialog(offers,customerotpC,name,technicianmobileC,toString)
             }
 
         })
@@ -1032,7 +1034,8 @@ class HomeFragment : Fragment() {
         offers: String?,
         customerotpC: String?,
         name: String?,
-        technicianmobileC: String?
+        technicianmobileC: String?,
+        toString: String
     ) {
         val li = LayoutInflater.from(requireActivity())
         val promptsView = li.inflate(R.layout.layout_today_dialog, null)
@@ -1053,7 +1056,14 @@ class HomeFragment : Fragment() {
 
         alertDialog.setCancelable(false)
 
-        btnlead.setOnClickListener {  }
+        var ids="http://run.hicare.in/web/MapTrack/TrackResource?code="+toString
+
+        btnlead.setOnClickListener {
+            val intent = Intent(requireActivity(), InAppWebViewActivity::class.java)
+            intent.putExtra("PageLink", ids)
+            startActivity(intent)
+            alertDialog.dismiss()
+        }
 
         imgbtncancel.setOnClickListener { alertDialog.cancel() }
 

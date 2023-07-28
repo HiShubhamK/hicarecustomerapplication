@@ -176,8 +176,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
             holder.itemView.setOnClickListener {
                 onResceduleInterface!!.onToadaysClick(position,recipe.Onsiteotp,recipe.CustomerOTP_c,
-                    recipe.HRAssignedResource_r?.Name, recipe.HRAssignedResource_r?.TechnicianMobile_c
-                )
+                    recipe.HRAssignedResource_r?.Name, recipe.HRAssignedResource_r?.TechnicianMobile_c,recipe.Id.toString())
 
             }
 

@@ -36,6 +36,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
         try {
             val service = services[position]
 
+            holder.binding.btnetas.visibility=View.GONE
 
             if(service.AppointmentTime.equals(" - ")){
 

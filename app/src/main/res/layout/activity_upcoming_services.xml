@@ -102,12 +102,12 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:fontFamily="@font/lato_semibold"
-        android:text="No Upservices Found"
+        android:text="No Upcoming Services Found"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="visible">
-
     </TextView>
+
     </RelativeLayout>
 
 </LinearLayout>

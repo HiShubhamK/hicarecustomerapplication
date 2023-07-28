@@ -20,7 +20,7 @@ import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
 class UpcomingServicesActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityUpcomingServicesBinding
+    private lateinit var binding: ActivityUpcomingServicesBinding
     private val viewModel: ServiceViewModel by viewModels()
     private lateinit var mAdapter: UpcomingServicesAdapter
     lateinit var progressDialog: ProgressDialog
@@ -28,9 +28,9 @@ class UpcomingServicesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upcoming_services)
-        binding= ActivityUpcomingServicesBinding.inflate(layoutInflater)
+        binding = ActivityUpcomingServicesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        progressDialog= ProgressDialog(this,R.style.TransparentProgressDialog)
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 //        viewModel.ScheduledService.observe(this, Observer {
 //            Log.d("TAG", "onViewCreated: $it")
@@ -40,10 +40,11 @@ class UpcomingServicesActivity : AppCompatActivity() {
 //        viewModel.getUpcomingServices(AppUtils2.mobileno)
         progressDialog.show()
         getAllComplaints(progressDialog)
-        binding.imgLogo.setOnClickListener{
+        binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
     }
+
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             binding.recUpcomingData.layoutManager = LinearLayoutManager(this)
@@ -51,35 +52,43 @@ class UpcomingServicesActivity : AppCompatActivity() {
 
 
             viewModel.responseMessage.observe(this, Observer {
-                binding.recUpcomingData.visibility=View.GONE
-                binding.upcomingservices.visibility=View.VISIBLE
+                binding.recUpcomingData.visibility = View.GONE
+                binding.upcomingservices.visibility = View.VISIBLE
             })
 
             viewModel.ScheduledService.observe(this, Observer {
                 Log.d("TAG", "onViewCreated: $it")
-                if(it!=null){
-                mAdapter.setUpcomingService(it.UpcommingService)
-                binding.recUpcomingData.visibility=View.VISIBLE
-                binding.upcomingservices.visibility=View.GONE
-                progressDialog.dismiss()
-                }else{
-                    binding.recUpcomingData.visibility=View.GONE
-                    binding.upcomingservices.visibility=View.VISIBLE
+                if (!it.UpcommingService.isEmpty()) {
+                    progressDialog.dismiss()
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    mAdapter.setUpcomingService(it.UpcommingService)
+                    binding.recUpcomingData.visibility = View.VISIBLE
+                    binding.upcomingservices.visibility = View.GONE
+                } else {
+                    binding.upcomingservices.visibility = View.VISIBLE
+                    binding.txtnotfound.visibility = View.VISIBLE
+                    binding.recUpcomingData.visibility = View.GONE
+                    progressDialog.dismiss()
+
                 }
             })
             viewModel.errorMessage.observe(this, Observer {
-                Toast.makeText(this,"Something went wrong!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
             })
 
             binding.recUpcomingData.adapter = mAdapter
-            mAdapter.setRescudullClick(object :onResceduleInterface{
-                override fun onRecheduleClick(position: Int, upcomingdata: ArrayList<UpcomingService>) {
-                    val intent = Intent(this@UpcomingServicesActivity, SlotComplinceActivity::class.java)
+            mAdapter.setRescudullClick(object : onResceduleInterface {
+                override fun onRecheduleClick(
+                    position: Int,
+                    upcomingdata: ArrayList<UpcomingService>
+                ) {
+                    val intent =
+                        Intent(this@UpcomingServicesActivity, SlotComplinceActivity::class.java)
                     intent.putExtra("ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
-                    if (upcomingdata[position].AppointmentDate!=null){
-                        intent.putExtra("SlotDate",upcomingdata[position].AppointmentDate)
-                    }else{
-                        intent.putExtra("SlotDate",upcomingdata[position].SRPlanDate)
+                    if (upcomingdata[position].AppointmentDate != null) {
+                        intent.putExtra("SlotDate", upcomingdata[position].AppointmentDate)
+                    } else {
+                        intent.putExtra("SlotDate", upcomingdata[position].SRPlanDate)
                     }
                     intent.putExtra("TaskId", upcomingdata[position].Id)
                     intent.putExtra("SkillId", upcomingdata[position].TaskSkill_c)
@@ -88,8 +97,11 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     intent.putExtra("ServiceType", "Pest")
                     intent.putExtra("Pincode", upcomingdata[position].HRZipPostalCode_c)
                     intent.putExtra("SPCode", upcomingdata[position].OrderSPCode)
-                    intent.putExtra("ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
-                    intent.putExtra("Unit",upcomingdata[position].Unit)
+                    intent.putExtra(
+                        "ServiceUnit",
+                        upcomingdata[position].OrderServiceArea_r!!.Unit_c
+                    )
+                    intent.putExtra("Unit", upcomingdata[position].Unit)
                     startActivity(intent)
                 }
 
@@ -106,7 +118,8 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     offers: String?,
                     customerotpC: String?,
                     name: String?,
-                    technicianmobileC: String?
+                    technicianmobileC: String?,
+                    toString: String
                 ) {
                     TODO("Not yet implemented")
                 }
@@ -117,7 +130,7 @@ class UpcomingServicesActivity : AppCompatActivity() {
             if (AppUtils2.mobileno != "-1") {
                 viewModel.getUpcomingServices(AppUtils2.mobileno)
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

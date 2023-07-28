@@ -24,6 +24,7 @@ interface onResceduleInterface {
         offers: String?,
         customerotpC: String?,
         name: String?,
-        technicianmobileC: String?
+        technicianmobileC: String?,
+        id: String
     )
 }
