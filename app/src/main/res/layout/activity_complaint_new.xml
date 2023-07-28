@@ -285,6 +285,13 @@ Vikhroli West, Mumbai - 400079."
             </LinearLayout>
 
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                android:elevation="5dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_margin="5dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recSocialMedia"
@@ -299,6 +306,8 @@ Vikhroli West, Mumbai - 400079."
                 android:foregroundGravity="center"
                 android:overScrollMode="never"
                 android:visibility="visible" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
