@@ -290,7 +290,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Time"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
@@ -299,7 +299,7 @@
                     android:layout_height="wrap_content"
                     android:text=": 2pm - 4pm"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
@@ -318,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Order no"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -327,7 +327,7 @@
                     android:layout_weight="1"
                     android:text=": #222222222"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -344,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Technician Name"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -353,7 +353,7 @@
                     android:layout_weight="1"
                     android:text=": Arjun"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -370,7 +370,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Sequence No"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -379,7 +379,7 @@
                     android:layout_weight="1"
                     android:text=": 4"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -397,7 +397,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Incomplete Reason"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -406,7 +406,7 @@
                     android:layout_weight="1"
                     android:text=": Door Close"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

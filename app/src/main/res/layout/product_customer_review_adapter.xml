@@ -45,7 +45,7 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="5.0"
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="/5.0 "
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <androidx.appcompat.widget.AppCompatRatingBar
                     android:id="@+id/ratingbar"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_regular"
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -100,7 +100,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:text=""
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvCustomercity"
@@ -110,7 +110,7 @@
                     android:fontFamily="@font/lato_regular"
                     android:text=""
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
 
 

@@ -68,7 +68,7 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:gravity="center_horizontal"
                 android:text="Home"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -233,7 +233,6 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:clipToPadding="false"
             android:foregroundGravity="center"
             android:orientation="horizontal"
@@ -303,7 +302,7 @@
                         android:maxLines="2"
                         android:singleLine="true"
                         android:text="Please click on view to see your deal!"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
@@ -328,7 +327,7 @@
                         android:text="Pay Now"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
-                        android:textSize="12sp">
+                        android:textSize="13sp">
 
                     </TextView>
                 </androidx.cardview.widget.CardView>
@@ -427,7 +426,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10dp"
                     android:clipToPadding="false"
                     android:foregroundGravity="center"
                     android:overScrollMode="never"
@@ -482,7 +481,7 @@
             android:layout_below="@id/crdpest"
             android:layout_marginHorizontal="18dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:paddingHorizontal="3dp">
 
             <View
@@ -761,7 +760,7 @@
                                     android:gravity="center"
                                     android:text="Average Rating"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp" />
+                                    android:textSize="13sp" />
 
                             </LinearLayout>
 
@@ -823,7 +822,7 @@
                                 android:gravity="center"
                                 android:text="Customer Served"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -883,7 +882,7 @@
                                 android:gravity="center"
                                 android:text="Verified Experts"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -943,7 +942,7 @@
                                 android:gravity="center"
                                 android:text="Cities"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -1133,7 +1132,7 @@
                         <!--                        android:text="followers"-->
                         <!--                        android:textAllCaps="true"-->
                         <!--                        android:textColor="@color/grey_font"-->
-                        <!--                        android:textSize="12sp" />-->
+                        <!--                        android:textSize="13sp" />-->
 
 
                     </LinearLayout>
@@ -1165,7 +1164,7 @@
                         <!--                        android:text="followers"-->
                         <!--                        android:textAllCaps="true"-->
                         <!--                        android:textColor="@color/grey_font"-->
-                        <!--                        android:textSize="12sp" />-->
+                        <!--                        android:textSize="13sp" />-->
 
 
                     </LinearLayout>
@@ -1196,7 +1195,7 @@
                         <!--                        android:text="followers"-->
                         <!--                        android:textAllCaps="true"-->
                         <!--                        android:textColor="@color/grey_font"-->
-                        <!--                        android:textSize="12sp" />-->
+                        <!--                        android:textSize="13sp" />-->
 
 
                     </LinearLayout>

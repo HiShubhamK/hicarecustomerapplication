@@ -60,7 +60,7 @@
                 android:fontFamily="@font/lato_regular"
                 android:gravity="center_horizontal"
                 android:text="Home"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -177,7 +177,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        app:spb_stateTextSize="12sp"
+                        app:spb_stateTextSize="13sp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginHorizontal="10dp"
                         app:spb_animateToCurrentProgressState="true"
@@ -297,7 +297,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Order No"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:textColor="@color/grey_font"
                                         android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
@@ -312,7 +312,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Ordered On"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:textColor="@color/grey_font"
                                         android:fontFamily="@font/lato_regular"/>
 
@@ -354,7 +354,7 @@
                                         android:layout_marginLeft="5dp"
                                         android:text="HC-324565654"
                                         android:textColor="@color/black"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
 
                                     <TextView
@@ -365,7 +365,7 @@
                                         android:text="31-03-2023"
                                         android:layout_marginTop="10dp"
                                         android:textColor="@color/black"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
 
                                 </LinearLayout>
@@ -449,7 +449,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="15dp"
                                 android:text="Address"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -475,7 +475,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:text="HC-324565654"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -518,7 +518,7 @@
                             android:lineSpacingMultiplier="1.2"
                             android:maxLines="4"
                             android:text=""
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:fontFamily="@font/lato_regular"/>
 
 
@@ -724,7 +724,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Service Period"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
 
                                 android:textColor="@color/grey_font"
                                 android:fontFamily="@font/lato_regular"/>
@@ -747,7 +747,7 @@
                                     android:maxLines="2"
                                     android:text="36 months"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="13sp" />
 
                             </RelativeLayout>
 
@@ -772,7 +772,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Start Date"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
 
                                 android:textColor="@color/grey_font"
                                 android:fontFamily="@font/lato_regular"/>
@@ -796,7 +796,7 @@
                                     android:text="31-03-2023"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="13sp" />
 
                             </RelativeLayout>
 
@@ -820,7 +820,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="End Date"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -840,7 +840,7 @@
                                     android:ellipsize="end"
                                     android:gravity="right"
                                     android:maxLines="2"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:text="31-03-2023"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
@@ -941,7 +941,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Price"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -961,7 +961,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text=""
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -981,7 +981,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Discount"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -1001,7 +1001,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text=""
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -1020,7 +1020,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Tax"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -1040,7 +1040,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text=""
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -1058,7 +1058,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Installation Charges"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -1078,7 +1078,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text=""
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -1097,7 +1097,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Shipping Charges"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -1117,7 +1117,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text=""
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -1202,7 +1202,7 @@
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Payment Id"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:fontFamily="@font/lato_regular"
                             android:textColor="@color/grey_font"/>
 
@@ -1223,7 +1223,7 @@
                                 android:gravity="right"
                                 android:maxLines="2"
                                 android:text=""
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/black"/>
 
@@ -1242,7 +1242,7 @@
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Payment Status"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:fontFamily="@font/lato_regular"
                             android:textColor="@color/grey_font"/>
 
@@ -1264,7 +1264,7 @@
                                 android:maxLines="2"
                                 android:text=""
                                 android:textAllCaps="true"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/black"/>
 
@@ -1282,7 +1282,7 @@
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Payment Method"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:fontFamily="@font/lato_regular"
                             android:textColor="@color/grey_font"/>
 
@@ -1304,7 +1304,7 @@
                                 android:textAllCaps="true"
                                 android:maxLines="2"
                                 android:text=""
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/black"/>
 

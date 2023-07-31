@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.json.JSONObject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -24,28 +25,36 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        Log.e("Notification","done: "+remoteMessage.data.toString())
 
-       Log.d("Notification","done "+remoteMessage.data.toString())
+        try {
 
-        if (!remoteMessage.notification.toString().equals("")) {
-            showNotification(
-                remoteMessage.notification?.title.toString(),
-                remoteMessage.notification?.body.toString(),
-                remoteMessage.notification?.channelId,
-                remoteMessage.notification?.imageUrl,
-                remoteMessage.notification?.tag,
-                remoteMessage.data
-            )
-        } else {
-            showNotification(
-                remoteMessage.notification?.title.toString(),
-                remoteMessage.notification?.body.toString(),
-                remoteMessage.notification?.channelId,
-                remoteMessage.notification?.imageUrl,
-                remoteMessage.notification?.tag,
-                remoteMessage.data
-            )
+            if(remoteMessage.notification!=null){
+                if (!remoteMessage.notification.toString().equals("")) {
+                    showNotification(
+                        remoteMessage.notification?.title.toString(),
+                        remoteMessage.notification?.body.toString(),
+                        remoteMessage.notification?.channelId,
+                        remoteMessage.notification?.imageUrl,
+                        remoteMessage.notification?.tag,
+                        remoteMessage.data
+                    )
+                } else {
+                    showNotification(
+                        remoteMessage.notification?.title.toString(),
+                        remoteMessage.notification?.body.toString(),
+                        remoteMessage.notification?.channelId,
+                        remoteMessage.notification?.imageUrl,
+                        remoteMessage.notification?.tag,
+                        remoteMessage.data
+                    )
+                }
+
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
     }
 
     // Method to get the custom Design for the display of
@@ -76,6 +85,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
         val channel_id = channelId
+        val notifydata = data
+        val json = JSONObject(notifydata.toString())
+        val ActivityName = json.getString("ActivityName")
+        val IsSticky = json.getBoolean("IsSticky")
+        val IsProduct = json.getString("IsProduct")
+        val IsService = json.getString("IsService")
+        val IsHidden = json.getString("IsHidden")
+        Log.e("Notification:-","ActivityName: "+ActivityName +"IsSticky: "+IsSticky+" IsProduct: "+IsProduct+" IsService: "+IsService+" IsHidden: "+IsHidden)
+
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched

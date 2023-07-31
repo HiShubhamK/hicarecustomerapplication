@@ -128,7 +128,7 @@
                             android:padding="3sp"
                             android:text="12445566666"
                             android:textColor="@color/grey_font"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -177,7 +177,7 @@
                             android:spinnerMode="dialog"
                             android:textAlignment="textStart"
                             android:textColor="@color/grey_font"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </androidx.cardview.widget.CardView>
 
                     <EditText
@@ -256,7 +256,7 @@
                     android:maxLength="50"
                     android:padding="12dp"
                     android:textColor="@color/grey_font"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <!--                </androidx.cardview.widget.CardView>-->
                 <!--            <androidx.cardview.widget.CardView-->
@@ -283,7 +283,7 @@
                 <!--                    android:spinnerMode="dialog"-->
                 <!--                    android:textAlignment="textStart"-->
                 <!--                    android:textColor="@color/grey_font"-->
-                <!--                    android:textSize="12sp"-->
+                <!--                    android:textSize="13sp"-->
                 <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
                 <!--                    app:layout_constraintRight_toRightOf="parent"-->
                 <!--                    app:layout_constraintTop_toTopOf="parent" />-->
@@ -329,7 +329,7 @@
                         android:spinnerMode="dialog"
                         android:textAlignment="textStart"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -372,7 +372,7 @@
                         android:hint="Enter complaint subject here"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
@@ -412,7 +412,7 @@
                         android:hint="Enter complaint subject here"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
@@ -464,7 +464,7 @@
                         android:maxLength="10"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                     <!--                    </androidx.cardview.widget.CardView>-->
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -508,7 +508,7 @@
                         android:background="@drawable/round_border"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                     <!--                    </androidx.cardview.widget.CardView>-->
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -560,7 +560,7 @@
                         android:spinnerMode="dialog"
                         android:textAlignment="textStart"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -613,7 +613,7 @@
                         android:spinnerMode="dialog"
                         android:textAlignment="textStart"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -695,7 +695,7 @@
                                 android:background="@drawable/round_border"
                                 android:padding="12dp"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -742,7 +742,7 @@
                                 android:maxLength="50"
                                 android:padding="12dp"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -797,7 +797,7 @@
                                 android:maxLength="50"
                                 android:padding="12dp"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -843,7 +843,7 @@
                                 android:maxLength="50"
                                 android:padding="12dp"
                                 android:textColor="@color/grey_font"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -893,7 +893,7 @@
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"
@@ -938,7 +938,7 @@
                                     android:maxLength="50"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"
@@ -993,7 +993,7 @@
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"
@@ -1042,7 +1042,7 @@
                                     android:maxLength="6"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"
@@ -1096,7 +1096,7 @@
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"
@@ -1140,7 +1140,7 @@
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"
                                     android:textColor="@color/grey_font"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:layout_marginHorizontal="6dp"
                                     android:layout_marginVertical="5dp"
                                     android:layout_weight="1"

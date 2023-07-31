@@ -60,7 +60,7 @@
                 android:gravity="center_horizontal"
                 android:text="Home"
                 android:textColor="@color/grey_font"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
@@ -184,7 +184,7 @@ android:background="@color/white"
                             android:padding="3sp"
                             android:text="12445566666"
                             android:textColor="@color/grey_font"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -233,7 +233,7 @@ android:background="@color/white"
                             android:spinnerMode="dialog"
                             android:textAlignment="textStart"
                             android:textColor="@color/grey_font"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </androidx.cardview.widget.CardView>
 
                     <EditText
@@ -315,7 +315,7 @@ android:background="@color/white"
                         android:spinnerMode="dialog"
                         android:textAlignment="textStart"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -362,7 +362,7 @@ android:background="@color/white"
                         android:spinnerMode="dialog"
                         android:textAlignment="textStart"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -404,7 +404,7 @@ android:background="@color/white"
                         android:layout_marginTop="4dp"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 <!--                </androidx.cardview.widget.CardView>-->
             </LinearLayout>
             <LinearLayout
@@ -443,7 +443,7 @@ android:background="@color/white"
                         android:layout_marginTop="4dp"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 <!--                </androidx.cardview.widget.CardView>-->
             </LinearLayout>
 
@@ -485,7 +485,7 @@ android:background="@color/white"
                         android:padding="12dp"
                         android:textColorHint="@color/grey_font"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 <!--                </androidx.cardview.widget.CardView>-->
             </LinearLayout>
 
@@ -525,7 +525,7 @@ android:background="@color/white"
                         android:hint="Enter complaint description here"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 <!--                </androidx.cardview.widget.CardView>-->
 
 

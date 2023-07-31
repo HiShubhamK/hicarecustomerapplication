@@ -65,7 +65,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:visibility="gone"/>
 
 
@@ -101,7 +101,7 @@
 <!--                        android:singleLine="true"-->
 <!--                        android:text="Order Number :"-->
 <!--                        android:textColor="@color/grey_font"-->
-<!--                        android:textSize="12sp" />-->
+<!--                        android:textSize="13sp" />-->
 
 <!--                    <TextView-->
 <!--                        android:id="@+id/tvOrderNumber"-->
@@ -116,7 +116,7 @@
 <!--                        android:singleLine="true"-->
 <!--                        android:text=""-->
 <!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="12sp" />-->
+<!--                        android:textSize="13sp" />-->
 
 <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
 
@@ -145,7 +145,7 @@
                         android:singleLine="true"
                         android:text="Order no"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tvappointmentdate"
@@ -160,7 +160,7 @@
                         android:singleLine="true"
                         android:text="Service Date"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
 
                     <TextView
@@ -176,7 +176,7 @@
                         android:singleLine="true"
                         android:text="Time"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
 
                     <!--                    <TextView-->
@@ -192,7 +192,7 @@
 <!--                        android:singleLine="true"-->
 <!--                        android:text="aa"-->
 <!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="12sp" />-->
+<!--                        android:textSize="13sp" />-->
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -216,7 +216,7 @@
                             android:singleLine="true"
                             android:text=""
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tvPlanDate"
@@ -231,7 +231,7 @@
                             android:singleLine="true"
                             android:text=""
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tvPlanDatetime"
@@ -246,7 +246,7 @@
                             android:singleLine="true"
                             android:text=""
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                  </androidx.appcompat.widget.LinearLayoutCompat>
@@ -319,7 +319,7 @@
                                 android:text="ETA : "
                                 android:textAllCaps="false"
                                 android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/txtetas"
@@ -332,7 +332,7 @@
                                 android:text="5pm - 8 pm"
                                 android:textAllCaps="false"
                                 android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -373,7 +373,7 @@
                         android:singleLine="true"
                         android:text=""
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -415,7 +415,7 @@
                         android:singleLine="true"
                         android:text=""
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -464,7 +464,7 @@
 <!--                        android:singleLine="true"-->
 <!--                        android:text="09 Am to 11 Am"-->
 <!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="12sp"-->
+<!--                        android:textSize="13sp"-->
 <!--                        android:visibility="gone" />-->
 
 <!--                </LinearLayout>-->
@@ -543,7 +543,7 @@
                                 android:text="ETA : "
                                 android:textAllCaps="false"
                                 android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/txteta"
@@ -556,7 +556,7 @@
                                 android:text="5pm - 8 pm"
                                 android:textAllCaps="false"
                                 android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -577,7 +577,7 @@
 <!--                        android:text="Expected Arrival "-->
 <!--                        android:textAllCaps="false"-->
 <!--                        android:textColor="@color/colorAccent"-->
-<!--                        android:textSize="12sp">-->
+<!--                        android:textSize="13sp">-->
 
 <!--                    </TextView>-->
 
@@ -596,7 +596,7 @@
 <!--                        android:text="9.00 am to 11 am"-->
 <!--                        android:textAllCaps="false"-->
 <!--                        android:textColor="@color/grey_font"-->
-<!--                        android:textSize="12sp">-->
+<!--                        android:textSize="13sp">-->
 
 <!--                    </TextView>-->
 

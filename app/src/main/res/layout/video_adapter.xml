@@ -11,6 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/video_view"
+        android:backgroundTint="#fff"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         android:layout_width="match_parent"
