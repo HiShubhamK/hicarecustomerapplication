@@ -79,6 +79,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
+
+
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         // Pass the intent to PendingIntent to start the
         // next Activity
@@ -117,8 +120,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 "HicareServices",
                 NotificationManager.IMPORTANCE_HIGH
             )
-            notificationManager!!.createNotificationChannel(notificationChannel)
+            notificationManager?.createNotificationChannel(notificationChannel)
         }
-        notificationManager!!.notify(0, builder.build())
+        notificationManager?.notify(0, builder.build())
     }
 }
