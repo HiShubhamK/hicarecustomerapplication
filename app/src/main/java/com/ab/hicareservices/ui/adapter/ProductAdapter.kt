@@ -61,17 +61,27 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.txtpriceline.visibility= View.GONE
             }
 
-            holder.binding.btnaddtocart.setOnClickListener {
-                Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
-                onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
+            if (productlists.IsStockAvailable==false&&productlists.StockCount!!.toInt()<=0){
+                holder.itemView.isEnabled=false
+                holder.binding.btnaddtocart.text = "Notify Me!"
+                holder.binding.btnaddtocart.setOnClickListener {
+                    Toast.makeText(requireActivity,"You will get update once product is available",Toast.LENGTH_LONG).show()
+
+                }
+            }else{
+                holder.binding.btnaddtocart.setOnClickListener {
+                    Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
+                    onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
+                }
+
+                holder.itemView.setOnClickListener {
+                    val intent= Intent(requireActivity,ProductDetailActivity::class.java)
+                    intent.putExtra("productid",productlists.ProductId.toString())
+                    requireActivity.startActivity(intent)
+                }
             }
 
-            holder.itemView.setOnClickListener {
-                val intent= Intent(requireActivity,ProductDetailActivity::class.java)
-                intent.putExtra("productid",productlists.ProductId.toString())
-                requireActivity.startActivity(intent)
-            }
 
         }else{
 
