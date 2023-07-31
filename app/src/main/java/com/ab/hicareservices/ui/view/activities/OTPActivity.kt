@@ -17,6 +17,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.google.android.gms.location.FusedLocationProviderClient
 
 
 class OTPActivity : AppCompatActivity() {
@@ -75,6 +76,8 @@ class OTPActivity : AppCompatActivity() {
 
                 viewModel.validateResponses.observe(this, Observer {
                     if(it.IsSuccess==true){
+                        progressDialog.show()
+
                         AppUtils2.TOKEN=it.Data?.Token.toString()
                         AppUtils2.customerid= it?.Data?.ProductCustomerData?.Id.toString()
                         SharedPreferenceUtil.setData(this, "bToken",it.Data?.Token.toString())
@@ -87,11 +90,13 @@ class OTPActivity : AppCompatActivity() {
                         SharedPreferenceUtil.setData(this, "FirstName",it?.Data?.ProductCustomerData?.FirstName.toString())
                         SharedPreferenceUtil.setData(this, "MobileNo",it?.Data?.ProductCustomerData?.MobileNo.toString())
                         SharedPreferenceUtil.setData(this, "EMAIL",it?.Data?.ProductCustomerData?.Email.toString())
+                        var client: FusedLocationProviderClient? = null
 
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
-                        finish()
                         progressDialog.dismiss()
+                        finish()
+
 
                     }else{
                         progressDialog.dismiss()
