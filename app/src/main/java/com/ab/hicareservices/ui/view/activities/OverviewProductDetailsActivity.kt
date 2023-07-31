@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
@@ -56,9 +57,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
 
         binding.imgLogo.setOnClickListener {
-            SharedPreferenceUtil.setData(this,"Billingdata","")
-            SharedPreferenceUtil.setData(this,"Shippingdata","")
-            val intent=Intent(this@OverviewProductDetailsActivity,AddressActivity::class.java)
+            SharedPreferenceUtil.setData(this, "Billingdata", "")
+            SharedPreferenceUtil.setData(this, "Shippingdata", "")
+            val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -99,17 +100,19 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                         if (it.IsSuccess == true) {
                             if (it.Data.toString() != null) {
                                 binding.coupunname.text = "Remove Coupon"
-                                getSummarydata( binding.txtcoupon.text.toString())
+                                getSummarydata(binding.txtcoupon.text.toString())
                                 Toast.makeText(
                                     this,
                                     "Applied coupon successfully",
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
-                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
+                                ShowCustomeDialog()
+//                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
+                            ShowCustomeDialog()
+//                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
                     })
 
@@ -145,7 +148,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         })
 
 
-            viewProductModel.getAddressDetailbyId(billdata!!.toInt())
+        viewProductModel.getAddressDetailbyId(billdata!!.toInt())
 
     }
 
@@ -221,8 +224,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             AppUtils2.productamount = it.FinalAmount.toString()
             AppUtils2.actualvalue = it.TotalAmount.toString()
             AppUtils2.totaldiscount = it.TotalDiscount.toString()
-            AppUtils2.vouchercode=it.VoucherCode.toString()
-            AppUtils2.voucherdiscount=it.VoucherDiscount.toString()
+            AppUtils2.vouchercode = it.VoucherCode.toString()
+            AppUtils2.voucherdiscount = it.VoucherDiscount.toString()
             binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
@@ -247,11 +250,35 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        SharedPreferenceUtil.setData(this,"Billingdata","")
-        SharedPreferenceUtil.setData(this,"Shippingdata","")
-        val intent=Intent(this@OverviewProductDetailsActivity,AddressActivity::class.java)
+        SharedPreferenceUtil.setData(this, "Billingdata", "")
+        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+        val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
+    public fun ShowCustomeDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Hicare Alert!")
+        builder.setMessage("Invalid coupon")
+        builder.setCancelable(false)
+//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+//            Toast.makeText(
+//                applicationContext,
+//                android.R.string.ok, Toast.LENGTH_SHORT
+//            ).show()
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            dialog.dismiss()
+        }
+
+
+        builder.show()
+    }
+
+
 
 }

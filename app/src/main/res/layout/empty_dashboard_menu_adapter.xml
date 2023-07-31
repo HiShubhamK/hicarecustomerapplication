@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="5dp"
+    android:backgroundTint="#fff"
     app:cardCornerRadius="5dp"
     android:layout_margin="5dp">
     <LinearLayout
@@ -52,7 +53,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -88,7 +89,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -124,7 +125,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -168,7 +169,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -204,7 +205,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -240,7 +241,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -286,7 +287,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>
@@ -322,7 +323,7 @@
                     android:gravity="start"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     tools:ignore="RtlCompat">
 
                 </TextView>

@@ -103,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:importantForAutofill="auto"
+                android:autofillHints="smsOTPCode"
+                android:importantForAutofill="yes"
                 android:textColor="@color/md_grey_600"
                 app:bar_enabled="false"
                 app:bar_height="2dp"
@@ -177,7 +178,7 @@
                 android:padding="10sp"
                 android:text="I didn't receive a code(27)"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
             </androidx.cardview.widget.CardView>
 

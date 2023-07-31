@@ -371,7 +371,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     private fun makePhoneCall() {
-        var number: String = "8976399055"
+        var number: String = AppUtils2.mobileno
         if (number.trim { it <= ' ' }.isNotEmpty()) {
             if (ContextCompat.checkSelfPermission(
                     this,

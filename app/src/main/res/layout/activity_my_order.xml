@@ -74,6 +74,7 @@
 
     </RelativeLayout>
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lnrmenus"
         android:layout_width="match_parent"
@@ -81,11 +82,12 @@
         android:orientation="horizontal"
         android:layout_below="@id/headerView"
         android:background="#f6f6f6"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:weightSum="4">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtactive"
-            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -101,8 +103,6 @@
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
                 android:text="Active"
-
-                android:textColor="@color/grey_font"
                 android:background="@color/white"
                 android:layout_gravity="center"/>
 
@@ -110,10 +110,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtexpire"
-            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
+            android:background="@color/white"
             android:elevation="8dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
@@ -127,7 +127,6 @@
                 android:padding="10dp"
                 android:layout_gravity="center"
                 android:text="Expired"
-
                 android:textColor="@color/grey_font"
                 android:background="@color/white"/>
 
@@ -136,7 +135,6 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtcancelled"
-            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -151,10 +149,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
+                android:textColor="@color/grey_font"
                 android:layout_gravity="center"
                 android:text="Cancelled"
-
-                android:textColor="@color/grey_font"
                 android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
@@ -162,7 +159,6 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/txtall"
-            android:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -177,10 +173,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_regular"
                 android:padding="10dp"
-                android:textColor="@color/grey_font"
                 android:layout_gravity="center"
                 android:text="All"
-                app:cardBackgroundColor="@color/white"/>
+                android:textColor="@color/grey_font"
+                android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
 

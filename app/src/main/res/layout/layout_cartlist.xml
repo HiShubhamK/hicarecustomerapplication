@@ -93,7 +93,7 @@
                     android:textColor="@color/white"
                     android:background="@color/md_red_900"
                     android:layout_marginTop="5dp"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -106,7 +106,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_semibold"
                         android:text="₹"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/txtprice"

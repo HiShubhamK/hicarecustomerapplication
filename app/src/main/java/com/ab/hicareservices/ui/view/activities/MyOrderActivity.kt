@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -73,12 +74,12 @@ class MyOrderActivity : AppCompatActivity() {
             binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-            getOrdersList(progressDialog,"No Active Orders")
+            getOrdersList(progressDialog, "No Active Orders")
         }
 
         binding.txtexpire.setOnClickListener {
             ordertype = "Expired"
-            getOrdersList(progressDialog, "No Expire Orders")
+            getOrdersList(progressDialog, "No Expired Orders")
             binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
             binding.expiretxt.setTextColor(Color.parseColor("#2bb77a"))
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
@@ -115,15 +116,15 @@ class MyOrderActivity : AppCompatActivity() {
 
         progressDialog.show()
         binding.recyclerView2.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(this@MyOrderActivity, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
         binding.recyclerView2.adapter = nAdapter
 
-        viewModel.ordersList.observe(this, Observer {
-//            Log.d(TAG, "onViewCreated: $it orders fragment")
+        viewModel.ordersList.observe(this@MyOrderActivity, Observer {
+            Log.d("TAG", "onViewCreated: $it orders fragment")
             var data=it
-            if (it != null||data.isNotEmpty()) {
+            if (it != null||data.isEmpty()) {
                 nAdapter.setOrdersList(it)
                 binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()
@@ -139,7 +140,7 @@ class MyOrderActivity : AppCompatActivity() {
         })
 
 
-        viewModel.responseMessage.observe(this, Observer {
+        viewModel.responseMessage.observe(this@MyOrderActivity, Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
             binding.textnotfound.text = it.toString()
@@ -147,14 +148,14 @@ class MyOrderActivity : AppCompatActivity() {
         })
 
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe(this@MyOrderActivity, Observer {
             if (it != null) {
                 binding.textnotfound.visibility = View.VISIBLE
             }
         })
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
-                ordertype = "Active"
+                ordertype = "All"
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             } else {
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
@@ -164,24 +165,24 @@ class MyOrderActivity : AppCompatActivity() {
 
 
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
-
+        binding.textnotfound.visibility = View.GONE
         progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this@MyOrderActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
 
         binding.recyclerView.adapter = mAdapter
 
-        viewModel.ordersList.observe(this, Observer {
-//            Log.d(TAG, "onViewCreated: $it orders fragment")
+        viewModel.ordersList.observe(this@MyOrderActivity, Observer {
+            Log.d("TAG", "onViewCreated: $it orders fragment")
 
             if(it!=null) {
 
                 if (it.isNotEmpty()) {
                     binding.textnotfound.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
-                    mAdapter.setOrdersList(it, this)
+                    mAdapter.setOrdersList(it, this@MyOrderActivity)
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()
@@ -251,30 +252,33 @@ class MyOrderActivity : AppCompatActivity() {
                 intent.putExtra("SERVICE_TYPE",serviceType)
                 intent.putExtra("Standard_Value__c",standardValueC)
                 intent.putExtra("Product", false)
+
                 activityResultLauncher.launch(intent)
             }
 
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {
-                TODO("Not yet implemented")
                 createNotification()
             }
         })
 
 
-        viewModel.responseMessage.observe(this, Observer {
+        viewModel.responseMessage.observe(this@MyOrderActivity, Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
+            binding.textnotfound.text = s
             progressDialog.dismiss()
         })
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe(this@MyOrderActivity, Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
+            binding.textnotfound.text=s
             progressDialog.dismiss()
         })
-
+//        binding.progressBar13.visibility = View.GONE
+//        binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"

@@ -60,7 +60,7 @@
                 android:fontFamily="@font/lato_regular"
                 android:gravity="center_horizontal"
                 android:text="Home"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Complaint No."
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -174,7 +174,7 @@
                     android:layout_weight="1"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
 
@@ -192,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Complaint type"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
 
@@ -221,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Complaint raised date:"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -231,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
 
@@ -306,7 +306,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Order No."
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -317,7 +317,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -365,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Service Plan"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -375,7 +375,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -442,7 +442,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Subject"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -452,7 +452,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
 
@@ -472,7 +472,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Description"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/grey_font"
                     android:fontFamily="@font/lato_regular" />
 
@@ -482,7 +482,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/lato_regular" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

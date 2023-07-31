@@ -58,7 +58,7 @@
                 android:fontFamily="@font/lato_regular"
                 android:gravity="center_horizontal"
                 android:text="Home"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -196,7 +196,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Order No     :"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:textColor="@color/grey_font"
                                         android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
@@ -213,7 +213,7 @@
                                         android:layout_marginLeft="5dp"
                                         android:text="HC-324565654"
                                         android:textColor="@color/black"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
 
                                 </LinearLayout>
@@ -235,8 +235,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:text="Ordered On :"
-                                        android:textSize="12sp"
-
+                                        android:textSize="13sp"
                                         android:textColor="@color/grey_font"
                                         android:fontFamily="@font/lato_regular"/>
                                 </LinearLayout>
@@ -252,7 +251,7 @@
                                         android:layout_marginLeft="5dp"
                                         android:text="31-03-2023"
                                         android:textColor="@color/black"
-                                        android:textSize="12sp"
+                                        android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
 
                                 </LinearLayout>
@@ -334,7 +333,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="15dp"
                                 android:text="Address"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -360,7 +359,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:text="HC-324565654"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -380,7 +379,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:text="Address"
-                            android:textColor="@color/black"
+                            android:textColor="@color/grey_font"
                             android:textSize="14sp"
                             android:fontFamily="@font/lato_semibold"/>
 
@@ -402,8 +401,9 @@
                             android:layout_marginBottom="2dp"
                             android:lineSpacingMultiplier="1.2"
                             android:maxLines="4"
+                            android:textColor="@color/black"
                             android:text="adddress"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:fontFamily="@font/lato_regular"/>
 
 
@@ -608,7 +608,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Service Period"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
 
                                 android:textColor="@color/grey_font"
                                 android:fontFamily="@font/lato_regular"/>
@@ -631,7 +631,7 @@
                                     android:maxLines="2"
                                     android:text="36 months"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="13sp" />
 
                             </RelativeLayout>
 
@@ -656,7 +656,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Start Date"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
 
                                 android:textColor="@color/grey_font"
                                 android:fontFamily="@font/lato_regular"/>
@@ -680,7 +680,7 @@
                                     android:text="31-03-2023"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="13sp" />
 
                             </RelativeLayout>
 
@@ -704,7 +704,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="End Date"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -724,7 +724,7 @@
                                     android:ellipsize="end"
                                     android:gravity="right"
                                     android:maxLines="2"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:text="31-03-2023"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
@@ -802,7 +802,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Payment Status"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -823,7 +823,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="Unpaid"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -843,7 +843,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Price"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -863,7 +863,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="₹ 4999"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 
@@ -883,7 +883,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:text="Discount"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:fontFamily="@font/lato_regular"
                                 android:textColor="@color/grey_font"/>
 
@@ -903,7 +903,7 @@
                                     android:gravity="right"
                                     android:maxLines="2"
                                     android:text="₹ 0"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:fontFamily="@font/lato_regular"
                                     android:textColor="@color/black"/>
 

@@ -33,7 +33,7 @@
                     android:padding="5dp"
                     android:text="Deal of day"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgthumbnail"
@@ -106,7 +106,7 @@
                 <!--                    android:padding="5dp"-->
                 <!--                    android:text="Deal of day"-->
                 <!--                    android:textColor="@color/white"-->
-                <!--                    android:textSize="12sp"-->
+                <!--                    android:textSize="13sp"-->
                 <!--                    android:visibility="gone"/>-->
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -120,7 +120,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_regular"
                         android:text="₹"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
 
                     <TextView
@@ -137,6 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey_font"
                         android:fontFamily="@font/lato_semibold"
                         android:text="abcd"
                         android:textSize="14sp" />
@@ -155,7 +157,7 @@
                         android:fontFamily="@font/lato_semibold"
                         android:text="Get it"
                         android:textColor="@color/grey_font"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,7 +165,7 @@
                         android:fontFamily="@font/lato_semibold"
                         android:text=" next 3 to 4 days "
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
