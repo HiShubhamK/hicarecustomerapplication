@@ -39,7 +39,7 @@
     <item
         android:id="@+id/nav_cart"
         android:title="Cart"
-        android:icon="@drawable/trolley"
+        android:icon="@drawable/ic_products"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:visible="false" />

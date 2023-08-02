@@ -15,6 +15,7 @@ import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.*
 import com.ab.hicareservices.ui.view.fragments.ComplaintFragmentNew
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
+import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
 
@@ -62,9 +63,11 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                         )
                     )
                 } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
-                    val intent = Intent(fragmentActivity, MyOrderActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
-
+//                    val intent = Intent(fragmentActivity, MyOrderActivity::class.java)
+//                    fragmentActivity!!.startActivity(intent)
+                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, OrdersFragmentNew.newInstance())
+                        .addToBackStack("OrdersFragmentNew").commit()
 
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, OrdersFragment.newInstance(true))

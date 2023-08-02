@@ -1,22 +1,22 @@
 package com.ab.hicareservices.utils
 
-import com.ab.hicareservices.R
-import com.ab.hicareservices.ui.view.activities.HomeActivity
-
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.RemoteViews
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import com.ab.hicareservices.R
+import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import org.json.JSONObject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -25,11 +25,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.e("Notification","done: "+remoteMessage.data.toString())
+        Log.e("Notification", "done: " + remoteMessage.data.toString())
 
         try {
 
-            if(remoteMessage.notification!=null){
+            if (remoteMessage.notification != null) {
                 if (!remoteMessage.notification.toString().equals("")) {
                     showNotification(
                         remoteMessage.notification?.title.toString(),
@@ -51,7 +51,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 }
 
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -68,7 +68,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteViews.setTextViewText(R.id.text, message)
         remoteViews.setImageViewResource(
             R.id.image,
-            R.drawable.hicarelogo
+            R.drawable.ic_automos
         )
         return remoteViews
     }
@@ -86,21 +86,23 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Assign channel ID
         val channel_id = channelId
         val notifydata = data
-        val json = JSONObject(notifydata.toString())
-        val ActivityName = json.getString("ActivityName")
-        val IsSticky = json.getBoolean("IsSticky")
-        val IsProduct = json.getString("IsProduct")
-        val IsService = json.getString("IsService")
-        val IsHidden = json.getString("IsHidden")
-        Log.e("Notification:-","ActivityName: "+ActivityName +"IsSticky: "+IsSticky+" IsProduct: "+IsProduct+" IsService: "+IsService+" IsHidden: "+IsHidden)
+//        val json = JSONObject(notifydata.toString())
+//        val ActivityName = json.getString("ActivityName")
+//        val IsSticky = json.getBoolean("IsSticky")
+//        val IsProduct = json.getString("IsProduct")
+//        val IsService = json.getString("IsService")
+//        val IsHidden = json.getString("IsHidden")
+//        Log.e(
+//            "Notification:-",
+//            "ActivityName: " + ActivityName + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " IsHidden: " + IsHidden
+//        )
 
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
 
 
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_RECEIVER_NO_ABORT)
         // Pass the intent to PendingIntent to start the
         // next Activity
         val pendingIntent = PendingIntent.getActivity(
@@ -115,21 +117,40 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         var builder: NotificationCompat.Builder =
             NotificationCompat.Builder(applicationContext, channel_id.toString())
-                .setSmallIcon(R.drawable.reviewdialog_round_icon)
+//                .setSmallIcon(R.drawable.ic_automos)
+//                .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.ic_automos))
+//                .setAutoCancel(false)
+//                .setOnlyAlertOnce(true)
+//                .setStyle(NotificationCompat.BigPictureStyle())
+//                .setContentTitle(title)
+//                .setContentText(message)
+//                .setVibrate(longArrayOf(100, 1000, 2000, 340))
+                .setSmallIcon(R.drawable.ic_automos)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_automos))
+                .setColor(ContextCompat.getColor(applicationContext, R.color.red))
+                .setStyle(NotificationCompat.BigPictureStyle())
+                .setStyle(NotificationCompat.BigTextStyle().bigText(title))
+                .setStyle(
+                    NotificationCompat.BigTextStyle().bigText(message).setSummaryText("#HICARE")
+                )
+                .setShowWhen(true)
                 .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
+                .setVibrate(longArrayOf(100, 1000, 2000, 340))
                 .setContentIntent(pendingIntent)
                 .setContent(remoteViews)
 
-        remoteViews.setTextViewText(R.id.notificationtitle, title)
-        remoteViews.setTextViewText(R.id.notificationtext, message)
-        remoteViews.setImageViewResource(R.id.image, R.drawable.hicarelogo)
+
+//        remoteViews.setTextViewText(R.id.notificationtitle, title)
+//        remoteViews.setTextViewText(R.id.notificationtext, message)
+//        remoteViews.setImageViewResource(R.id.image, R.drawable.hicarelogo)
 
 
-        builder = builder.setCustomContentView(
-            getCustomDesign(title, message)
-        )
+//        builder = builder.setCustomContentView(
+//            getCustomDesign(title, message)
+//        )
+
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?        // Check if the Android Version is greater than Oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -138,8 +159,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 "HicareServices",
                 NotificationManager.IMPORTANCE_HIGH
             )
+            notificationChannel.description = message
+            notificationChannel.enableVibration(true)
+            notificationChannel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000)
+            notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
+
             notificationManager?.createNotificationChannel(notificationChannel)
+
         }
-        notificationManager?.notify(0, builder.build())
+
+
+
+        notificationManager?.notify(1, builder.build())
     }
+
 }
