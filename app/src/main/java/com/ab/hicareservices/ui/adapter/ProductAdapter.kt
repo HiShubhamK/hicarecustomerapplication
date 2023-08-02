@@ -109,6 +109,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
         onProductClickedHandler = l
     }
 
+
     class MainViewHolder(val binding: LayoutProductlistBinding) :
         RecyclerView.ViewHolder(binding.root)
 
