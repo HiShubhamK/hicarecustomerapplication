@@ -41,6 +41,9 @@ class OrderSummeryAdapter() : RecyclerView.Adapter<OrderSummeryAdapter.MainViewH
             holder.binding.statusTv.text=productlists.OrderStatus.toString()
             holder.binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
 //
+            if(productlists.OrderStatus.equals("Cancelled")){
+                holder.binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
+            }
 //            if (productlists.OrderStatus.toString()=="Booked"){
 //
 //            }

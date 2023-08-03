@@ -98,8 +98,8 @@ class OtpViewModel : ViewModel(){
     }
 
 
-    fun getNotificationtoken(apptoken: String, homeActivity: HomeActivity) {
-        val response = repository.notification(apptoken)
+    fun getNotificationtoken(apptoken: String, homeActivity: HomeActivity, mobileno: String) {
+        val response = repository.notification(apptoken,mobileno)
         response.enqueue(object : Callback<NotificationToken> {
             override fun onResponse(call: Call<NotificationToken?>, response: Response<NotificationToken>?) {
                 if (response != null) {

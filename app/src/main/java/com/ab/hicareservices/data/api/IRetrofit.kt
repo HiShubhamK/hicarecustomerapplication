@@ -80,7 +80,7 @@ interface IRetrofit {
     ): Call<OrdersResponse>
 
     @GET("Notification/SubscribeApplicationAsync")
-    fun getNotificationToken(@Query("appToken") appToken: String): Call<NotificationToken>
+    fun getNotificationToken(@Query("appToken") appToken: String,@Query("mobileNo") mobileNo: String): Call<NotificationToken>
 
     @GET("Lead/GetInterestedServices")
     fun getLead(@Query("serviceType") serviceType: String): Call<leadResopnse>
@@ -186,6 +186,8 @@ interface IRetrofit {
 
     @GET("ProductComplaint/GetComplaintDetailId")
     fun GetComplaintDetailId(@Query("complaitId") userId: Int): Call<ProductDetailResponse>
+    @POST("Notification/CreateEventForMobileAppNotification")
+    fun CreateEventForMobileAppNotification(@Body data: HashMap<String, Any>): Call<CreateEventNotificationResponse>
 
     @GET("Voucher/ValidateVoucher")
     fun getValidateVoucher(

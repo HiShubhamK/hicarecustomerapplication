@@ -17,7 +17,6 @@ import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
@@ -36,15 +35,16 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val productlists=productlist[position]
+
         holder.setIsRecyclable(false)
 
-        if(productlists.IsStockAvailable==true) {
+//        if(productlists.IsStockAvailable==true) {
             holder.binding.txtratingvalues.text=productlists.ProductRating.toString()
             if(productlists.ProductThumbnail!=null) {
 //                Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
                 Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
             }
-                holder.binding.txtname.text = productlists.ProductName
+            holder.binding.txtname.text = productlists.ProductName
             holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
             val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
 //            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
@@ -61,11 +61,13 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.txtpriceline.visibility= View.GONE
             }
 
-            if (productlists.IsStockAvailable==false&&productlists.StockCount!!.toInt()<=0){
+            if (productlists.IsStockAvailable==false||productlists.StockCount!!.toInt()<=0){
                 holder.itemView.isEnabled=false
                 holder.binding.btnaddtocart.text = "Notify Me!"
                 holder.binding.btnaddtocart.setOnClickListener {
-                    Toast.makeText(requireActivity,"You will get update once product is available",Toast.LENGTH_LONG).show()
+                    onProductClickedHandler?.onNotifyMeclick(position,productlists)
+
+//                    Toast.makeText(requireActivity,"You will get update once product is available",Toast.LENGTH_LONG).show()
 
                 }
             }else{
@@ -83,9 +85,9 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
 
-        }else{
-
-        }
+//        }else{
+//
+//        }
     }
 
     override fun getItemCount(): Int {

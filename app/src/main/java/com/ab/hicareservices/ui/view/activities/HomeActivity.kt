@@ -105,7 +105,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         })
 
         Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getNotificationtoken(token.toString(),this)
+            viewModel.getNotificationtoken(token.toString(),this,AppUtils2.mobileno)
         }, 500)
 
         binding.addFab.visibility = View.VISIBLE

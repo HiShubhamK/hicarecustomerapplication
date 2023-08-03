@@ -8,6 +8,7 @@ import android.location.LocationListener
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
+import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.ProductAdapter
@@ -29,6 +31,8 @@ import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class ProductFragment : Fragment() {
 
@@ -93,7 +97,7 @@ class ProductFragment : Fragment() {
             Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
         } else {
 //            Handler(Looper.getMainLooper()).postDelayed({
-                progressDialog.show()
+//                progressDialog.show()
                 getProductslist(AppUtils2.pincode!!)
 //            },2000)
         }
@@ -203,6 +207,24 @@ class ProductFragment : Fragment() {
             override fun onProductView(position: Int, productid: OrderSummeryData) {
 
             }
+
+            override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+                val data = HashMap<String, Any>()
+                data["Id"] = 0
+                data["Mobile_No"] = AppUtils2.mobileno
+                data["Event_Source"] = "Product"
+                data["Event_Type"] = "Out of stock"
+                data["Reference_Id"] = response.ProductId.toString()
+                data["Additional_Data"] = response.toString()
+                data["NextNotified_On"] = getCurrentDate()
+                data["Is_Notify"] = true
+                data["Created_By"] =0
+                data["Created_On"] =getCurrentDate()
+                data["Notification_Tag"] ="string"
+                data["Notification_Title"] ="string"
+                data["Notification_Body"] ="string"
+                viewProductModel.CreateEventForMobileAppNotification(data)
+            }
         })
     }
 
@@ -222,11 +244,11 @@ class ProductFragment : Fragment() {
         viewProductModel.productlist.observe(requireActivity(), Observer {
 
             if (it != null) {
-
+//                Log.e("TAG","DataUi:"+it)
+                progressDialog.dismiss()
+                mAdapter.setProductList(it, requireActivity(), viewProductModel)
                 binding.recycleviewproduct.visibility = View.VISIBLE
                 binding.textnotfound.visibility = View.GONE
-                mAdapter.setProductList(it, requireActivity(), viewProductModel)
-                progressDialog.dismiss()
 
             } else {
                 binding.recycleviewproduct.visibility = View.GONE
@@ -287,6 +309,25 @@ class ProductFragment : Fragment() {
             override fun onProductView(position: Int, productid: OrderSummeryData) {
 
             }
+
+            override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+//                {
+//                    "Id": 0,
+//                    "Mobile_No": "string",
+//                    "Event_Source": "Product",
+//                    "Event_Type": "Out of stock",
+//                    "Reference_Id": "productid",
+//                    "Additional_Data": "json",
+//                    "NextNotified_On": "2023-08-02T12:36:32.987Z",
+//                    "Is_Notify": true,
+//                    "Created_By": 0,
+//                    "Created_On": "2023-08-02T12:36:32.987Z",
+//                    "Notification_Tag": "string",
+//                    "Notification_Title": "string",
+//                    "Notification_Body": "string"
+//                }
+
+            }
         })
     }
 
@@ -338,5 +379,9 @@ class ProductFragment : Fragment() {
 
                 }
             }
+    }
+    private fun getCurrentDate(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        return sdf.format(Date())
     }
 }

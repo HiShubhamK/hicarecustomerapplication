@@ -96,7 +96,7 @@ class DashboardMenuAdapterNew(private val fragmentActivity: FragmentActivity?) :
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
 
-                } else if (service.Title.equals("Support") && service.IsAppLink == true) {
+                } else if (service.Title.equals("Other Support") && service.IsAppLink == true) {
                     val intent = Intent(fragmentActivity, SupportActivity::class.java)
                     fragmentActivity!!.startActivity(intent)
                     fragmentActivity!!.finish()

@@ -50,7 +50,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             val recipe=upcomingservicelist[position]
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
-            holder.binding.tvOrderNumber.text=": "+recipe.OrderNumber_c
+            holder.binding.tvOrderNumber.text=":  "+recipe.OrderNumber_c
 
 
             if(recipe.AppointmentTime.equals(" - ")){
@@ -61,7 +61,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
                 holder.binding.tvappointmenttime.visibility=View.VISIBLE
                 holder.binding.tvScheduletime.visibility=View.VISIBLE
                 holder.binding.tvPlanDatetime.visibility=View.VISIBLE
-                holder.binding.tvPlanDatetime.text=": "+recipe.AppointmentTime
+                holder.binding.tvPlanDatetime.text=":  "+recipe.AppointmentTime
             }
 
 //            if (!recipe.AppointmentDateTime.equals(null)||!recipe.AppointmentDateTime.equals("")){
