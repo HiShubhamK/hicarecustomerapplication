@@ -16,7 +16,7 @@ data class ProductListResponseData(
     @SerializedName("Discount_StartDate") var DiscountStartDate: String? = null,
     @SerializedName("Discount_EndDate") var DiscountEndDate: String? = null,
     @SerializedName("Installation_Charges") var InstallationCharges: Int? = null,
-    @SerializedName("Product_Weight") var ProductWeight: Int? = null,
+    @SerializedName("Product_Weight") var ProductWeight: Float? = null,
     @SerializedName("Is_HotProduct") var IsHotProduct: Boolean? = null,
     @SerializedName("Is_Stock_Available") var IsStockAvailable: Boolean? = null,
     @SerializedName("Is_ToSellingProduct") var IsToSellingProduct: Boolean? = null,
@@ -27,6 +27,8 @@ data class ProductListResponseData(
     @SerializedName("Counter") var Counter: Int? = null,
     @SerializedName("StockCounterAmount") var StockCounterAmount: Int? = null,
     @SerializedName("Product_SEO_Name") var ProductSEOName: String? = null,
-    @SerializedName("Custom_Rating_Message") var CustomRatingMessage: String? = null
+    @SerializedName("Custom_Rating_Message") var CustomRatingMessage: String? = null,
+    @SerializedName("ProductCategory") var ProductCategory: String? = null
+
 
 ) {}

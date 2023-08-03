@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.CreateEventNotificationResponse
 import com.ab.hicareservices.data.model.SaveSalesResponse
 import com.ab.hicareservices.data.model.ValidateVoucherResponse
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
@@ -32,6 +33,7 @@ class ProductViewModel: ViewModel() {
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
     val validateVoucherResponse = MutableLiveData<ValidateVoucherResponse>()
     val paymentsuceess = MutableLiveData<SaveSalesResponse>()
+    val CreateEventNotificationResponse = MutableLiveData<CreateEventNotificationResponse>()
     val responseMessage = MutableLiveData<String>()
     val clearCacheResponse=MutableLiveData<ClearCacheResponse>()
 
@@ -78,7 +80,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productlist.postValue(response.body()!!.Data)
                 }else{
-                    responseMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<ProductListResponse>, t: Throwable) {
@@ -250,6 +252,21 @@ class ProductViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+        })
+    }
+    fun CreateEventForMobileAppNotification(data: HashMap<String, Any>){
+        val response=repository.CreateEventForMobileAppNotification(data)
+        response.enqueue(object :Callback<CreateEventNotificationResponse>{
+            override fun onResponse(
+                call: Call<CreateEventNotificationResponse>,
+                response: Response<CreateEventNotificationResponse>
+            ) {
+                CreateEventNotificationResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<CreateEventNotificationResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })

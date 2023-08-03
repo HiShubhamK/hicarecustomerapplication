@@ -239,43 +239,47 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun getServiceDetails(orderNo: String, serviceType: String) {
-        progressDialog.dismiss()
-        orderDetailsViewModel.orderDetailsData.observe(this) {
-            if (it != null) {
-                val data = it[0]
-                accountId = data.account_Name__r?.customer_id__c.toString()
-                service = data.service_Plan_Name__c.toString()
-                orderValueWithTax = data.order_Value_with_Tax__c.toString().toDouble()
-                discount = (orderValueWithTax.toString().toDouble() * 0.05).toString()
+        try {
+            progressDialog.dismiss()
+            orderDetailsViewModel.orderDetailsData.observe(this) {
+                if (it != null) {
+                    val data = it[0]
+                    accountId = data.account_Name__r?.customer_id__c.toString()
+                    service = data.service_Plan_Name__c.toString()
+                    orderValueWithTax = data.order_Value_with_Tax__c.toString().toDouble()
+                    discount = (orderValueWithTax.toString().toDouble() * 0.05).toString()
 //                 orderValueWithTaxAfterDiscount =
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
-                binding.orderNameTv.text = data.service_Plan_Name__c
-                binding.orderNoTv.text = ":" + orderNo
-                binding.dateTv.text =
-                    ":" + AppUtils2.formatDateTime4(data.appointmentStartDateTime__c.toString())
-                binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
+                    binding.orderNameTv.text = data.service_Plan_Name__c
+                    binding.orderNoTv.text = ":" + orderNo
+                    if (data?.appointmentStartDateTime__c.toString()!=null){
+                        binding.dateTv.text =
+                            ":" + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
+                    }
+
+                    binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
 //                binding.orderDateTv.text  = data.createdDateText
 //                binding.statusTv.text = data.status__c
-                binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
-                binding.quantityTv.text = "QTY: ${data.quantity__c}"
+                    binding.apartmentSizeTv.text = "Selected Apartment Size - ${data.unit1__c}"
+                    binding.quantityTv.text = "QTY: ${data.quantity__c}"
 //                binding.paymentStatusTv.text = if (data.enable_Payment_Link == false) "Paid" else "Unpaid"
-                binding.totalTv.text = "₹ ${data.standard_Value__c}"
-                binding.priceTv.text = "₹ ${Math.round(data.standard_Value__c!!.toDouble())}"
-                binding.discountTv.text =
-                    if (data.orderDiscountValue != null) "- ₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "- ₹ 0"
-                binding.totalAmountTv.text =
-                    "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
+                    binding.totalTv.text = "₹ ${data.standard_Value__c}"
+                    binding.priceTv.text = "₹ ${Math.round(data.standard_Value__c!!.toDouble())}"
+                    binding.discountTv.text =
+                        if (data.orderDiscountValue != null) "- ₹ ${Math.round(data.orderDiscountValue.toDouble())}" else "- ₹ 0"
+                    binding.totalAmountTv.text =
+                        "₹ ${Math.round(data.order_Value_with_Tax__c!!.toDouble())}"
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
-                binding.contactDetailsTv.text =
-                    "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
-                binding.addressTv.text = data.account_Name__r?.accountAddress ?: "N/A"
-                binding.textaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
-                binding.textserviceperiod.text = data.service_Period
-                binding.textdatestart.text =
-                    AppUtils2.formatDateTime4(data.start_Date__c.toString())
-                binding.textdateend.text = AppUtils2.formatDateTime4(data.end_Date__c.toString())
-                service_SP_Code__c=data.service_SP_Code__c.toString()
-                unit=data.unit1__c.toString()
+                    binding.contactDetailsTv.text =
+                        "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"
+                    binding.addressTv.text = data.account_Name__r?.accountAddress ?: "N/A"
+                    binding.textaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
+                    binding.textserviceperiod.text = data.service_Period
+                    binding.textdatestart.text =
+                        AppUtils2.formatDateTime4(data.start_Date__c.toString())
+                    binding.textdateend.text = AppUtils2.formatDateTime4(data.end_Date__c.toString())
+                    service_SP_Code__c=data.service_SP_Code__c.toString()
+                    unit=data.unit1__c.toString()
 //                val notes = prepareNotes(
 //                    accountId,
 //                    orderNo,
@@ -289,15 +293,15 @@ class OrderDetailActivity : AppCompatActivity() {
 //                    data.service_Plan_Name__c.toString(),
 //                    orderValueWithTaxAfterDiscount.toString()
 //                )
-                if (data.enable_Payment_Link == true) {
-                    binding.payNowBtn.visibility = View.VISIBLE
-                    binding.txtamountpaidornot.text = "Amount To be Paid"
-                } else {
-                    binding.payNowBtn.visibility = View.GONE
-                    binding.txtamountpaidornot.text = "Amount Paid"
-                }
+                    if (data.enable_Payment_Link == true) {
+                        binding.payNowBtn.visibility = View.VISIBLE
+                        binding.txtamountpaidornot.text = "Amount To be Paid"
+                    } else {
+                        binding.payNowBtn.visibility = View.GONE
+                        binding.txtamountpaidornot.text = "Amount Paid"
+                    }
 
-                binding.statusTv.text =" "+data.status__c+" "
+                    binding.statusTv.text =" "+data.status__c+" "
 
 //
 //                if(data.status__c.equals("Active")){
@@ -308,59 +312,63 @@ class OrderDetailActivity : AppCompatActivity() {
 //                }
 //
 
-                if (data.status__c.equals("Expired")) {
+                    if (data.status__c.equals("Expired")) {
 
-                    if (data.enable_Payment_Link == false) {
-                        binding.paymentStatusTv.text = "Paid"
+                        if (data.enable_Payment_Link == false) {
+                            binding.paymentStatusTv.text = "Paid"
+                        } else {
+                            binding.paymentStatusTv.text = "Unpaid"
+                        }
+                        binding.statusTv.setTextColor(Color.parseColor("#D50000"))
+
+                    } else if (data.status__c.equals("Short Close")) {
+
+                        if (data.enable_Payment_Link == false) {
+                            binding.paymentStatusTv.text = "Paid"
+                        } else {
+                            binding.paymentStatusTv.text = "Unpaid"
+                        }
+                        binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
+
+                    } else if (data.status__c.equals("Cancelled")) {
+                        binding.lnrStatus.visibility= View.GONE
+                        binding.payNowBtn.visibility = View.GONE
+                        binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
+
+                    } else if (data.status__c.equals("Active")) {
+
+                        if (data.enable_Payment_Link == false) {
+                            binding.paymentStatusTv.text = "Paid"
+                        } else {
+                            binding.paymentStatusTv.text = "Unpaid"
+                        }
+                        binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
+
+                    } else if (data.status__c.equals("Rejected")) {
+
+                        if (data.enable_Payment_Link == false) {
+                            binding.paymentStatusTv.text = "Paid"
+                        } else {
+                            binding.paymentStatusTv.text = "Unpaid"
+                        }
+                        binding.statusTv.setTextColor(Color.parseColor("#FFAB00"))
+
                     } else {
-                        binding.paymentStatusTv.text = "Unpaid"
+
                     }
-                    binding.statusTv.setTextColor(Color.parseColor("#D50000"))
-
-                } else if (data.status__c.equals("Short Close")) {
-
-                    if (data.enable_Payment_Link == false) {
-                        binding.paymentStatusTv.text = "Paid"
-                    } else {
-                        binding.paymentStatusTv.text = "Unpaid"
-                    }
-                    binding.statusTv.setTextColor(Color.parseColor("#FB8C00"))
-
-                } else if (data.status__c.equals("Cancelled")) {
-                    binding.lnrStatus.visibility= View.GONE
-                    binding.payNowBtn.visibility = View.GONE
-                    binding.statusTv.setTextColor(Color.parseColor("#ff9e9e9e"))
-
-                } else if (data.status__c.equals("Active")) {
-
-                    if (data.enable_Payment_Link == false) {
-                        binding.paymentStatusTv.text = "Paid"
-                    } else {
-                        binding.paymentStatusTv.text = "Unpaid"
-                    }
-                    binding.statusTv.setTextColor(Color.parseColor("#2bb77a"))
-
-                } else if (data.status__c.equals("Rejected")) {
-
-                    if (data.enable_Payment_Link == false) {
-                        binding.paymentStatusTv.text = "Paid"
-                    } else {
-                        binding.paymentStatusTv.text = "Unpaid"
-                    }
-                    binding.statusTv.setTextColor(Color.parseColor("#FFAB00"))
-
-                } else {
-
-                }
 //
 //                if (data.enable_Payment_Link == false) {
 //                    binding.paymentStatusTv.text = "Paid"
 //                } else {
 //                    binding.paymentStatusTv.text = "Unpaid"
 //                }
+                }
             }
+            orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
+        }catch (e:Exception){
+            e.printStackTrace()
         }
-        orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
+
     }
 
     override fun onBackPressed() {

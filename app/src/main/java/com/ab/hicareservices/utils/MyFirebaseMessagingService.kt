@@ -1,5 +1,10 @@
 package com.ab.hicareservices.utils
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE
+import android.app.KeyguardManager
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -17,8 +22,11 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import java.util.Locale
+
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+    var IsSticky:Boolean=false
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -61,15 +69,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     // notification.
     private fun getCustomDesign(
         title: String,
-        message: String
+        message: String,
+        imageUrl: Uri?
     ): RemoteViews {
         val remoteViews = RemoteViews("com.ab.hicareservices", R.layout.layout_notification)
         remoteViews.setTextViewText(R.id.title, title)
         remoteViews.setTextViewText(R.id.text, message)
-        remoteViews.setImageViewResource(
-            R.id.image,
-            R.drawable.ic_automos
-        )
+        remoteViews.setImageViewUri(R.id.image, imageUrl)
         return remoteViews
     }
 
@@ -80,29 +86,34 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         channelId: String?,
         imageUrl: Uri?,
         tag: String?,
-        data: MutableMap<String, String>
+        data: Map<String, String>
     ) {
         val intent = Intent(this, HomeActivity::class.java)
         // Assign channel ID
         val channel_id = channelId
         val notifydata = data
 //        val json = JSONObject(notifydata.toString())
-//        val ActivityName = json.getString("ActivityName")
-//        val IsSticky = json.getBoolean("IsSticky")
-//        val IsProduct = json.getString("IsProduct")
-//        val IsService = json.getString("IsService")
-//        val IsHidden = json.getString("IsHidden")
-//        Log.e(
-//            "Notification:-",
-//            "ActivityName: " + ActivityName + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " IsHidden: " + IsHidden
-//        )
+        var ActivityName = notifydata.get("ActivityName")
+        IsSticky = notifydata.get("IsSticky").toBoolean()
+        var IsProduct = notifydata.get("IsProduct").toBoolean()
+        var IsService = notifydata.get("IsService").toBoolean()
+        var IsHidden = notifydata.get("IsHidden").toBoolean()
+        Log.e(
+            "Notification:-",
+            "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " IsHidden: " + IsHidden
+        )
 
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
         // the activities present in the activity stack,
         // on the top of the Activity that is to be launched
 
 
-        intent.addFlags(Intent.FLAG_RECEIVER_NO_ABORT)
+        if (IsSticky&&isAppInForeground(applicationContext)==false) {
+            intent.addFlags(Intent.FLAG_RECEIVER_NO_ABORT)
+        }else{
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        }
         // Pass the intent to PendingIntent to start the
         // next Activity
         val pendingIntent = PendingIntent.getActivity(
@@ -148,7 +159,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
 //        builder = builder.setCustomContentView(
-//            getCustomDesign(title, message)
+//            getCustomDesign(title, message, imageUrl)
 //        )
 
         val notificationManager =
@@ -162,7 +173,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationChannel.description = message
             notificationChannel.enableVibration(true)
             notificationChannel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000)
-            notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
+            notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
 
             notificationManager?.createNotificationChannel(notificationChannel)
 
@@ -171,6 +182,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
         notificationManager?.notify(1, builder.build())
+    }
+    private fun isAppInForeground(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            val am = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
+            val foregroundTaskInfo = am.getRunningTasks(1)[0]
+            val foregroundTaskPackageName = foregroundTaskInfo.topActivity!!.packageName
+            foregroundTaskPackageName.lowercase(Locale.getDefault()) == context.packageName.lowercase(
+                Locale.getDefault()
+            )
+        } else {
+            val appProcessInfo = RunningAppProcessInfo()
+            ActivityManager.getMyMemoryState(appProcessInfo)
+            if (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE) {
+                return true
+            }
+            val km = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            // App is foreground, but screen is locked, so show notification
+            km.inKeyguardRestrictedInputMode()
+        }
     }
 
 }
