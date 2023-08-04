@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
+import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.FragmentOrderSummeryBinding
 import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.ui.adapter.OrderSummeryAdapter
@@ -141,6 +142,9 @@ class OrderSummeryFragment : Fragment() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+
+            override fun onNotifyMeclick(position: Int, productid: ProductListResponseData) {
             }
         })
 

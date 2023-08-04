@@ -48,7 +48,7 @@ class MainRepository {
     fun  getaddressdetailbyid(addressId:Int)=retrofitProduct.getaddressdetailbyid(addressId)
     fun postSaveSalesOrder(data: HashMap<String, Any>)=retrofitProduct.postSaveSalesOrder(data)
     fun CreateProductComplaint(data: HashMap<String, Any>)=retrofitProduct.CreateProductComplaint(data)
-    fun CreateEventForMobileAppNotification(data: HashMap<String, Any>)=retrofitProduct.CreateEventForMobileAppNotification(data)
+    fun CreateEventForMobileAppNotification(data: HashMap<String, Any>)=retrofitService.CreateEventForMobileAppNotification(data)
     fun CreateRazorpayOrderId(amount:Double,mobilenumber:Int) = retrofitProduct.CreateRazorpayOrderId(amount,mobilenumber)
     fun getValidateVoucher(vouchercode: String,userId: Int,pincoode: String)=retrofitProduct.getValidateVoucher(vouchercode,userId,pincoode)
     fun getClearCache(mobileNo: String)=retrofitService.getClearCache(mobileNo)

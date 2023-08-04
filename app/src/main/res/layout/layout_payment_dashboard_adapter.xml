@@ -134,6 +134,7 @@
                     android:layout_marginRight="5dp">
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -208,6 +209,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
+                            android:visibility="gone"
                             android:ellipsize="end"
                             android:fontFamily="@font/lato_regular"
                             android:gravity="center"

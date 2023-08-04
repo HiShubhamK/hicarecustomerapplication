@@ -45,6 +45,7 @@ import com.ab.hicareservices.databinding.FragmentHomeBinding
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
+import com.ab.hicareservices.ui.view.StickyMessageView
 import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
@@ -97,6 +98,7 @@ class HomeFragment : Fragment() {
     private var longg: String? = ""
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
+    private lateinit var stickyMessageView: StickyMessageView
 
     val REQUEST_CODE_PERMISSIONS = 101
 

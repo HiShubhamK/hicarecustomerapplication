@@ -89,6 +89,12 @@
         </RelativeLayout>
 
     </RelativeLayout>
+    <com.ab.hicareservices.ui.view.StickyMessageView
+        android:id="@+id/stickyMessageView"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        />
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer"
         android:visibility="gone"

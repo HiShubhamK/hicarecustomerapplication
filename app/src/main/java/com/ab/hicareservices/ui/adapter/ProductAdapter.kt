@@ -61,7 +61,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.txtpriceline.visibility= View.GONE
             }
 
-            if (productlists.IsStockAvailable==false||productlists.StockCount!!.toInt()<=0){
+            if (productlists.StockCount!!.toInt()<=0||productlists.IsStockAvailable==false){
                 holder.itemView.isEnabled=false
                 holder.binding.btnaddtocart.text = "Notify Me!"
                 holder.binding.btnaddtocart.setOnClickListener {
