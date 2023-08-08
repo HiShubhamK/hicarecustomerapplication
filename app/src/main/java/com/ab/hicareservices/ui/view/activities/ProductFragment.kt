@@ -215,7 +215,7 @@ class ProductFragment : Fragment() {
                 data["Event_Source"] = "Product"
                 data["Event_Type"] = "Out of stock"
                 data["Reference_Id"] = response.ProductId.toString()
-                data["Additional_Data"] = response.toString()
+                data["Additional_Data"] = "Product|"+response.ProductId.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno
                 data["NextNotified_On"] = getCurrentDate()
                 data["Is_Notify"] = true
                 data["Created_By"] =0
