@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.RemoteViews
@@ -14,10 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -38,17 +34,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         val notifydata = remoteMessage.data
-        val imageUrll=remoteMessage.notification?.imageUrl
+        val imageUrll=""
 //        val json = JSONObject(notifydata.toString())
 //        var ActivityName = notifydata.get("ActivityName")
-        var ActivityName = "Product|21|3778|400605|8976399055"
+        var ActivityName = "Product|21|3778|400605|8976399055|https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
         IsSticky = notifydata.get("IsSticky").toBoolean()
         var IsProduct = notifydata.get("IsProduct").toBoolean()
         var IsService = notifydata.get("IsService").toBoolean()
         var IsHidden = notifydata.get("IsHidden").toBoolean()
         Log.e(
             "Notification:-",
-            "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " IsHidden: " + IsHidden
+            "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " imageUrll: " + imageUrll
         )
         if (IsSticky == true) {
             remoteMessage.notification?.let {
@@ -94,7 +90,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String,
         message: String,
         channelId: String?,
-        imageUrl: Uri?,
+        imageUrl: String?,
         ActivityName: String
     ) {
         val info = ActivityName
@@ -106,7 +102,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val productId = parts[1].toString()
         val custid = parts[2].toString()
         val pincode = parts[3].toString()
-        val mobile = parts[3].toString()
+        val mobile = parts[4].toString()
+       val imageUrl2 = parts[5].toString()
         SharedPreferenceUtil.setData(
             this,
             "pincode",
@@ -131,7 +128,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             RemoteViews(packageName, com.ab.hicareservices.R.layout.layout_notification)
         notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtitle, title)
         notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtext, message)
-        notificationLayout.setImageViewUri(com.ab.hicareservices.R.id.image, imageUrl)
+        notificationLayout.setImageViewUri(com.ab.hicareservices.R.id.image, imageUrl2.toUri())
 
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
