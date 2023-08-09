@@ -1,21 +1,28 @@
 package com.ab.hicareservices.utils
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
+import android.widget.ImageView
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
+import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.squareup.picasso.Picasso
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -34,10 +41,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         val notifydata = remoteMessage.data
-        val imageUrll=""
+//        val imageUrll = remoteMessage.data["imageUrl"]
+
+
+//        var imageUrll = remoteMessage.notification?.imageUrl.toString()
+        var imageUrll =
+            "https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
 //        val json = JSONObject(notifydata.toString())
-//        var ActivityName = notifydata.get("ActivityName")
-        var ActivityName = "Product|21|3778|400605|8976399055|https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
+        var ActivityName = notifydata["ActivityName"].toString()
+//        var ActivityName =
+//            "Product|21|3778|400605|8976399055|https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
         IsSticky = notifydata.get("IsSticky").toBoolean()
         var IsProduct = notifydata.get("IsProduct").toBoolean()
         var IsService = notifydata.get("IsService").toBoolean()
@@ -55,12 +68,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     it.body ?: "",
                     it.channelId,
                     imageUrll,
-                    ActivityName
+                    ActivityName,
+                    IsSticky,
+                    IsProduct
                 )
             }
         } else {
             remoteMessage.notification?.let {
-
+                showNotification(
+                    it.title ?: "",
+                    it.body ?: "",
+                    it.channelId,
+                    imageUrll,
+                    ActivityName,
+                    IsSticky,
+                    IsProduct
+                )
 //                FloatNotify(it.title ?: "", it.body ?: "",it.channelId)
             }
         }
@@ -91,81 +114,213 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         message: String,
         channelId: String?,
         imageUrl: String?,
-        ActivityName: String
+        ActivityName: String,
+        IsSticky: Boolean,
+        IsProduct: Boolean
     ) {
-        val info = ActivityName
-        var delimiter = "|"
+        if (IsProduct == true) {
 
-        val parts = info.split(delimiter)
-        Log.e("TAG", "Splitedactivityname: " + parts)
-        val intenttype = parts[0].toString()
-        val productId = parts[1].toString()
-        val custid = parts[2].toString()
-        val pincode = parts[3].toString()
-        val mobile = parts[4].toString()
-       val imageUrl2 = parts[5].toString()
-        SharedPreferenceUtil.setData(
-            this,
-            "pincode",
-            pincode
-        )
+            val info = ActivityName
+            var delimiter = "|"
 
-        SharedPreferenceUtil.setData(
-            this,
-            "customerid",
-           custid
-        )
+            val parts = info.split(delimiter)
+            Log.e("TAG", "Splitedactivityname: " + parts)
+            val intenttype = parts[0].toString()
+            val productId = parts[1].toString()
+            val custid = parts[2].toString()
+            val pincode = parts[3].toString()
+            val mobile = parts[4].toString()
+            val imageUrl2 = parts[5].toString()
+            val imageUrlNew = imageUrl
 
+            SharedPreferenceUtil.setData(
+                this,
+                "pincode",
+                pincode
+            )
 
-        CHANNEL_ID = channelId.toString()
-
-        val intent = Intent(this, ProductDetailActivity::class.java)
-        intent.putExtra("productid",productId)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            SharedPreferenceUtil.setData(
+                this,
+                "customerid",
+                custid
+            )
 
 
-        val notificationLayout =
-            RemoteViews(packageName, com.ab.hicareservices.R.layout.layout_notification)
-        notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtitle, title)
-        notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtext, message)
-        notificationLayout.setImageViewUri(com.ab.hicareservices.R.id.image, imageUrl2.toUri())
+            CHANNEL_ID = channelId.toString()
+
+            val intent = Intent(this, ProductDetailActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(com.ab.hicareservices.R.drawable.ic_notification)
-            .setLargeIcon(
-                BitmapFactory.decodeResource(
-                    resources,
-                    com.ab.hicareservices.R.mipmap.ic_launcher
+            intent.putExtra("productid", productId)
+            val pendingIntent =
+                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+
+            val notificationLayout =
+                RemoteViews("com.ab.hicareservices", com.ab.hicareservices.R.layout.layout_notification)
+            notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtitle, title)
+            notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtext, message)
+            if (imageUrlNew != null) {
+                notificationLayout.setImageViewUri(
+                    com.ab.hicareservices.R.id.image,
+                    imageUrlNew?.toUri()
                 )
-            )
-            .setContentIntent(pendingIntent)
-            .setCustomContentView(notificationLayout)
-            .setStyle(NotificationCompat.DecoratedCustomViewStyle()) // Required for custom views
+//                val target = notificationLayout.setImageViewUri(R.id.image, ImageView::class.java)
+//                Glide
+//                    .with(applicationContext)
+//                    .load(imageUrlNew?.toUri()) // the uri you got from Firebase
+//                    .centerCrop()
+//                    .into(com.ab.hicareservices.R.id.image);
+//                val target = notificationLayout.findViewById(R.id.notificationImageView, ImageView::class.java)
+//
+//                Picasso.get().load(imageUrlNew?.toUri()).into(
+//                    com.ab.hicareservices.R.id.image)
+
+            }
 
 
-        // Add the FLAG_NO_CLEAR flag to make the notification sticky
-        builder.setOngoing(true)
+            val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(com.ab.hicareservices.R.drawable.ic_notification)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        resources,
+                        com.ab.hicareservices.R.mipmap.ic_launcher
+                    )
+                )
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .setCustomContentView(notificationLayout)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle()) // Required for custom views
 
 
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            // Add the FLAG_NO_CLEAR flag to make the notification sticky
+            if (IsSticky) {
+                builder.setOngoing(true)
+            } else {
+                builder.setOngoing(false)
+            }
 
 
-        // Create the notification channel for Android Oreo and higher
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "Custom Notifications",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationManager.createNotificationChannel(channel)
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+            // Create the notification channel for Android Oreo and higher
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    CHANNEL_ID,
+                    "Custom Notifications",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+                notificationManager.createNotificationChannel(channel)
+            }
+            builder.build().flags.and(Notification.FLAG_AUTO_CANCEL)
+
+
+            val notificationId = Math.random().toInt() // Use a unique ID for each notification
+            notificationManager.notify(notificationId, builder.build())
+        } else {
+            if (ActivityName == null || ActivityName == "") {
+
+//            val info = ActivityName
+//            var delimiter = "|"
+//
+//            val parts = info.split(delimiter)
+//            Log.e("TAG", "Splitedactivityname: " + parts)
+//            val intenttype = parts[0].toString()
+//            val productId = parts[1].toString()
+//            val custid = parts[2].toString()
+//            val pincode = parts[3].toString()
+//            val mobile = parts[4].toString()
+//            val imageUrl2 = parts[5].toString()
+                val imageUrlNew = imageUrl
+//
+//            SharedPreferenceUtil.setData(
+//                this,
+//                "pincode",
+//                pincode
+//            )
+//
+//            SharedPreferenceUtil.setData(
+//                this,
+//                "customerid",
+//                custid
+//            )
+
+
+                CHANNEL_ID = channelId.toString()
+
+                val intent = Intent(this, HomeActivity::class.java)
+//            intent.putExtra("productid", productId)
+                val pendingIntent =
+                    PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+
+                val notificationLayout =
+                    RemoteViews(packageName, com.ab.hicareservices.R.layout.layout_notification)
+                notificationLayout.setTextViewText(
+                    com.ab.hicareservices.R.id.notificationtitle,
+                    title
+                )
+                notificationLayout.setTextViewText(
+                    com.ab.hicareservices.R.id.notificationtext,
+                    message
+                )
+                if (imageUrlNew != null) {
+                    notificationLayout.setImageViewUri(
+                        com.ab.hicareservices.R.id.image,
+                        imageUrlNew?.toUri()
+                    )
+                }
+
+
+                val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(com.ab.hicareservices.R.drawable.ic_notification)
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            resources,
+                            com.ab.hicareservices.R.mipmap.ic_launcher
+                        )
+                    )
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setCustomContentView(notificationLayout)
+                    .setStyle(NotificationCompat.DecoratedCustomViewStyle()) // Required for custom views
+
+
+                // Add the FLAG_NO_CLEAR flag to make the notification sticky
+                if (IsSticky) {
+                    builder.setOngoing(true)
+                } else {
+                    builder.setOngoing(false)
+                }
+                builder.build().flags.and(Notification.FLAG_AUTO_CANCEL)
+
+
+                val notificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+                // Create the notification channel for Android Oreo and higher
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val channel = NotificationChannel(
+                        CHANNEL_ID,
+                        "Custom Notifications",
+                        NotificationManager.IMPORTANCE_HIGH
+                    )
+                    notificationManager.createNotificationChannel(channel)
+                }
+
+
+                val notificationId = Math.random().toInt() // Use a unique ID for each notification
+                notificationManager.notify(notificationId, builder.build())
+            }
         }
 
-
-        val notificationId = Math.random().toInt() // Use a unique ID for each notification
-        notificationManager.notify(notificationId, builder.build())
     }
+
 }
 //class MyFirebaseMessagingService : FirebaseMessagingService() {
 //    var IsSticky:Boolean=false
