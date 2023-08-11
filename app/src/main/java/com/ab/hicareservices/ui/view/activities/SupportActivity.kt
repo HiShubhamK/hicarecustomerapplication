@@ -74,6 +74,14 @@ class SupportActivity : AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
             startActivity(Intent.createChooser(intent, "Email via..."))
         }
+        binding.constrainWhatsapp.setOnClickListener {
+            val mobileNumber="9324747360"
+            val message=""
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data =
+                Uri.parse("https://wa.me/9324747360?text=Hello")
+            startActivity(intent)
+        }
 
         binding.getcall.setOnClickListener {
             makePhoneCall()
