@@ -142,7 +142,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_semibold"
                             android:text="Quantity:"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            android:textColor="@color/black"/>
 
                         <TextView
                             android:id="@+id/txtpricelineqty"

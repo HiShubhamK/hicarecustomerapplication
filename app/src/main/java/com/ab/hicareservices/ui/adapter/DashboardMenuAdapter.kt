@@ -107,9 +107,13 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 //                        .replace(R.id.container, SupportFragments.newInstance())
 //                        .addToBackStack("AccountFragment").commit()
                 } else if (service.Title.equals("Products") && service.IsAppLink == true) {
-                    fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, ProductFragment.newInstance())
-                        .addToBackStack("AccountFragment").commit()
+
+                    val intent = Intent(fragmentActivity, ProductActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
+
+//                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, ProductFragment.newInstance())
+//                        .addToBackStack("AccountFragment").commit()
                 } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
                     val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
                     intent.putExtra("PageLink", service.PageLink)
