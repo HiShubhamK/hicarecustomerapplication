@@ -63,11 +63,11 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                         )
                     )
                 } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
-//                    val intent = Intent(fragmentActivity, MyOrderActivity::class.java)
-//                    fragmentActivity!!.startActivity(intent)
-                    fragmentActivity!!.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragmentNew.newInstance())
-                        .addToBackStack("OrdersFragmentNew").commit()
+                    val intent = Intent(fragmentActivity, MyOrderActivityNew::class.java)
+                    fragmentActivity!!.startActivity(intent)
+//                    fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, OrdersFragmentNew.newInstance())
+//                        .addToBackStack("OrdersFragmentNew").commit()
 
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, OrdersFragment.newInstance(true))

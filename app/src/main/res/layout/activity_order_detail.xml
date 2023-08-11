@@ -107,6 +107,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_gravity="end"
+                        android:id="@+id/statusTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Active"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:background="#f6f6f6"
+                        android:fontFamily="@font/lato_regular" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -129,23 +148,6 @@
                             android:fontFamily="@font/lato_semibold" />
 
 
-                        <TextView
-                            android:id="@+id/statusTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="0.5"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:text="Active"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:background="#f6f6f6"
-                            android:fontFamily="@font/lato_regular" />
 
                     </LinearLayout>
 

@@ -7,22 +7,17 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
-import android.widget.ImageView
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.net.toUri
-import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
-import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.squareup.picasso.Picasso
+import java.net.URL
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -40,54 +35,66 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        val notifydata = remoteMessage.data
-//        val imageUrll = remoteMessage.data["imageUrl"]
+        try {
+            var imageUrll=""
+            val notifydata = remoteMessage.data
+            var ActivityName = notifydata["ActivityName"].toString()
+
+            if (remoteMessage.notification!!.imageUrl!=null|| remoteMessage.notification!!.imageUrl.toString()!=""){
+                imageUrll=remoteMessage.notification!!.imageUrl.toString()
+            }else {
+                imageUrll = notifydata.get("imageUrl").toString()
+
+            }
 
 
-//        var imageUrll = remoteMessage.notification?.imageUrl.toString()
-        var imageUrll =
-            "https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
+//            var imageUrll = remoteMessage.notification?.tag.toString()
+//        var imageUrll =
+//            "https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
 //        val json = JSONObject(notifydata.toString())
-        var ActivityName = notifydata["ActivityName"].toString()
 //        var ActivityName =
 //            "Product|21|3778|400605|8976399055|https://s3.ap-south-1.amazonaws.com/hicare-others/8b88c42f-f538-4f1e-9d82-1c085035d9f1.png"
-        IsSticky = notifydata.get("IsSticky").toBoolean()
-        var IsProduct = notifydata.get("IsProduct").toBoolean()
-        var IsService = notifydata.get("IsService").toBoolean()
-        var IsHidden = notifydata.get("IsHidden").toBoolean()
-        Log.e(
-            "Notification:-",
-            "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " imageUrll: " + imageUrll
-        )
-        if (IsSticky == true) {
-            remoteMessage.notification?.let {
+            IsSticky = notifydata.get("IsSticky").toBoolean()
+            var IsProduct = notifydata.get("IsProduct").toBoolean()
+            var IsService = notifydata.get("IsService").toBoolean()
+            var IsHidden = notifydata.get("IsHidden").toBoolean()
+            Log.e(
+                "Notification:-",
+                "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " imageUrll: " + imageUrll
+            )
+            if (IsSticky == true) {
+                remoteMessage.notification?.let {
 //                FloatNotify(it.title ?: "", it.body ?: "",it.channelId)
 
-                showNotification(
-                    it.title ?: "",
-                    it.body ?: "",
-                    it.channelId,
-                    imageUrll,
-                    ActivityName,
-                    IsSticky,
-                    IsProduct
-                )
-            }
-        } else {
-            remoteMessage.notification?.let {
-                showNotification(
-                    it.title ?: "",
-                    it.body ?: "",
-                    it.channelId,
-                    imageUrll,
-                    ActivityName,
-                    IsSticky,
-                    IsProduct
-                )
+                    showNotification(
+                        it.title ?: "",
+                        it.body ?: "",
+                        it.channelId,
+                        imageUrll,
+                        ActivityName,
+                        IsSticky,
+                        IsProduct
+                    )
+                }
+            } else {
+                remoteMessage.notification?.let {
+                    showNotification(
+                        it.title ?: "",
+                        it.body ?: "",
+                        it.channelId,
+                        imageUrll,
+                        ActivityName,
+                        IsSticky,
+                        IsProduct
+                    )
 //                FloatNotify(it.title ?: "", it.body ?: "",it.channelId)
+                }
             }
+            // Handle the received notification message here.
+
+        }catch (e:Exception){
+            e.printStackTrace()
         }
-        // Handle the received notification message here.
 
 
     }
@@ -113,7 +120,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String,
         message: String,
         channelId: String?,
-        imageUrl: String?,
+        imageUrl: String,
         ActivityName: String,
         IsSticky: Boolean,
         IsProduct: Boolean
@@ -124,7 +131,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var delimiter = "|"
 
             val parts = info.split(delimiter)
-            Log.e("TAG", "Splitedactivityname: " + parts)
+            Log.e("TAG", "Splitedactivityname: " + parts+" img1:-"+imageUrl)
             val intenttype = parts[0].toString()
             val productId = parts[1].toString()
             val custid = parts[2].toString()
@@ -163,11 +170,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtitle, title)
             notificationLayout.setTextViewText(com.ab.hicareservices.R.id.notificationtext, message)
             if (imageUrlNew != null) {
-                notificationLayout.setImageViewUri(
+//                notificationLayout.setImageViewUri(
+//                    com.ab.hicareservices.R.id.image,
+//                    imageUrlNew
+//                )
+                val url = URL(imageUrlNew)
+                val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                notificationLayout.setImageViewBitmap(
                     com.ab.hicareservices.R.id.image,
-                    imageUrlNew?.toUri()
-                )
-//                val target = notificationLayout.setImageViewUri(R.id.image, ImageView::class.java)
+                    bmp
+                )//                val target = notificationLayout.setImageViewUri(R.id.image, ImageView::class.java)
 //                Glide
 //                    .with(applicationContext)
 //                    .load(imageUrlNew?.toUri()) // the uri you got from Firebase
@@ -269,9 +281,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     message
                 )
                 if (imageUrlNew != null) {
-                    notificationLayout.setImageViewUri(
+//                    notificationLayout.setImageViewUri(
+//                        com.ab.hicareservices.R.id.image,
+//                        imageUrlNew
+//                    )
+                    Log.e("TAG","imageUrlNew: "+imageUrlNew)
+                    val url = URL(imageUrlNew)
+                    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                    notificationLayout.setImageViewBitmap(
                         com.ab.hicareservices.R.id.image,
-                        imageUrlNew?.toUri()
+                        bmp
                     )
                 }
 

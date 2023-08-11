@@ -83,7 +83,7 @@
             android:id="@+id/tabLayout"
             android:background="@color/white"
             android:layout_width="match_parent"
-            app:tabTextColor="@color/black"
+            app:tabTextColor="@color/grey_font"
             app:tabSelectedTextColor="@color/colorAccent"
             android:layout_height="match_parent">
 
