@@ -19,10 +19,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.FragmentOrderSummeryBinding
-import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.ui.adapter.OrderSummeryAdapter
-import com.ab.hicareservices.ui.adapter.ProductAdapter
-import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
