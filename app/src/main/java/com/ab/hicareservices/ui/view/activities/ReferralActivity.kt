@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -26,6 +27,8 @@ class ReferralActivity : AppCompatActivity() {
     var facebooktxt = ""
     var twittertxt = ""
     var whatsapptxt = ""
+    lateinit var progressDialog: ProgressDialog
+
     var othertxt = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,8 @@ class ReferralActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
         //referralViewModel = ViewModelProvider(this, ReferralViewModelFactory(MainRepository(api))).get(ReferralViewModel::class.java)
 
         getReferralCode(AppUtils2.mobileno)
@@ -134,7 +139,7 @@ class ReferralActivity : AppCompatActivity() {
     }
 
     private fun getReferralCode(mobileNo: String) {
-        binding.progressBar.visibility = View.VISIBLE
+        progressDialog.show()
         referralViewModel.getReferralCode(mobileNo)
         referralViewModel.referralResponse.observe(this, {
             if (it != null) {
@@ -150,6 +155,8 @@ class ReferralActivity : AppCompatActivity() {
                     twittertxt = it!!.Data!!.TwitterShareText.toString()
                     othertxt = it!!.Data!!.OtherShareText.toString()
                     referralCode = it.Data!!.ReferralCode.toString()
+                    progressDialog.dismiss()
+
                 } else {
                     binding.progressBar.visibility = View.GONE
                     binding.referralCodeTv.setTextColor(ContextCompat.getColor(this, R.color.red))
@@ -158,6 +165,8 @@ class ReferralActivity : AppCompatActivity() {
                     binding.txtDescription.text = ""
                     binding.tvShareText.text = ""
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+
                 }
             } else {
                 binding.progressBar.visibility = View.GONE
@@ -167,7 +176,9 @@ class ReferralActivity : AppCompatActivity() {
                 binding.txtDescription.text = ""
                 binding.tvShareText.text = ""
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                progressDialog.dismiss()
             }
+            progressDialog.dismiss()
         })
     }
 
