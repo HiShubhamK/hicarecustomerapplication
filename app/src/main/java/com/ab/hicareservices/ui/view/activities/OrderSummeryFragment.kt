@@ -142,6 +142,7 @@ class OrderSummeryFragment : Fragment() {
             }
 
             override fun onNotifyMeclick(position: Int, productid: ProductListResponseData) {
+
             }
         })
 

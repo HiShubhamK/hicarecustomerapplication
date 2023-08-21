@@ -43,6 +43,7 @@ import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
+import com.ab.hicareservices.databinding.ActivitymycomplaintBinding
 import com.ab.hicareservices.databinding.FragmentOrdersNewBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
@@ -71,7 +72,7 @@ import java.util.concurrent.Executors
 class ComplaintsActivityNew : AppCompatActivity() {
 
     private val TAG = "ComplaintsActivityNew"
-    lateinit var binding: FragmentOrdersNewBinding
+    lateinit var binding: ActivitymycomplaintBinding
     private val viewModel: OrdersViewModel by viewModels()
     private lateinit var mAdapter: OrdersAdapter
     private lateinit var nAdapter: OrderMenuAdapter
@@ -87,7 +88,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentOrdersNewBinding.inflate(layoutInflater)
+        binding = ActivitymycomplaintBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)

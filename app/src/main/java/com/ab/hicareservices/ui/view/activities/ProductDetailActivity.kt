@@ -238,7 +238,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
             binding.tvProductName.text =
-                it.ProductDetails!!.ProductName + " (" + it.ProductDetails!!.ProductCode + ")"
+                it.ProductDetails!!.ProductName
             binding.tvCategory.text =
                 it.ProductDetails!!.ProductSEOCategory.toString()
             binding.tvCategory.text =

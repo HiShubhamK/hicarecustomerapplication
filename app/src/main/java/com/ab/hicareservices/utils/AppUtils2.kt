@@ -54,6 +54,8 @@ object AppUtils2 {
     var socialmedia = ArrayList<SocialMediadata>()
     var servicetype=ArrayList<String>()
 
+    var fromdasboardmenu:Boolean=false
+
 
 
     @JvmStatic

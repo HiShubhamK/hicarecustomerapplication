@@ -20,6 +20,7 @@ import com.ab.hicareservices.ui.adapter.ViewPagerAdapter
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import org.json.JSONObject
 
 
@@ -35,6 +36,7 @@ class MyOrderActivityNew : AppCompatActivity() {
     lateinit var orderactivityforadapter: FragmentActivity
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
+
 
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -53,6 +55,10 @@ class MyOrderActivityNew : AppCompatActivity() {
         mobile = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        AppUtils2.fromdasboardmenu=true
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
         setupViewPager()
     }
 

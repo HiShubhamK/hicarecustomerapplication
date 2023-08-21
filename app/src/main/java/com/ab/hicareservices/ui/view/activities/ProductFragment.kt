@@ -238,6 +238,15 @@ class ProductFragment : Fragment() {
         mAdapter = ProductAdapter()
 
         binding.recycleviewproduct.adapter = mAdapter
+        viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+            if (it.IsSuccess == true) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Thank You! For Notifying Us",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
 
         Handler(Looper.getMainLooper()).postDelayed({
 
@@ -311,6 +320,31 @@ class ProductFragment : Fragment() {
             }
 
             override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+                val data = HashMap<String, Any>()
+                data["Id"] = 0
+                data["Mobile_No"] = AppUtils2.mobileno
+                data["Event_Source"] = "Product"
+                data["Event_Type"] = "Out of stock"
+                data["Reference_Id"] = response.ProductId.toString()
+                data["Additional_Data"] = "Product|"+response.ProductId.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+response.ProductThumbnail
+                data["NextNotified_On"] = getCurrentDate()
+                data["Is_Notify"] = true
+                data["Created_By"] =0
+                data["Created_On"] =getCurrentDate()
+                data["Notification_Tag"] ="string"
+                data["Notification_Title"] ="string"
+                data["Notification_Body"] ="string"
+                viewProductModel.CreateEventForMobileAppNotification(data)
+
+                viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+                    if (it.IsSuccess == true) {
+                        Toast.makeText(
+                            requireActivity(),
+                            "Thank You! For Notifying Us",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
 //                {
 //                    "Id": 0,
 //                    "Mobile_No": "string",

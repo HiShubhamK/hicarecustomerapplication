@@ -147,6 +147,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 }
                 R.id.nav_orders -> {
                     binding.addFab.visibility = View.GONE
+                    AppUtils2.fromdasboardmenu=false
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragmentNew.newInstance())
                         .addToBackStack("OrdersFragmentNew").commit()

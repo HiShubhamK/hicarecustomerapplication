@@ -62,7 +62,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             if (productlists.StockCount!!.toInt()<=0||productlists.IsStockAvailable==false){
-                holder.itemView.isEnabled=false
+                holder.itemView.isEnabled=true
                 holder.binding.btnaddtocart.text = "Notify Me!"
                 holder.binding.btnaddtocart.setOnClickListener {
                     onProductClickedHandler?.onNotifyMeclick(position,productlists)
