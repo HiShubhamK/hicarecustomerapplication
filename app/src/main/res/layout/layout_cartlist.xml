@@ -130,6 +130,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/crdbtnplusminus"
                     android:backgroundTint="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,6 +191,27 @@
 
                 </androidx.cardview.widget.CardView>
 
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/outofstocks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:background="#f6f6f6"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Out of Stock"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textStyle=""
+                        android:layout_gravity="center"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 <!--                <ImageView-->
 <!--                    android:id="@+id/imgdelete"-->

@@ -38,7 +38,6 @@ class AddressActivity : AppCompatActivity() {
     var pincodeshipping=""
     var pincode: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address)
@@ -131,7 +130,22 @@ class AddressActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }else{
-                Toast.makeText(this,"Invalid pincode selected",Toast.LENGTH_LONG).show()
+                if (billingdata.equals("")) {
+                    billingdata = shippingdata
+                    SharedPreferenceUtil.setData(this,"Billingdata",billingdata)
+
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                    intent.putExtra("Billdata", billingdata)
+                    intent.putExtra("Shipdata", shippingdata)
+                    startActivity(intent)
+                }
+
+//                Toast.makeText(this,"Invalid pincode selected",Toast.LENGTH_LONG).show()
             }
         }
 
@@ -183,6 +197,9 @@ class AddressActivity : AppCompatActivity() {
                     binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
                             it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
                     pincodeshipping=it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
+                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
                     break
                 }
                 else if(it.get(i).IsDefault==true){
@@ -191,6 +208,9 @@ class AddressActivity : AppCompatActivity() {
                     pincodeshipping=it.get(i).Pincode.toString()
                     SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
                     shippingdata=it.get(i).Id.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
+                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
                     break
                 }
                 else{
@@ -199,6 +219,9 @@ class AddressActivity : AppCompatActivity() {
                     pincodeshipping=it.get(i).Pincode.toString()
                     SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
                     shippingdata=it.get(i).Id.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
+                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
                     break
                 }
             }

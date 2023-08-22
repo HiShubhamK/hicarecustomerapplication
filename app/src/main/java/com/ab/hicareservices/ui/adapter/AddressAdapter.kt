@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddressActivity
 import com.ab.hicareservices.ui.view.activities.AddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 
 class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
@@ -59,7 +61,12 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
             }
 
             holder.itemView.setOnClickListener {
-                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id, true)
+                onAddressClickedHandler!!.setItemClickLister(
+                    position,
+                    cutomeraddressdata.Id,
+                    true,
+                    cutomeraddressdata.Pincode.toString()
+                )
             }
 
             holder.binding.txtusername.text = cutomeraddressdata.Id.toString()
@@ -83,10 +90,16 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
             }
 
             holder.itemView.setOnClickListener {
+                AppUtils2.pincode=cutomeraddressdata.Pincode.toString()
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "pincode",
+                    cutomeraddressdata.Pincode.toString()
+                )
                 val intent= Intent(requireActivity, AddressActivity::class.java)
                 requireActivity.startActivity(intent)
                 requireActivity.finish()
-                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false)
+                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false,cutomeraddressdata.Pincode.toString())
             }
 
             holder.binding.txtusername.text = cutomeraddressdata.Id.toString()

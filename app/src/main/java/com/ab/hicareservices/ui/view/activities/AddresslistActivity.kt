@@ -90,8 +90,10 @@ class AddresslistActivity : AppCompatActivity() {
 
             }
 
-            override fun setItemClickLister(position: Int, id: Int?, b: Boolean) {
+            override fun setItemClickLister(position: Int, id: Int?, b: Boolean, toString: String) {
                 if(b==true){
+                    SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode","")
+                    SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode",toString)
                     AppUtils2.shippingdata=id.toString()
                     SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
                     val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
@@ -103,7 +105,6 @@ class AddresslistActivity : AppCompatActivity() {
                 }
 
             }
-
 
         })
 

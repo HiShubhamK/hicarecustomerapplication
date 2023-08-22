@@ -54,11 +54,24 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 
         val productlists = productlist[position]
 
-        holder.binding.textcount.text= productlists.Quantity!!.toInt().toString()
+        if (productlists.StockStatus != null) {
+            if (productlists.StockStatus!! > 0) {
+                holder.binding.crdbtnplusminus.visibility = View.VISIBLE
+                holder.binding.outofstocks.visibility = View.GONE
+            } else {
+                holder.binding.crdbtnplusminus.visibility = View.GONE
+                holder.binding.outofstocks.visibility = View.VISIBLE
+            }
+        } else {
+
+        }
+
+        holder.binding.textcount.text = productlists.Quantity!!.toInt().toString()
         counts = productlists.Quantity!!.toInt()
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
 //        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
-        Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
+        Glide.with(requireActivity).load(productlists.ProductThumbnail)
+            .into(holder.binding.imgthumbnail)
         holder.binding.txtname.text = productlists.ProductName
         holder.binding.ratingbar.rating = productlists.ProductRating!!.toFloat()
         val drawable: Drawable = holder.binding.ratingbar.getProgressDrawable()
@@ -95,7 +108,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             progressDialog.setCancelable(false)
             counts = counts + 1
             if (counts > 1) {
-               Toast.makeText(requireActivity, "Product Added to Cart", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity, "Product Added to Cart", Toast.LENGTH_SHORT).show()
                 holder.binding.textcount.text = counts.toString()
                 holder.binding.imgremove.isEnabled = true
                 holder.binding.imgremove.isClickable = true
@@ -108,8 +121,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             } else if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
                 holder.binding.imgadd.isClickable = false
                 progressDialog.dismiss()
-            }else {
-                counts=1
+            } else {
+                counts = 1
                 holder.binding.textcount.text = counts.toString()
             }
 
@@ -123,7 +136,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             progressDialog.setCancelable(false)
             if (counts == 1) {
                 counts = counts - 1
-                counts=1
+                counts = 1
                 holder.binding.textcount.text = "1"
                 holder.binding.imgremove.isEnabled = false
 //                onCartClickedHandler!!.setonaddclicklistener(
@@ -133,12 +146,13 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
 //                )
                 progressDialog.dismiss()
             } else if (counts < 1) {
-                counts=1
+                counts = 1
                 holder.binding.textcount.text = "1"
                 holder.binding.imgremove.isEnabled = false
                 progressDialog.dismiss()
-            } else if (counts > 1){
-                Toast.makeText(requireActivity, "Product Removed from Cart", Toast.LENGTH_SHORT).show()
+            } else if (counts > 1) {
+                Toast.makeText(requireActivity, "Product Removed from Cart", Toast.LENGTH_SHORT)
+                    .show()
                 counts = counts - 1
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(
@@ -147,11 +161,11 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                     -1, holder.binding.imgremove
                 )
                 progressDialog.dismiss()
-            }else{
-                counts=1
-                holder.binding.imgremove.isEnabled=false
-                holder.binding.imgremove.isClickable=false
-                holder.binding.imgremove.isEnabled=true
+            } else {
+                counts = 1
+                holder.binding.imgremove.isEnabled = false
+                holder.binding.imgremove.isClickable = false
+                holder.binding.imgremove.isEnabled = true
                 holder.binding.imgadd.isClickable = true
             }
             if (counts <= productlists.MaximumBuyQuantity!!.toInt()) {
