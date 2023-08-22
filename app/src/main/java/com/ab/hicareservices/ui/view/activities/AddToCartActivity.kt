@@ -180,7 +180,7 @@ class AddToCartActivity : AppCompatActivity() {
         })
 
 //        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(),AppUtils2.pincode)
     }
 
     fun getSummarydata() {

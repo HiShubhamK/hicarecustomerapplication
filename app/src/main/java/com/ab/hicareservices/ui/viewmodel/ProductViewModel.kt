@@ -143,8 +143,8 @@ class ProductViewModel: ViewModel() {
         })
     }
 
-    fun getProductCartByUserId(userid: Int){
-        val response = repository.getProductCartByUserId(userid)
+    fun getProductCartByUserId(userid: Int,pincode: String){
+        val response = repository.getProductCartByUserId(userid,pincode)
         response.enqueue(object : Callback<CartlistResponse>{
             override fun onResponse(call: Call<CartlistResponse>, response: Response<CartlistResponse>) {
                 if(response.body()!!.IsSuccess==true) {

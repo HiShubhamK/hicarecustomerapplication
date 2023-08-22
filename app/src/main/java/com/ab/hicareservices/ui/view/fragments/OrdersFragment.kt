@@ -58,7 +58,6 @@ import java.util.Calendar
         }
     )
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -66,7 +65,6 @@ import java.util.Calendar
 
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -175,19 +173,13 @@ import java.util.Calendar
                 binding.recyclerView2.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
             }
-
-//            this.progressDialog.dismiss()
-            //            binding.recyclerView2.visibility = View.VISIBLE
         })
 
-
         viewModel.responseMessage.observe(requireActivity(), Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.textnotfound.visibility = View.VISIBLE
             binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
-
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
             if (it != null) {
@@ -261,18 +253,6 @@ import java.util.Calendar
                 intent.putExtra("ServiceCenterId", ServiceCenterId)
 
                 startActivity(intent)
-
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(
-//                        R.id.container, OrderDetailsFragment.newInstance(
-//                            orderNo,
-//                            serviceType,
-//                            service_url_image,
-//                            locationLatitudeS,
-//                            locationLongitudeS,
-//                            ServiceCenterId
-//                        )
-//                    ).addToBackStack("OrdersFragment").commit()
 
             }
 

@@ -94,8 +94,7 @@ class OrderSummeryFragment : Fragment() {
             override fun onProductView(position: Int, ordersummerydata: OrderSummeryData) {
                 try {
                     if (ordersummerydata != null) {
-                        val intent =
-                            Intent(requireActivity(), ProductSummaryDetailActivity::class.java)
+                        val intent = Intent(requireActivity(), ProductSummaryDetailActivity::class.java)
                         intent.putExtra("OrderId", ordersummerydata.Id.toString())
                         intent.putExtra("ProductId", ordersummerydata.ProductId.toString())
                         intent.putExtra("CustomerId", ordersummerydata.CustomerId.toString())
