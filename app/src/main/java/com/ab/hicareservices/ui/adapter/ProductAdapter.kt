@@ -62,7 +62,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             }
 
             if (productlists.StockCount!!.toInt()<=0||productlists.IsStockAvailable==false){
-                holder.itemView.isEnabled=true
+//                holder.itemView.isEnabled=true
                 holder.binding.btnaddtocart.text = "Notify Me!"
                 holder.binding.btnaddtocart.setOnClickListener {
                     onProductClickedHandler?.onNotifyMeclick(position,productlists)
@@ -77,12 +77,13 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
                 }
 
-                holder.itemView.setOnClickListener {
-                    val intent= Intent(requireActivity,ProductDetailActivity::class.java)
-                    intent.putExtra("productid",productlists.ProductId.toString())
-                    requireActivity.startActivity(intent)
-                }
+
             }
+        holder.itemView.setOnClickListener {
+            val intent= Intent(requireActivity,ProductDetailActivity::class.java)
+            intent.putExtra("productid",productlists.ProductId.toString())
+            requireActivity.startActivity(intent)
+        }
 
 
 //        }else{
