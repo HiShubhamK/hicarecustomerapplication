@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_blue_grey_50"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/headerView"
@@ -83,8 +82,27 @@
     </RelativeLayout>
 
 
-
-
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/lato_semibold"
+        android:gravity="center"
+        android:text="Add Complaints"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:icon="@drawable/ic_baseline_add_24"
+        app:iconTint="@color/white" />
     <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content">-->

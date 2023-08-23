@@ -79,7 +79,6 @@ class OrderSummeryFragment : Fragment() {
 
         viewProductModel.getordersummeryList.observe(requireActivity(), Observer {
 
-
             mAdapter.setProductList(it, requireActivity(), viewProductModel)
 
         })

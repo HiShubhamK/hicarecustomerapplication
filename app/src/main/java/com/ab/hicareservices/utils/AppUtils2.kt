@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.ab.hicareservices.data.model.dashboard.SocialMediadata
 import com.ab.hicareservices.data.model.getslots.TimeSlot
+import com.ab.hicareservices.data.model.orders.OrdersData
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.product.ProducDetailsData
 import com.ab.hicareservices.data.model.product.ProductGallery
@@ -19,7 +21,7 @@ import kotlin.collections.ArrayList
 object AppUtils2 {
 
     var TOKEN = ""
-        var NotificationChannelid = ""
+    var NotificationChannelid = ""
     var mobileno=""
     var order_number=""
     var ServiceDate=""
@@ -53,7 +55,11 @@ object AppUtils2 {
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
     var socialmedia = ArrayList<SocialMediadata>()
     var servicetype=ArrayList<String>()
-
+    lateinit var datalist: MutableList<OrdersData>
+    lateinit var Spinnerlist: ArrayList<String>
+    var getsummarydata = ArrayList<OrderSummeryData>()
+    lateinit var Spinnerlistproduct: ArrayList<String>
+    lateinit var SpinnerlistSelect: ArrayList<String>
 
 
     @JvmStatic

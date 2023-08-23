@@ -96,6 +96,7 @@ class AddProductComplaintsActivity : AppCompatActivity() {
     private lateinit var imageuri2: Uri
     private lateinit var imageuri3: Uri
     lateinit var progressDialog: ProgressDialog
+    var Iscomplaintactivity = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,15 +116,89 @@ class AddProductComplaintsActivity : AppCompatActivity() {
         Created_On = intent.getStringExtra("Created_On").toString()
         Complaint_Status = intent.getStringExtra("Complaint_Status").toString()
         OrderId = intent.getStringExtra("OrderId").toString()
+        Iscomplaintactivity = intent.getBooleanExtra("complaintactivity", false)
         OrderValuePostDiscount = intent.getStringExtra("OrderValuePostDiscount").toString()
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         AppUtils2.cutomername = SharedPreferenceUtil.getData(this, "FirstName", "").toString()
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
         AppUtils2.customeremail = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
-        binding.tvProductName.text = displayname
-        binding.tvOrderdate.text = AppUtils2.formatDateTime4(Created_On)
+        if (Iscomplaintactivity == true) {
+            binding.servicetypes.visibility = View.VISIBLE
+        } else {
+            binding.servicetypes.visibility = View.GONE
+        }
 
+
+        val arrayAdapter = object : ArrayAdapter<String>(
+            this@AddProductComplaintsActivity,
+            R.layout.spinner_layout_new,
+            AppUtils2.Spinnerlistproduct
+        ) {
+            override fun isEnabled(position: Int): Boolean {
+                return position != 0
+            }
+
+            override fun getDropDownView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup
+            ): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                val tv = view as TextView
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY)
+                } else {
+                    tv.setTextColor(Color.BLACK)
+                }
+                return view
+            }
+        }
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
+        binding.spinnerLead.adapter = arrayAdapter
+
+        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                var selectspinner = binding.spinnerLead.selectedItem.toString()
+                for (i in 0 until AppUtils2.getsummarydata.size) {
+                    if (AppUtils2.getsummarydata.get(i).ProductDisplayName.equals(selectspinner)) {
+                        binding.tvProductName.text = AppUtils2.getsummarydata.get(i).ProductDisplayName
+                        binding.tvOrderdate.text = AppUtils2.formatDateTime4(AppUtils2.getsummarydata.get(i).OrderDate.toString())
+                        ProductId = AppUtils2.getsummarydata.get(i).ProductId.toString()
+                        orderNo = AppUtils2.getsummarydata.get(i).OrderNumber.toString()
+                        OrderId=AppUtils2.getsummarydata.get(i).Id.toString()
+                        Created_On=AppUtils2.getsummarydata.get(i).OrderDate.toString()
+                        OrderValuePostDiscount = AppUtils2.getsummarydata.get(i).OrderValuePostDiscount.toString()
+                        Complaint_Status = AppUtils2.getsummarydata.get(i).OrderStatus.toString()
+                        binding.bottomheadertext.text=AppUtils2.getsummarydata.get(i).OrderNumber
+                        break
+                    }
+                }
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        binding.tvProductName.text = displayname
+        if (Created_On.equals("")) {
+            binding.tvOrderdate.text = ""
+        } else {
+            binding.tvOrderdate.text = AppUtils2.formatDateTime4(Created_On)
+        }
 
 //        captureby = intent.getStringExtra("captureby").toString()
 
@@ -227,25 +302,34 @@ class AddProductComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "") {
-                    addComplaint(
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" ) {   //&& selectedCType != ""
+                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, "Please fill complaint details properly.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Please fill complaint details properly.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
-                    && selectedCType != "") {
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") { //&& selectedCType != ""
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(
+                        this,
+                        "Please fill data properly.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            }        }
+            }
+        }
         binding.lnrUpload.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)

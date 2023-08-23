@@ -91,7 +91,8 @@ class AddComplaintsActivity : AppCompatActivity() {
     private lateinit var imageuri2: Uri
     private lateinit var imageuri3: Uri
     lateinit var progressDialog: ProgressDialog
-
+    var checkformactivity=false
+    var selectspinner=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,14 +107,78 @@ class AddComplaintsActivity : AppCompatActivity() {
         val intent = intent
         orderNo = intent.getStringExtra("orderNo").toString()
         getServiceType = intent.getStringExtra("serviceType").toString()
-
+        checkformactivity = intent.getBooleanExtra("complaint",false)
         service_url_image = intent.getStringExtra("service_url_image").toString()
 //        captureby = intent.getStringExtra("captureby").toString()
 
+        if(checkformactivity==true){
+            binding.servicetypes.visibility=View.VISIBLE
+        }else{
+            binding.servicetypes.visibility=View.GONE
+        }
+
+
+        val arrayAdapter = object : ArrayAdapter<String>(
+            this@AddComplaintsActivity,
+            R.layout.spinner_layout_new,
+            AppUtils2.Spinnerlist
+        ) {
+            override fun isEnabled(position: Int): Boolean {
+                return position != 0
+            }
+
+            override fun getDropDownView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup
+            ): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                val tv = view as TextView
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY)
+                } else {
+                    tv.setTextColor(Color.BLACK)
+                }
+                return view
+            }
+        }
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
+        binding.spinnerLead.adapter = arrayAdapter
+
+        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                selectspinner = binding.spinnerLead.selectedItem.toString()
+                Toast.makeText(this@AddComplaintsActivity,AppUtils2.datalist.size.toString(),Toast.LENGTH_SHORT).show()
+                    for (i in 0 until AppUtils2.datalist.size) {
+                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                            getServiceType=AppUtils2.datalist.get(i).ServiceType.toString()
+                            service_url_image = AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+                            binding.bottomheadertext.text=AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                            break
+                        }
+                    }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+
+
+        for (i in 0 until AppUtils2.datalist.size) {
+            if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+                orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                getServiceType=AppUtils2.datalist.get(i).ServiceType.toString()
+                service_url_image = AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+                binding.bottomheadertext.text=AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                break
+            }
+        }
+
         val extrass = getIntent().extras
-
-
-
         arraylistImages = ArrayList()
         arraylistImages.add(0, "")
         arraylistImages.add(1, "")
@@ -126,40 +191,13 @@ class AddComplaintsActivity : AppCompatActivity() {
             binding.bottomheadertext.text = orderNo
         } else {
             binding.bottomheadertext.visibility = View.GONE
-            binding.bottomheadertext.text = orderNo
         }
-
 
         val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
 
 
-//        if (img1 != null && !img1.equals("")) {
-//            binding.lnrUpload.visibility = View.GONE
-//            binding.lnrImage.visibility = View.VISIBLE
-//            Picasso.get().load(img1).into(binding.imgUploadedCheque)
-//        } else {
-//            binding.relPhoto.visibility = View.VISIBLE
-//        }
-
 
         val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
-
-//        Picasso.get().load(img2).into(binding.imgUploadedCheque2)
-
-//        if (img2 != null && !img2.equals("")) {
-//            binding.lnrUpload2.visibility = View.GONE
-//            binding.lnrImage2.visibility = View.VISIBLE
-//            Picasso.get().load(img2).into(binding.imgUploadedCheque2)
-//        } else {
-//            binding.relPhoto2.visibility = View.VISIBLE
-//        }
-
-//        arraylistImages.add(img1)
-//        arraylistImages.add(img2)
-//        arraylistImages.add(img3)
-//        arraylistImages.add(img4)
-//        arraylistImages.add(img5)
-
 
         typeHash = HashMap()
         binding.imgLogo.setOnClickListener {
@@ -169,10 +207,6 @@ class AddComplaintsActivity : AppCompatActivity() {
             SharedPreferenceUtil.setData(this, "Image2", "").toString()
         }
 
-
-        //serviceType = "pest"
-//        getFromServiceType()
-        //getComplaintReason(serviceType)
 
         binding.complaintSpnType.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -184,7 +218,6 @@ class AddComplaintsActivity : AppCompatActivity() {
                             getSubTypeFromType()
                         }
                     }
-                    //Log.d("TAG", selectedType)
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -197,7 +230,6 @@ class AddComplaintsActivity : AppCompatActivity() {
                 if (selectedType != "None" || selectedType.equals("Complaint Sub Type", true)) {
                     selectedCSubType = selectedType
                 }
-                //Log.d("TAG", selectedType)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -205,12 +237,11 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            val orderNo = binding.bottomheadertext.text.toString().trim()
             val serviceNo = binding.serviceNoEt.text.toString().trim()
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != ""&& selectedCType != "Complaint Type") {
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" ) { //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
@@ -219,13 +250,13 @@ class AddComplaintsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""
-                    && selectedCType != ""&& selectedCType != "Complaint Type") {
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""){    //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
+                    Toast.makeText(this,orderNo,Toast.LENGTH_LONG).show()
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -453,6 +484,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                 try {
                     if (it != "") {
 
+
 //                    binding.lnrImage.visibility = View.VISIBLE
 //                    binding.lnrUpload.visibi lity = View.GONE
 //                    Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
@@ -667,8 +699,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                 Log.d("TAG", typeHash.toString())
                 initArrayAdapter(serviceType, type, subtype)
             } else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
         complaintViewModel.getComplaintReasons(serviceType)
@@ -699,6 +730,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         complaintViewModel.createComplaintResponse.observe(this, {
             if (it.isSuccess == true) {
                 finish()
+                progressDialog.dismiss()
                 Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()

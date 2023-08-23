@@ -3,8 +3,6 @@ package com.ab.hicareservices.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.OrderSummeryFragment
 import com.ab.hicareservices.ui.view.fragments.ComplaintFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.ProductComplaintsFragment
