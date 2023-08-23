@@ -68,7 +68,8 @@
                 android:gravity="end"
                 android:text="Help"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
