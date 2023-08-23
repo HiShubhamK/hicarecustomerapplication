@@ -61,6 +61,9 @@ object AppUtils2 {
     lateinit var Spinnerlistproduct: ArrayList<String>
     lateinit var SpinnerlistSelect: ArrayList<String>
 
+    var fromdasboardmenu:Boolean=false
+
+
 
     @JvmStatic
     fun startPayment(activity: Activity) {

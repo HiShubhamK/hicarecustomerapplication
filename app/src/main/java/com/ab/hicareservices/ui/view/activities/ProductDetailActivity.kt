@@ -47,6 +47,7 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -158,12 +159,83 @@ class ProductDetailActivity : AppCompatActivity() {
             RecyclerView.State(),
             binding.recFAQ.adapter!!.itemCount
         )
+        viewProductModel.CreateEventNotificationResponse.observe(this@ProductDetailActivity, Observer {
+            if (it.IsSuccess == true) {
+                Toast.makeText(
+                    this@ProductDetailActivity,
+                    "Thank You! For Notifying Us",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
 
         viewProductModel.producDetailsResponse.observe(this, Observer {
 
 
             var maxquantity = it.ProductConfiguration!!.MaximumBuyQuantity
             var productid = it.ProductConfiguration!!.ProductId
+            if (it.ProductConfiguration!!.StockCount!!.toInt()<=0||it.ProductConfiguration!!.IsStockAvailable==false){
+                binding.tvAddToCart.visibility=View.GONE
+                binding.lnrDetailCount.visibility=View.GONE
+                binding.btnNotifyMe.visibility=View.VISIBLE
+                var productid=it.ProductDetails!!.Id
+                var productthmbnail=it.ProductConfiguration!!.ProductThumbnail
+
+                binding.btnNotifyMe.setOnClickListener {
+//
+                    val data = HashMap<String, Any>()
+                    data["Id"] = 0
+                    data["Mobile_No"] = AppUtils2.mobileno
+                    data["Event_Source"] = "Product"
+                    data["Event_Type"] = "Out of stock"
+                    data["Reference_Id"] = productid.toString()
+                    data["Additional_Data"] = "Product|"+productid.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+productthmbnail
+                    data["NextNotified_On"] = getCurrentDate()
+                    data["Is_Notify"] = true
+                    data["Created_By"] =0
+                    data["Created_On"] =getCurrentDate()
+                    data["Notification_Tag"] ="string"
+                    data["Notification_Title"] ="string"
+                    data["Notification_Body"] ="string"
+                    viewProductModel.CreateEventForMobileAppNotification(data)
+                }
+
+
+            }else {
+                binding.tvAddToCart.visibility=View.VISIBLE
+                binding.btnNotifyMe.visibility=View.GONE
+                binding.lnrDetailCount.visibility=View.VISIBLE
+                binding.tvAddToCart.setOnClickListener {
+//                if (binding.tvAddToCart.text == "Goto Cart") {
+//                    val intent = Intent(this, AddToCartActivity::class.java)
+//                    startActivity(intent)
+//                } else {
+                    Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+
+                    viewProductModel.addtocart.observe(this, Observer {
+                        if (it.IsSuccess == true) {
+                            getSummarydata()
+//                            binding.tvAddToCart.text = "Goto Cart"
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Something went wrong! Unable to add product into cart",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    })
+
+                    viewProductModel.getAddProductInCart(
+                        counts,
+                        productid!!.toInt(),
+                        AppUtils2.customerid.toInt()
+                    )
+//                }
+                }
+
+            }
             if (it.ProductTestimonialList != null) {
                 if (it.ProductTestimonialList.isEmpty()){
                     binding.lnrCustomerReview.visibility=View.GONE
@@ -238,7 +310,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
             binding.tvProductName.text =
-                it.ProductDetails!!.ProductName + " (" + it.ProductDetails!!.ProductCode + ")"
+                it.ProductDetails!!.ProductName
             binding.tvCategory.text =
                 it.ProductDetails!!.ProductSEOCategory.toString()
             binding.tvCategory.text =
@@ -301,34 +373,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.lnrMoreItem.visibility = View.GONE
                 binding.tvProductdescLong.visibility = View.GONE
             }
-            binding.tvAddToCart.setOnClickListener {
-//                if (binding.tvAddToCart.text == "Goto Cart") {
-//                    val intent = Intent(this, AddToCartActivity::class.java)
-//                    startActivity(intent)
-//                } else {
-                Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
 
-                viewProductModel.addtocart.observe(this, Observer {
-                        if (it.IsSuccess == true) {
-                            getSummarydata()
-//                            binding.tvAddToCart.text = "Goto Cart"
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "Something went wrong! Unable to add product into cart",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
-                    })
-
-                    viewProductModel.getAddProductInCart(
-                        counts,
-                        productid!!.toInt(),
-                        AppUtils2.customerid.toInt()
-                    )
-//                }
-            }
 
 
             if (counts == 1) {
@@ -362,6 +407,7 @@ class ProductDetailActivity : AppCompatActivity() {
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
             progressDialog.dismiss()
         })
+
 
 
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
@@ -569,5 +615,9 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         })
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+    }
+    private fun getCurrentDate(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        return sdf.format(Date())
     }
 }

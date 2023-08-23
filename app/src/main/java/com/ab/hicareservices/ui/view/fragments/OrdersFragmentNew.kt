@@ -24,6 +24,7 @@ import com.ab.hicareservices.ui.adapter.ViewPagerAdapter
 import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderSummeryFragment
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import org.json.JSONObject
 
 
@@ -80,7 +81,15 @@ class OrdersFragmentNew() : Fragment() {
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        if (AppUtils2.fromdasboardmenu==false){
+            binding.headerView.visibility=View.VISIBLE
+
+        }else{
+            binding.headerView.visibility=View.GONE
+
+        }
         setupViewPager()
+
     }
 
     override fun onDestroy() {

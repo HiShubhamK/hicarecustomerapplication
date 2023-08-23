@@ -91,7 +91,7 @@
                         android:layout_height="22dp"
                         android:fontFamily="@font/lato_semibold"
                         android:paddingTop="5dp"
-                        android:text="Qty:"
+                        android:text="Qty: "
                         android:gravity="start"
                         android:textColor="@color/black"
                         android:textSize="13sp" />

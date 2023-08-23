@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.view.activities.ProductDetailActivity">
 
     <RelativeLayout
@@ -119,12 +119,12 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:paddingHorizontal="5dp"
         android:id="@+id/lnrData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/headerView"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -244,6 +244,7 @@
                 </View>
 
                 <LinearLayout
+                    android:id="@+id/lnrDetailCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -344,8 +345,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:background="#f6f6f6"
+                                android:gravity="center"
                                 android:src="@drawable/ic_baseline_remove_24" />
 
                             <TextView
@@ -363,8 +364,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:background="#f6f6f6"
+                                android:gravity="center"
 
                                 android:src="@drawable/ic_baseline_add_24" />
 
@@ -375,24 +376,34 @@
                 </LinearLayout>
 
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/lnrBottom"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:background="@color/colorAccent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="horizontal">-->
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/lnrBottom"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="40dp"-->
+                <!--                    android:background="@color/colorAccent"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal">-->
 
-                    <Button
-                        android:layout_gravity="bottom"
-                        android:id="@+id/tvAddToCart"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:gravity="center"
-                        android:text="Add To Cart"
-                        android:textColor="@color/white" />
+                <Button
+                    android:id="@+id/tvAddToCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="Add To Cart"
+                    android:textColor="@color/white" />
 
-<!--                </LinearLayout>-->
+                <Button
+                    android:id="@+id/btnNotifyMe"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="Notify Me"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <!--                </LinearLayout>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -426,8 +437,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/lato_regular"
                     android:textColor="@color/black"
-                    android:background="@color/white"                    android:fontFamily="@font/lato_regular"
                     android:textSize="14sp">
 
                 </TextView>
@@ -470,9 +482,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="@color/black"
                         android:background="@color/white"
                         android:fontFamily="@font/lato_regular"
+                        android:textColor="@color/black"
                         android:textSize="14sp">
 
                     </TextView>
@@ -552,31 +564,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginHorizontal="5dp"
-                        android:fontFamily="@font/lato_semibold"
-                        android:padding="5dp"
-                        android:text="FAQ"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16dp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="5dp"
-                        android:background="@color/grey">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginHorizontal="5dp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:padding="5dp"
+                            android:text="FAQ"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16dp" />
 
-                    </View>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="5dp"
+                            android:background="@color/grey">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recFAQ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp" />
+                        </View>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recFAQ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/lnrRelatedProducts"
                         android:layout_width="match_parent"
