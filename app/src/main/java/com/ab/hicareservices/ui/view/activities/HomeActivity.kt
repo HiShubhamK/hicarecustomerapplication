@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -56,11 +58,28 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     lateinit var datalist: ArrayList<String>
     private val requestCall = 1
     private val viewModels: HomeActivityViewModel by viewModels()
-    private val viewProductModel:ProductViewModel by viewModels()
+    private val viewProductModel: ProductViewModel by viewModels()
     private val viewModelss: OtpViewModel by viewModels()
 
-    var customerid:String=""
-    var  pincode:String?=null
+    var customerid: String = ""
+    var pincode: String? = null
+
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission is granted. Continue the action or workflow in your
+            // app.
+
+        } else {
+            // Explain to the user that the feature is unavailable because the
+            // features requires a permission that the user has denied. At the
+            // same time, respect the user's decision. Don't link to system
+            // settings in an effort to convince the user to change their
+            // decision.
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +90,26 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         datalist.add("Select Type")
         AppUtils2.servicetype.clear()
         AppUtils2.servicetype.add("Select Type")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         MyLocationListener(this)
@@ -85,7 +124,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }, 3000)
 
 
-        viewModelss.validateAccounts(AppUtils2.mobileno,this)
+        viewModelss.validateAccounts(AppUtils2.mobileno, this)
 
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -105,7 +144,18 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         })
 
         Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getNotificationtoken(token.toString(),this,AppUtils2.mobileno)
+            viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
+
+            if (Build.VERSION.SDK_INT >= 33 && (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED) && ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+
+            }
         }, 500)
 
         binding.addFab.visibility = View.VISIBLE
@@ -147,7 +197,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 }
                 R.id.nav_orders -> {
                     binding.addFab.visibility = View.GONE
-                    AppUtils2.fromdasboardmenu=false
+                    AppUtils2.fromdasboardmenu = false
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragmentNew.newInstance())
                         .addToBackStack("OrdersFragmentNew").commit()
@@ -193,14 +243,14 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun getLeadMethod() {
         try {
             viewModels.spinnerList.observe(this, Observer {
-                if(it!=null) {
+                if (it != null) {
                     datalist.addAll(it)
                     AppUtils2.servicetype.addAll(it)
                 }
             })
 
             viewModels.getleaderspinner("pest")
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -355,7 +405,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 viewModels.leadResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
-                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
+                            .show()
                         alertDialog.cancel()
                     } else {
                         alertDialog.cancel()
