@@ -1021,6 +1021,7 @@ class HomeFragment : Fragment() {
                                 requireActivity(),
                                 REQUEST_CODE_PERMISSIONS
                             )
+
                         } catch (e: SendIntentException) {
                             // Ignore the error.
                         } catch (e: ClassCastException) {

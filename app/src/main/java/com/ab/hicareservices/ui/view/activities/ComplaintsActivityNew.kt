@@ -71,8 +71,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
         SpinnerlistSelect.add("Select Complaint")
         SpinnerlistSelect.add("Services")
         SpinnerlistSelect.add("Products")
-        mobile =
-            SharedPreferenceUtil.getData(this@ComplaintsActivityNew, "mobileNo", "-1").toString()
+        mobile = SharedPreferenceUtil.getData(this@ComplaintsActivityNew, "mobileNo", "-1").toString()
 
 
         apicall()
