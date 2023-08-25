@@ -14,9 +14,7 @@ import com.ab.hicareservices.databinding.FragmentOrdersNewBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.adapter.ProductViewPagerAdapter
-import com.ab.hicareservices.ui.adapter.ViewPagerAdapter
 import com.ab.hicareservices.ui.view.activities.HomeActivity
-import com.ab.hicareservices.ui.view.activities.OrderSummeryFragment
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
 

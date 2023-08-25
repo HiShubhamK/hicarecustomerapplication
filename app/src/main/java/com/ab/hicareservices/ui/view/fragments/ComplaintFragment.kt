@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,7 +18,8 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
-import com.ab.hicareservices.ui.view.activities.ComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
+import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 
@@ -31,6 +33,7 @@ class ComplaintFragment() : Fragment() {
     private val viewModeld: OtpViewModel by viewModels()
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +70,17 @@ class ComplaintFragment() : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
         }, 1500)
+
+        binding.addFab.setOnClickListener{
+
+            val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
+            intent.putExtra("complaint",true)
+            intent.putExtra("orderNo", "")
+            intent.putExtra("serviceType", "")
+            intent.putExtra("service_url_image", "")
+            startActivity(intent)
+        }
+
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {

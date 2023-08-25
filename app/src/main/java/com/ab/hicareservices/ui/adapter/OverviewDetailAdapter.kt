@@ -39,6 +39,12 @@ class OverviewDetailAdapter : RecyclerView.Adapter<OverviewDetailAdapter.MainVie
 
         val productlists = productlist[position]
 
+        if(productlists.StockStatus!! >0){
+            holder.binding.outofstocks.visibility=View.GONE
+        }else{
+            holder.binding.outofstocks.visibility=View.VISIBLE
+        }
+
         holder.binding.txtratingvalues.text = productlists.ProductRating.toString()
 //        Picasso.get().load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)
         Glide.with(requireActivity).load(productlists.ProductThumbnail).into(holder.binding.imgthumbnail)

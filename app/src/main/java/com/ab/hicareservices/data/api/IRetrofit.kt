@@ -143,7 +143,7 @@ interface IRetrofit {
     fun getProductCountInCar(@Query("userId") userId: Int): Call<ProductCount>
 
     @GET("Cart/GetProductCartByUserId")
-    fun getProductCartByUserId(@Query("userId") userId: Int): Call<CartlistResponse>
+    fun getProductCartByUserId(@Query("userId") userId: Int,@Query("pincode") pincode:String): Call<CartlistResponse>
 
     @GET("Cart/GetCartSummary")
     fun getCartSummary(

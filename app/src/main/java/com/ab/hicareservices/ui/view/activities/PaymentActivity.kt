@@ -112,8 +112,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         if(product==true){
 
             getSummarydata()
-
-            Handler(Looper.getMainLooper()).postDelayed({
+//
+//            Handler(Looper.getMainLooper()).postDelayed({
 
                 viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
 
@@ -127,7 +127,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 })
 
                 viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
-            },1000)
+//            },1000)
         }else{
 
             viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
@@ -235,7 +235,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", "Product")
-        options.put("order_id", AppUtils2.razorpayorderid)
+        options.put("order_id", AppUtils2.razorpayorderid )
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")

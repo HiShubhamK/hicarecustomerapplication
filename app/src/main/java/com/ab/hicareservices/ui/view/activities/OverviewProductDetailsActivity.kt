@@ -35,6 +35,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     private var longg: String? = ""
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
+    var checkalterbox=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +112,10 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 //                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            ShowCustomeDialog()
+                            if(checkalterbox==false) {
+                                checkalterbox=true
+                                ShowCustomeDialog()
+                            }
 //                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
                     })
@@ -211,7 +215,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt())
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(),AppUtils2.pincode)
     }
 
     fun getSummarydata(toString: String) {
@@ -268,10 +272,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 //                applicationContext,
 //                android.R.string.ok, Toast.LENGTH_SHORT
 //            ).show()
+            checkalterbox=false
             dialog.dismiss()
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            checkalterbox=false
             dialog.dismiss()
         }
 

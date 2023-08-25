@@ -80,6 +80,11 @@ class OTPActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
             == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this@OTPActivity,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+            == PackageManager.PERMISSION_GRANTED
         ) {
             // When permission is granted
             // Call method
@@ -94,7 +99,8 @@ class OTPActivity : AppCompatActivity() {
                 requestPermissions(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.POST_NOTIFICATIONS
                     ),
                     100
                 )

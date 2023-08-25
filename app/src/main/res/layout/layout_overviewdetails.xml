@@ -158,6 +158,28 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/outofstocks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="#f6f6f6"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Out of Stock"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_semibold"
+                            android:textStyle=""
+                            android:layout_gravity="center"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

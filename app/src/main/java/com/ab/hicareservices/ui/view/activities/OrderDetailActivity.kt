@@ -120,7 +120,9 @@ class OrderDetailActivity : AppCompatActivity() {
         }, 500)
 
         binding.help.setOnClickListener {
+
             val intent = Intent(this, AddComplaintsActivity::class.java)
+            intent.putExtra("complaint",false)
             intent.putExtra("orderNo", orderNo)
             intent.putExtra("serviceType", serviceType)
             intent.putExtra("service_url_image", service_url_image)

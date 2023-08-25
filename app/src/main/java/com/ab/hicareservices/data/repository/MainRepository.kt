@@ -41,7 +41,7 @@ class MainRepository {
     fun getProductDetails(productid:Int,pincode:String,customerid:Int)=retrofitProduct.getProductlistbyId(productid,pincode,customerid)
     fun getAddProductInCart(quantity:Int,productid: Int,userId:Int) = retrofitProduct.getAddProductInCart(quantity,productid,userId)
     fun getProductCountInCar(userId: Int)=retrofitProduct.getProductCountInCar(userId)
-    fun getProductCartByUserId(userId: Int)=retrofitProduct.getProductCartByUserId(userId)
+    fun getProductCartByUserId(userId: Int,pincode:String)=retrofitProduct.getProductCartByUserId(userId,pincode)
     fun getCartSummary(userId: Int,pincoode: String,vouchercode:String)=retrofitProduct.getCartSummary(userId,pincoode,vouchercode)
     fun getDeleteProductCart(cartId:Int,userId: Int)=retrofitProduct.getDeleteProductCart(cartId,userId)
     fun postSaveAddress(data: HashMap<String, Any>)=retrofitProduct.postSaveAddress(data)

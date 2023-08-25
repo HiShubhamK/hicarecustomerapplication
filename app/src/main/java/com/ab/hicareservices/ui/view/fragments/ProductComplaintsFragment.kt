@@ -2,8 +2,6 @@ package com.ab.hicareservices.ui.view.fragments
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,15 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityProductComplaintsBinding
-import com.ab.hicareservices.databinding.FragmentOrdersBinding
 import com.ab.hicareservices.ui.adapter.ProductComplaintsAdapter
-import com.ab.hicareservices.ui.view.fragments.AccountFragment
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
+import com.ab.hicareservices.ui.view.activities.AddProductComplaintsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 
-class ProductComplaintsFragment : Fragment() {
+class ProductComplaintsFragment() : Fragment() {
     private val TAG = "ProductComplaintsActivity"
     var mobileNo = ""
     private lateinit var imageList:ArrayList<String>
@@ -38,21 +33,36 @@ class ProductComplaintsFragment : Fragment() {
     private val viewModeld: OtpViewModel by viewModels()
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
 
-
         imageList=ArrayList()
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints()
         }, 500)
+
+        binding.addFab.setOnClickListener{
+            val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
+            try {
+                intent.putExtra("complaintactivity",true)
+                intent.putExtra("ProductId", "")
+                intent.putExtra("orderNo", "")
+                intent.putExtra("displayname", "")
+                intent.putExtra("Created_On", "")
+                intent.putExtra("Complaint_Status","")
+                intent.putExtra("OrderId","")
+                intent.putExtra("OrderValuePostDiscount","")
+                startActivity(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
     }
 
 

@@ -286,6 +286,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.btnNeedhelp.setOnClickListener {
             val intent = Intent(this, AddProductComplaintsActivity::class.java)
             try {
+                intent.putExtra("complaintactivity",false)
                 intent.putExtra("ProductId", productid)
                 intent.putExtra("orderNo", orderNo)
                 intent.putExtra("displayname", ProductDisplayName)
