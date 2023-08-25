@@ -68,6 +68,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private val viewModels: HomeActivityViewModel by viewModels()
     private val viewProductModel: ProductViewModel by viewModels()
     private val viewModelss: OtpViewModel by viewModels()
+    var activiyname=""
 
     var customerid: String = ""
     var pincode: String? = null
@@ -83,6 +84,27 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         datalist.add("Select Type")
         AppUtils2.servicetype.clear()
         AppUtils2.servicetype.add("Select Type")
+
+        val intent = intent
+        activiyname = intent.getStringExtra("Externallink").toString()
+
+
+        if(!AppUtils2.Activityname.equals("") ){
+            try {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(AppUtils2.Activityname)
+                )
+                startActivity(intent)
+            } catch (e: Exception) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(activiyname)
+                    )
+                )
+            }
+        }
 
         MyLocationListener(this)
 

@@ -62,6 +62,7 @@ object AppUtils2 {
     lateinit var SpinnerlistSelect: ArrayList<String>
 
     var fromdasboardmenu:Boolean=false
+    var Activityname=""
 
 
 
