@@ -42,6 +42,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.*
 import com.ab.hicareservices.databinding.FragmentHomeBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
@@ -136,10 +137,8 @@ class HomeFragment : Fragment() {
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
-//
-//        viewModels.validateAccounts(AppUtils2.mobileno, requireActivity())
 
-//        MyLocationListener(requireActivity())
+        MyLocationListener(requireActivity())
 
         client = LocationServices
             .getFusedLocationProviderClient(
@@ -156,6 +155,11 @@ class HomeFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
             == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+            == PackageManager.PERMISSION_GRANTED
         ) {
             // When permission is granted
             // Call method
@@ -170,7 +174,8 @@ class HomeFragment : Fragment() {
                 requestPermissions(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.POST_NOTIFICATIONS
                     ),
                     100
                 )

@@ -1,16 +1,19 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
+import android.app.NotificationManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
+import android.media.audiofx.BassBoost
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +47,11 @@ import com.razorpay.PaymentResultWithDataListener
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Context
+import android.content.Intent
+
+import android.provider.Settings
+import androidx.core.app.NotificationManagerCompat
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private lateinit var binding: ActivityMainBinding
@@ -64,22 +72,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var customerid: String = ""
     var pincode: String? = null
 
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            // Permission is granted. Continue the action or workflow in your
-            // app.
-
-        } else {
-            // Explain to the user that the feature is unavailable because the
-            // features requires a permission that the user has denied. At the
-            // same time, respect the user's decision. Don't link to system
-            // settings in an effort to convince the user to change their
-            // decision.
-        }
-    }
+    private val notificationPermissionRequestCode = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,27 +83,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         datalist.add("Select Type")
         AppUtils2.servicetype.clear()
         AppUtils2.servicetype.add("Select Type")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         MyLocationListener(this)
 
@@ -145,17 +117,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         Handler(Looper.getMainLooper()).postDelayed({
             viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
-
-            if (Build.VERSION.SDK_INT >= 33 && (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED) && ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-
-            }
         }, 500)
 
         binding.addFab.visibility = View.VISIBLE
@@ -231,6 +192,90 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //        }, 1500)
 
     }
+
+//    private fun requestNotificationPermission() {
+//        if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+//            // Notifications are enabled, but permission is missing
+//            // You can show a custom dialog to explain the need for notification permission
+//            // and request the permission using ActivityCompat.requestPermissions()
+//
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+//                notificationPermissionRequestCode
+//            )
+//        } else {
+//            // Notifications are disabled completely, handle accordingly
+//            // You might want to guide the user to enable notifications in settings
+//        }
+//
+//    }
+
+
+
+
+    private fun isNotificationPermissionGranted(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            return notificationManager.areNotificationsEnabled()
+        } else {
+            // For versions prior to Android O, notification permission is granted by default
+            return true
+        }
+    }
+
+//    private fun requestNotificationPermission() {
+//        if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+//            // Notifications are enabled, but permission is missing
+//            // You can show a custom dialog to explain the need for notification permission
+//            // and request the permission using ActivityCompat.requestPermissions()
+//
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.RECEIVE_NOTIFICATIONS),
+//                notificationPermissionRequestCode
+//            )
+//        } else {
+//            // Notifications are disabled completely, handle accordingly
+//            // You might want to guide the user to enable notifications in settings
+//        }
+//    }
+
+
+
+
+
+
+
+
+
+
+
+//    notificaitons
+    private fun requestNotificationPermission() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
+            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+            startActivity(intent)
+        } else {
+            // For versions prior to Android O, no explicit permission is required
+            // You can explain the importance of notifications to the user here
+        }
+    }
+
+    // Handle the result of the notification permission request
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == notificationPermissionRequestCode) {
+            if (isNotificationPermissionGranted()) {
+                // Permission granted, proceed with your logic
+            } else {
+                // Permission denied, you can handle this case accordingly
+            }
+        }
+    }
+
 
     private fun getCustomerAddress() {
         viewProductModel.cutomeraddress.observe(this, Observer {
@@ -444,22 +489,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
-    //
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == requestCall) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall()
-            } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 
     private fun checkUserStatus() {
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
@@ -497,4 +526,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_home
         }
     }
+
+
 }
