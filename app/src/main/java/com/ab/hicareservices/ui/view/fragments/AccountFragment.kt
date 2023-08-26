@@ -14,12 +14,13 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
 import com.ab.hicareservices.ui.view.activities.*
+import com.bumptech.glide.Glide
 
 class AccountFragment : Fragment() {
 
     lateinit var binding: FragmentAccountBinding
-    var mobileno=""
-    var first_name=""
+    var mobileno = ""
+    var first_name = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +40,8 @@ class AccountFragment : Fragment() {
         first_name = SharedPreferenceUtil.getData(requireContext(), "FirstName", "").toString()
         mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "").toString()
 
-        binding.txtusernames.text=first_name.toString()
-        binding.txtUserdetailes.text=mobileno.toString()
+        binding.txtusernames.text = first_name.toString()
+        binding.txtUserdetailes.text = mobileno.toString()
 
 //        binding.edtAccount.setOnClickListener {
 //            requireActivity().supportFragmentManager.beginTransaction()
@@ -49,7 +50,7 @@ class AccountFragment : Fragment() {
 //        }
 
         binding.constraintorderid.setOnClickListener {
-            val intent=Intent(requireActivity(),MyOrderActivity::class.java)
+            val intent = Intent(requireActivity(), MyOrderActivity::class.java)
             startActivity(intent)
 
 //            requireActivity().supportFragmentManager.beginTransaction()
@@ -58,7 +59,7 @@ class AccountFragment : Fragment() {
         }
 
         binding.constraintcomplaints.setOnClickListener {
-            val intent=Intent(requireActivity(),ComplaintsActivityNew::class.java)
+            val intent = Intent(requireActivity(), ComplaintsActivityNew::class.java)
             startActivity(intent)
 
 //            requireActivity().supportFragmentManager.beginTransaction()
@@ -78,9 +79,18 @@ class AccountFragment : Fragment() {
 
         binding.constrainRateus.setOnClickListener {
 //            showRatusdialog()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ab.hicareservices")))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.ab.hicareservices")
+                )
+            )
 
         }
+        Glide.with(this)
+            .load("https://s3.ap-south-1.amazonaws.com/hicare-others/11317e21-4956-4038-8a46-65fba0e1b93d.png")
+            .into(binding.imgHelp)
+
 
         binding.help.setOnClickListener {
             val intent = Intent(requireContext(), ComplaintNewActivity::class.java)
@@ -91,9 +101,9 @@ class AccountFragment : Fragment() {
 //                .addToBackStack("AccountFragment").commit()
         }
 
-        binding.contraintbutton.setOnClickListener{
-            val mobileNumber="9324747360"
-            val message=""
+        binding.contraintbutton.setOnClickListener {
+            val mobileNumber = "9324747360"
+            val message = ""
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://wa.me/9324747360?text=Hello")
@@ -125,10 +135,10 @@ class AccountFragment : Fragment() {
         SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
         SharedPreferenceUtil.setData(requireContext(), "bToken", "")
         SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
-        SharedPreferenceUtil.setData(requireContext(), "pincode","")
-        SharedPreferenceUtil.setData(requireContext(), "customerid","")
-        SharedPreferenceUtil.setData(requireContext(), "FirstName","")
-        SharedPreferenceUtil.setData(requireContext(), "MobileNo","")
+        SharedPreferenceUtil.setData(requireContext(), "pincode", "")
+        SharedPreferenceUtil.setData(requireContext(), "customerid", "")
+        SharedPreferenceUtil.setData(requireContext(), "FirstName", "")
+        SharedPreferenceUtil.setData(requireContext(), "MobileNo", "")
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }
