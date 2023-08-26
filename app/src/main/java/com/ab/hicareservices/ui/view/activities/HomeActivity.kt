@@ -89,7 +89,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         activiyname = intent.getStringExtra("Externallink").toString()
 
 
-        if(!AppUtils2.Activityname.equals("") ){
+        if(!AppUtils2.Activityname.equals("") && AppUtils2.Activityname.startsWith("http")){
             try {
                 val intent = Intent(
                     Intent.ACTION_VIEW,

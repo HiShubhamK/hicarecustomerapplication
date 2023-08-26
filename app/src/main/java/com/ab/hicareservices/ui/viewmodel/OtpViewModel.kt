@@ -70,6 +70,9 @@ class OtpViewModel : ViewModel(){
                 if (response != null && response.body()?.IsSuccess == true) {
                     val body = response.body()
 
+
+
+
                     validateResponses.postValue(response.body())
 
                     AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()
@@ -84,6 +87,8 @@ class OtpViewModel : ViewModel(){
                     SharedPreferenceUtil.setData(context, "FirstName",response.body()?.Data?.ProductCustomerData?.FirstName.toString())
                     SharedPreferenceUtil.setData(context, "MobileNo",response.body()?.Data?.ProductCustomerData?.MobileNo.toString())
                     SharedPreferenceUtil.setData(context, "EMAIL",response.body()?.Data?.ProductCustomerData?.Email.toString())
+
+
 
                     validateAccountListener?.onSuccess(response.body()?.Data!!.Token.toString())
                 }else{
