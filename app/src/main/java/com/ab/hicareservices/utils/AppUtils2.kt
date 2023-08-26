@@ -63,8 +63,8 @@ object AppUtils2 {
 
     var fromdasboardmenu:Boolean=false
     var Activityname=""
-
-
+    var otp=""
+    var checkotptruefalse=false
 
     @JvmStatic
     fun startPayment(activity: Activity) {

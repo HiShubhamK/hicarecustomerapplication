@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Typeface
@@ -11,11 +12,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -28,18 +25,17 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.OTP_Receiver
+import com.ab.hicareservices.utils.SmsBroadcastReceiver
+import com.ab.hicareservices.utils.SmsBroadcastReceiver.SmsBroadcastReceiverListener
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.location.LocationSettingsStatusCodes
+import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import java.util.Locale
+import java.util.*
+import javax.annotation.Nullable
 
 
 class OTPActivity : AppCompatActivity() {
@@ -59,12 +55,17 @@ class OTPActivity : AppCompatActivity() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
     val REQUEST_CODE_PERMISSIONS = 101
+    var smsBroadcastReceiver: SmsBroadcastReceiver? = null
+    private val REQ_USER_CONSENT = 200
+    private val timer = Timer()
+    private var hasStarted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpactivityBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         client = LocationServices
             .getFusedLocationProviderClient(
                 this@OTPActivity
@@ -85,10 +86,22 @@ class OTPActivity : AppCompatActivity() {
                 Manifest.permission.POST_NOTIFICATIONS
             )
             == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this@OTPActivity,
+                Manifest.permission.RECEIVE_SMS
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this@OTPActivity,
+                Manifest.permission.READ_SMS
+            )
+            == PackageManager.PERMISSION_GRANTED
         ) {
             // When permission is granted
             // Call method
             getCurrentLocations()
+//            startSmsRetriever()
+            binding.otpView.setOTP(AppUtils2.otp)
 
         } else {
 //            Toast.makeText( this@OTPActivity,"Not Ok",Toast.LENGTH_LONG).show()
@@ -100,12 +113,23 @@ class OTPActivity : AppCompatActivity() {
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.POST_NOTIFICATIONS
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS
                     ),
                     100
                 )
             }
         }
+
+
+        smsBroadcastReceiver = SmsBroadcastReceiver()
+
+
+//        startSmsRetriever()
+
+
+//        startSmartUserConsent()
 
         val intent = intent
         mobileNo = intent.getStringExtra("mobileNo").toString()
@@ -135,9 +159,14 @@ class OTPActivity : AppCompatActivity() {
         binding.backIv.setOnClickListener {
             finish()
         }
+
+
+        OTP_Receiver().setEditText(binding.otpView,this@OTPActivity,mOtp,mobileNo,viewModel)
+
+
         binding.continueBtn.setOnClickListener {
 
-            if (binding.otpView.otp.toString().equals("")) {
+            if (binding.otpView.otp.toString().equals(AppUtils2.otp)) {
                 Toast.makeText(this, "Please enter OTP", Toast.LENGTH_LONG).show()
                 progressDialog.dismiss()
             } else if (mOtp.equals(binding.otpView.otp.toString())) {
@@ -203,6 +232,88 @@ class OTPActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 Toast.makeText(this, "Invalid OTP", Toast.LENGTH_LONG).show()
             }
+        }
+
+        checkotpsuccessornot()
+
+
+    }
+
+    private fun checkotpsuccessornot() {
+        try {
+
+            hasStarted = true
+            timer.scheduleAtFixedRate(
+                object : TimerTask() {
+                    override fun run() {
+                        if(AppUtils2.checkotptruefalse==true) {
+                            AppUtils2.checkotptruefalse=false
+                            checkStatus(timer)
+                        }
+                    }
+                },
+                0, 15000
+            )
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun checkStatus(timer: Timer) {
+        if (mOtp.equals(binding.otpView.otp.toString())) {
+            viewModel.validateResponses.observe(this, Observer {
+                progressDialog.show()
+                if (it.IsSuccess == true) {
+                    if (timer != null) {
+                        timer.cancel()
+                    }
+                    AppUtils2.TOKEN = it.Data?.Token.toString()
+                    AppUtils2.customerid = it?.Data?.ProductCustomerData?.Id.toString()
+                    SharedPreferenceUtil.setData(this, "bToken", it.Data?.Token.toString())
+                    if (it?.Data?.PestCustomerData?.BillingPostalCode == null) {
+                        SharedPreferenceUtil.setData(this, "pincode", "")
+                    } else {
+                        SharedPreferenceUtil.setData(
+                            this,
+                            "pincode",
+                            it?.Data?.PestCustomerData?.BillingPostalCode.toString()
+                        )
+                    }
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "customerid",
+                        it?.Data?.ProductCustomerData?.Id.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "FirstName",
+                        it?.Data?.ProductCustomerData?.FirstName.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "MobileNo",
+                        it?.Data?.ProductCustomerData?.MobileNo.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "EMAIL",
+                        it?.Data?.ProductCustomerData?.Email.toString()
+                    )
+                    progressDialog.dismiss()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                }
+            })
+            viewModel.validateAccounts(mobileNo, this)
+            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+            SharedPreferenceUtil.setData(this, "IsLogin", true)
+
+            progressDialog.dismiss()
+
         }
     }
 
@@ -423,4 +534,92 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
+//    private fun startSmsRetriever() {
+//        val client = SmsRetriever.getClient(this /* context */)
+//        val task = client.startSmsRetriever()
+//        task.addOnSuccessListener {
+//            // SMS retrieval started
+//        }
+//        task.addOnFailureListener {
+//            // SMS retrieval failed to start
+//        }
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+//        registerReceiver(smsBroadcastReceiver, intentFilter)
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        unregisterReceiver(smsBroadcastReceiver)
+//    }
+
+
+    private fun startSmartUserConsent() {
+        val client = SmsRetriever.getClient(this)
+        client.startSmsUserConsent(null)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQ_USER_CONSENT) {
+            if (resultCode == RESULT_OK && data != null) {
+                val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+                getOtpFromMessage(message)
+            }
+        }
+    }
+
+    private fun getOtpFromMessage(message: String?) {
+
+        binding.otpView.setOTP(message)
+
+//        val otpPattern: Pattern = Pattern.compile("(|^)\\d{4}")
+//        val matcher: Matcher = otpPattern.matcher(message)
+//
+//        var str=matcher.toString()
+//        var converttostring=""
+//
+////        val str = "Hi welcome to tutorialspoint"
+//        val n = 5
+//        val initial = str.length - 5
+//        for (i in initial until str.length) {
+//            converttostring+= str[i].toString()
+//        }
+//
+//
+//        Log.d("OTPString",converttostring.toString())
+//
+//        if (matcher.find()) {
+//            Log.d("OTP",matcher.toString())
+//            Toast.makeText(this,matcher.toString(),Toast.LENGTH_LONG).show()
+//            binding.otpView.setOTP(matcher.toString())
+//        }
+    }
+
+    private fun registerBroadcastReceiver() {
+        smsBroadcastReceiver = SmsBroadcastReceiver()
+        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
+            object : SmsBroadcastReceiverListener {
+                override fun onSuccess(intent: Intent?) {
+                    startActivityForResult(intent, REQ_USER_CONSENT)
+                }
+
+                override fun onFailure() {}
+            }
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerBroadcastReceiver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(smsBroadcastReceiver)
+    }
 }
