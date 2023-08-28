@@ -101,8 +101,11 @@ class ComplaintsActivityNew : AppCompatActivity() {
         viewProductModel.getordersummeryList.observe(
             this@ComplaintsActivityNew,
             androidx.lifecycle.Observer {
+
                 AppUtils2.Spinnerlistproduct= ArrayList()
                 AppUtils2.getsummarydata=ArrayList()
+                AppUtils2.getsummarydata.clear()
+                AppUtils2.Spinnerlistproduct.clear()
                 AppUtils2.getsummarydata.addAll(it)
                 AppUtils2.Spinnerlistproduct.add("Select product")
                 getsummarydata.addAll(it)
@@ -122,9 +125,12 @@ class ComplaintsActivityNew : AppCompatActivity() {
         viewModel.ordersList.observe(this@ComplaintsActivityNew, androidx.lifecycle.Observer {
             if (it != null) {
                 AppUtils2.datalist=ArrayList()
+                AppUtils2.datalist.clear()
                 AppUtils2.datalist.addAll(it)
+                datalist.clear()
                 datalist.addAll(it)
                 AppUtils2.Spinnerlist= ArrayList()
+                AppUtils2.Spinnerlist.clear()
                 AppUtils2.Spinnerlist.add("Select Service")
                 progressDialog.dismiss()
                 for (i in 0 until it.size) {

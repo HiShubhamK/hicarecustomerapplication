@@ -53,6 +53,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtnameorder.text=orders.OrderNumber_c
             holder.binding.txtnamestatus.text=orders.Status_c
             holder.binding.txtrupees.text = "₹ ${orders.OrderValueWithTax_c}"
+            holder.binding.startdate.text=": "+ AppUtils2.formatDateTime4(orders.StartDate_c.toString())
+            holder.binding.enddate.text=": "+ AppUtils2.formatDateTime4(orders.EndDate_c.toString())
 
 //            if(orders.appointmentEndDateTime__c.equals("")){
 //                holder.binding.txtappointmentdate.visibility=View.GONE
