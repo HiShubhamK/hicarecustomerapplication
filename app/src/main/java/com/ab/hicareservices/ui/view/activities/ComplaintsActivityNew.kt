@@ -156,8 +156,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
             }
         })
 
-        viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
-
+        viewModel.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
     }
 
     private fun setupViewPager() {

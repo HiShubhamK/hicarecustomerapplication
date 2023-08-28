@@ -41,6 +41,7 @@ import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
+import com.ab.hicareservices.ui.adapter.CustomSpinnerAdapter
 import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -93,6 +94,7 @@ class AddComplaintsActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     var checkformactivity=false
     var selectspinner=""
+    private lateinit var adapter:CustomSpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,52 +120,55 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
 
-        val arrayAdapter = object : ArrayAdapter<String>(
-            this@AddComplaintsActivity,
-            R.layout.spinner_layout_new,
-            AppUtils2.Spinnerlist
-        ) {
-            override fun isEnabled(position: Int): Boolean {
-                return position != 0
-            }
+        adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
+        binding.spinnerLead.adapter = adapter
 
-            override fun getDropDownView(
-                position: Int,
-                convertView: View?,
-                parent: ViewGroup
-            ): View {
-                val view = super.getDropDownView(position, convertView, parent)
-                val tv = view as TextView
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY)
-                } else {
-                    tv.setTextColor(Color.BLACK)
-                }
-                return view
-            }
-        }
-        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
-        binding.spinnerLead.adapter = arrayAdapter
-
-        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                selectspinner = binding.spinnerLead.selectedItem.toString()
-                Toast.makeText(this@AddComplaintsActivity,AppUtils2.datalist.size.toString(),Toast.LENGTH_SHORT).show()
-                    for (i in 0 until AppUtils2.datalist.size) {
-                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
-                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                            getServiceType=AppUtils2.datalist.get(i).ServiceType.toString()
-                            service_url_image = AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
-                            binding.bottomheadertext.text=AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            break
-                        }
-                    }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
+//        val arrayAdapter = object : ArrayAdapter<String>(
+//            this@AddComplaintsActivity,
+//            R.layout.spinner_layout_new,
+//            AppUtils2.Spinnerlist
+//        ) {
+//            override fun isEnabled(position: Int): Boolean {
+//                return position != 0
+//            }
+//
+//            override fun getDropDownView(
+//                position: Int,
+//                convertView: View?,
+//                parent: ViewGroup
+//            ): View {
+//                val view = super.getDropDownView(position, convertView, parent)
+//                val tv = view as TextView
+//                if (position == 0) {
+//                    tv.setTextColor(Color.GRAY)
+//                } else {
+//                    tv.setTextColor(Color.BLACK)
+//                }
+//                return view
+//            }
+//        }
+//        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
+//        binding.spinnerLead.adapter = arrayAdapter
+//
+//        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                selectspinner = binding.spinnerLead.selectedItem.toString()
+//                Toast.makeText(this@AddComplaintsActivity,AppUtils2.datalist.size.toString(),Toast.LENGTH_SHORT).show()
+//                    for (i in 0 until AppUtils2.datalist.size) {
+//                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+//                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+//                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+//                            getServiceType=AppUtils2.datalist.get(i).ServiceType.toString()
+//                            service_url_image = AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+//                            binding.bottomheadertext.text=AppUtils2.datalist.get(i).OrderNumber_c.toString()
+//                            break
+//                        }
+//                    }
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//            }
+//        }
 
 
 
