@@ -67,7 +67,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 "Notification:-",
                 "ActivityName: " + ActivityName.toString() + "IsSticky: " + IsSticky + " IsProduct: " + IsProduct + " IsService: " + IsService + " imageUrll: " + imageUrll
             )
-            if (IsSticky == true) {
+            if(ActivityName.startsWith("http")){
+
+                Log.e("TAGstasrtwith:-", "ActivityName: " + ActivityName.toString())
+
+                remoteMessage.notification?.let {
+//                FloatNotify(it.title ?: "", it.body ?: "",it.channelId)
+
+                    showNotificationforbrowser(
+                        it.title ?: "",
+                        it.body ?: "",
+                        it.channelId,
+                        imageUrll,
+                        ActivityName,
+                        IsSticky,
+                        IsProduct
+                    )
+                }
+
+            } else if (IsSticky == true) {
                 remoteMessage.notification?.let {
 //                FloatNotify(it.title ?: "", it.body ?: "",it.channelId)
 
@@ -100,6 +118,119 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+
+    }
+
+    private fun showNotificationforbrowser(
+        s: String,
+        s1: String,
+        channelId: String?,
+        imageUrlNew: String,
+        activityName: String,
+        isSticky: Boolean,
+        isProduct: Boolean
+    ) {
+
+        Log.e("TAG", "Externallink: " +activityName)
+
+
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(activityName)
+        )
+        startActivity(intent)
+
+//        val intent = Intent(this, HomeActivity::class.java)
+////            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//
+//        intent.putExtra("Externallink", activityName)
+
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+
+        val pendingIntent =
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+
+        val notificationLayout =
+            RemoteViews(
+                "com.ab.hicareservices",
+                com.ab.hicareservices.R.layout.layout_notification
+            )
+        notificationLayout.setTextViewText(
+            com.ab.hicareservices.R.id.notificationtitle,
+            s
+        )
+        notificationLayout.setTextViewText(
+            com.ab.hicareservices.R.id.notificationtext,
+            s1
+        )
+        if (imageUrlNew != null) {
+//                notificationLayout.setImageViewUri(
+//                    com.ab.hicareservices.R.id.image,
+//                    imageUrlNew
+//                )
+            val url = URL(imageUrlNew)
+            val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+            notificationLayout.setImageViewBitmap(
+                com.ab.hicareservices.R.id.image,
+                bmp
+            )//                val target = notificationLayout.setImageViewUri(R.id.image, ImageView::class.java)
+//                Glide
+//                    .with(applicationContext)
+//                    .load(imageUrlNew?.toUri()) // the uri you got from Firebase
+//                    .centerCrop()
+//                    .into(com.ab.hicareservices.R.id.image);
+//                val target = notificationLayout.findViewById(R.id.notificationImageView, ImageView::class.java)
+//
+//                Picasso.get().load(imageUrlNew?.toUri()).into(
+//                    com.ab.hicareservices.R.id.image)
+
+        }
+
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(com.ab.hicareservices.R.drawable.ic_notification)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    resources,
+                    com.ab.hicareservices.R.mipmap.ic_launcher
+                )
+            )
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .setCustomContentView(notificationLayout)
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle()) // Required for custom views
+
+
+        // Add the FLAG_NO_CLEAR flag to make the notification sticky
+        if (IsSticky) {
+            builder.setOngoing(true)
+        } else {
+            builder.setOngoing(false)
+        }
+
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        // Create the notification channel for Android Oreo and higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Custom Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+        builder.build().flags.and(Notification.FLAG_AUTO_CANCEL)
+
+
+        val notificationId = Math.random().toInt() // Use a unique ID for each notification
+        notificationManager.notify(notificationId, builder.build())
+
 
 
     }
@@ -350,7 +481,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationManager.notify(notificationId, builder.build())
             }
         } else {
-            if (ActivityName == null || ActivityName == "") {
+            if (ActivityName != null || ActivityName == "") {
 //            val info = ActivityName
 //            var delimiter = "|"
 //
