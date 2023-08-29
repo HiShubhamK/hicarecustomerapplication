@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.orders.OrdersData
+import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
 class CustomSpinnerAdapter(private val context: Context, private val items: MutableList<OrdersData>) : BaseAdapter() {
@@ -30,6 +31,8 @@ class CustomSpinnerAdapter(private val context: Context, private val items: Muta
         val serviceorders = view.findViewById<TextView>(R.id.serviceorders)
         val serviceaddress = view.findViewById<TextView>(R.id.serviceaddress)
         val serviceimageview = view.findViewById<ImageView>(R.id.serviceimageview)
+        val createddate=view.findViewById<TextView>(R.id.createddate)
+        createddate.text= AppUtils2.formatDateTime4(items[position].StartDate_c.toString())
         servicename.text=items[position].ServicePlanName_c.toString()
         serviceorders.text=items[position].OrderNumber_c.toString()
         serviceaddress.text=items[position].AccountName_r?.AccountAddress.toString()
