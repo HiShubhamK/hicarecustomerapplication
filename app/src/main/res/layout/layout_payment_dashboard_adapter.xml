@@ -66,7 +66,7 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="13sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -75,202 +75,202 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1.4">
-
-
-<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                    android:id="@+id/lnrorderno"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:visibility="gone">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="3dp"-->
-<!--                        android:ellipsize="end"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:marqueeRepeatLimit="marquee_forever"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="Order Number :"-->
-<!--                        android:textColor="@color/grey_font"-->
-<!--                        android:textSize="13sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvOrderNumber"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="3dp"-->
-<!--                        android:ellipsize="end"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:marqueeRepeatLimit="marquee_forever"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text=""-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="13sp" />-->
-
-<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-
-                 <androidx.appcompat.widget.LinearLayoutCompat
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:orientation="horizontal">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/lnrdate"
-                    android:layout_marginRight="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/lato_regular"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="Order no"
-                        android:textColor="@color/grey_font"
-                        android:textSize="13sp"/>
-
-                    <TextView
-                        android:id="@+id/tvappointmentdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/lato_regular"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="Service Date"
-                        android:textColor="@color/grey_font"
-                        android:textSize="13sp" />
-
-
-                    <TextView
-                        android:id="@+id/tvappointmenttime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/lato_regular"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="Time"
-                        android:textColor="@color/grey_font"
-                        android:textSize="13sp" />
-
-
-                    <!--                    <TextView-->
-<!--                        android:id="@+id/tvPlanDate"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="3dp"-->
-<!--                        android:ellipsize="end"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:marqueeRepeatLimit="marquee_forever"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="aa"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="13sp" />-->
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="visible"
-                        android:layout_marginLeft="5dp">
+                        android:layout_weight="1.4"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvOrderNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/lato_regular"
-                            android:gravity="center"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:maxLines="2"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="13sp"/>
 
-                        <TextView
-                            android:id="@+id/tvPlanDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/lato_regular"
-                            android:gravity="center"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:maxLines="2"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
+                        <!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+                        <!--                    android:id="@+id/lnrorderno"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:orientation="horizontal"-->
+                        <!--                    android:visibility="gone">-->
 
-                        <TextView
-                            android:id="@+id/tvPlanDatetime"
-                            android:layout_width="wrap_content"
+                        <!--                    <TextView-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginTop="3dp"-->
+                        <!--                        android:ellipsize="end"-->
+                        <!--                        android:fontFamily="@font/lato_regular"-->
+                        <!--                        android:gravity="center"-->
+                        <!--                        android:marqueeRepeatLimit="marquee_forever"-->
+                        <!--                        android:maxLines="2"-->
+                        <!--                        android:singleLine="true"-->
+                        <!--                        android:text="Order Number :"-->
+                        <!--                        android:textColor="@color/grey_font"-->
+                        <!--                        android:textSize="13sp" />-->
+
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/tvOrderNumber"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginTop="3dp"-->
+                        <!--                        android:ellipsize="end"-->
+                        <!--                        android:fontFamily="@font/lato_regular"-->
+                        <!--                        android:gravity="center"-->
+                        <!--                        android:marqueeRepeatLimit="marquee_forever"-->
+                        <!--                        android:maxLines="2"-->
+                        <!--                        android:singleLine="true"-->
+                        <!--                        android:text=""-->
+                        <!--                        android:textColor="@color/black"-->
+                        <!--                        android:textSize="13sp" />-->
+
+                        <!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/lato_regular"
-                            android:gravity="center"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:maxLines="2"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/lnrdate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text="Order no"
+                                    android:textColor="@color/grey_font"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tvappointmentdate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text="Service Date"
+                                    android:textColor="@color/grey_font"
+                                    android:textSize="13sp" />
+
+
+                                <TextView
+                                    android:id="@+id/tvappointmenttime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text="Time"
+                                    android:textColor="@color/grey_font"
+                                    android:textSize="13sp" />
+
+
+                                <!--                    <TextView-->
+                                <!--                        android:id="@+id/tvPlanDate"-->
+                                <!--                        android:layout_width="wrap_content"-->
+                                <!--                        android:layout_height="wrap_content"-->
+                                <!--                        android:layout_marginTop="3dp"-->
+                                <!--                        android:ellipsize="end"-->
+                                <!--                        android:fontFamily="@font/lato_regular"-->
+                                <!--                        android:gravity="center"-->
+                                <!--                        android:marqueeRepeatLimit="marquee_forever"-->
+                                <!--                        android:maxLines="2"-->
+                                <!--                        android:singleLine="true"-->
+                                <!--                        android:text="aa"-->
+                                <!--                        android:textColor="@color/black"-->
+                                <!--                        android:textSize="13sp" />-->
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tvOrderNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tvPlanDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tvPlanDatetime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
-                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-<!--                    <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1">-->
+                    <!--                    <androidx.appcompat.widget.LinearLayoutCompat-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1">-->
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnPayNows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="40dp"
                         android:backgroundTint="@color/colorPrimary"
                         android:elevation="10dp"
                         android:padding="5dp"
-                        android:layout_gravity="center"
                         android:visibility="visible"
-                        app:cardCornerRadius="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="40dp">
+                        app:cardCornerRadius="5dp">
 
                         <TextView
                             android:id="@+id/tvPayNows"
@@ -295,13 +295,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:elevation="5dp"
-                        app:cardCornerRadius="5dp"
-                        android:background="#f6f6f6"
-                        android:visibility="gone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="50dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:background="#f6f6f6"
+                        android:elevation="5dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="5dp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -379,12 +379,11 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnrSequenceno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/lnrSequenceno"
                     android:visibility="gone">
 
                     <TextView
@@ -421,7 +420,6 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
             </LinearLayout>
 
 
@@ -429,45 +427,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/lnrTime"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:padding="5dp">-->
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/lnrTime"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:padding="5dp">-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="3dp"-->
-<!--                        android:ellipsize="end"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:marqueeRepeatLimit="marquee_forever"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="Schedule Time"-->
-<!--                        android:textColor="@color/grey_font"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:visibility="gone" />-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="3dp"-->
+                <!--                        android:ellipsize="end"-->
+                <!--                        android:fontFamily="@font/lato_regular"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:marqueeRepeatLimit="marquee_forever"-->
+                <!--                        android:maxLines="2"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="Schedule Time"-->
+                <!--                        android:textColor="@color/grey_font"-->
+                <!--                        android:textSize="14sp"-->
+                <!--                        android:visibility="gone" />-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvTime"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="3dp"-->
-<!--                        android:ellipsize="end"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:marqueeRepeatLimit="marquee_forever"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="09 Am to 11 Am"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="13sp"-->
-<!--                        android:visibility="gone" />-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tvTime"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="3dp"-->
+                <!--                        android:ellipsize="end"-->
+                <!--                        android:fontFamily="@font/lato_regular"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:marqueeRepeatLimit="marquee_forever"-->
+                <!--                        android:maxLines="2"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="09 Am to 11 Am"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="13sp"-->
+                <!--                        android:visibility="gone" />-->
 
-<!--                </LinearLayout>-->
+                <!--                </LinearLayout>-->
 
 
                 <androidx.cardview.widget.CardView
@@ -518,19 +516,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:elevation="5dp"
-                        app:cardCornerRadius="5dp"
-                        android:background="#f6f6f6"
-                        android:visibility="visible"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:background="#f6f6f6"
+                        android:elevation="5dp"
+                        android:visibility="visible"
+                        app:cardCornerRadius="5dp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_gravity="end"
+                            android:orientation="horizontal"
                             android:padding="5dp">
 
                             <TextView
@@ -564,41 +562,41 @@
 
 
                     <!--                    <TextView-->
-<!--                        android:id="@+id/tvcod"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="5dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:layout_marginEnd="5dp"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:fontFamily="@font/lato_semibold"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="Expected Arrival "-->
-<!--                        android:textAllCaps="false"-->
-<!--                        android:textColor="@color/colorAccent"-->
-<!--                        android:textSize="13sp">-->
+                    <!--                        android:id="@+id/tvcod"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:layout_marginStart="5dp"-->
+                    <!--                        android:layout_marginTop="5dp"-->
+                    <!--                        android:layout_marginEnd="5dp"-->
+                    <!--                        android:layout_marginBottom="5dp"-->
+                    <!--                        android:fontFamily="@font/lato_semibold"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="Expected Arrival "-->
+                    <!--                        android:textAllCaps="false"-->
+                    <!--                        android:textColor="@color/colorAccent"-->
+                    <!--                        android:textSize="13sp">-->
 
-<!--                    </TextView>-->
+                    <!--                    </TextView>-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/tveta"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="5dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:layout_marginEnd="5dp"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:fontFamily="@font/lato_regular"-->
-<!--                        android:padding="5dp"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:text="9.00 am to 11 am"-->
-<!--                        android:textAllCaps="false"-->
-<!--                        android:textColor="@color/grey_font"-->
-<!--                        android:textSize="13sp">-->
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/tveta"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:layout_marginStart="5dp"-->
+                    <!--                        android:layout_marginTop="5dp"-->
+                    <!--                        android:layout_marginEnd="5dp"-->
+                    <!--                        android:layout_marginBottom="5dp"-->
+                    <!--                        android:fontFamily="@font/lato_regular"-->
+                    <!--                        android:padding="5dp"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="9.00 am to 11 am"-->
+                    <!--                        android:textAllCaps="false"-->
+                    <!--                        android:textColor="@color/grey_font"-->
+                    <!--                        android:textSize="13sp">-->
 
-<!--                    </TextView>-->
+                    <!--                    </TextView>-->
 
                 </LinearLayout>
 

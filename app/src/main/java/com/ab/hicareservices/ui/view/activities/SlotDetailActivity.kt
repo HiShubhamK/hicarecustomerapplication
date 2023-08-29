@@ -133,34 +133,41 @@ class SlotDetailActivity : AppCompatActivity() {
             data["AppointmentEnd"] = AppointmentEnd
             data["Source"] = "MobileApp"
             data["ServiceType"] = "Pest"
-            viewModel.BookSlot(data)
-
-            viewModel.bookSlotResponce.observe(this, Observer {
-                Log.d("TAG", "onViewCreated: $it orders fragment")
+            if (AppointmentStart!=""||AppointmentEnd!=""){
+                viewModel.BookSlot(data)
+                viewModel.bookSlotResponce.observe(this, Observer {
+                    Log.d("TAG", "onViewCreated: $it orders fragment")
 //                ShowBookingDialog(it)
-                if (it.IsSuccess == true) {
-                    if (it.Data!!.IsSuccess == true) {
-                        Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
-                        progressDialog.dismiss()
-                        getClearchache()
-                        finish()
-                    } else {
-                        Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
-                            .show()
-                        progressDialog.dismiss()
+                    if (it.IsSuccess == true) {
+                        if (it.Data!!.IsSuccess == true) {
+                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
+                            progressDialog.dismiss()
+                            getClearchache()
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
+                                .show()
+                            progressDialog.dismiss()
 
+                            finish()
+                        }
+
+                    } else {
+
+                        progressDialog.dismiss()
                         finish()
+
+
                     }
 
-                } else {
+                })
 
-                    progressDialog.dismiss()
-                    finish()
+            }else{
+                progressDialog.cancel()
 
+                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
+            }
 
-                }
-
-            })
 
 
         }
