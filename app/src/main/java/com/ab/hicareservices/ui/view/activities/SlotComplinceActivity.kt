@@ -62,6 +62,7 @@ class SlotComplinceActivity : AppCompatActivity() {
     private var AppointmentStart = ""
     private var AppointmentEnd = ""
     private var Source = ""
+    private var selectedTimePostion = 0
     var service = mutableListOf<ServiceData>()
     private val viewModels: OtpViewModel by viewModels()
     lateinit var mSlotAdapter: SlotsAdapter
@@ -394,7 +395,12 @@ class SlotComplinceActivity : AppCompatActivity() {
 
             })
 
-            viewModel.BookSlot(data)
+            if (AppointmentStart!=""){
+                viewModel.BookSlot(data)
+
+            }else{
+                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT).show()
+            }
 
 
             alertDialog.dismiss()
@@ -415,6 +421,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 serviceType: String
             ) {
 
+//                selectedTimePostion=position
                 TaskId = taskid
                 AppointmentDate = appointmentDate
                 AppointmentStart = appointmentStart

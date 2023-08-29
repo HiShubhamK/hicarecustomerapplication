@@ -40,26 +40,26 @@ class SlotsAdapter(
         val slotlist=getSlotresponse
 
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
-        if (position == lastSelectedPosition) {
-            holder.binding.radioSlots.isChecked = true
-            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
-        } else {
-            holder.binding.radioSlots.isChecked = true
-            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_greyslot)
-        }
-        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//        if (position == lastSelectedPosition) {
+//            holder.binding.radioSlots.isChecked = true
+//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
+//        } else {
+//            holder.binding.radioSlots.isChecked = true
+//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_greyslot)
+//        }
+//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
 
         holder.binding.relSlot.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
 
-            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
+            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
 
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
-            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
+            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
 
         }
     }
