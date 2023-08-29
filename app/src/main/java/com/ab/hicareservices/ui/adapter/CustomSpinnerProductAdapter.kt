@@ -36,8 +36,7 @@ class CustomSpinnerProductAdapter(private val context: Context,private val items
         val serviceorders = view.findViewById<TextView>(R.id.serviceorders)
         val serviceaddress = view.findViewById<TextView>(R.id.serviceaddress)
         val serviceimageview = view.findViewById<ImageView>(R.id.serviceimageview)
-        val cardviewselection= view.findViewById<CardView>(R.id.cardviewselection)
-        serviceaddress.visibility=View.GONE
+        serviceaddress.text=items[position].FlatNo+" "+items[position].FlatNo+" "+items[position].BuildingName+" "+items[position].Locality+" "+items[position].Landmark+" "+items[position].Street+" "+items[position].City+" "+items[position].Pincode
         servicename.text=items[position].ProductName.toString()
         serviceorders.text=items[position].OrderNumber.toString()
         Picasso.get().load(items[position].ProductThumbnail).into(serviceimageview)
