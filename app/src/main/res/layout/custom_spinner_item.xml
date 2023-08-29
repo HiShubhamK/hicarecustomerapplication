@@ -1,97 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="#f6f6f6"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewselection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        android:layout_margin="5dp"
-        android:elevation="5dp">
+        android:layout_margin="10dp"
+        android:elevation="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="3dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="3dp">
-
-        <ImageView
-            android:id="@+id/serviceimageview"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_addimage"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/servicename"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="servicename"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/serviceimageview"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_addimage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/servicename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="servicename"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:singleLine="true"/>
+
+                    <TextView
+                        android:id="@+id/serviceorders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="abcd"
+                        android:textColor="@color/grey_font"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey" />
 
             <TextView
-                android:id="@+id/serviceorders"
+                android:id="@+id/serviceaddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/lato_regular"
-                android:text="abcd"
-                android:textColor="@color/grey_font"
-                android:textSize="10sp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/grey"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
-
-    <TextView
-        android:id="@+id/serviceaddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="serviceaddress"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/grey"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+                android:maxLines="5"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
 
         </LinearLayout>
 
