@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
-android:background="@color/white"
+    android:background="@color/white"
         android:visibility="visible"
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -611,7 +611,6 @@ android:background="@color/white"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
                         android:textSize="13sp" />
-<!--                </androidx.cardview.widget.CardView>-->
 
 
             </LinearLayout>

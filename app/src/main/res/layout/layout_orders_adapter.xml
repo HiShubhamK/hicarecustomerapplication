@@ -131,15 +131,16 @@
                 android:layout_marginBottom="5dp"
                 android:background="#f6f6f6" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -147,29 +148,10 @@
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
                         android:maxLines="5"
-                        android:text="Start Date"
+                        android:text="Start Date :"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/lato_regular"
-                        android:maxLines="5"
-                        android:text="End Date"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/startdate"
@@ -181,6 +163,48 @@
                         android:text="start date"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
+
+
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/lato_regular"-->
+<!--                        android:maxLines="5"-->
+<!--                        android:text="End Date"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="13sp" />-->
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:id="@+id/startdate"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/lato_regular"-->
+<!--                        android:maxLines="5"-->
+<!--                        android:text="start date"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="13sp" />-->
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:maxLines="5"
+                        android:text="End Date :"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -198,7 +222,7 @@
                 </LinearLayout>
 
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
 
             <View
