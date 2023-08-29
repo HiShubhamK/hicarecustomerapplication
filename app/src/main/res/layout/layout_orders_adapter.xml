@@ -138,12 +138,13 @@
                 android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
@@ -154,16 +155,14 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/startdate"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
                         android:maxLines="5"
                         android:text="start date"
-                        android:layout_marginRight="23dp"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
-
 
 <!--                    <androidx.appcompat.widget.AppCompatTextView-->
 <!--                        android:layout_width="match_parent"-->
@@ -182,14 +181,17 @@
 
                 <View
                     android:layout_width="2dp"
-                    android:layout_height="12dp"
+                    android:layout_height="15dp"
                     android:background="@color/grey"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="3dp"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1">
 
 <!--                    <androidx.appcompat.widget.AppCompatTextView-->
 <!--                        android:id="@+id/startdate"-->
@@ -203,13 +205,13 @@
 <!--                        android:textSize="13sp" />-->
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
                         android:maxLines="5"
                         android:text="End Date :"
-                        android:layout_marginLeft="23dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 
@@ -217,7 +219,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/enddate"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
