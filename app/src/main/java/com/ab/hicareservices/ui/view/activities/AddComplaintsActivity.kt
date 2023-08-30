@@ -123,6 +123,24 @@ class AddComplaintsActivity : AppCompatActivity() {
         adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
         binding.spinnerLead.adapter = adapter
 
+
+        binding.spinnerLead.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
+                serviceType = AppUtils2.datalist[position].ServiceType.toString()
+                getServiceType = AppUtils2.datalist[position].ServiceType.toString()
+                service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
+                binding.bottomheadertext.text = AppUtils2.datalist[position].OrderNumber_c.toString()
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
+
+
 //        val arrayAdapter = object : ArrayAdapter<String>(
 //            this@AddComplaintsActivity,
 //            R.layout.spinner_layout_new,

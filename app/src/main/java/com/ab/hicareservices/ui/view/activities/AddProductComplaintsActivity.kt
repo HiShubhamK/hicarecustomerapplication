@@ -40,8 +40,9 @@ import androidx.core.view.isVisible
 import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
 import com.ab.hicareservices.databinding.ActivityAddProductComplaintsBinding
+import com.ab.hicareservices.ui.adapter.CustomSpinnerProductAdapter
+import com.ab.hicareservices.ui.handler.SpinnerItemSelectedListener
 import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -60,7 +61,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class AddProductComplaintsActivity : AppCompatActivity() {
+class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedListener {
 
     lateinit var binding: ActivityAddProductComplaintsBinding
     var selectedCType = ""
@@ -98,6 +99,8 @@ class AddProductComplaintsActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     var Iscomplaintactivity = false
 
+    private lateinit var adapter: CustomSpinnerProductAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,68 +132,82 @@ class AddProductComplaintsActivity : AppCompatActivity() {
             binding.servicetypes.visibility = View.GONE
         }
 
+        adapter = CustomSpinnerProductAdapter(this, AppUtils2.getsummarydata)
 
-        val arrayAdapter = object : ArrayAdapter<String>(
-            this@AddProductComplaintsActivity,
-            R.layout.spinner_layout_new,
-            AppUtils2.Spinnerlistproduct
-        ) {
-            override fun isEnabled(position: Int): Boolean {
-                return position != 0
+        adapter.itemSelectedListener = this
+        binding.spinnerLead.adapter = adapter
+
+
+        binding.spinnerLead.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                binding.tvProductName.text = AppUtils2.getsummarydata[position].ProductDisplayName
+                binding.tvOrderdate.text = AppUtils2.formatDateTime4(AppUtils2.getsummarydata[position].OrderDate.toString())
+                ProductId = AppUtils2.getsummarydata[position].ProductId.toString()
+                orderNo = AppUtils2.getsummarydata[position].OrderNumber.toString()
+                OrderId = AppUtils2.getsummarydata[position].Id.toString()
+                Created_On = AppUtils2.getsummarydata[position].OrderDate.toString()
+                OrderValuePostDiscount = AppUtils2.getsummarydata[position].OrderValuePostDiscount.toString()
+                Complaint_Status = AppUtils2.getsummarydata[position].OrderStatus.toString()
+                binding.bottomheadertext.text = AppUtils2.getsummarydata[position].OrderNumber
             }
 
-            override fun getDropDownView(
-                position: Int,
-                convertView: View?,
-                parent: ViewGroup
-            ): View {
-                val view = super.getDropDownView(position, convertView, parent)
-                val tv = view as TextView
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY)
-                } else {
-                    tv.setTextColor(Color.BLACK)
-                }
-                return view
-            }
-        }
-        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
-        binding.spinnerLead.adapter = arrayAdapter
-
-        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                var selectspinner = binding.spinnerLead.selectedItem.toString()
-                for (i in 0 until AppUtils2.getsummarydata.size) {
-                    if (AppUtils2.getsummarydata.get(i).ProductDisplayName.equals(selectspinner)) {
-                        binding.tvProductName.text = AppUtils2.getsummarydata.get(i).ProductDisplayName
-                        binding.tvOrderdate.text = AppUtils2.formatDateTime4(AppUtils2.getsummarydata.get(i).OrderDate.toString())
-                        ProductId = AppUtils2.getsummarydata.get(i).ProductId.toString()
-                        orderNo = AppUtils2.getsummarydata.get(i).OrderNumber.toString()
-                        OrderId=AppUtils2.getsummarydata.get(i).Id.toString()
-                        Created_On=AppUtils2.getsummarydata.get(i).OrderDate.toString()
-                        OrderValuePostDiscount = AppUtils2.getsummarydata.get(i).OrderValuePostDiscount.toString()
-                        Complaint_Status = AppUtils2.getsummarydata.get(i).OrderStatus.toString()
-                        binding.bottomheadertext.text=AppUtils2.getsummarydata.get(i).OrderNumber
-                        break
-                    }
-                }
-
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
             }
         }
 
-
-
-
-
-
-
-
-
-
-
+//        val arrayAdapter = object : ArrayAdapter<String>(
+//            this@AddProductComplaintsActivity,
+//            R.layout.spinner_layout_new,
+//            AppUtils2.Spinnerlistproduct
+//        ) {
+//            override fun isEnabled(position: Int): Boolean {
+//                return position != 0
+//            }
+//
+//            override fun getDropDownView(
+//                position: Int,
+//                convertView: View?,
+//                parent: ViewGroup
+//            ): View {
+//                val view = super.getDropDownView(position, convertView, parent)
+//                val tv = view as TextView
+//                if (position == 0) {
+//                    tv.setTextColor(Color.GRAY)
+//                } else {
+//                    tv.setTextColor(Color.BLACK)
+//                }
+//                return view
+//            }
+//        }
+//        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
+//        binding.spinnerLead.adapter = arrayAdapter
+//
+//        binding.spinnerLead.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                var selectspinner = binding.spinnerLead.selectedItem.toString()
+//                for (i in 0 until AppUtils2.getsummarydata.size) {
+//                    if (AppUtils2.getsummarydata.get(i).ProductDisplayName.equals(selectspinner)) {
+//                        binding.tvProductName.text = AppUtils2.getsummarydata.get(i).ProductDisplayName
+//                        binding.tvOrderdate.text = AppUtils2.formatDateTime4(AppUtils2.getsummarydata.get(i).OrderDate.toString())
+//                        ProductId = AppUtils2.getsummarydata.get(i).ProductId.toString()
+//                        orderNo = AppUtils2.getsummarydata.get(i).OrderNumber.toString()
+//                        OrderId=AppUtils2.getsummarydata.get(i).Id.toString()
+//                        Created_On=AppUtils2.getsummarydata.get(i).OrderDate.toString()
+//                        OrderValuePostDiscount = AppUtils2.getsummarydata.get(i).OrderValuePostDiscount.toString()
+//                        Complaint_Status = AppUtils2.getsummarydata.get(i).OrderStatus.toString()
+//                        binding.bottomheadertext.text=AppUtils2.getsummarydata.get(i).OrderNumber
+//                        break
+//                    }
+//                }
+//
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//            }
+//        }
+//
 
 
         binding.tvProductName.text = displayname
@@ -302,8 +319,8 @@ class AddProductComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" ) {   //&& selectedCType != ""
-                     addComplaint(
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") {   //&& selectedCType != ""
+                    addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
@@ -1408,5 +1425,27 @@ class AddProductComplaintsActivity : AppCompatActivity() {
 
 
         }
+    }
+
+    override fun onItemSelected(
+        ProductDisplayName: Int,
+        OrderDate: String,
+        productId: String,
+        OrderNumber: String,
+        id: String,
+        orderDate: String?,
+        orderValuePostDiscount: String,
+        orderStatus: String?,
+        position: String
+    ) {
+//        binding.tvProductName.text = ProductDisplayName
+        binding.tvOrderdate.text = AppUtils2.formatDateTime4(OrderDate.toString())
+        ProductId = productId
+        orderNo = OrderNumber
+        OrderId = id
+        Created_On = orderDate.toString()
+        OrderValuePostDiscount = orderValuePostDiscount.toString()
+        Complaint_Status = orderStatus.toString()
+        binding.bottomheadertext.text = OrderNumber
     }
 }

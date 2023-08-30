@@ -95,7 +95,7 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/lato_semibold"
         android:gravity="center"
-        android:text="Add Complaints"
+        android:text="Add Complaint"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"

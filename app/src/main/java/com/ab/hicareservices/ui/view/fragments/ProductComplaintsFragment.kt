@@ -34,6 +34,7 @@ class ProductComplaintsFragment() : Fragment() {
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
