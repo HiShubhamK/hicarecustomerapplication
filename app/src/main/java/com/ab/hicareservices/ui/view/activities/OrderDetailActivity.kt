@@ -253,10 +253,10 @@ class OrderDetailActivity : AppCompatActivity() {
 //                 orderValueWithTaxAfterDiscount =
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                     binding.orderNameTv.text = data.service_Plan_Name__c
-                    binding.orderNoTv.text = ":" + orderNo
+                    binding.orderNoTv.text = ": " + orderNo
                     if (data?.appointmentStartDateTime__c.toString()!=null){
                         binding.dateTv.text =
-                            ":" + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
+                            ": " + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
                     }
 
                     binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
