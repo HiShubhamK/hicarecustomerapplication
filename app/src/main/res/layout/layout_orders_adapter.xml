@@ -149,7 +149,7 @@
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
                         android:maxLines="5"
-                        android:text="Start Date :"
+                        android:text="Start Date : "
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 
@@ -210,7 +210,7 @@
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/lato_regular"
                         android:maxLines="5"
-                        android:text="End Date :"
+                        android:text="End Date : "
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/black"
                         android:textSize="13sp" />

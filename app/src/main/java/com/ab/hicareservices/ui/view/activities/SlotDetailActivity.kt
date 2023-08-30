@@ -74,7 +74,7 @@ class SlotDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_order)
+        setContentView(R.layout.activity_slot_details)
         binding = ActivitySlotDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -92,6 +92,8 @@ class SlotDetailActivity : AppCompatActivity() {
         Lat = intent.getStringExtra("Lat").toString()
         Long = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
+
+        binding.bottomheadertext.text=AppUtils2.formatDateTime4(Service_Date)+", "+scheduledatetext
 
         var data = AppUtils2.timeslotslist
         getOrdersList(data, Service_Date, scheduledatetext)

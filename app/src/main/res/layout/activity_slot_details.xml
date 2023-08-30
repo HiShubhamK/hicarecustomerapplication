@@ -53,9 +53,11 @@
                 android:layout_marginRight="45dp"
                 android:layout_toRightOf="@id/imgLogo"
                 android:gravity="center_horizontal"
-                android:text="Home"
-                android:textSize="10sp"
-                android:visibility="gone" />
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato_semibold"
+                android:textSize="12sp"
+                android:visibility="visible" />
 
 
             <TextView
