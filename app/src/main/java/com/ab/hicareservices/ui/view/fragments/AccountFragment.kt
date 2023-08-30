@@ -50,7 +50,7 @@ class AccountFragment : Fragment() {
 //        }
 
         binding.constraintorderid.setOnClickListener {
-            val intent = Intent(requireActivity(), MyOrderActivity::class.java)
+            val intent = Intent(requireActivity(), MyOrderActivityNew::class.java)
             startActivity(intent)
 
 //            requireActivity().supportFragmentManager.beginTransaction()
