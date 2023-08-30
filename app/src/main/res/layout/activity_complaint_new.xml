@@ -178,40 +178,33 @@
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <LinearLayout
+                android:id="@+id/constrainWhatsapp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/constrainWhatsapp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/imgWhatsapp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_whatsapp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    />
 
                 <TextView
                     android:id="@+id/txtWhatsapp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center"
-                    android:text="WhatsApp"
+                    android:text="9324747360"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/lato_semibold"
                     android:textColor="@color/black"
-                    android:textSize="13dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/imgWhatsapp"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp" />
 
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -315,6 +308,7 @@ Vikhroli West, Mumbai - 400079."
                     android:background="@color/grey_font">
 
                 </View>
+
             </LinearLayout>
 
 
