@@ -82,7 +82,8 @@
                             android:fontFamily="@font/lato_regular"
                             android:text="Created Date : "
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/createddate"
@@ -102,10 +103,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:background="@color/grey" />
+                android:background="#f6f6f6" />
 
             <TextView
                 android:id="@+id/serviceaddress"
