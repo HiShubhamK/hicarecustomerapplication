@@ -54,9 +54,10 @@
                 android:layout_toRightOf="@id/imgLogo"
                 android:gravity="center_horizontal"
                 android:text=""
+
                 android:textColor="@color/black"
                 android:fontFamily="@font/lato_semibold"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:visibility="visible" />
 
 
