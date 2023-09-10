@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.BannerData
+import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
+import com.ab.hicareservices.ui.view.activities.ComplaintsActivityNew
 import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
+import com.ab.hicareservices.ui.view.activities.MyOrderActivityNew
+import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.squareup.picasso.Picasso
 
 
@@ -58,6 +62,46 @@ class ImageAdapter(private val viewPager2: ViewPager2,private val requireActivit
                         )
                     )
                 } else if (bannerLis[position].IsAppLink == true) {
+
+                   var pagelink = bannerLis[position].PageLink.toString()
+
+                    var pagelinkss=""
+                    var pagelinkdigit=""
+
+                    if(pagelink.startsWith("Product")) {
+
+                        var delimiter = "|"
+
+                        val parts = pagelink.split(delimiter)
+
+                        pagelinkss = parts[0].toString()
+                        pagelinkdigit=parts[1].toString()
+                    }
+
+                    if(bannerLis[position].PageLink.equals("BookInspectionActivity")){
+                        val intent = Intent(requireActivity, BookInspectionActivity::class.java)
+                        requireActivity!!.startActivity(intent)
+
+                    }else if(bannerLis[position].PageLink.equals("ComplaintsActivityNew")){
+
+                        val intent = Intent(requireActivity, ComplaintsActivityNew::class.java)
+                        requireActivity!!.startActivity(intent)
+
+
+                    }else if(pagelinkss.equals("ProductDetailActivity")){
+
+                        val intent = Intent(requireActivity, ProductDetailActivity::class.java)
+                        intent.putExtra("productid",pagelinkdigit)
+                        requireActivity!!.startActivity(intent)
+
+
+                    }else if(bannerLis[position].PageLink.equals("MyOrderActivityNew")){
+
+                        val intent = Intent(requireActivity, MyOrderActivityNew::class.java)
+                        requireActivity!!.startActivity(intent)
+
+
+                    }
 
                 } else if (bannerLis[position].IsInAppBrowserLink == true) {
                     val intent = Intent(requireActivity, InAppWebViewActivity::class.java)
