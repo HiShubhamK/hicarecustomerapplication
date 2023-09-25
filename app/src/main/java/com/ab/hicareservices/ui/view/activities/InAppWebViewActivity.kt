@@ -27,6 +27,8 @@ class InAppWebViewActivity : AppCompatActivity() {
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.pluginState = PluginState.ON
         binding.webView.settings.allowFileAccess = true
+        binding.webView.isVerticalScrollBarEnabled = true;
+        binding.webView.isHorizontalScrollBarEnabled = true;
 
         binding.webView.loadUrl(pagelink) // Here You can put your Url
 
