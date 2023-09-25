@@ -46,14 +46,14 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
             }else{
                 holder.binding.tvappointmenttime.visibility=View.VISIBLE
                 holder.binding.tvScheduletime.visibility=View.VISIBLE
-                holder.binding.tvPlanDatetime.text=":"+service.AppointmentTime
+                holder.binding.tvPlanDatetime.text=": "+service.AppointmentTime
             }
 
             holder.binding.tvPayNow.text = "Reschedule"
             if (!service.AppointmentDateTime.equals(null)||!service.AppointmentDateTime.equals("")){
-                holder.binding.tvPlanDate.text =":" +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
+                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
             }else{
-                holder.binding.tvPlanDate.text =":" +service.SRPlanDate
+                holder.binding.tvPlanDate.text =": " +service.SRPlanDate
             }
             if (service.HRAppointmentStartTimeAMPM_c.equals(null)||service.HRAppointmentFinishTimeAMPM_c.equals(null)){
                 holder.binding.tvScheduletime.text = " - "
@@ -64,7 +64,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
             }
 
             holder.binding.tvServicestep.text = service.ServiceStep_c
-            holder.binding.tvOrderNumber.text = ":"+service.OrderNumber_c
+            holder.binding.tvOrderNumber.text = ": "+service.OrderNumber_c
             holder.binding.ServiceName.text = service.ServicePlan_c
 
         }catch (e:Exception){

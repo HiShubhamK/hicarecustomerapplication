@@ -38,11 +38,17 @@ class UpcomingServicesActivity : AppCompatActivity() {
 ////            progressDialog.dismiss()
 //        })
 //        viewModel.getUpcomingServices(AppUtils2.mobileno)
-        progressDialog.show()
-        getAllComplaints(progressDialog)
+//        progressDialog.show()
+//        getAllComplaints(progressDialog)
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        progressDialog.show()
+        getAllComplaints(progressDialog)
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {

@@ -120,9 +120,13 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
 
-        adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
-        binding.spinnerLead.adapter = adapter
+        try{
+            adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
+            binding.spinnerLead.adapter = adapter
 
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
 
         binding.spinnerLead.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
