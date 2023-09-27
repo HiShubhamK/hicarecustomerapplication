@@ -278,7 +278,6 @@ import java.util.Calendar
             }
 
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {
-                createNotification()
             }
         })
 
@@ -312,28 +311,6 @@ import java.util.Calendar
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-    fun createNotification() {
-        val myIntent = Intent(requireContext(), NotifyService::class.java)
-        val alarmManager = requireContext().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = PendingIntent.getService(
-            requireContext(),
-            0,
-            myIntent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.HOUR, 0)
-        calendar.set(Calendar.AM_PM, Calendar.AM)
-        calendar.add(Calendar.DAY_OF_MONTH, 1)
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            (1000 * 60 * 60 * 24).toLong(),
-            pendingIntent
-        )
     }
 
 }
