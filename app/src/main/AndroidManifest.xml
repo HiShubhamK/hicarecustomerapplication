@@ -160,20 +160,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".utils.SmsBroadcastReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".utils.OTP_Receiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

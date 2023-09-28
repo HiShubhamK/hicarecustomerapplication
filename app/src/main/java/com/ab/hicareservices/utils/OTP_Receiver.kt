@@ -97,7 +97,7 @@ class OTP_Receiver : BroadcastReceiver() {
             viewModel.validateAccounts(mobileNo, otpActivity)
             SharedPreferenceUtil.setData(otpActivity, "mobileNo", mobileNo)
             SharedPreferenceUtil.setData(otpActivity, "phoneNo", mobileNo)
-            SharedPreferenceUtil.setData(otpActivity, "IsLogin", true)
+//            SharedPreferenceUtil.setData(otpActivity, "IsLogin", true)
 
         }else{
             Log.d("checkotp","Failed")
