@@ -26,8 +26,8 @@ import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.OTP_Receiver
-import com.ab.hicareservices.utils.SmsBroadcastReceiver
-import com.ab.hicareservices.utils.SmsBroadcastReceiver.SmsBroadcastReceiverListener
+//import com.ab.hicareservices.utils.SmsBroadcastReceiver
+//import com.ab.hicareservices.utils.SmsBroadcastReceiver.SmsBroadcastReceiverListener
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -55,7 +55,7 @@ class OTPActivity : AppCompatActivity() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
     val REQUEST_CODE_PERMISSIONS = 101
-    var smsBroadcastReceiver: SmsBroadcastReceiver? = null
+//    var smsBroadcastReceiver: SmsBroadcastReceiver? = null
     private val REQ_USER_CONSENT = 200
     private val timer = Timer()
     private var hasStarted = false
@@ -123,7 +123,7 @@ class OTPActivity : AppCompatActivity() {
         }
 
 
-        smsBroadcastReceiver = SmsBroadcastReceiver()
+//        smsBroadcastReceiver = SmsBroadcastReceiver()
 
 
 //        startSmsRetriever()
@@ -599,27 +599,27 @@ class OTPActivity : AppCompatActivity() {
 //        }
     }
 
-    private fun registerBroadcastReceiver() {
-        smsBroadcastReceiver = SmsBroadcastReceiver()
-        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
-            object : SmsBroadcastReceiverListener {
-                override fun onSuccess(intent: Intent?) {
-                    startActivityForResult(intent, REQ_USER_CONSENT)
-                }
-
-                override fun onFailure() {}
-            }
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        registerReceiver(smsBroadcastReceiver, intentFilter)
-    }
+//    private fun registerBroadcastReceiver() {
+//        smsBroadcastReceiver = SmsBroadcastReceiver()
+//        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
+//            object : SmsBroadcastReceiverListener {
+//                override fun onSuccess(intent: Intent?) {
+//                    startActivityForResult(intent, REQ_USER_CONSENT)
+//                }
+//
+//                override fun onFailure() {}
+//            }
+//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+//        registerReceiver(smsBroadcastReceiver, intentFilter)
+//    }
 
     override fun onStart() {
         super.onStart()
-        registerBroadcastReceiver()
+//        registerBroadcastReceiver()
     }
 
     override fun onStop() {
         super.onStop()
-        unregisterReceiver(smsBroadcastReceiver)
+//        unregisterReceiver(smsBroadcastReceiver)
     }
 }
