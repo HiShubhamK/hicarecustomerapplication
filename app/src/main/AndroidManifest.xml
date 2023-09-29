@@ -152,6 +152,7 @@
                 android:value="" />
         </activity>
 
+
         <service
             android:name=".utils.MyFirebaseMessagingService"
             android:exported="true">
