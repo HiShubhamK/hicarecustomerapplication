@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Typeface
@@ -26,8 +25,6 @@ import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.OTP_Receiver
-import com.ab.hicareservices.utils.SmsBroadcastReceiver
-import com.ab.hicareservices.utils.SmsBroadcastReceiver.SmsBroadcastReceiverListener
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -55,7 +52,6 @@ class OTPActivity : AppCompatActivity() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
     val REQUEST_CODE_PERMISSIONS = 101
-    var smsBroadcastReceiver: SmsBroadcastReceiver? = null
     private val REQ_USER_CONSENT = 200
     private val timer = Timer()
     private var hasStarted = false
@@ -121,10 +117,6 @@ class OTPActivity : AppCompatActivity() {
                 )
             }
         }
-
-
-        smsBroadcastReceiver = SmsBroadcastReceiver()
-
 
 //        startSmsRetriever()
 
@@ -534,34 +526,6 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
-//    private fun startSmsRetriever() {
-//        val client = SmsRetriever.getClient(this /* context */)
-//        val task = client.startSmsRetriever()
-//        task.addOnSuccessListener {
-//            // SMS retrieval started
-//        }
-//        task.addOnFailureListener {
-//            // SMS retrieval failed to start
-//        }
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-//        registerReceiver(smsBroadcastReceiver, intentFilter)
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        unregisterReceiver(smsBroadcastReceiver)
-//    }
-
-
-    private fun startSmartUserConsent() {
-        val client = SmsRetriever.getClient(this)
-        client.startSmsUserConsent(null)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_USER_CONSENT) {
@@ -573,53 +537,6 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun getOtpFromMessage(message: String?) {
-
         binding.otpView.setOTP(message)
-
-//        val otpPattern: Pattern = Pattern.compile("(|^)\\d{4}")
-//        val matcher: Matcher = otpPattern.matcher(message)
-//
-//        var str=matcher.toString()
-//        var converttostring=""
-//
-////        val str = "Hi welcome to tutorialspoint"
-//        val n = 5
-//        val initial = str.length - 5
-//        for (i in initial until str.length) {
-//            converttostring+= str[i].toString()
-//        }
-//
-//
-//        Log.d("OTPString",converttostring.toString())
-//
-//        if (matcher.find()) {
-//            Log.d("OTP",matcher.toString())
-//            Toast.makeText(this,matcher.toString(),Toast.LENGTH_LONG).show()
-//            binding.otpView.setOTP(matcher.toString())
-//        }
-    }
-
-    private fun registerBroadcastReceiver() {
-        smsBroadcastReceiver = SmsBroadcastReceiver()
-        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
-            object : SmsBroadcastReceiverListener {
-                override fun onSuccess(intent: Intent?) {
-                    startActivityForResult(intent, REQ_USER_CONSENT)
-                }
-
-                override fun onFailure() {}
-            }
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        registerReceiver(smsBroadcastReceiver, intentFilter)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        registerBroadcastReceiver()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(smsBroadcastReceiver)
     }
 }
