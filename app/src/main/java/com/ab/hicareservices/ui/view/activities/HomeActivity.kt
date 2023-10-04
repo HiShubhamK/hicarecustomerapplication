@@ -490,22 +490,13 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     private fun makePhoneCall() {
-        var number: String = AppUtils2.mobileno
+        var number: String = "8828333888"
         if (number.trim { it <= ' ' }.isNotEmpty()) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CALL_PHONE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    requestCall
-                )
-            } else {
-                val dial = "tel:$number"
-                startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-            }
+//
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$number")
+            startActivity(intent)
+//
         } else {
             Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
         }

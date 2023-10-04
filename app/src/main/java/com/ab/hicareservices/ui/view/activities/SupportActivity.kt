@@ -6,13 +6,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.app.ActivityCompat
@@ -20,15 +26,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddToCartBinding
 import com.ab.hicareservices.databinding.ActivitySupportBinding
 import com.ab.hicareservices.ui.adapter.SocialMediaAdapter
-import com.ab.hicareservices.ui.view.fragments.HomeFragment
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
+import java.util.Calendar
 
 class SupportActivity : AppCompatActivity() {
 
@@ -91,38 +94,17 @@ class SupportActivity : AppCompatActivity() {
     private fun makePhoneCall() {
         var number: String = "8828333888"
         if (number.trim { it <= ' ' }.isNotEmpty()) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CALL_PHONE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    requestCall
-                )
-            } else {
-                val dial = "tel:$number"
-                startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-            }
+//
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$number")
+            startActivity(intent)
+//
         } else {
             Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == requestCall) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall()
-            } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -1,12 +1,23 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.Manifest
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.provider.Telephony
+import android.telephony.TelephonyManager
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -21,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     private val viewModel: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
-    var data:String=""
+    var data: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -36,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         button.setResultCallback { data: OtplessResponse ->
             if (data?.waId != null) {
                 val waid = data.waId
-                getwhatapplogin(waid,progressDialog)
+                getwhatapplogin(waid, progressDialog)
             }
         }
 
@@ -45,32 +56,35 @@ class LoginActivity : AppCompatActivity() {
 
         binding.signInBtn.setOnClickListener {
             val mobileNo = binding.mobileNoEt.text.toString()
-            if(binding.mobileNoEt.text.toString().equals("0000000000")){
-                Toast.makeText(this,"Please Enter Valid Mobile Number",Toast.LENGTH_LONG).show()
-            }else if (mobileNo.length != 10){
-                Toast.makeText(this,"Please Enter Valid Mobile Number",Toast.LENGTH_LONG).show()
+            if (binding.mobileNoEt.text.toString().equals("0000000000")) {
+                Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
+            } else if (mobileNo.length != 10) {
+                Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
 //                binding.mobileNoEt.setError("Invalid Phone Number")
                 return@setOnClickListener
-            }else{
+            } else {
                 progressDialog.show()
                 binding.signInBtn.isEnabled = false
-                getOtp(mobileNo,progressDialog)
+                getOtp(mobileNo, progressDialog)
+
+
+
             }
         }
     }
 
     private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
         viewModel.getWhatappToken(waid.toString())
-        viewModel.whatsResponse.observe(this,Observer{
-            if(it.IsSuccess==true){
-                data= it.Data?.waNumber?.substring(2).toString()
+        viewModel.whatsResponse.observe(this, Observer {
+            if (it.IsSuccess == true) {
+                data = it.Data?.waNumber?.substring(2).toString()
 
-                viewModel.validateAccounts(data,this)
+                viewModel.validateAccounts(data, this)
 
                 SharedPreferenceUtil.setData(this, "mobileNo", data)
                 SharedPreferenceUtil.setData(this, "phoneNo", data)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
-                val intent=Intent(this,HomeActivity::class.java)
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -78,11 +92,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-  //      binding.signInBtn.isEnabled = true
+        //      binding.signInBtn.isEnabled = true
         super.onResume()
     }
 
-    private fun getOtp(mobileNo: String, progressDialog: ProgressDialog){
+    private fun getOtp(mobileNo: String, progressDialog: ProgressDialog) {
         viewModel.getOtp(mobileNo)
         viewModel.otpResponse.observe(this, Observer {
             if (it.isSuccess == true) {
@@ -92,19 +106,20 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra("otp", it.data)
                 startActivity(intent)
                 finishAffinity()
-            }else{
+            } else {
             }
         })
     }
 
-    private fun checkUserStatus(){
+    private fun checkUserStatus() {
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 //        AppUtils2.TOKEN = SharedPreferenceUtil.getData(this, "bToken", "").toString()
-        if (mobileNo != "-1"){
+        if (mobileNo != "-1") {
             val i = Intent(this, HomeActivity::class.java)
             //i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(i)
             finish()
         }
     }
+
 }

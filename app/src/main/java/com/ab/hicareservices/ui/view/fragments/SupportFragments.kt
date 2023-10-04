@@ -75,30 +75,17 @@ class SupportFragments : Fragment() {
     }
 
     private fun makePhoneCall() {
-        var number:String="8828333888"
+        var number: String = "8828333888"
         if (number.trim { it <= ' ' }.isNotEmpty()) {
-            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CALL_PHONE), requestCall)
-            } else {
-                val dial = "tel:$number"
-                startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-            }
+//
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$number")
+            startActivity(intent)
+//
         } else {
-            Toast.makeText(requireActivity(), "Enter Phone Number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Enter Phone Number", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == requestCall) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall()
-            } else {
-                Toast.makeText(requireActivity(), "Permission DENIED", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+
 }
