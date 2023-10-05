@@ -7,6 +7,8 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -59,28 +61,33 @@ class OTPActivity : AppCompatActivity() {
             finish()
         }
         binding.continueBtn.setOnClickListener {
-                progressDialog.show()
+            progressDialog.show()
             if (mOtp.equals(binding.otpView.otp.toString())) {
 
                 validateAccount(mobileNo)
-                progressDialog.dismiss()
-                SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-                SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-                SharedPreferenceUtil.setData(this, "IsLogin", true)
 
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            }else{
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    progressDialog.dismiss()
+                    SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+                    SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+                    SharedPreferenceUtil.setData(this, "IsLogin", true)
+
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }, 2000)
+
+            } else {
                 progressDialog.dismiss()
-                Toast.makeText(this,"Enter valid otp",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun validateAccount(mobileNo: String) {
 
-        viewModel.validateAccounts(mobileNo,this)
+        viewModel.validateAccounts(mobileNo, this)
     }
 
     private fun resendOtp(mobileNo: String) {
