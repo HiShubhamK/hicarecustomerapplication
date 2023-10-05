@@ -105,7 +105,7 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun startCounter() {
-        object : CountDownTimer(30000, 1000) {
+        object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.resendCodeTv.text = "Resend code in 00: " + millisUntilFinished / 1000
                 //here you can have your logic to set text to edittext
