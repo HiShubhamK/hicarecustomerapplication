@@ -93,7 +93,7 @@ class OTPActivity : AppCompatActivity() {
     private fun resendOtp(mobileNo: String) {
         viewModel.otpResponse.observe(this) {
             if (it.isSuccess == true) {
-                binding.resentSuccessTv.visibility = View.VISIBLE
+//                binding.resentSuccessTv.visibility = View.VISIBLE
                 mOtp = it.data.toString()
                 startCounter()
             } else {
