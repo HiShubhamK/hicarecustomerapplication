@@ -1,21 +1,10 @@
 package com.ab.hicareservices.ui.view.activities
 
-import android.Manifest
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.provider.Telephony
-import android.telephony.TelephonyManager
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,6 +12,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityLoginBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import com.otpless.dto.OtplessResponse
 import com.otpless.views.OtplessManager
 import com.otpless.views.WhatsappLoginButton
@@ -66,11 +56,9 @@ class LoginActivity : AppCompatActivity() {
                 progressDialog.show()
                 binding.signInBtn.isEnabled = false
                 getOtp(mobileNo, progressDialog)
-
-
-
             }
         }
+
     }
 
     private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
@@ -97,18 +85,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getOtp(mobileNo: String, progressDialog: ProgressDialog) {
-        viewModel.getOtp(mobileNo)
-        viewModel.otpResponse.observe(this, Observer {
-            if (it.isSuccess == true) {
-                progressDialog.dismiss()
-                val intent = Intent(this, OTPActivity::class.java)
-                intent.putExtra("mobileNo", mobileNo)
-                intent.putExtra("otp", it.data)
-                startActivity(intent)
-                finishAffinity()
-            } else {
-            }
-        })
+        if (AppUtils2.isNetworkAvailable(this) == true) {
+            viewModel.getOtp(mobileNo)
+            viewModel.otpResponse.observe(this, Observer {
+                if (it.isSuccess == true) {
+                    progressDialog.dismiss()
+                    val intent = Intent(this, OTPActivity::class.java)
+                    intent.putExtra("mobileNo", mobileNo)
+                    intent.putExtra("otp", it.data)
+                    startActivity(intent)
+                    finishAffinity()
+                } else {
+                    progressDialog.dismiss()
+                }
+            })
+        } else {
+            binding.signInBtn.isEnabled = true
+            progressDialog.dismiss()
+            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun checkUserStatus() {
@@ -121,5 +117,14 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
+
+//    private fun isNetworkAvailable(): Boolean {
+//        val connectivityManager =
+//            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//
+//        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+//        return activeNetwork?.isConnected == true
+//    }
+
 
 }

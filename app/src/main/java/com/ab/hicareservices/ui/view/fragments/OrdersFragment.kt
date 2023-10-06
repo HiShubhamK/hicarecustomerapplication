@@ -194,6 +194,7 @@ import java.util.Calendar
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             }
         }
+        progressDialog.dismiss()
     }
 
 
@@ -307,6 +308,8 @@ import java.util.Calendar
                 viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
             }
         }
+
+        progressDialog.dismiss()
     }
 
     override fun onDestroy() {

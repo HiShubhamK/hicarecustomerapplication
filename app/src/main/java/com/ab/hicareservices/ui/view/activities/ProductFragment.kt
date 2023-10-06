@@ -87,6 +87,8 @@ class ProductFragment : Fragment() {
                 progressDialog.dismiss()
                 binding.cartmenu.visibility = View.GONE
             }
+
+            progressDialog.dismiss()
         })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
@@ -166,6 +168,7 @@ class ProductFragment : Fragment() {
 //        },3000)
 
 
+        progressDialog.dismiss()
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
@@ -226,6 +229,7 @@ class ProductFragment : Fragment() {
                 viewProductModel.CreateEventForMobileAppNotification(data)
             }
         })
+        progressDialog.dismiss()
     }
 
     private fun getProductslist2(pincode: String) {
@@ -276,7 +280,7 @@ class ProductFragment : Fragment() {
 
         },1000)
 
-
+        progressDialog.dismiss()
 
         mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
             override fun onProductClickedHandler(position: Int, productid: Int) {
@@ -363,6 +367,8 @@ class ProductFragment : Fragment() {
 
             }
         })
+
+        progressDialog.dismiss()
     }
 
 
@@ -382,6 +388,8 @@ class ProductFragment : Fragment() {
         })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+        progressDialog.dismiss()
+
     }
 
     override fun onResume() {
@@ -400,8 +408,9 @@ class ProductFragment : Fragment() {
                 binding.cartmenu.visibility = View.GONE
             }
         })
-
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+        progressDialog.dismiss()
+
     }
 
 

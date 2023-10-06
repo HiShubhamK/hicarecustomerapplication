@@ -49,11 +49,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 
 import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
+import com.ab.hicareservices.utils.ConnectivityChangeListener
+import com.ab.hicareservices.utils.ConnectivityReceiver
 
-class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
+class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,ConnectivityChangeListener {
     private lateinit var binding: ActivityMainBinding
     lateinit var geocoder: Geocoder
     lateinit var address: List<Address>
@@ -73,6 +76,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var customerid: String = ""
     var pincode: String? = null
 
+
+    private lateinit var connectivityReceiver: ConnectivityReceiver
     private val notificationPermissionRequestCode = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,66 +85,15 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        datalist = ArrayList()
-        datalist.add("Select Type")
-        AppUtils2.servicetype.clear()
-        AppUtils2.servicetype.add("Select Type")
 
-        val intent = intent
-        activiyname = intent.getStringExtra("Externallink").toString()
-
-
-        if(!AppUtils2.Activityname.equals("") && AppUtils2.Activityname.startsWith("http")){
-            try {
-                val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(AppUtils2.Activityname)
-                )
-                startActivity(intent)
-            } catch (e: Exception) {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(activiyname)
-                    )
-                )
-            }
-        }
-
-        MyLocationListener(this)
-
-        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
-//        viewModel.validateAccount(AppUtils2.mobileno)
-        customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            checkUserStatus()
-        }, 3000)
+        connectivityReceiver = ConnectivityReceiver(this)
+        registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
 
 
-        viewModelss.validateAccounts(AppUtils2.mobileno, this)
 
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-
-            if (!task.isSuccessful) {
-                return@OnCompleteListener
-            }
-
-            token = task.result
-
-            Log.e("Token", token.toString())
-
-//            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//            val clipData = ClipData.newPlainText("text", token)
-//            clipboardManager.setPrimaryClip(clipData)
-
-        })
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
-        }, 500)
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
@@ -150,14 +104,23 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
+                    if(AppUtils2.isNetworkAvailable(this)==true){
+
+                    }else{
+                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    }
                     binding.addFab.visibility = View.VISIBLE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance())
                         .addToBackStack("HomeFragment").commit()
                     true
-
                 }
                 R.id.nav_bookings -> {
+                    if(AppUtils2.isNetworkAvailable(this)==true){
+
+                    }else{
+                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    }
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, ProductFragment.newInstance())
@@ -165,6 +128,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     true
                 }
                 R.id.nav_account -> {
+                    if(AppUtils2.isNetworkAvailable(this)==true){
+
+                    }else{
+                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    }
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AccountFragment.newInstance())
@@ -172,6 +140,11 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     true
                 }
                 R.id.nav_cart -> {
+                    if(AppUtils2.isNetworkAvailable(this)==true){
+
+                    }else{
+                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
                         .commit()
@@ -191,13 +164,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
         binding.bottomNavigation.selectedItemId = R.id.nav_home
 
-        binding.addFab.setOnClickListener {
-            showLeadDialog()
-        }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            getLeadMethod()
-        }, 1500)
+
+
 
 
 //        viewProductModel.customerlogininfo.observe(this, Observer {
@@ -540,5 +509,155 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
+    override fun onConnectivityChanged(isConnected: Boolean) {
+        if (isConnected) {
+            datalist = ArrayList()
+            datalist.add("Select Type")
+            AppUtils2.servicetype.clear()
+            AppUtils2.servicetype.add("Select Type")
+
+            val intent = intent
+            activiyname = intent.getStringExtra("Externallink").toString()
+
+
+            if(!AppUtils2.Activityname.equals("") && AppUtils2.Activityname.startsWith("http")){
+                try {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(AppUtils2.Activityname)
+                    )
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(activiyname)
+                        )
+                    )
+                }
+            }
+
+            MyLocationListener(this)
+
+            AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+//        viewModel.validateAccount(AppUtils2.mobileno)
+            customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
+            pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                checkUserStatus()
+            }, 3000)
+
+
+            viewModelss.validateAccounts(AppUtils2.mobileno, this)
+
+
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+
+                token = task.result
+
+                Log.e("Token", token.toString())
+
+//            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clipData = ClipData.newPlainText("text", token)
+//            clipboardManager.setPrimaryClip(clipData)
+
+            })
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
+            }, 500)
+
+            binding.addFab.visibility = View.VISIBLE
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance()).commit();
+
+//        binding.bottomheadertext.text=AppUtils2.order_number
+
+            binding.bottomNavigation.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_home -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        binding.addFab.visibility = View.VISIBLE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HomeFragment.newInstance())
+                            .addToBackStack("HomeFragment").commit()
+                        true
+                    }
+                    R.id.nav_bookings -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        binding.addFab.visibility = View.GONE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, ProductFragment.newInstance())
+                            .addToBackStack("HomeFragment").commit()
+                        true
+                    }
+                    R.id.nav_account -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        binding.addFab.visibility = View.GONE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, AccountFragment.newInstance())
+                            .addToBackStack("AccountFragment").commit()
+                        true
+                    }
+                    R.id.nav_cart -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
+                            .commit()
+
+                        true
+                    }
+                    R.id.nav_orders -> {
+                        binding.addFab.visibility = View.GONE
+                        AppUtils2.fromdasboardmenu = false
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, OrdersFragmentNew.newInstance())
+                            .addToBackStack("OrdersFragmentNew").commit()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            binding.bottomNavigation.selectedItemId = R.id.nav_home
+
+            binding.addFab.setOnClickListener {
+                showLeadDialog()
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                getLeadMethod()
+            }, 1500)
+
+
+        } else {
+            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(connectivityReceiver)
+    }
 
 }

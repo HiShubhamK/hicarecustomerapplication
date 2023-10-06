@@ -1,16 +1,18 @@
 package com.ab.hicareservices.utils
 
 import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
+import androidx.core.content.ContextCompat.getSystemService
 import com.ab.hicareservices.data.model.dashboard.SocialMediadata
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.CartlistResponseData
-import com.ab.hicareservices.data.model.product.ProducDetailsData
-import com.ab.hicareservices.data.model.product.ProductGallery
 import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
+import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
@@ -142,6 +144,14 @@ object AppUtils2 {
             e.printStackTrace()
         }
         return s
+    }
+
+
+    fun isNetworkAvailable(loginActivity: Context): Boolean {
+        val connectivityManager = loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        return activeNetwork?.isConnected == true
     }
 
 }

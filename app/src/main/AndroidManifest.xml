@@ -207,7 +207,11 @@
             android:name=".ui.view.activities.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.view.activities.SplashActivity"
             android:exported="true"
@@ -235,6 +239,16 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".utils.ConnectivityReceiver"
+            android:enabled="true"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
