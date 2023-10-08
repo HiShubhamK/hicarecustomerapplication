@@ -90,12 +90,15 @@ class LoginActivity : AppCompatActivity() {
             viewModel.otpResponse.observe(this, Observer {
                 if (it.isSuccess == true) {
                     progressDialog.dismiss()
+                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_LONG).show()
                     val intent = Intent(this, OTPActivity::class.java)
                     intent.putExtra("mobileNo", mobileNo)
                     intent.putExtra("otp", it.data)
                     startActivity(intent)
-                    finishAffinity()
+                    finish()
                 } else {
+                    binding.signInBtn.isEnabled = true
+                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_LONG).show()
                     progressDialog.dismiss()
                 }
             })
