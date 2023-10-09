@@ -56,39 +56,42 @@ class OTPActivity : AppCompatActivity() {
             }
         }
         binding.backIv.setOnClickListener {
+            val i = Intent(this, LoginActivity::class.java)
+            startActivity(i)
             finish()
         }
 
 //        if(AppUtils2.isNetworkAvailable(this)==true){
 
-            binding.continueBtn.setOnClickListener {
+        binding.continueBtn.setOnClickListener {
 
-                if(AppUtils2.isNetworkAvailable(this)==true){
-                    progressDialog.show()
-                    if (mOtp.equals(binding.otpView.otp.toString())) {
-                        validateAccount(mobileNo)
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            progressDialog.dismiss()
-                            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-                            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-                            SharedPreferenceUtil.setData(this, "IsLogin", true)
-
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }, 2000)
-
-                    } else {
+            if (AppUtils2.isNetworkAvailable(this) == true) {
+                progressDialog.show()
+                if (mOtp.equals(binding.otpView.otp.toString())) {
+                    validateAccount(mobileNo)
+                    Handler(Looper.getMainLooper()).postDelayed({
                         progressDialog.dismiss()
-                        Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
-                    }
-                }else{
+                        SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+                        SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+                        SharedPreferenceUtil.setData(this, "IsLogin", true)
+
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }, 2000)
+
+                } else {
                     progressDialog.dismiss()
-                    Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
                 }
-
-
+            } else {
+                progressDialog.dismiss()
+                Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG)
+                    .show()
             }
+
+
+        }
 //        }else{
 //            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
 //        }
@@ -101,7 +104,7 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun resendOtp(mobileNo: String) {
-        if(AppUtils2.isNetworkAvailable(this)==true){
+        if (AppUtils2.isNetworkAvailable(this) == true) {
             viewModel.otpResponse.observe(this) {
                 if (it.isSuccess == true) {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
@@ -113,8 +116,8 @@ class OTPActivity : AppCompatActivity() {
                 }
             }
             viewModel.getOtp(mobileNo)
-        }else{
-            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -132,7 +135,7 @@ class OTPActivity : AppCompatActivity() {
         }.start()
     }
 
-//    override fun onSuccess(data: String) {
+    //    override fun onSuccess(data: String) {
 //        binding.continueBtn.isEnabled = true
 //        progressDialog.dismiss()
 //        if (data != "") {
@@ -160,4 +163,11 @@ class OTPActivity : AppCompatActivity() {
 //        progressDialog.dismiss()
 //        Toast.makeText(this, "Authorization Error", Toast.LENGTH_SHORT).show()
 //    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val i = Intent(this, LoginActivity::class.java)
+        startActivity(i)
+        finish()
+
+    }
 }

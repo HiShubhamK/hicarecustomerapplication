@@ -62,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
-        viewModel.getWhatappToken(waid.toString())
         viewModel.whatsResponse.observe(this, Observer {
             if (it.IsSuccess == true) {
                 data = it.Data?.waNumber?.substring(2).toString()
@@ -77,6 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         })
+        viewModel.getWhatappToken(waid.toString())
     }
 
     override fun onResume() {
@@ -86,11 +86,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun getOtp(mobileNo: String, progressDialog: ProgressDialog) {
         if (AppUtils2.isNetworkAvailable(this) == true) {
-            viewModel.getOtp(mobileNo)
             viewModel.otpResponse.observe(this, Observer {
                 if (it.isSuccess == true) {
                     progressDialog.dismiss()
-                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, OTPActivity::class.java)
                     intent.putExtra("mobileNo", mobileNo)
                     intent.putExtra("otp", it.data)
@@ -98,16 +97,17 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 } else {
                     binding.signInBtn.isEnabled = true
-                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()
                 }
             })
+            viewModel.getOtp(mobileNo)
         } else {
             binding.signInBtn.isEnabled = true
             progressDialog.dismiss()
-            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show()
         }
-
+        progressDialog.dismiss()
     }
 
     private fun checkUserStatus() {
@@ -128,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
 //        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
 //        return activeNetwork?.isConnected == true
 //    }
+
 
 
 }

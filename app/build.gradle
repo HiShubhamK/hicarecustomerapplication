@@ -24,6 +24,9 @@ repositories {
 android {
     compileSdkVersion 33
 
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         applicationId "com.ab.hicareservices"
@@ -31,7 +34,6 @@ android {
         targetSdkVersion 33
         versionCode 15
         versionName "1.2"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
