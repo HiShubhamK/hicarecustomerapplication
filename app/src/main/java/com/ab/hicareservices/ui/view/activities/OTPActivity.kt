@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
@@ -39,7 +40,7 @@ class OTPActivity : AppCompatActivity() {
 
         val intent = intent
         mobileNo = intent.getStringExtra("mobileNo").toString()
-        mOtp = intent.getStringExtra("otp").toString()
+//        mOtp = intent.getStringExtra("otp").toString()
         binding.mobileNoTv.text = "$mobileNo"
 
         AppUtils2.mobileno = mobileNo
@@ -47,6 +48,14 @@ class OTPActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        viewModel.otpResponse.observe(this, Observer {
+            if (it.isSuccess == true) {
+                mOtp=it.data.toString()
+            } else {
+                Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.getOtp(mobileNo)
 
         startCounter()
         binding.resendCodeTv.setOnClickListener {
