@@ -196,7 +196,8 @@
             android:name=".ui.view.activities.OTPActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" >
+        </activity>
         <activity
             android:name=".ui.view.activities.RegistrationActivity"
             android:exported="true"
@@ -251,6 +252,15 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".utils.SMSListener"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVE" />
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name="com.razorpay.CheckoutActivity"
