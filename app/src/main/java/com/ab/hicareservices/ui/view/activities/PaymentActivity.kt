@@ -205,7 +205,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-//            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
+            AppUtils2.productamount = it.FinalAmount!!.toDouble().toString()
             totaldiscount = it.TotalDiscount?.toDouble().toString()
             actualvalue = it.TotalAmount?.toDouble().toString()
 
@@ -259,6 +259,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onResume() {
         super.onResume()
+        getSummarydata()
 
     }
 
@@ -418,6 +419,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             binding.imgOffererror.visibility = View.VISIBLE
             binding.txtpayment.visibility = View.VISIBLE
             binding.txtpayment.text = "Payment Failed"
+            AppUtils2.productamount=""
             Handler(Looper.getMainLooper()).postDelayed({
                 onBackPressed()
             }, 500)
@@ -429,6 +431,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.productamount=""
         val data1 = Intent()
         data1.putExtra("title", AppUtils2.paymentsucess)
         finish()

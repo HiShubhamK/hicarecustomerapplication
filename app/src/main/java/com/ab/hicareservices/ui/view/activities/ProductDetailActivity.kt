@@ -295,7 +295,7 @@ class ProductDetailActivity : AppCompatActivity() {
 //                            if(it.IsSuccess==true){
 //                                progressDialog.dismiss()
                                 Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
-//                                getSummarydata()
+                                getSummarydata()
 //                            }else{
 //                                progressDialog.dismiss()
 //                                Toast.makeText(this@ProductDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
@@ -341,9 +341,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.textcount.text = it.ProductConfiguration!!.MinimumBuyQuantity.toString()
                 counts = it.ProductConfiguration!!.MinimumBuyQuantity!!.toInt()
             }
-
-
-
 
             binding.imgadd.setOnClickListener {
                 counts = counts + 1

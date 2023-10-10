@@ -43,7 +43,6 @@ class ProductFragment : Fragment() {
     private lateinit var mAdapter: ProductAdapter
     lateinit var progressDialog: ProgressDialog
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -72,8 +71,10 @@ class ProductFragment : Fragment() {
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        progressDialog.show()
+
+
         viewProductModel.productcount.observe(requireActivity(), Observer {
-            progressDialog.show()
             if (it.IsSuccess == true) {
 
                 progressDialog.dismiss()
@@ -125,6 +126,8 @@ class ProductFragment : Fragment() {
             val intent = Intent(requireActivity(), AddToCartActivity::class.java)
             startActivity(intent)
         }
+        progressDialog.dismiss()
+
     }
 
     @SuppressLint("SuspiciousIndentation")

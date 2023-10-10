@@ -38,7 +38,6 @@ class ProductComplaintsFragment() : Fragment() {
     lateinit var progressDialog: ProgressDialog
     private val viewProductModel: ProductViewModel by viewModels()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()

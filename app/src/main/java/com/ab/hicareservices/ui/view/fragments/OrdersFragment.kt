@@ -1,4 +1,4 @@
- package com.ab.hicareservices.ui.view.fragments
+package com.ab.hicareservices.ui.view.fragments
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -135,7 +135,6 @@ import java.util.Calendar
             binding.alltext.setTextColor(Color.parseColor("#5A5A5A"))
         }
 
-
         binding.txtall.setOnClickListener {
 //            binding.progressBar13.visibility = View.VISIBLE
 
@@ -150,7 +149,6 @@ import java.util.Calendar
             binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
         }
     }
-
     private fun getOrdersList2(progressDialog: ProgressDialog) {
 
         progressDialog.show()
@@ -196,7 +194,6 @@ import java.util.Calendar
         }
         progressDialog.dismiss()
     }
-
 
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
         binding.textnotfound.visibility = View.GONE
@@ -282,7 +279,6 @@ import java.util.Calendar
             }
         })
 
-
         viewModel.responseMessage.observe(requireActivity(), Observer {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.recyclerView.visibility = View.GONE
@@ -311,9 +307,13 @@ import java.util.Calendar
 
         progressDialog.dismiss()
     }
-
     override fun onDestroy() {
         super.onDestroy()
     }
+
+     override fun onResume() {
+         progressDialog.show()
+         super.onResume()
+     }
 
 }

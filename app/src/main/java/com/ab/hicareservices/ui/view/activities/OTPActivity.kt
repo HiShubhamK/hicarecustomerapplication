@@ -55,13 +55,12 @@ class OTPActivity : AppCompatActivity() {
                 //startCounter()
             }
         }
-        binding.backIv.setOnClickListener {
+
+        binding.backIvs.setOnClickListener {
             val i = Intent(this, LoginActivity::class.java)
             startActivity(i)
             finish()
         }
-
-//        if(AppUtils2.isNetworkAvailable(this)==true){
 
         binding.continueBtn.setOnClickListener {
 
