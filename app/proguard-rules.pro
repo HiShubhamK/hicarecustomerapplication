@@ -35,6 +35,8 @@
 #  public void onPayment*(...);
 #}
 
+-keepclassmembers class com.ab.hicareservices.data.model.** { <fields>; }
+
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }

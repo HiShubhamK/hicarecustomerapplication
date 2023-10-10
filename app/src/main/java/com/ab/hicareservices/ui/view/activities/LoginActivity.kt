@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
         binding.signInBtn.setOnClickListener {
-            var mobileNo = binding.mobileNoEt.text.toString()
+            val mobileNo = binding.mobileNoEt.text.toString()
             if (binding.mobileNoEt.text.toString().equals("0000000000")) {
                 Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
             } else if (mobileNo.length != 10) {
@@ -53,19 +53,14 @@ class LoginActivity : AppCompatActivity() {
 //                binding.mobileNoEt.setError("Invalid Phone Number")
                 return@setOnClickListener
             } else {
-                val intent = Intent(this, OTPActivity::class.java)
-                intent.putExtra("mobileNo", mobileNo)
-                startActivity(intent)
-//                progressDialog.show()
-//                binding.signInBtn.isEnabled = false
-//                getOtp(mobileNo, progressDialog)
+                progressDialog.show()
+                binding.signInBtn.isEnabled = false
+                getOtp(mobileNo, progressDialog)
             }
         }
-
     }
 
     private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
-        viewModel.getWhatappToken(waid.toString())
         viewModel.whatsResponse.observe(this, Observer {
             if (it.IsSuccess == true) {
                 data = it.Data?.waNumber?.substring(2).toString()
@@ -124,14 +119,4 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
-
-//    private fun isNetworkAvailable(): Boolean {
-//        val connectivityManager =
-//            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//
-//        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-//        return activeNetwork?.isConnected == true
-//    }
-
-
 }
