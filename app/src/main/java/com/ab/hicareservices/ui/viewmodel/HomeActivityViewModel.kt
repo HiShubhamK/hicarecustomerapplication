@@ -65,7 +65,7 @@ class HomeActivityViewModel: ViewModel() {
             .enqueue(object : Callback<CurrentApiVersion>{
                 override fun onResponse(call: Call<CurrentApiVersion>, response: Response<CurrentApiVersion>) {
                     if (response.body()?.IsSuccess == true){
-                        currentapp.postValue(response.body()!!.Data!!)
+                        currentapp.postValue(response.body()!!.AppversionData!!)
                     }else{
                         responseMessgae.postValue(response.body()?.ResponseMessage!!)
                     }
