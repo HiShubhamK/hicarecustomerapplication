@@ -14,6 +14,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
 import com.ab.hicareservices.ui.view.activities.*
+import com.ab.hicareservices.utils.AppUtils2
 import com.bumptech.glide.Glide
 
 class AccountFragment : Fragment() {
@@ -42,6 +43,7 @@ class AccountFragment : Fragment() {
 
         binding.txtusernames.text = first_name.toString()
         binding.txtUserdetailes.text = mobileno.toString()
+        binding.versioncode.text=AppUtils2.versionname
 
 //        binding.edtAccount.setOnClickListener {
 //            requireActivity().supportFragmentManager.beginTransaction()

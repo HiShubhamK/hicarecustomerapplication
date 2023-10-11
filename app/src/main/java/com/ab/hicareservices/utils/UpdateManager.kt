@@ -10,17 +10,17 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import java.io.File
 
-class UpdateManager(private val context: Context) {
+class UpdateManager(private val context: Context, toString: String) {
 
     val apkUrl ="https://play.google.com/store/apps/details?id=com.ab.hicareservices"
 
-    fun checkForUpdates() {
+    fun checkForUpdates(toString: String) {
         // Implement logic to check for updates (e.g., compare current version with server version)
         // If update is available, initiate download and installation
-        downloadAndInstallUpdate("https://play.google.com/store/apps/details?id=com.ab.hicareservices")
+        downloadAndInstallUpdate("https://play.google.com/store/apps/details?id=com.ab.hicareservices",toString)
     }
 
-    private fun downloadAndInstallUpdate(apkUrl: String) {
+    private fun downloadAndInstallUpdate(apkUrl: String, toString: String) {
         // Use a library like Retrofit or any other networking library to download the APK
         // Once downloaded, initiate the installation
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

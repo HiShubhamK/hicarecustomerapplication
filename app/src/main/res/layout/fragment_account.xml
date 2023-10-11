@@ -541,6 +541,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/versioncode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="V 1.0"

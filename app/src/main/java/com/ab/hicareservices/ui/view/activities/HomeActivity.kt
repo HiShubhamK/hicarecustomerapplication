@@ -1,32 +1,25 @@
 package com.ab.hicareservices.ui.view.activities
 
-import android.Manifest
 import android.app.NotificationManager
 import android.content.*
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
-import android.media.audiofx.BassBoost
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -52,10 +45,9 @@ import android.content.Intent
 import android.net.ConnectivityManager
 
 import android.provider.Settings
-import androidx.core.app.NotificationManagerCompat
+import com.ab.hicareservices.utils.AppUpdater
 import com.ab.hicareservices.utils.ConnectivityChangeListener
 import com.ab.hicareservices.utils.ConnectivityReceiver
-import com.ab.hicareservices.utils.UpdateManager
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,ConnectivityChangeListener {
     private lateinit var binding: ActivityMainBinding
@@ -87,9 +79,18 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val updateManager = UpdateManager(this)
-        updateManager.checkForUpdates()
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
+        viewModels.currentapp.observe(this, Observer {
+            if (it != null) {
+                it.IsUpdated?.let { it1 -> SharedPreferenceUtil.setData(this, "IsUpdated", it1) }
+                val updateManager = AppUpdater(this,it.Versioncode.toString(),it.IsUpdated)
+                updateManager.checkForUpdate(it.toString(),it.IsUpdated)
+                AppUtils2.versionname=it.Versionname.toString()
+            }
+        })
+
+        viewModels.getcurretnapversioncode(AppUtils2.mobileno)
 
         connectivityReceiver = ConnectivityReceiver(this)
         registerReceiver(

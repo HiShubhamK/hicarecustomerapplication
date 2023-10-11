@@ -5,28 +5,32 @@ import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
-import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.ab.hicareservices.BuildConfig
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-class AppUpdater(private val context: Context) {
+class AppUpdater(private val context: Context, toString: String, isUpdated: Boolean?) {
 
     private val apkUrl = "https://play.google.com/store/apps/details?id=com.ab.hicareservices" // Replace with your APK download URL
 
-    fun checkForUpdate() {
+    fun checkForUpdate(toString: String, isUpdated: Boolean?) {
         // You would typically check your backend for the latest version information here
 
         // For simplicity, let's assume the latest version code is 2
-        val latestVersionCode = 2
+        val latestVersionCode = toString.toFloat()
 
-        if (latestVersionCode > BuildConfig.VERSION_CODE) {
-            showUpdateDialog()
-        } else {
-            Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+        if(isUpdated==false) {
+
+        }else{
+            if (latestVersionCode > BuildConfig.VERSION_CODE) {
+                showUpdateDialog()
+            } else {
+                Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -36,10 +40,18 @@ class AppUpdater(private val context: Context) {
         builder.setMessage("A new version of the app is available. Do you want to update now?")
         builder.setPositiveButton("Update") { _, _ ->
             // Start the download and installation process
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=com.ab.hicareservices")
+                )
+            )
             DownloadTask().execute(apkUrl)
         }
         builder.setNegativeButton("Later") { _, _ ->
             // User chose to update later
+            SharedPreferenceUtil.setData(context, "IsUpdated", false)
+
         }
         builder.show()
     }

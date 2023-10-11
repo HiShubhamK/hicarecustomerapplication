@@ -49,7 +49,7 @@ class CComplaintViewModel : ViewModel() {
                 if(response.body()?.isSuccess ==true) {
                     createComplaintResponse.postValue(response.body())
                 }else{
-                    responseMessage.postValue(response.body()!!.responseMessage)
+                    responseMessage.postValue(response.body()!!.responseMessage!!)
                 }
                 Log.d("TAG", "Response " + response.body()?.data.toString())
             }

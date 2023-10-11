@@ -3,6 +3,8 @@ package com.ab.hicareservices.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.AppversionData
+import com.ab.hicareservices.data.model.CurrentApiVersion
 import com.ab.hicareservices.data.model.LeadResponse
 import com.ab.hicareservices.data.model.leadResopnse
 import com.ab.hicareservices.data.model.orders.OrdersData
@@ -21,6 +23,7 @@ class HomeActivityViewModel: ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val leadResponse = MutableLiveData<LeadResponse>()
     val responseMessgae = MutableLiveData<String>()
+    val currentapp = MutableLiveData<AppversionData>()
 
 
     fun getleaderspinner(servicetype: String) {
@@ -48,7 +51,7 @@ class HomeActivityViewModel: ViewModel() {
                         AppUtils2.paymentsucess= response.body()!!.Data.toString()
                         leadResponse.postValue(response.body())
                     }else{
-                        responseMessgae.postValue(response.body()?.Data!!.ResponseMessage)
+                        responseMessgae.postValue(response.body()?.Data!!.ResponseMessage!!)
                     }
                 }
                 override fun onFailure(call: Call<LeadResponse>, t: Throwable) {
@@ -57,7 +60,21 @@ class HomeActivityViewModel: ViewModel() {
             })
     }
 
-
+    fun getcurretnapversioncode(mobile:String){
+        repository.getcurrentAppversion(mobile)
+            .enqueue(object : Callback<CurrentApiVersion>{
+                override fun onResponse(call: Call<CurrentApiVersion>, response: Response<CurrentApiVersion>) {
+                    if (response.body()?.IsSuccess == true){
+                        currentapp.postValue(response.body()!!.data!!)
+                    }else{
+                        responseMessgae.postValue(response.body()?.ResponseMessage!!)
+                    }
+                }
+                override fun onFailure(call: Call<CurrentApiVersion>, t: Throwable) {
+                    errorMessage.postValue(t.message)
+                }
+            })
+    }
 
 }
 
