@@ -215,6 +215,15 @@ class ProductFragment : Fragment() {
             }
 
             override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+                viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+                    if (it.IsSuccess == true) {
+                        Toast.makeText(
+                            requireActivity(),
+                            "Thank You! For Notifying Us",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
                 val data = HashMap<String, Any>()
                 data["Id"] = 0
                 data["Mobile_No"] = AppUtils2.mobileno
@@ -245,15 +254,7 @@ class ProductFragment : Fragment() {
         mAdapter = ProductAdapter()
 
         binding.recycleviewproduct.adapter = mAdapter
-        viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
-            if (it.IsSuccess == true) {
-                Toast.makeText(
-                    requireActivity(),
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+
 
         Handler(Looper.getMainLooper()).postDelayed({
 
@@ -327,6 +328,15 @@ class ProductFragment : Fragment() {
             }
 
             override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+                viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+                    if (it.IsSuccess == true) {
+                        Toast.makeText(
+                            requireActivity(),
+                            "Thank You! For Notifying Us",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
                 val data = HashMap<String, Any>()
                 data["Id"] = 0
                 data["Mobile_No"] = AppUtils2.mobileno

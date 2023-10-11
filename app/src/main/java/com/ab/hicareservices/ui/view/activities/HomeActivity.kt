@@ -55,6 +55,7 @@ import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 import com.ab.hicareservices.utils.ConnectivityChangeListener
 import com.ab.hicareservices.utils.ConnectivityReceiver
+import com.ab.hicareservices.utils.UpdateManager
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,ConnectivityChangeListener {
     private lateinit var binding: ActivityMainBinding
@@ -97,7 +98,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, HomeFragment.newInstance()).commit();
+            .replace(R.id.container, HomeFragment.newInstance()).commit()
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 

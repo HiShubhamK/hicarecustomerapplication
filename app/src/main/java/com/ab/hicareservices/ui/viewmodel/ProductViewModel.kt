@@ -46,7 +46,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     customerlogininfo.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<CustomerLoginInfo>, t: Throwable) {
@@ -62,7 +62,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                 cutomeraddress.postValue(response.body()!!.Data)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<CustomerAddress>, t: Throwable) {
@@ -96,7 +96,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     producDetailsResponse.postValue(response.body()!!.Data!!)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -115,7 +115,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     addtocart.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -133,7 +133,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productcount.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                    errorMessage.postValue(response.body()!!.ResponseMessage!!)
                 }
             }
 
@@ -150,7 +150,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     cartlist.postValue(response.body()!!.Data)
                 }else{
-                    responseMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -170,7 +170,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess ==true){
                     getsummarydata.postValue(response.body()!!.Data!!)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -221,7 +221,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     getordersummeryList.postValue(response.body()!!.orderSummeryData)
                 }else{
-                    responseMessage.postValue(response.body()!!.ResponseMessage)
+                    responseMessage.postValue(response.body()!!.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
@@ -233,7 +233,7 @@ class ProductViewModel: ViewModel() {
         val response = repository.getaddressdetailbyid(addressid)
         response.enqueue(object : Callback<AddressByCustomerModel> {
             override fun onResponse(call: Call<AddressByCustomerModel>, response: Response<AddressByCustomerModel>) {
-                getaddressbydetailid.postValue(response.body()!!.Data)
+                getaddressbydetailid.postValue(response.body()!!.Data!!)
             }
             override fun onFailure(call: Call<AddressByCustomerModel>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")

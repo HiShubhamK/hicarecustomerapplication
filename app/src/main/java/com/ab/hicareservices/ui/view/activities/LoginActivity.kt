@@ -104,6 +104,16 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        if (available("com.whatsapp")) {
+            binding.lnrTitle1.visibility=View.VISIBLE
+            binding.whatsappLogin.visibility=View.VISIBLE
+        }
+        else {
+
+            binding.lnrTitle1.visibility=View.GONE
+            binding.whatsappLogin.visibility=View.GONE
+        }
+
         checkUserStatus()
 
         OtplessManager.getInstance().init(this)
@@ -368,4 +378,19 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    // if app is available or not
+    private fun available(name: String): Boolean {
+        var available = true
+        try {
+            // check if available
+            packageManager.getPackageInfo(name, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            // if not available set
+            // available as false
+            available = false
+        }
+        return available
+    }
+
 }
