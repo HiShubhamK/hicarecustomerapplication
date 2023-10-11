@@ -87,6 +87,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val updateManager = UpdateManager(this)
+        updateManager.checkForUpdates()
+
+
         connectivityReceiver = ConnectivityReceiver(this)
         registerReceiver(
             connectivityReceiver,
