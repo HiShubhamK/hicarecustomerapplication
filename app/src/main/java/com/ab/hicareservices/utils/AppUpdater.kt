@@ -21,7 +21,7 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
         // You would typically check your backend for the latest version information here
 
         // For simplicity, let's assume the latest version code is 2
-        val latestVersionCode = toString.toFloat()
+        val latestVersionCode = toString.toInt()
 
         if(isUpdated==false) {
 

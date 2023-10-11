@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
             if (it != null) {
                 it.IsUpdated?.let { it1 -> SharedPreferenceUtil.setData(this, "IsUpdated", it1) }
                 val updateManager = AppUpdater(this,it.Versioncode.toString(),it.IsUpdated)
-                updateManager.checkForUpdate(it.toString(),it.IsUpdated)
+                updateManager.checkForUpdate(it.Versioncode.toString(),it.IsUpdated)
                 AppUtils2.versionname=it.Versionname.toString()
             }
         })

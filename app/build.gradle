@@ -32,7 +32,7 @@ android {
         applicationId "com.ab.hicareservices"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 17
+        versionCode 20
         versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
