@@ -2,12 +2,14 @@ package com.ab.hicareservices.ui.view.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.IntentSender
 import android.content.IntentSender.SendIntentException
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -27,6 +29,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -55,6 +59,7 @@ import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.LocationPermissionManager
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -104,6 +109,15 @@ class HomeFragment : Fragment() {
     val REQUEST_CODE_PERMISSIONS = 101
 
 
+    private var launcher=  registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result->
+        if (result.resultCode == Activity.RESULT_OK) {
+            Log.d(TAG, "OK")
+        } else {
+            Log.d(TAG, "CANCEL")
+//            requireContext().toast("Please Accept Location enable for use this App.")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -140,47 +154,57 @@ class HomeFragment : Fragment() {
 
         MyLocationListener(requireActivity())
 
+
+        if (!LocationPermissionManager.checkLocationPermission(requireActivity())) {
+            // Request the permission
+            LocationPermissionManager.requestLocationPermission(requireActivity())
+        } else {
+            getCurrentLocations()
+            // Permission already granted, proceed with your location-related tasks
+            // ...
+        }
+
         client = LocationServices
             .getFusedLocationProviderClient(
                 requireActivity()
             )
 
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.POST_NOTIFICATIONS
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            // When permission is granted
-            // Call method
-            getCurrentLocations()
-
-        } else {
-//            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
-
-            // When permission is not granted
-            // Call method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ),
-                    100
-                )
-            }
-        }
+//        if (ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.POST_NOTIFICATIONS
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // When permission is granted
+//            // Call method
+//            getCurrentLocations()
+//
+//        } else {
+////            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
+//
+//            // When permission is not granted
+//            // Call method
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(
+//                    arrayOf(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.POST_NOTIFICATIONS
+//                    ),
+//                    100
+//                )
+//            }
+//        }
 
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -221,6 +245,20 @@ class HomeFragment : Fragment() {
 //        setHomeBanner()
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        // Check if the permission request is related to location
+        if (requestCode == LocationPermissionManager.LOCATION_PERMISSION_REQUEST_CODE) {
+            // Check if the permission is granted
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with your location-related tasks
+                // ...
+            } else {
+                // Permission denied, handle accordingly (e.g., show a message or disable location features)
+            }
+        }
+    }
 
     override fun onPause() {
         super.onPause()
@@ -1015,28 +1053,36 @@ class HomeFragment : Fragment() {
                 // requests here.
             } catch (exception: ApiException) {
                 when (exception.statusCode) {
-                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
-                        // user a dialog.
-                        try {
-                            // Cast to a resolvable exception.
-                            val resolvable = exception as ResolvableApiException
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            resolvable.startResolutionForResult(
-                                requireActivity(),
-                                REQUEST_CODE_PERMISSIONS
-                            )
-
-                        } catch (e: SendIntentException) {
-                            // Ignore the error.
-                        } catch (e: ClassCastException) {
-                            // Ignore, should be an impossible error.
-                        }
-                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                        val intentSenderRequest =
+                            IntentSenderRequest.Builder(exception.status.resolution!!!!).build()
+                        launcher.launch(intentSenderRequest)
+                    } catch (e: IntentSender.SendIntentException) {
+                    }
                 }
+//                when (exception.statusCode) {
+//                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
+//                        // user a dialog.
+//                        try {
+//                            // Cast to a resolvable exception.
+//                            val resolvable = exception as ResolvableApiException
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            resolvable.startResolutionForResult(
+//                                requireActivity(),
+//                                REQUEST_CODE_PERMISSIONS
+//                            )
+//                        } catch (e: SendIntentException) {
+//                            // Ignore the error.
+//                        } catch (e: ClassCastException) {
+//                            // Ignore, should be an impossible error.
+//                        }
+//                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+//                }
             }
         }
     }
+
 
     private fun showLeadDialog(
         offers: String?,

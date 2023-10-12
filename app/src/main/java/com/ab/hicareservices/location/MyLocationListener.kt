@@ -20,7 +20,7 @@ import java.util.*
 import kotlin.collections.List
 
 
-@SuppressLint("MissingPermission")
+@SuppressLint("MissingPermission", "SuspiciousIndentation")
 class MyLocationListener(context: Context) : LocationListener {
     var latitude = 0.0
     var context: Context? = null
@@ -46,6 +46,41 @@ class MyLocationListener(context: Context) : LocationListener {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
 
+                if (isGPSEnabled) {
+                    locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+                    location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    Toast.makeText(context,location.toString(),Toast.LENGTH_SHORT).show()
+
+                }
+                if (isNetworkEnabled) {
+                    locationManager?.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        0,
+                        0f,
+                        this
+                    )
+                    location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    Toast.makeText(context,location.toString(),Toast.LENGTH_SHORT).show()
+
+                }
+
+                Toast.makeText(context, location?.latitude.toString(),Toast.LENGTH_SHORT).show()
+
+                AppUtils2.postalcode="Lat and long"+location?.latitude.toString()+" "+longitude.toString()
+                latitude = location?.latitude.toString().toDouble()
+                longitude = location?.longitude.toString().toDouble()
+
+                mGeocoder = Geocoder(context, Locale.getDefault())
+                if (mGeocoder != null) {
+                    var postalcode:List<Address> = mGeocoder.getFromLocation(latitude, longitude, 5) as List<Address>
+                    if (postalcode != null && postalcode.size > 0) {
+                        for (i in 0 until postalcode.size){
+                            SharedPreferenceUtil.setData(context, "pincode",postalcode.get(i).postalCode.toString())
+//                        Toast.makeText(context,postalcode.get(i).postalCode.toString(),Toast.LENGTH_LONG).show()
+                            break
+                        }
+                    }
+                }
             }
             if (isGPSEnabled) {
                 locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
@@ -60,11 +95,14 @@ class MyLocationListener(context: Context) : LocationListener {
                 )
                 location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
+
+            Toast.makeText(context, location?.latitude.toString(),Toast.LENGTH_SHORT).show()
+
+            AppUtils2.postalcode="Lat and long"+location?.latitude.toString()+" "+longitude.toString()
             latitude = location?.latitude.toString().toDouble()
             longitude = location?.longitude.toString().toDouble()
-//            AppUtils2.postalcode="Lat and long"+latitude.toString()+" "+longitude.toString()
 
-          mGeocoder = Geocoder(context, Locale.getDefault())
+            mGeocoder = Geocoder(context, Locale.getDefault())
             if (mGeocoder != null) {
                 var postalcode:List<Address> = mGeocoder.getFromLocation(latitude, longitude, 5) as List<Address>
                 if (postalcode != null && postalcode.size > 0) {
@@ -78,6 +116,7 @@ class MyLocationListener(context: Context) : LocationListener {
 
 
         } catch (e: Exception) {
+            Toast.makeText(context,"hello",Toast.LENGTH_SHORT).show()
             Log.d("TAG", "$e")
         }
     }
