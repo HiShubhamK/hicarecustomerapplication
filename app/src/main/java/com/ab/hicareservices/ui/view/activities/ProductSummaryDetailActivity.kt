@@ -216,7 +216,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                     binding.yourStateProgressBarId.visibility = View.GONE
                     binding.txtStatusTitle.visibility = View.GONE
                     binding.statusTv.visibility = View.VISIBLE
-
+                    binding.viewline.visibility = View.GONE
                 }
             } else {
                 binding.btnNeedhelp.visibility=View.GONE
@@ -224,6 +224,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                 binding.yourStateProgressBarId.visibility = View.GONE
                 binding.txtStatusTitle.visibility = View.GONE
                 binding.statusTv.visibility = View.VISIBLE
+                binding.viewline.visibility = View.GONE
+
 
             }
             binding.recRelatedProduct.layoutManager =

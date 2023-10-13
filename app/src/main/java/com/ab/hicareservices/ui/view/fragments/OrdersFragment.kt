@@ -94,7 +94,14 @@ import java.util.Calendar
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        getOrdersList(progressDialog,"No Active Orders")
+        progressDialog.show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            getOrdersList(progressDialog,"No Active Orders")
+
+        }, 2000)
+
         if (isfromMenu){
             binding.headerView.visibility=View.VISIBLE
 
@@ -233,6 +240,23 @@ import java.util.Calendar
             progressDialog.dismiss()
 
         })
+
+        viewModel.responseMessage.observe(requireActivity(), Observer {
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
+            binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text = s
+            progressDialog.dismiss()
+        })
+
+        viewModel.errorMessage.observe(requireActivity(), Observer {
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
+            binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text=s
+            progressDialog.dismiss()
+        })
+
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
 
             override fun onOrderItemClicked(
@@ -282,22 +306,6 @@ import java.util.Calendar
             }
         })
 
-
-        viewModel.responseMessage.observe(requireActivity(), Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.recyclerView.visibility = View.GONE
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = s
-            progressDialog.dismiss()
-        })
-
-        viewModel.errorMessage.observe(requireActivity(), Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.recyclerView.visibility = View.GONE
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text=s
-            progressDialog.dismiss()
-        })
 //        binding.progressBar13.visibility = View.GONE
 //        binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {

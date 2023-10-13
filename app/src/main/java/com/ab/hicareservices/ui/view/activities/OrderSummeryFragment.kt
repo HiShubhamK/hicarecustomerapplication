@@ -54,13 +54,16 @@ class OrderSummeryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         AppUtils2.customerid = SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
 //        pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
 ////
 //
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        progressDialog.show()
         getProductsSummerylist()
+        progressDialog.dismiss()
 
     }
 
