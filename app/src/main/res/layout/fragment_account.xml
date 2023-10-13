@@ -530,7 +530,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Log out"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent"
@@ -547,7 +547,12 @@
                 android:text="V 1.0"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginTop="13sp"/>
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/lato_semibold"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"/>
 
 
         </LinearLayout>

@@ -5,12 +5,14 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
@@ -18,6 +20,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityLoginBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.LocationPermissionManagerclass.checkLocationPermission
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
@@ -35,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     var data: String = ""
     val REQUEST_CODE_PERMISSIONS =101
+    val LOCATION_PERMISSION_REQUEST_CODE=1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,56 +46,98 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        if (ContextCompat.checkSelfPermission(
-                this@LoginActivity,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                this@LoginActivity,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                this@LoginActivity,
-                Manifest.permission.POST_NOTIFICATIONS
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            // When permission is granted
-            // Call method
-            enableLoc()
 
+        if (checkLocationPermissions()) {
+            // Permissions are already granted, enable location
+            enableLoc()
         } else {
-
-            enableLoc()
-
-
-//            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
-
-            // When permission is not granted
-            // Call method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ),
-                    100
-                )
-            }
+            // Request location permissions
+            requestLocationPermission()
         }
 
 
+//
+//        if (ContextCompat.checkSelfPermission(
+//                this@LoginActivity,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                this@LoginActivity,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                this@LoginActivity,
+//                Manifest.permission.POST_NOTIFICATIONS
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // When permission is granted
+//            // Call method
+//            enableLoc()
+//
+//        } else {
+//            // When permission is not granted
+//            // Call method
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(
+//                    arrayOf(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.POST_NOTIFICATIONS
+//                    ),
+//                    100
+//                )
+//                enableLoc()
+//            }
+//
+//        }
+
+
+
+
+
+
+
+//        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+//        var gps_enabled = false
+//        var network_enabled = false
+//
+//        try {
+//            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+//        } catch (ex: Exception) {
+//        }
+//
+//        try {
+//            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+//        } catch (ex: Exception) {
+//        }
+//        if (!gps_enabled && !network_enabled) {
+//            if(AppUtils2.ISChecklocationpermission==true){
+//
+//            }else{
+//                enableLoc()
+//            }
+//        }else if (!gps_enabled){
+//            if(AppUtils2.ISChecklocationpermission==true){
+//
+//            }else{
+//                enableLoc()
+//            }
+//        }else if(!network_enabled){
+//            if(AppUtils2.ISChecklocationpermission==true){
+//
+//            }else{
+//                enableLoc()
+//            }
+//        }else{
+//            enableLoc()
+//        }
 
         checkUserStatus()
 
         OtplessManager.getInstance().init(this)
-
-
-
-
 
         val button = findViewById<View>(R.id.whatsapp_login) as WhatsappLoginButton
         button.setResultCallback { data: OtplessResponse ->
@@ -119,6 +165,37 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+    }
+    private fun checkLocationPermissions(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, enable location
+                enableLoc()
+            } else {
+                // Permission denied, handle accordingly (e.g., show a message, disable location features)
+            }
+        }
     }
 
     private fun enableLoc() {

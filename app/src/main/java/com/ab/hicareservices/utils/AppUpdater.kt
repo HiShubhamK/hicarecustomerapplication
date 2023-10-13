@@ -24,15 +24,15 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
         val latestVersionCode = toString.toInt()
 
         if(isUpdated==false) {
-            if(Ischeckupdate==false){
-                if (latestVersionCode > BuildConfig.VERSION_CODE) {
-                    showUpdateDialog()
-                } else {
-                    Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
-                }
-            }else{
-
-            }
+//            if(Ischeckupdate==false){
+//                if (latestVersionCode > BuildConfig.VERSION_CODE) {
+//                    showUpdateDialog()
+//                } else {
+//                    Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+//                }
+//            }else{
+//
+//            }
 
         }else{
             if (latestVersionCode > BuildConfig.VERSION_CODE) {

@@ -42,7 +42,7 @@ class AccountFragment : Fragment() {
         first_name = SharedPreferenceUtil.getData(requireContext(), "FirstName", "").toString()
         mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "").toString()
 
-        binding.Versionname.text=AppUtils2.versionname
+        binding.Versionname.text="V "+AppUtils2.versionname
 
         binding.txtusernames.text = first_name.toString()
         binding.txtUserdetailes.text = mobileno.toString()
