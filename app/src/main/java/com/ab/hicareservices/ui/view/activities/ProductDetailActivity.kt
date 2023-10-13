@@ -211,11 +211,13 @@ class ProductDetailActivity : AppCompatActivity() {
 //                    val intent = Intent(this, AddToCartActivity::class.java)
 //                    startActivity(intent)
 //                } else {
-                    Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
 
                     viewProductModel.addtocart.observe(this, Observer {
                         if (it.IsSuccess == true) {
                             getSummarydata()
+                            Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+
 //                            binding.tvAddToCart.text = "Goto Cart"
                         } else {
                             Toast.makeText(
@@ -294,14 +296,38 @@ class ProductDetailActivity : AppCompatActivity() {
 //                            progressDialog.dismiss()
 //                            if(it.IsSuccess==true){
 //                                progressDialog.dismiss()
-                                Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
-//                                getSummarydata()
+//                                Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
+                    getSummarydata()
+
+                    val mIntent = intent
+                    finish()
+                    startActivity(mIntent)
+
+//                    viewProductModel.productcount.observe(this, Observer {
+//                        if (it.IsSuccess == true) {
+//
+//                            if (it.Data == 0) {
+//                                binding.cartmenu.visibility = View.GONE
+//                            } else {
+//                                binding.cartmenu.visibility = View.VISIBLE
+//                                AppUtils2.cartcounts = it.Data.toString()
+//                                binding.appCompatImageViewd.text = it.Data.toString()
+////                    Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
+//
+//                            }
+//                        } else {
+//                            binding.cartmenu.visibility = View.GONE
+//                        }
+//                    })
+
+//                    viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+
 //                            }else{
 //                                progressDialog.dismiss()
 //                                Toast.makeText(this@ProductDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
 //                            }
 //                        })
-                        viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                    viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
 //                    }, 500)
                 }
             })
@@ -341,9 +367,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 binding.textcount.text = it.ProductConfiguration!!.MinimumBuyQuantity.toString()
                 counts = it.ProductConfiguration!!.MinimumBuyQuantity!!.toInt()
             }
-
-
-
 
             binding.imgadd.setOnClickListener {
                 counts = counts + 1
