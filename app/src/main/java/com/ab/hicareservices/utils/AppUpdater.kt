@@ -37,19 +37,24 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
                     showUpdateDialog()
                 }
             }else if(Isnotupdated==true){
-                if(Ischeckupdate==false){
-                    if (latestVersionCode > BuildConfig.VERSION_CODE) {
-                        SharedPreferenceUtil.setData(context, "latestversioncode", latestVersionCode)
-                        showUpdateDialog()
-                    } else {
-                        Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-
-                }
+//                if(Ischeckupdate==false){
+//                    if (latestVersionCode > BuildConfig.VERSION_CODE) {
+//                        SharedPreferenceUtil.setData(context, "latestversioncode", latestVersionCode)
+//                        showUpdateDialog()
+//                    } else {
+//                        Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+//                    }
+//                }else{
+//
+//                }
 
             }else{
-
+                if (latestVersionCode > BuildConfig.VERSION_CODE) {
+                    SharedPreferenceUtil.setData(context, "latestversioncode", latestVersionCode)
+                    showUpdateDialog()
+                } else {
+                    Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+                }
             }
         }else{
             if (latestVersionCode > BuildConfig.VERSION_CODE) {
