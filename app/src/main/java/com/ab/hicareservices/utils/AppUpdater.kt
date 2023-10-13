@@ -21,22 +21,39 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
         // You would typically check your backend for the latest version information here
 
         // For simplicity, let's assume the latest version code is 2
-        val latestVersionCode = toString.toInt()
+        var latestVersionCode = toString.toInt()
+
+
+        var versioncode:Int= SharedPreferenceUtil.getData(context, "latestversioncode", 0) as Int
+
 
         if(isUpdated==false) {
-//            if(Ischeckupdate==false){
-//                if (latestVersionCode > BuildConfig.VERSION_CODE) {
-//                    showUpdateDialog()
-//                } else {
-//                    Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
-//                }
-//            }else{
-//
-//            }
 
+            val Isnotupdated=SharedPreferenceUtil.getData(context, "IsUpdated", false)
+
+            if(latestVersionCode>versioncode){
+                if (latestVersionCode > BuildConfig.VERSION_CODE) {
+                    SharedPreferenceUtil.setData(context, "latestversioncode", latestVersionCode)
+                    showUpdateDialog()
+                }
+            }else if(Isnotupdated==true){
+                if(Ischeckupdate==false){
+                    if (latestVersionCode > BuildConfig.VERSION_CODE) {
+                        SharedPreferenceUtil.setData(context, "latestversioncode", latestVersionCode)
+                        showUpdateDialog()
+                    } else {
+                        Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+
+                }
+
+            }else{
+
+            }
         }else{
             if (latestVersionCode > BuildConfig.VERSION_CODE) {
-                showUpdateDialog()
+                showUpdateDialogs()
             } else {
                 Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
             }
@@ -60,11 +77,33 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
         builder.setNegativeButton("Later") { _, _ ->
             // User chose to update later
             Ischeckupdate=true
-            SharedPreferenceUtil.setData(context, "IsUpdated", false)
-
+            SharedPreferenceUtil.setData(context, "IsUpdated", true)
         }
         builder.show()
     }
+
+
+    private fun showUpdateDialogs() {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Update Available")
+        builder.setMessage("A new version of the app is available. Do you want to update now?")
+        builder.setPositiveButton("Update") { _, _ ->
+            // Start the download and installation process
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=com.ab.hicareservices")
+                )
+            )
+            DownloadTask().execute(apkUrl)
+        }
+//        builder.setNegativeButton("Later") { _, _ ->
+//            // User chose to update later
+//            Ischeckupdate=true
+//        }
+        builder.show()
+    }
+
 
     private inner class DownloadTask : AsyncTask<String, Int, File?>() {
 

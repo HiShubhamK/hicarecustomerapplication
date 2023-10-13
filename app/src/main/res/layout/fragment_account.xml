@@ -141,7 +141,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintorderid"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgOrders"
@@ -188,7 +188,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintcomplaints"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgComplaints"
@@ -235,7 +235,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintreferBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgRefer"
@@ -283,7 +283,7 @@
                     android:layout_width="match_parent"
                     android:id="@+id/constrainRateus"
 
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgRating"
@@ -329,7 +329,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:id="@+id/contraintbutton">
 
                     <ImageView
@@ -424,7 +424,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/help"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgHelp"
@@ -474,7 +474,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/terms"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="50dp">
 
                     <ImageView
                         android:id="@+id/imgTerms"
