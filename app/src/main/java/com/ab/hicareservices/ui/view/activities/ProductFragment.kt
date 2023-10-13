@@ -1,22 +1,29 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.Manifest
+//import android.R
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context.LOCATION_SERVICE
+import android.content.DialogInterface
 import android.content.Intent
-import android.location.LocationListener
+import android.content.IntentSender
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,12 +34,18 @@ import com.ab.hicareservices.data.model.product.ProductListResponseData
 import com.ab.hicareservices.databinding.FragmentProductBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.ProductAdapter
-import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStatusCodes
 import java.text.SimpleDateFormat
 import java.util.Date
+
 
 class ProductFragment : Fragment() {
 
@@ -42,7 +55,16 @@ class ProductFragment : Fragment() {
     var pincode: String? = ""
     private lateinit var mAdapter: ProductAdapter
     lateinit var progressDialog: ProgressDialog
+    val REQUEST_CODE_PERMISSIONS =101
 
+    private var launcher=  registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result->
+        if (result.resultCode == Activity.RESULT_OK) {
+//            Toast.makeText(this,"Hello akshay",Toast.LENGTH_SHORT).show()
+        } else {
+            AppUtils2.ISChecklocationpermission=true
+//            Toast.makeText(this,"Hello akshay fails ",Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +83,81 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MyLocationListener(requireActivity())
+
+        val lm = context!!.getSystemService(LOCATION_SERVICE) as LocationManager
+        var gps_enabled = false
+        var network_enabled = false
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+        }
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (ex: Exception) {
+        }
+        if (!gps_enabled && !network_enabled) {
+            if(AppUtils2.ISChecklocationpermission==true){
+
+            }else{
+                enableLoc()
+            }
+        }else if (!gps_enabled){
+            if(AppUtils2.ISChecklocationpermission==true){
+
+            }else{
+                enableLoc()
+            }
+        }else if(!network_enabled){
+            if(AppUtils2.ISChecklocationpermission==true){
+
+            }else{
+                enableLoc()
+            }
+        }else{
+            enableLoc()
+        }
+
+
+//        if (ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.POST_NOTIFICATIONS
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // When permission is granted
+//            // Call method
+////            getCurrentLocations()
+//
+//        } else {
+//            enableLoc()
+//
+//            // When permission is not granted
+//            // Call method
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(
+//                    arrayOf(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.POST_NOTIFICATIONS
+//                    ),
+//                    100
+//                )
+//            }
+//        }
 
         MyLocationListener(requireActivity())
 
@@ -93,15 +190,15 @@ class ProductFragment : Fragment() {
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
-        binding.getpincodetext.setText(AppUtils2.pincode)
-
         if (AppUtils2.pincode.equals("")) {
-            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
+
+            AppUtils2.pincode="400080"
+            binding.getpincodetext.setText(AppUtils2.pincode)
+            getProductslist(AppUtils2.pincode!!)
+//            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
         } else {
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                progressDialog.show()
-                getProductslist(AppUtils2.pincode!!)
-//            },2000)
+            binding.getpincodetext.setText(AppUtils2.pincode)
+            getProductslist(AppUtils2.pincode!!)
         }
 
         binding.imgsearch.setOnClickListener {
@@ -124,6 +221,57 @@ class ProductFragment : Fragment() {
         binding.cartmenu.setOnClickListener {
             val intent = Intent(requireActivity(), AddToCartActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun enableLoc() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000
+        locationRequest.fastestInterval = 5 * 1000
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+        val result = LocationServices.getSettingsClient(requireActivity()).checkLocationSettings(builder.build())
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(
+                    ApiException::class.java
+                )
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+            } catch (exception: ApiException) {
+
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                        val intentSenderRequest =
+                            IntentSenderRequest.Builder(exception.status.resolution!!!!).build()
+                        launcher.launch(intentSenderRequest)
+                    } catch (e: IntentSender.SendIntentException) {
+                    }
+                }
+
+//                when (exception.statusCode) {
+//                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
+//                        // user a dialog.
+//                        try {
+//                            // Cast to a resolvable exception.
+//                            val resolvable = exception as ResolvableApiException
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            resolvable.startResolutionForResult(
+//                                requireActivity(),
+//                                REQUEST_CODE_PERMISSIONS
+//                            )
+//
+//                        } catch (e: IntentSender.SendIntentException) {
+//                            // Ignore the error.
+//                        } catch (e: ClassCastException) {
+//                            // Ignore, should be an impossible error.
+//                        }
+//                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+//                }
+            }
         }
     }
 

@@ -201,4 +201,10 @@ interface IRetrofit {
         @Query("mobileNo") mobileNo: String,
     ): Call<ClearCacheResponse>
 
+    @GET("Account/CurrentAppVersion")
+    fun getcurrentAppversion(
+        @Query("userMobile") userMobile: String,
+    ): Call<CurrentApiVersion>
+
+
 }

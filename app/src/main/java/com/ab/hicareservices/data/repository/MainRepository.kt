@@ -52,4 +52,6 @@ class MainRepository {
     fun CreateRazorpayOrderId(amount:Double,mobilenumber:Int) = retrofitProduct.CreateRazorpayOrderId(amount,mobilenumber)
     fun getValidateVoucher(vouchercode: String,userId: Int,pincoode: String)=retrofitProduct.getValidateVoucher(vouchercode,userId,pincoode)
     fun getClearCache(mobileNo: String)=retrofitService.getClearCache(mobileNo)
+    fun getcurrentAppversion(mobileNo: String)=retrofitService.getcurrentAppversion(mobileNo)
+
 }

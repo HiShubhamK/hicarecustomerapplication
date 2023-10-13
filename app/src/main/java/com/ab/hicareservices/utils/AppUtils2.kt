@@ -67,6 +67,8 @@ object AppUtils2 {
     var Activityname=""
     var otp=""
     var checkotptruefalse=false
+    var versionname=""
+    var ISChecklocationpermission=false
 
     @JvmStatic
     fun startPayment(activity: Activity) {

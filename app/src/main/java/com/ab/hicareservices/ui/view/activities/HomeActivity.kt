@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
+import android.app.Activity
 import android.app.NotificationManager
 import android.content.*
 import android.content.pm.PackageManager
@@ -52,9 +53,17 @@ import android.content.Intent
 import android.net.ConnectivityManager
 
 import android.provider.Settings
+import androidx.activity.result.IntentSenderRequest
 import androidx.core.app.NotificationManagerCompat
+import com.ab.hicareservices.utils.AppUpdater
 import com.ab.hicareservices.utils.ConnectivityChangeListener
 import com.ab.hicareservices.utils.ConnectivityReceiver
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStatusCodes
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,ConnectivityChangeListener {
     private lateinit var binding: ActivityMainBinding
@@ -72,7 +81,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
     private val viewProductModel: ProductViewModel by viewModels()
     private val viewModelss: OtpViewModel by viewModels()
     var activiyname=""
-
+    val REQUEST_CODE_PERMISSIONS=101
     var customerid: String = ""
     var pincode: String? = null
 
@@ -80,11 +89,63 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
     private lateinit var connectivityReceiver: ConnectivityReceiver
     private val notificationPermissionRequestCode = 1001
 
+
+    private var launcher=  registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result->
+        if (result.resultCode == Activity.RESULT_OK) {
+//            Toast.makeText(this,"Hello akshay",Toast.LENGTH_SHORT).show()
+        } else {
+            AppUtils2.ISChecklocationpermission=true
+//            Toast.makeText(this,"Hello akshay fails ",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // When permission is granted
+            // Call method
+//            getCurrentLocations()
+
+        } else {
+            enableLoc()
+
+            // When permission is not granted
+            // Call method
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    ),
+                    100
+                )
+            }
+        }
+
+
 
         connectivityReceiver = ConnectivityReceiver(this)
         registerReceiver(
@@ -92,6 +153,16 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
 
+        viewModels.currentapp.observe(this, Observer {
+            if (it != null) {
+                it.IsUpdated?.let { it1 -> SharedPreferenceUtil.setData(this, "IsUpdated", it1) }
+                val updateManager = AppUpdater(this,it.Versioncode.toString(),it.IsUpdated)
+                updateManager.checkForUpdate(it.Versioncode.toString(),it.IsUpdated)
+                AppUtils2.versionname=it.Versionname.toString()
+            }
+        })
+
+        viewModels.getcurretnapversioncode(AppUtils2.mobileno)
 
 
 
@@ -183,6 +254,56 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 //        }, 1500)
 
     }
+
+    private fun enableLoc() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000
+        locationRequest.fastestInterval = 5 * 1000
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+        val result = LocationServices.getSettingsClient(this).checkLocationSettings(builder.build())
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(
+                    ApiException::class.java
+                )
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                        val intentSenderRequest =
+                            IntentSenderRequest.Builder(exception.status.resolution!!!!).build()
+                        launcher.launch(intentSenderRequest)
+                    } catch (e: IntentSender.SendIntentException) {
+                    }
+                }
+//                when (exception.statusCode) {
+//                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
+//                        // user a dialog.
+//                        try {
+//                            // Cast to a resolvable exception.
+//                            val resolvable = exception as ResolvableApiException
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            resolvable.startResolutionForResult(
+//                                this,
+//                                REQUEST_CODE_PERMISSIONS
+//                            )
+//
+//                        } catch (e: IntentSender.SendIntentException) {
+//                            // Ignore the error.
+//                        } catch (e: ClassCastException) {
+//                            // Ignore, should be an impossible error.
+//                        }
+//                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+//                }
+            }
+        }
+    }
+
 
 //    private fun requestNotificationPermission() {
 //        if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {

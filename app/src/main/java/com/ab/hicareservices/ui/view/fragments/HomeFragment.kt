@@ -145,42 +145,44 @@ class HomeFragment : Fragment() {
                 requireActivity()
             )
 
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.POST_NOTIFICATIONS
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            // When permission is granted
-            // Call method
-            getCurrentLocations()
-
-        } else {
-//            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
-
-            // When permission is not granted
-            // Call method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ),
-                    100
-                )
-            }
-        }
+//        if (ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//            && ContextCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.POST_NOTIFICATIONS
+//            )
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // When permission is granted
+//            // Call method
+////            getCurrentLocations()
+//                enableLoc()
+//
+//        } else {
+////            Toast.makeText(requireActivity(),"Not Ok",Toast.LENGTH_LONG).show()
+//            enableLoc()
+//
+//            // When permission is not granted
+//            // Call method
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(
+//                    arrayOf(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.POST_NOTIFICATIONS
+//                    ),
+//                    100
+//                )
+//            }
+//        }
 
         progressDialog = ProgressDialog(requireActivity(), com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

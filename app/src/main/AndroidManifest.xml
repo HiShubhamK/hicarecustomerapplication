@@ -253,15 +253,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".utils.SMSListener"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVE" />
-            </intent-filter>
-        </receiver>
-
-
         <activity
             android:name="com.razorpay.CheckoutActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
