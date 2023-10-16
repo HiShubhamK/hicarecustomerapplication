@@ -55,7 +55,9 @@ class OTPActivity : AppCompatActivity() {
                 //startCounter()
             }
         }
-        binding.backIv.setOnClickListener {
+        binding.backIvs.setOnClickListener {
+            val intent=Intent(this@OTPActivity,LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
@@ -130,6 +132,13 @@ class OTPActivity : AppCompatActivity() {
                 binding.resendCodeTv.text = "Resend code"
             }
         }.start()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent=Intent(this@OTPActivity,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 //    override fun onSuccess(data: String) {
