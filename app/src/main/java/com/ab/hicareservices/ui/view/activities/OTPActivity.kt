@@ -1,7 +1,9 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Typeface
 import android.location.Address
 import android.location.Geocoder
@@ -9,6 +11,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,8 +20,13 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppSignatureHelper
 import com.ab.hicareservices.utils.AppUtils2
-class OTPActivity : AppCompatActivity() {
+import com.ab.hicareservices.utils.OtpReceivedInterface
+import com.ab.hicareservices.utils.SMSListener
+import com.google.android.gms.auth.api.phone.SmsRetriever
+
+class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
 
     lateinit var binding: ActivityOtpactivityBinding
     private val viewModel: OtpViewModel by viewModels()
@@ -30,7 +38,10 @@ class OTPActivity : AppCompatActivity() {
     lateinit var address: List<Address>
     var lat = 0.0
     var lng = 0.0
+    var mSmsBroadcastReceiver: SMSListener? = null
 
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpactivityBinding.inflate(layoutInflater)
@@ -46,6 +57,39 @@ class OTPActivity : AppCompatActivity() {
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+
+
+        val appSignatureHelper = AppSignatureHelper(this@OTPActivity)
+        appSignatureHelper.appSignatures
+        mSmsBroadcastReceiver = SMSListener()
+        //set google api client for hint request
+        //set google api client for hint request
+//        mGoogleApiClient = GoogleApiClient.Builder(requireContext())
+//            .addConnectionCallbacks(this)
+//            .enableAutoManage(requireActivity(), this)
+//            .addApi(Auth.CREDENTIALS_API)
+//            .build()
+
+        mSmsBroadcastReceiver!!.setOnOtpListeners(this@OTPActivity)
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
+        registerReceiver(mSmsBroadcastReceiver,intentFilter)
+        startSMSListener()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         startCounter()
@@ -97,6 +141,27 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
+    private fun startSMSListener() {
+        try {
+            val mClient = SmsRetriever.getClient(this@OTPActivity)
+            val mTask = mClient.startSmsRetriever()
+            mTask.addOnSuccessListener { aVoid: Void? ->
+                Log.e(
+                    "TAG_OTP",
+                    "SMS Retriever starts"
+                )
+            }
+            mTask.addOnFailureListener { e: Exception? ->
+                Log.e(
+                    "TAG_OTP",
+                    "Error"
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun validateAccount(mobileNo: String) {
 
         viewModel.validateAccounts(mobileNo, this)
@@ -139,6 +204,18 @@ class OTPActivity : AppCompatActivity() {
         val intent=Intent(this@OTPActivity,LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onOtpReceived(otp: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOtpTimeout() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 //    override fun onSuccess(data: String) {
