@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
@@ -24,9 +25,13 @@ import com.ab.hicareservices.utils.AppSignatureHelper
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.OtpReceivedInterface
 import com.ab.hicareservices.utils.SMSListener
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
 
-class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
+class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener {
 
     lateinit var binding: ActivityOtpactivityBinding
     private val viewModel: OtpViewModel by viewModels()
@@ -39,6 +44,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
     var lat = 0.0
     var lng = 0.0
     var mSmsBroadcastReceiver: SMSListener? = null
+    var mGoogleApiClient: GoogleApiClient? = null
 
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -64,33 +70,17 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
         mSmsBroadcastReceiver = SMSListener()
         //set google api client for hint request
         //set google api client for hint request
-//        mGoogleApiClient = GoogleApiClient.Builder(requireContext())
-//            .addConnectionCallbacks(this)
-//            .enableAutoManage(requireActivity(), this)
-//            .addApi(Auth.CREDENTIALS_API)
-//            .build()
+        mGoogleApiClient = GoogleApiClient.Builder(this@OTPActivity)
+            .addConnectionCallbacks(this@OTPActivity)
+            .enableAutoManage(this@OTPActivity, this)
+            .addApi(Auth.CREDENTIALS_API)
+            .build()
 
         mSmsBroadcastReceiver!!.setOnOtpListeners(this@OTPActivity)
         val intentFilter = IntentFilter()
         intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
         registerReceiver(mSmsBroadcastReceiver,intentFilter)
         startSMSListener()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         startCounter()
         binding.resendCodeTv.setOnClickListener {
@@ -133,12 +123,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
                     Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                 }
 
-
             }
-//        }else{
-//            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
-//        }
-
     }
 
     private fun startSMSListener() {
@@ -207,43 +192,89 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface {
     }
 
     override fun onOtpReceived(otp: String) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, otp.toString(), Toast.LENGTH_SHORT).show()
+        binding.otpView.setOTP(otp)
+        checkotp(otp)
     }
 
     override fun onOtpTimeout() {
-        TODO("Not yet implemented")
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onPause() {
+        super.onPause()
     }
 
-//    override fun onSuccess(data: String) {
-//        binding.continueBtn.isEnabled = true
-//        progressDialog.dismiss()
-//        if (data != "") {
-//            AppUtils2.TOKEN = data
-//            SharedPreferenceUtil.setData(this, "bToken", data)
-//            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-//            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-//            SharedPreferenceUtil.setData(this, "IsLogin", true)
-//
-////            takePermissionForLocation()
-//
-//            binding.otpView.showSuccess()
-//            progressDialog.dismiss()
-//            val home = Intent(this, HomeActivity::class.java)
-//            startActivity(home)
-//            finish()
-//        }else{
-//            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//
-//
-//    override fun onError(message: String) {
-//        binding.continueBtn.isEnabled = true
-//        progressDialog.dismiss()
-//        Toast.makeText(this, "Authorization Error", Toast.LENGTH_SHORT).show()
-//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mSmsBroadcastReceiver = null
+//        unregisterReceiver(mSmsBroadcastReceiver)
+
+    }
+
+    override fun onConnected(p0: Bundle?) {
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+    }
+
+    private fun checkotp(toString: String) {
+        Log.d("checkotp","Hello"+AppUtils2.otp)
+        if (mOtp.equals(toString)) {
+            Log.d("checkotp","Hello1")
+            viewModel.validateResponses.observe(this, Observer {
+                if (it.IsSuccess == true) {
+                    AppUtils2.TOKEN = it.Data?.Token.toString()
+                    AppUtils2.customerid = it?.Data?.ProductCustomerData?.Id.toString()
+                    SharedPreferenceUtil.setData(this, "bToken", it.Data?.Token.toString())
+                    if (it?.Data?.PestCustomerData?.BillingPostalCode == null) {
+                        SharedPreferenceUtil.setData(this, "pincode", "")
+                    } else {
+                        SharedPreferenceUtil.setData(
+                            this,
+                            "pincode",
+                            it?.Data?.PestCustomerData?.BillingPostalCode.toString()
+                        )
+                    }
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "customerid",
+                        it?.Data?.ProductCustomerData?.Id.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "FirstName",
+                        it?.Data?.ProductCustomerData?.FirstName.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "MobileNo",
+                        it?.Data?.ProductCustomerData?.MobileNo.toString()
+                    )
+                    SharedPreferenceUtil.setData(
+                        this,
+                        "EMAIL",
+                        it?.Data?.ProductCustomerData?.Email.toString()
+                    )
+                    val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                }
+            })
+            viewModel.validateAccounts(mobileNo, this@OTPActivity)
+            SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
+            SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
+            SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
+
+        }else{
+            Log.d("checkotp","Failed")
+        }
+    }
+
+
 }

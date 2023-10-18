@@ -27,7 +27,7 @@ class SMSListener:BroadcastReceiver() {
                         // Extract one-time code as per the message
                         if (otpReceiveInterface != null) {
 //                        String otp = message.replace("<#> is Your HiCare verification code.", "");
-                            val otp = message!!.substring(4, 10)
+                            val otp = message!!.substring(4, 8)
                             otpReceiveInterface!!.onOtpReceived(otp)
                         }
                     }
