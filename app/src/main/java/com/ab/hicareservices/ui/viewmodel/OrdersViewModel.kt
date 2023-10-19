@@ -68,9 +68,9 @@ class OrdersViewModel : ViewModel() {
             ) {
 
                 if (response.body()?.isSuccess == false) {
-                    responseMessage.postValue(response.body()?.responseMessage)
+                    responseMessage.postValue(response.body()?.responseMessage!!)
                 } else {
-                    ordersList.postValue(response.body()?.data)
+                    ordersList.postValue(response.body()?.data!!)
                     Log.d("TAG", "Response " + response.body()?.data.toString())
                     progressBar.dismiss()
                 }
@@ -79,6 +79,37 @@ class OrdersViewModel : ViewModel() {
             override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
                 progressBar.dismiss()
+            }
+        })
+    }
+
+
+    fun getCustomerOrdersByMobileNos(
+        mobileNo: String,
+        ordertype: String,
+    ) {
+
+//        progressBar.visibility = View.VISIBLE
+
+        val response = repository.getCustomerOrdersByMobileNo(mobileNo, ordertype)
+        response.enqueue(object : Callback<OrdersResponse> {
+
+
+            override fun onResponse(
+                call: Call<OrdersResponse>,
+                response: Response<OrdersResponse>
+            ) {
+
+                if (response.body()?.isSuccess == false) {
+                    responseMessage.postValue(response.body()?.responseMessage!!)
+                } else {
+                    ordersList.postValue(response.body()?.data!!)
+                    Log.d("TAG", "Response " + response.body()?.data.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<OrdersResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }

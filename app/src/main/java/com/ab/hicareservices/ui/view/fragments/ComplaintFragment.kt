@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,7 +22,9 @@ import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
+import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 class ComplaintFragment() : Fragment() {
     private val TAG = "ComplaintsActivity"
@@ -33,6 +36,7 @@ class ComplaintFragment() : Fragment() {
     private val viewModeld: OtpViewModel by viewModels()
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
+    private val viewModels: OrdersViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,14 +77,45 @@ class ComplaintFragment() : Fragment() {
 
         binding.addFab.setOnClickListener{
 
-            val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
-            intent.putExtra("complaint",true)
-            intent.putExtra("orderNo", "")
-            intent.putExtra("serviceType", "")
-            intent.putExtra("service_url_image", "")
-            startActivity(intent)
-        }
 
+            viewModels.ordersList.observe(requireActivity(), androidx.lifecycle.Observer {
+                if (it != null) {
+                    AppUtils2.datalist = java.util.ArrayList()
+                    AppUtils2.datalist.clear()
+                    AppUtils2.datalist.addAll(it)
+                    AppUtils2.Spinnerlist = java.util.ArrayList()
+                    AppUtils2.Spinnerlist.clear()
+                    AppUtils2.Spinnerlist.add("Select Service")
+                    if (AppUtils2.datalist != null) {
+
+                        val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
+                        intent.putExtra("complaint",true)
+                        intent.putExtra("orderNo", "")
+                        intent.putExtra("serviceType", "")
+                        intent.putExtra("service_url_image", "")
+                        startActivity(intent)
+
+                    }else{
+                        Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
+            viewModels.responseMessage.observe(
+                requireActivity(),
+                androidx.lifecycle.Observer {
+                    Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
+                })
+
+            viewModels.errorMessage.observe(requireActivity(), androidx.lifecycle.Observer {
+                if (it != null) {
+                }
+            })
+
+            val mobile=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+            viewModels.getCustomerOrdersByMobileNos(mobile, "Active")
+
+        }
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {

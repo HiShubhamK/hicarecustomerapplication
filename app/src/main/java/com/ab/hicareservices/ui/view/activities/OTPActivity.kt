@@ -192,7 +192,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
     }
 
     override fun onOtpReceived(otp: String) {
-        Toast.makeText(this, otp.toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, otp.toString(), Toast.LENGTH_SHORT).show()
         binding.otpView.setOTP(otp)
         checkotp(otp)
     }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,7 +22,9 @@ import com.ab.hicareservices.ui.adapter.ProductComplaintsAdapter
 import com.ab.hicareservices.ui.view.activities.AddProductComplaintsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.AppUtils2.getsummarydata
 
 class ProductComplaintsFragment() : Fragment() {
     private val TAG = "ProductComplaintsActivity"
@@ -33,7 +36,7 @@ class ProductComplaintsFragment() : Fragment() {
     private val viewModeld: OtpViewModel by viewModels()
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
-
+    private val viewProductModel: ProductViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,20 +52,56 @@ class ProductComplaintsFragment() : Fragment() {
         }, 500)
 
         binding.addFab.setOnClickListener{
-            val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
-            try {
-                intent.putExtra("complaintactivity",true)
-                intent.putExtra("ProductId", "")
-                intent.putExtra("orderNo", "")
-                intent.putExtra("displayname", "")
-                intent.putExtra("Created_On", "")
-                intent.putExtra("Complaint_Status","")
-                intent.putExtra("OrderId","")
-                intent.putExtra("OrderValuePostDiscount","")
-                startActivity(intent)
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
+
+            viewProductModel.getordersummeryList.observe(
+                requireActivity(),
+                androidx.lifecycle.Observer {
+
+                    AppUtils2.getsummarydata=ArrayList()
+                    AppUtils2.getsummarydata.clear()
+                    AppUtils2.getsummarydata.addAll(it)
+                    AppUtils2.getsummarydata.addAll(it)
+                    if(AppUtils2.getsummarydata!=null) {
+                        val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
+                        try {
+                            intent.putExtra("complaintactivity",true)
+                            intent.putExtra("ProductId", "")
+                            intent.putExtra("orderNo", "")
+                            intent.putExtra("displayname", "")
+                            intent.putExtra("Created_On", "")
+                            intent.putExtra("Complaint_Status","")
+                            intent.putExtra("OrderId","")
+                            intent.putExtra("OrderValuePostDiscount","")
+                            startActivity(intent)
+                        }catch (e:Exception){
+                            e.printStackTrace()
+                        }
+                    }
+                })
+
+            viewProductModel.responseMessage.observe(
+                requireActivity(),
+                androidx.lifecycle.Observer {
+                    Toast.makeText(requireActivity(),"No Product Found",Toast.LENGTH_SHORT).show()
+                })
+
+            viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())
+
+//            val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
+//            try {
+//                intent.putExtra("complaintactivity",true)
+//                intent.putExtra("ProductId", "")
+//                intent.putExtra("orderNo", "")
+//                intent.putExtra("displayname", "")
+//                intent.putExtra("Created_On", "")
+//                intent.putExtra("Complaint_Status","")
+//                intent.putExtra("OrderId","")
+//                intent.putExtra("OrderValuePostDiscount","")
+//                startActivity(intent)
+//            }catch (e:Exception){
+//                e.printStackTrace()
+//            }
+
         }
     }
 

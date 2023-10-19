@@ -43,6 +43,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
 import com.ab.hicareservices.ui.adapter.CustomSpinnerAdapter
 import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
+import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.karumi.dexter.Dexter
@@ -80,6 +81,8 @@ class AddComplaintsActivity : AppCompatActivity() {
     private var mPhotoFile: File? = null
     private var bitmap: Bitmap? = null
     private var selectedImagePath = ""
+    private var mobile = ""
+
 
     //camera init
     private var imageCapture: ImageCapture? = null
@@ -92,9 +95,11 @@ class AddComplaintsActivity : AppCompatActivity() {
     private lateinit var imageuri2: Uri
     private lateinit var imageuri3: Uri
     lateinit var progressDialog: ProgressDialog
-    var checkformactivity=false
-    var selectspinner=""
-    private lateinit var adapter:CustomSpinnerAdapter
+    var checkformactivity = false
+    var selectspinner = ""
+    private lateinit var adapter: CustomSpinnerAdapter
+    private val viewModels: OrdersViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,37 +110,44 @@ class AddComplaintsActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         viewFinder = findViewById<PreviewView>(R.id.viewFinder)
 
+        mobile = SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
 
         val intent = intent
         orderNo = intent.getStringExtra("orderNo").toString()
         getServiceType = intent.getStringExtra("serviceType").toString()
-        checkformactivity = intent.getBooleanExtra("complaint",false)
+        checkformactivity = intent.getBooleanExtra("complaint", false)
         service_url_image = intent.getStringExtra("service_url_image").toString()
 //        captureby = intent.getStringExtra("captureby").toString()
 
-        if(checkformactivity==true){
-            binding.servicetypes.visibility=View.VISIBLE
-        }else{
-            binding.servicetypes.visibility=View.GONE
+        if (checkformactivity == true) {
+            binding.servicetypes.visibility = View.VISIBLE
+        } else {
+            binding.servicetypes.visibility = View.GONE
         }
 
 
-        try{
+        try {
             adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
             binding.spinnerLead.adapter = adapter
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
         binding.spinnerLead.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
                 orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
                 serviceType = AppUtils2.datalist[position].ServiceType.toString()
                 getServiceType = AppUtils2.datalist[position].ServiceType.toString()
                 service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
-                binding.bottomheadertext.text = AppUtils2.datalist[position].OrderNumber_c.toString()
+                binding.bottomheadertext.text =
+                    AppUtils2.datalist[position].OrderNumber_c.toString()
 
             }
 
@@ -193,17 +205,46 @@ class AddComplaintsActivity : AppCompatActivity() {
 //        }
 
 
-
-        for (i in 0 until AppUtils2.datalist.size) {
-            if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
-                orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                getServiceType=AppUtils2.datalist.get(i).ServiceType.toString()
-                service_url_image = AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
-                binding.bottomheadertext.text=AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                break
+        viewModels.ordersList.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
+            if (it != null) {
+                AppUtils2.datalist = ArrayList()
+                AppUtils2.datalist.clear()
+                AppUtils2.datalist.addAll(it)
+                AppUtils2.Spinnerlist = ArrayList()
+                AppUtils2.Spinnerlist.clear()
+                AppUtils2.Spinnerlist.add("Select Service")
+                progressDialog.dismiss()
+                if (AppUtils2.datalist != null) {
+                    for (i in 0 until AppUtils2.datalist.size) {
+                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                            getServiceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                            service_url_image =
+                                AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+                            binding.bottomheadertext.text =
+                                AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                            break
+                        }
+                    }
+                }
             }
-        }
+        })
+
+        viewModels.responseMessage.observe(
+            this@AddComplaintsActivity,
+            androidx.lifecycle.Observer {
+                progressDialog.dismiss()
+            })
+
+        viewModels.errorMessage.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
+            if (it != null) {
+            }
+        })
+
+        val mobile=SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
+        viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
+
 
         val extrass = getIntent().extras
         arraylistImages = ArrayList()
@@ -221,7 +262,6 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
         val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
-
 
 
         val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
@@ -268,7 +308,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" ) { //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") { //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
@@ -277,13 +317,13 @@ class AddComplaintsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""){    //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this,orderNo,Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -699,11 +739,11 @@ class AddComplaintsActivity : AppCompatActivity() {
         val subtype = ArrayList<String>()
 
         complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
-            Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
         })
 
         complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
-            Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
         })
 
         complaintViewModel.complaintReasons.observe(this) {
@@ -726,7 +766,8 @@ class AddComplaintsActivity : AppCompatActivity() {
                 Log.d("TAG", typeHash.toString())
                 initArrayAdapter(serviceType, type, subtype)
             } else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         complaintViewModel.getComplaintReasons(serviceType)
