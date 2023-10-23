@@ -286,12 +286,15 @@ class ProductDetailActivity : AppCompatActivity() {
                 //            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
 //                binding.appCompatImageViewd.text = data.toString()
 //            }
+
                 override fun setonaddclicklistener(
                     position: Int,
                     productid: Int,
                     i: Int, ) {
+                    progressDialog.show()
 
-//                    progressDialog.show()
+
+
 
 //                    Handler(Looper.getMainLooper()).postDelayed({
 //                        viewProductModel.addtocart.observe(this@ProductDetailActivity, Observer {
@@ -299,11 +302,18 @@ class ProductDetailActivity : AppCompatActivity() {
 //                            if(it.IsSuccess==true){
 //                                progressDialog.dismiss()
 //                                Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
-                    getSummarydata()
 
-                    val mIntent = intent
-                    finish()
-                    startActivity(mIntent)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        getSummarydata()
+
+                        val mIntent = intent
+                        finish()
+                        startActivity(mIntent)
+                        progressDialog.dismiss()
+
+                    }, 2000)
+
+
 
 //                    viewProductModel.productcount.observe(this, Observer {
 //                        if (it.IsSuccess == true) {
@@ -333,7 +343,6 @@ class ProductDetailActivity : AppCompatActivity() {
 //                    }, 500)
                 }
             })
-
 
 
 
