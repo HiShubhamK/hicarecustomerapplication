@@ -72,65 +72,66 @@ class OrderDetailActivity : AppCompatActivity() {
         binding = ActivityOrderDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult(),
-            ActivityResultCallback<ActivityResult> { activityResult ->
-                val result = activityResult.resultCode
-                val data = activityResult.data
-            })
 
-        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
-
-
-        binding.imgLogo.setOnClickListener {
-            onBackPressed()
-        }
-
-
-        val intent = intent
-        orderNo = intent.getStringExtra("orderNo").toString()
-        serviceType = intent.getStringExtra("serviceType").toString()
-        service_url_image = intent.getStringExtra("service_url_image").toString()
-        locationLatitudeS = intent.getStringExtra("locationLatitudeS").toString()
-        locationLongitudeS = intent.getStringExtra("locationLongitudeS").toString()
-        ServiceCenterId = intent.getStringExtra("ServiceCenterId").toString()
-        stdvalue = intent.getStringExtra("Standard_Value__c").toString()
-
-        Picasso.get().load(service_url_image).into(binding.imgType)
-        getServiceDetails(orderNo, serviceType)
-
-        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
-
-        binding.imgLogo.setOnClickListener {
-            onBackPressed()
-        }
-
-        if (orderNo != null) {
-            binding.bottomheadertext.visibility = View.VISIBLE
-            binding.bottomheadertext.text = orderNo
-        } else {
-            binding.bottomheadertext.visibility = View.GONE
-        }
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            progressDialog.show()
-            getServiceLists(progressDialog)
-        }, 500)
-
-        binding.help.setOnClickListener {
-
-            val intent = Intent(this, AddComplaintsActivity::class.java)
-            intent.putExtra("complaint",false)
-            intent.putExtra("orderNo", orderNo)
-            intent.putExtra("serviceType", serviceType)
-            intent.putExtra("service_url_image", service_url_image)
-
-            startActivity(intent)
-        }
 
         try {
+            var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback<ActivityResult> { activityResult ->
+                    val result = activityResult.resultCode
+                    val data = activityResult.data
+                })
+
+            progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+            progressDialog.setCancelable(false)
+
+
+            binding.imgLogo.setOnClickListener {
+                onBackPressed()
+            }
+
+
+            val intent = intent
+            orderNo = intent.getStringExtra("orderNo").toString()
+            serviceType = intent.getStringExtra("serviceType").toString()
+            service_url_image = intent.getStringExtra("service_url_image").toString()
+            locationLatitudeS = intent.getStringExtra("locationLatitudeS").toString()
+            locationLongitudeS = intent.getStringExtra("locationLongitudeS").toString()
+            ServiceCenterId = intent.getStringExtra("ServiceCenterId").toString()
+            stdvalue = intent.getStringExtra("Standard_Value__c").toString()
+
+            Picasso.get().load(service_url_image).into(binding.imgType)
+            getServiceDetails(orderNo, serviceType)
+
+            progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+            progressDialog.setCancelable(false)
+
+            binding.imgLogo.setOnClickListener {
+                onBackPressed()
+            }
+
+            if (orderNo != null) {
+                binding.bottomheadertext.visibility = View.VISIBLE
+                binding.bottomheadertext.text = orderNo
+            } else {
+                binding.bottomheadertext.visibility = View.GONE
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                progressDialog.show()
+                getServiceLists(progressDialog)
+            }, 500)
+
+            binding.help.setOnClickListener {
+
+                val intent = Intent(this, AddComplaintsActivity::class.java)
+                intent.putExtra("complaint",false)
+                intent.putExtra("orderNo", orderNo)
+                intent.putExtra("serviceType", serviceType)
+                intent.putExtra("service_url_image", service_url_image)
+
+                startActivity(intent)
+            }
 
             binding.payNowBtn.setOnClickListener {
                 try {
@@ -254,9 +255,11 @@ class OrderDetailActivity : AppCompatActivity() {
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                     binding.orderNameTv.text = data.service_Plan_Name__c
                     binding.orderNoTv.text = ": " + orderNo
-                    if (data?.appointmentStartDateTime__c.toString()!=null){
+                    if (data.appointmentStartDateTime__c!=null){
                         binding.dateTv.text =
-                            ": " + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
+                            ": " + AppUtils2.formatDateTime4(data!!.appointmentStartDateTime__c.toString())
+                    }else{
+                        binding.dateTv.visibility=View.GONE
                     }
 
                     binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"

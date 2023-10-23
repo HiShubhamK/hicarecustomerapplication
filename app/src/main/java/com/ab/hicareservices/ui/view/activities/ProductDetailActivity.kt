@@ -87,12 +87,10 @@ class ProductDetailActivity : AppCompatActivity() {
 
 //        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
-        binding.imgLogo.setOnClickListener{
+        binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
         getlist()
-
-
 
 
     }
@@ -159,15 +157,17 @@ class ProductDetailActivity : AppCompatActivity() {
             RecyclerView.State(),
             binding.recFAQ.adapter!!.itemCount
         )
-        viewProductModel.CreateEventNotificationResponse.observe(this@ProductDetailActivity, Observer {
-            if (it.IsSuccess == true) {
-                Toast.makeText(
-                    this@ProductDetailActivity,
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+        viewProductModel.CreateEventNotificationResponse.observe(
+            this@ProductDetailActivity,
+            Observer {
+                if (it.IsSuccess == true) {
+                    Toast.makeText(
+                        this@ProductDetailActivity,
+                        "Thank You! For Notifying Us",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
 
 
         viewProductModel.producDetailsResponse.observe(this, Observer {
@@ -190,22 +190,23 @@ class ProductDetailActivity : AppCompatActivity() {
                     data["Event_Source"] = "Product"
                     data["Event_Type"] = "Out of stock"
                     data["Reference_Id"] = productid.toString()
-                    data["Additional_Data"] = "Product|"+productid.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+productthmbnail
+                    data["Additional_Data"] =
+                        "Product|" + productid.toString() + "|" + AppUtils2.customerid + "|" + AppUtils2.pincode + "|" + AppUtils2.mobileno + "|" + productthmbnail
                     data["NextNotified_On"] = getCurrentDate()
                     data["Is_Notify"] = true
-                    data["Created_By"] =0
-                    data["Created_On"] =getCurrentDate()
-                    data["Notification_Tag"] ="string"
-                    data["Notification_Title"] ="string"
-                    data["Notification_Body"] ="string"
+                    data["Created_By"] = 0
+                    data["Created_On"] = getCurrentDate()
+                    data["Notification_Tag"] = "string"
+                    data["Notification_Title"] = "string"
+                    data["Notification_Body"] = "string"
                     viewProductModel.CreateEventForMobileAppNotification(data)
                 }
 
 
-            }else {
-                binding.tvAddToCart.visibility=View.VISIBLE
-                binding.btnNotifyMe.visibility=View.GONE
-                binding.lnrDetailCount.visibility=View.VISIBLE
+            } else {
+                binding.tvAddToCart.visibility = View.VISIBLE
+                binding.btnNotifyMe.visibility = View.GONE
+                binding.lnrDetailCount.visibility = View.VISIBLE
                 binding.tvAddToCart.setOnClickListener {
 //                if (binding.tvAddToCart.text == "Goto Cart") {
 //                    val intent = Intent(this, AddToCartActivity::class.java)
@@ -214,6 +215,7 @@ class ProductDetailActivity : AppCompatActivity() {
 //                    Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
 
                     viewProductModel.addtocart.observe(this, Observer {
+                        progressDialog.show()
                         if (it.IsSuccess == true) {
                             getSummarydata()
                             Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
@@ -239,21 +241,21 @@ class ProductDetailActivity : AppCompatActivity() {
 
             }
             if (it.ProductTestimonialList != null) {
-                if (it.ProductTestimonialList.isEmpty()){
-                    binding.lnrCustomerReview.visibility=View.GONE
-                }else{
+                if (it.ProductTestimonialList.isEmpty()) {
+                    binding.lnrCustomerReview.visibility = View.GONE
+                } else {
                     customerReviewAdapter.setProductReview(it.ProductTestimonialList)
                 }
-            }else{
-                binding.lnrCustomerReview.visibility=View.GONE
+            } else {
+                binding.lnrCustomerReview.visibility = View.GONE
             }
             if (it.ProductGallery != null) {
                 mAdapter.setPrductdetail(it.ProductGallery, this)
             }
             if (it.RelatedProducts != null) {
-                if(it.RelatedProducts.isEmpty()) {
+                if (it.RelatedProducts.isEmpty()) {
                     binding.lnrRelatedData.visibility = View.GONE
-                }else{
+                } else {
                     binding.lnrRelatedData.visibility = View.VISIBLE
                     relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
                 }
@@ -263,17 +265,17 @@ class ProductDetailActivity : AppCompatActivity() {
 
             }
             if (it.ProductFAQ != null) {
-                if (it.ProductFAQ.isEmpty()){
-                    binding.lnrFAQ.visibility=View.GONE
-                }else{
-                    binding.lnrFAQ.visibility=View.VISIBLE
+                if (it.ProductFAQ.isEmpty()) {
+                    binding.lnrFAQ.visibility = View.GONE
+                } else {
+                    binding.lnrFAQ.visibility = View.VISIBLE
 
                     binding.recFAQ.visibility = View.VISIBLE
                     faqAdapter.setFaq(it.ProductFAQ, this)
                 }
 
             } else {
-                binding.lnrFAQ.visibility=View.GONE
+                binding.lnrFAQ.visibility = View.GONE
 
                 binding.recFAQ.visibility = View.GONE
 
@@ -284,12 +286,15 @@ class ProductDetailActivity : AppCompatActivity() {
                 //            override fun onRelatedProdAddtoCart(position: Int, productid: Int, data: Int?) {
 //                binding.appCompatImageViewd.text = data.toString()
 //            }
+
                 override fun setonaddclicklistener(
                     position: Int,
                     productid: Int,
                     i: Int, ) {
+                    progressDialog.show()
 
-//                    progressDialog.show()
+
+
 
 //                    Handler(Looper.getMainLooper()).postDelayed({
 //                        viewProductModel.addtocart.observe(this@ProductDetailActivity, Observer {
@@ -297,11 +302,18 @@ class ProductDetailActivity : AppCompatActivity() {
 //                            if(it.IsSuccess==true){
 //                                progressDialog.dismiss()
 //                                Toast.makeText(this@ProductDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
-                    getSummarydata()
 
-                    val mIntent = intent
-                    finish()
-                    startActivity(mIntent)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        getSummarydata()
+
+                        val mIntent = intent
+                        finish()
+                        startActivity(mIntent)
+                        progressDialog.dismiss()
+
+                    }, 2000)
+
+
 
 //                    viewProductModel.productcount.observe(this, Observer {
 //                        if (it.IsSuccess == true) {
@@ -327,7 +339,7 @@ class ProductDetailActivity : AppCompatActivity() {
 //                                Toast.makeText(this@ProductDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
 //                            }
 //                        })
-                        viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
+                    viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
 //                    }, 500)
                 }
             })
@@ -432,7 +444,6 @@ class ProductDetailActivity : AppCompatActivity() {
         })
 
 
-
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
         viewProductModel.getProductDetails(
@@ -464,7 +475,9 @@ class ProductDetailActivity : AppCompatActivity() {
             } else {
                 binding.cartmenu.visibility = View.GONE
             }
-                 })
+            progressDialog.dismiss()
+
+        })
 
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
@@ -621,6 +634,7 @@ class ProductDetailActivity : AppCompatActivity() {
             mPaint.setAntiAlias(true)
         }
     }
+
     override fun onResume() {
         super.onResume()
         viewProductModel.productcount.observe(this, Observer {
