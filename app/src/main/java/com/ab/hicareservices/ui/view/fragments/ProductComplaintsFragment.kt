@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.databinding.ActivityProductComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ProductComplaintsAdapter
 import com.ab.hicareservices.ui.view.activities.AddProductComplaintsActivity
@@ -37,6 +38,8 @@ class ProductComplaintsFragment() : Fragment() {
     private var mobile = ""
     lateinit var progressDialog: ProgressDialog
     private val viewProductModel: ProductViewModel by viewModels()
+    var getsummarydata = ArrayList<OrderSummeryData>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,41 +54,51 @@ class ProductComplaintsFragment() : Fragment() {
             getAllComplaints()
         }, 500)
 
+        if(AppUtils2.IsCheckbutton==false){
+            binding.addFab.isEnabled=true
+        }else{
+            binding.addFab.isEnabled=false
+        }
+
+                viewProductModel.getordersummeryList.observe(requireActivity(),Observer {
+                    getsummarydata=ArrayList()
+                    getsummarydata.clear()
+                    getsummarydata.addAll(it)
+                })
+
+                viewProductModel.responseMessage.observe(
+                    requireActivity(),
+                    androidx.lifecycle.Observer {
+                        Toast.makeText(requireActivity(),"No Products Available",Toast.LENGTH_SHORT).show()
+                    })
+
+                viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())
+
+
+
+
+
+
         binding.addFab.setOnClickListener{
 
-            viewProductModel.getordersummeryList.observe(
-                requireActivity(),
-                androidx.lifecycle.Observer {
+            if(getsummarydata.isNotEmpty()) {
 
-                    AppUtils2.getsummarydata=ArrayList()
-                    AppUtils2.getsummarydata.clear()
-                    AppUtils2.getsummarydata.addAll(it)
-                    AppUtils2.getsummarydata.addAll(it)
-                    if(AppUtils2.getsummarydata!=null) {
-                        val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
-                        try {
-                            intent.putExtra("complaintactivity",true)
-                            intent.putExtra("ProductId", "")
-                            intent.putExtra("orderNo", "")
-                            intent.putExtra("displayname", "")
-                            intent.putExtra("Created_On", "")
-                            intent.putExtra("Complaint_Status","")
-                            intent.putExtra("OrderId","")
-                            intent.putExtra("OrderValuePostDiscount","")
-                            startActivity(intent)
-                        }catch (e:Exception){
-                            e.printStackTrace()
-                        }
-                    }
-                })
+                val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
+                intent.putExtra("complaintactivity", true)
+                intent.putExtra("ProductId", "")
+                intent.putExtra("orderNo", "")
+                intent.putExtra("displayname", "")
+                intent.putExtra("Created_On", "")
+                intent.putExtra("Complaint_Status", "")
+                intent.putExtra("OrderId", "")
+                intent.putExtra("OrderValuePostDiscount", "")
+                startActivity(intent)
 
-            viewProductModel.responseMessage.observe(
-                requireActivity(),
-                androidx.lifecycle.Observer {
-                    Toast.makeText(requireActivity(),"No Product Found",Toast.LENGTH_SHORT).show()
-                })
+            }else{
+                Toast.makeText(requireActivity(),"No Products Available",Toast.LENGTH_SHORT).show()
 
-            viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())
+            }
+
 
 //            val intent = Intent(requireActivity(), AddProductComplaintsActivity::class.java)
 //            try {
@@ -113,9 +126,13 @@ class ProductComplaintsFragment() : Fragment() {
         arguments?.let {
 //            isfromMenu = it.getBoolean("isfromMenu")
 
+
         }
 
+        binding.addFab.isEnabled=true
+
     }
+
 
     private fun getAllComplaints() {
         try {
@@ -137,12 +154,14 @@ class ProductComplaintsFragment() : Fragment() {
             viewModel.responseMessage.observe(requireActivity(), Observer {
                 binding.recyclerView.visibility=View.GONE
                 binding.txtnotfound.visibility=View.VISIBLE
-                binding.txtnotfound.text=it.toString()
+                binding.txtnotfound.text="No Products Available"
                 progressDialog.dismiss()
             })
 
             viewModel.errorMessage.observe(requireActivity(), Observer {
                 Toast.makeText(requireContext(),"Something went wrong!",Toast.LENGTH_SHORT).show()
+                binding.txtnotfound.text="No Products Available"
+
                 progressDialog.dismiss()
             })
 

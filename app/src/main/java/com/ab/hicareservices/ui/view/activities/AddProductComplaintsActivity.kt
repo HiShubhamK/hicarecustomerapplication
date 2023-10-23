@@ -126,6 +126,8 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
         AppUtils2.customeremail = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
+        AppUtils2.IsCheckbutton=false
+
         if (Iscomplaintactivity == true) {
             binding.servicetypes.visibility = View.VISIBLE
         } else {
@@ -1396,13 +1398,21 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
     override fun onResume() {
         super.onResume()
 //        getFromServiceType()
-        getComplaintReason("Pest")
+//        getComplaintReason("Pest")
 
 
     }
 
 
     override fun onBackPressed() {
+
+            if(Iscomplaintactivity==true){
+                val fragment = supportFragmentManager.backStackEntryCount
+            }else{
+
+            }
+
+
         if (binding.layoutCamera.isVisible == true) {
             binding.layoutCamera.visibility = View.GONE
             binding.scrollView2.visibility = View.VISIBLE
@@ -1448,4 +1458,5 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         Complaint_Status = orderStatus.toString()
         binding.bottomheadertext.text = OrderNumber
     }
+
 }

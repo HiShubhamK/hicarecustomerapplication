@@ -219,9 +219,13 @@ class ProductViewModel: ViewModel() {
         response.enqueue(object : Callback<OrderSummeryResponse> {
             override fun onResponse(call: Call<OrderSummeryResponse>, response: Response<OrderSummeryResponse>) {
                 if(response.body()!!.IsSuccess==true) {
-                    getordersummeryList.postValue(response.body()!!.orderSummeryData)
+                    if(response.body()!!.orderSummeryData!=null) {
+                        getordersummeryList.postValue(response.body()!!.orderSummeryData)
+                    }else{
+                        responseMessage.postValue(response.body()!!.ResponseMessage!!)
+                    }
                 }else{
-                    responseMessage.postValue(response.body()!!.ResponseMessage)
+                    responseMessage.postValue(response.body()!!.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<OrderSummeryResponse>, t: Throwable) {
