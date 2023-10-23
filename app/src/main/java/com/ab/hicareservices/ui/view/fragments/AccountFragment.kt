@@ -72,8 +72,6 @@ class AccountFragment : Fragment() {
             }
         })
 
-
-
         viewModels.getcurretnapversioncode(AppUtils2.mobileno)
 
         if(versioncode.toInt()>BuildConfig.VERSION_CODE){

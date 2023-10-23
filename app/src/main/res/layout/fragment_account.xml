@@ -520,30 +520,6 @@
                 android:layout_height="0.5dp"
                 android:background="@color/greyPrimary" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/txtTerms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center"
-                    android:text="Update"
-                    android:textColor="@color/black"
-                    android:textSize="13dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/imgTerms"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-
-            </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

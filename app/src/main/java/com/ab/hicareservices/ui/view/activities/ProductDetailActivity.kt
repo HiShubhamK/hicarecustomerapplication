@@ -159,15 +159,17 @@ class ProductDetailActivity : AppCompatActivity() {
             RecyclerView.State(),
             binding.recFAQ.adapter!!.itemCount
         )
-        viewProductModel.CreateEventNotificationResponse.observe(this@ProductDetailActivity, Observer {
-            if (it.IsSuccess == true) {
-                Toast.makeText(
-                    this@ProductDetailActivity,
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+        viewProductModel.CreateEventNotificationResponse.observe(
+            this@ProductDetailActivity,
+            Observer {
+                if (it.IsSuccess == true) {
+                    Toast.makeText(
+                        this@ProductDetailActivity,
+                        "Thank You! For Notifying Us",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
 
 
         viewProductModel.producDetailsResponse.observe(this, Observer {

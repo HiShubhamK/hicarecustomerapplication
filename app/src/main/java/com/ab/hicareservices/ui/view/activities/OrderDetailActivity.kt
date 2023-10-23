@@ -254,10 +254,17 @@ class OrderDetailActivity : AppCompatActivity() {
 //                     (data.order_Value_with_Tax__c.toString().toDouble() - discount)..toString()
                     binding.orderNameTv.text = data.service_Plan_Name__c
                     binding.orderNoTv.text = ": " + orderNo
-                    if (data?.appointmentStartDateTime__c.toString()!=null){
-                        binding.dateTv.text =
-                            ": " + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
+
+                    if (data.appointmentStartDateTime__c!=null){
+                        binding.dateTv.text = ": " + AppUtils2.formatDateTime4(data!!.appointmentStartDateTime__c.toString())
+                    }else{
+                        binding.dateTv.visibility=View.GONE
                     }
+
+//                    if (data?.appointmentStartDateTime__c.toString()!=null){
+////                        binding.dateTv.text =
+////                            ": " + AppUtils2.formatDateTime4(data?.appointmentStartDateTime__c.toString())
+//                    }
 
                     binding.txtaddress.text = data.account_Name__r?.accountAddress ?: "N/A"
 //                binding.orderDateTv.text  = data.createdDateText

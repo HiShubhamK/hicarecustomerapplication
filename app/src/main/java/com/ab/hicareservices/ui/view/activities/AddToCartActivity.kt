@@ -136,10 +136,17 @@ class AddToCartActivity : AppCompatActivity() {
                             AppUtils2.cartcounts=""
                             AppUtils2.changebuttonstatus=false
 
-                            val mIntent = intent
-                            finish()
-                            startActivity(mIntent)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                val mIntent = intent
+                                finish()
+                                startActivity(mIntent)
+                                progressDialog.dismiss()
+
+                            }, 2000)
+
                         }
+                        progressDialog.dismiss()
+
                     })
                     viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
 
@@ -163,7 +170,7 @@ class AddToCartActivity : AppCompatActivity() {
                         if(it.IsSuccess==true){
                             imgadd.isClickable=true
                             imgadd.isEnabled=true
-                        progressDialog.dismiss()
+                            progressDialog.dismiss()
                             getSummarydata()
                             AppUtils2.changebuttonstatus=false
                         }else{
