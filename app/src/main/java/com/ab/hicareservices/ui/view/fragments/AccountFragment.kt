@@ -8,12 +8,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.ab.hicareservices.BuildConfig
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.FragmentAccountBinding
 import com.ab.hicareservices.ui.view.activities.*
+import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUpdater
 import com.ab.hicareservices.utils.AppUtils2
 import com.bumptech.glide.Glide
@@ -23,6 +30,11 @@ class AccountFragment : Fragment() {
     lateinit var binding: FragmentAccountBinding
     var mobileno = ""
     var first_name = ""
+    private val viewProductModel: ProductViewModel by viewModels()
+    private val viewModels: HomeActivityViewModel by viewModels()
+    var versioncode=""
+    var isupdated=false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +64,29 @@ class AccountFragment : Fragment() {
 //                .replace(R.id.container, ProfileFragment.newInstance())
 //                .addToBackStack("AccountFragment").commit()
 //        }
+
+        viewModels.currentapp.observe(requireActivity(), Observer {
+            if (it != null) {
+                versioncode=it.Versioncode.toString()
+                isupdated= it.IsUpdated!!
+            }
+        })
+
+
+
+        viewModels.getcurretnapversioncode(AppUtils2.mobileno)
+
+        if(versioncode.toInt()>BuildConfig.VERSION_CODE){
+            binding.updateNow.visibility=View.VISIBLE
+        }else{
+            binding.updateNow.visibility=View.GONE
+        }
+
+
+        binding.updateNow.setOnClickListener {
+            val updateManager = AppUpdater(requireActivity(),versioncode, isupdated)
+            updateManager.checkForUpdate(versioncode,isupdated)
+        }
 
         binding.constraintorderid.setOnClickListener {
             val intent = Intent(requireActivity(), MyOrderActivityNew::class.java)
@@ -136,6 +171,8 @@ class AccountFragment : Fragment() {
     }
 
     private fun signOut() {
+        viewProductModel.getClearCache(AppUtils2.mobileno)
+
         SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
         SharedPreferenceUtil.setData(requireContext(), "bToken", "")
         SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
@@ -143,6 +180,7 @@ class AccountFragment : Fragment() {
         SharedPreferenceUtil.setData(requireContext(), "customerid", "")
         SharedPreferenceUtil.setData(requireContext(), "FirstName", "")
         SharedPreferenceUtil.setData(requireContext(), "MobileNo", "")
+
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }
