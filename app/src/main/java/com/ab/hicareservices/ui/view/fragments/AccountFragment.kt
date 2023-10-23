@@ -32,7 +32,7 @@ class AccountFragment : Fragment() {
     var first_name = ""
     private val viewProductModel: ProductViewModel by viewModels()
     private val viewModels: HomeActivityViewModel by viewModels()
-    var versioncode=""
+    var versioncode:Int=0
     var isupdated=false
 
 
@@ -67,14 +67,14 @@ class AccountFragment : Fragment() {
 
         viewModels.currentapp.observe(requireActivity(), Observer {
             if (it != null) {
-                versioncode=it.Versioncode.toString()
+                versioncode= it.Versioncode.toString().toInt()
                 isupdated= it.IsUpdated!!
             }
         })
 
         viewModels.getcurretnapversioncode(AppUtils2.mobileno)
 
-        if(versioncode.toInt()>BuildConfig.VERSION_CODE){
+        if(versioncode>BuildConfig.VERSION_CODE){
             binding.updateNow.visibility=View.VISIBLE
         }else{
             binding.updateNow.visibility=View.GONE
@@ -82,8 +82,8 @@ class AccountFragment : Fragment() {
 
 
         binding.updateNow.setOnClickListener {
-            val updateManager = AppUpdater(requireActivity(),versioncode, isupdated)
-            updateManager.checkForUpdate(versioncode,isupdated)
+            val updateManager = AppUpdater(requireActivity(),versioncode.toString(), isupdated)
+            updateManager.checkForUpdate(versioncode.toString(),isupdated)
         }
 
         binding.constraintorderid.setOnClickListener {
