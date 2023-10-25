@@ -106,55 +106,62 @@ class AddComplaintsActivity : AppCompatActivity() {
         binding = ActivityAddComplaintsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
-        viewFinder = findViewById<PreviewView>(R.id.viewFinder)
+        try{
+            progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+            progressDialog.setCancelable(false)
+            viewFinder = findViewById<PreviewView>(R.id.viewFinder)
 
-        mobile = SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
+            mobile = SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
 
-        val intent = intent
-        orderNo = intent.getStringExtra("orderNo").toString()
-        getServiceType = intent.getStringExtra("serviceType").toString()
-        checkformactivity = intent.getBooleanExtra("complaint", false)
-        service_url_image = intent.getStringExtra("service_url_image").toString()
+            val intent = intent
+            orderNo = intent.getStringExtra("orderNo").toString()
+            getServiceType = intent.getStringExtra("serviceType").toString()
+            checkformactivity = intent.getBooleanExtra("complaint", false)
+            service_url_image = intent.getStringExtra("service_url_image").toString()
 //        captureby = intent.getStringExtra("captureby").toString()
 
-        if (checkformactivity == true) {
-            binding.servicetypes.visibility = View.VISIBLE
-        } else {
-            binding.servicetypes.visibility = View.GONE
-        }
-
-
-        try {
-            adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
-            binding.spinnerLead.adapter = adapter
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        binding.spinnerLead.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
-                serviceType = AppUtils2.datalist[position].ServiceType.toString()
-                getServiceType = AppUtils2.datalist[position].ServiceType.toString()
-                service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
-                binding.bottomheadertext.text =
-                    AppUtils2.datalist[position].OrderNumber_c.toString()
-
+            if (checkformactivity == true) {
+                binding.servicetypes.visibility = View.VISIBLE
+            } else {
+                binding.servicetypes.visibility = View.GONE
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
+
+            try {
+                adapter = CustomSpinnerAdapter(this, AppUtils2.datalist)
+                binding.spinnerLead.adapter = adapter
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        }
+
+            binding.spinnerLead.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    try {
+                        orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
+                        serviceType = AppUtils2.datalist[position].ServiceType.toString()
+                        getServiceType = AppUtils2.datalist[position].ServiceType.toString()
+                        service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
+                        binding.bottomheadertext.text =
+                            AppUtils2.datalist[position].OrderNumber_c.toString()
+
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                    }
+
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
 
 
 //        val arrayAdapter = object : ArrayAdapter<String>(
@@ -205,85 +212,102 @@ class AddComplaintsActivity : AppCompatActivity() {
 //        }
 
 
-        viewModels.ordersList.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
-            if (it != null) {
-                AppUtils2.datalist = ArrayList()
-                AppUtils2.datalist.clear()
-                AppUtils2.datalist.addAll(it)
-                AppUtils2.Spinnerlist = ArrayList()
-                AppUtils2.Spinnerlist.clear()
-                AppUtils2.Spinnerlist.add("Select Service")
-                progressDialog.dismiss()
-                if (AppUtils2.datalist != null) {
-                    for (i in 0 until AppUtils2.datalist.size) {
-                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
-                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                            getServiceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                            service_url_image =
-                                AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
-                            binding.bottomheadertext.text =
-                                AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            break
+            viewModels.ordersList.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
+                if (it != null) {
+                    try {
+                        AppUtils2.datalist = ArrayList()
+                        AppUtils2.datalist.clear()
+                        AppUtils2.datalist.addAll(it)
+                        AppUtils2.Spinnerlist = ArrayList()
+                        AppUtils2.Spinnerlist.clear()
+                        AppUtils2.Spinnerlist.add("Select Service")
+                        progressDialog.dismiss()
+                        if (AppUtils2.datalist != null) {
+                            for (i in 0 until AppUtils2.datalist.size) {
+                                if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+                                    orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                                    serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                                    getServiceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                                    service_url_image =
+                                        AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+                                    binding.bottomheadertext.text =
+                                        AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                                    break
+                                }
+                            }
                         }
+                    }catch (e:Exception){
+                        e.printStackTrace()
                     }
-                }
-            }
-        })
 
-        viewModels.responseMessage.observe(
-            this@AddComplaintsActivity,
-            androidx.lifecycle.Observer {
-                progressDialog.dismiss()
+                }
             })
 
-        viewModels.errorMessage.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
-            if (it != null) {
+            viewModels.responseMessage.observe(
+                this@AddComplaintsActivity,
+                androidx.lifecycle.Observer {
+                    progressDialog.dismiss()
+                })
+
+            viewModels.errorMessage.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
+                if (it != null) {
+                }
+            })
+
+            val mobile=SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
+            viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
+
+
+            val extrass = getIntent().extras
+            arraylistImages = ArrayList()
+            arraylistImages.add(0, "")
+            arraylistImages.add(1, "")
+            arraylistImages.add(2, "")
+            arraylistImages.add(3, "")
+            arraylistImages.add(4, "")
+            val extras = getIntent().extras
+            if (orderNo != "") {
+                binding.bottomheadertext.visibility = View.VISIBLE
+                binding.bottomheadertext.text = orderNo
+            } else {
+                binding.bottomheadertext.visibility = View.GONE
             }
-        })
 
-        val mobile=SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
-        viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
+            val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
 
 
-        val extrass = getIntent().extras
-        arraylistImages = ArrayList()
-        arraylistImages.add(0, "")
-        arraylistImages.add(1, "")
-        arraylistImages.add(2, "")
-        arraylistImages.add(3, "")
-        arraylistImages.add(4, "")
-        val extras = getIntent().extras
-        if (orderNo != "") {
-            binding.bottomheadertext.visibility = View.VISIBLE
-            binding.bottomheadertext.text = orderNo
-        } else {
-            binding.bottomheadertext.visibility = View.GONE
-        }
+            val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
 
-        val img1 = SharedPreferenceUtil.getData(this, "Image1", "").toString()
+            typeHash = HashMap()
+            binding.imgLogo.setOnClickListener {
+                finish()
+
+                SharedPreferenceUtil.setData(this, "Image1", "").toString()
+                SharedPreferenceUtil.setData(this, "Image2", "").toString()
+            }
 
 
-        val img2 = SharedPreferenceUtil.getData(this, "Image2", "").toString()
-
-        typeHash = HashMap()
-        binding.imgLogo.setOnClickListener {
-            finish()
-
-            SharedPreferenceUtil.setData(this, "Image1", "").toString()
-            SharedPreferenceUtil.setData(this, "Image2", "").toString()
-        }
-
-
-        binding.complaintSpnType.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    val selectedType = binding.complaintSpnType.selectedItem.toString()
-                    if (selectedType != "Complaint Type") {
-                        selectedCType = selectedType
-                        if (!serviceType.equals("pest", true)) {
-                            getSubTypeFromType()
+            binding.complaintSpnType.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        val selectedType = binding.complaintSpnType.selectedItem.toString()
+                        if (selectedType != "Complaint Type") {
+                            selectedCType = selectedType
+                            if (!serviceType.equals("pest", true)) {
+                                getSubTypeFromType()
+                            }
                         }
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
+
+            binding.subSpnType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val selectedType = binding.subSpnType.selectedItem.toString()
+                    if (selectedType != "None" || selectedType.equals("Complaint Sub Type", true)) {
+                        selectedCSubType = selectedType
                     }
                 }
 
@@ -291,145 +315,137 @@ class AddComplaintsActivity : AppCompatActivity() {
                 }
             }
 
-        binding.subSpnType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val selectedType = binding.subSpnType.selectedItem.toString()
-                if (selectedType != "None" || selectedType.equals("Complaint Sub Type", true)) {
-                    selectedCSubType = selectedType
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
-        binding.saveBtn.setOnClickListener {
-            val serviceNo = binding.serviceNoEt.text.toString().trim()
-            val complaintTitle = binding.complaintTitleEt.text.toString().trim()
-            val complaintDescr = binding.complaintDescrEt.text.toString().trim()
-            if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") { //&& selectedCType != ""&& selectedCType != "Complaint Type"
-                    addComplaint(
-                        orderNo, serviceNo, selectedCType,
-                        selectedCSubType, complaintTitle, complaintDescr, serviceType
-                    )
+            binding.saveBtn.setOnClickListener {
+                val serviceNo = binding.serviceNoEt.text.toString().trim()
+                val complaintTitle = binding.complaintTitleEt.text.toString().trim()
+                val complaintDescr = binding.complaintDescrEt.text.toString().trim()
+                if (serviceType.equals("pest", true)) {
+                    if (orderNo != "" && complaintTitle != "" && complaintDescr != "") { //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                        addComplaint(
+                            orderNo, serviceNo, selectedCType,
+                            selectedCSubType, complaintTitle, complaintDescr, serviceType
+                        )
+                    } else {
+                        Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
-                    addComplaint(
-                        orderNo, serviceNo, selectedCType,
-                        selectedCSubType, complaintTitle, complaintDescr, serviceType
-                    )
-                } else {
-                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
-                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+                    if (orderNo != "" && complaintTitle != "" && complaintDescr != "") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                        addComplaint(
+                            orderNo, serviceNo, selectedCType,
+                            selectedCSubType, complaintTitle, complaintDescr, serviceType
+                        )
+                    } else {
+                        Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-        }
-        binding.lnrUpload.setOnClickListener {
+            binding.lnrUpload.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)
 //            intent.putExtra("getServiceType", getServiceType)
 //            intent.putExtra("captureby", "Image1")
 //            startActivity(intent)
 //            finish()
-            captureby = "img1"
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
-                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
-                )
+                captureby = "img1"
+                if (allPermissionsGranted()) {
+                    startCamera()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                        AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                    )
+                }
             }
-        }
-        binding.lnrUpload2.setOnClickListener {
-            captureby = "img2"
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
-                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
-                )
-            }
+            binding.lnrUpload2.setOnClickListener {
+                captureby = "img2"
+                if (allPermissionsGranted()) {
+                    startCamera()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                        AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                    )
+                }
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)
 //            intent.putExtra("getServiceType", getServiceType)
 //            intent.putExtra("captureby", "Image2")
 //            startActivity(intent)
 //            finish()
-        }
-        binding.lnrUpload3.setOnClickListener {
+            }
+            binding.lnrUpload3.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)
 //            intent.putExtra("getServiceType", getServiceType)
 //            intent.putExtra("captureby", "Image3")
 //            startActivity(intent)
 //            finish()
-            captureby = "img3"
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
-                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
-                )
+                captureby = "img3"
+                if (allPermissionsGranted()) {
+                    startCamera()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                        AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                    )
+                }
             }
-        }
-        binding.lnrUpload4.setOnClickListener {
+            binding.lnrUpload4.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)
 //            intent.putExtra("getServiceType", getServiceType)
 //            intent.putExtra("captureby", "Image3")
 //            startActivity(intent)
 //            finish()
-            captureby = "img4"
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
-                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
-                )
+                captureby = "img4"
+                if (allPermissionsGranted()) {
+                    startCamera()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                        AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                    )
+                }
             }
-        }
-        binding.lnrUpload5.setOnClickListener {
+            binding.lnrUpload5.setOnClickListener {
 //            val intent = Intent(this, CameraActivity::class.java)
 //            intent.putExtra("orderNo", orderNo)
 //            intent.putExtra("getServiceType", getServiceType)
 //            intent.putExtra("captureby", "Image3")
 //            startActivity(intent)
 //            finish()
-            captureby = "img5"
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    AddComplaintsActivity.REQUIRED_PERMISSIONS,
-                    AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
-                )
+                captureby = "img5"
+                if (allPermissionsGranted()) {
+                    startCamera()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        AddComplaintsActivity.REQUIRED_PERMISSIONS,
+                        AddComplaintsActivity.REQUEST_CODE_PERMISSIONS
+                    )
+                }
             }
+
+
+            // set on click listener for the button of capture photo
+            // it calls a method which is implemented below
+            findViewById<Button>(R.id.camera_capture_button).setOnClickListener {
+
+                binding.scrollView2.visibility = View.VISIBLE
+                binding.layoutCamera.visibility = View.GONE
+                takePhoto(captureby)
+            }
+            outputDirectory = getOutputDirectory()
+            cameraExecutor = Executors.newSingleThreadExecutor()
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
-
-        // set on click listener for the button of capture photo
-        // it calls a method which is implemented below
-        findViewById<Button>(R.id.camera_capture_button).setOnClickListener {
-
-            binding.scrollView2.visibility = View.VISIBLE
-            binding.layoutCamera.visibility = View.GONE
-            takePhoto(captureby)
-        }
-        outputDirectory = getOutputDirectory()
-        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private fun getSubTypeFromType() {
