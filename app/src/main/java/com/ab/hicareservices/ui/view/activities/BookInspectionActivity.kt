@@ -120,7 +120,7 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etlocality.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
             }else if(binding.etlandmark.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter landkmark",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter Landmark",Toast.LENGTH_LONG).show()
             }else if( binding.etcity.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
             }else if(binding.etstate.text.toString().trim().equals("")) {

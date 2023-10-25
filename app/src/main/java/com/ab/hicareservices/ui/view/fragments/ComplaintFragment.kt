@@ -75,46 +75,48 @@ class ComplaintFragment() : Fragment() {
             getAllComplaints(progressDialog)
         }, 1500)
 
+
+
+        viewModels.ordersList.observe(requireActivity(), androidx.lifecycle.Observer {
+            if (it != null) {
+                AppUtils2.datalist = java.util.ArrayList()
+                AppUtils2.datalist.clear()
+                AppUtils2.datalist.addAll(it)
+                AppUtils2.Spinnerlist = java.util.ArrayList()
+                AppUtils2.Spinnerlist.clear()
+                AppUtils2.Spinnerlist.add("Select Service")
+
+            }
+        })
+
+        viewModels.responseMessage.observe(
+            requireActivity(),
+            androidx.lifecycle.Observer {
+                Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
+            })
+
+        viewModels.errorMessage.observe(requireActivity(), androidx.lifecycle.Observer {
+            if (it != null) {
+            }
+        })
+
+        val mobile=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
+        viewModels.getCustomerOrdersByMobileNos(mobile, "Active")
+
+
         binding.addFab.setOnClickListener{
+            if (AppUtils2.datalist.isNotEmpty()) {
 
+                val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
+                intent.putExtra("complaint",true)
+                intent.putExtra("orderNo", "")
+                intent.putExtra("serviceType", "")
+                intent.putExtra("service_url_image", "")
+                startActivity(intent)
 
-            viewModels.ordersList.observe(requireActivity(), androidx.lifecycle.Observer {
-                if (it != null) {
-                    AppUtils2.datalist = java.util.ArrayList()
-                    AppUtils2.datalist.clear()
-                    AppUtils2.datalist.addAll(it)
-                    AppUtils2.Spinnerlist = java.util.ArrayList()
-                    AppUtils2.Spinnerlist.clear()
-                    AppUtils2.Spinnerlist.add("Select Service")
-                    if (AppUtils2.datalist != null) {
-
-                        val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
-                        intent.putExtra("complaint",true)
-                        intent.putExtra("orderNo", "")
-                        intent.putExtra("serviceType", "")
-                        intent.putExtra("service_url_image", "")
-                        startActivity(intent)
-
-                    }else{
-                        Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-
-            viewModels.responseMessage.observe(
-                requireActivity(),
-                androidx.lifecycle.Observer {
-                    Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
-                })
-
-            viewModels.errorMessage.observe(requireActivity(), androidx.lifecycle.Observer {
-                if (it != null) {
-                }
-            })
-
-            val mobile=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
-            viewModels.getCustomerOrdersByMobileNos(mobile, "Active")
-
+            }else{
+                Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

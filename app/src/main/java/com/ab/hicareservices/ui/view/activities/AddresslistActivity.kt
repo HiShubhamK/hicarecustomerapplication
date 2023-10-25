@@ -369,9 +369,9 @@ class AddresslistActivity : AppCompatActivity() {
                 }else if(etstreet.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
                 }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter locatity", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter Locality", Toast.LENGTH_LONG).show()
                 }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter landkmark", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter Landmark", Toast.LENGTH_LONG).show()
                 }else if(etpincode.text.toString().trim().length<6){
                     Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if(etpincode.text.toString().trim().length<6){

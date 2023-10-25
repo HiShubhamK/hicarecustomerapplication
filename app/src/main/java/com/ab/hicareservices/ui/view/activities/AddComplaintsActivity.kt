@@ -142,12 +142,17 @@ class AddComplaintsActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
-                serviceType = AppUtils2.datalist[position].ServiceType.toString()
-                getServiceType = AppUtils2.datalist[position].ServiceType.toString()
-                service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
-                binding.bottomheadertext.text =
-                    AppUtils2.datalist[position].OrderNumber_c.toString()
+                try{
+                    orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
+                    serviceType = AppUtils2.datalist[position].ServiceType.toString()
+                    getServiceType = AppUtils2.datalist[position].ServiceType.toString()
+                    service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
+                    binding.bottomheadertext.text =
+                        AppUtils2.datalist[position].OrderNumber_c.toString()
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+
 
             }
 
@@ -207,27 +212,32 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         viewModels.ordersList.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
             if (it != null) {
-                AppUtils2.datalist = ArrayList()
-                AppUtils2.datalist.clear()
-                AppUtils2.datalist.addAll(it)
-                AppUtils2.Spinnerlist = ArrayList()
-                AppUtils2.Spinnerlist.clear()
-                AppUtils2.Spinnerlist.add("Select Service")
-                progressDialog.dismiss()
-                if (AppUtils2.datalist != null) {
-                    for (i in 0 until AppUtils2.datalist.size) {
-                        if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
-                            orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                            getServiceType = AppUtils2.datalist.get(i).ServiceType.toString()
-                            service_url_image =
-                                AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
-                            binding.bottomheadertext.text =
-                                AppUtils2.datalist.get(i).OrderNumber_c.toString()
-                            break
+                try{
+                    AppUtils2.datalist = ArrayList()
+                    AppUtils2.datalist.clear()
+                    AppUtils2.datalist.addAll(it)
+                    AppUtils2.Spinnerlist = ArrayList()
+                    AppUtils2.Spinnerlist.clear()
+                    AppUtils2.Spinnerlist.add("Select Service")
+                    progressDialog.dismiss()
+                    if (AppUtils2.datalist != null) {
+                        for (i in 0 until AppUtils2.datalist.size) {
+                            if (AppUtils2.datalist.get(i).ServicePlanName_c.equals(selectspinner)) {
+                                orderNo = AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                                serviceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                                getServiceType = AppUtils2.datalist.get(i).ServiceType.toString()
+                                service_url_image =
+                                    AppUtils2.datalist.get(i).ServicePlanImageUrl.toString()
+                                binding.bottomheadertext.text =
+                                    AppUtils2.datalist.get(i).OrderNumber_c.toString()
+                                break
+                            }
                         }
                     }
+                }catch (e:Exception){
+                    e.printStackTrace()
                 }
+
             }
         })
 
@@ -323,7 +333,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
                     Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
                 }
             }
