@@ -55,16 +55,17 @@ class ProductFragment : Fragment() {
     var pincode: String? = ""
     private lateinit var mAdapter: ProductAdapter
     lateinit var progressDialog: ProgressDialog
-    val REQUEST_CODE_PERMISSIONS =101
+    val REQUEST_CODE_PERMISSIONS = 101
 
-    private var launcher=  registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result->
-        if (result.resultCode == Activity.RESULT_OK) {
+    private var launcher =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
 //            Toast.makeText(this,"Hello akshay",Toast.LENGTH_SHORT).show()
-        } else {
-            AppUtils2.ISChecklocationpermission=true
+            } else {
+                AppUtils2.ISChecklocationpermission = true
 //            Toast.makeText(this,"Hello akshay fails ",Toast.LENGTH_SHORT).show()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,24 +101,24 @@ class ProductFragment : Fragment() {
         } catch (ex: Exception) {
         }
         if (!gps_enabled && !network_enabled) {
-            if(AppUtils2.ISChecklocationpermission==true){
+            if (AppUtils2.ISChecklocationpermission == true) {
 
-            }else{
+            } else {
                 enableLoc()
             }
-        }else if (!gps_enabled){
-            if(AppUtils2.ISChecklocationpermission==true){
+        } else if (!gps_enabled) {
+            if (AppUtils2.ISChecklocationpermission == true) {
 
-            }else{
+            } else {
                 enableLoc()
             }
-        }else if(!network_enabled){
-            if(AppUtils2.ISChecklocationpermission==true){
+        } else if (!network_enabled) {
+            if (AppUtils2.ISChecklocationpermission == true) {
 
-            }else{
+            } else {
                 enableLoc()
             }
-        }else{
+        } else {
             enableLoc()
         }
 
@@ -192,7 +193,7 @@ class ProductFragment : Fragment() {
 
         if (AppUtils2.pincode.equals("")) {
 
-            AppUtils2.pincode="400080"
+            AppUtils2.pincode = "400080"
             binding.getpincodetext.setText(AppUtils2.pincode)
             getProductslist(AppUtils2.pincode!!)
 //            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
@@ -203,10 +204,11 @@ class ProductFragment : Fragment() {
 
         binding.imgsearch.setOnClickListener {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
-                Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG).show()
-            } else if(binding.getpincodetext.text.toString().trim().length<6){
+                Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG)
+                    .show()
+            } else if (binding.getpincodetext.text.toString().trim().length < 6) {
                 Toast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_LONG).show()
-            }else{
+            } else {
                 AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
                 SharedPreferenceUtil.setData(
                     requireActivity(),
@@ -232,7 +234,8 @@ class ProductFragment : Fragment() {
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest)
         builder.setAlwaysShow(true)
-        val result = LocationServices.getSettingsClient(requireActivity()).checkLocationSettings(builder.build())
+        val result = LocationServices.getSettingsClient(requireActivity())
+            .checkLocationSettings(builder.build())
         result.addOnCompleteListener { task ->
             try {
                 val response = task.getResult(
@@ -289,127 +292,20 @@ class ProductFragment : Fragment() {
 
 //        Handler(Looper.getMainLooper()).postDelayed({
 
-            viewProductModel.productlist.observe(requireActivity(), Observer {
-
-                if (it != null) {
-
+        viewProductModel.productlist.observe(requireActivity(), Observer {
+            progressDialog.show()
+            if (it != null) {
+                if (it.isNotEmpty()) {
                     binding.recycleviewproduct.visibility = View.VISIBLE
                     binding.textnotfound.visibility = View.GONE
                     mAdapter.setProductList(it, requireActivity(), viewProductModel)
                     progressDialog.dismiss()
-
                 } else {
                     binding.recycleviewproduct.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
                     progressDialog.dismiss()
 
                 }
-            })
-
-            viewProductModel.responseMessage.observe(requireActivity(), Observer {
-                progressDialog.dismiss()
-                binding.recycleviewproduct.visibility = View.GONE
-                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
-            })
-                viewProductModel.getProductlist(pincode)
-
-//        },3000)
-
-
-        progressDialog.dismiss()
-
-        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
-            override fun onProductClickedHandler(position: Int, productid: Int) {
-
-                progressDialog.show()
-
-//                Handler(Looper.getMainLooper()).postDelayed({
-
-                    viewProductModel.addtocart.observe(requireActivity(), Observer {
-                        if (it.IsSuccess == true) {
-                            getproductcount()
-                        } else {
-                            Toast.makeText(
-                                requireActivity(),
-                                "Something went wrong! Unable to add product into cart",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
-
-
-                    viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
-
-                    viewProductModel.productcount.observe(requireActivity(), Observer {
-                        progressDialog.dismiss()
-                        if (it.IsSuccess == true) {
-                            binding.cartmenu.visibility = View.VISIBLE
-                            binding.appCompatImageViewd.text = it.Data.toString()
-                        } else {
-                            binding.cartmenu.visibility = View.GONE
-                        }
-                    })
-
-
-                    viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
-//                }, 1500)
-            }
-
-            override fun onProductView(position: Int, productid: OrderSummeryData) {
-
-            }
-
-            override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
-                val data = HashMap<String, Any>()
-                data["Id"] = 0
-                data["Mobile_No"] = AppUtils2.mobileno
-                data["Event_Source"] = "Product"
-                data["Event_Type"] = "Out of stock"
-                data["Reference_Id"] = response.ProductId.toString()
-                data["Additional_Data"] = "Product|"+response.ProductId.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+response.ProductThumbnail
-                data["NextNotified_On"] = getCurrentDate()
-                data["Is_Notify"] = true
-                data["Created_By"] =0
-                data["Created_On"] =getCurrentDate()
-                data["Notification_Tag"] ="string"
-                data["Notification_Title"] ="string"
-                data["Notification_Body"] ="string"
-                viewProductModel.CreateEventForMobileAppNotification(data)
-            }
-        })
-        progressDialog.dismiss()
-    }
-
-    private fun getProductslist2(pincode: String) {
-//        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
-//        progressDialog.setCancelable(false)
-        progressDialog.show()
-
-        binding.recycleviewproduct.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        mAdapter = ProductAdapter()
-
-        binding.recycleviewproduct.adapter = mAdapter
-        viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
-            if (it.IsSuccess == true) {
-                Toast.makeText(
-                    requireActivity(),
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-
-        Handler(Looper.getMainLooper()).postDelayed({
-
-        viewProductModel.productlist.observe(requireActivity(), Observer {
-
-            if (it != null) {
-//                Log.e("TAG","DataUi:"+it)
-                progressDialog.dismiss()
-                mAdapter.setProductList(it, requireActivity(), viewProductModel)
-                binding.recycleviewproduct.visibility = View.VISIBLE
-                binding.textnotfound.visibility = View.GONE
 
             } else {
                 binding.recycleviewproduct.visibility = View.GONE
@@ -426,7 +322,8 @@ class ProductFragment : Fragment() {
         })
         viewProductModel.getProductlist(pincode)
 
-        },1000)
+//        },3000)
+
 
         progressDialog.dismiss()
 
@@ -478,25 +375,147 @@ class ProductFragment : Fragment() {
                 data["Event_Source"] = "Product"
                 data["Event_Type"] = "Out of stock"
                 data["Reference_Id"] = response.ProductId.toString()
-                data["Additional_Data"] = "Product|"+response.ProductId.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+response.ProductThumbnail
+                data["Additional_Data"] =
+                    "Product|" + response.ProductId.toString() + "|" + AppUtils2.customerid + "|" + AppUtils2.pincode + "|" + AppUtils2.mobileno + "|" + response.ProductThumbnail
                 data["NextNotified_On"] = getCurrentDate()
                 data["Is_Notify"] = true
-                data["Created_By"] =0
-                data["Created_On"] =getCurrentDate()
-                data["Notification_Tag"] ="string"
-                data["Notification_Title"] ="string"
-                data["Notification_Body"] ="string"
+                data["Created_By"] = 0
+                data["Created_On"] = getCurrentDate()
+                data["Notification_Tag"] = "string"
+                data["Notification_Title"] = "string"
+                data["Notification_Body"] = "string"
                 viewProductModel.CreateEventForMobileAppNotification(data)
+            }
+        })
+        progressDialog.dismiss()
+    }
 
-                viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+    private fun getProductslist2(pincode: String) {
+//        progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
+//        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        binding.recycleviewproduct.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        mAdapter = ProductAdapter()
+
+        binding.recycleviewproduct.adapter = mAdapter
+        viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+            if (it.IsSuccess == true) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Thank You! For Notifying Us",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            viewProductModel.productlist.observe(requireActivity(), Observer {
+                progressDialog.show()
+                if (it != null) {
+                    if (it.isNotEmpty()) {
+                        binding.recycleviewproduct.visibility = View.VISIBLE
+                        binding.textnotfound.visibility = View.GONE
+                        mAdapter.setProductList(it, requireActivity(), viewProductModel)
+                        progressDialog.dismiss()
+                    } else {
+                        binding.recycleviewproduct.visibility = View.GONE
+                        binding.textnotfound.visibility = View.VISIBLE
+                        progressDialog.dismiss()
+
+                    }
+
+                } else {
+                    binding.recycleviewproduct.visibility = View.GONE
+                    binding.textnotfound.visibility = View.VISIBLE
+                    progressDialog.dismiss()
+
+                }
+            })
+
+            viewProductModel.responseMessage.observe(requireActivity(), Observer {
+                progressDialog.dismiss()
+                binding.recycleviewproduct.visibility = View.GONE
+                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
+            })
+            viewProductModel.getProductlist(pincode)
+
+        }, 1000)
+
+        progressDialog.dismiss()
+
+        mAdapter.setOnOrderItemClicked(object : OnProductClickedHandler {
+            override fun onProductClickedHandler(position: Int, productid: Int) {
+
+                progressDialog.show()
+
+//                Handler(Looper.getMainLooper()).postDelayed({
+
+                viewProductModel.addtocart.observe(requireActivity(), Observer {
                     if (it.IsSuccess == true) {
+                        getproductcount()
+                    } else {
                         Toast.makeText(
                             requireActivity(),
-                            "Thank You! For Notifying Us",
+                            "Something went wrong! Unable to add product into cart",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 })
+
+
+                viewProductModel.getAddProductInCart(1, productid, AppUtils2.customerid.toInt())
+
+                viewProductModel.productcount.observe(requireActivity(), Observer {
+                    progressDialog.dismiss()
+                    if (it.IsSuccess == true) {
+                        binding.cartmenu.visibility = View.VISIBLE
+                        binding.appCompatImageViewd.text = it.Data.toString()
+                    } else {
+                        binding.cartmenu.visibility = View.GONE
+                    }
+                })
+
+
+                viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
+//                }, 1500)
+            }
+
+            override fun onProductView(position: Int, productid: OrderSummeryData) {
+
+            }
+
+            override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+                val data = HashMap<String, Any>()
+                data["Id"] = 0
+                data["Mobile_No"] = AppUtils2.mobileno
+                data["Event_Source"] = "Product"
+                data["Event_Type"] = "Out of stock"
+                data["Reference_Id"] = response.ProductId.toString()
+                data["Additional_Data"] =
+                    "Product|" + response.ProductId.toString() + "|" + AppUtils2.customerid + "|" + AppUtils2.pincode + "|" + AppUtils2.mobileno + "|" + response.ProductThumbnail
+                data["NextNotified_On"] = getCurrentDate()
+                data["Is_Notify"] = true
+                data["Created_By"] = 0
+                data["Created_On"] = getCurrentDate()
+                data["Notification_Tag"] = "string"
+                data["Notification_Title"] = "string"
+                data["Notification_Body"] = "string"
+                viewProductModel.CreateEventForMobileAppNotification(data)
+
+                viewProductModel.CreateEventNotificationResponse.observe(
+                    requireActivity(),
+                    Observer {
+                        if (it.IsSuccess == true) {
+                            Toast.makeText(
+                                requireActivity(),
+                                "Thank You! For Notifying Us",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
 //                {
 //                    "Id": 0,
 //                    "Mobile_No": "string",
@@ -571,6 +590,7 @@ class ProductFragment : Fragment() {
                 }
             }
     }
+
     private fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         return sdf.format(Date())

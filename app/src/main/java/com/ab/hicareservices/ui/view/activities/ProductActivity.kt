@@ -248,11 +248,19 @@ class ProductActivity : AppCompatActivity() {
         viewProductModel.productlist.observe(this@ProductActivity, Observer {
 
             if (it != null) {
+                if (it.isNotEmpty()){
+                    binding.recycleviewproduct.visibility = View.VISIBLE
+                    binding.textnotfound.visibility = View.GONE
+                    mAdapter.setProductList(it, this@ProductActivity, viewProductModel)
+                    progressDialog.dismiss()
+                }else {
+                    binding.recycleviewproduct.visibility = View.GONE
+                    binding.textnotfound.visibility = View.VISIBLE
+                    progressDialog.dismiss()
 
-                binding.recycleviewproduct.visibility = View.VISIBLE
-                binding.textnotfound.visibility = View.GONE
-                mAdapter.setProductList(it, this@ProductActivity, viewProductModel)
-                progressDialog.dismiss()
+                }
+
+
 
             } else {
                 binding.recycleviewproduct.visibility = View.GONE
@@ -353,11 +361,17 @@ class ProductActivity : AppCompatActivity() {
 
                 if (it != null) {
 //                Log.e("TAG","DataUi:"+it)
-                    progressDialog.dismiss()
-                    mAdapter.setProductList(it, this@ProductActivity, viewProductModel)
-                    binding.recycleviewproduct.visibility = View.VISIBLE
-                    binding.textnotfound.visibility = View.GONE
+                    if (it.isNotEmpty()){
+                        binding.recycleviewproduct.visibility = View.VISIBLE
+                        binding.textnotfound.visibility = View.GONE
+                        mAdapter.setProductList(it, this@ProductActivity, viewProductModel)
+                        progressDialog.dismiss()
+                    }else {
+                        binding.recycleviewproduct.visibility = View.GONE
+                        binding.textnotfound.visibility = View.VISIBLE
+                        progressDialog.dismiss()
 
+                    }
                 } else {
                     binding.recycleviewproduct.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE

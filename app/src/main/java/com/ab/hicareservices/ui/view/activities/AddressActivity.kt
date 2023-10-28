@@ -367,13 +367,13 @@ class AddressActivity : AppCompatActivity() {
                 }else if(etflatno.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter flat number", Toast.LENGTH_LONG).show()
                 }else if(etbuildname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Building name", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter building name", Toast.LENGTH_LONG).show()
                 }else if(etstreet.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
                 }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Locality", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter locality", Toast.LENGTH_LONG).show()
                 }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Landmark", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
                 }else if(etcity.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
                 } else if(etstate.text.toString().trim().equals("")){
@@ -529,11 +529,11 @@ class AddressActivity : AppCompatActivity() {
                 }else if(etflatno.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter flat number", Toast.LENGTH_LONG).show()
                 }else if(etbuildname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Building name", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter building name", Toast.LENGTH_LONG).show()
                 }else if(etstreet.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
                 }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Locality", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Enter locality", Toast.LENGTH_LONG).show()
                 }else if(etlandmark.text.toString().trim().equals("")){
                     Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
                 }else if(etcity.text.toString().trim().equals("")){
