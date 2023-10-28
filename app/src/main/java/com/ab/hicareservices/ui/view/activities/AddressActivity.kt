@@ -34,8 +34,8 @@ class AddressActivity : AppCompatActivity() {
     var shippingdata: String? = ""
     var billingdata: String? = ""
     lateinit var progressDialog: ProgressDialog
-    var checkboxcheck:Boolean=false
-    var pincodeshipping=""
+    var checkboxcheck: Boolean = false
+    var pincodeshipping = ""
     var pincode: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,8 @@ class AddressActivity : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        progressDialog = ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
+        progressDialog =
+            ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
         datalist = ArrayList()
@@ -57,27 +58,27 @@ class AddressActivity : AppCompatActivity() {
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
 
-        if(checkboxcheck==false) {
-            checkboxcheck==true
+        if (checkboxcheck == false) {
+            checkboxcheck == true
             binding.checkbox.isChecked == false
             binding.checkbox.isClickable == true
-        }else{
-            checkboxcheck==false
+        } else {
+            checkboxcheck == false
             binding.checkbox.isChecked == true
             binding.checkbox.isClickable == false
         }
 
-        if (!pincode.isNullOrEmpty()){
-            binding.tvPincode.text="Deliver to pincode "+pincode
+        if (!pincode.isNullOrEmpty()) {
+            binding.tvPincode.text = "Deliver to pincode " + pincode
 
-        }else {
-            binding.tvPincode.visibility=View.GONE
+        } else {
+            binding.tvPincode.visibility = View.GONE
         }
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            if (b==true){
-                showAddNewAddressdialog("false",binding.checkbox,AppUtils2.pincode)
-            }else {
+            if (b == true) {
+                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
+            } else {
 
             }
         }
@@ -91,18 +92,18 @@ class AddressActivity : AppCompatActivity() {
 
 
 
-        if(shippingdata.equals("")){
-            binding.txtshipping.text=""
+        if (shippingdata.equals("")) {
+            binding.txtshipping.text = ""
             getAddressListdata()
-        }else{
+        } else {
             getAddressListdata2()
 //            getAddressforshipping()
         }
 
-        if(!billingdata.equals("")){
+        if (!billingdata.equals("")) {
             getAddressforbilling()
-        }else{
-            binding.txtbilling.text=""
+        } else {
+            binding.txtbilling.text = ""
         }
 
 
@@ -113,44 +114,46 @@ class AddressActivity : AppCompatActivity() {
         }
 
 
-        binding.btnnext.setOnClickListener{
-            if(pincodeshipping.equals(AppUtils2.pincode)) {
-                if (billingdata.equals("")) {
-                    billingdata = shippingdata
-                    SharedPreferenceUtil.setData(this,"Billingdata",billingdata)
+        binding.btnnext.setOnClickListener {
+            if (binding.txtshipping.text.equals("")) {
+                Toast.makeText(this, "Please Add New Shipping Address", Toast.LENGTH_SHORT).show()
+            } else {
+                if (pincodeshipping.equals(AppUtils2.pincode)) {
+                    if (billingdata.equals("")) {
+                        billingdata = shippingdata
+                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
 
-                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                    intent.putExtra("Billdata", billingdata)
-                    intent.putExtra("Shipdata", shippingdata)
-                    startActivity(intent)
+                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                        intent.putExtra("Billdata", billingdata)
+                        intent.putExtra("Shipdata", shippingdata)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                        intent.putExtra("Billdata", billingdata)
+                        intent.putExtra("Shipdata", shippingdata)
+                        startActivity(intent)
+                    }
                 } else {
-                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                    intent.putExtra("Billdata", billingdata)
-                    intent.putExtra("Shipdata", shippingdata)
-                    startActivity(intent)
-                }
-            }else{
-                if (billingdata.equals("")) {
-                    billingdata = shippingdata
-                    SharedPreferenceUtil.setData(this,"Billingdata",billingdata)
+                    if (billingdata.equals("")) {
+                        billingdata = shippingdata
+                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
 
-                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                    intent.putExtra("Billdata", billingdata)
-                    intent.putExtra("Shipdata", shippingdata)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                    intent.putExtra("Billdata", billingdata)
-                    intent.putExtra("Shipdata", shippingdata)
-                    startActivity(intent)
+                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                        intent.putExtra("Billdata", billingdata)
+                        intent.putExtra("Shipdata", shippingdata)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                        intent.putExtra("Billdata", billingdata)
+                        intent.putExtra("Shipdata", shippingdata)
+                        startActivity(intent)
+                    }
                 }
-
-//                Toast.makeText(this,"Invalid pincode selected",Toast.LENGTH_LONG).show()
             }
         }
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true",binding.checkbox,AppUtils2.pincode)
+            showAddNewAddressdialog("true", binding.checkbox, AppUtils2.pincode)
         }
 
     }
@@ -160,7 +163,8 @@ class AddressActivity : AppCompatActivity() {
         viewProductModel.getaddressbydetailid.observe(this, Observer {
             progressDialog.dismiss()
             binding.txtbilling.visibility = View.VISIBLE
-            binding.txtbilling.text = it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+            binding.txtbilling.text =
+                it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
@@ -174,9 +178,9 @@ class AddressActivity : AppCompatActivity() {
 
             binding.txtshipping.visibility = View.VISIBLE
             binding.txtshipping.text =
-                it.FlatNo.toString() +","+ it.BuildingName.toString() +","+ it.Street.toString() + "," +
+                it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
-            pincodeshipping=it.Pincode.toString()
+            pincodeshipping = it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(shippingdata!!.toInt())
     }
@@ -193,35 +197,48 @@ class AddressActivity : AppCompatActivity() {
             for (i in 0 until it.size) {
 
                 var data = it.get(i).Id.toString()
-                if(data.equals(shippingdata)){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                    pincodeshipping=it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
-                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
+                if (data.equals(shippingdata)) {
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
+                            i
+                        ).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
+                            i
+                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping = it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
+                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
                     break
-                }
-                else if(it.get(i).IsDefault==true){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                    pincodeshipping=it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
-                    shippingdata=it.get(i).Id.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
-                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
+                } else if (it.get(i).IsDefault == true) {
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
+                            i
+                        ).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
+                            i
+                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping = it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this, "Shippingdata", it.get(i).Id.toString())
+                    shippingdata = it.get(i).Id.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
+                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
                     break
-                }
-                else{
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                    pincodeshipping=it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this,"Shippingdata",it.get(i).Id.toString())
-                    shippingdata=it.get(i).Id.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode","")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode",pincodeshipping)
-                    binding.tvPincode.text="Deliver to pincode "+pincodeshipping
+                } else {
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
+                            i
+                        ).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
+                            i
+                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping = it.get(i).Pincode.toString()
+                    SharedPreferenceUtil.setData(this, "Shippingdata", it.get(i).Id.toString())
+                    shippingdata = it.get(i).Id.toString()
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
+                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
                     break
                 }
             }
@@ -241,10 +258,15 @@ class AddressActivity : AppCompatActivity() {
             for (i in 0 until it.size) {
 
                 var data = it.get(i).Id.toString()
-                if(data.equals(shippingdata)){
-                    binding.txtshipping.text=it.get(i).FlatNo.toString()+","+it.get(i).BuildingName.toString()+","+it.get(i).Street.toString()+","+
-                            it.get(i).Locality.toString()+","+it.get(i).Landmark.toString()+","+it.get(i).City.toString()+","+it.get(i).State.toString()+","+it.get(i).Pincode.toString()
-                    pincodeshipping=it.get(i).Pincode.toString()
+                if (data.equals(shippingdata)) {
+                    binding.txtshipping.text =
+                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
+                            i
+                        ).Street.toString() + "," +
+                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
+                            i
+                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
+                    pincodeshipping = it.get(i).Pincode.toString()
                     break
                 }
             }
@@ -267,9 +289,9 @@ class AddressActivity : AppCompatActivity() {
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
 
-        if(b.equals("true")){
+        if (b.equals("true")) {
 
-            var courses = arrayOf<String?>("Select Address Type","Home", "Office", "Others")
+            var courses = arrayOf<String?>("Select Address Type", "Home", "Office", "Others")
 
             val etname = promptsView.findViewById<View>(R.id.etname) as EditText
             val edtmobileno = promptsView.findViewById<View>(R.id.edtmobileno) as EditText
@@ -280,8 +302,8 @@ class AddressActivity : AppCompatActivity() {
             val etlocality = promptsView.findViewById<View>(R.id.etlocality) as TextView
             val etlandmark = promptsView.findViewById<View>(R.id.etlandmark) as EditText
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
-            val etstate=promptsView.findViewById<View>(R.id.etstate) as EditText
-            val etcity=promptsView.findViewById<View>(R.id.etcitites) as EditText
+            val etstate = promptsView.findViewById<View>(R.id.etstate) as EditText
+            val etcity = promptsView.findViewById<View>(R.id.etcitites) as EditText
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
@@ -292,8 +314,8 @@ class AddressActivity : AppCompatActivity() {
 
             imgcancels.setOnClickListener {
                 alertDialog.cancel()
-                binding.checkbox.isChecked==false
-                appCompatCheckBox.isChecked=false
+                binding.checkbox.isChecked == false
+                appCompatCheckBox.isChecked = false
             }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
@@ -336,89 +358,101 @@ class AddressActivity : AppCompatActivity() {
 
             etpincode.setText(pincode)
 
-            etpincode.isEnabled=false
-            etpincode.isClickable=false
+            etpincode.isEnabled = false
+            etpincode.isClickable = false
 
             saveBtn.setOnClickListener {
-                if(etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim().equals("") &&
-                    etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
-                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
-                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
+                if (etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim()
+                        .equals("") &&
+                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim()
+                        .equals("Select Type") &&
+                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim()
+                        .equals("") &&
+                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
+                        .equals("") &&
                     etlandmark.text.toString().trim().equals("") &&
-                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
+                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
+                        .equals("")
+                ) {
 
-                    Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
-                }
-                else if(etname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter name", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().equals("") && !edtmobileno.text.toString().equals("0000000000")){
-                    Toast.makeText(this,"Enter mobile number", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().length<10){
-                    Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().equals("0000000000")){
-                    Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
-                } else if(etemps.text.toString().trim().equals("") ){
-                    Toast.makeText(this,"Enter email address", Toast.LENGTH_LONG).show()
-                }else if(!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()){
-                    Toast.makeText(this,"Enter correct email address", Toast.LENGTH_LONG).show()
-                } else if(selectedLocation.toString().trim().equals("Select Type")){
-                    Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
-                }else if(etflatno.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter flat number", Toast.LENGTH_LONG).show()
-                }else if(etbuildname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Building name", Toast.LENGTH_LONG).show()
-                }else if(etstreet.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
-                }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Locality", Toast.LENGTH_LONG).show()
-                }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Landmark", Toast.LENGTH_LONG).show()
-                }else if(etcity.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
-                } else if(etstate.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
-                } else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
-                } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
-                }else{
+                } else if (etname.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim()
+                        .equals("") && !edtmobileno.text.toString().equals("0000000000")
+                ) {
+                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim().length < 10) {
+                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
+                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                } else if (etemps.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
+                    Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
+                } else if (selectedLocation.toString().trim().equals("Select Type")) {
+                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
+                } else if (etflatno.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
+                } else if (etbuildname.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter Building name", Toast.LENGTH_LONG).show()
+                } else if (etstreet.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
+                } else if (etlocality.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
+                } else if (etlandmark.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter Landmark", Toast.LENGTH_LONG).show()
+                } else if (etcity.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
+                } else if (etstate.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
+                } else if (etpincode.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
+                } else if (etpincode.text.toString().trim().length < 6) {
+                    Toast.makeText(this, "Incorrect pincode", Toast.LENGTH_LONG).show()
+                } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()
-                    data["Id"] =0
-                    data["OrderId"] =0
-                    data["Customer_Id"] =AppUtils2.customerid.toInt()
+                    data["Id"] = 0
+                    data["OrderId"] = 0
+                    data["Customer_Id"] = AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
-                    data["Contact_Person_Mobile"] =edtmobileno.text.toString()
-                    data["Contact_Person_Email"] =etemps.text.toString()
-                    data["Flat_No"] =etflatno.text.toString()
-                    data["Building_Name"] =etbuildname.text.toString()
-                    data["Street"] =etstreet.text.toString()
-                    data["Locality"] =etlocality.text.toString()
-                    data["Landmark"] =etlandmark.text.toString()
-                    data["City"] =etcity.text.toString()
-                    data["State"] =etstate.text.toString()
-                    data["Pincode"] =etpincode.text.toString()
-                    data["Address_Lat"] =""
-                    data["Address_Long"] =""
+                    data["Contact_Person_Mobile"] = edtmobileno.text.toString()
+                    data["Contact_Person_Email"] = etemps.text.toString()
+                    data["Flat_No"] = etflatno.text.toString()
+                    data["Building_Name"] = etbuildname.text.toString()
+                    data["Street"] = etstreet.text.toString()
+                    data["Locality"] = etlocality.text.toString()
+                    data["Landmark"] = etlandmark.text.toString()
+                    data["City"] = etcity.text.toString()
+                    data["State"] = etstate.text.toString()
+                    data["Pincode"] = etpincode.text.toString()
+                    data["Address_Lat"] = ""
+                    data["Address_Long"] = ""
                     data["AddressType"] = selectedLocation
-                    data["GST_No"] =""
-                    data["IsDefault"] =false
+                    data["GST_No"] = ""
+                    data["IsDefault"] = false
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         progressDialog.dismiss()
-                        if(it.IsSuccess==true){
-                            var newAddressid=it.Data.toString()
-                            shippingdata=newAddressid
-                            SharedPreferenceUtil.setData(this,"Shippingdata",newAddressid)
+                        if (it.IsSuccess == true) {
+                            var newAddressid = it.Data.toString()
+                            shippingdata = newAddressid
+                            SharedPreferenceUtil.setData(this, "Shippingdata", newAddressid)
                             getAddressListdata2()
                             alertDialog.dismiss()
-                            binding.checkbox.isChecked==false
-                            appCompatCheckBox.isChecked=false
+                            binding.checkbox.isChecked == false
+                            appCompatCheckBox.isChecked = false
 
-                            Toast.makeText(this,"Shipping address added successfully", Toast.LENGTH_LONG).show()
-                        }else{
-                            Toast.makeText(this,"Something went to wrong.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this,
+                                "Shipping address added successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
+                                .show()
                         }
                     })
 
@@ -427,10 +461,12 @@ class AddressActivity : AppCompatActivity() {
 
                 }
             }
-        }else if(b.equals("false")){
+        } else if (b.equals("false")) {
 
-            var courses = arrayOf<String?>("Home", "Office",
-                "Others")
+            var courses = arrayOf<String?>(
+                "Home", "Office",
+                "Others"
+            )
 
             val etname = promptsView.findViewById<View>(R.id.etname) as EditText
             val edtmobileno = promptsView.findViewById<View>(R.id.edtmobileno) as EditText
@@ -441,26 +477,27 @@ class AddressActivity : AppCompatActivity() {
             val etlocality = promptsView.findViewById<View>(R.id.etlocality) as TextView
             val etlandmark = promptsView.findViewById<View>(R.id.etlandmark) as EditText
             val etpincode = promptsView.findViewById<View>(R.id.etpincodes) as EditText
-            val txttitle=promptsView.findViewById<View>(R.id.texttitle) as TextView
-            val lnraddresstypes=promptsView.findViewById<View>(R.id.lnraddresstypes) as LinearLayout
-            val etstate=promptsView.findViewById<View>(R.id.etstate) as EditText
-            val etcity=promptsView.findViewById<View>(R.id.etcitites) as EditText
+            val txttitle = promptsView.findViewById<View>(R.id.texttitle) as TextView
+            val lnraddresstypes =
+                promptsView.findViewById<View>(R.id.lnraddresstypes) as LinearLayout
+            val etstate = promptsView.findViewById<View>(R.id.etstate) as EditText
+            val etcity = promptsView.findViewById<View>(R.id.etcitites) as EditText
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
             val saveBtn = promptsView.findViewById<View>(R.id.saveBtn) as Button
 
-            txttitle.text="Billing Address"
+            txttitle.text = "Billing Address"
 
             alertDialog.setCancelable(false)
 
 
-            lnraddresstypes.visibility=View.GONE
+            lnraddresstypes.visibility = View.GONE
 
             imgcancels.setOnClickListener {
                 alertDialog.cancel()
-                checkboxcheck==false
-                appCompatCheckBox.isChecked=false
+                checkboxcheck == false
+                appCompatCheckBox.isChecked = false
             }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
@@ -502,84 +539,92 @@ class AddressActivity : AppCompatActivity() {
             }
 
             saveBtn.setOnClickListener {
-                if(etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim().equals("") &&
-                    etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
-                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
-                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
-                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim().equals("") &&
-                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim().equals("")) {
+                if (etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim()
+                        .equals("") &&
+                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim()
+                        .equals("Select Type") &&
+                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim()
+                        .equals("") &&
+                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
+                        .equals("") &&
+                    etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim()
+                        .equals("") &&
+                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
+                        .equals("")
+                ) {
 
-                    Toast.makeText(this,"All fields are mandatory", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
-                }
-                else if(etname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter name", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().equals("") && !edtmobileno.text.toString().equals("0000000000")){
-                    Toast.makeText(this,"Enter mobile number", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().length<10){
-                    Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
-                }else if(edtmobileno.text.toString().trim().equals("0000000000")){
-                    Toast.makeText(this,"Enter correct mobile number", Toast.LENGTH_LONG).show()
-                } else if(etemps.text.toString().trim().equals("") ){
-                    Toast.makeText(this,"Enter email adress", Toast.LENGTH_LONG).show()
-                }else if(!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()){
-                    Toast.makeText(this,"Enter correct email adress", Toast.LENGTH_LONG).show()
-                } else if(selectedLocation.toString().trim().equals("Select Type")){
-                    Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
-                }else if(etflatno.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter flat number", Toast.LENGTH_LONG).show()
-                }else if(etbuildname.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Building name", Toast.LENGTH_LONG).show()
-                }else if(etstreet.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter street name", Toast.LENGTH_LONG).show()
-                }else if(etlocality.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter Locality", Toast.LENGTH_LONG).show()
-                }else if(etlandmark.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
-                }else if(etcity.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter city", Toast.LENGTH_LONG).show()
-                } else if(etstate.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
-                }else if(etpincode.text.toString().trim().equals("")){
-                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
-                } else if(etpincode.text.toString().trim().length<6){
-                    Toast.makeText(this,"Incorrect pincode", Toast.LENGTH_LONG).show()
-                }else{
+                } else if (etname.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim()
+                        .equals("") && !edtmobileno.text.toString().equals("0000000000")
+                ) {
+                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim().length < 10) {
+                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
+                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                } else if (etemps.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter email adress", Toast.LENGTH_LONG).show()
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
+                    Toast.makeText(this, "Enter correct email adress", Toast.LENGTH_LONG).show()
+                } else if (selectedLocation.toString().trim().equals("Select Type")) {
+                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
+                } else if (etflatno.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
+                } else if (etbuildname.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter Building name", Toast.LENGTH_LONG).show()
+                } else if (etstreet.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
+                } else if (etlocality.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
+                } else if (etlandmark.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
+                } else if (etcity.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
+                } else if (etstate.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
+                } else if (etpincode.text.toString().trim().equals("")) {
+                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
+                } else if (etpincode.text.toString().trim().length < 6) {
+                    Toast.makeText(this, "Incorrect pincode", Toast.LENGTH_LONG).show()
+                } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()
-                    data["Id"] =0
-                    data["OrderId"] =0
-                    data["Customer_Id"] =AppUtils2.customerid.toInt()
+                    data["Id"] = 0
+                    data["OrderId"] = 0
+                    data["Customer_Id"] = AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = etname.text.toString()
-                    data["Contact_Person_Mobile"] =edtmobileno.text.toString()
-                    data["Contact_Person_Email"] =etemps.text.toString()
-                    data["Flat_No"] =etflatno.text.toString()
-                    data["Building_Name"] =etbuildname.text.toString()
-                    data["Street"] =etstreet.text.toString()
-                    data["Locality"] =etlocality.text.toString()
-                    data["Landmark"] =etlandmark.text.toString()
-                    data["City"] =etcity.text.toString()
-                    data["State"] =etstate.text.toString()
-                    data["Pincode"] =etpincode.text.toString()
-                    data["Address_Lat"] =""
-                    data["Address_Long"] =""
+                    data["Contact_Person_Mobile"] = edtmobileno.text.toString()
+                    data["Contact_Person_Email"] = etemps.text.toString()
+                    data["Flat_No"] = etflatno.text.toString()
+                    data["Building_Name"] = etbuildname.text.toString()
+                    data["Street"] = etstreet.text.toString()
+                    data["Locality"] = etlocality.text.toString()
+                    data["Landmark"] = etlandmark.text.toString()
+                    data["City"] = etcity.text.toString()
+                    data["State"] = etstate.text.toString()
+                    data["Pincode"] = etpincode.text.toString()
+                    data["Address_Lat"] = ""
+                    data["Address_Long"] = ""
                     data["AddressType"] = selectedLocation
-                    data["GST_No"] =""
-                    data["IsDefault"] =false
+                    data["GST_No"] = ""
+                    data["IsDefault"] = false
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         progressDialog.dismiss()
-                        if(it.IsSuccess==true){
-                            var newaddessid=it.Data.toString()
-                            billingdata=it.Data.toString()
-                            SharedPreferenceUtil.setData(this,"Billingdata",newaddessid)
+                        if (it.IsSuccess == true) {
+                            var newaddessid = it.Data.toString()
+                            billingdata = it.Data.toString()
+                            SharedPreferenceUtil.setData(this, "Billingdata", newaddessid)
 //                            getAddressforshipping()
                             getAddressforbilling()
-                            binding.checkbox.isChecked==false
-                            appCompatCheckBox.isChecked=false
+                            binding.checkbox.isChecked == false
+                            appCompatCheckBox.isChecked = false
                             alertDialog.dismiss()
 
-                        }else{
+                        } else {
                         }
                     })
 
@@ -597,9 +642,9 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        SharedPreferenceUtil.setData(this,"Billingdata","")
-        SharedPreferenceUtil.setData(this,"Shippingdata","")
-        val intent=Intent(this@AddressActivity,AddToCartActivity::class.java)
+        SharedPreferenceUtil.setData(this, "Billingdata", "")
+        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+        val intent = Intent(this@AddressActivity, AddToCartActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
 

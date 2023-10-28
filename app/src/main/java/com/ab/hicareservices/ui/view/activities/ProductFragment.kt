@@ -164,7 +164,7 @@ class ProductFragment : Fragment() {
         AppUtils2.customerid =
             SharedPreferenceUtil.getData(requireActivity(), "customerid", "").toString()
         AppUtils2.pincode =
-            SharedPreferenceUtil.getData(requireActivity(), "pincode", "").toString()
+            SharedPreferenceUtil.getData(requireActivity(), "pincode", "400080").toString()
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -191,8 +191,10 @@ class ProductFragment : Fragment() {
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
 
         if (AppUtils2.pincode.equals("")) {
-
             AppUtils2.pincode="400080"
+            SharedPreferenceUtil.setData(requireActivity(), "pincode","400080")
+            AppUtils2.pincode = SharedPreferenceUtil.getData(requireActivity(), "pincode", "400080").toString()
+
             binding.getpincodetext.setText(AppUtils2.pincode)
             getProductslist(AppUtils2.pincode!!)
 //            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()

@@ -72,7 +72,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getproductlist()
         getSummarydata("")
         getAddressList()
-        getAddressforbilling()
+        if(!billdata.equals("")) {
+            getAddressforbilling()
+        }
 
         if (!AppUtils2.pincode.isNullOrEmpty()) {
             binding.tvPincode.text = "Deliver to pincode " + AppUtils2.pincode
@@ -281,10 +283,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             dialog.dismiss()
         }
 
-
         builder.show()
     }
-
-
-
 }

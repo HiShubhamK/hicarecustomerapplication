@@ -62,7 +62,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                 cutomeraddress.postValue(response.body()!!.Data)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<CustomerAddress>, t: Throwable) {

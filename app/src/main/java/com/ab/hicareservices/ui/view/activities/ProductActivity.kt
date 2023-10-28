@@ -137,6 +137,8 @@ class ProductActivity : AppCompatActivity() {
         if (AppUtils2.pincode.equals("")) {
 
             AppUtils2.pincode="400080"
+            SharedPreferenceUtil.setData(this, "pincode","400080")
+            AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
             binding.getpincodetext.setText(AppUtils2.pincode)
             getProductslist(AppUtils2.pincode!!)
 //            Toast.makeText(requireActivity(), "please enter correct pincode", Toast.LENGTH_LONG).show()
