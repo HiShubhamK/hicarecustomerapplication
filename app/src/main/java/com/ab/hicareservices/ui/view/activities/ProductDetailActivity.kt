@@ -79,20 +79,26 @@ class ProductDetailActivity : AppCompatActivity() {
 
         val intent = intent
         productid = intent.getStringExtra("productid").toString()
+        if (intent != null) {
+            if (intent.getStringExtra("pincode")
+                    .toString() != ""
+            ) {
+                AppUtils2.pincode = intent.getStringExtra("pincode").toString()
+            } else {
+                AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+
+            }
+        }
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-
         productGallery = ArrayList()
 
 //        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
-        binding.imgLogo.setOnClickListener{
+        binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
         getlist()
-
-
 
 
     }
@@ -121,7 +127,7 @@ class ProductDetailActivity : AppCompatActivity() {
         //Related product
         binding.recRelatedProduct.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        relatedProductAdapter = RelatedProductAdapter(this,viewProductModel)
+        relatedProductAdapter = RelatedProductAdapter(this, viewProductModel)
 
 
         binding.recRelatedProduct.adapter = relatedProductAdapter
@@ -177,12 +183,12 @@ class ProductDetailActivity : AppCompatActivity() {
 
             var maxquantity = it.ProductConfiguration!!.MaximumBuyQuantity
             var productid = it.ProductConfiguration!!.ProductId
-            if (it.ProductConfiguration!!.StockCount!!.toInt()<=0||it.ProductConfiguration!!.IsStockAvailable==false){
-                binding.tvAddToCart.visibility=View.GONE
-                binding.lnrDetailCount.visibility=View.GONE
-                binding.btnNotifyMe.visibility=View.VISIBLE
-                var productid=it.ProductDetails!!.Id
-                var productthmbnail=it.ProductConfiguration!!.ProductThumbnail
+            if (it.ProductConfiguration!!.StockCount!!.toInt() <= 0 || it.ProductConfiguration!!.IsStockAvailable == false) {
+                binding.tvAddToCart.visibility = View.GONE
+                binding.lnrDetailCount.visibility = View.GONE
+                binding.btnNotifyMe.visibility = View.VISIBLE
+                var productid = it.ProductDetails!!.Id
+                var productthmbnail = it.ProductConfiguration!!.ProductThumbnail
 
                 binding.btnNotifyMe.setOnClickListener {
 //
@@ -192,22 +198,23 @@ class ProductDetailActivity : AppCompatActivity() {
                     data["Event_Source"] = "Product"
                     data["Event_Type"] = "Out of stock"
                     data["Reference_Id"] = productid.toString()
-                    data["Additional_Data"] = "Product|"+productid.toString()+"|"+AppUtils2.customerid+"|"+AppUtils2.pincode+"|"+AppUtils2.mobileno+"|"+productthmbnail
+                    data["Additional_Data"] =
+                        "Product|" + productid.toString() + "|" + AppUtils2.customerid + "|" + AppUtils2.pincode + "|" + AppUtils2.mobileno + "|" + productthmbnail
                     data["NextNotified_On"] = getCurrentDate()
                     data["Is_Notify"] = true
-                    data["Created_By"] =0
-                    data["Created_On"] =getCurrentDate()
-                    data["Notification_Tag"] ="string"
-                    data["Notification_Title"] ="string"
-                    data["Notification_Body"] ="string"
+                    data["Created_By"] = 0
+                    data["Created_On"] = getCurrentDate()
+                    data["Notification_Tag"] = "string"
+                    data["Notification_Title"] = "string"
+                    data["Notification_Body"] = "string"
                     viewProductModel.CreateEventForMobileAppNotification(data)
                 }
 
 
-            }else {
-                binding.tvAddToCart.visibility=View.VISIBLE
-                binding.btnNotifyMe.visibility=View.GONE
-                binding.lnrDetailCount.visibility=View.VISIBLE
+            } else {
+                binding.tvAddToCart.visibility = View.VISIBLE
+                binding.btnNotifyMe.visibility = View.GONE
+                binding.lnrDetailCount.visibility = View.VISIBLE
                 binding.tvAddToCart.setOnClickListener {
 //                if (binding.tvAddToCart.text == "Goto Cart") {
 //                    val intent = Intent(this, AddToCartActivity::class.java)
@@ -241,21 +248,21 @@ class ProductDetailActivity : AppCompatActivity() {
 
             }
             if (it.ProductTestimonialList != null) {
-                if (it.ProductTestimonialList.isEmpty()){
-                    binding.lnrCustomerReview.visibility=View.GONE
-                }else{
+                if (it.ProductTestimonialList.isEmpty()) {
+                    binding.lnrCustomerReview.visibility = View.GONE
+                } else {
                     customerReviewAdapter.setProductReview(it.ProductTestimonialList)
                 }
-            }else{
-                binding.lnrCustomerReview.visibility=View.GONE
+            } else {
+                binding.lnrCustomerReview.visibility = View.GONE
             }
             if (it.ProductGallery != null) {
                 mAdapter.setPrductdetail(it.ProductGallery, this)
             }
             if (it.RelatedProducts != null) {
-                if(it.RelatedProducts.isEmpty()) {
+                if (it.RelatedProducts.isEmpty()) {
                     binding.lnrRelatedData.visibility = View.GONE
-                }else{
+                } else {
                     binding.lnrRelatedData.visibility = View.VISIBLE
                     relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
                 }
@@ -265,17 +272,17 @@ class ProductDetailActivity : AppCompatActivity() {
 
             }
             if (it.ProductFAQ != null) {
-                if (it.ProductFAQ.isEmpty()){
-                    binding.lnrFAQ.visibility=View.GONE
-                }else{
-                    binding.lnrFAQ.visibility=View.VISIBLE
+                if (it.ProductFAQ.isEmpty()) {
+                    binding.lnrFAQ.visibility = View.GONE
+                } else {
+                    binding.lnrFAQ.visibility = View.VISIBLE
 
                     binding.recFAQ.visibility = View.VISIBLE
                     faqAdapter.setFaq(it.ProductFAQ, this)
                 }
 
             } else {
-                binding.lnrFAQ.visibility=View.GONE
+                binding.lnrFAQ.visibility = View.GONE
 
                 binding.recFAQ.visibility = View.GONE
 
@@ -290,10 +297,9 @@ class ProductDetailActivity : AppCompatActivity() {
                 override fun setonaddclicklistener(
                     position: Int,
                     productid: Int,
-                    i: Int, ) {
+                    i: Int,
+                ) {
                     progressDialog.show()
-
-
 
 
 //                    Handler(Looper.getMainLooper()).postDelayed({
@@ -312,7 +318,6 @@ class ProductDetailActivity : AppCompatActivity() {
                         progressDialog.dismiss()
 
                     }, 2000)
-
 
 
 //                    viewProductModel.productcount.observe(this, Observer {
@@ -441,7 +446,6 @@ class ProductDetailActivity : AppCompatActivity() {
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
             progressDialog.dismiss()
         })
-
 
 
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
@@ -632,6 +636,7 @@ class ProductDetailActivity : AppCompatActivity() {
             mPaint.setAntiAlias(true)
         }
     }
+
     override fun onResume() {
         super.onResume()
         viewProductModel.productcount.observe(this, Observer {
@@ -650,6 +655,7 @@ class ProductDetailActivity : AppCompatActivity() {
         })
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
     }
+
     private fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         return sdf.format(Date())

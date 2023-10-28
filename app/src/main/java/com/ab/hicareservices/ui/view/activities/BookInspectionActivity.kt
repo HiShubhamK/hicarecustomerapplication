@@ -114,13 +114,13 @@ class BookInspectionActivity : AppCompatActivity() {
             }else if(binding.etflatno.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter flat number",Toast.LENGTH_LONG).show()
             }else if(binding.etbuildname.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter Building name",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter building name",Toast.LENGTH_LONG).show()
             }else if(binding.etstreet.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter street name",Toast.LENGTH_LONG).show()
             }else if(binding.etlocality.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
             }else if(binding.etlandmark.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter Landmark",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Enter landmark",Toast.LENGTH_LONG).show()
             }else if( binding.etcity.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
             }else if(binding.etstate.text.toString().trim().equals("")) {

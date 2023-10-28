@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivityNew
@@ -20,9 +20,14 @@ import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.squareup.picasso.Picasso
 
 
-class ImageAdapter(private val viewPager2: ViewPager2,private val requireActivity: FragmentActivity) :
+class ImageAdapter(
+    private val viewPager2: ViewPager2,
+    private val requireActivity: FragmentActivity,
+    pincode: String
+) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     var bannerLis = mutableListOf<BannerData>()
+    var pincode = pincode
 //   lateinit var requireActivity:FragmentActivity
 
 
@@ -92,6 +97,8 @@ class ImageAdapter(private val viewPager2: ViewPager2,private val requireActivit
 
                         val intent = Intent(requireActivity, ProductDetailActivity::class.java)
                         intent.putExtra("productid",pagelinkdigit)
+                        intent.putExtra("pincode",
+                            pincode)
                         requireActivity!!.startActivity(intent)
 
 

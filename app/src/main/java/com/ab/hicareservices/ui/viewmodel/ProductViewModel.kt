@@ -80,6 +80,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productlist.postValue(response.body()!!.Data)
                 }else{
+
                     responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
