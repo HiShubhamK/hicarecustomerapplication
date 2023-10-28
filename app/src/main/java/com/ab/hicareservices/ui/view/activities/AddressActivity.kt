@@ -349,6 +349,7 @@ class AddressActivity : AppCompatActivity() {
                     if (selectedLocation != "Select Address Type") {
 
                     } else {
+
                     }
                 }
 
@@ -362,22 +363,22 @@ class AddressActivity : AppCompatActivity() {
             etpincode.isClickable = false
 
             saveBtn.setOnClickListener {
-                if (etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim()
-                        .equals("") &&
-                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim()
-                        .equals("Select Type") &&
-                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim()
-                        .equals("") &&
-                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
-                        .equals("") &&
+                if (selectedLocation.toString().trim().equals("Select Address Type") &&
+                    etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim().equals("") &&
+                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim().equals("Select Type") &&
+                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
+                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
                     etlandmark.text.toString().trim().equals("") &&
-                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
-                        .equals("")
+                    etcity.text.toString().trim().equals("") &&
+                    etstate.text.toString().trim().equals("")
                 ) {
 
                     Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
-                } else if (etname.text.toString().trim().equals("")) {
+                }else if (selectedLocation.toString().trim().equals("Select Address Type")) {
+                Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
+                }
+                else if (etname.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
                         .equals("") && !edtmobileno.text.toString().equals("0000000000")
@@ -552,9 +553,7 @@ class AddressActivity : AppCompatActivity() {
                     etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
                         .equals("")
                 ) {
-
                     Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
-
                 } else if (etname.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
@@ -566,9 +565,9 @@ class AddressActivity : AppCompatActivity() {
                 } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
                     Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (etemps.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter email adress", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
-                    Toast.makeText(this, "Enter correct email adress", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
                 } else if (selectedLocation.toString().trim().equals("Select Type")) {
                     Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
                 } else if (etflatno.text.toString().trim().equals("")) {

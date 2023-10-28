@@ -137,11 +137,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
 //                    datalist.addAll(it)
                     Spinnerlist.add(it.get(i).ServicePlanName_c.toString())
                     AppUtils2.Spinnerlist.add(it.get(i).ServicePlanName_c.toString())
-
-
                 }
-
-
             }
         })
 

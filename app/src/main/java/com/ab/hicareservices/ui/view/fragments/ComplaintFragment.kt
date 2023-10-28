@@ -76,10 +76,10 @@ class ComplaintFragment() : Fragment() {
         }, 1500)
 
 
+        AppUtils2.datalist =ArrayList()
 
-        viewModels.ordersList.observe(requireActivity(), androidx.lifecycle.Observer {
+            viewModels.ordersList.observe(requireActivity(), androidx.lifecycle.Observer {
             if (it != null) {
-                AppUtils2.datalist = java.util.ArrayList()
                 AppUtils2.datalist.clear()
                 AppUtils2.datalist.addAll(it)
                 AppUtils2.Spinnerlist = java.util.ArrayList()
@@ -106,16 +106,16 @@ class ComplaintFragment() : Fragment() {
 
         binding.addFab.setOnClickListener{
             if (AppUtils2.datalist.isNotEmpty()) {
-
                 val intent = Intent(requireActivity(), AddComplaintsActivity::class.java)
                 intent.putExtra("complaint",true)
                 intent.putExtra("orderNo", "")
                 intent.putExtra("serviceType", "")
                 intent.putExtra("service_url_image", "")
                 startActivity(intent)
-
             }else{
+
                 Toast.makeText(requireActivity(),"No Active Order Found",Toast.LENGTH_SHORT).show()
+
             }
         }
     }
