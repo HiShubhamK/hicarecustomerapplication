@@ -116,7 +116,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.btnnext.setOnClickListener {
             if (binding.txtshipping.text.equals("")) {
-                Toast.makeText(this, "Please Add New Shipping Address", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please Add Shipping Address", Toast.LENGTH_SHORT).show()
             } else {
                 if (pincodeshipping.equals(AppUtils2.pincode)) {
                     if (billingdata.equals("")) {
