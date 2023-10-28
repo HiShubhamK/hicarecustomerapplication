@@ -25,6 +25,7 @@ import com.ab.hicareservices.utils.AppUtils2
 
 class AddresslistActivity : AppCompatActivity() {
 
+
     private lateinit var binding: ActivityAddresslistBinding
     private lateinit var mAdapter: AddressAdapter
     private val viewProductModel: ProductViewModel by viewModels()
