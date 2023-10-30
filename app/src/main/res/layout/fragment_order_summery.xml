@@ -8,13 +8,13 @@
     tools:context=".ui.view.activities.ProductFragment">
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/white"
         android:elevation="2dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -26,24 +26,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1.6"
-                android:gravity="center"
                 android:layout_marginLeft="50dp"
-                android:text="Order Summary"
-                android:textSize="18sp"
+                android:layout_weight="1.6"
                 android:fontFamily="@font/lato_semibold"
-                android:textColor="@color/colorAccent"/>
+                android:gravity="center"
+                android:text="Order Summary"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cartmenu"
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".05"
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"
-                android:padding="10dp">
+                android:layout_weight=".05"
+                android:padding="10dp"
+                android:visibility="invisible">
 
                 <ImageView
                     android:id="@+id/appCompatImageViewd1"
@@ -77,24 +77,37 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#f6f6f6"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:background="#f6f6f6"
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleviewproduct"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleviewproduct"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtnotfound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/lato_semibold"
+            android:gravity="center"
+            android:text="No Product Order Available"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

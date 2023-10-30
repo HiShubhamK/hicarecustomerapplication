@@ -188,13 +188,11 @@ class MyOrderActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
-                    binding.textnotfound.text=s
                 }
             }else{
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
-                binding.textnotfound.text=s
             }
             progressDialog.dismiss()
 
@@ -266,7 +264,7 @@ class MyOrderActivity : AppCompatActivity() {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = s
+            binding.textnotfound.text = it.toString()
             progressDialog.dismiss()
         })
 
@@ -274,7 +272,7 @@ class MyOrderActivity : AppCompatActivity() {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text=s
+            binding.textnotfound.text=it.toString()
             progressDialog.dismiss()
         })
 //        binding.progressBar13.visibility = View.GONE

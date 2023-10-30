@@ -194,7 +194,7 @@ import java.util.Calendar
             }
         })
         if (mobile != "-1") {
-            if (ordertype.equals("") && ordertype != null) {
+            if (ordertype != null&& ordertype == "") {
                 ordertype = "All"
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             } else {

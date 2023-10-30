@@ -75,7 +75,7 @@ class MyOrderActivityNew : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, OrdersFragmentNew.newInstance())
-            .addToBackStack("OrdersFragmentNew").commit()
+            .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
 //        binding.tabLayout.setOnClickListener {
 //            binding.tabLayout.tavt
 //        }

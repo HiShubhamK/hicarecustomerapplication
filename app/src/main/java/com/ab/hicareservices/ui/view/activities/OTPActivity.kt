@@ -158,6 +158,8 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                 if (it.isSuccess == true) {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
                     mOtp = it.data.toString()
+                    Toast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT).show()
+
                     startCounter()
                 } else {
                     binding.resentSuccessTv.visibility = View.GONE
