@@ -159,20 +159,6 @@ class OrdersFragment() : Fragment() {
 
         binding.recyclerView2.adapter = nAdapter
 
-        viewModel.ordersList.observe(requireActivity(), Observer {
-            Log.d(TAG, "onViewCreated: $it orders fragment")
-            if (it.isNotEmpty()) {
-                nAdapter.setOrdersList(it)
-                binding.textnotfound.visibility = View.GONE
-                progressDialog.dismiss()
-            } else {
-                progressDialog.dismiss()
-                binding.recyclerView.visibility = View.GONE
-                binding.recyclerView2.visibility = View.GONE
-                binding.textnotfound.visibility = View.VISIBLE
-            }
-        })
-
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
             if(it.equals("Success")){
@@ -190,6 +176,20 @@ class OrdersFragment() : Fragment() {
             }
         })
 
+        viewModel.ordersList.observe(requireActivity(), Observer {
+            Log.d(TAG, "onViewCreated: $it orders fragment")
+            var data=it
+            if (it.isNotEmpty()) {
+                nAdapter.setOrdersList(it)
+                binding.textnotfound.visibility = View.GONE
+                progressDialog.dismiss()
+            } else {
+                progressDialog.dismiss()
+                binding.recyclerView.visibility = View.GONE
+                binding.recyclerView2.visibility = View.GONE
+                binding.textnotfound.visibility = View.VISIBLE
+            }
+        })
 
         if (mobile != "-1") {
             if (ordertype != null&& ordertype == "") {
@@ -245,7 +245,7 @@ class OrdersFragment() : Fragment() {
             }else if(it.equals("No Orders")) {
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
-                binding.textnotfound.text = s
+                binding.textnotfound.text =s
                 progressDialog.dismiss()
             }
         })
@@ -306,9 +306,6 @@ class OrdersFragment() : Fragment() {
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {
             }
         })
-
-//        binding.progressBar13.visibility = View.GONE
-//        binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"

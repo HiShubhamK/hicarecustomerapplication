@@ -55,14 +55,10 @@ class OrdersViewModel : ViewModel() {
         ordertype: String,
         progressBar: ProgressDialog
     ) {
-
-//        progressBar.visibility = View.VISIBLE
-
         progressBar.show()
 
         val response = repository.getCustomerOrdersByMobileNo(mobileNo, ordertype)
         response.enqueue(object : Callback<OrdersResponse> {
-
 
             override fun onResponse(
                 call: Call<OrdersResponse>,
@@ -70,9 +66,8 @@ class OrdersViewModel : ViewModel() {
             ) {
 
                 if (response.body()?.isSuccess == true) {
-
-                    ordersList.postValue(response.body()?.data!!)
                     responseMessage.postValue(response.body()?.responseMessage!!)
+                    ordersList.postValue(response.body()?.data!!)
                     progressBar.dismiss()
                 } else {
                     responseMessage.postValue(response.body()?.responseMessage!!)
