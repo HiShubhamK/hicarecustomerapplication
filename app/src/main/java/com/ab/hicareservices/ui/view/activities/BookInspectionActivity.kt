@@ -91,8 +91,9 @@ class BookInspectionActivity : AppCompatActivity() {
                 binding.etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                 binding.etflatno.text.toString().trim().equals("") && binding.etbuildname.text.toString().trim().equals("") &&
                 binding.etstreet.text.toString().trim().equals("") && binding.etlocality.text.toString().trim().equals("") &&
-                binding.etlandmark.text.toString().trim().equals("") && binding.etpincode.text.toString().trim().equals("") &&
-                    binding.etcity.text.toString().trim().equals("") && binding.etstate.text.toString().trim().equals("")){
+                binding.etlandmark.text.toString().trim().equals("") && binding.etpincode.text.toString().trim().equals(""))
+//                && binding.etcity.text.toString().trim().equals("") && binding.etstate.text.toString().trim().equals(""))
+            {
 
                 Toast.makeText(this,"All fields are mandatory",Toast.LENGTH_LONG).show()
 
@@ -121,11 +122,13 @@ class BookInspectionActivity : AppCompatActivity() {
                 Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
             }else if(binding.etlandmark.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter landmark",Toast.LENGTH_LONG).show()
-            }else if( binding.etcity.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
-            }else if(binding.etstate.text.toString().trim().equals("")) {
-                Toast.makeText(this,"Enter state",Toast.LENGTH_LONG).show()
-            }else if(binding.etpincodes.text.toString().trim().equals("")){
+            }
+//            else if( binding.etcity.text.toString().trim().equals("")){
+//                Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
+//            }else if(binding.etstate.text.toString().trim().equals("")) {
+//                Toast.makeText(this,"Enter state",Toast.LENGTH_LONG).show()
+//            }
+            else if(binding.etpincodes.text.toString().trim().equals("")){
                 Toast.makeText(this,"Enter pincode",Toast.LENGTH_LONG).show()
             } else if(binding.etpincodes.text.toString().trim().length<6){
                 Toast.makeText(this,"Invalid pincode",Toast.LENGTH_LONG).show()
@@ -160,8 +163,8 @@ class BookInspectionActivity : AppCompatActivity() {
                     data["Street"] = binding.etstreet.text.toString()
                     data["Locality"] = binding.etlocality.text.toString()
                     data["Landmark"] = binding.etlandmark.text.toString()
-                    data["City"] = binding.etcity.text.toString()
-                    data["State"] = binding.etstate.text.toString()
+                    data["City"] = ""
+                    data["State"] = ""
                     data["Pincode"] = binding.etpincode.text.toString()
                     data["Lat"] = ""
                     data["Long"] = ""

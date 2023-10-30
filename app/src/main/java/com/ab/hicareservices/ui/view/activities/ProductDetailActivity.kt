@@ -86,9 +86,11 @@ class ProductDetailActivity : AppCompatActivity() {
                 AppUtils2.pincode = intent.getStringExtra("pincode").toString()
             } else {
                 AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-
             }
         }
+
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
+
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         productGallery = ArrayList()

@@ -97,8 +97,7 @@ class ImageAdapter(
 
                         val intent = Intent(requireActivity, ProductDetailActivity::class.java)
                         intent.putExtra("productid",pagelinkdigit)
-                        intent.putExtra("pincode",
-                            pincode)
+                        intent.putExtra("pincode", pincode)
                         requireActivity!!.startActivity(intent)
 
 

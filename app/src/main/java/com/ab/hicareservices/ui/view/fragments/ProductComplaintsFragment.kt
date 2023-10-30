@@ -69,7 +69,6 @@ class ProductComplaintsFragment() : Fragment() {
                 viewProductModel.responseMessage.observe(
                     requireActivity(),
                     androidx.lifecycle.Observer {
-                        Toast.makeText(requireActivity(),"No Products Available",Toast.LENGTH_SHORT).show()
                     })
 
                 viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())

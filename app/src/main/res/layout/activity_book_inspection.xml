@@ -914,38 +914,86 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
                                 android:layout_marginTop="4dp"
+                                android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
-                                android:text="City"
+                                android:text="Pincode"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:background="@drawable/round_border"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                app:cardCornerRadius="5dp">-->
+                            <!--                            <androidx.cardview.widget.CardView-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginHorizontal="6dp"-->
+                            <!--                                android:layout_marginVertical="5dp"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:background="@drawable/round_border"-->
+                            <!--                                android:elevation="10dp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                app:cardCornerRadius="5dp">-->
 
-                                <EditText
-                                    android:id="@+id/etcity"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:maxLength="50"
-                                    android:padding="12dp"
-                                    android:textColor="@color/grey_font"
-                                    android:textSize="13sp"
-                                    android:layout_marginHorizontal="6dp"
-                                    android:layout_marginVertical="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/round_border"/>
-<!--                            </androidx.cardview.widget.CardView>-->
+                            <EditText
+                                android:id="@+id/etpincodes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:inputType="number"
+                                android:maxLength="6"
+                                android:padding="12dp"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"/>
+                            <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                        <!--                        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="0.5"-->
+<!--                            android:orientation="vertical">-->
+
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="6dp"-->
+<!--                                android:layout_marginTop="4dp"-->
+<!--                                android:fontFamily="@font/lato_semibold"-->
+<!--                                android:text="City"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14sp" />-->
+
+<!--&lt;!&ndash;                            <androidx.cardview.widget.CardView&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_marginHorizontal="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_marginVertical="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:background="@drawable/round_border"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:elevation="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                                app:cardCornerRadius="5dp">&ndash;&gt;-->
+
+<!--                                <EditText-->
+<!--                                    android:id="@+id/etcity"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginTop="4dp"-->
+<!--                                    android:maxLength="50"-->
+<!--                                    android:padding="12dp"-->
+<!--                                    android:textColor="@color/grey_font"-->
+<!--                                    android:textSize="13sp"-->
+<!--                                    android:layout_marginHorizontal="6dp"-->
+<!--                                    android:layout_marginVertical="5dp"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:background="@drawable/round_border"/>-->
+<!--&lt;!&ndash;                            </androidx.cardview.widget.CardView>&ndash;&gt;-->
+
+<!--                        </androidx.appcompat.widget.LinearLayoutCompat>-->
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -955,6 +1003,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -1034,7 +1083,7 @@
 <!--                                app:cardCornerRadius="5dp">-->
 
                                 <EditText
-                                    android:id="@+id/etpincodes"
+                                    android:id="@+id/etpincodes1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"

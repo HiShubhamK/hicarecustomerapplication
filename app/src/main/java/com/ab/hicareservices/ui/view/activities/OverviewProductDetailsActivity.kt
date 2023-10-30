@@ -50,7 +50,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
-        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
         AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()

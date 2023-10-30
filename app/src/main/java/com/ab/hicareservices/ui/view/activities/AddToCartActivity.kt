@@ -58,7 +58,7 @@ class AddToCartActivity : AppCompatActivity() {
 //        MyLocationListener(this)
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
