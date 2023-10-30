@@ -154,13 +154,13 @@ class ProductComplaintsFragment() : Fragment() {
             viewModel.responseMessage.observe(requireActivity(), Observer {
                 binding.recyclerView.visibility=View.GONE
                 binding.txtnotfound.visibility=View.VISIBLE
-                binding.txtnotfound.text="No Complaint Available"
+                binding.txtnotfound.text="No Complaints Available."
                 progressDialog.dismiss()
             })
 
             viewModel.errorMessage.observe(requireActivity(), Observer {
-                Toast.makeText(requireContext(),"Something went wrong!",Toast.LENGTH_SHORT).show()
-                binding.txtnotfound.text="No Complaint Available"
+//                Toast.makeText(requireContext(),"Something went wrong!",Toast.LENGTH_SHORT).show()
+                binding.txtnotfound.text="No Complaints Available."
 
                 progressDialog.dismiss()
             })
