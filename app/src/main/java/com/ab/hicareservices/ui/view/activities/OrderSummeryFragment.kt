@@ -76,12 +76,19 @@ class OrderSummeryFragment : Fragment() {
 
         binding.recycleviewproduct.adapter = mAdapter
 
-        viewProductModel.responseMessage.observe(requireActivity(), Observer {
-        })
+
 
         viewProductModel.getordersummeryList.observe(requireActivity(), Observer {
-
+            binding.recycleviewproduct.visibility=View.VISIBLE
+            binding.txtnotfound.visibility=View.GONE
             mAdapter.setProductList(it, requireActivity(), viewProductModel)
+
+        })
+        viewProductModel.responseMessage.observe(requireActivity(), Observer {
+            binding.recycleviewproduct.visibility=View.GONE
+            binding.txtnotfound.visibility=View.VISIBLE
+            binding.txtnotfound.text=it.toString()
+
 
         })
 

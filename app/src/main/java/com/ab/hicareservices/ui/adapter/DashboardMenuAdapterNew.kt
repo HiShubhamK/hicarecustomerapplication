@@ -106,7 +106,7 @@ class DashboardMenuAdapterNew(private val fragmentActivity: FragmentActivity?) :
                 } else if (service.Title.equals("Products") && service.IsAppLink == true) {
                     fragmentActivity!!.supportFragmentManager.beginTransaction()
                         .replace(R.id.container, ProductFragment.newInstance())
-                        .addToBackStack("AccountFragment").commit()
+                        .addToBackStack("AccountFragment").commitAllowingStateLoss()
                 } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
                     val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
                     intent.putExtra("PageLink", service.PageLink)

@@ -56,7 +56,7 @@ class SupportFragments : Fragment() {
 
         binding.imgLogo.setOnClickListener {
             requireActivity()!!.supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("AccountFragment").commit()
+                .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("AccountFragment").commitAllowingStateLoss()
         }
 
         binding.textemail.setOnClickListener {

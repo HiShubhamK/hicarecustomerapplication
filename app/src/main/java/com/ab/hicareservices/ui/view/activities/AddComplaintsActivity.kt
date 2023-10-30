@@ -64,7 +64,7 @@ import java.util.concurrent.Executors
 class AddComplaintsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddComplaintsBinding
-    var selectedCType = ""
+    var selectedCType = "Complaint Type"
     var selectedCSubType = ""
     var serviceType = ""
     var getServiceType = ""
@@ -110,7 +110,8 @@ class AddComplaintsActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         viewFinder = findViewById<PreviewView>(R.id.viewFinder)
 
-        mobile = SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
+        mobile =
+            SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
 
         val intent = intent
         orderNo = intent.getStringExtra("orderNo").toString()
@@ -142,14 +143,14 @@ class AddComplaintsActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                try{
+                try {
                     orderNo = AppUtils2.datalist[position].OrderNumber_c.toString()
                     serviceType = AppUtils2.datalist[position].ServiceType.toString()
                     getServiceType = AppUtils2.datalist[position].ServiceType.toString()
                     service_url_image = AppUtils2.datalist[position].ServicePlanImageUrl.toString()
                     binding.bottomheadertext.text =
                         AppUtils2.datalist[position].OrderNumber_c.toString()
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
@@ -212,7 +213,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         viewModels.ordersList.observe(this@AddComplaintsActivity, androidx.lifecycle.Observer {
             if (it != null) {
-                try{
+                try {
                     AppUtils2.datalist = ArrayList()
                     AppUtils2.datalist.clear()
                     AppUtils2.datalist.addAll(it)
@@ -234,7 +235,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
@@ -252,7 +253,8 @@ class AddComplaintsActivity : AppCompatActivity() {
             }
         })
 
-        val mobile=SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
+        val mobile =
+            SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
         viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
 
 
@@ -318,7 +320,7 @@ class AddComplaintsActivity : AppCompatActivity() {
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
             if (serviceType.equals("pest", true)) {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") { //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "Complaint Type") { //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
@@ -327,7 +329,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != "") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""&& selectedCType != "Complaint Type") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType

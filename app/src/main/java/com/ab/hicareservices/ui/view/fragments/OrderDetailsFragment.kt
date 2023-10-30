@@ -151,7 +151,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
 
         binding.imgLogo.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, OrdersFragment.newInstance(true)).commit();
+                .replace(R.id.container, OrdersFragment.newInstance(true)).commitAllowingStateLoss();
         }
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(activity!!, "mobileNo", "-1").toString()
@@ -376,7 +376,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
             override fun onViewServiceClicked(position: Int) {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MyServiceDetailsFragment.newInstance())
-                    .addToBackStack("OrderDetailsFragment").commit()
+                    .addToBackStack("OrderDetailsFragment").commitAllowingStateLoss()
             }
 
             override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
@@ -399,7 +399,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
                                 service.ServiceUnit
 
                             )
-                        ).addToBackStack("SlotComplinceFragment").commit()
+                        ).addToBackStack("SlotComplinceFragment").commitAllowingStateLoss()
 
 
 //                }catch (e:Exception){

@@ -168,7 +168,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, HomeFragment.newInstance()).commit();
+            .replace(R.id.container, HomeFragment.newInstance()).commitAllowingStateLoss()
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
@@ -183,7 +183,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     binding.addFab.visibility = View.VISIBLE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance())
-                        .addToBackStack("HomeFragment").commit()
+                        .addToBackStack("HomeFragment").commitAllowingStateLoss()
                     true
                 }
                 R.id.nav_bookings -> {
@@ -195,7 +195,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, ProductFragment.newInstance())
-                        .addToBackStack("HomeFragment").commit()
+                        .addToBackStack("HomeFragment").commitAllowingStateLoss()
                     true
                 }
                 R.id.nav_account -> {
@@ -207,7 +207,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AccountFragment.newInstance())
-                        .addToBackStack("AccountFragment").commit()
+                        .addToBackStack("AccountFragment").commitAllowingStateLoss()
                     true
                 }
                 R.id.nav_cart -> {
@@ -218,7 +218,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
-                        .commit()
+                        .commitAllowingStateLoss()
 
                     true
                 }
@@ -227,7 +227,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     AppUtils2.fromdasboardmenu = false
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrdersFragmentNew.newInstance())
-                        .addToBackStack("OrdersFragmentNew").commit()
+                        .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
                     true
                 }
                 else -> false
@@ -671,119 +671,97 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                 }, 3000)
 
 
-                viewModelss.validateAccounts(AppUtils2.mobileno, this)
+            viewModelss.validateAccounts(AppUtils2.mobileno, this)
 
 
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 
-                    if (!task.isSuccessful) {
-                        return@OnCompleteListener
-                    }
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
 
-                    token = task.result
+                token = task.result
 
-                    Log.e("Token", token.toString())
+                Log.e("Token", token.toString())
 
 //            var clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 //            val clipData = ClipData.newPlainText("text", token)
 //            clipboardManager.setPrimaryClip(clipData)
 
-                })
+            })
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
-                }, 500)
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewModel.getNotificationtoken(token.toString(), this, AppUtils2.mobileno)
+            }, 500)
 
-                binding.addFab.visibility = View.VISIBLE
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, HomeFragment.newInstance()).commit();
+            binding.addFab.visibility = View.VISIBLE
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance()).commitAllowingStateLoss();
 
 //        binding.bottomheadertext.text=AppUtils2.order_number
 
-                binding.bottomNavigation.setOnItemSelectedListener {
-                    when (it.itemId) {
-                        R.id.nav_home -> {
-                            if (AppUtils2.isNetworkAvailable(this) == true) {
+            binding.bottomNavigation.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_home -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
 
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Please Check Your Internet Connection",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            binding.addFab.visibility = View.VISIBLE
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, HomeFragment.newInstance())
-                                .addToBackStack("HomeFragment").commit()
-                            true
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                         }
-
-                        R.id.nav_bookings -> {
-                            if (AppUtils2.isNetworkAvailable(this) == true) {
-
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Please Check Your Internet Connection",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            binding.addFab.visibility = View.GONE
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, ProductFragment.newInstance())
-                                .addToBackStack("HomeFragment").commit()
-                            true
-                        }
-
-                        R.id.nav_account -> {
-                            if (AppUtils2.isNetworkAvailable(this) == true) {
-
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Please Check Your Internet Connection",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            binding.addFab.visibility = View.GONE
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, AccountFragment.newInstance())
-                                .addToBackStack("AccountFragment").commit()
-                            true
-                        }
-
-                        R.id.nav_cart -> {
-                            if (AppUtils2.isNetworkAvailable(this) == true) {
-
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Please Check Your Internet Connection",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, HomeFragment.newInstance())
-                                .addToBackStack("Tag")
-                                .commit()
-
-                            true
-                        }
-
-                        R.id.nav_orders -> {
-                            binding.addFab.visibility = View.GONE
-                            AppUtils2.fromdasboardmenu = false
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, OrdersFragmentNew.newInstance())
-                                .addToBackStack("OrdersFragmentNew").commit()
-                            true
-                        }
-
-                        else -> false
+                        binding.addFab.visibility = View.VISIBLE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HomeFragment.newInstance())
+                            .addToBackStack("HomeFragment").commitAllowingStateLoss()
+                        true
                     }
+                    R.id.nav_bookings -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        binding.addFab.visibility = View.GONE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, ProductFragment.newInstance())
+                            .addToBackStack("HomeFragment").commitAllowingStateLoss()
+                        true
+                    }
+                    R.id.nav_account -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        binding.addFab.visibility = View.GONE
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, AccountFragment.newInstance())
+                            .addToBackStack("AccountFragment").commitAllowingStateLoss()
+                        true
+                    }
+                    R.id.nav_cart -> {
+                        if(AppUtils2.isNetworkAvailable(this)==true){
+
+                        }else{
+                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        }
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
+                            .commitAllowingStateLoss()
+
+                        true
+                    }
+                    R.id.nav_orders -> {
+                        binding.addFab.visibility = View.GONE
+                        AppUtils2.fromdasboardmenu = false
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, OrdersFragmentNew.newInstance())
+                            .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
+                        true
+                    }
+                    else -> false
                 }
-                binding.bottomNavigation.selectedItemId = R.id.nav_home
+            }
+            binding.bottomNavigation.selectedItemId = R.id.nav_home
 
                 binding.addFab.setOnClickListener {
                     showLeadDialog()
