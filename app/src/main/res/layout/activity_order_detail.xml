@@ -260,7 +260,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="5dp"
-                                        android:text="HC-3245656546666666666666"
+                                        android:text="HC-324565654"
                                         android:textColor="@color/black"
                                         android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
