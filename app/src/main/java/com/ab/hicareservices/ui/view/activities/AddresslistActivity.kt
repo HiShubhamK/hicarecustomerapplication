@@ -250,8 +250,8 @@ class AddresslistActivity : AppCompatActivity() {
                     data["Street"] =etstreet.text.toString()
                     data["Locality"] =etlocality.text.toString()
                     data["Landmark"] =etlandmark.text.toString()
-                    data["City"] =""
-                    data["State"] =""
+                    data["City"] = etcity.text.toString()
+                    data["State"] = etstate.text.toString()
                     data["Pincode"] =etpincode.text.toString()
                     data["Address_Lat"] =""
                     data["Address_Long"] =""
@@ -406,9 +406,13 @@ class AddresslistActivity : AppCompatActivity() {
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         progressDialog.dismiss()
                         if(it.IsSuccess==true){
+                            val mIntent = intent
+                            finish()
+                            startActivity(mIntent)
                             var newaddessid=it.Data.toString()
                             Toast.makeText(this@AddresslistActivity,newaddessid,Toast.LENGTH_LONG).show()
                             alertDialog.dismiss()
+
                         }else{
                         }
                     })

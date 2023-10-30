@@ -448,7 +448,7 @@ class AddressActivity : AppCompatActivity() {
 
                             Toast.makeText(
                                 this,
-                                "Shipping address added successfully",
+                                "Billing address added successfully",
                                 Toast.LENGTH_LONG
                             ).show()
                         } else {

@@ -238,7 +238,7 @@ class ProductViewModel: ViewModel() {
         val response = repository.getaddressdetailbyid(addressid)
         response.enqueue(object : Callback<AddressByCustomerModel> {
             override fun onResponse(call: Call<AddressByCustomerModel>, response: Response<AddressByCustomerModel>) {
-                getaddressbydetailid.postValue(response.body()!!.Data)
+                getaddressbydetailid.postValue(response.body()!!.Data!!)
             }
             override fun onFailure(call: Call<AddressByCustomerModel>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
