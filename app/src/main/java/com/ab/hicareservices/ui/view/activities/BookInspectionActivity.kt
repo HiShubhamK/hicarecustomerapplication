@@ -134,9 +134,9 @@ class BookInspectionActivity : AppCompatActivity() {
                 Toast.makeText(this,"Invalid pincode",Toast.LENGTH_LONG).show()
             }else{
 
-                Handler(Looper.getMainLooper()).postDelayed({
+                progressDialog.show()
 
-                    progressDialog.show()
+                Handler(Looper.getMainLooper()).postDelayed({
 
                     var data = HashMap<String, Any>()
                     data["LMSId"] = ""
@@ -193,14 +193,14 @@ class BookInspectionActivity : AppCompatActivity() {
 
                     viewModels.leadResponse.observe(this, Observer {
                         if (it.IsSuccess == true) {
-                            progressDialog.dismiss()
-                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG)
-                                .show()
+
                             val intent=Intent(this,HomeActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
                             finish()
+                            progressDialog.dismiss()
 
+                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG)
+                                .show()
                         } else {
                             progressDialog.dismiss()
                             Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)

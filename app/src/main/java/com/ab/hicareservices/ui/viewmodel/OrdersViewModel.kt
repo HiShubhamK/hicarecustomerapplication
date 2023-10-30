@@ -31,12 +31,14 @@ class OrdersViewModel : ViewModel() {
                 response: Response<OrdersResponse>
             ) {
 
-                if (response.body()?.isSuccess == false) {
+                if (response.body()?.isSuccess == true) {
                     responseMessage.postValue(response.body()?.responseMessage!!)
-                } else {
                     ordersList.postValue(response.body()?.data!!)
                     progressDialog.dismiss()
                     Log.d("TAG", "Response " + response.body()?.data.toString())
+                } else {
+                    responseMessage.postValue(response.body()?.responseMessage!!)
+
                 }
             }
 
@@ -67,12 +69,13 @@ class OrdersViewModel : ViewModel() {
                 response: Response<OrdersResponse>
             ) {
 
-                if (response.body()?.isSuccess == false) {
-                    responseMessage.postValue(response.body()?.responseMessage!!)
-                } else {
+                if (response.body()?.isSuccess == true) {
+
                     ordersList.postValue(response.body()?.data!!)
-                    Log.d("TAG", "Response " + response.body()?.data.toString())
+                    responseMessage.postValue(response.body()?.responseMessage!!)
                     progressBar.dismiss()
+                } else {
+                    responseMessage.postValue(response.body()?.responseMessage!!)
                 }
             }
 

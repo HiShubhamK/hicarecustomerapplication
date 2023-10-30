@@ -1,7 +1,4 @@
- package com.ab.hicareservices.ui.view.fragments
-
-import android.app.AlarmManager
-import android.app.PendingIntent
+package com.ab.hicareservices.ui.view.fragments
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
@@ -16,9 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,14 +24,12 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.view.activities.HomeActivity
-import com.ab.hicareservices.ui.view.activities.NotifyService
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import org.json.JSONObject
-import java.util.Calendar
 
- class OrdersFragment() : Fragment() {
+class OrdersFragment() : Fragment() {
     private val TAG = "OrdersFragment"
     lateinit var binding: FragmentOrdersBinding
     private val viewModel: OrdersViewModel by viewModels()
@@ -46,7 +39,6 @@ import java.util.Calendar
     private var ordertype = ""
     private var isfromMenu = false
     lateinit var homeActivity: HomeActivity
-    lateinit var orderactivityforadapter: FragmentActivity
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
 
@@ -169,11 +161,8 @@ import java.util.Calendar
 
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
-            var data=it
-            if (it != null||data.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 nAdapter.setOrdersList(it)
-                binding.recyclerView.visibility=View.GONE
-                binding.recyclerView2.visibility=View.VISIBLE
                 binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()
             } else {
@@ -184,10 +173,15 @@ import java.util.Calendar
             }
         })
 
+
         viewModel.responseMessage.observe(requireActivity(), Observer {
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
-            progressDialog.dismiss()
+            if(it.equals("Success")){
+                binding.textnotfound.visibility = View.GONE
+            }else if(it.equals("No Orders")) {
+                binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text = it.toString()
+                progressDialog.dismiss()
+            }
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {
@@ -195,6 +189,8 @@ import java.util.Calendar
                 binding.textnotfound.visibility = View.VISIBLE
             }
         })
+
+
         if (mobile != "-1") {
             if (ordertype != null&& ordertype == "") {
                 ordertype = "All"
@@ -244,11 +240,14 @@ import java.util.Calendar
         })
 
         viewModel.responseMessage.observe(requireActivity(), Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.recyclerView.visibility = View.GONE
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = s
-            progressDialog.dismiss()
+            if(it.equals("Success")){
+                binding.textnotfound.visibility = View.GONE
+            }else if(it.equals("No Orders")) {
+                binding.recyclerView.visibility = View.GONE
+                binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text = s
+                progressDialog.dismiss()
+            }
         })
 
         viewModel.errorMessage.observe(requireActivity(), Observer {

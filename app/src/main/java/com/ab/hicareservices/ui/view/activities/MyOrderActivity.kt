@@ -101,33 +101,43 @@ class MyOrderActivity : AppCompatActivity() {
 
 //            binding.progressBar.visibility = View.VISIBLE
             ordertype = "All"
-            getOrdersList2(progressDialog, "No  Orders")
+            getOrdersList2(progressDialog)
 
         }
     }
 
-    private fun getOrdersList2(progressDialog: ProgressDialog, s: String) {
+    private fun getOrdersList2(progressDialog: ProgressDialog) {
 
         progressDialog.show()
         binding.recyclerView2.layoutManager =
-            LinearLayoutManager(this@MyOrderActivity, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = OrderMenuAdapter()
 
         binding.recyclerView2.adapter = nAdapter
 
-        viewModel.ordersList.observe(this@MyOrderActivity, Observer {
-            Log.d("TAG", "onViewCreated: $it orders fragment")
-            var data=it
-            if (it != null||data.isNotEmpty()) {
-                nAdapter.setOrdersList(it)
-                binding.recyclerView.visibility = View.GONE
+
+        viewModel.responseMessage.observe(this, Observer {
+            if(it.equals("Success")){
                 binding.textnotfound.visibility = View.GONE
-                binding.recyclerView2.visibility=View.VISIBLE
-                binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
-                binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
-                binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
-                binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
-                binding.recyclerView2.visibility=View.VISIBLE
+            }else if(it.equals("No Orders")) {
+                binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text = it.toString()
+                progressDialog.dismiss()
+            }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            if (it != null) {
+                binding.textnotfound.visibility = View.VISIBLE
+            }
+        })
+
+        viewModel.ordersList.observe(this, Observer {
+
+            var data=it
+            if (it.isNotEmpty()) {
+                nAdapter.setOrdersList(it)
+                binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()
             } else {
                 progressDialog.dismiss()
@@ -135,69 +145,74 @@ class MyOrderActivity : AppCompatActivity() {
                 binding.recyclerView2.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
             }
-
-//            this.progressDialog.dismiss()
-            //            binding.recyclerView2.visibility = View.VISIBLE
         })
 
-
-        viewModel.responseMessage.observe(this@MyOrderActivity, Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
-            progressDialog.dismiss()
-        })
-
-
-        viewModel.errorMessage.observe(this@MyOrderActivity, Observer {
-            if (it != null) {
-                binding.textnotfound.visibility = View.VISIBLE
-            }
-        })
         if (mobile != "-1") {
-            if (ordertype.equals("") && ordertype != null) {
+            if (ordertype != null&& ordertype == "") {
                 ordertype = "All"
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             } else {
                 viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
             }
         }
+        progressDialog.dismiss()
     }
 
 
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
-        progressDialog.show()
         binding.textnotfound.visibility = View.GONE
+        progressDialog.show()
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(this@MyOrderActivity, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrdersAdapter()
 
         binding.recyclerView.adapter = mAdapter
 
-        viewModel.ordersList.observe(this@MyOrderActivity, Observer {
-            Log.d("TAG", "onViewCreated: $it orders fragment")
+        viewModel.ordersList.observe(this, Observer {
 
             if(it!=null) {
 
                 if (it.isNotEmpty()) {
                     binding.textnotfound.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
-                    mAdapter.setOrdersList(it, this@MyOrderActivity)
+                    mAdapter.setOrdersList(it, this)
                     progressDialog.dismiss()
                 } else {
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
+                    binding.textnotfound.text=s
                 }
             }else{
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text=s
             }
             progressDialog.dismiss()
 
         })
+
+        viewModel.responseMessage.observe(this, Observer {
+            if(it.equals("Success")){
+                binding.textnotfound.visibility = View.GONE
+            }else if(it.equals("No Orders")) {
+                binding.recyclerView.visibility = View.GONE
+                binding.textnotfound.visibility = View.VISIBLE
+                binding.textnotfound.text = s
+                progressDialog.dismiss()
+            }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
+            binding.recyclerView.visibility = View.GONE
+            binding.textnotfound.visibility = View.VISIBLE
+            binding.textnotfound.text=s
+            progressDialog.dismiss()
+        })
+
         mAdapter.setOnOrderItemClicked(object : OnOrderClickedHandler {
 
             override fun onOrderItemClicked(
@@ -219,18 +234,6 @@ class MyOrderActivity : AppCompatActivity() {
                 intent.putExtra("ServiceCenterId", ServiceCenterId)
 
                 startActivity(intent)
-
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(
-//                        R.id.container, OrderDetailsFragment.newInstance(
-//                            orderNo,
-//                            serviceType,
-//                            service_url_image,
-//                            locationLatitudeS,
-//                            locationLongitudeS,
-//                            ServiceCenterId
-//                        )
-//                    ).addToBackStack("OrdersFragment").commit()
 
             }
 
@@ -256,26 +259,9 @@ class MyOrderActivity : AppCompatActivity() {
             }
 
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {
-                createNotification()
             }
         })
 
-
-        viewModel.responseMessage.observe(this@MyOrderActivity, Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.recyclerView.visibility = View.GONE
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text = it.toString()
-            progressDialog.dismiss()
-        })
-
-        viewModel.errorMessage.observe(this@MyOrderActivity, Observer {
-//            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
-            binding.recyclerView.visibility = View.GONE
-            binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text=it.toString()
-            progressDialog.dismiss()
-        })
 //        binding.progressBar13.visibility = View.GONE
 //        binding.progressBar.visibility = View.GONE
         if (mobile != "-1") {
@@ -286,8 +272,9 @@ class MyOrderActivity : AppCompatActivity() {
                 viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
             }
         }
-    }
 
+        progressDialog.dismiss()
+    }
     override fun onDestroy() {
         super.onDestroy()
     }

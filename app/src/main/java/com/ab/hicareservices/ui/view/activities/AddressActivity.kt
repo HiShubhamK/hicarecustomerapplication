@@ -448,7 +448,7 @@ class AddressActivity : AppCompatActivity() {
 
                             Toast.makeText(
                                 this,
-                                "Billing address added successfully",
+                                "Shipping address added successfully",
                                 Toast.LENGTH_LONG
                             ).show()
                         } else {
@@ -619,6 +619,12 @@ class AddressActivity : AppCompatActivity() {
                             SharedPreferenceUtil.setData(this, "Billingdata", newaddessid)
 //                            getAddressforshipping()
                             getAddressforbilling()
+
+                            Toast.makeText(
+                                this,
+                                "Billing address added successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
                             binding.checkbox.isChecked == false
                             appCompatCheckBox.isChecked = false
                             alertDialog.dismiss()
