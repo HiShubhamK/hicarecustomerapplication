@@ -98,7 +98,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     var productid = ""
     var customerid = ""
     var pincode = ""
-    var descriptionData = arrayOf("Booked", "Packed", "Dispatch", "Delivered")
+    var descriptionData = arrayOf("Booked", "Packed", "Dispatched", "Delivered")
     private var lat: String? = ""
     private var longg: String? = ""
     private var lastlat: String? = ""
@@ -205,7 +205,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                 } else if (OrderStatus == "Packed") {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.TWO)
 
-                } else if (OrderStatus == "Dispatch" || OrderStatus.equals("Shipped")) {
+                } else if (OrderStatus == "Dispatched" || OrderStatus.equals("Shipped")) {
                     binding.yourStateProgressBarId.setCurrentStateNumber(StateProgressBar.StateNumber.THREE)
 
                 } else if (OrderStatus == "Delivered") {

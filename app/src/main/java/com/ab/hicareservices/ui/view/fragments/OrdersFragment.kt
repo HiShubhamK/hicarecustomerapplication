@@ -170,8 +170,10 @@ import java.util.Calendar
         viewModel.ordersList.observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: $it orders fragment")
             var data=it
-            if (it != null||data.isEmpty()) {
+            if (it != null||data.isNotEmpty()) {
                 nAdapter.setOrdersList(it)
+                binding.recyclerView.visibility=View.GONE
+                binding.recyclerView2.visibility=View.VISIBLE
                 binding.textnotfound.visibility = View.GONE
                 progressDialog.dismiss()
             } else {
