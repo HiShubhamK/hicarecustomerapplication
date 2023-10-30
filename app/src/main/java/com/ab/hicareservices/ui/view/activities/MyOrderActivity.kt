@@ -1,7 +1,5 @@
 package com.ab.hicareservices.ui.view.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
@@ -23,7 +21,6 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-import java.util.Calendar
 
 
 class MyOrderActivity : AppCompatActivity() {
@@ -104,15 +101,12 @@ class MyOrderActivity : AppCompatActivity() {
 
 //            binding.progressBar.visibility = View.VISIBLE
             ordertype = "All"
-            getOrdersList2(progressDialog)
-            binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
-            binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
-            binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
-            binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
+            getOrdersList2(progressDialog, "No  Orders")
+
         }
     }
 
-    private fun getOrdersList2(progressDialog: ProgressDialog) {
+    private fun getOrdersList2(progressDialog: ProgressDialog, s: String) {
 
         progressDialog.show()
         binding.recyclerView2.layoutManager =
@@ -124,9 +118,16 @@ class MyOrderActivity : AppCompatActivity() {
         viewModel.ordersList.observe(this@MyOrderActivity, Observer {
             Log.d("TAG", "onViewCreated: $it orders fragment")
             var data=it
-            if (it != null||data.isEmpty()) {
+            if (it != null||data.isNotEmpty()) {
                 nAdapter.setOrdersList(it)
+                binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.GONE
+                binding.recyclerView2.visibility=View.VISIBLE
+                binding.activetxt.setTextColor(Color.parseColor("#5A5A5A"))
+                binding.alltext.setTextColor(Color.parseColor("#2bb77a"))
+                binding.expiretxt.setTextColor(Color.parseColor("#5A5A5A"))
+                binding.cancelledtxt.setTextColor(Color.parseColor("#5A5A5A"))
+                binding.recyclerView2.visibility=View.VISIBLE
                 progressDialog.dismiss()
             } else {
                 progressDialog.dismiss()
@@ -165,8 +166,8 @@ class MyOrderActivity : AppCompatActivity() {
 
 
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
-        binding.textnotfound.visibility = View.GONE
         progressDialog.show()
+        binding.textnotfound.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this@MyOrderActivity, LinearLayoutManager.VERTICAL, false)
