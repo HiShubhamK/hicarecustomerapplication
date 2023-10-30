@@ -163,7 +163,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:gravity="center">
 
 
@@ -177,10 +177,10 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="8dp"
-                            android:layout_weight="4"
+                            android:layout_weight="5"
                             android:gravity="center_vertical"
                             android:orientation="vertical">
 
@@ -229,9 +229,10 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
                                 android:layout_marginTop="8dp"
                                 android:orientation="horizontal">
 
@@ -250,16 +251,16 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
                                     <TextView
                                         android:id="@+id/orderNoTv"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="5dp"
-                                        android:text="HC-324565654"
+                                        android:text="HC-3245656546666666666666"
                                         android:textColor="@color/black"
                                         android:textSize="13sp"
                                         android:fontFamily="@font/lato_regular"/>
