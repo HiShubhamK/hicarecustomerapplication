@@ -360,61 +360,61 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
     }
 
     private fun getServiceList(progressDialog: ProgressDialog) {
-        binding.recycleView.layoutManager = LinearLayoutManager(activity)
-        mAdapter = ServiceRequestAdapter()
-
-        binding.recycleView.adapter = mAdapter
-
-        viewModel.serviceList.observe(viewLifecycleOwner, Observer {
-            binding.progressBar.visibility = View.GONE
-            Log.d(TAG, "onViewCreated: $it")
-            mAdapter.setServiceList(it)
-            progressDialog.dismiss()
-        })
-        mAdapter.setOnServiceItemClicked(object : OnServiceRequestClickHandler {
-
-            override fun onViewServiceClicked(position: Int) {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MyServiceDetailsFragment.newInstance())
-                    .addToBackStack("OrderDetailsFragment").commitAllowingStateLoss()
-            }
-
-            override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
-//                showRescheduleDialog()
-//                ShowBookingDialog(service)
-//                try {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.container,
-                            SlotComplinceFragment.newInstance(
-                                ServiceCenterId,
-                                getCurrentDate(),
-                                service.ParentTaskId.toString(),
-                                service.Parent_Task_Skill_Id.toString(),
-                                locationLatitudeS,
-                                locationLongitudeS,
-                                serviceType,
-                                service.Pincode,
-                                service.SPCode,
-                                service.ServiceUnit
-
-                            )
-                        ).addToBackStack("SlotComplinceFragment").commitAllowingStateLoss()
-
-
-//                }catch (e:Exception){
-//                    e.printStackTrace()
-//                }
-
-            }
-        })
-
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onViewCreated: $it")
-            binding.recycleView.visibility = View.GONE
-            binding.txterrormessage.visibility = View.VISIBLE
-        })
-        viewModel.getServiceRequest(orderNo, serviceType)
+//        binding.recycleView.layoutManager = LinearLayoutManager(activity)
+//        mAdapter = ServiceRequestAdapter()
+//
+//        binding.recycleView.adapter = mAdapter
+//
+//        viewModel.serviceList.observe(viewLifecycleOwner, Observer {
+//            binding.progressBar.visibility = View.GONE
+//            Log.d(TAG, "onViewCreated: $it")
+//            mAdapter.setServiceList(it)
+//            progressDialog.dismiss()
+//        })
+//        mAdapter.setOnServiceItemClicked(object : OnServiceRequestClickHandler {
+//
+//            override fun onViewServiceClicked(position: Int) {
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(R.id.container, MyServiceDetailsFragment.newInstance())
+//                    .addToBackStack("OrderDetailsFragment").commitAllowingStateLoss()
+//            }
+//
+//            override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
+////                showRescheduleDialog()
+////                ShowBookingDialog(service)
+////                try {
+//                    requireActivity().supportFragmentManager.beginTransaction()
+//                        .replace(
+//                            R.id.container,
+//                            SlotComplinceFragment.newInstance(
+//                                ServiceCenterId,
+//                                getCurrentDate(),
+//                                service.ParentTaskId.toString(),
+//                                service.Parent_Task_Skill_Id.toString(),
+//                                locationLatitudeS,
+//                                locationLongitudeS,
+//                                serviceType,
+//                                service.Pincode,
+//                                service.SPCode,
+//                                service.ServiceUnit
+//
+//                            )
+//                        ).addToBackStack("SlotComplinceFragment").commitAllowingStateLoss()
+//
+//
+////                }catch (e:Exception){
+////                    e.printStackTrace()
+////                }
+//
+//            }
+//        })
+//
+//        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+//            Log.d(TAG, "onViewCreated: $it")
+//            binding.recycleView.visibility = View.GONE
+//            binding.txterrormessage.visibility = View.VISIBLE
+//        })
+//        viewModel.getServiceRequest(orderNo, serviceType,this@OrderDetailsFragment)
     }
 
     private fun showDetailsDialog() {

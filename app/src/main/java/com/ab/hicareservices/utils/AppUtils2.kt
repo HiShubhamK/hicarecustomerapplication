@@ -156,4 +156,20 @@ object AppUtils2 {
         return activeNetwork?.isConnected == true
     }
 
+
+    fun requestcode(dateTime: String): String{
+        var codestatus=""
+        if(dateTime.equals("200")){
+          codestatus="200"
+        }else if(dateTime.equals("401")){
+            codestatus="401"
+        }else if(dateTime.equals("500")){
+            codestatus="500"
+        }else{
+            codestatus=""
+        }
+        return codestatus
+    }
+
+
 }

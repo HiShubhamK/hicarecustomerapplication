@@ -777,11 +777,10 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
                 Log.d("TAG", typeHash.toString())
                 initArrayAdapter(serviceType, type, subtype)
             } else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
-        complaintViewModel.getComplaintReasons(serviceType)
+        complaintViewModel.getComplaintReasons(serviceType, this)
     }
 
     private fun addComplaint(

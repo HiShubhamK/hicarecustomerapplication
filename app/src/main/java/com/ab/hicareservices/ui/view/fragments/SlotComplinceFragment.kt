@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.view.fragments
 
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,6 +29,7 @@ import com.ab.hicareservices.ui.adapter.SlotCompliceAdapater
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
 import com.ab.hicareservices.ui.handler.onSlotclick
+import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -252,6 +254,25 @@ class SlotComplinceFragment() : Fragment() {
             data["Lat"] = Lat
             data["Long"] = Long
             data["ServiceType"] = ServiceType
+
+
+            viewModel.requestcodes.observe(requireActivity(), Observer {
+
+                SharedPreferenceUtil.setData(requireActivity(), "mobileNo", "-1")
+                SharedPreferenceUtil.setData(requireActivity(), "bToken", "")
+                SharedPreferenceUtil.setData(requireActivity(), "IsLogin", false)
+                SharedPreferenceUtil.setData(requireActivity(), "pincode", "")
+                SharedPreferenceUtil.setData(requireActivity(), "customerid", "")
+                SharedPreferenceUtil.setData(requireActivity(), "FirstName", "")
+                SharedPreferenceUtil.setData(requireActivity(), "MobileNo", "")
+
+                val intent= Intent(requireActivity(),LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+
+            })
+
+
             viewModel.getComplainceData(data)
         }, 1000)
 
@@ -344,6 +365,22 @@ class SlotComplinceFragment() : Fragment() {
             data["Source"] = Source
             data["ServiceType"] = ServiceType
             viewModel.BookSlot(data)
+
+            viewModel.requestcodes.observe(requireActivity(), Observer {
+
+                SharedPreferenceUtil.setData(requireActivity(), "mobileNo", "-1")
+                SharedPreferenceUtil.setData(requireActivity(), "bToken", "")
+                SharedPreferenceUtil.setData(requireActivity(), "IsLogin", false)
+                SharedPreferenceUtil.setData(requireActivity(), "pincode", "")
+                SharedPreferenceUtil.setData(requireActivity(), "customerid", "")
+                SharedPreferenceUtil.setData(requireActivity(), "FirstName", "")
+                SharedPreferenceUtil.setData(requireActivity(), "MobileNo", "")
+
+                val intent= Intent(requireActivity(), LoginActivity::class.java)
+                requireActivity().startActivity(intent)
+                requireActivity().finish()
+            })
+
 
             viewModel.bookSlotResponce.observe(requireActivity(), Observer {
                 Log.d(TAG, "onViewCreated: $it orders fragment")

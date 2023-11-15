@@ -18,13 +18,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivityOrderDetailBinding
 import com.ab.hicareservices.ui.adapter.ServiceRequestAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.adapter.WeeksAdapter
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
@@ -231,7 +231,7 @@ class OrderDetailActivity : AppCompatActivity() {
             binding.txterrormessage.visibility = View.VISIBLE
         })
 
-        viewModel.getServiceRequest(orderNo, serviceType)
+        viewModel.getServiceRequest(orderNo, serviceType,this@OrderDetailActivity)
 
     }
 
@@ -373,6 +373,24 @@ class OrderDetailActivity : AppCompatActivity() {
 //                }
                 }
             }
+
+            orderDetailsViewModel.requestcodes.observe(this){
+                Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
+
+                SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+                SharedPreferenceUtil.setData(this, "bToken", "")
+                SharedPreferenceUtil.setData(this, "IsLogin", false)
+                SharedPreferenceUtil.setData(this, "pincode", "")
+                SharedPreferenceUtil.setData(this, "customerid", "")
+                SharedPreferenceUtil.setData(this, "FirstName", "")
+                SharedPreferenceUtil.setData(this, "MobileNo", "")
+
+                val intent= Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+
             orderDetailsViewModel.getOrderDetailsByOrderNo(orderNo, serviceType)
         }catch (e:Exception){
             e.printStackTrace()

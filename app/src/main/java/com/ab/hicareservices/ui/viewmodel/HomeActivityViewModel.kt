@@ -24,7 +24,7 @@ class HomeActivityViewModel: ViewModel() {
     val leadResponse = MutableLiveData<LeadResponse>()
     val responseMessgae = MutableLiveData<String>()
     val currentapp = MutableLiveData<AppversionData>()
-
+    val requestcode = MutableLiveData<String>()
 
     fun getleaderspinner(servicetype: String) {
 
@@ -32,8 +32,14 @@ class HomeActivityViewModel: ViewModel() {
         response.enqueue(object : Callback<leadResopnse> {
 
             override fun onResponse(call: Call<leadResopnse>, response: Response<leadResopnse>) {
-                spinnerList.postValue(response.body()?.Data)
-                Log.d("TAG", "Response "+ response.body()?.Data.toString())
+                if(response.code()==200) {
+                    spinnerList.postValue(response.body()?.Data)
+                    Log.d("TAG", "Response " + response.body()?.Data.toString())
+                }else if(response.code()==401){
+                    requestcode.postValue("401")
+                }else if(response.code()==500){
+
+                }
             }
 
             override fun onFailure(call: Call<leadResopnse>, t: Throwable) {

@@ -137,6 +137,23 @@ class SlotDetailActivity : AppCompatActivity() {
             data["ServiceType"] = "Pest"
             if (AppointmentStart!=""||AppointmentEnd!=""){
                 viewModel.BookSlot(data)
+
+                viewModel.requestcodes.observe(this, Observer {
+
+                    SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+                    SharedPreferenceUtil.setData(this, "bToken", "")
+                    SharedPreferenceUtil.setData(this, "IsLogin", false)
+                    SharedPreferenceUtil.setData(this, "pincode", "")
+                    SharedPreferenceUtil.setData(this, "customerid", "")
+                    SharedPreferenceUtil.setData(this, "FirstName", "")
+                    SharedPreferenceUtil.setData(this, "MobileNo", "")
+
+                    val intent= Intent(this@SlotDetailActivity,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                })
+
                 viewModel.bookSlotResponce.observe(this, Observer {
                     Log.d("TAG", "onViewCreated: $it orders fragment")
 //                ShowBookingDialog(it)

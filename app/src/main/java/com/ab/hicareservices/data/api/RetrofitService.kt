@@ -1,5 +1,6 @@
 package com.ab.hicareservices.data.api
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.ab.hicareservices.utils.AppUtils2
 import okhttp3.OkHttpClient
@@ -58,12 +59,13 @@ object RetrofitService {
             .writeTimeout(120, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder().addHeader("Authorization", "Bearer ${AppUtils2.TOKEN}").build()
+                Log.e("Clientrequest",request.toString())
                 chain.proceed(request)
             }.addInterceptor(interceptor).build()
 //        if (retrofitService == null) {
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://connect.hicare.in/mobileapi/api/") //prod
-//                .baseUrl("http://connect.hicare.in/mobileapi_uat/api/")
+//                .baseUrl("http://connect.hicare.in/mobileapi/api/") //prod
+                .baseUrl("http://connect.hicare.in/mobileapi_uat/api/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()

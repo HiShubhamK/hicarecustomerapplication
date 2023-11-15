@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +17,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
@@ -249,6 +248,25 @@ class SlotComplinceActivity : AppCompatActivity() {
             data["Lat"] = Latt
             data["Long"] = Longg
             data["ServiceType"] = ServiceType
+
+            viewModel.requestcodes.observe(this, Observer {
+
+                SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+                SharedPreferenceUtil.setData(this, "bToken", "")
+                SharedPreferenceUtil.setData(this, "IsLogin", false)
+                SharedPreferenceUtil.setData(this, "pincode", "")
+                SharedPreferenceUtil.setData(this, "customerid", "")
+                SharedPreferenceUtil.setData(this, "FirstName", "")
+                SharedPreferenceUtil.setData(this, "MobileNo", "")
+
+                val intent= Intent(this,LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            })
+
+
+
             viewModel.getComplainceData(data)
         }, 500)
 
@@ -288,10 +306,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                         AppUtils2.timeslotslist = it.TimeSlots
                         val intent =
                             Intent(this@SlotComplinceActivity, SlotDetailActivity::class.java)
-                        intent.putExtra(
-                            "Service_Date",
-                            AppUtils2.ServiceDate
-                        )
+                        intent.putExtra("Service_Date", AppUtils2.ServiceDate)
                         intent.putExtra("SkillId", SkillId)
                         intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
                         intent.putExtra("scheduledatetext", scheduledatetext)
@@ -301,17 +316,10 @@ class SlotComplinceActivity : AppCompatActivity() {
                         intent.putExtra("ServiceType", ServiceType)
                         startActivity(intent)
                         finish()
-
 //                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
-
-
                     }
-
                 })
-
             }
-
-
         })
 
 
@@ -378,6 +386,22 @@ class SlotComplinceActivity : AppCompatActivity() {
             data["AppointmentEnd"] = AppointmentEnd
             data["Source"] = Source
             data["ServiceType"] = ServiceType
+
+            viewModel.requestcodes.observe(this, Observer {
+
+                    SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+                    SharedPreferenceUtil.setData(this, "bToken", "")
+                    SharedPreferenceUtil.setData(this, "IsLogin", false)
+                    SharedPreferenceUtil.setData(this, "pincode", "")
+                    SharedPreferenceUtil.setData(this, "customerid", "")
+                    SharedPreferenceUtil.setData(this, "FirstName", "")
+                    SharedPreferenceUtil.setData(this, "MobileNo", "")
+
+                    val intent= Intent(this@SlotComplinceActivity,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+            })
 
             viewModel.bookSlotResponce.observe(this, Observer {
                 if (it.IsSuccess == true) {

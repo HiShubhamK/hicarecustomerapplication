@@ -4,7 +4,6 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -21,6 +20,7 @@ import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.utils.AppUtils2
 
 
 class MyOrderActivity : AppCompatActivity() {
@@ -150,9 +150,10 @@ class MyOrderActivity : AppCompatActivity() {
         if (mobile != "-1") {
             if (ordertype != null&& ordertype == "") {
                 ordertype = "All"
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
+                AppUtils2.TOKEN=""
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,this@MyOrderActivity)
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,this@MyOrderActivity)
             }
         }
         progressDialog.dismiss()
@@ -267,9 +268,9 @@ class MyOrderActivity : AppCompatActivity() {
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,this@MyOrderActivity)
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,this@MyOrderActivity)
             }
         }
 

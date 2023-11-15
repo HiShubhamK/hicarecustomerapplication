@@ -1,11 +1,16 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.content.Intent
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.bookslot.BookSlotResponce
 import com.ab.hicareservices.data.model.getslots.GetSlots
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.ui.view.activities.LoginActivity
+import com.ab.hicareservices.ui.view.activities.SlotDetailActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,11 +20,10 @@ class GetSlotViewModel : ViewModel() {
 
     val getcomplainceresponse =
         MutableLiveData<List<com.ab.hicareservices.data.model.slotcomplaincemodel.Data>>()
-    val bookSlotResponce =
-        MutableLiveData<com.ab.hicareservices.data.model.bookslot.BookSlotResponce>()
+    val bookSlotResponce = MutableLiveData<com.ab.hicareservices.data.model.bookslot.BookSlotResponce>()
     val getSlotresponse = MutableLiveData<com.ab.hicareservices.data.model.getslots.Data>()
     val errorMessage = MutableLiveData<String>()
-
+    val requestcodes=MutableLiveData<String>()
     //    val getcomplainceresponse = MutableLiveData<com.ab.hicareservices.data.model.slotcomplaincemodel.Data>()
 //    fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String){
 //        repository.getOrderDetailsByOrderNo(orderNo, serviceType)
@@ -56,9 +60,13 @@ class GetSlotViewModel : ViewModel() {
                     call: Call<GetComplaiceResponce>,
                     response: Response<GetComplaiceResponce>
                 ) {
-                    if (response.body()?.IsSuccess == true) {
-                        val responseBody = response.body()?.Data
-                        getcomplainceresponse.postValue(responseBody!!)
+                    if(response.code()==200){
+                        if (response.body()?.IsSuccess == true) {
+                            val responseBody = response.body()?.Data
+                            getcomplainceresponse.postValue(responseBody!!)
+                        }
+                    }else if(response.code()==401){
+                        requestcodes.postValue("401")
                     }
                 }
 
@@ -73,7 +81,6 @@ class GetSlotViewModel : ViewModel() {
         repository.BookSlot(data)
             .enqueue(object : Callback<BookSlotResponce> {
 
-
                 override fun onFailure(call: Call<BookSlotResponce>, t: Throwable) {
                     errorMessage.postValue(t.message)
 
@@ -83,7 +90,15 @@ class GetSlotViewModel : ViewModel() {
                     call: Call<BookSlotResponce>,
                     response: Response<BookSlotResponce>
                 ) {
-                    bookSlotResponce.postValue(response.body())
+                    if (response.code() == 200) {
+                        bookSlotResponce.postValue(response.body())
+                    } else if (response.code() == 401) {
+                        requestcodes.postValue("401")
+                    } else if (response.code() == 500) {
+
+                    }else{
+
+                    }
                 }
             })
     }

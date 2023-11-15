@@ -17,9 +17,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
-import com.ab.hicareservices.databinding.ActivityAddComplaintsBinding
 import com.ab.hicareservices.databinding.ActivitymycomplaintBinding
-import com.ab.hicareservices.databinding.FragmentOrdersNewBinding
 import com.ab.hicareservices.ui.adapter.OrderMenuAdapter
 import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.adapter.ProductViewPagerAdapter
@@ -152,7 +150,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
             }
         })
 
-        viewModel.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
+        viewModel.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog,this)
     }
 
     private fun setupViewPager() {

@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityBookInspectionBinding
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import java.util.HashMap
@@ -41,6 +42,22 @@ class BookInspectionActivity : AppCompatActivity() {
 
         viewModels.spinnerList.observe(this, Observer{
             datalist.addAll(it)
+        })
+
+        viewModels.requestcode.observe(this, Observer {
+            Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
+
+            SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+            SharedPreferenceUtil.setData(this, "bToken", "")
+            SharedPreferenceUtil.setData(this, "IsLogin", false)
+            SharedPreferenceUtil.setData(this, "pincode", "")
+            SharedPreferenceUtil.setData(this, "customerid", "")
+            SharedPreferenceUtil.setData(this, "FirstName", "")
+            SharedPreferenceUtil.setData(this, "MobileNo", "")
+
+            val intent= Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         })
 
         viewModels.getleaderspinner("pest")

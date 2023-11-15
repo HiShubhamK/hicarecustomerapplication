@@ -90,5 +90,6 @@ class SharedPreferenceUtil(context: Context) {
             editor.apply()
             editor.commit()
         }
+
     }
 }

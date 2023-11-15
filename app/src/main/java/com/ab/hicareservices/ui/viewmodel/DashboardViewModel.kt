@@ -1,10 +1,16 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.content.Intent
+import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.SharedPreferenceUtil
 
 import com.ab.hicareservices.data.model.dashboard.*
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.ui.view.activities.LoginActivity
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,10 +28,11 @@ class DashboardViewModel : ViewModel() {
     val upcomingservices = MutableLiveData<ArrayList<UpcomingService>>()
     val videodataArrayList = MutableLiveData<ArrayList<VideoData>>()
     val errorMessage = MutableLiveData<String>()
-fun GetDashboard(mobileNo: String) {
+    val requestcodes = MutableLiveData<String>()
+
+fun GetDashboard(mobileNo: String, requireActivity: FragmentActivity) {
     repository.GetDashboard(mobileNo)
         .enqueue(object : Callback<DashboardModel> {
-
 
             override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
 //                errorMessage.postValue(t.message)
@@ -36,9 +43,14 @@ fun GetDashboard(mobileNo: String) {
                 call: Call<DashboardModel>,
                 response: Response<DashboardModel>
             ) {
-                try {
-                if (response.isSuccessful) {
-                    dashboardmain.postValue(response.body()!!.Data)
+                var checkrequestcode = AppUtils2.requestcode(response.code().toString())
+
+                if (response.code()==200) {
+                    Toast.makeText(requireActivity,response.code().toString(),Toast.LENGTH_LONG).show()
+
+                    try {
+                        if (response.isSuccessful) {
+                            dashboardmain.postValue(response.body()!!.Data)
 //                    bannerArrayArrayList.postValue(response.body()!!.DashboardMainData.BannerData)
 //                    brandListArrayList.postValue(response.body()!!.DashboardMainData.BrandData)
 //                    videodataArrayList.postValue(response.body()!!.DashboardMainData.VideoData)
@@ -47,11 +59,35 @@ fun GetDashboard(mobileNo: String) {
 //                    socialMediadataArrayList.postValue(response.body()!!.DashboardMainData.SocialMediadata)
 //                    todayserviceArrayList.postValue(response.body()!!.DashboardMainData.TodaysService)
 //                    upcomingservices.postValue(response.body()!!.DashboardMainData.UpcomingService)
-                }
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
+                }else if(response.code()==401) {
+                    requestcodes.postValue("401")
+
+//
+//                    SharedPreferenceUtil.setData(requireActivity, "mobileNo", "-1")
+//                    SharedPreferenceUtil.setData(requireActivity, "bToken", "")
+//                    SharedPreferenceUtil.setData(requireActivity, "IsLogin", false)
+//                    SharedPreferenceUtil.setData(requireActivity, "pincode", "")
+//                    SharedPreferenceUtil.setData(requireActivity, "customerid", "")
+//                    SharedPreferenceUtil.setData(requireActivity, "FirstName", "")
+//                    SharedPreferenceUtil.setData(requireActivity, "MobileNo", "")
+//
+//
+//                    Toast.makeText(requireActivity,response.code().toString(),Toast.LENGTH_LONG).show()
+//                    val intent= Intent(requireActivity,LoginActivity::class.java)
+//                    requireActivity.startActivity(intent)
+//                    requireActivity.finish()
+
+               } else {
+                    Toast.makeText(requireActivity,response.code().toString(),Toast.LENGTH_LONG).show()
+//                    val intent= Intent(requireActivity,LoginActivity::class.java)
+//                    requireActivity.startActivity(intent)
+//                    requireActivity.finish()
+                }
             }
         })
 }

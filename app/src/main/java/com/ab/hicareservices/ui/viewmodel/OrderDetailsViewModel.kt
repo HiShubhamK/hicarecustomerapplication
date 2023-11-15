@@ -16,14 +16,21 @@ class OrderDetailsViewModel : ViewModel() {
 
     val orderDetailsData = MutableLiveData<List<Data>>()
     val savePaymentResponse = MutableLiveData<SavePaymentResponse>()
+    val requestcodes = MutableLiveData<String>()
+
     fun getOrderDetailsByOrderNo(orderNo: String, serviceType: String){
         repository.getOrderDetailsByOrderNo(orderNo, serviceType)
             .enqueue(object : Callback<OrderDetails>{
                 override fun onResponse(call: Call<OrderDetails>, response: Response<OrderDetails>) {
-                    if (response.body()?.isSuccess == true){
-                        val responseBody = response.body()?.data
-                        orderDetailsData.postValue(responseBody)
+                    if(response.code()==200){
+                        if (response.body()?.isSuccess == true){
+                            val responseBody = response.body()?.data
+                            orderDetailsData.postValue(responseBody!!)
+                        }
+                    }else if(response.code()==401){
+                        requestcodes.postValue("401")
                     }
+
                 }
                 override fun onFailure(call: Call<OrderDetails>, t: Throwable) {
                 }

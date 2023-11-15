@@ -255,7 +255,7 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         val mobile =
             SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
-        viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog)
+        viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog,this@AddComplaintsActivity)
 
 
         val extrass = getIntent().extras
@@ -782,7 +782,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                     .show()
             }
         }
-        complaintViewModel.getComplaintReasons(serviceType)
+        complaintViewModel.getComplaintReasonses(serviceType,this)
     }
 
     private fun addComplaint(

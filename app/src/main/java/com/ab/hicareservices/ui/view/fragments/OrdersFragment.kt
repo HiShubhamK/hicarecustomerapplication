@@ -194,9 +194,9 @@ class OrdersFragment() : Fragment() {
         if (mobile != "-1") {
             if (ordertype != null&& ordertype == "") {
                 ordertype = "All"
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,requireActivity())
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,requireActivity())
             }
         }
         progressDialog.dismiss()
@@ -309,9 +309,9 @@ class OrdersFragment() : Fragment() {
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,requireActivity())
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog)
+                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,requireActivity())
             }
         }
 

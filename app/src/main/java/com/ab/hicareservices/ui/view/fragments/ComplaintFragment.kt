@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,7 +19,6 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityComplaintsBinding
 import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
-import com.ab.hicareservices.ui.view.activities.ComplaintDetailsActivity
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -101,7 +99,7 @@ class ComplaintFragment() : Fragment() {
         })
 
         val mobile=SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
-        viewModels.getCustomerOrdersByMobileNos(mobile, "Active")
+        viewModels.getCustomerOrdersByMobileNos(mobile, "Active",requireActivity())
 
 
         binding.addFab.setOnClickListener{

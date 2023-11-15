@@ -48,6 +48,7 @@ import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.ui.view.StickyMessageView
 import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
+import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
@@ -277,6 +278,20 @@ class HomeFragment : Fragment() {
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>, binding.recOffers)
 //        madapterbrand = BrandAdapter(binding.idViewPager2, requireActivity())
 //        mOfferAdapter = OffersAdapter(offerlist as ArrayList<OfferData>,binding.recOffers)
+
+        dashboardViewModel.requestcodes.observe(requireActivity(), Observer {
+
+            SharedPreferenceUtil.setData(requireContext(), "mobileNo", "-1")
+            SharedPreferenceUtil.setData(requireContext(), "bToken", "")
+            SharedPreferenceUtil.setData(requireContext(), "IsLogin", false)
+            SharedPreferenceUtil.setData(requireContext(), "pincode", "")
+            SharedPreferenceUtil.setData(requireContext(), "customerid", "")
+            SharedPreferenceUtil.setData(requireContext(), "FirstName", "")
+            SharedPreferenceUtil.setData(requireContext(), "MobileNo", "")
+
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        })
 
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
             Log.d(TAG, "onDashboardData: $it orders fragment")
@@ -574,7 +589,7 @@ class HomeFragment : Fragment() {
 
 //        binding.dotsIndicator.attachTo(binding.idViewPager)
 
-        dashboardViewModel.GetDashboard(AppUtils2.mobileno)
+        dashboardViewModel.GetDashboard(AppUtils2.mobileno,requireActivity())
 
 
     }
@@ -1076,11 +1091,7 @@ class HomeFragment : Fragment() {
         }
 
         imgbtncancel.setOnClickListener { alertDialog.cancel() }
-
         alertDialog.show()
     }
-
-
-
 }
 
