@@ -53,5 +53,9 @@ class MainRepository {
     fun getValidateVoucher(vouchercode: String,userId: Int,pincoode: String)=retrofitProduct.getValidateVoucher(vouchercode,userId,pincoode)
     fun getClearCache(mobileNo: String)=retrofitService.getClearCache(mobileNo)
     fun getcurrentAppversion(mobileNo: String)=retrofitService.getcurrentAppversion(mobileNo)
+    fun GetActiveServiceList()=retrofitService.GetActiveServiceList()
+    fun GetActiveBHKList()=retrofitService.GetActiveBHKList()
+    fun getPlanAndPriceByBHKandPincode(pincode:String ,noofBHK:String, servicecode:String)= retrofitService.getPlanAndPriceByBHKandPincode(pincode ,noofBHK, servicecode)
 
+    fun getActiveServiceDetailById(serviceId:Int)=retrofitService.getActiveServiceDetailById(serviceId)
 }

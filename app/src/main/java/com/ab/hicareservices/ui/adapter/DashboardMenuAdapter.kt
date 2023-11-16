@@ -6,16 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.dashboard.MenuData
+import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.*
-import com.ab.hicareservices.ui.view.fragments.ComplaintFragmentNew
-import com.ab.hicareservices.ui.view.fragments.OrdersFragment
-import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
 import com.squareup.picasso.Picasso
 
@@ -24,7 +20,7 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 
     var service = mutableListOf<MenuData>()
 
-    fun setServiceList(movies: List<MenuData>?) {
+    fun setServiceList(movies: List<MenuData>) {
         if (movies != null) {
             this.service = movies.toMutableList()
         }
@@ -114,7 +110,13 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, ProductFragment.newInstance())
 //                        .addToBackStack("AccountFragment").commit()
-                } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
+                } else if (service.Title.equals("Pest") && service.IsAppLink == true) {
+
+                    val intent = Intent(fragmentActivity, PestServicesActivity::class.java)
+                    fragmentActivity!!.startActivity(intent)
+
+               }
+                else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
                     val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
                     intent.putExtra("PageLink", service.PageLink)
                     fragmentActivity!!.startActivity(intent)

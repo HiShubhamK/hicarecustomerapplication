@@ -22,6 +22,10 @@ import com.ab.hicareservices.data.model.productcomplaint.ProductComplaintListRes
 import com.ab.hicareservices.data.model.productcomplaint.productdetails.ProductDetailResponse
 import com.ab.hicareservices.data.model.referral.ReferralResponse
 import com.ab.hicareservices.data.model.service.ServiceResponse
+import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
+import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
+import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
+import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import retrofit2.Call
 import retrofit2.http.Body
@@ -206,5 +210,18 @@ interface IRetrofit {
         @Query("userMobile") userMobile: String,
     ): Call<CurrentApiVersion>
 
+    @GET("Service/GetActiveServiceList")
+    fun GetActiveServiceList() : Call<ServiceListResponse>
+
+    @GET("Service/GetActiveBHKList")
+    fun GetActiveBHKList():Call<BhklistResponse>
+
+    @GET("Service/GetPlanAndPriceByBHKandPincode")
+    fun getPlanAndPriceByBHKandPincode(@Query("pincode") pincode:String,
+                                       @Query("noofBHK") noofBHK:String,
+                                       @Query("servicecode") servicecode:String):Call<BHKandPincode>
+
+    @GET("Service/GetActiveServiceDetailById")
+    fun getActiveServiceDetailById(@Query("serviceId") serviceId:Int) :Call<BookingServiceDetailResponse>
 
 }

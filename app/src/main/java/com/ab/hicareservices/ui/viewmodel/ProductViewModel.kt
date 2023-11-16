@@ -46,7 +46,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     customerlogininfo.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
             override fun onFailure(call: Call<CustomerLoginInfo>, t: Throwable) {
@@ -97,7 +97,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     producDetailsResponse.postValue(response.body()!!.Data!!)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -116,7 +116,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     addtocart.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -134,7 +134,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productcount.postValue(response.body())
                 }else{
-                    errorMessage.postValue(response.body()!!.ResponseMessage)
+                    errorMessage.postValue(response.body()!!.ResponseMessage!!)
                 }
             }
 
@@ -151,7 +151,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     cartlist.postValue(response.body()!!.Data)
                 }else{
-                    responseMessage.postValue(response.body()?.ResponseMessage)
+                    responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
@@ -171,7 +171,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess ==true){
                     getsummarydata.postValue(response.body()!!.Data!!)
                 }else{
-                    errorMessage.postValue(response.body()?.ResponseMessage)
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
