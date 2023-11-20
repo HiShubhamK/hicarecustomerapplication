@@ -385,6 +385,8 @@ class SlotComplinceActivity : AppCompatActivity() {
                     Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
                         .show()
                     progressDialog.dismiss()
+                    AppUtils2.eventCall(this,"Slot Booked : "+data)
+
 
                 } else {
                     Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
@@ -422,6 +424,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                 source: String?,
                 serviceType: String
             ) {
+
 
 //                selectedTimePostion=position
                 TaskId = taskid

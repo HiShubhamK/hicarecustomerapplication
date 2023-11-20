@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityBookInspectionBinding
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import java.util.HashMap
 
 
@@ -87,6 +88,7 @@ class BookInspectionActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
+
             if(binding.etname.text.toString().trim().equals("") && binding.edtmobileno.text.toString().trim().equals("") &&
                 binding.etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                 binding.etflatno.text.toString().trim().equals("") && binding.etbuildname.text.toString().trim().equals("") &&
@@ -201,6 +203,8 @@ class BookInspectionActivity : AppCompatActivity() {
 
                             Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG)
                                 .show()
+                            AppUtils2.eventCall(this,"Inspection appointment booked: "+data)
+
                         } else {
                             progressDialog.dismiss()
                             Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)

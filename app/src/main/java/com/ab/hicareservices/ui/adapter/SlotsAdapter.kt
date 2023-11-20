@@ -51,14 +51,14 @@ class SlotsAdapter(
 
         holder.binding.relSlot.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
 
             onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
 
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
             onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
 
         }

@@ -64,6 +64,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 
 class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,ConnectivityChangeListener {
     private lateinit var binding: ActivityMainBinding
@@ -86,6 +87,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
     var pincode: String? = null
 
 
+
     private lateinit var connectivityReceiver: ConnectivityReceiver
     private val notificationPermissionRequestCode = 1001
 
@@ -105,6 +107,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // Get Mixpanel instance
+        // Get Mixpanel instance
+
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
@@ -565,6 +570,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
                             .show()
                         alertDialog.cancel()
+                        AppUtils2.eventCall(this,"Get a call dashboard: "+data)
+
                     } else {
                         alertDialog.cancel()
                         Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
