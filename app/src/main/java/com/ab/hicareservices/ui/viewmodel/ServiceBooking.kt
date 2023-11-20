@@ -8,6 +8,7 @@ import com.ab.hicareservices.data.model.servicesmodule.BHKandPincodeData
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
+import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponseData
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.data.repository.MainRepository
@@ -21,6 +22,7 @@ class ServiceBooking:ViewModel() {
     val serviceresponssedata = MutableLiveData<List<ServiceListResponseData>>()
     val activebhklist = MutableLiveData<List<BhklistResponseData>>()
     val activebhkpincode = MutableLiveData<List<BHKandPincodeData>>()
+    val bookingServiceDetailResponseData = MutableLiveData<BookingServiceDetailResponseData>()
 
     val errorMessage = MutableLiveData<String>()
 
@@ -77,7 +79,7 @@ class ServiceBooking:ViewModel() {
         response.enqueue(object : Callback<BookingServiceDetailResponse> {
             override fun onResponse(call: Call<BookingServiceDetailResponse>, response: Response<BookingServiceDetailResponse>) {
                 if(response.body()!!.IsSuccess==true) {
-                    activebhkpincode.postValue(response.body()!!.Data)
+                    bookingServiceDetailResponseData.postValue(response.body()!!.Data!!)
                 }else{
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
@@ -87,7 +89,6 @@ class ServiceBooking:ViewModel() {
             }
         })
     }
-
 
 }
 

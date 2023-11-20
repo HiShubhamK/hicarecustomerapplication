@@ -35,7 +35,6 @@ class AccountFragment : Fragment() {
     var versioncode:Int=0
     var isupdated=false
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

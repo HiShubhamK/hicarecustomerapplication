@@ -80,14 +80,14 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:text="Short description"
@@ -113,12 +113,12 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:text="Description"
@@ -149,7 +149,8 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,6 +197,134 @@
 
 
         </LinearLayout>
+
+     <androidx.appcompat.widget.AppCompatImageView
+         android:layout_width="match_parent"
+         android:layout_height="150dp"
+         android:src="@drawable/avatar"/>
+
+<!--      <androidx.recyclerview.widget.RecyclerView-->
+<!--          android:id="@+id/recycleviewplans"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="match_parent"-->
+<!--          />-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cockroach Monitoring System"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textSize="15sp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start at 999"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="3dp"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnPayNows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="10dp"
+                    android:visibility="visible"
+                    app:cardCornerRadius="5dp"
+                    android:layout_weight="1">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/lato_semibold"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:singleLine="true"
+                        android:text="ADD"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="5dp"
+                android:background="@color/grey"
+                android:layout_margin="5dp">
+            </View>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Short description here"
+                android:fontFamily="@font/lato_semibold"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="5dp"
+                android:background="@color/grey"
+                android:layout_margin="5dp">
+            </View>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtviewdetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View details"
+                android:fontFamily="@font/lato_semibold"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -70,9 +70,6 @@ class OtpViewModel : ViewModel(){
                 if (response != null && response.body()?.IsSuccess == true) {
                     val body = response.body()
 
-
-
-
                     validateResponses.postValue(response.body())
 
                     AppUtils2.TOKEN=response.body()?.Data!!.Token.toString()

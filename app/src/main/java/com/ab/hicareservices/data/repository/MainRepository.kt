@@ -56,6 +56,5 @@ class MainRepository {
     fun GetActiveServiceList()=retrofitService.GetActiveServiceList()
     fun GetActiveBHKList()=retrofitService.GetActiveBHKList()
     fun getPlanAndPriceByBHKandPincode(pincode:String ,noofBHK:String, servicecode:String)= retrofitService.getPlanAndPriceByBHKandPincode(pincode ,noofBHK, servicecode)
-
     fun getActiveServiceDetailById(serviceId:Int)=retrofitService.getActiveServiceDetailById(serviceId)
 }

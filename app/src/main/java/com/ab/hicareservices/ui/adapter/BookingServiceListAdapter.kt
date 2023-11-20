@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
+import com.ab.hicareservices.databinding.BookingServiceAdapterBinding
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 import com.ab.hicareservices.ui.view.activities.PestServicesActivity
@@ -31,14 +32,17 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = DashboardMenuAdapterBinding.inflate(inflater, parent, false)
+        val binding = BookingServiceAdapterBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val service = service[position]
         holder.binding.tvOrderName.text = service.ServiceName
-        Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo2)
+        Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo)
+
+        holder.binding.txtshortdes.text=service.ShortDescription.toString()
+        holder.binding.txtlongdes.text=service.DetailDescription.toString()
 
         holder.itemView.setOnClickListener {
             val intent= Intent(requireActivity, BokingServiceDetailsActivity::class.java)
@@ -56,6 +60,6 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         return service.size
     }
 
-    class MainViewHolder(val binding: DashboardMenuAdapterBinding) :
+    class MainViewHolder(val binding: BookingServiceAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {}
 }

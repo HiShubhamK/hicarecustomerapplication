@@ -45,6 +45,41 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         shortDescription = intent.getStringExtra("ShortDescription").toString()
         stailDescription = intent.getStringExtra("DetailDescription").toString()
 
+
+
+        binding.txtviewdetails.setOnClickListener{
+
+
+            val bottomSheetFragment = CustomBottomSheetFragment()
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         binding.txtshortdes.text=shortDescription.toString()
         binding.txtlongdes.text=stailDescription.toString()
 
