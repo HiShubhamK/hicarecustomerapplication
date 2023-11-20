@@ -46,4 +46,18 @@ class SplashActivity : AppCompatActivity() {
         }, 3000)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+
 }

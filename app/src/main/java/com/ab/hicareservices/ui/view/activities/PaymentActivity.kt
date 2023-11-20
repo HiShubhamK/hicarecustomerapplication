@@ -234,7 +234,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     ): JSONObject {
         val options = JSONObject()
         options.put("name", "HiCare Services")
-        options.put("description", "Product")
+        options.put("description", "Product | Customer Mobile App")
         options.put("order_id", AppUtils2.razorpayorderid )
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")

@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityInappWebviewBinding
+import com.ab.hicareservices.utils.AppUtils2
 import java.util.*
 
 
@@ -22,6 +23,7 @@ class InAppWebViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         binding = ActivityInappWebviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppUtils2.checkmenuButton=false
         val intent = intent
         pagelink = intent.getStringExtra("PageLink").toString()
         binding.webView.settings.javaScriptEnabled = true

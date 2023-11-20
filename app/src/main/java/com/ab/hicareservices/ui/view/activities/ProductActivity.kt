@@ -66,6 +66,8 @@ class ProductActivity : AppCompatActivity() {
 
         MyLocationListener(this)
 
+        AppUtils2.checkmenuButton=false
+
         val lm = getSystemService(LOCATION_SERVICE) as LocationManager
         var gps_enabled = false
         var network_enabled = false
@@ -505,7 +507,6 @@ class ProductActivity : AppCompatActivity() {
                 binding.cartmenu.visibility = View.GONE
             }
         })
-
         viewProductModel.getProductCountInCar(AppUtils2.customerid.toInt())
     }
 

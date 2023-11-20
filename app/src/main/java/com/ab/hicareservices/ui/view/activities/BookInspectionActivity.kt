@@ -19,8 +19,8 @@ import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityBookInspectionBinding
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import java.util.HashMap
-
 
 class BookInspectionActivity : AppCompatActivity() {
     private lateinit var binding:ActivityBookInspectionBinding
@@ -34,6 +34,7 @@ class BookInspectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_inspection)
         binding=ActivityBookInspectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppUtils2.checkmenuButton=false
         datalist= ArrayList()
         datalist.add("Select Type")
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
@@ -217,4 +218,13 @@ class BookInspectionActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
 }

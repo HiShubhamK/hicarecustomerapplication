@@ -17,6 +17,7 @@ import com.ab.hicareservices.ui.view.fragments.ComplaintFragmentNew
 import com.ab.hicareservices.ui.view.fragments.OrdersFragment
 import com.ab.hicareservices.ui.view.fragments.OrdersFragmentNew
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
+import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
 class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
@@ -55,16 +56,19 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 
             }
             holder.itemView.setOnClickListener {
-                if (service.IsExternalAppBrowserLink == true) {
-                    fragmentActivity!!.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(service.PageLink)
+                if(AppUtils2.checkmenuButton==false){
+                    if (service.IsExternalAppBrowserLink == true) {
+                        fragmentActivity!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(service.PageLink)
+                            )
                         )
-                    )
-                } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
-                    val intent = Intent(fragmentActivity, MyOrderActivityNew::class.java)
-                    fragmentActivity!!.startActivity(intent)
+                        AppUtils2.checkmenuButton=true
+                    } else if (service.Title.equals("My Orders") && service.IsAppLink == true) {
+                        val intent = Intent(fragmentActivity, MyOrderActivityNew::class.java)
+                        fragmentActivity!!.startActivity(intent)
+                        AppUtils2.checkmenuButton=true
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, OrdersFragmentNew.newInstance())
 //                        .addToBackStack("OrdersFragmentNew").commit()
@@ -73,54 +77,60 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
 //                        .replace(R.id.container, OrdersFragment.newInstance(true))
 //                        .addToBackStack("HomeFragment").commit()
 
-                } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
+                    } else if (service.Title.equals("Complaints") && service.IsAppLink == true) {
 
-                    val intent = Intent(fragmentActivity, ComplaintsActivityNew::class.java)
-                    fragmentActivity!!.startActivity(intent)
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, ComplaintsActivityNew::class.java)
+                        fragmentActivity!!.startActivity(intent)
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, ComplaintFragmentNew.newInstance())
 //                        .addToBackStack("HomeFragment").commit()
-                } else if (service.Title.equals("Renewals") && service.IsAppLink == true) {
+                    } else if (service.Title.equals("Renewals") && service.IsAppLink == true) {
 
-
-                } else if (service.Title.equals("Book an Inspection") && service.IsAppLink == true) {
-
-                    val intent = Intent(fragmentActivity, BookInspectionActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
-
-//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
-//                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
-
-                } else if (service.Title.equals("Upcoming Service") && service.IsAppLink == true) {
-
-                    val intent = Intent(fragmentActivity, UpcomingServicesActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
+                        AppUtils2.checkmenuButton=true
+                    } else if (service.Title.equals("Book an Inspection") && service.IsAppLink == true) {
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, BookInspectionActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
 
 //                        fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
 
-                } else if (service.Title.equals("Other Support") && service.IsAppLink == true) {
-                    val intent = Intent(fragmentActivity, SupportActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
-                    fragmentActivity!!.finish()
+                    } else if (service.Title.equals("Upcoming Service") && service.IsAppLink == true) {
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, UpcomingServicesActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
+
+//                        fragmentActivity!!.supportFragmentManager.beginTransaction()
+//                            .replace(R.id.container, SupportFragments.newInstance()).addToBackStack("AccountFragment").commit()
+
+                    } else if (service.Title.equals("Other Support") && service.IsAppLink == true) {
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, SupportActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
+                        fragmentActivity!!.finish()
+
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, SupportFragments.newInstance())
 //                        .addToBackStack("AccountFragment").commit()
-                } else if (service.Title.equals("Products") && service.IsAppLink == true) {
-
-                    val intent = Intent(fragmentActivity, ProductActivity::class.java)
-                    fragmentActivity!!.startActivity(intent)
+                    } else if (service.Title.equals("Products") && service.IsAppLink == true) {
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, ProductActivity::class.java)
+                        fragmentActivity!!.startActivity(intent)
 
 //                    fragmentActivity!!.supportFragmentManager.beginTransaction()
 //                        .replace(R.id.container, ProductFragment.newInstance())
 //                        .addToBackStack("AccountFragment").commit()
-                } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
-                    val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
-                    intent.putExtra("PageLink", service.PageLink)
-                    fragmentActivity!!.startActivity(intent)
-                } else {
-                    Toast.makeText(fragmentActivity, "Coming Soon!", Toast.LENGTH_SHORT).show()
+                    } else if (service.IsInAppBrowserLink == true && service.PageLink != null || service.PageLink != "") {
+                        AppUtils2.checkmenuButton=true
+                        val intent = Intent(fragmentActivity, InAppWebViewActivity::class.java)
+                        intent.putExtra("PageLink", service.PageLink)
+                        fragmentActivity!!.startActivity(intent)
+                    } else {
+                        Toast.makeText(fragmentActivity, "Coming Soon!", Toast.LENGTH_SHORT).show()
+                    }
                 }
+
             }
 
         } catch (e: Exception) {

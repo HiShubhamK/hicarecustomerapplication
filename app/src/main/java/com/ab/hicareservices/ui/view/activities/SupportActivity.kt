@@ -47,6 +47,7 @@ class SupportActivity : AppCompatActivity() {
         binding = ActivitySupportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppUtils2.checkmenuButton=false
 
         binding.recSocialMedia.layoutManager =
             GridLayoutManager(this, 3)

@@ -70,6 +70,7 @@ object AppUtils2 {
     var versionname=""
     var ISChecklocationpermission=false
     var IsCheckbutton=false
+    var checkmenuButton:Boolean=false
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

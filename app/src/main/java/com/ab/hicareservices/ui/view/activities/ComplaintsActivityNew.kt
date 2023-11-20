@@ -56,6 +56,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
         binding = ActivitymycomplaintBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        AppUtils2.checkmenuButton=false
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
         binding.title.text = "My Complaints"
@@ -370,6 +371,9 @@ class ComplaintsActivityNew : AppCompatActivity() {
 
         }
         alertDialog.show()
+    }
+    override fun onPause() {
+        super.onPause()
     }
 
 

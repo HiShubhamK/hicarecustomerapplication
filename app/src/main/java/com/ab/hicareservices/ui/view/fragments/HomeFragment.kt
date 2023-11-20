@@ -140,10 +140,7 @@ class HomeFragment : Fragment() {
 
         MyLocationListener(requireActivity())
 
-        client = LocationServices
-            .getFusedLocationProviderClient(
-                requireActivity()
-            )
+        client = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 //        if (ContextCompat.checkSelfPermission(
 //                requireActivity(),

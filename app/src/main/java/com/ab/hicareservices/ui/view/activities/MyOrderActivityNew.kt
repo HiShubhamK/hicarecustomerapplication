@@ -51,7 +51,7 @@ class MyOrderActivityNew : AppCompatActivity() {
         setContentView(R.layout.activity_my_order)
         binding = ActivityMyOrderNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        AppUtils2.checkmenuButton=false
         mobile = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -60,6 +60,14 @@ class MyOrderActivityNew : AppCompatActivity() {
             onBackPressed()
         }
         setupViewPager()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
     override fun onDestroy() {

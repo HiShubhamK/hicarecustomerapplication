@@ -32,6 +32,7 @@ class UpcomingServicesActivity : AppCompatActivity() {
         setContentView(binding.root)
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        AppUtils2.checkmenuButton=false
 //        viewModel.ScheduledService.observe(this, Observer {
 //            Log.d("TAG", "onViewCreated: $it")
 ////            mAdapter.setServiceList(it)
