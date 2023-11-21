@@ -10,14 +10,10 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
-import com.ab.hicareservices.databinding.ActivityBookInspectionBinding
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
-import com.ab.hicareservices.utils.AppUtils2
 
 class BokingServiceDetailsActivity : AppCompatActivity() {
 
@@ -47,14 +43,29 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
 
 
+
         binding.txtviewdetails.setOnClickListener{
 
+            viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
+                if (it.Id!=0) {
+                    var descrition=it.DetailDescription
+                    var shortdescrition=it.ShortDescription
+                    var id=it.Id
+                    var thumbnail=it.ServiceThumbnail
+                    var servicecode=it.ServiceCode
+                    var servicename=it.ServiceName
 
-            val bottomSheetFragment = CustomBottomSheetFragment()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
+                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
 
+                    Toast.makeText(this@BokingServiceDetailsActivity,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
+                } else {
 
+                }
+            })
+
+            viewProductModel.getActiveServiceDetailById(1)
 
 
             }

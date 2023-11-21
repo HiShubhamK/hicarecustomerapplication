@@ -27,10 +27,8 @@
                 android:contentDescription="Close"
                 android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
-
-
-
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/servicename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -42,12 +40,12 @@
 
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/servicethumbnail"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
                 android:src="@drawable/avatar" />
-
 
             <View
                 android:layout_width="match_parent"
@@ -77,61 +75,7 @@
             </View>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/servicedescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -147,7 +91,58 @@
                 android:fontFamily="@font/lato_regular"
                 android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 <!--    </ScrollView>-->
