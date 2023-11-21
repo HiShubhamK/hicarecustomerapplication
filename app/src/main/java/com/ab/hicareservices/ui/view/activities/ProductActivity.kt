@@ -16,7 +16,9 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -39,7 +41,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class ProductActivity : AppCompatActivity() {
+class ProductActivity : AppCompatActivity(), LifecycleObserver {
 
     private lateinit var binding: ActivityProductBinding
     private val viewProductModel: ProductViewModel by viewModels()
@@ -60,6 +62,11 @@ class ProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        try {
+            ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         setContentView(R.layout.activity_product)
         binding = ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)

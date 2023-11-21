@@ -71,6 +71,8 @@ object AppUtils2 {
     var ISChecklocationpermission=false
     var IsCheckbutton=false
     var checkmenuButton:Boolean=false
+    var paymentid=""
+    var signature=""
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

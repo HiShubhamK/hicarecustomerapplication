@@ -260,6 +260,93 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onResume() {
         super.onResume()
 
+        if (product == true) {
+
+            try {
+                viewProductModel.paymentsuceess.observe(this, Observer {
+                    if(it.IsSuccess==true){
+                        binding.imgOffer.visibility = View.VISIBLE
+                        binding.txtpayment.visibility = View.VISIBLE
+                        binding.imgOffererror.visibility = View.GONE
+                        SharedPreferenceUtil.setData(this, "Shippingdata", "")
+                        SharedPreferenceUtil.setData(this, "Billingdata", "")
+                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
+                        SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                        getClearchache()
+                        val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        binding.imgOffer.visibility = View.GONE
+                        binding.imgOffererror.visibility = View.VISIBLE
+                        binding.txtpayment.visibility = View.VISIBLE
+                        binding.txtpayment.text = "Payment Failed"
+
+                    }
+                })
+
+                var data = HashMap<String, Any>()
+
+                data["HomeProduct"] = homeproduct
+                data["AddressId"] = shippingdata.toInt()
+                data["BillToAddressId"] = billingdata.toInt()
+                data["Pincode"] = AppUtils2.pincode
+                data["CartAmount"] = AppUtils2.actualvalue.toDouble()
+                data["PayableAmount"] = AppUtils2.productamount.toDouble()
+                data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()+AppUtils2.voucherdiscount.toDouble()
+                data["DelieveryCharges"] = 0.0
+                data["InstallationCharges"] = 0.0
+                data["VoucherCode"] = AppUtils2.vouchercode
+                data["SFDC_OrderNo"] = ""
+                data["PaymentId"] = AppUtils2.paymentid.toString()
+                data["PayMethod"] = ""
+                data["PayStatus"] = ""
+                data["PayAmount"] = 0.0
+                data["Booking_Source"] = ""
+                data["Referred_By_Technician"] = ""
+                data["Order_Source"] = ""
+                data["Payment_LinkId"] = ""
+                data["Razorpay_Payment_Id"] = AppUtils2.paymentid.toString()
+                data["User_Id"] = AppUtils2.customerid.toInt()
+
+                viewProductModel.postSaveSalesOrder(data)
+
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+
+        } else {
+//
+//           Toast.makeText(this@PaymentActivity,response!!.paymentId+" "+response.orderId,Toast.LENGTH_LONG).show()
+//
+            orderDetailsViewModel.savePaymentResponse.observe(this, Observer {
+                if (it.isSuccess == true) {
+                    binding.imgOffer.visibility = View.VISIBLE
+                    binding.txtpayment.visibility = View.VISIBLE
+                    binding.imgOffererror.visibility = View.GONE
+//                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+                    getClearchache()
+
+                    Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
+                    val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+
+                    binding.imgOffer.visibility = View.GONE
+                    binding.imgOffererror.visibility = View.VISIBLE
+                    binding.txtpayment.visibility = View.VISIBLE
+                    binding.txtpayment.text = "Payment Failed"
+
+                }
+            })
+
+            data1["razorpay_payment_id"] = AppUtils2.paymentid.toString()
+            data1["razorpay_order_id"] = AppUtils2.razorpayorderid
+            data1["razorpay_signature"] = AppUtils2.signature.toString()
+
+            orderDetailsViewModel.saveAppPaymentDetails(data1)
+
+        }
+
     }
 
     private fun prepareNotes(
@@ -312,9 +399,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
-
         Log.d("Paymenttag",response!!.paymentId+" "+response.signature+" "+response.signature)
 
+        AppUtils2.paymentid=response.paymentId
+        AppUtils2.signature=response.signature
         if (product == true) {
 
             try {
@@ -363,9 +451,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Razorpay_Payment_Id"] = response.paymentId.toString()
                 data["User_Id"] = AppUtils2.customerid.toInt()
 
-
-
-
                 viewProductModel.postSaveSalesOrder(data)
 
             }catch (e:Exception){
@@ -404,8 +489,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             orderDetailsViewModel.saveAppPaymentDetails(data1)
 
         }
-
-
     }
 
     private fun getClearchache() {
@@ -433,7 +516,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         data1.putExtra("title", AppUtils2.paymentsucess)
         finish()
     }
-
 
     private fun prepareNotesProducts(): JSONObject {
         val notes = JSONObject()
