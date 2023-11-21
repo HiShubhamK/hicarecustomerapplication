@@ -323,6 +323,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     binding.imgOffer.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
+                    AppUtils2.paymentid=""
+                    AppUtils2.razorpayorderid=""
+                    AppUtils2.signature=""
 //                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
                     getClearchache()
 
@@ -411,6 +414,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
+                        AppUtils2.paymentid=""
+                        AppUtils2.razorpayorderid=""
+                        AppUtils2.signature=""
                         SharedPreferenceUtil.setData(this, "Shippingdata", "")
                         SharedPreferenceUtil.setData(this, "Billingdata", "")
                         Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
@@ -468,7 +474,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     binding.imgOffererror.visibility = View.GONE
 //                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
                     getClearchache()
-
+                    AppUtils2.paymentid=""
+                    AppUtils2.razorpayorderid=""
+                    AppUtils2.signature=""
                     Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
                     val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
                     startActivity(intent)
