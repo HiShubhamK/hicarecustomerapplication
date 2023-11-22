@@ -26,9 +26,9 @@
 
         <TextView
             android:id="@+id/tvOrderName"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_margin="5dp"
             android:fontFamily="@font/lato_regular"
             android:text="@string/my_orders"

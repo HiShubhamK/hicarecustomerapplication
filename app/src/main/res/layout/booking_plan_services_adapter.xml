@@ -32,7 +32,32 @@
                     android:text="Cockroach Monitoring System"
                     android:fontFamily="@font/lato_semibold"
                     android:textSize="15sp"
+                    android:textColor="@color/black"
                     />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="3dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/baseline_star_24"
+                        android:layout_gravity="center"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.5"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        />
+
+                </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/servicepriceplan"
@@ -41,28 +66,20 @@
                     android:text="Start at 999"
                     android:textColor="@color/black"
                     android:fontFamily="@font/lato_semibold"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:layout_marginTop="3dp"
                     />
 
             </LinearLayout>
-
-
             <Button
+                android:id="@+id/btnaddtocart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/lato_semibold"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:singleLine="true"
-                android:background="@color/colorAccent"
-                android:text="Add"
+                android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:textAllCaps="false"
+                android:gravity="center"
+                android:text="Add "
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
