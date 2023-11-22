@@ -7,41 +7,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
-import com.ab.hicareservices.databinding.BookingServiceAdapterBinding
+import com.ab.hicareservices.databinding.BookingServicelistLayoutBinding
+import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 import com.squareup.picasso.Picasso
 
-class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter.MainViewHolder>() {
+class BookingServiceListDetailsAdapter: RecyclerView.Adapter<BookingServiceListDetailsAdapter.MainViewHolder>() {
 
     var service = mutableListOf<ServiceListResponseData>()
     lateinit var requireActivity: FragmentActivity
 
-    fun setServiceList(
-        movies: List<ServiceListResponseData>?,
-        pestServicesActivity: Context
-    ) {
-        if (movies != null) {
-            this.service = movies.toMutableList()
-            this.requireActivity = pestServicesActivity as FragmentActivity
-        }
-        notifyDataSetChanged()
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = BookingServiceAdapterBinding.inflate(inflater, parent, false)
+        val binding = BookingServicelistLayoutBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+
         val service = service[position]
         holder.binding.tvOrderName.text = service.ServiceName
         Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo)
-
-        holder.binding.txtshortdes.text=service.ShortDescription.toString()
-        holder.binding.txtlongdes.text=service.DetailDescription.toString()
 
         holder.itemView.setOnClickListener {
             val intent= Intent(requireActivity, BokingServiceDetailsActivity::class.java)
@@ -59,6 +46,16 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         return service.size
     }
 
-    class MainViewHolder(val binding: BookingServiceAdapterBinding) :
+    fun setServiceLists(movies: List<ServiceListResponseData>?,
+    pestServicesActivity: Context
+    ) {
+        if (movies != null) {
+            this.service = movies.toMutableList()
+            this.requireActivity = pestServicesActivity as FragmentActivity
+        }
+        notifyDataSetChanged()
+    }
+
+    class MainViewHolder(val binding: BookingServicelistLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {}
 }

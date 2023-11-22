@@ -4,27 +4,29 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
-    android:elevation="5dp"
+    android:elevation="8dp"
     android:layout_margin="10dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/planname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cockroach Monitoring System"
@@ -33,54 +35,46 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/servicepriceplan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start at 999"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/lato_semibold"
                     android:textSize="12sp"
                     android:layout_marginTop="3dp"
                     />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnPayNows"
+
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="30dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:elevation="10dp"
-                android:visibility="visible"
-                app:cardCornerRadius="5dp"
-                android:layout_weight="1">
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center"
-                android:padding="6dp"
+                android:paddingHorizontal="10dp"
                 android:singleLine="true"
-                android:text="ADD"
+                android:background="@color/colorAccent"
+                android:text="Add"
+                android:layout_margin="5dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 />
 
-            </androidx.cardview.widget.CardView>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="5dp"
             android:background="@color/grey"
-            android:layout_margin="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible">
         </View>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -91,25 +85,26 @@
             android:fontFamily="@font/lato_semibold"
             android:textSize="14sp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="5dp"
             android:background="@color/grey"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:visibility="gone">
         </View>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtviewdetails"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View details"
             android:fontFamily="@font/lato_semibold"
             android:textSize="14sp"
             android:textColor="@color/colorAccent"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

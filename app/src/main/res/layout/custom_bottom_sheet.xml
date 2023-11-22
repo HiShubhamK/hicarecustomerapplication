@@ -12,6 +12,11 @@
 <!--        android:layout_height="match_parent"-->
 <!--        android:fillViewport="true">-->
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,7 +43,6 @@
                 android:textSize="16sp"
                 android:gravity="center"/>
 
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/servicethumbnail"
                 android:layout_width="150dp"
@@ -46,6 +50,16 @@
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
                 android:src="@drawable/avatar" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/serviceshortdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -145,5 +159,8 @@
                 android:visibility="gone"/>
 
         </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 <!--    </ScrollView>-->
 </LinearLayout>

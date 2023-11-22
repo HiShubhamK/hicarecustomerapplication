@@ -9,6 +9,8 @@ import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponseData
+import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
+import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.data.repository.MainRepository
@@ -16,26 +18,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ServiceBooking:ViewModel() {
+class ServiceBooking : ViewModel() {
     val repository = MainRepository()
 
     val serviceresponssedata = MutableLiveData<List<ServiceListResponseData>>()
     val activebhklist = MutableLiveData<List<BhklistResponseData>>()
     val activebhkpincode = MutableLiveData<List<BHKandPincodeData>>()
     val bookingServiceDetailResponseData = MutableLiveData<BookingServiceDetailResponseData>()
+    val servicePlanResponseData = MutableLiveData<List<GetServicePlanResponseData>>()
+
 
     val errorMessage = MutableLiveData<String>()
 
     fun getActiveServiceList() {
         val response = repository.GetActiveServiceList()
         response.enqueue(object : Callback<ServiceListResponse> {
-            override fun onResponse(call: Call<ServiceListResponse>, response: Response<ServiceListResponse>) {
-                if(response.body()!!.IsSuccess==true) {
+            override fun onResponse(
+                call: Call<ServiceListResponse>,
+                response: Response<ServiceListResponse>
+            ) {
+                if (response.body()!!.IsSuccess == true) {
                     serviceresponssedata.postValue(response.body()!!.Data)
-                }else{
+                } else {
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
+
             override fun onFailure(call: Call<ServiceListResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
@@ -45,50 +53,84 @@ class ServiceBooking:ViewModel() {
     fun getActiveBHKList() {
         val response = repository.GetActiveBHKList()
         response.enqueue(object : Callback<BhklistResponse> {
-            override fun onResponse(call: Call<BhklistResponse>, response: Response<BhklistResponse>) {
-                if(response.body()!!.IsSuccess==true) {
+            override fun onResponse(
+                call: Call<BhklistResponse>,
+                response: Response<BhklistResponse>
+            ) {
+                if (response.body()!!.IsSuccess == true) {
                     activebhklist.postValue(response.body()!!.Data)
-                }else{
+                } else {
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
+
             override fun onFailure(call: Call<BhklistResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
 
-    fun getPlanAndPriceByBHKandPincode(pincode:String,noofbhk:String,services:String) {
-        val response = repository.getPlanAndPriceByBHKandPincode(pincode,noofbhk,services)
+    fun getPlanAndPriceByBHKandPincode(pincode: String, noofbhk: String, services: String) {
+        val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services)
         response.enqueue(object : Callback<BHKandPincode> {
             override fun onResponse(call: Call<BHKandPincode>, response: Response<BHKandPincode>) {
-                if(response.body()!!.IsSuccess==true) {
+                if (response.body()!!.IsSuccess == true) {
                     activebhkpincode.postValue(response.body()!!.Data)
-                }else{
+                } else {
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
+
             override fun onFailure(call: Call<BHKandPincode>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
 
-    fun getActiveServiceDetailById(ServiceId:Int) {
+    fun getActiveServiceDetailById(ServiceId: Int) {
         val response = repository.getActiveServiceDetailById(ServiceId)
         response.enqueue(object : Callback<BookingServiceDetailResponse> {
-            override fun onResponse(call: Call<BookingServiceDetailResponse>, response: Response<BookingServiceDetailResponse>) {
-                if(response.body()!!.IsSuccess==true) {
+            override fun onResponse(
+                call: Call<BookingServiceDetailResponse>,
+                response: Response<BookingServiceDetailResponse>
+            ) {
+                if (response.body()!!.IsSuccess == true) {
                     bookingServiceDetailResponseData.postValue(response.body()!!.Data!!)
-                }else{
+                } else {
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
+
             override fun onFailure(call: Call<BookingServiceDetailResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })
     }
+
+
+    fun getPlanAndPriceByPincodeAndServiceCode(pincode: String, services: String) {
+        val response = repository.getPlanAndPriceByPincodeAndServiceCode(pincode, services)
+        response.enqueue(object : Callback<GetServicePlanResponse> {
+
+
+            override fun onResponse(
+                call: Call<GetServicePlanResponse>,
+                response: Response<GetServicePlanResponse>
+            ) {
+                if (response.body()?.IsSuccess == true) {
+                    servicePlanResponseData.postValue(response.body()!!.Data)
+                }else{
+                    errorMessage.postValue("Please Check Internet Connection.")
+                }
+            }
+
+            override fun onFailure(call: Call<GetServicePlanResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+
+        })
+    }
+
 
 }
 

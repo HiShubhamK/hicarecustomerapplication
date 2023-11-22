@@ -66,10 +66,11 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         val textView = view.findViewById<AppCompatTextView>(R.id.servicename)
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)
         val thumbnails = view.findViewById<AppCompatImageView>(R.id.servicethumbnail)
+        val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
         textView.text = servicename
         textViewdescription.text=descrition
+        shortdecriptions.text=shortdescrition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
-
 
         return view
 

@@ -25,6 +25,7 @@ import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
+import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import retrofit2.Call
@@ -223,5 +224,9 @@ interface IRetrofit {
 
     @GET("Service/GetActiveServiceDetailById")
     fun getActiveServiceDetailById(@Query("serviceId") serviceId:Int) :Call<BookingServiceDetailResponse>
+
+    @GET("Service/GetPlanAndPriceByPincodeAndServiceCode")
+    fun getPlanAndPriceByPincodeAndServiceCode(@Query("pincode") pincode:String,
+                                               @Query("servicecode") servicecode:String) :Call<GetServicePlanResponse>
 
 }

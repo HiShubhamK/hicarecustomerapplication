@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.databinding.ActivityPestServicesBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter

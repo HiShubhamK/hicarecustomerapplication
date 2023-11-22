@@ -30,7 +30,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/title"
@@ -77,6 +77,10 @@
 
     </RelativeLayout>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -85,71 +89,71 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="5dp"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
-                android:text="Short description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:fontFamily="@font/lato_semibold"
                 android:paddingLeft="9dp"
+                android:text="Short description"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
 
             <TextView
-                android:layout_marginTop="3dp"
                 android:id="@+id/txtshortdes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:enabled="false"
                 android:fontFamily="@font/lato_regular"
                 android:paddingLeft="9dp"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="5dp"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
-                android:text="Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:fontFamily="@font/lato_semibold"
                 android:paddingLeft="9dp"
+                android:text="Description"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
 
             <TextView
-                android:layout_marginTop="3dp"
                 android:id="@+id/txtlongdes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:enabled="false"
                 android:fontFamily="@font/lato_regular"
                 android:paddingLeft="9dp"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:baselineAligned="false"
             android:orientation="vertical"
-            android:layout_marginTop="5dp"
             android:visibility="gone">
 
             <TextView
@@ -198,134 +202,193 @@
 
         </LinearLayout>
 
-     <androidx.appcompat.widget.AppCompatImageView
-         android:layout_width="match_parent"
-         android:layout_height="150dp"
-         android:src="@drawable/avatar"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/avatar"/>
 
-<!--      <androidx.recyclerview.widget.RecyclerView-->
-<!--          android:id="@+id/recycleviewplans"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="match_parent"-->
-<!--          />-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey"></View>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/lato_semibold"
+            android:text="Cockroach Monitoring Service"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey"></View>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleviewplans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Our Services"
+            android:textSize="16sp"
+            android:fontFamily="@font/lato_semibold"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey"></View>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:foregroundGravity="center"
+            android:overScrollMode="never"
+            android:visibility="visible"
+            android:nestedScrollingEnabled="false"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
+            android:layout_margin="10dp"
             android:elevation="5dp"
-            android:layout_margin="10dp">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:visibility="gone"
+            app:cardCornerRadius="5dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cockroach Monitoring System"
-                        android:fontFamily="@font/lato_semibold"
-                        android:textSize="15sp"
-                        />
+                        android:layout_weight="1.5"
+                        android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Cockroach Monitoring System"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Start at 999"
+                            android:textSize="12sp" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btnPayNows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Start at 999"
-                        android:fontFamily="@font/lato_semibold"
-                        android:textSize="12sp"
-                        android:layout_marginTop="3dp"
-                        />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:elevation="10dp"
+                        android:visibility="visible"
+                        app:cardCornerRadius="5dp">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/lato_semibold"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:singleLine="true"
+                            android:text="ADD"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnPayNows"
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/grey"></View>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtdescription"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="30dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:elevation="10dp"
-                    android:visibility="visible"
-                    app:cardCornerRadius="5dp"
-                    android:layout_weight="1">
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Short description here"
+                    android:textSize="14sp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/grey"></View>
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/lato_semibold"
-                        android:gravity="center"
-                        android:padding="6dp"
-                        android:singleLine="true"
-                        android:text="ADD"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        />
-
-                </androidx.cardview.widget.CardView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtviewdetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="View details"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="5dp"
-                android:background="@color/grey"
-                android:layout_margin="5dp">
-            </View>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtdescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Short description here"
-                android:fontFamily="@font/lato_semibold"
-                android:textSize="14sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="5dp"
-                android:background="@color/grey"
-                android:layout_margin="5dp">
-            </View>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtviewdetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="View details"
-                android:fontFamily="@font/lato_semibold"
-                android:textSize="14sp"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.cardview.widget.CardView>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

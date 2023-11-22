@@ -3,6 +3,8 @@ package com.ab.hicareservices.ui.view.activities
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -11,8 +13,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
+import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
+import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
+import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
+import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 
 class BokingServiceDetailsActivity : AppCompatActivity() {
@@ -25,8 +32,17 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var stailDescription: String? = null
     lateinit var spinnerlist: ArrayList<String>
     var selectedLocation:String?=null
+    private lateinit var mAdapter: BookingServicePlanListAdapter
     private val viewProductModel: ServiceBooking by viewModels()
+    private lateinit var nAdapter: BookingServiceListDetailsAdapter
 
+
+    var descrition=""
+    var shortdescrition=""
+    var id=0
+    var thumbnail=""
+    var servicecode=""
+    var servicename=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,54 +58,88 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         stailDescription = intent.getStringExtra("DetailDescription").toString()
 
 
+        binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
+        mAdapter = BookingServicePlanListAdapter()
+        binding.recycleviewplans.adapter = mAdapter
 
 
-        binding.txtviewdetails.setOnClickListener{
-
-            viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
-                if (it.Id!=0) {
-                    var descrition=it.DetailDescription
-                    var shortdescrition=it.ShortDescription
-                    var id=it.Id
-                    var thumbnail=it.ServiceThumbnail
-                    var servicecode=it.ServiceCode
-                    var servicename=it.ServiceName
-
-                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
-                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-
-
-                    Toast.makeText(this@BokingServiceDetailsActivity,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
-                } else {
-
-                }
-            })
-
-            viewProductModel.getActiveServiceDetailById(1)
-
+        viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
+            if (it.isNotEmpty()) {
+                mAdapter.setServiceList(it,this)
+            } else {
 
             }
+        })
+
+        viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601","CMS")
+
+//        mAdapter.setonViewdatail(object : )
+
+        mAdapter.setonViewdatail(object : OnBookingViewDetials {
+            override fun onViewDetails(position: Int, serviceid: Int) {
+//                val bottomSheetFragment = CustomBottomSheetFragment.newInstance(1,"cms","cms","cms","cms","cms")
+//                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+
+                viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
+                    if (it.Id!=0) {
+                         descrition= it.DetailDescription.toString()
+                         shortdescrition= it.ShortDescription.toString()
+                         id= it.Id!!
+                         thumbnail= it.ServiceThumbnail.toString()
+                         servicecode= it.ServiceCode.toString()
+                         servicename= it.ServiceName.toString()
+
+                    } else {
+
+                    }
+                })
+                viewProductModel.getActiveServiceDetailById(1)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
+                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+                }, 200)
+            }
+        })
 
 
+        binding.recMenu.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        nAdapter = BookingServiceListDetailsAdapter()
+        binding.recMenu.adapter = nAdapter
 
+        viewProductModel.serviceresponssedata.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                nAdapter.setServiceLists(it,this)
+            } else {
 
+            }
+        })
+        viewProductModel.getActiveServiceList()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//        binding.txtviewdetails.setOnClickListener{
+//
+//            viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
+//                if (it.Id!=0) {
+//                    var descrition=it.DetailDescription
+//                    var shortdescrition=it.ShortDescription
+//                    var id=it.Id
+//                    var thumbnail=it.ServiceThumbnail
+//                    var servicecode=it.ServiceCode
+//                    var servicename=it.ServiceName
+//
+//                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
+//                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+//
+//                    Toast.makeText(this@BokingServiceDetailsActivity,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
+//                } else {
+//
+//                }
+//            })
+//
+//            viewProductModel.getActiveServiceDetailById(1)
+//
+//
+//            }
 
         binding.txtshortdes.text=shortDescription.toString()
         binding.txtlongdes.text=stailDescription.toString()
@@ -155,17 +205,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                         }
                     })
-
                     viewProductModel.getPlanAndPriceByBHKandPincode("400601",selectedLocation.toString(),serviceName.toString())
-
                 }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
-
-
-
     }
 }
