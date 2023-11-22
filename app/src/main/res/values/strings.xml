@@ -3,6 +3,7 @@
     <string name="txtno">No</string>
     <string name="txtyes">Yes</string>
     <string name="my_orders">My Orders</string>
+    <string name="PartnerKey">com.ab.hicareservices</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
