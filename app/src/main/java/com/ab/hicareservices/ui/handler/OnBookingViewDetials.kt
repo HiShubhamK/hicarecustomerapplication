@@ -5,4 +5,6 @@ interface OnBookingViewDetials {
         position: Int,
         productid: Int,
     )
+
+    abstract fun onClickAddButton(position: Int, id1: Int?, id: String, noOfBHK: String?)
 }

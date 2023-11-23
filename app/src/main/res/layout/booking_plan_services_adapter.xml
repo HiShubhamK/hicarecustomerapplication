@@ -71,6 +71,7 @@
                     />
 
             </LinearLayout>
+
             <Button
                 android:id="@+id/btnaddtocart"
                 android:layout_width="wrap_content"
@@ -80,7 +81,6 @@
                 android:text="Add "
                 android:textColor="@color/white"
                 android:textSize="14sp" />
-
 
         </LinearLayout>
 
