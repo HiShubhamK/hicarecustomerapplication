@@ -1,22 +1,17 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.ui.handler.OnListItemClickHandler
-import android.app.Activity
-import android.view.ViewGroup
-import android.view.LayoutInflater
-import androidx.lifecycle.MutableLiveData
-import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.slots.TimeSlot
 import com.ab.hicareservices.databinding.SlotsAdapterBinding
+import com.ab.hicareservices.ui.handler.OnListItemClickHandler
 import com.ab.hicareservices.ui.handler.onSlotSelection
-import com.ab.hicareservices.ui.handler.onSlotclick
-import com.ab.hicareservices.utils.AppUtils2
 
-class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicareservices.data.model.getslots.TimeSlot>, TaskId: String) : RecyclerView.Adapter<SlotsAdapter.ViewHolder>() {
+class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicareservices.data.model.getslots.TimeSlot>, TaskId: String) : RecyclerView.Adapter<BookingSlotsAdapter.ViewHolder>() {
     private val onItemClickHandler: OnListItemClickHandler? = null
 
     val getSlotresponse = slotData

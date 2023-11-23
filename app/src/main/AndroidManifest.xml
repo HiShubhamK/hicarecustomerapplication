@@ -35,6 +35,12 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.BookingSlotDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.activities.BookingSlotComplinceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activities.BokingServiceDetailsActivity"
             android:exported="false" />
         <activity
