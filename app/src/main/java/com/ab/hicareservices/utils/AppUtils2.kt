@@ -73,7 +73,7 @@ object AppUtils2 {
     var IsCheckbutton=false
     var servicecode =""
     lateinit var getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
-
+    var bookingserviceprice=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

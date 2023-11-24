@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     private lateinit var mAdapter: BookingServiceBhklistAdapter
     private val viewProductModel: ServiceBooking by viewModels()
     lateinit var bhkandpincodedata: List<BHKandPincodeData>
-
+    var price = ""
 
     companion object {
         private const val ARG_DATA = "list_key"
@@ -63,7 +64,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
         val serviceList = arguments?.getParcelableArrayList<BhklistResponseData>(ARG_DATA)
 
-        val planlist= arguments?.getParcelableArrayList<GetServicePlanResponseData>(ARG_DATA)
+        val planlist = arguments?.getParcelableArrayList<GetServicePlanResponseData>(ARG_DATA)
 
         var pincode = arguments?.getString(PINCODE_ID).toString()
 
@@ -93,7 +94,14 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         bhkandpincodedata = it
                         for (i in 0 until bhkandpincodedata.size) {
                             if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
-                                pricewisebhk.text = bhkandpincodedata.get(i).Price.toString()
+
+                                pricewisebhk.text = "\u20B9" + bhkandpincodedata.get(i).Price.toString()
+                                price = bhkandpincodedata.get(i).Price.toString()
+                                AppUtils2.bookingserviceprice = bhkandpincodedata.get(i).Price.toString()
+//                                if (bhkandpincodedata.get(i).Price != 0) {
+//                                }else{
+//                                    pricewisebhk.text = "\u20B9" + "00"
+//                                }
                             }
                         }
 
@@ -101,17 +109,22 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                     }
                 })
-                viewProductModel.getPlanAndPriceByBHKandPincode(
-                    pincode,
-                    noofbhk.toString(),
-                    AppUtils2.servicecode
-                )
+
+                viewProductModel.getPlanAndPriceByBHKandPincode("400601", noofbhk.toString(),"CMS")
+
+//                viewProductModel.getPlanAndPriceByBHKandPincode(
+//                    pincode,
+//                    noofbhk.toString(),
+//                    AppUtils2.servicecode
+//                )
             }
         })
 
         button.setOnClickListener {
+            val intent= Intent(activity,BookingServiceCheckout::class.java)
+            startActivity(intent)
 //            Toast.makeText(activity,AppUtils2.getServicePlanResponseData.toString(),Toast.LENGTH_LONG).show()
-            Toast.makeText(activity,planlist.toString(),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, planlist.toString(), Toast.LENGTH_LONG).show()
 
         }
         return view

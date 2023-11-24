@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
@@ -39,6 +41,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var thumbnail=""
     var servicecode=""
     var servicename=""
+    lateinit var progressDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,6 +53,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         MyLocationListener(this)
 
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
         AppUtils2.pincode= SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "").toString()
 
         if(AppUtils2.pincode.equals("")){
@@ -56,6 +63,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         }else{
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
+
+
 
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
@@ -76,8 +85,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
 
+        progressDialog.show()
+
         viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
             if (it.isNotEmpty()) {
+                progressDialog.dismiss()
                 mAdapter.setServiceList(it,this)
             } else {
 
@@ -86,6 +98,26 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
 
+        binding.imgsearch.setOnClickListener{
+
+            progressDialog.show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
+                    if (it.isNotEmpty()) {
+                        progressDialog.dismiss()
+                        mAdapter.setServiceList(it,this)
+                    } else {
+
+                    }
+                })
+                viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
+            }, 300)
+
+        }
+
+
 //        mAdapter.setonViewdatail(object : )
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
@@ -93,8 +125,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //                val bottomSheetFragment = CustomBottomSheetFragment.newInstance(1,"cms","cms","cms","cms","cms")
 //                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
+                progressDialog.show()
+
                 viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.Id!=0) {
+                        progressDialog.dismiss()
                          descrition= it.DetailDescription.toString()
                          shortdescrition= it.ShortDescription.toString()
                          id= it.Id!!
@@ -122,6 +157,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
             ) {
 
+                progressDialog.show()
+
                 AppUtils2.getServicePlanResponseData= ArrayList()
 
                 AppUtils2.getServicePlanResponseData.clear()
@@ -130,7 +167,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.isNotEmpty()) {
-
+                        progressDialog.dismiss()
                         bhklistResponseData=it
 
                     } else {

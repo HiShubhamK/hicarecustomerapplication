@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -74,11 +75,11 @@ class BookingServicePlanListAdapter :
 
     fun setServiceList(
         it: List<GetServicePlanResponseData>?,
-        bokingServiceDetailsActivity: BokingServiceDetailsActivity
+        bokingServiceDetailsActivity: Context
     ) {
         if (it != null) {
             this.plandata = it.toMutableList()
-            this.requireActivity = bokingServiceDetailsActivity
+            this.requireActivity = bokingServiceDetailsActivity as FragmentActivity
         }
         notifyDataSetChanged()
     }
