@@ -12,6 +12,7 @@ import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
+import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.razorpay.Checkout
 import org.json.JSONObject
@@ -70,6 +71,10 @@ object AppUtils2 {
     var versionname=""
     var ISChecklocationpermission=false
     var IsCheckbutton=false
+    var servicecode =""
+    lateinit var getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
+
+
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

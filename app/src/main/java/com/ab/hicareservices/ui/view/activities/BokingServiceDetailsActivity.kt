@@ -8,11 +8,14 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
+import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
+import com.ab.hicareservices.utils.AppUtils2
+import com.squareup.picasso.Picasso
 
 class BokingServiceDetailsActivity : AppCompatActivity() {
 
@@ -50,6 +53,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         bhklistResponseData = ArrayList<BhklistResponseData>()
 
+        Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
+
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
@@ -63,7 +68,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601","CMS")
+        viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
 
 //        mAdapter.setonViewdatail(object : )
 
@@ -93,7 +98,19 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 }, 200)
             }
 
-            override fun onClickAddButton(position: Int, planid: Int?, pincodeid: String, noOfBHK: String?) {
+            override fun onClickAddButton(
+                position: Int,
+                planid: Int?,
+                pincodeid: String,
+                noOfBHK: String?,
+                getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
+            ) {
+
+                AppUtils2.getServicePlanResponseData= ArrayList()
+
+                AppUtils2.getServicePlanResponseData.clear()
+
+                AppUtils2.getServicePlanResponseData.addAll(getServicePlanResponseData)
 
                 viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.isNotEmpty()) {
@@ -108,7 +125,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     val bottomSheetFragments = CustomBottomSheetAddBhkFragment.newInstance(
-                        bhklistResponseData as ArrayList<BhklistResponseData>,planid,pincodeid
+                        bhklistResponseData as ArrayList<BhklistResponseData>,
+                        planid,
+                        pincodeid,
+                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>
                     )
                     bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                 }, 200)
@@ -128,31 +148,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         })
         viewProductModel.getActiveServiceList()
 
-//        binding.txtviewdetails.setOnClickListener{
-//
-//            viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
-//                if (it.Id!=0) {
-//                    var descrition=it.DetailDescription
-//                    var shortdescrition=it.ShortDescription
-//                    var id=it.Id
-//                    var thumbnail=it.ServiceThumbnail
-//                    var servicecode=it.ServiceCode
-//                    var servicename=it.ServiceName
-//
-//                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
-//                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-//
-//                    Toast.makeText(this@BokingServiceDetailsActivity,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
-//                } else {
-//
-//                }
-//            })
-//
-//            viewProductModel.getActiveServiceDetailById(1)
-//
-//
-//            }
-
         binding.txtshortdes.text=shortDescription.toString()
         binding.txtlongdes.text=stailDescription.toString()
 
@@ -163,66 +158,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
-//
-//        viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
-//            if (it.isNotEmpty()) {
-//                for (i in 0 until it.size) {
-//                    spinnerlist.add(it.get(i).NoOfBHK.toString())
-//                }
-//                Toast.makeText(this,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
-//            } else {
-//
-//            }
-//        })
-//
-//        viewProductModel.getActiveBHKList()
-//
-//        val arrayAdapter =
-//            object : ArrayAdapter<String>(this, R.layout.spinner_layout_new, spinnerlist) {
-//                override fun isEnabled(position: Int): Boolean {
-//                    return position != 0
-//                }
-//
-//                override fun getDropDownView(
-//                    position: Int,
-//                    convertView: View?,
-//                    parent: ViewGroup
-//                ): View {
-//                    val view = super.getDropDownView(position, convertView, parent)
-//                    val tv = view as TextView
-//                    if (position == 0) {
-//                        tv.setTextColor(Color.GRAY)
-//                    } else {
-//                        tv.setTextColor(Color.BLACK)
-//                    }
-//                    return view
-//                }
-//            }
-//        arrayAdapter.setDropDownViewResource(R.layout.spinner_popup)
-//        binding.spinner.adapter = arrayAdapter
-//
-//        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                selectedLocation = binding.spinner.selectedItem.toString()
-//                if (selectedLocation != "Select flat area") {
-//
-//                } else {
-//                    viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
-//                        if (it.isNotEmpty()) {
-//                            for (i in 0 until it.size) {
-//                                spinnerlist.add(it.get(i).NoOfBHK.toString())
-//                            }
-//                            Toast.makeText(this@BokingServiceDetailsActivity,spinnerlist.size.toString(),Toast.LENGTH_SHORT).show()
-//                        } else {
-//
-//                        }
-//                    })
-//                    viewProductModel.getPlanAndPriceByBHKandPincode("400601",selectedLocation.toString(),serviceName.toString())
-//                }
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//            }
-//        }
+
     }
 }

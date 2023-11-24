@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.BookingServiceAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
+import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
 class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter.MainViewHolder>() {
@@ -45,6 +46,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
 
         holder.itemView.setOnClickListener {
             val intent= Intent(requireActivity, BokingServiceDetailsActivity::class.java)
+            AppUtils2.servicecode=service.ServiceCode.toString()
             intent.putExtra("ServiceName",service.ServiceName.toString())
             intent.putExtra("ServiceCode",service.ServiceCode.toString())
             intent.putExtra("ServiceThumbnail",service.ServiceThumbnail.toString())

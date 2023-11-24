@@ -15,10 +15,12 @@
         android:elevation="2dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/lnrTitle"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="65dp">
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
 
             <ImageView
                 android:id="@+id/imgLogo"
@@ -29,51 +31,120 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_weight=".05"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/title"
+
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                app:cardCornerRadius="5dp"
+                android:elevation="5dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginBottom="13dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_gravity="center">
+
+                    <EditText
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:id="@+id/getpincodetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:maxLines="1"
+                        android:background="@drawable/round_border"
+                        android:maxLength="6"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"
+                        android:hint="Enter pincode here"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1.8" />
+
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgsearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_background_curve"
+                        android:layout_weight="0.1"
+                        android:tint="@color/white"
+                        android:layout_margin="3dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_search_primary_light"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </LinearLayout>
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_vertical"-->
+            <!--                android:layout_marginLeft="50dp"-->
+            <!--                android:layout_weight="1.6"-->
+            <!--                android:fontFamily="@font/lato_semibold"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="Product"-->
+            <!--                android:textColor="@color/colorAccent"-->
+            <!--                android:textSize="18sp" />-->
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cartmenu"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="35dp"
-                android:layout_toRightOf="@id/imgLogo"
-                android:fontFamily="@font/lato_semibold"
-                android:gravity="center_horizontal"
-                android:text="Booking Service Order"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:layout_weight=".05"
+                android:padding="10dp"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/bottomheadertext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="45dp"
-                android:layout_toRightOf="@id/imgLogo"
-                android:gravity="center_horizontal"
-                android:text="Home"
-                android:textSize="10sp"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/appCompatImageViewd1"
+                    android:layout_width="35dp"
+                    android:layout_height="33dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_shopping_cart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.165"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/imgLogo"
-                android:gravity="end"
-                android:text="Help"
-                android:textColor="@color/colorAccent"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/appCompatImageViewd"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/appCompatImageViewd1"
+                    app:layout_constraintVertical_bias="0.0" />
 
-        </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
 
@@ -203,6 +274,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgbanner"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@drawable/avatar"/>

@@ -9,11 +9,13 @@ import com.ab.hicareservices.databinding.BookingPlanServicesAdapterBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 
-class BookingServicePlanListAdapter: RecyclerView.Adapter<BookingServicePlanListAdapter.MainViewHolder>() {
+class BookingServicePlanListAdapter :
+    RecyclerView.Adapter<BookingServicePlanListAdapter.MainViewHolder>() {
 
     var plandata = mutableListOf<GetServicePlanResponseData>()
     lateinit var requireActivity: FragmentActivity
     private var onBookingViewDetials: OnBookingViewDetials? = null
+    lateinit var getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,20 +26,49 @@ class BookingServicePlanListAdapter: RecyclerView.Adapter<BookingServicePlanList
 
 
     override fun getItemCount(): Int {
-       return plandata.size
+        return plandata.size
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val plan = plandata[position]
-        holder.binding.planname.text=plan.ServicePlanName
-        holder.binding.servicepriceplan.text="Start at"+" "+"\u20B9"+plan.Price.toString()
-        holder.binding.txtdescription.text=plan.ServicePlanDescription
+        holder.binding.planname.text = plan.ServicePlanName
+        holder.binding.servicepriceplan.text = "Start at" + " " + "\u20B9" + plan.Price.toString()
+        holder.binding.txtdescription.text = plan.ServicePlanDescription
         holder.itemView.setOnClickListener {
             onBookingViewDetials?.onViewDetails(position, plan.Id!!)
         }
 
         holder.binding.btnaddtocart.setOnClickListener {
-            onBookingViewDetials?.onClickAddButton(position, plan.Id,plan.PincodeId.toString(),plan.NoOfBHK)
+
+            getServicePlanResponseData = ArrayList()
+
+            getServicePlanResponseData.clear()
+
+            getServicePlanResponseData.add(
+                GetServicePlanResponseData(
+                    plan.Id,
+                    plan.PincodeId,
+                    plan.Pincode,
+                    plan.BHKId,
+                    plan.NoOfBHK,
+                    plan.PlanId,
+                    plan.ServicePlanName,
+                    plan.ServicePlanDescription,
+                    plan.SPCode,
+                    plan.Price,
+                    plan.IsActive
+
+                )
+            )
+
+            onBookingViewDetials?.onClickAddButton(
+                position,
+                plan.Id,
+                plan.PincodeId.toString(),
+                plan.NoOfBHK,
+                getServicePlanResponseData
+            )
+
         }
     }
 
@@ -53,7 +84,7 @@ class BookingServicePlanListAdapter: RecyclerView.Adapter<BookingServicePlanList
     }
 
     fun setonViewdatail(l: OnBookingViewDetials) {
-        onBookingViewDetials=l
+        onBookingViewDetials = l
     }
 
     class MainViewHolder(val binding: BookingPlanServicesAdapterBinding) :
