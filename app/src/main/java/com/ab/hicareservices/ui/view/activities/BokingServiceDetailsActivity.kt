@@ -7,9 +7,11 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
@@ -44,6 +46,17 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding=ActivityBokingServiceDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MyLocationListener(this)
+
+        AppUtils2.pincode= SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "").toString()
+
+        if(AppUtils2.pincode.equals("")){
+            binding.getpincodetext.setText("400080")
+        }else{
+            binding.getpincodetext.setText(AppUtils2.pincode)
+        }
+
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
         serviceCode = intent.getStringExtra("ServiceCode").toString()
@@ -55,10 +68,13 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
 
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
-
 
         viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
             if (it.isNotEmpty()) {

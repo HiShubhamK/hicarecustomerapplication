@@ -2,12 +2,16 @@ package com.ab.hicareservices.ui.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityPestServicesBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
+import com.ab.hicareservices.utils.AppUtils2
 
 class PestServicesActivity : AppCompatActivity() {
 
@@ -20,6 +24,21 @@ class PestServicesActivity : AppCompatActivity() {
 //        setContentView(R.layout.activity_pest_services)
         binding = ActivityPestServicesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MyLocationListener(this)
+
+
+        AppUtils2.pincode= SharedPreferenceUtil.getData(this@PestServicesActivity, "pincode", "").toString()
+
+        if(AppUtils2.pincode.equals("")){
+            binding.getpincodetext.setText("400080")
+        }else{
+            binding.getpincodetext.setText(AppUtils2.pincode)
+        }
+
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
 
 //        binding.recMenu.layoutManager = GridLayoutManager(this@PestServicesActivity, 3)
         binding.recMenu.layoutManager = LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)

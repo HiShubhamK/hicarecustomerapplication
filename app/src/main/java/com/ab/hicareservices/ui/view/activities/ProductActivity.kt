@@ -110,6 +110,10 @@ class ProductActivity : AppCompatActivity() {
         AppUtils2.pincode =
             SharedPreferenceUtil.getData(this@ProductActivity, "pincode", "").toString()
 
+        binding.imgLogo.setOnClickListener {
+            onBackPressed()
+        }
+
         progressDialog = ProgressDialog(this@ProductActivity, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
