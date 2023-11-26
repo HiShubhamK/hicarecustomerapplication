@@ -35,6 +35,9 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".BookingServiceDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activities.BookingServiceCheckout"
             android:exported="false" />
         <activity

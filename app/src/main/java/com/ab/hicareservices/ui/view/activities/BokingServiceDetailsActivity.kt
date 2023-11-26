@@ -64,8 +64,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
-
-
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
         serviceCode = intent.getStringExtra("ServiceCode").toString()

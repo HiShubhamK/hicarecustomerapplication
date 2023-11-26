@@ -83,7 +83,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         mAdapter = BookingServiceBhklistAdapter()
         recycleview.adapter = mAdapter
 
-        mAdapter.setServiceList(serviceList, activity!!)
+        if (serviceList != null) {
+            mAdapter.setServiceList(serviceList, activity!!)
+        }
 
         mAdapter.setonViewdatail(object : OnBookingFlatPerPrice {
             override fun onClickonFlat(position: Int, noofbhk: String?) {

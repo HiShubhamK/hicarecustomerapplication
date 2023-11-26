@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.databinding.CustomBottomSheetAddBhk2AdapterBinding
 import com.ab.hicareservices.ui.handler.OnBookingFlatPerPrice
-import java.util.ArrayList
 
 class BookingServiceBhklistAdapter : RecyclerView.Adapter<BookingServiceBhklistAdapter.MainViewHolder>() {
 
@@ -17,7 +16,7 @@ class BookingServiceBhklistAdapter : RecyclerView.Adapter<BookingServiceBhklistA
     private var onBookingViewDetials: OnBookingFlatPerPrice? = null
 
     fun setServiceList(
-        movies: ArrayList<BhklistResponseData>?,
+        movies: List<BhklistResponseData>,
         pestServicesActivity: Context
     ) {
         if (movies != null) {
