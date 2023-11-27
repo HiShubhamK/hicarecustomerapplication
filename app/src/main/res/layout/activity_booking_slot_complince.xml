@@ -178,6 +178,7 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -192,7 +193,8 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
     <CalendarView
-        android:theme="@style/Theme.AppCompat.Light"        android:background="@color/white"
+        android:theme="@style/Theme.AppCompat.Light"
+        android:background="@color/white"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -229,7 +231,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
             android:src="@drawable/calendar">
 
         </ImageView>
@@ -247,12 +248,11 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
-            android:text="-:Available Slot:-"
+            android:text="-:Available Dates:-"
             android:textColor="@color/grey_font"
             android:textSize="16sp" />
         <LinearLayout
@@ -339,7 +339,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:visibility="visible"
-        tools:listitem="@layout/layout_complaince_adapter" />
+        tools:listitem="@layout/layout_service_complaince_adapter" />
 
 
     <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->

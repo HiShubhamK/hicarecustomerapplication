@@ -34,6 +34,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDxWpNjeNRl8_62bKRfS57AzgcvDZ-DxXM" />
+
         <activity
             android:name=".BookingServiceDetailsActivity"
             android:exported="false" />
@@ -321,6 +325,14 @@
             android:name=".ui.view.activities.ComplaintsActivityNew"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.view.activities.MyOrderActivityNew" />
+        <activity android:name=".ui.view.activities.MapsActivity">
+
+        </activity>
+        <activity android:name=".ui.view.activities.MapsDemoActivity"/>
+        <activity android:name=".ui.view.activities.AddAddressActivity" />
+        <activity android:name=".ui.view.activities.ServicesAddresslistActivity" />
+
+
     </application>
 
 </manifest>

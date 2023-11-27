@@ -2,26 +2,31 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ab.hicareservices.data.model.service.ServiceResponse
+import com.ab.hicareservices.data.model.product.SaveAddressResponse
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincodeData
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponseData
+import com.ab.hicareservices.data.model.servicesmodule.ExistingAddressListModel
+import com.ab.hicareservices.data.model.servicesmodule.ExistingCustomerAddressData
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ServiceBooking : ViewModel() {
     val repository = MainRepository()
+    val saveServiceAddressResponse = MutableLiveData<SaveAddressResponse>()
 
     val serviceresponssedata = MutableLiveData<List<ServiceListResponseData>>()
+    val existingAddressListModel = MutableLiveData<List<ExistingCustomerAddressData>>()
     val activebhklist = MutableLiveData<List<BhklistResponseData>>()
     val activebhkpincode = MutableLiveData<List<BHKandPincodeData>>()
     val bookingServiceDetailResponseData = MutableLiveData<BookingServiceDetailResponseData>()
@@ -45,6 +50,25 @@ class ServiceBooking : ViewModel() {
             }
 
             override fun onFailure(call: Call<ServiceListResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+        })
+    }
+    fun getexistingcustomeraddress(customerid: Int) {
+        val response = repository.getexistingserviceAddress(customerid)
+        response.enqueue(object : Callback<ExistingAddressListModel> {
+            override fun onResponse(
+                call: Call<ExistingAddressListModel>,
+                response: Response<ExistingAddressListModel>
+            ) {
+                if (response.body()!!.IsSuccess == true) {
+                    existingAddressListModel.postValue(response.body()!!.Data)
+                } else {
+                    errorMessage.postValue(response.body()?.ResponseMessage!!)
+                }
+            }
+
+            override fun onFailure(call: Call<ExistingAddressListModel>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })
@@ -119,13 +143,31 @@ class ServiceBooking : ViewModel() {
             ) {
                 if (response.body()?.IsSuccess == true) {
                     servicePlanResponseData.postValue(response.body()!!.Data)
-                }else{
+                } else {
                     errorMessage.postValue("Please Check Internet Connection.")
                 }
             }
 
             override fun onFailure(call: Call<GetServicePlanResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
+            }
+
+        })
+    }
+
+
+    fun SaveServiceAddressnew(data: HashMap<String, Any>) {
+        val response = repository.SaveServiceAddress(data)
+        response.enqueue(object : Callback<SaveAddressResponse> {
+            override fun onResponse(
+                call: Call<SaveAddressResponse>,
+                response: Response<SaveAddressResponse>
+            ) {
+                saveServiceAddressResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
+                errorMessage.postValue(call.toString())
             }
 
         })

@@ -30,6 +30,17 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     private val viewProductModel: ServiceBooking by viewModels()
     lateinit var bhkandpincodedata: List<BHKandPincodeData>
     var price = ""
+    private var ServiceCenter_Id = ""
+    private var SkillId = ""
+    private var SlotDate = ""
+    private var TaskId = ""
+    private var Latt = ""
+    private var Longg = ""
+    private var ServiceType = ""
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unit = ""
+    private var spcode = ""
 
     companion object {
         private const val ARG_DATA = "list_key"
@@ -94,12 +105,19 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     if (it.isNotEmpty()) {
 
                         bhkandpincodedata = it
+
+                        spcode = bhkandpincodedata.get(position).SPCode.toString()
+                        AppUtils2.pincode = bhkandpincodedata.get(position).Pincode.toString()
+                        Unit=noofbhk.toString()
+
                         for (i in 0 until bhkandpincodedata.size) {
                             if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
 
-                                pricewisebhk.text = "\u20B9" + bhkandpincodedata.get(i).Price.toString()
+                                pricewisebhk.text =
+                                    "\u20B9" + bhkandpincodedata.get(i).Price.toString()
                                 price = bhkandpincodedata.get(i).Price.toString()
-                                AppUtils2.bookingserviceprice = bhkandpincodedata.get(i).Price.toString()
+                                AppUtils2.bookingserviceprice =
+                                    bhkandpincodedata.get(i).Price.toString()
 //                                if (bhkandpincodedata.get(i).Price != 0) {
 //                                }else{
 //                                    pricewisebhk.text = "\u20B9" + "00"
@@ -112,7 +130,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     }
                 })
 
-                viewProductModel.getPlanAndPriceByBHKandPincode("400601", noofbhk.toString(),"CMS")
+                viewProductModel.getPlanAndPriceByBHKandPincode("400601", noofbhk.toString(), "CMS")
 
 //                viewProductModel.getPlanAndPriceByBHKandPincode(
 //                    pincode,
@@ -123,7 +141,29 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         })
 
         button.setOnClickListener {
-            val intent= Intent(activity,BookingServiceCheckout::class.java)
+            val intent = Intent(activity, MapsDemoActivity::class.java)
+            intent.putExtra("ServiceCenter_Id", "")
+            intent.putExtra("SlotDate", "")
+            intent.putExtra("TaskId", "")
+            intent.putExtra("SkillId", "")
+            intent.putExtra("Latt", "")
+            intent.putExtra("Longg", "")
+            intent.putExtra("ServiceType", "pest")
+            intent.putExtra("Pincode", AppUtils2.pincode)
+            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Unit", Unit)
+            intent.putExtra("SPCode", spcode)
+//            ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+//            SlotDate = intent.getStringExtra("SlotDate").toString()
+//            TaskId = intent.getStringExtra("TaskId").toString()
+//            SkillId = intent.getStringExtra("SkillId").toString()
+//            Latt = intent.getStringExtra("Lat").toString()
+//            Longg = intent.getStringExtra("Long").toString()
+//            ServiceType = intent.getStringExtra("ServiceType").toString()
+//            Pincode = intent.getStringExtra("Pincode").toString()
+//            Service_Code = intent.getStringExtra("Service_Code").toString()
+//            Unit = intent.getStringExtra("Unit").toString()
+//            spcode = intent.getStringExtra("SPCode").toString()
             startActivity(intent)
 //            Toast.makeText(activity,AppUtils2.getServicePlanResponseData.toString(),Toast.LENGTH_LONG).show()
             Toast.makeText(activity, planlist.toString(), Toast.LENGTH_LONG).show()

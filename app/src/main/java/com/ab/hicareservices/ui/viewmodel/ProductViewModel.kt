@@ -28,6 +28,7 @@ class ProductViewModel: ViewModel() {
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
     val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
+    val SaveServiceAddress = MutableLiveData<SaveAddressResponse>()
     val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
     val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()

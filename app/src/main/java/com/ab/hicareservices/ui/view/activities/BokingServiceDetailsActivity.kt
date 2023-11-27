@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -82,6 +83,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
+        binding.imgbanner.setOnClickListener{
+            val intent=Intent(this@BokingServiceDetailsActivity, MapsDemoActivity::class.java)
+            startActivity(intent)
+        }
+
 
         progressDialog.show()
 

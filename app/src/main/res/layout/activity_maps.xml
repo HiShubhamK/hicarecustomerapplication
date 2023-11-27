@@ -1,9 +1,176 @@
-<?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.activities.MapsActivity" />
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search for a place" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/autocomplete_fragment"
+        map:cameraZoom="12" />
+    <LinearLayout
+        android:padding="10dp"
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottomsheet_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="House/ Flat /Block no."
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:fontFamily="@font/lato_semibold"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/border_background_curves">
+
+
+
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="1dp"
+                android:layout_height="match_parent">
+            </View>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/mobileNoEt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="@font/lato_regular"
+                android:hint="Enter your flat/ house no"
+                android:maxLength="10"
+                android:padding="12dp"
+                android:background="@null"
+                android:textColor="@color/black"
+                android:textColorHint="@color/md_grey_500" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="Landmark / Society name"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:fontFamily="@font/lato_semibold"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/border_background_curves">
+
+
+
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="1dp"
+                android:layout_height="match_parent">
+            </View>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtLandmark"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="@font/lato_regular"
+                android:hint="Enter your flat/ house no"
+                android:maxLength="10"
+                android:padding="12dp"
+                android:background="@null"
+                android:textColor="@color/black"
+                android:textColorHint="@color/md_grey_500" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="Save as"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:fontFamily="@font/lato_semibold"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Home Button -->
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/toggle_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:background="@drawable/toggel_selectoor"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:checked="false" />
+
+            <!-- Work Button -->
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/toggle_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Work"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:background="@drawable/toggel_selectoor"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:checked="false" />
+
+            <!-- Other Address Button -->
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/toggle_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:background="@drawable/toggel_selectoor"
+                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:checked="false" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:text="Proceed"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
