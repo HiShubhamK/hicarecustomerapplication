@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.databinding.ActivityMyOrderBinding
+import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.utils.AppUtils2
 
 class BookingServiceCheckout : AppCompatActivity() {
 
-    private lateinit var mAdapter: BookingServicePlanListAdapter
+    private lateinit var mAdapter: BookingServiceCheckoutAdapter
     private lateinit var binding: ActivityBookingServiceCheckoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +24,14 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding = ActivityBookingServiceCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.txttotoalvalue.text=AppUtils2.bookingserviceprice.toString()
+        binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingserviceprice
+        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingserviceprice
 
         binding.recycleviewproduct.layoutManager = LinearLayoutManager(this@BookingServiceCheckout, LinearLayoutManager.VERTICAL, false)
-        mAdapter = BookingServicePlanListAdapter()
+        mAdapter = BookingServiceCheckoutAdapter()
         binding.recycleviewproduct.adapter = mAdapter
-        mAdapter.setServiceList(AppUtils2.getServicePlanResponseData,this)
-
+        mAdapter.setServiceList(AppUtils2.getServicePlanResponseData,this@BookingServiceCheckout)
 
     }
 }

@@ -86,7 +86,8 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="30dp"
@@ -155,6 +156,7 @@
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
+                            android:text="Akshay"
                             android:textColor="@color/black"
                             android:textSize="13sp" />
 
@@ -179,6 +181,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/lato_regular"
                             android:maxLines="6"
+                            android:text="vikroli west"
                             android:textColor="@color/black"
                             android:textSize="13sp" />
                         <View
