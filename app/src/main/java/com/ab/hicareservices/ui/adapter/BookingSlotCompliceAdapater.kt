@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.slotcomplaincemodel.Data
 import com.ab.hicareservices.databinding.LayoutComplainceAdapterBinding
+import com.ab.hicareservices.databinding.LayoutServiceComplainceAdapterBinding
 import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.utils.AppUtils2
 
@@ -50,7 +52,7 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = LayoutComplainceAdapterBinding.inflate(inflater, parent, false)
+        val binding = LayoutServiceComplainceAdapterBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
@@ -80,8 +82,11 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
         }
         holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
-            onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
-                "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())
+            Toast.makeText(requireActivity,""+complincelist.ScheduledDateText.toString(), Toast.LENGTH_SHORT).show()
+
+
+//            onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
+//                "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())
         }
 //        holder.binding.crdMain.setOnClickListener {
 //
@@ -146,7 +151,7 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
         onSlotclick = l
     }
 
-    class MainViewHolder(val binding: LayoutComplainceAdapterBinding) :
+    class MainViewHolder(val binding: LayoutServiceComplainceAdapterBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
 

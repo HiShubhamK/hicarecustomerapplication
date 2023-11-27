@@ -327,6 +327,7 @@
         </activity>
         <activity android:name=".ui.view.activities.MapsDemoActivity"/>
         <activity android:name=".ui.view.activities.AddAddressActivity" />
+        <activity android:name=".ui.view.activities.ServicesAddresslistActivity" />
 
 
     </application>

@@ -724,7 +724,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -756,7 +756,7 @@
 
                                 <EditText
                                     android:id="@+id/etflatno"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="50dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"
@@ -773,7 +773,7 @@
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:orientation="vertical">
@@ -824,7 +824,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat

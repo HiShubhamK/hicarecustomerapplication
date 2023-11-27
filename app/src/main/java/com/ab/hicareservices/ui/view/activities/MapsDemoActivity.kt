@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.orders.Locality
+import com.ab.hicareservices.utils.AppUtils2
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -44,11 +45,33 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
     private lateinit var lat:String
     private lateinit var longg:String
-
+    private var ServiceCenter_Id = ""
+    private var SkillId = ""
+    private var SlotDate = ""
+    private var TaskId = ""
+    private var Latt = ""
+    private var Longg = ""
+    private var ServiceType = ""
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unit = ""
+    private var spcode = ""
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+
+        ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+        SlotDate = intent.getStringExtra("SlotDate").toString()
+        TaskId = intent.getStringExtra("TaskId").toString()
+        SkillId = intent.getStringExtra("SkillId").toString()
+        Latt = intent.getStringExtra("Lat").toString()
+        Longg = intent.getStringExtra("Long").toString()
+        ServiceType = intent.getStringExtra("ServiceType").toString()
+        Pincode = intent.getStringExtra("Pincode").toString()
+        Service_Code = intent.getStringExtra("Service_Code").toString()
+        Unit = intent.getStringExtra("Unit").toString()
+        spcode = intent.getStringExtra("SPCode").toString()
 
         addressTextView = findViewById(R.id.addressTextView)
         tvAddressdetail = findViewById(R.id.tvAddressdetail)
@@ -69,9 +92,19 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         btnNext.setOnClickListener {
-            val intent=Intent(this,AddAddressActivity::class.java)
-            intent.putExtra("Lat",lat)
-            intent.putExtra("Longg",longg)
+            val intent=Intent(this,ServicesAddresslistActivity::class.java)
+            intent.putExtra("ServiceCenter_Id", "")
+            intent.putExtra("SlotDate", "")
+            intent.putExtra("TaskId", "")
+            intent.putExtra("SkillId", "")
+            intent.putExtra("Latt", lat)
+            intent.putExtra("Longg", longg)
+            intent.putExtra("ServiceType", "pest")
+            intent.putExtra("Pincode", AppUtils2.pincode)
+            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Unit", Unit)
+            intent.putExtra("SPCode", spcode)
+
             startActivity(intent)
 
         }

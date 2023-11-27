@@ -3,7 +3,6 @@ package com.ab.hicareservices.ui.view.activities
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -12,283 +11,163 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddressBinding
-import com.ab.hicareservices.ui.adapter.AddressAdapter
-import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
-import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.databinding.ActivityServiceAddresslistBinding
+import com.ab.hicareservices.ui.adapter.ServiceAddressAdapter
+import com.ab.hicareservices.ui.handler.onAddressClickedHandler
+import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
-import java.util.*
 
-class AddressActivity : AppCompatActivity() {
+class ServicesAddresslistActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddressBinding
-    private val viewProductModel: ProductViewModel by viewModels()
-    private lateinit var mAdapter: AddressAdapter
-    lateinit var datalist: ArrayList<String>
-    private val viewModels: HomeActivityViewModel by viewModels()
-    var shippingdata: String? = ""
-    var billingdata: String? = ""
+
+    private lateinit var binding: ActivityServiceAddresslistBinding
+    private lateinit var mAdapter: ServiceAddressAdapter
+    private val viewProductModel: ServiceBooking by viewModels()
+    var shipping = ""
     lateinit var progressDialog: ProgressDialog
-    var checkboxcheck: Boolean = false
-    var pincodeshipping = ""
-    var pincode: String? = null
+    private var ServiceCenter_Id = ""
+    private var SkillId = ""
+    private var SlotDate = ""
+    private var TaskId = ""
+    private var Latt = ""
+    private var Longg = ""
+    private var ServiceType = ""
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unit = ""
+    private var spcode = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_address)
-        binding = ActivityAddressBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_addresslist)
+        binding = ActivityServiceAddresslistBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Latt = intent.getStringExtra("Latt").toString()
+        Longg = intent.getStringExtra("Longg").toString()
+        ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+        SlotDate = intent.getStringExtra("SlotDate").toString()
+        TaskId = intent.getStringExtra("TaskId").toString()
+        SkillId = intent.getStringExtra("SkillId").toString()
+        ServiceType = intent.getStringExtra("ServiceType").toString()
+        Pincode = intent.getStringExtra("Pincode").toString()
+        Service_Code = intent.getStringExtra("Service_Code").toString()
+        Unit = intent.getStringExtra("Unit").toString()
+        spcode = intent.getStringExtra("SPCode").toString()
 
+
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
         progressDialog =
             ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        datalist = ArrayList()
-        datalist.add("Select Type")
+        val intent = intent
+        shipping = intent.getStringExtra("shippingaddress").toString()
 
-        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-
-
-        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
-        shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
-        billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
-
-        if (checkboxcheck == false) {
-            checkboxcheck == true
-            binding.checkbox.isChecked == false
-            binding.checkbox.isClickable == true
-        } else {
-            checkboxcheck == false
-            binding.checkbox.isChecked == true
-            binding.checkbox.isClickable == false
-        }
-
-        if (!pincode.isNullOrEmpty()) {
-            binding.tvPincode.text = "Deliver to pincode " + pincode
-
-        } else {
-            binding.tvPincode.visibility = View.GONE
-        }
-
-        binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            if (b == true) {
-                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
-            } else {
-
-            }
-        }
+        getAddressList(shipping)
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-//            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
+//            val intent=Intent(this,AddressActivity::class.java)
 //            startActivity(intent)
 //            finish()
         }
 
-
-
-        if (shippingdata.equals("")) {
-            binding.txtshipping.text = ""
-            getAddressListdata()
-        } else {
-            getAddressListdata2()
-//            getAddressforshipping()
-        }
-
-        if (!billingdata.equals("")) {
-            getAddressforbilling()
-        } else {
-            binding.txtbilling.text = ""
-        }
-
-
-        binding.txtchangeaddress.setOnClickListener {
-            val intent = Intent(this, AddresslistActivity::class.java)
-            intent.putExtra("shippingaddress", "true")
-            startActivity(intent)
-        }
-
-
-        binding.btnnext.setOnClickListener {
-            if (binding.txtshipping.text.equals("")) {
-                Toast.makeText(this, "Please Add Shipping Address", Toast.LENGTH_SHORT).show()
-            } else {
-                if (pincodeshipping.equals(AppUtils2.pincode)) {
-                    if (billingdata.equals("")) {
-                        billingdata = shippingdata
-                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
-
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    }
-                } else {
-                    if (billingdata.equals("")) {
-                        billingdata = shippingdata
-                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
-
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    }
-                }
-            }
-        }
-
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true", binding.checkbox, AppUtils2.pincode)
+            val intent = Intent(this, AddAddressActivity::class.java)
+            intent.putExtra("ServiceCenter_Id", "")
+            intent.putExtra("SlotDate", "")
+            intent.putExtra("TaskId", "")
+            intent.putExtra("SkillId", "")
+            intent.putExtra("Latt", Latt)
+            intent.putExtra("Longg", Longg)
+            intent.putExtra("ServiceType", "Pest")
+            intent.putExtra("Pincode", AppUtils2.pincode)
+            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Unit", Unit)
+            intent.putExtra("SPCode", spcode)
+
+            startActivity(intent)
+
+//            showAddNewAddressdialog(shipping,0)
         }
 
     }
 
-    private fun getAddressforbilling() {
+    private fun getAddressList(shipping: String) {
         progressDialog.show()
-        viewProductModel.getaddressbydetailid.observe(this, Observer {
+        binding.recycleviewaddress.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mAdapter = ServiceAddressAdapter()
+
+        binding.recycleviewaddress.adapter = mAdapter
+
+        viewProductModel.existingAddressListModel.observe(this, Observer {
             progressDialog.dismiss()
-            binding.txtbilling.visibility = View.VISIBLE
-            binding.txtbilling.text =
-                it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
-                        it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
+            mAdapter.setAddressList(it, this, viewProductModel, shipping)
+            mAdapter.notifyDataSetChanged()
+
         })
-        viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
-    }
+
+        viewProductModel.getexistingcustomeraddress(AppUtils2.customerid.toInt())
 
 
-    private fun getAddressforshipping() {
-        progressDialog.show()
-        viewProductModel.getaddressbydetailid.observe(this, Observer {
-            progressDialog.dismiss()
-
-            binding.txtshipping.visibility = View.VISIBLE
-            binding.txtshipping.text =
-                it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
-                        it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
-            pincodeshipping = it.Pincode.toString()
-        })
-        viewProductModel.getAddressDetailbyId(shippingdata!!.toInt())
-    }
-
-
-    private fun getAddressListdata() {
-
-        progressDialog.show()
-
-        viewProductModel.cutomeraddress.observe(this, Observer {
-
-            progressDialog.dismiss()
-
-            for (i in 0 until it.size) {
-
-                var data = it.get(i).Id.toString()
-                if (data.equals(shippingdata)) {
-                    binding.txtshipping.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
-                    pincodeshipping = it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
-                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
-                    break
-                } else if (it.get(i).IsDefault == true) {
-                    binding.txtshipping.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
-                    pincodeshipping = it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this, "Shippingdata", it.get(i).Id.toString())
-                    shippingdata = it.get(i).Id.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
-                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
-                    break
-                } else {
-                    binding.txtshipping.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
-                    pincodeshipping = it.get(i).Pincode.toString()
-                    SharedPreferenceUtil.setData(this, "Shippingdata", it.get(i).Id.toString())
-                    shippingdata = it.get(i).Id.toString()
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", "")
-                    SharedPreferenceUtil.setData(this@AddressActivity, "pincode", pincodeshipping)
-                    binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
-                    break
-                }
+        mAdapter.setOnAddressItemClicked(object : onAddressClickedHandler {
+            override fun setonaddclicklistener(position: Int, id: Int?, b: Boolean) {
+                showAddNewAddressdialog(b.toString(), 0)
+                binding.recycleviewaddress.post(Runnable { mAdapter.notifyDataSetChanged() })
             }
-        })
 
-        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
-    }
+            override fun setradiobuttonclicklistern(position: Int) {
+                binding.recycleviewaddress.post(Runnable { mAdapter.notifyDataSetChanged() })
 
-    private fun getAddressListdata2() {
-
-        progressDialog.show()
-
-        viewProductModel.cutomeraddress.observe(this, Observer {
-
-            progressDialog.dismiss()
-
-            for (i in 0 until it.size) {
-
-                var data = it.get(i).Id.toString()
-                if (data.equals(shippingdata)) {
-                    binding.txtshipping.text =
-                        it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
-                            i
-                        ).Street.toString() + "," +
-                                it.get(i).Locality.toString() + "," + it.get(i).Landmark.toString() + "," + it.get(
-                            i
-                        ).City.toString() + "," + it.get(i).State.toString() + "," + it.get(i).Pincode.toString()
-                    pincodeshipping = it.get(i).Pincode.toString()
-                    break
-                }
             }
+
+            override fun setItemClickLister(position: Int, id: Int?, b: Boolean, toString: String) {
+                if (b == true) {
+                    SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(
+                        this@ServicesAddresslistActivity,
+                        "pincode",
+                        toString
+                    )
+                    AppUtils2.shippingdata = id.toString()
+                    SharedPreferenceUtil.setData(
+                        this@ServicesAddresslistActivity,
+                        "Shippingdata",
+                        id.toString()
+                    )
+                    val intent =
+                        Intent(this@ServicesAddresslistActivity, AddressActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    finish()
+                } else if (b == false) {
+//                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
+                }
+
+            }
+
         })
 
-        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
-
-    private fun showAddNewAddressdialog(
-        b: String,
-        appCompatCheckBox: AppCompatCheckBox,
-        pincode: String
-    ) {
+    private fun showAddNewAddressdialog(b: String, id: Int?) {
         var selectedLocation = ""
         var dateTime = ""
         val li = LayoutInflater.from(this)
-        val promptsView = li.inflate(R.layout.layout_addnew_addreess, null)
+        val promptsView = li.inflate(R.layout.layout_addservice_addreess, null)
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialogBuilder.setView(promptsView)
         val alertDialog: AlertDialog = alertDialogBuilder.create()
+
 
         if (b.equals("true")) {
 
@@ -311,17 +190,19 @@ class AddressActivity : AppCompatActivity() {
             val saveBtn = promptsView.findViewById<View>(R.id.saveBtn) as Button
 
 
+            etpincode.setText(AppUtils2.pincode)
+
+            etpincode.isEnabled = false
+            etpincode.isClickable = false
+
+
             alertDialog.setCancelable(false)
 
-            imgcancels.setOnClickListener {
-                alertDialog.cancel()
-                binding.checkbox.isChecked == false
-                appCompatCheckBox.isChecked = false
-            }
+            imgcancels.setOnClickListener { alertDialog.cancel() }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
             val arrayAdapter =
-                object : ArrayAdapter<String>(this, R.layout.spinner_popup, courses) {
+                object : ArrayAdapter<String>(this, R.layout.spinner_layout_new, courses) {
                     override fun isEnabled(position: Int): Boolean {
                         return position != 0
                     }
@@ -347,21 +228,15 @@ class AddressActivity : AppCompatActivity() {
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     selectedLocation = spinner.selectedItem.toString()
-                    if (selectedLocation != "Select Address Type") {
+                    if (selectedLocation != "Select Type") {
 
                     } else {
-
                     }
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
-
-            etpincode.setText(pincode)
-
-            etpincode.isEnabled = false
-            etpincode.isClickable = false
 
             saveBtn.setOnClickListener {
                 if (selectedLocation.toString().trim().equals("Select Address Type") &&
@@ -374,8 +249,8 @@ class AddressActivity : AppCompatActivity() {
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
                         .equals("") &&
                     etlandmark.text.toString().trim().equals("") &&
-                    etcity.text.toString().trim().equals("") &&
-                    etstate.text.toString().trim().equals("")
+                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
+                        .equals("")
                 ) {
 
                     Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
@@ -401,21 +276,21 @@ class AddressActivity : AppCompatActivity() {
                 } else if (etflatno.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
                 } else if (etbuildname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter Building name", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
                 } else if (etstreet.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
                 } else if (etlocality.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
                 } else if (etlandmark.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter Landmark", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
                 } else if (etcity.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
                 } else if (etstate.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
-                    Toast.makeText(this, "Incorrect pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
                 } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -439,17 +314,10 @@ class AddressActivity : AppCompatActivity() {
                     data["GST_No"] = ""
                     data["IsDefault"] = false
 
-                    viewProductModel.getsaveaddressresponse.observe(this, Observer {
+                    viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                         progressDialog.dismiss()
                         if (it.IsSuccess == true) {
-                            var newAddressid = it.Data.toString()
-                            shippingdata = newAddressid
-                            SharedPreferenceUtil.setData(this, "Shippingdata", newAddressid)
-                            getAddressListdata2()
                             alertDialog.dismiss()
-                            binding.checkbox.isChecked == false
-                            appCompatCheckBox.isChecked = false
-
                             Toast.makeText(
                                 this,
                                 "Shipping address added successfully",
@@ -461,7 +329,7 @@ class AddressActivity : AppCompatActivity() {
                         }
                     })
 
-                    viewProductModel.postSaveAddress(data)
+                    viewProductModel.SaveServiceAddressnew(data)
 
 
                 }
@@ -485,8 +353,6 @@ class AddressActivity : AppCompatActivity() {
             val txttitle = promptsView.findViewById<View>(R.id.texttitle) as TextView
             val lnraddresstypes =
                 promptsView.findViewById<View>(R.id.lnraddresstypes) as LinearLayout
-            val etstate = promptsView.findViewById<View>(R.id.etstate) as EditText
-            val etcity = promptsView.findViewById<View>(R.id.etcitites) as EditText
 
             val imgcancels = promptsView.findViewById<View>(R.id.imgbtncancel) as ImageView
             val spinner = promptsView.findViewById<View>(R.id.spinner) as AppCompatSpinner
@@ -499,11 +365,7 @@ class AddressActivity : AppCompatActivity() {
 
             lnraddresstypes.visibility = View.GONE
 
-            imgcancels.setOnClickListener {
-                alertDialog.cancel()
-                checkboxcheck == false
-                appCompatCheckBox.isChecked = false
-            }
+            imgcancels.setOnClickListener { alertDialog.cancel() }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
             val arrayAdapter =
@@ -553,11 +415,11 @@ class AddressActivity : AppCompatActivity() {
                     etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
                         .equals("") &&
                     etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim()
-                        .equals("") &&
-                    etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
                         .equals("")
                 ) {
+
                     Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
+
                 } else if (etname.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
@@ -569,29 +431,25 @@ class AddressActivity : AppCompatActivity() {
                 } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
                     Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (etemps.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter email adress", Toast.LENGTH_LONG).show()
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
-                    Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter correct email adress", Toast.LENGTH_LONG).show()
                 } else if (selectedLocation.toString().trim().equals("Select Type")) {
                     Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
                 } else if (etflatno.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
                 } else if (etbuildname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter Building name", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
                 } else if (etstreet.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
                 } else if (etlocality.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
                 } else if (etlandmark.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
-                } else if (etcity.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
-                } else if (etstate.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
-                } else if (etpincode.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
-                    Toast.makeText(this, "Incorrect pincode", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+                } else if (etpincode.text.toString().trim().length < 6) {
+                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
                 } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -606,8 +464,8 @@ class AddressActivity : AppCompatActivity() {
                     data["Street"] = etstreet.text.toString()
                     data["Locality"] = etlocality.text.toString()
                     data["Landmark"] = etlandmark.text.toString()
-                    data["City"] = etcity.text.toString()
-                    data["State"] = etstate.text.toString()
+                    data["City"] = ""
+                    data["State"] = ""
                     data["Pincode"] = etpincode.text.toString()
                     data["Address_Lat"] = ""
                     data["Address_Long"] = ""
@@ -615,29 +473,21 @@ class AddressActivity : AppCompatActivity() {
                     data["GST_No"] = ""
                     data["IsDefault"] = false
 
-                    viewProductModel.getsaveaddressresponse.observe(this, Observer {
+                    viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                         progressDialog.dismiss()
                         if (it.IsSuccess == true) {
+                            val mIntent = intent
+                            finish()
+                            startActivity(mIntent)
                             var newaddessid = it.Data.toString()
-                            billingdata = it.Data.toString()
-                            SharedPreferenceUtil.setData(this, "Billingdata", newaddessid)
-//                            getAddressforshipping()
-                            getAddressforbilling()
-
-                            Toast.makeText(
-                                this,
-                                "Billing address added successfully",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            binding.checkbox.isChecked == false
-                            appCompatCheckBox.isChecked = false
+//                            Toast.makeText(this@ServicesAddresslistActivity,newaddessid,Toast.LENGTH_LONG).show()
                             alertDialog.dismiss()
 
                         } else {
                         }
                     })
 
-                    viewProductModel.postSaveAddress(data)
+                    viewProductModel.SaveServiceAddressnew(data)
 
                 }
             }
@@ -645,17 +495,7 @@ class AddressActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
-        SharedPreferenceUtil.setData(this, "Billingdata", "")
-        SharedPreferenceUtil.setData(this, "Shippingdata", "")
-        val intent = Intent(this@AddressActivity, AddToCartActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-
     }
 }

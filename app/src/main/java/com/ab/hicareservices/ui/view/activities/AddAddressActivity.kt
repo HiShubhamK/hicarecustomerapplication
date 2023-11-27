@@ -23,14 +23,16 @@ import com.ab.hicareservices.databinding.LayoutAddserviceAddreessBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import java.util.*
 
 class AddAddressActivity : AppCompatActivity() {
 
     private lateinit var binding: LayoutAddserviceAddreessBinding
-    private val viewProductModel: ProductViewModel by viewModels()
+    private val viewProductModel: ServiceBooking by viewModels()
     private lateinit var mAdapter: AddressAdapter
     private val viewModels: HomeActivityViewModel by viewModels()
     var shippingdata: String? = ""
@@ -43,17 +45,35 @@ class AddAddressActivity : AppCompatActivity() {
     var selectedLocation = ""
     var lat: String? = null
     var longg: String? = null
-
-
+    private var ServiceCenter_Id = ""
+    private var SkillId = ""
+    private var SlotDate = ""
+    private var TaskId = ""
+    private var Latt = ""
+    private var Longg = ""
+    private var ServiceType = ""
+    private var Pincode = ""
+    private var Service_Code = ""
+    private var Unit = ""
+    private var spcode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_addnew_addreess)
+        setContentView(R.layout.layout_addservice_addreess)
         binding = LayoutAddserviceAddreessBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
-        lat = intent.getStringExtra("Lat").toString()
+        lat = intent.getStringExtra("Latt").toString()
         longg = intent.getStringExtra("Longg").toString()
+        ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+        SlotDate = intent.getStringExtra("SlotDate").toString()
+        TaskId = intent.getStringExtra("TaskId").toString()
+        SkillId = intent.getStringExtra("SkillId").toString()
+        ServiceType = intent.getStringExtra("ServiceType").toString()
+        Pincode = intent.getStringExtra("Pincode").toString()
+        Service_Code = intent.getStringExtra("Service_Code").toString()
+        Unit = intent.getStringExtra("Unit").toString()
+        spcode = intent.getStringExtra("SPCode").toString()
 
         MyLocationListener(this)
 
@@ -114,13 +134,17 @@ class AddAddressActivity : AppCompatActivity() {
         binding.etpincodes.isClickable = false
 
         binding.saveBtn.setOnClickListener {
-            if (binding.etname.text.toString().trim().equals("") && binding.edtmobileno.text.toString().trim()
+            if (binding.etname.text.toString().trim()
+                    .equals("") && binding.edtmobileno.text.toString().trim()
                     .equals("") &&
-                binding.etemps.text.toString().trim().equals("") && selectedLocation.toString().trim()
+                binding.etemps.text.toString().trim().equals("") && selectedLocation.toString()
+                    .trim()
                     .equals("Select Type") &&
-                binding.etflatno.text.toString().trim().equals("") && binding.etbuildname.text.toString().trim()
+                binding.etflatno.text.toString().trim()
+                    .equals("") && binding.etbuildname.text.toString().trim()
                     .equals("") &&
-                binding.etstreet.text.toString().trim().equals("") && binding.etlocality.text.toString().trim()
+                binding.etstreet.text.toString().trim()
+                    .equals("") && binding.etlocality.text.toString().trim()
                     .equals("") &&
                 binding.etlandmark.text.toString().trim().equals("")
             ) {
@@ -129,7 +153,7 @@ class AddAddressActivity : AppCompatActivity() {
 
             } else if (binding.etname.text.toString().trim().equals("")) {
                 Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
-            } else  if (binding.etemps.text.toString().trim().equals("")) {
+            } else if (binding.etemps.text.toString().trim().equals("")) {
                 Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etemps.text.toString()).matches()) {
                 Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
@@ -143,16 +167,16 @@ class AddAddressActivity : AppCompatActivity() {
                 Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
             } else if (binding.etlandmark.text.toString().trim().equals("")) {
                 Toast.makeText(this, "Enter Landmark", Toast.LENGTH_LONG).show()
-            } else  {
+            } else {
                 progressDialog.show()
                 var data = HashMap<String, Any>()
                 data["Id"] = 0
                 data["User_Id"] = AppUtils2.customerid.toInt()
                 data["Fname"] = binding.etname.text.toString()
-                data["LastName"] ="."
+                data["LastName"] = "."
                 data["Customer_Name"] = binding.etname.text.toString()
                 data["Mobile_No"] = binding.edtmobileno.text.toString()
-                data["Alt_Mobile_No"] =""
+                data["Alt_Mobile_No"] = ""
                 data["Email_Id"] = binding.etemps.text.toString()
                 data["FlatNo"] = binding.etflatno.text.toString()
                 data["BuildingName"] = binding.etbuildname.text.toString()
@@ -162,15 +186,26 @@ class AddAddressActivity : AppCompatActivity() {
                 data["City"] = ""
                 data["State"] = ""
                 data["Lat"] = lat.toString()
-                data["Long"] =longg.toString()
-                data["Pincode"] =pincode.toString()
+                data["Long"] = longg.toString()
+                data["Pincode"] = pincode.toString()
 
-                viewProductModel.SaveServiceAddress.observe(this, Observer {
-                    progressDialog.dismiss()
+                viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
-                        var newAddressid = it.Data.toString()
-                        shippingdata = newAddressid
-                        SharedPreferenceUtil.setData(this, "Shippingdata", newAddressid)
+                        progressDialog.dismiss()
+                        val intent=Intent(this@AddAddressActivity,BookingSlotComplinceActivity::class.java)
+                        intent.putExtra("ServiceCenter_Id", "")
+                        intent.putExtra("SlotDate", "")
+                        intent.putExtra("TaskId", "")
+                        intent.putExtra("SkillId", "")
+                        intent.putExtra("Latt", "")
+                        intent.putExtra("Longg", "")
+                        intent.putExtra("ServiceType", "pest")
+                        intent.putExtra("Pincode", AppUtils2.pincode)
+                        intent.putExtra("Service_Code", "CMS")
+                        intent.putExtra("Unit", Unit)
+                        intent.putExtra("SPCode", spcode)
+                        startActivity(intent)
+
 //                        getAddressListdata2()
 //                        alertDialog.dismiss()
 //                        binding.checkbox.isChecked == false
@@ -178,16 +213,18 @@ class AddAddressActivity : AppCompatActivity() {
 
                         Toast.makeText(
                             this,
-                            "Shipping address added successfully",
+                            "Address added successfully!",
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
                         Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
                             .show()
                     }
+                    progressDialog.dismiss()
+
                 })
 
-                viewProductModel.SaveServiceAddress(data)
+                viewProductModel.SaveServiceAddressnew(data)
 
 
             }

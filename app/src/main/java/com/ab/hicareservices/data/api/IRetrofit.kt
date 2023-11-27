@@ -25,6 +25,7 @@ import com.ab.hicareservices.data.model.service.ServiceResponse
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponse
 import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailResponse
+import com.ab.hicareservices.data.model.servicesmodule.ExistingAddressListModel
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
@@ -125,6 +126,8 @@ interface IRetrofit {
 
     @GET("Address/GetCustomerAddressByCustomerId")
     fun getcustomerAddress(@Query("customerId") customerId: Int): Call<CustomerAddress>
+   @GET("Service/GetActiveAddressListByUserId")
+    fun getexistingserviceAddress(@Query("customerId") customerId: Int): Call<ExistingAddressListModel>
 
     @GET("Product/GetProductListByPincode")
     fun getProductlist(@Query("pincode") pincode: String): Call<ProductListResponse>

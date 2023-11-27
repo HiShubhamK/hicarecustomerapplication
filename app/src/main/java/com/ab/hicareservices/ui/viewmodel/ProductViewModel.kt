@@ -216,22 +216,6 @@ class ProductViewModel: ViewModel() {
 
         })
     }
-    fun SaveServiceAddress(data: HashMap<String, Any>){
-        val response=repository.SaveServiceAddress(data)
-        response.enqueue(object :Callback<SaveAddressResponse>{
-            override fun onResponse(
-                call: Call<SaveAddressResponse>,
-                response: Response<SaveAddressResponse>
-            ) {
-                getsaveaddressresponse.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
-                errorMessage.postValue("Please Check Internet Connection.")
-            }
-
-        })
-    }
     fun getOrderSummeryList(userid: Int) {
         val response = repository.getordersummeryList(userid)
         response.enqueue(object : Callback<OrderSummeryResponse> {
