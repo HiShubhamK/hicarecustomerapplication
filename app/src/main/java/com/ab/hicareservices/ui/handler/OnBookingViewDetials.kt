@@ -6,6 +6,7 @@ interface OnBookingViewDetials {
     fun onViewDetails(
         position: Int,
         productid: Int,
+        servicePlanDescription: String?,
     )
 
     abstract fun onClickAddButton(

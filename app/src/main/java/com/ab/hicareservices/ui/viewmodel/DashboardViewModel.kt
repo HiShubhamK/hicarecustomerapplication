@@ -46,8 +46,6 @@ fun GetDashboard(mobileNo: String, requireActivity: FragmentActivity) {
                 var checkrequestcode = AppUtils2.requestcode(response.code().toString())
 
                 if (response.code()==200) {
-                    Toast.makeText(requireActivity,response.code().toString(),Toast.LENGTH_LONG).show()
-
                     try {
                         if (response.isSuccessful) {
                             dashboardmain.postValue(response.body()!!.Data)

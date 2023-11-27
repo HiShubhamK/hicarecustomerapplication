@@ -119,7 +119,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //        mAdapter.setonViewdatail(object : )
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
-            override fun onViewDetails(position: Int, serviceid: Int) {
+            override fun onViewDetails(
+                position: Int,
+                serviceid: Int,
+                servicePlanDescription: String?
+            ) {
 //                val bottomSheetFragment = CustomBottomSheetFragment.newInstance(1,"cms","cms","cms","cms","cms")
 //                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
@@ -142,7 +146,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 viewProductModel.getActiveServiceDetailById(1)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition)
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription)
                     bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
                 }, 200)
             }
@@ -167,7 +171,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     if (it.isNotEmpty()) {
                         progressDialog.dismiss()
                         bhklistResponseData=it
-
                     } else {
 
                     }
@@ -198,6 +201,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             }
         })
         viewProductModel.getActiveServiceList()
+
 
         binding.txtshortdes.text=shortDescription.toString()
         binding.txtlongdes.text=stailDescription.toString()

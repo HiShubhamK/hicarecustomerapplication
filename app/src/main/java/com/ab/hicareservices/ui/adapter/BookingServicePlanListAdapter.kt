@@ -1,16 +1,13 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.BookingServiceDetailsActivity
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingPlanServicesAdapterBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
-import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 
 class BookingServicePlanListAdapter :
     RecyclerView.Adapter<BookingServicePlanListAdapter.MainViewHolder>() {
@@ -38,13 +35,13 @@ class BookingServicePlanListAdapter :
         holder.binding.servicepriceplan.text = "Start at" + " " + "\u20B9" + plan.Price.toString()
         holder.binding.txtdescription.text = plan.ServicePlanDescription
         holder.itemView.setOnClickListener {
-            onBookingViewDetials?.onViewDetails(position, plan.Id!!)
+            onBookingViewDetials?.onViewDetails(position, plan.Id!!,plan.ServicePlanDescription)
         }
 
-        holder.itemView.setOnClickListener {
-            val intent= Intent(requireActivity,BookingServiceDetailsActivity::class.java)
-            requireActivity.startActivity(intent)
-        }
+//        holder.itemView.setOnClickListener {
+//            val intent= Intent(requireActivity,BookingServiceDetailsActivity::class.java)
+//            requireActivity.startActivity(intent)
+//        }
 
         holder.binding.btnaddtocart.setOnClickListener {
 

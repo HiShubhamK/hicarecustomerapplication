@@ -274,7 +274,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgbanner"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:src="@drawable/avatar"/>
 
 
@@ -291,8 +291,8 @@
             android:layout_margin="10dp"
             android:fontFamily="@font/lato_semibold"
             android:text="Cockroach Monitoring Service"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"

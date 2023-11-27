@@ -18,6 +18,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
     var thumbnail=""
     var shortdescrition=""
     var descrition=""
+    var fulldescritpition=""
 
     companion object {
         private const val ARG_DATA = "data_key"
@@ -26,6 +27,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         private const val ARG_THUMBNAIL = "data_THUMBNAIL"
         private const val ARG_SHORTDESCRIPTION = "data_SHORTDESCRIPTION"
         private const val ARG_DESCRIPTION = "data_DESCRIPTION"
+        private const val ARG_FUL_DESCRIPTION ="data_full_description"
 
         fun newInstance(
             data: Int?,
@@ -33,7 +35,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             servicecode: String?,
             thumbnail: String?,
             shortdescrition: String?,
-            descrition: String?
+            descrition: String?,
+            servicePlanDescription: String?
         ): CustomBottomSheetFragment {
             val fragment = CustomBottomSheetFragment()
             val args = Bundle()
@@ -43,6 +46,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             args.putString(ARG_THUMBNAIL, thumbnail.toString())
             args.putString(ARG_SHORTDESCRIPTION, shortdescrition.toString())
             args.putString(ARG_DESCRIPTION, descrition.toString())
+            args.putString(ARG_FUL_DESCRIPTION,servicePlanDescription.toString())
             fragment.arguments = args
             return fragment
         }
@@ -61,6 +65,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         thumbnail = arguments?.getString(ARG_THUMBNAIL).toString()
         shortdescrition = arguments?.getString(ARG_SHORTDESCRIPTION).toString()
         descrition = arguments?.getString(ARG_DESCRIPTION).toString()
+        fulldescritpition=arguments?.getString(ARG_FUL_DESCRIPTION).toString()
 
         val textView = view.findViewById<AppCompatTextView>(R.id.servicename)
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)
@@ -68,7 +73,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
         textView.text = servicename
         textViewdescription.text=descrition
-        shortdecriptions.text=shortdescrition
+        shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
 
         return view

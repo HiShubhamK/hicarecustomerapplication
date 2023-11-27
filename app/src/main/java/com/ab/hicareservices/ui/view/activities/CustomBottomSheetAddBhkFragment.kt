@@ -88,7 +88,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         }
 
         mAdapter.setonViewdatail(object : OnBookingFlatPerPrice {
-            override fun onClickonFlat(position: Int, noofbhk: String?) {
+            override fun onClickonFlat(position: Int, noofbhk: String?, selectedPosition: Int) {
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {

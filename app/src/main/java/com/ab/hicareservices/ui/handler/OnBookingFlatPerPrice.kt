@@ -4,6 +4,7 @@ interface OnBookingFlatPerPrice {
     fun onClickonFlat(
         position: Int,
         productid: String?,
+        selectedPosition: Int,
     )
 
 }
