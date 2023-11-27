@@ -45,6 +45,7 @@ class MainRepository {
     fun getCartSummary(userId: Int,pincoode: String,vouchercode:String)=retrofitProduct.getCartSummary(userId,pincoode,vouchercode)
     fun getDeleteProductCart(cartId:Int,userId: Int)=retrofitProduct.getDeleteProductCart(cartId,userId)
     fun postSaveAddress(data: HashMap<String, Any>)=retrofitProduct.postSaveAddress(data)
+    fun SaveServiceAddress(data: HashMap<String, Any>)=retrofitService.SaveServiceAddress(data)
     fun  getaddressdetailbyid(addressId:Int)=retrofitProduct.getaddressdetailbyid(addressId)
     fun postSaveSalesOrder(data: HashMap<String, Any>)=retrofitProduct.postSaveSalesOrder(data)
     fun CreateProductComplaint(data: HashMap<String, Any>)=retrofitProduct.CreateProductComplaint(data)

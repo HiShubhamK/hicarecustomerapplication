@@ -166,6 +166,9 @@ interface IRetrofit {
     @POST("Address/SaveAddress")
     fun postSaveAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
 
+   @POST("Service/SaveServiceAddress")
+    fun SaveServiceAddress(@Body data: HashMap<String, Any>): Call<SaveAddressResponse>
+
 
     @GET("Order/GetOrderList")
     fun getorderSummeryList(@Query("userId") userId: Int): Call<OrderSummeryResponse>

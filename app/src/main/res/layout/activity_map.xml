@@ -1,20 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.activities.MapsActivity">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/mapView"
+    <!-- Toolbar with Back Arrow -->
+
+    <!-- Map Fragment -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        />
 
+    <!-- CardView with TextView for Address -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:padding="12dp">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="start"
+                android:text="Selected Delivery Location"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textColor="@color/grey_font"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_location">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvAddressdetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/lato_regular"
+                android:text=""
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="10dp"
+                android:maxLines="3"
+                android:textColor="@color/md_black_1000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="@font/lato_semibold"
+                android:layout_margin="10dp"
+                android:text="CONFIRM LOCATION"
+                android:textColor="@color/white"
+                android:elevation="5dp"
+                android:background="@color/colorAccent"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -44,6 +44,7 @@ class AddressActivity : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         progressDialog =
             ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -364,10 +365,14 @@ class AddressActivity : AppCompatActivity() {
 
             saveBtn.setOnClickListener {
                 if (selectedLocation.toString().trim().equals("Select Address Type") &&
-                    etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim().equals("") &&
-                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim().equals("Select Type") &&
-                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim().equals("") &&
-                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim().equals("") &&
+                    etname.text.toString().trim().equals("") && edtmobileno.text.toString().trim()
+                        .equals("") &&
+                    etemps.text.toString().trim().equals("") && selectedLocation.toString().trim()
+                        .equals("Select Type") &&
+                    etflatno.text.toString().trim().equals("") && etbuildname.text.toString().trim()
+                        .equals("") &&
+                    etstreet.text.toString().trim().equals("") && etlocality.text.toString().trim()
+                        .equals("") &&
                     etlandmark.text.toString().trim().equals("") &&
                     etcity.text.toString().trim().equals("") &&
                     etstate.text.toString().trim().equals("")
@@ -375,10 +380,9 @@ class AddressActivity : AppCompatActivity() {
 
                     Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
-                }else if (selectedLocation.toString().trim().equals("Select Address Type")) {
-                Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
-                }
-                else if (etname.text.toString().trim().equals("")) {
+                } else if (selectedLocation.toString().trim().equals("Select Address Type")) {
+                    Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
+                } else if (etname.text.toString().trim().equals("")) {
                     Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
                         .equals("") && !edtmobileno.text.toString().equals("0000000000")
@@ -457,7 +461,7 @@ class AddressActivity : AppCompatActivity() {
                         }
                     })
 
-                    viewProductModel.postSaveAddress(data)
+                    viewProductModel.SaveServiceAddress(data)
 
 
                 }

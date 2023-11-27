@@ -3,6 +3,7 @@
     <string name="txtno">No</string>
     <string name="txtyes">Yes</string>
     <string name="my_orders">My Orders</string>
+        <string name="google_maps_key">AIzaSyDxWpNjeNRl8_62bKRfS57AzgcvDZ-DxXM</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

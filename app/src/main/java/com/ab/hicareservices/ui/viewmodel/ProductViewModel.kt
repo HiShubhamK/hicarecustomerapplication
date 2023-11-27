@@ -28,6 +28,7 @@ class ProductViewModel: ViewModel() {
     val getsummarydata=MutableLiveData<GetCartSummaryData>()
     val getDeleteProductCart=MutableLiveData<DeleteProductInCart>()
     val getsaveaddressresponse = MutableLiveData<SaveAddressResponse>()
+    val SaveServiceAddress = MutableLiveData<SaveAddressResponse>()
     val getordersummeryList= MutableLiveData<List<OrderSummeryData>>()
     val getaddressbydetailid= MutableLiveData<AddressByDetailIdData>()
     val razorpayOrderIdResponse = MutableLiveData<RazorpayOrderIdResponse>()
@@ -201,6 +202,22 @@ class ProductViewModel: ViewModel() {
 
     fun postSaveAddress(data: HashMap<String, Any>){
         val response=repository.postSaveAddress(data)
+        response.enqueue(object :Callback<SaveAddressResponse>{
+            override fun onResponse(
+                call: Call<SaveAddressResponse>,
+                response: Response<SaveAddressResponse>
+            ) {
+                getsaveaddressresponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+
+        })
+    }
+    fun SaveServiceAddress(data: HashMap<String, Any>){
+        val response=repository.SaveServiceAddress(data)
         response.enqueue(object :Callback<SaveAddressResponse>{
             override fun onResponse(
                 call: Call<SaveAddressResponse>,

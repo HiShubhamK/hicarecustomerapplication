@@ -933,7 +933,7 @@ class HomeFragment : Fragment() {
                                             ) {
                                                 // Initialize
                                                 // location
-                                                val location1: Location = locationResult.lastLocation
+                                                val location1: Location = locationResult.lastLocation!!
                                                 // Set latitude
 //                                    Toasty.success(
 //                                        this@Checkin_Out_Home,
