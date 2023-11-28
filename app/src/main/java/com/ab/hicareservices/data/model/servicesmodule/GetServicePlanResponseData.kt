@@ -12,12 +12,26 @@ data class GetServicePlanResponseData(
     @SerializedName("No_Of_BHK") var NoOfBHK: String? = null,
     @SerializedName("PlanId") var PlanId: Int? = null,
     @SerializedName("Service_Plan_Name") var ServicePlanName: String? = null,
-    @SerializedName("Service_Plan_Description" ) var ServicePlanDescription : String?  = null,
+    @SerializedName("Service_Plan_Description") var ServicePlanDescription: String? = null,
     @SerializedName("SPCode") var SPCode: String? = null,
     @SerializedName("Price") var Price: Int? = null,
-    @SerializedName("Is_Active") var IsActive: Boolean? = null
+    @SerializedName("Discounted_Amount") var DiscountedAmount: Boolean? = null,
+    @SerializedName("Discounted_Price") var DiscountedPrice: Int? = null,
+    @SerializedName("Discount_Type") var DiscountType: String? = null,
+    @SerializedName("Discount") var Discount: Int? = null,
+    @SerializedName("Discount_StartDate") var DiscountStartDate: String? = null,
+    @SerializedName("Discount_EndDate") var DiscountEndDate: String? = null,
+    @SerializedName("Ratings") var Ratings: String? = null,
+    @SerializedName("Is_Active") var IsActive: Boolean? = null,
+    @SerializedName("Created_By") var CreatedBy: Int? = null,
+    @SerializedName("Created_On") var CreatedOn: String? = null,
+    @SerializedName("Serviceid") var Serviceid: Int? = null,
+    @SerializedName("Modified_By") var ModifiedBy: Int? = null,
+    @SerializedName("Modified_On") var ModifiedOn: String? = null
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
@@ -28,7 +42,19 @@ data class GetServicePlanResponseData(
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
     ) {
     }
 

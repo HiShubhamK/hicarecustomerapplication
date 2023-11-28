@@ -35,7 +35,7 @@ class BookingServicePlanListAdapter :
         holder.binding.servicepriceplan.text = "Start at" + " " + "\u20B9" + plan.Price.toString()
         holder.binding.txtdescription.text = plan.ServicePlanDescription
         holder.itemView.setOnClickListener {
-            onBookingViewDetials?.onViewDetails(position, plan.Id!!,plan.ServicePlanDescription)
+            onBookingViewDetials?.onViewDetails(position, plan.Id!!, plan.ServicePlanDescription,plan.Price,plan.DiscountedPrice)
         }
 
 //        holder.itemView.setOnClickListener {
@@ -61,9 +61,21 @@ class BookingServicePlanListAdapter :
                     plan.ServicePlanDescription,
                     plan.SPCode,
                     plan.Price,
-                    plan.IsActive
+                    plan.DiscountedAmount,
+                    plan.DiscountedPrice,
+                    plan.DiscountType,
+                    plan.Discount,
+                    plan.DiscountStartDate,
+                    plan.DiscountEndDate,
+                    plan.Ratings,
+                    plan.IsActive,
+                    plan.CreatedBy,
+                    plan.CreatedOn,
+                    plan.Serviceid,
+                    plan.ModifiedBy,
+                    plan.ModifiedOn
 
-                )
+            )
             )
 
             onBookingViewDetials?.onClickAddButton(
@@ -71,8 +83,11 @@ class BookingServicePlanListAdapter :
                 plan.Id,
                 plan.PincodeId.toString(),
                 plan.NoOfBHK,
-                getServicePlanResponseData
-            )
+                getServicePlanResponseData,
+                plan.Price,
+                plan.DiscountedAmount,
+                plan.DiscountedPrice
+                )
 
         }
     }

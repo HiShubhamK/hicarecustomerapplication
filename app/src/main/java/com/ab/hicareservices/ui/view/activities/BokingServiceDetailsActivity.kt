@@ -128,7 +128,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             override fun onViewDetails(
                 position: Int,
                 serviceid: Int,
-                servicePlanDescription: String?
+                servicePlanDescription: String?,
+                price: Int?,
+                discountedPrice: Int?
             ) {
 //                val bottomSheetFragment = CustomBottomSheetFragment.newInstance(1,"cms","cms","cms","cms","cms")
 //                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
@@ -152,7 +154,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 viewProductModel.getActiveServiceDetailById(1)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription)
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription,price,discountedPrice)
                     bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
                 }, 200)
             }
@@ -162,7 +164,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 planid: Int?,
                 pincodeid: String,
                 noOfBHK: String?,
-                getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
+                getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
+                price: Int?,
+                discountedAmount: Boolean?,
+                discountedPrice: Int?
             ) {
 
                 progressDialog.show()
@@ -188,7 +193,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         bhklistResponseData as ArrayList<BhklistResponseData>,
                         planid,
                         pincodeid,
-                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>
+                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
+                        price,
+                        discountedPrice
                     )
                     bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                 }, 200)

@@ -11,7 +11,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.orders.OrdersData
 import com.ab.hicareservices.data.model.orders.OrdersResponse
 import com.ab.hicareservices.data.model.product.SaveAddressResponse
-import com.ab.hicareservices.data.model.product.SaveServiceAddressResponse
+//import com.ab.hicareservices.data.model.product.SaveServiceAddressResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.utils.AppUtils2
@@ -23,7 +23,7 @@ class OrdersViewModel : ViewModel() {
     val repository = MainRepository()
     val ordersList = MutableLiveData<List<OrdersData>>()
     val errorMessage = MutableLiveData<String>()
-    val saveAddressResponse = MutableLiveData<SaveServiceAddressResponse>()
+//    val saveAddressResponse = MutableLiveData<SaveServiceAddressResponse>()
     val responseMessage = MutableLiveData<String>()
 
     fun getCustomerOrdersByMobileNo(mobileNo: String, progressDialog: ProgressDialog, fragmentActivity: FragmentActivity) {

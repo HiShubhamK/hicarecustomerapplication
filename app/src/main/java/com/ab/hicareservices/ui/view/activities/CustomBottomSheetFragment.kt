@@ -19,6 +19,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
     var shortdescrition=""
     var descrition=""
     var fulldescritpition=""
+    var price=""
+    var discountedPrice=""
 
     companion object {
         private const val ARG_DATA = "data_key"
@@ -28,6 +30,9 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         private const val ARG_SHORTDESCRIPTION = "data_SHORTDESCRIPTION"
         private const val ARG_DESCRIPTION = "data_DESCRIPTION"
         private const val ARG_FUL_DESCRIPTION ="data_full_description"
+        private const val ARG_PRICE ="data_PRICE"
+        private const val ARG_DISCOUNTEDPRICE ="data_DISCOUNTEDPRICE"
+
 
         fun newInstance(
             data: Int?,
@@ -36,7 +41,9 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             thumbnail: String?,
             shortdescrition: String?,
             descrition: String?,
-            servicePlanDescription: String?
+            servicePlanDescription: String?,
+            price: Int?,
+            discountedPrice: Int?
         ): CustomBottomSheetFragment {
             val fragment = CustomBottomSheetFragment()
             val args = Bundle()
@@ -47,6 +54,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             args.putString(ARG_SHORTDESCRIPTION, shortdescrition.toString())
             args.putString(ARG_DESCRIPTION, descrition.toString())
             args.putString(ARG_FUL_DESCRIPTION,servicePlanDescription.toString())
+            args.putString(ARG_PRICE,price.toString())
+            args.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
             fragment.arguments = args
             return fragment
         }
@@ -66,6 +75,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         shortdescrition = arguments?.getString(ARG_SHORTDESCRIPTION).toString()
         descrition = arguments?.getString(ARG_DESCRIPTION).toString()
         fulldescritpition=arguments?.getString(ARG_FUL_DESCRIPTION).toString()
+        price=arguments?.getString(ARG_PRICE).toString()
+        discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
 
         val textView = view.findViewById<AppCompatTextView>(R.id.servicename)
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)

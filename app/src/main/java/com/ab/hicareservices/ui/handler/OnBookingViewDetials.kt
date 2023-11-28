@@ -7,13 +7,18 @@ interface OnBookingViewDetials {
         position: Int,
         productid: Int,
         servicePlanDescription: String?,
+        price: Int?,
+        discountedPrice: Int?,
     )
 
-    abstract fun onClickAddButton(
+    fun onClickAddButton(
         position: Int,
         id1: Int?,
         id: String,
         noOfBHK: String?,
-        getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
+        getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
+        price: Int?,
+        discountedAmount: Boolean?,
+        discountedPrice: Int?
     )
 }

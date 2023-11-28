@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,18 +42,25 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
+    var prices=""
+    var discountedPrice=""
 
     companion object {
         private const val ARG_DATA = "list_key"
         private const val PLAN_ID = "PLAN_ID"
         private const val PINCODE_ID = "PINCODE_ID"
         private const val PLANLIST = "PLAN_LIST"
+        private const val ARG_PRICE ="data_PRICE"
+        private const val ARG_DISCOUNTEDPRICE ="data_DISCOUNTEDPRICE"
+
 
         fun newInstance(
             bhklistResponseData: List<BhklistResponseData>,
             planid: Int?,
             pincodeid: String,
-            getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
+            getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
+            price: Int?,
+            discountedPrice: Int?
         ): CustomBottomSheetAddBhkFragment {
             val fragment = CustomBottomSheetAddBhkFragment()
             val bundle = Bundle()
@@ -60,6 +68,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             bundle.putParcelableArrayList(PLANLIST, ArrayList(getServicePlanResponseData))
             bundle.putString(PLAN_ID, planid.toString())
             bundle.putString(PINCODE_ID, pincodeid)
+            bundle.putString(ARG_PRICE,price.toString())
+            bundle.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
+
             fragment.arguments = bundle
             return fragment
         }
@@ -76,16 +87,27 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val serviceList = arguments?.getParcelableArrayList<BhklistResponseData>(ARG_DATA)
 
         val planlist = arguments?.getParcelableArrayList<GetServicePlanResponseData>(ARG_DATA)
-
         var pincode = arguments?.getString(PINCODE_ID).toString()
-
         var planid = arguments?.getString(PLAN_ID).toString()
+        prices=arguments?.getString(ARG_PRICE).toString()
+        discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
+
+
 
         bhkandpincodedata = ArrayList<BHKandPincodeData>()
 
         val pricewisebhk = view.findViewById<AppCompatTextView>(R.id.pricewisebhk)
-
+        val discountedamount= view.findViewById<AppCompatTextView>(R.id.discountedamount)
         val button = view.findViewById<TextView>(R.id.btnproceed)
+
+        pricewisebhk.text =
+            "\u20B9" + prices.toString()
+        discountedamount.text =
+            "\u20B9" + discountedPrice.toString()
+        pricewisebhk.paintFlags =
+            pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+        button.alpha=0.6f
 
         val recycleview = view.findViewById<RecyclerView>(R.id.recycleviewaddarea)
 
@@ -104,25 +126,32 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {
 
-                        bhkandpincodedata = it
+                        try {
 
-                        spcode = bhkandpincodedata.get(position).SPCode.toString()
-                        AppUtils2.pincode = bhkandpincodedata.get(position).Pincode.toString()
-                        Unit=noofbhk.toString()
+                            bhkandpincodedata = it
 
-                        for (i in 0 until bhkandpincodedata.size) {
-                            if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
+                            for (i in 0 until bhkandpincodedata.size) {
+                                if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
 
-                                pricewisebhk.text =
-                                    "\u20B9" + bhkandpincodedata.get(i).Price.toString()
-                                price = bhkandpincodedata.get(i).Price.toString()
-                                AppUtils2.bookingserviceprice =
-                                    bhkandpincodedata.get(i).Price.toString()
+                                    pricewisebhk.text =
+                                        "\u20B9" + bhkandpincodedata.get(i).Price.toString()
+                                    discountedamount.text =
+                                        "\u20B9" + bhkandpincodedata.get(i).DiscountedPrice.toString()
+                                    pricewisebhk.paintFlags =
+                                        pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+
+                                    price = bhkandpincodedata.get(i).Price.toString()
+                                    AppUtils2.bookingserviceprice =
+                                        bhkandpincodedata.get(i).Price.toString()
 //                                if (bhkandpincodedata.get(i).Price != 0) {
 //                                }else{
 //                                    pricewisebhk.text = "\u20B9" + "00"
 //                                }
+                                }
                             }
+                        }catch(e:Exception){
+                            e.printStackTrace()
                         }
 
                     } else {
