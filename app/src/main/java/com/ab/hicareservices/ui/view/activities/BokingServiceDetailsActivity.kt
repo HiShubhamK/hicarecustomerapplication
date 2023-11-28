@@ -65,6 +65,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
+
+
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
         serviceCode = intent.getStringExtra("ServiceCode").toString()
@@ -110,11 +112,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.isNotEmpty()) {
-                        progressDialog.dismiss()
                         mAdapter.setServiceList(it,this)
                     } else {
 
                     }
+                    progressDialog.dismiss()
+
                 })
                 viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
             }, 300)
@@ -125,27 +128,28 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //        mAdapter.setonViewdatail(object : )
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
+
+
+
+
             override fun onViewDetails(
                 position: Int,
-                serviceid: Int,
+                productid: Int,
                 servicePlanDescription: String?,
                 price: Int?,
                 discountedPrice: Int?
             ) {
-//                val bottomSheetFragment = CustomBottomSheetFragment.newInstance(1,"cms","cms","cms","cms","cms")
-//                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-
                 progressDialog.show()
 
                 viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.Id!=0) {
                         progressDialog.dismiss()
-                         descrition= it.DetailDescription.toString()
-                         shortdescrition= it.ShortDescription.toString()
-                         id= it.Id!!
-                         thumbnail= it.ServiceThumbnail.toString()
-                         servicecode= it.ServiceCode.toString()
-                         servicename= it.ServiceName.toString()
+                        descrition= it.DetailDescription.toString()
+                        shortdescrition= it.ShortDescription.toString()
+                        id= it.Id!!
+                        thumbnail= it.ServiceThumbnail.toString()
+                        servicecode= it.ServiceCode.toString()
+                        servicename= it.ServiceName.toString()
 
                     } else {
 
@@ -166,7 +170,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 noOfBHK: String?,
                 getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
                 price: Int?,
-                discountedAmount: Boolean?,
+                discountedAmount: Int?,
                 discountedPrice: Int?
             ) {
 
@@ -182,6 +186,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     if (it.isNotEmpty()) {
                         progressDialog.dismiss()
                         bhklistResponseData=it
+
                     } else {
 
                     }
@@ -193,13 +198,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         bhklistResponseData as ArrayList<BhklistResponseData>,
                         planid,
                         pincodeid,
-                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
-                        price,
-                        discountedPrice
-                    )
+                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,price,discountedPrice)
                     bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                 }, 200)
             }
+
+
         })
 
         binding.recMenu.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -212,9 +216,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             } else {
 
             }
+            progressDialog.dismiss()
         })
         viewProductModel.getActiveServiceList()
-
 
         binding.txtshortdes.text=shortDescription.toString()
         binding.txtlongdes.text=stailDescription.toString()

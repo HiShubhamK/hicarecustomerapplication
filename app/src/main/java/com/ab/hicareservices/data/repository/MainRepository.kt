@@ -35,7 +35,7 @@ class MainRepository {
     fun getTodayScheduledService(mobileNo: String)=retrofitService.getTodayScheduledService(mobileNo)
     fun getcustomerloginid(mobileNo: String) = retrofitProduct.getcustomerid(mobileNo)
     fun getcustomerAddress(customerid: Int) = retrofitProduct.getcustomerAddress(customerid)
-    fun getexistingserviceAddress(customerid: Int) = retrofitService.getexistingserviceAddress(customerid)
+    fun getexistingserviceAddress(userId: Int) = retrofitService.getexistingserviceAddress(userId)
     fun getordersummeryList(userid: Int) = retrofitProduct.getorderSummeryList(userid)
     fun getAddressDetailById(addressid: Int) = retrofitProduct.getorderSummeryList(addressid)
     fun getproductlist(pincoode:String) = retrofitProduct.getProductlist(pincoode)

@@ -54,8 +54,8 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
-    fun getexistingcustomeraddress(customerid: Int) {
-        val response = repository.getexistingserviceAddress(customerid)
+    fun getexistingcustomeraddress(userId: Int) {
+        val response = repository.getexistingserviceAddress(userId)
         response.enqueue(object : Callback<ExistingAddressListModel> {
             override fun onResponse(
                 call: Call<ExistingAddressListModel>,

@@ -1,6 +1,5 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -10,23 +9,21 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.CustomerAddressData
-import com.ab.hicareservices.data.model.servicesmodule.ExistingCustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddressActivity
-import com.ab.hicareservices.ui.view.activities.ServicesAddresslistActivity
+import com.ab.hicareservices.ui.view.activities.AddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
-import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 
 
-class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainViewHolder>() {
+class AddAddressListAdapter : RecyclerView.Adapter<AddAddressListAdapter.MainViewHolder>() {
 
-    var addressData = mutableListOf<ExistingCustomerAddressData>()
+    var productlist = mutableListOf<CustomerAddressData>()
     lateinit var requireActivity:FragmentActivity
     lateinit var viewProductModel: ProductViewModel
     var selectedPosition = -1
-    var shipping=""
+    var shipping:String=""
 
     private var onAddressClickedHandler: onAddressClickedHandler? = null
 
@@ -36,10 +33,10 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
         return MainViewHolder(binding)
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val cutomeraddressdata=addressData[position]
+        val cutomeraddressdata=productlist[position]
 
+        if(shipping.equals("true")) {
 
             holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
@@ -72,14 +69,47 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 )
             }
 
-            holder.binding.txtusername.text = cutomeraddressdata.CustomerName.toString()
-            holder.binding.txtphoneno.text =
+            holder.binding.txtusername.text = cutomeraddressdata.Id.toString()
+            holder.binding.txtusername.text =
                 cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName + "," +
                         cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
                         cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
                         cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
-//            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.MobileNo
+            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.ContactPersonMobile
+        }else if(shipping.equals("false")){
+            holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
+            holder.binding.radiobuttons.setOnCheckedChangeListener { compoundButton, b ->
+
+                if (b) {
+
+                    selectedPosition = holder.adapterPosition
+                    onAddressClickedHandler!!.setradiobuttonclicklistern(position)
+
+                }
+            }
+
+            holder.itemView.setOnClickListener {
+                AppUtils2.pincode=cutomeraddressdata.Pincode.toString()
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "pincode",
+                    cutomeraddressdata.Pincode.toString()
+                )
+                val intent= Intent(requireActivity, AddressActivity::class.java)
+                requireActivity.startActivity(intent)
+                requireActivity.finish()
+                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false,cutomeraddressdata.Pincode.toString())
+            }
+
+            holder.binding.txtusername.text = cutomeraddressdata.Id.toString()
+            holder.binding.txtusername.text =
+                cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName + "," +
+                        cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
+                        cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
+                        cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
+            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.ContactPersonMobile
+        }
     }
 
     override fun getItemId(position: Int): Long {
@@ -93,18 +123,17 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     }
 
     override fun getItemCount(): Int {
-        return addressData.size
+        return productlist.size
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setAddressList(
-        productlist: List<ExistingCustomerAddressData>,
-        addressActivity: ServicesAddresslistActivity,
-        viewProductModel: ServiceBooking,
+        productlist: List<CustomerAddressData>?,
+        addressActivity: AddresslistActivity,
+        viewProductModel: ProductViewModel,
         shipping: String
     ) {
         this.shipping=shipping
-        this.addressData= productlist!!.toMutableList()
+        this.productlist= productlist!!.toMutableList()
         notifyDataSetChanged()
     }
 

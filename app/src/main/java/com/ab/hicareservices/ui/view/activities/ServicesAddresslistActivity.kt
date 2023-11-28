@@ -145,7 +145,22 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                         id.toString()
                     )
                     val intent =
-                        Intent(this@ServicesAddresslistActivity, AddressActivity::class.java)
+                        Intent(
+                            this@ServicesAddresslistActivity,
+                            BookingSlotComplinceActivity::class.java
+                        )
+                    intent.putExtra("AddressId", id.toString())
+                    intent.putExtra("ServiceCenter_Id", "")
+                    intent.putExtra("SlotDate", "")
+                    intent.putExtra("TaskId", "")
+                    intent.putExtra("SkillId", "")
+                    intent.putExtra("Latt", Latt)
+                    intent.putExtra("Longg", Longg)
+                    intent.putExtra("ServiceType", "pest")
+                    intent.putExtra("Pincode", AppUtils2.pincode)
+                    intent.putExtra("Service_Code", "CMS")
+                    intent.putExtra("Unit", Unit)
+                    intent.putExtra("SPCode", spcode)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                     finish()

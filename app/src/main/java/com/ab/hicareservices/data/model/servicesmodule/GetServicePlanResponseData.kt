@@ -15,7 +15,7 @@ data class GetServicePlanResponseData(
     @SerializedName("Service_Plan_Description") var ServicePlanDescription: String? = null,
     @SerializedName("SPCode") var SPCode: String? = null,
     @SerializedName("Price") var Price: Int? = null,
-    @SerializedName("Discounted_Amount") var DiscountedAmount: Boolean? = null,
+    @SerializedName("Discounted_Amount") var DiscountedAmount: Int? = null,
     @SerializedName("Discounted_Price") var DiscountedPrice: Int? = null,
     @SerializedName("Discount_Type") var DiscountType: String? = null,
     @SerializedName("Discount") var Discount: Int? = null,
@@ -28,7 +28,6 @@ data class GetServicePlanResponseData(
     @SerializedName("Serviceid") var Serviceid: Int? = null,
     @SerializedName("Modified_By") var ModifiedBy: Int? = null,
     @SerializedName("Modified_On") var ModifiedOn: String? = null
-
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
 
@@ -42,7 +41,7 @@ data class GetServicePlanResponseData(
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+        parcel.readValue(Boolean::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,

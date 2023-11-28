@@ -608,7 +608,7 @@ class AddAddressActivity : AppCompatActivity() {
         super.onBackPressed()
         SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
-        val intent = Intent(this@AddAddressActivity, MapsDemoActivity::class.java)
+        val intent = Intent(this@AddAddressActivity, ServicesAddresslistActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
 

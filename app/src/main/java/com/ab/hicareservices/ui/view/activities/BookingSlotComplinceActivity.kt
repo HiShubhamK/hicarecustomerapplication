@@ -63,6 +63,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
     private var AppointmentStart = ""
     private var AppointmentEnd = ""
     private var Source = ""
+    private var AddressId = ""
     private var selectedTimePostion = 0
     var service = mutableListOf<ServiceData>()
     private val viewModels: OtpViewModel by viewModels()
@@ -90,6 +91,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
+        AddressId = intent.getStringExtra("AddressId").toString()
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

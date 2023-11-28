@@ -107,7 +107,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         pricewisebhk.paintFlags =
             pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-        button.alpha=0.6f
+//        button.alpha=0.6f
 
         val recycleview = view.findViewById<RecyclerView>(R.id.recycleviewaddarea)
 
@@ -195,7 +195,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 //            spcode = intent.getStringExtra("SPCode").toString()
             startActivity(intent)
 //            Toast.makeText(activity,AppUtils2.getServicePlanResponseData.toString(),Toast.LENGTH_LONG).show()
-            Toast.makeText(activity, planlist.toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(activity, planlist.toString(), Toast.LENGTH_LONG).show()
 
         }
         return view

@@ -127,7 +127,7 @@ interface IRetrofit {
     @GET("Address/GetCustomerAddressByCustomerId")
     fun getcustomerAddress(@Query("customerId") customerId: Int): Call<CustomerAddress>
    @GET("Service/GetActiveAddressListByUserId")
-    fun getexistingserviceAddress(@Query("customerId") customerId: Int): Call<ExistingAddressListModel>
+    fun getexistingserviceAddress(@Query("userId") userId: Int): Call<ExistingAddressListModel>
 
     @GET("Product/GetProductListByPincode")
     fun getProductlist(@Query("pincode") pincode: String): Call<ProductListResponse>

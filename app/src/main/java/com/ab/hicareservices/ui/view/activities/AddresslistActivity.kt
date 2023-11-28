@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddresslistBinding
+import com.ab.hicareservices.ui.adapter.AddAddressListAdapter
 import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
@@ -27,7 +28,7 @@ class AddresslistActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityAddresslistBinding
-    private lateinit var mAdapter: AddressAdapter
+    private lateinit var mAdapter: AddAddressListAdapter
     private val viewProductModel: ProductViewModel by viewModels()
     var shipping=""
     lateinit var progressDialog: ProgressDialog
@@ -66,7 +67,7 @@ class AddresslistActivity : AppCompatActivity() {
         progressDialog.show()
         binding.recycleviewaddress.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mAdapter = AddressAdapter()
+        mAdapter = AddAddressListAdapter()
 
         binding.recycleviewaddress.adapter = mAdapter
 
