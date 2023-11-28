@@ -32,7 +32,7 @@
                     android:text="Cockroach Monitoring System"
                     android:fontFamily="@font/lato_semibold"
                     android:textSize="15sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorAccent"
                     />
 
                 <LinearLayout
@@ -59,26 +59,54 @@
 
                 </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/servicepriceplan"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Start at 999"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/lato_semibold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="3dp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="3dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Starts from"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey_font"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/pricewisebhk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_semibold"
+                        android:layout_marginLeft="5dp"
+                        android:text="Price"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_font"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/servicepriceplan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="999"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/lato_semibold"
+                        android:textSize="14sp" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnaddtocart"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="Add "
                 android:textColor="@color/white"
+                android:background="@color/colorAccent"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -100,6 +128,8 @@
             android:text="Short description here"
             android:fontFamily="@font/lato_regular"
             android:textSize="12sp"
+            android:background="@color/white"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp" />
 

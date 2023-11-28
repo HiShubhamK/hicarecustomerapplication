@@ -91,11 +91,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
         AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
 
-
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         productGallery = ArrayList()
-
-//        Toast.makeText(this, customerid, Toast.LENGTH_LONG).show()
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
