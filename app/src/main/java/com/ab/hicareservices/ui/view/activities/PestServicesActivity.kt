@@ -5,19 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
-import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.ActivityPestServicesBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 
 class PestServicesActivity : AppCompatActivity() {
 
@@ -65,7 +64,12 @@ class PestServicesActivity : AppCompatActivity() {
         viewProductModel.serviceresponssedata.observe(this@PestServicesActivity, Observer {
             if (it.isNotEmpty()) {
                 progressDialog.dismiss()
+
                 mAdapter.setServiceList(it,this)
+
+// Set other properties...
+
+
             } else {
 
             }
@@ -81,7 +85,7 @@ class PestServicesActivity : AppCompatActivity() {
                 viewProductModel.serviceresponssedata.observe(this@PestServicesActivity, Observer {
                     if (it.isNotEmpty()) {
                         progressDialog.dismiss()
-                        mAdapter.setServiceList(it,this)
+                        mAdapter.setServiceList(it, this)
                     } else {
 
                     }

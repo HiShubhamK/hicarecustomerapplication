@@ -3,7 +3,7 @@ package com.ab.hicareservices.utils
 import android.content.Context
 import com.google.gson.Gson
 
-class SharedPreferencesManager(private val context: Context) {
+class SharedPreferencesManager(private var context: Context) {
     private val sharedPreferences = context.getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
     private val gson = Gson()
 

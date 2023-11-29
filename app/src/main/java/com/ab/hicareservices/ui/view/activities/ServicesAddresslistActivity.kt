@@ -22,6 +22,7 @@ import com.ab.hicareservices.ui.adapter.ServiceAddressAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.UserData
 
 class ServicesAddresslistActivity : AppCompatActivity() {
 
@@ -158,10 +159,9 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     intent.putExtra("Longg", Longg)
                     intent.putExtra("ServiceType", "pest")
                     intent.putExtra("Pincode", AppUtils2.pincode)
-                    intent.putExtra("Service_Code", "CMS")
+                    intent.putExtra("Service_Code", AppUtils2.servicecode)
                     intent.putExtra("Unit", Unit)
                     intent.putExtra("SPCode", spcode)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                     finish()
                 } else if (b == false) {

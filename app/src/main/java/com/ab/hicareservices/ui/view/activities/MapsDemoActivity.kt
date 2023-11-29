@@ -20,6 +20,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.orders.Locality
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.UserData
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -56,6 +57,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
+    val userData = UserData()
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +75,11 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
+
+
+        userData.ServiceArea="Home Type"
+        userData.LeadSource="MobileApp"
+
 
         addressTextView = findViewById(R.id.addressTextView)
         tvAddressdetail = findViewById(R.id.tvAddressdetail)
@@ -92,6 +100,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         btnNext.setOnClickListener {
+            userData.Pincode=AppUtils2.pincode
+            userData.ServiceType="Pest"
             val intent=Intent(this,ServicesAddresslistActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
             intent.putExtra("SlotDate", "")
@@ -101,7 +111,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("Longg", longg)
             intent.putExtra("ServiceType", "pest")
             intent.putExtra("Pincode", AppUtils2.pincode)
-            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Service_Code", AppUtils2.servicecode)
             intent.putExtra("Unit", Unit)
             intent.putExtra("SPCode", spcode)
 
@@ -230,6 +240,10 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             getAddressFromLocation(latLng.latitude, latLng.longitude)
             lat=latLng.latitude.toString()
             longg=latLng.longitude.toString()
+            AppUtils2.Latt=latLng.latitude.toString()
+            AppUtils2.Longg=latLng.longitude.toString()
+            userData.Lat=AppUtils2.Latt
+            userData.Long= AppUtils2.Longg
             moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
 
         }

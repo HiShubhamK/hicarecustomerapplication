@@ -192,13 +192,13 @@ class AddAddressActivity : AppCompatActivity() {
                 viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
                         progressDialog.dismiss()
-                        val intent=Intent(this@AddAddressActivity,BookingSlotComplinceActivity::class.java)
+                        val intent=Intent(this@AddAddressActivity,ServicesAddresslistActivity::class.java)
                         intent.putExtra("ServiceCenter_Id", "")
                         intent.putExtra("SlotDate", "")
                         intent.putExtra("TaskId", "")
                         intent.putExtra("SkillId", "")
-                        intent.putExtra("Latt", "")
-                        intent.putExtra("Longg", "")
+                        intent.putExtra("Latt", Latt)
+                        intent.putExtra("Longg", Longg)
                         intent.putExtra("ServiceType", "pest")
                         intent.putExtra("Pincode", AppUtils2.pincode)
                         intent.putExtra("Service_Code", "CMS")

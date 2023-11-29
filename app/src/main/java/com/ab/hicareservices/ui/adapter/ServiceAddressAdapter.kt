@@ -18,6 +18,8 @@ import com.ab.hicareservices.ui.view.activities.ServicesAddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 
 
 class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainViewHolder>() {
@@ -29,6 +31,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     var shipping=""
 
     private var onAddressClickedHandler: onAddressClickedHandler? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -64,6 +67,26 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
             }
 
             holder.itemView.setOnClickListener {
+                val userData = UserData()
+                userData.Fname=cutomeraddressdata.CustomerName.toString()
+                userData.LastName="."
+                userData.Email=cutomeraddressdata.EmailId.toString()
+                userData.Pincode=cutomeraddressdata.Pincode.toString()
+                userData.MobileNo=cutomeraddressdata.MobileNo.toString()
+                userData.AltMobileNo=cutomeraddressdata.AltMobileNo.toString()
+                userData.FlatNo=cutomeraddressdata.FlatNo.toString()
+                userData.Landmark=cutomeraddressdata.Landmark.toString()
+                userData.Locality=cutomeraddressdata.Locality.toString()
+                userData.State=cutomeraddressdata.State.toString()
+                userData.Street=cutomeraddressdata.Street.toString()
+                userData.City=cutomeraddressdata.City.toString()
+                userData.BuildingName=cutomeraddressdata.BuildingName.toString()
+                userData.Lat=cutomeraddressdata.Lat.toString()
+                userData.Long=cutomeraddressdata.Long.toString()
+
+                SharedPreferencesManager(requireActivity).saveUserData(userData)
+
+
                 onAddressClickedHandler!!.setItemClickLister(
                     position,
                     cutomeraddressdata.Id,
@@ -78,6 +101,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                         cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
                         cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
                         cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
+
 //            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.MobileNo
 
     }

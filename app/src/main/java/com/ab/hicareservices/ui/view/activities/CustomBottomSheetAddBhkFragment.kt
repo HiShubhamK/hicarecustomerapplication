@@ -23,6 +23,8 @@ import com.ab.hicareservices.ui.adapter.BookingServiceBhklistAdapter
 import com.ab.hicareservices.ui.handler.OnBookingFlatPerPrice
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlin.collections.ArrayList
 
@@ -45,6 +47,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     private var spcode = ""
     var prices=""
     var discountedPrice=""
+    val userData = UserData()
+
 
     companion object {
         private const val ARG_DATA = "list_key"
@@ -71,6 +75,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             bundle.putString(PINCODE_ID, pincodeid)
             bundle.putString(ARG_PRICE,price.toString())
             bundle.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
+
 
             fragment.arguments = bundle
             return fragment
@@ -128,11 +133,20 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     if (it.isNotEmpty()) {
 
                         try {
+                            userData.User_Id=AppUtils2.customerid.toInt()
+                            userData.BHK=noofbhk.toString()
 
                             bhkandpincodedata = it
 
                             for (i in 0 until bhkandpincodedata.size) {
+
                                 if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
+                                    userData.DiscountValue=bhkandpincodedata.get(i).DiscountedPrice.toString()
+                                    userData.MRP=bhkandpincodedata.get(i).Price.toString()
+                                    userData.Remarks=bhkandpincodedata[i].ServicePlanName.toString()
+                                    val sharedPreferencesManager = SharedPreferencesManager(requireContext()).saveUserData(userData)
+
+
 
                                     pricewisebhk.text =
                                         "\u20B9" + bhkandpincodedata.get(i).Price.toString()
@@ -171,6 +185,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         })
 
         button.setOnClickListener {
+
+
             val intent = Intent(activity, MapsDemoActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
             intent.putExtra("SlotDate", "")
@@ -180,7 +196,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             intent.putExtra("Longg", "")
             intent.putExtra("ServiceType", "pest")
             intent.putExtra("Pincode", AppUtils2.pincode)
-            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Service_Code", AppUtils2.servicecode)
             intent.putExtra("Unit", Unit)
             intent.putExtra("SPCode", spcode)
 //            ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()

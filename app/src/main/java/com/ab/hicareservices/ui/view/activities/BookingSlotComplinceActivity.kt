@@ -36,6 +36,7 @@ import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.UserData
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -70,6 +71,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
     lateinit var mSlotAdapter: SlotsAdapter
     lateinit var alertDialog: AlertDialog
     lateinit var progressDialog: ProgressDialog
+    val userData = UserData()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,12 +146,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
             var output = sdf1.format(c.time)
             val output1 = sdf1.format(c1.time)
-            if (c1.time > c.time ||c2.time < c.time  ) {
+            if (c1.time > c.time || c2.time < c.time) {
                 binding.recyclerView.visibility = View.GONE
                 binding.lnrAvailableSlot.visibility = View.GONE
                 Toast.makeText(
                     this,
-                    "Please select a valid date in the range of "+c1.time + "to "+c2.time+" to reschedule a slot.",
+                    "Please select a valid date in the range of " + c1.time + "to " + c2.time + " to reschedule a slot.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -245,13 +248,13 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         })
         Handler(Looper.getMainLooper()).postDelayed({
             var data = HashMap<String, Any>()
-            data["ServiceCenter_Id"] = ServiceCenter_Id
+            data["ServiceCenter_Id"] = ""
             data["SlotDate"] = date
-            data["TaskId"] = TaskId
-            data["SkillId"] = SkillId
-            data["Lat"] = Latt
-            data["Long"] = Longg
-            data["ServiceType"] = ServiceType
+            data["TaskId"] = ""
+            data["SkillId"] = ""
+            data["Lat"] = AppUtils2.Latt
+            data["Long"] =  AppUtils2.Longg
+            data["ServiceType"] = "Pest"
 
             viewModel.requestcodes.observe(this, Observer {
 
@@ -263,7 +266,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 SharedPreferenceUtil.setData(this, "FirstName", "")
                 SharedPreferenceUtil.setData(this, "MobileNo", "")
 
-                val intent= Intent(this,LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
 
@@ -289,40 +292,14 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledate: String,
                 scheduledatetext: String
             ) {
-                progressDialog.show()
-                Toast.makeText(this@BookingSlotComplinceActivity,"Please Wait", Toast.LENGTH_LONG).show()
+                val intent =
+                    Intent(
+                        this@BookingSlotComplinceActivity,
+                        BookingServiceCheckout::class.java
+                    )
+                startActivity(intent)
+                finish()
 
-                AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
-                var data = HashMap<String, Any>()
-                data["Pincode"] = Pincode
-                data["Service_Code"] = Service_Code
-                data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
-                data["Service_Subscription"] = Service_Subscription.toString()
-                data["Unit"] = unit.toString()
-                data["Lat"] = Lat
-                data["Long"] = Long
-                data["ServiceType"] = ServiceType
-                viewModel.GetSlots(data)
-                viewModel.getSlotresponse.observe(this@BookingSlotComplinceActivity, Observer {
-//                    Log.d(TAG, "onViewCreated: $it orders fragment")
-                    if (it.IsSuccess == true) {
-                        progressDialog.dismiss()
-                        AppUtils2.timeslotslist = it.TimeSlots
-                        val intent =
-                            Intent(this@BookingSlotComplinceActivity, SlotDetailActivity::class.java)
-                        intent.putExtra("Service_Date", AppUtils2.ServiceDate)
-                        intent.putExtra("SkillId", SkillId)
-                        intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
-                        intent.putExtra("scheduledatetext", scheduledatetext)
-                        intent.putExtra("TaskId", TaskId)
-                        intent.putExtra("Lat", Latt)
-                        intent.putExtra("Long", Longg)
-                        intent.putExtra("ServiceType", ServiceType)
-                        startActivity(intent)
-                        finish()
-//                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
-                    }
-                })
             }
         })
 
@@ -401,7 +378,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 SharedPreferenceUtil.setData(this, "FirstName", "")
                 SharedPreferenceUtil.setData(this, "MobileNo", "")
 
-                val intent= Intent(this@BookingSlotComplinceActivity,LoginActivity::class.java)
+                val intent = Intent(this@BookingSlotComplinceActivity, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
 
@@ -425,11 +402,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
             })
 
-            if (AppointmentStart!=""){
+            if (AppointmentStart != "") {
                 viewModel.BookSlot(data)
 
-            }else{
-                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT)
+                    .show()
             }
 
 

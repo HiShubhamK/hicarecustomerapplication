@@ -55,6 +55,8 @@ object AppUtils2 {
     var shippingdata=""
     var voucherdiscount=""
     var vouchercode=""
+    var Latt=""
+    var Longg=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
     var socialmedia = ArrayList<SocialMediadata>()
     var servicetype=ArrayList<String>()

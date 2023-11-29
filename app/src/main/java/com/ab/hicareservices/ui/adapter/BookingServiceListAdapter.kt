@@ -10,6 +10,8 @@ import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.BookingServiceAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 import com.squareup.picasso.Picasso
 
 class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter.MainViewHolder>() {
@@ -41,17 +43,18 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         holder.binding.tvOrderName.text = service.ServiceName
         Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo)
 
-        holder.binding.txtshortdes.text=service.ShortDescription.toString()
-        holder.binding.txtlongdes.text=service.DetailDescription.toString()
+        holder.binding.txtshortdes.text = service.ShortDescription.toString()
+        holder.binding.txtlongdes.text = service.DetailDescription.toString()
 
         holder.itemView.setOnClickListener {
-            val intent= Intent(requireActivity, BokingServiceDetailsActivity::class.java)
-            AppUtils2.servicecode=service.ServiceCode.toString()
-            intent.putExtra("ServiceName",service.ServiceName.toString())
-            intent.putExtra("ServiceCode",service.ServiceCode.toString())
-            intent.putExtra("ServiceThumbnail",service.ServiceThumbnail.toString())
-            intent.putExtra("ShortDescription",service.ShortDescription.toString())
-            intent.putExtra("DetailDescription",service.DetailDescription.toString())
+            val intent = Intent(requireActivity, BokingServiceDetailsActivity::class.java)
+            AppUtils2.servicecode = service.ServiceCode.toString()
+            intent.putExtra("ServiceName", service.ServiceName.toString())
+            intent.putExtra("ServiceCode", service.ServiceCode.toString())
+            intent.putExtra("ServiceThumbnail", service.ServiceThumbnail.toString())
+            intent.putExtra("ShortDescription", service.ShortDescription.toString())
+            intent.putExtra("DetailDescription", service.DetailDescription.toString())
+
             requireActivity.startActivity(intent)
         }
     }

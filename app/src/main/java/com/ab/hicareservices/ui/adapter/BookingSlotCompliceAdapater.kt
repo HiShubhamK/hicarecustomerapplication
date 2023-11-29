@@ -82,11 +82,11 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
         }
         holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
-            Toast.makeText(requireActivity,""+complincelist.ScheduledDateText.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireActivity,""+complincelist.ScheduledDateText.toString(), Toast.LENGTH_SHORT).show()
 
 
-//            onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
-//                "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())
+            onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
+                "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())
         }
 //        holder.binding.crdMain.setOnClickListener {
 //

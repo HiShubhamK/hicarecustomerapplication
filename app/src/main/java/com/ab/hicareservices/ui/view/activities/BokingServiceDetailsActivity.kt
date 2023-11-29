@@ -20,6 +20,8 @@ import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 import com.squareup.picasso.Picasso
 
 class BokingServiceDetailsActivity : AppCompatActivity() {
@@ -72,6 +74,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         serviceThumbnail = intent.getStringExtra("ServiceThumbnail").toString()
         shortDescription = intent.getStringExtra("ShortDescription").toString()
         stailDescription = intent.getStringExtra("DetailDescription").toString()
+        val userData = UserData()
+
+        userData.ServiceCode=serviceCode.toString()
+        userData.ServiceType="Pest"
+        val sharedPreferencesManager = SharedPreferencesManager(this).saveUserData(userData)
+
 
         bhklistResponseData = ArrayList<BhklistResponseData>()
 
