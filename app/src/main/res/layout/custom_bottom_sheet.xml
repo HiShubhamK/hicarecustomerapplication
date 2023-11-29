@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/imgclose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -91,7 +92,7 @@
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:text="Cockroach Monitoring System"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <View
