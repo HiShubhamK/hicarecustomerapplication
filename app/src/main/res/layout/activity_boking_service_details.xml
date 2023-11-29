@@ -286,12 +286,13 @@
             android:background="@color/grey"></View>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/servicename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/lato_semibold"
             android:text="Cockroach Monitoring Service"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <View

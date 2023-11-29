@@ -235,4 +235,7 @@ interface IRetrofit {
     fun getPlanAndPriceByPincodeAndServiceCode(@Query("pincode") pincode:String,
                                                @Query("servicecode") servicecode:String) :Call<GetServicePlanResponse>
 
+    @POST("Order/AddOrderAsync")
+    fun AddOrderAsync(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
+
 }

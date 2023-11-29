@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -98,7 +99,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
         val pricewisebhk = view.findViewById<AppCompatTextView>(R.id.pricewisebhk)
         val discountedamount= view.findViewById<AppCompatTextView>(R.id.discountedamount)
-        val button = view.findViewById<TextView>(R.id.btnproceed)
+        val button = view.findViewById<AppCompatButton>(R.id.btnproceed)
 
         pricewisebhk.text =
             "\u20B9" + prices.toString()

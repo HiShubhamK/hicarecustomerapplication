@@ -66,7 +66,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         }
 
 
-
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
         serviceCode = intent.getStringExtra("ServiceCode").toString()
@@ -81,6 +80,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+
+        binding.servicename.text=servicename
 
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()

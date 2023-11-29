@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -32,16 +33,14 @@ class BookingServicePlanListAdapter :
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
-        holder.binding.servicepriceplan.text = "Start at" + " " + "\u20B9" + plan.Price.toString()
+        holder.binding.pricewisebhk.text = "\u20B9" + plan.Price.toString()
+        holder.binding.servicepriceplan.text = "\u20B9 " + plan.DiscountedPrice.toString()
+        holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
         holder.binding.txtdescription.text = plan.ServicePlanDescription
         holder.itemView.setOnClickListener {
             onBookingViewDetials?.onViewDetails(position, plan.Id!!, plan.ServicePlanDescription,plan.Price,plan.DiscountedPrice)
         }
-
-//        holder.itemView.setOnClickListener {
-//            val intent= Intent(requireActivity,BookingServiceDetailsActivity::class.java)
-//            requireActivity.startActivity(intent)
-//        }
 
         holder.binding.btnaddtocart.setOnClickListener {
 
