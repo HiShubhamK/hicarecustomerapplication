@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.ab.hicareservices.R
@@ -82,10 +83,17 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)
         val thumbnails = view.findViewById<AppCompatImageView>(R.id.servicethumbnail)
         val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
+        val imgclose = view.findViewById<ImageView>(R.id.imgclose)
+
         textView.text = servicename
         textViewdescription.text=descrition
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
+
+
+        imgclose.setOnClickListener {
+            dismiss()
+        }
 
         return view
 

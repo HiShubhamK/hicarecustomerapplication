@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,7 +68,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
-
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()
         serviceCode = intent.getStringExtra("ServiceCode").toString()
@@ -83,13 +83,14 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         bhklistResponseData = ArrayList<BhklistResponseData>()
 
+        binding.txtservicename.setText(serviceName.toString())
         Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
+            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+            startActivity(intent)
         }
-
-        binding.servicename.text=servicename
 
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()
@@ -237,8 +238,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener{
             onBackPressed()
+            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+            startActivity(intent)
             finish()
         }
-
     }
 }

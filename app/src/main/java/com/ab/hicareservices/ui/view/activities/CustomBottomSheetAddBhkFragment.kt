@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -98,13 +99,13 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         prices=arguments?.getString(ARG_PRICE).toString()
         discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
 
-
-
         bhkandpincodedata = ArrayList<BHKandPincodeData>()
 
         val pricewisebhk = view.findViewById<AppCompatTextView>(R.id.pricewisebhk)
         val discountedamount= view.findViewById<AppCompatTextView>(R.id.discountedamount)
         val button = view.findViewById<AppCompatButton>(R.id.btnproceed)
+        val imgclose = view.findViewById<ImageView>(R.id.imgclose)
+
 
         pricewisebhk.text =
             "\u20B9" + prices.toString()
@@ -113,7 +114,16 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         pricewisebhk.paintFlags =
             pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
+
+        imgclose.setOnClickListener {
+            dismiss()
+        }
+
 //        button.alpha=0.6f
+
+        button.isEnabled=false
+        button.alpha = 0.6f
+
 
         val recycleview = view.findViewById<RecyclerView>(R.id.recycleviewaddarea)
 
@@ -128,6 +138,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
         mAdapter.setonViewdatail(object : OnBookingFlatPerPrice {
             override fun onClickonFlat(position: Int, noofbhk: String?, selectedPosition: Int) {
+
+                button.isEnabled=true
+                button.alpha = 1f
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {
@@ -199,20 +212,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             intent.putExtra("Service_Code", AppUtils2.servicecode)
             intent.putExtra("Unit", Unit)
             intent.putExtra("SPCode", spcode)
-//            ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
-//            SlotDate = intent.getStringExtra("SlotDate").toString()
-//            TaskId = intent.getStringExtra("TaskId").toString()
-//            SkillId = intent.getStringExtra("SkillId").toString()
-//            Latt = intent.getStringExtra("Lat").toString()
-//            Longg = intent.getStringExtra("Long").toString()
-//            ServiceType = intent.getStringExtra("ServiceType").toString()
-//            Pincode = intent.getStringExtra("Pincode").toString()
-//            Service_Code = intent.getStringExtra("Service_Code").toString()
-//            Unit = intent.getStringExtra("Unit").toString()
-//            spcode = intent.getStringExtra("SPCode").toString()
             startActivity(intent)
-//            Toast.makeText(activity,AppUtils2.getServicePlanResponseData.toString(),Toast.LENGTH_LONG).show()
-//            Toast.makeText(activity, planlist.toString(), Toast.LENGTH_LONG).show()
+            dismiss()
 
         }
         return view
