@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addresscard"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:elevation="8dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="10dp">
+
+     <androidx.appcompat.widget.LinearLayoutCompat
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/imgLocation"
+            android:src="@drawable/ic_baseline_location_on_24"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+
+        </ImageView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_weight="0.1">
+
+            <RadioButton
+                android:id="@+id/radiobuttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:buttonTint="@color/colorAccent"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/txtAddressHead1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:maxLines="5"
+                android:fontFamily="@font/lato_semibold"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/txtAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="datadat"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato_regular"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/lnrUserDetail"
+                android:padding="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:id="@+id/txtUsername"
+                    android:drawablePadding="@dimen/dim_20"
+                    android:drawableStart="@drawable/ic_baseline_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/grey_font"
+                    android:drawableTint="@color/grey_font"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:fontFamily="@font/lato_regular"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:id="@+id/txtphone"
+                    android:drawablePadding="@dimen/dim_20"
+                    android:drawableTint="@color/grey_font"
+                    android:drawableStart="@drawable/ic_baseline_call"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/grey_font"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:fontFamily="@font/lato_regular"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+            </LinearLayout>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/imgNext"
+            android:src="@drawable/ic_baseline_location_on_24"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+
+        </ImageView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+         <androidx.appcompat.widget.AppCompatCheckBox
+             android:id="@+id/checkbox"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="5dp"
+             android:visibility="gone"
+             android:textSize="13sp"
+             android:text="My Billing and Shipping addrress are differnt"
+             android:buttonTint="@color/colorAccent"/>
+
+     </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+
+<!--    <View-->
+<!--        android:layout_margin="3dp"-->
+<!--        android:background="@color/greyPrimary"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp">-->
+
+<!--    </View>-->
+
+</LinearLayout>

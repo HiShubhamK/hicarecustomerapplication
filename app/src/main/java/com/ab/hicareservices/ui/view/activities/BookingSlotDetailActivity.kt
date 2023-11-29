@@ -30,6 +30,8 @@ import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
+import com.ab.hicareservices.utils.UserData
 
 class BookingSlotDetailActivity : AppCompatActivity() {
 
@@ -126,59 +128,68 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         binding.recyclerView.adapter = mAdapter
 
         binding.btnSubmit.setOnClickListener {
-            progressDialog.show()
+//            progressDialog.show()
+//
+//            var data = HashMap<String, Any>()
+//            data["TaskId"] = TaskId
+//            data["AppointmentDate"] = Service_Date
+//            data["AppointmentStart"] = AppointmentStart
+//            data["AppointmentEnd"] = AppointmentEnd
+//            data["Source"] = "MobileApp"
+//            data["ServiceType"] = "Pest"
 
-            var data = HashMap<String, Any>()
-            data["TaskId"] = TaskId
-            data["AppointmentDate"] = Service_Date
-            data["AppointmentStart"] = AppointmentStart
-            data["AppointmentEnd"] = AppointmentEnd
-            data["Source"] = "MobileApp"
-            data["ServiceType"] = "Pest"
-            if (AppointmentStart!=""||AppointmentEnd!=""){
-                viewModel.BookSlot(data)
-
-                viewModel.requestcodes.observe(this, Observer {
-
-                    SharedPreferenceUtil.setData(this, "mobileNo", "-1")
-                    SharedPreferenceUtil.setData(this, "bToken", "")
-                    SharedPreferenceUtil.setData(this, "IsLogin", false)
-                    SharedPreferenceUtil.setData(this, "pincode", "")
-                    SharedPreferenceUtil.setData(this, "customerid", "")
-                    SharedPreferenceUtil.setData(this, "FirstName", "")
-                    SharedPreferenceUtil.setData(this, "MobileNo", "")
-
-                    val intent= Intent(this@BookingSlotDetailActivity,LoginActivity::class.java)
+            val userData = UserData()
+            userData.AppointmentStartDateTime=AppointmentStart.toString()
+            userData.AppointmentEndDateTime=AppointmentEnd.toString()
+            userData.OrderCreatedDatetime=Service_Date
+           SharedPreferencesManager(this).saveUserData(userData)
+            val intent= Intent(this@BookingSlotDetailActivity,BookingServiceCheckout::class.java)
                     startActivity(intent)
-                    finish()
-
-                })
-
-                viewModel.bookSlotResponce.observe(this, Observer {
-                    Log.d("TAG", "onViewCreated: $it orders fragment")
-//                ShowBookingDialog(it)
-                    if (it.IsSuccess == true) {
-                        if (it.Data!!.IsSuccess == true) {
-                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
-                            progressDialog.dismiss()
-                            getClearchache()
-                            finish()
-                        } else {
-                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
-                            progressDialog.dismiss()
-                            finish()
-                        }
-
-                    } else {
-                        progressDialog.dismiss()
-                        finish()
-                    }
-                })
-
-            }else{
-                progressDialog.cancel()
-                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
-            }
+//                    finish()
+//            if (AppointmentStart!=""||AppointmentEnd!=""){
+//                viewModel.BookSlot(data)
+//
+//                viewModel.requestcodes.observe(this, Observer {
+//
+//                    SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+//                    SharedPreferenceUtil.setData(this, "bToken", "")
+//                    SharedPreferenceUtil.setData(this, "IsLogin", false)
+//                    SharedPreferenceUtil.setData(this, "pincode", "")
+//                    SharedPreferenceUtil.setData(this, "customerid", "")
+//                    SharedPreferenceUtil.setData(this, "FirstName", "")
+//                    SharedPreferenceUtil.setData(this, "MobileNo", "")
+//
+//                    val intent= Intent(this@BookingSlotDetailActivity,LoginActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//
+//                })
+//
+//                viewModel.bookSlotResponce.observe(this, Observer {
+//                    Log.d("TAG", "onViewCreated: $it orders fragment")
+////                ShowBookingDialog(it)
+//                    if (it.IsSuccess == true) {
+//                        if (it.Data!!.IsSuccess == true) {
+//                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
+//                            progressDialog.dismiss()
+//                            getClearchache()
+//                            finish()
+//                        } else {
+//                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
+//                            progressDialog.dismiss()
+//                            finish()
+//                        }
+//
+//                    } else {
+//                        progressDialog.dismiss()
+//                        finish()
+//                    }
+//                })
+//
+//            }else{
+//                progressDialog.cancel()
+//                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         mAdapter.setOnSlotSelection(object : onSlotSelection {
@@ -215,12 +226,12 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //        val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 //        startActivity(intent)
-        val intent = Intent(this@BookingSlotDetailActivity, SlotComplinceActivity::class.java)
-        intent.putExtra("Service_Date", AppUtils2.ServiceDate)
-        intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
+        val intent = Intent(this@BookingSlotDetailActivity, BookingSlotComplinceActivity::class.java)
+        intent.putExtra("Service_Date", Service_Date)
+        intent.putExtra("ServiceCenter_Id", "")
         intent.putExtra("scheduledatetext", scheduledatetext)
-        intent.putExtra("TaskId", TaskId)
-        intent.putExtra("SkillId", SkillId)
+        intent.putExtra("TaskId", "")
+        intent.putExtra("SkillId", "")
         intent.putExtra("Lat", Lat)
         intent.putExtra("Long", Long)
         intent.putExtra("ServiceType", ServiceType)

@@ -80,8 +80,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         for (i in 0 until datalist.size) {
             homeproduct.add(
-                HomeProduct(
-                    datalist.get(i).ProductId,
+                HomeProduct(datalist.get(i).ProductId,
                     datalist.get(i).ProductName,
                     datalist.get(i).ProductCode,
                     datalist.get(i).ProductDisplayName,
@@ -93,8 +92,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     0.0,
                     datalist.get(i).ProductWeight?.toDouble(),
                     datalist.get(i).Quantity,
-                    0.0f
-                )
+                    0.0f)
             )
         }
 

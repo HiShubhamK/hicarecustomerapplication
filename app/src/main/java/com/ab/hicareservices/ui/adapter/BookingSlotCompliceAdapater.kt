@@ -80,7 +80,8 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
 //            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#48A14D"));
 
         }
-        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
+        //Uncomment below line for validation click
+//        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
 //            Toast.makeText(requireActivity,""+complincelist.ScheduledDateText.toString(), Toast.LENGTH_SHORT).show()
 

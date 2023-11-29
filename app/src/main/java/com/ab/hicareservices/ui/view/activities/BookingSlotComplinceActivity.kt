@@ -248,13 +248,20 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         })
         Handler(Looper.getMainLooper()).postDelayed({
             var data = HashMap<String, Any>()
-            data["ServiceCenter_Id"] = ""
+//            {
+//                "SlotDate": "2023-11-29T11:34:26.894Z",
+//                "Lat": "string",
+//                "Long": "string",
+//                "ServiceType": "string",
+//                "Pincode": "string",
+//                "ServiceCode": "string"
+//            }
             data["SlotDate"] = date
-            data["TaskId"] = ""
-            data["SkillId"] = ""
             data["Lat"] = AppUtils2.Latt
             data["Long"] =  AppUtils2.Longg
+            data["Pincode"] =  Pincode
             data["ServiceType"] = "Pest"
+            data["ServiceCode"] = AppUtils2.servicecode
 
             viewModel.requestcodes.observe(this, Observer {
 
@@ -274,7 +281,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
 
 
-            viewModel.getComplainceData(data)
+            viewModel.GetSlotCustomerAppServiceCompliance(data)
         }, 500)
 
 
@@ -292,13 +299,40 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledate: String,
                 scheduledatetext: String
             ) {
-                val intent =
-                    Intent(
-                        this@BookingSlotComplinceActivity,
-                        BookingServiceCheckout::class.java
-                    )
-                startActivity(intent)
-                finish()
+                progressDialog.show()
+                Toast.makeText(this@BookingSlotComplinceActivity,"Please Wait",Toast.LENGTH_LONG).show()
+
+                AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
+                var data = HashMap<String, Any>()
+                data["Pincode"] = Pincode
+                data["Service_Code"] = Service_Code
+                data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
+                data["Service_Subscription"] = Service_Subscription.toString()
+                data["Unit"] = unit.toString()
+                data["Lat"] = Lat
+                data["Long"] = Long
+                data["ServiceType"] = ServiceType
+                viewModel.GetSlots(data)
+                viewModel.getSlotresponse.observe(this@BookingSlotComplinceActivity, Observer {
+//                    Log.d(TAG, "onViewCreated: $it orders fragment")
+                    if (it.IsSuccess == true) {
+                        progressDialog.dismiss()
+                        AppUtils2.timeslotslist = it.TimeSlots
+                        val intent =
+                            Intent(this@BookingSlotComplinceActivity, BookingSlotDetailActivity::class.java)
+                        intent.putExtra("Service_Date", AppUtils2.ServiceDate)
+                        intent.putExtra("SkillId", SkillId)
+                        intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
+                        intent.putExtra("scheduledatetext", scheduledatetext)
+                        intent.putExtra("TaskId", TaskId)
+                        intent.putExtra("Lat", Latt)
+                        intent.putExtra("Long", Longg)
+                        intent.putExtra("ServiceType", ServiceType)
+                        startActivity(intent)
+                        finish()
+//                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
+                    }
+                })
 
             }
         })

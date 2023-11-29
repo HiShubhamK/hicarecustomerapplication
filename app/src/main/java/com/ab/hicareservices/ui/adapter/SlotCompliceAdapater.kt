@@ -79,7 +79,8 @@ class SlotCompliceAdapater : RecyclerView.Adapter<SlotCompliceAdapater.MainViewH
 //            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#48A14D"));
 
         }
-        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
+        //uncomment below line for Available slots
+//        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
           onSlotclick?.onSlotItemclicked(position, Pincode, Service_Code,holder.binding.tvScheduleDate.text.toString(),
               "",Unitt,Lat,Long,"Pest",holder.binding.tvScheduleDate.text.toString(),complincelist.ScheduledDateText.toString())

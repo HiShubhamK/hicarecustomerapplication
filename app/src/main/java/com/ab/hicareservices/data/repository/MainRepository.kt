@@ -26,6 +26,7 @@ class MainRepository {
     fun lead(serviceType: String) = retrofitService.getLead(serviceType)
     fun GetSlots(data: HashMap<String, Any>) = retrofitService.GetSlot(data)
     fun getComplainceData(data: HashMap<String, Any>) = retrofitService.getComplainceData(data)
+    fun GetSlotCustomerAppServiceCompliance(data: HashMap<String, Any>) = retrofitService.GetSlotCustomerAppServiceCompliance(data)
     fun BookSlot(data: HashMap<String, Any>) = retrofitService.BookSlot(data)
     fun GetDashboard(mobileNo: String) = retrofitService.GetDashboard(mobileNo)
     fun GetComplaintAttachments(complaintId: String) = retrofitService.GetComplaintAttachments(complaintId)

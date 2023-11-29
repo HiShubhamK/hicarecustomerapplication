@@ -99,6 +99,9 @@ interface IRetrofit {
 
     @POST("Slot/GetSlotCompliance")
     fun getComplainceData(@Body data: HashMap<String, Any>): Call<GetComplaiceResponce>
+//    https://connect.hicare.in/mobileapi_uat/api/Slot/GetSlotCustomerAppServiceCompliance
+    @POST("Slot/GetSlotCustomerAppServiceCompliance")
+    fun GetSlotCustomerAppServiceCompliance(@Body data: HashMap<String, Any>): Call<GetComplaiceResponce>
 
     @POST("Slot/BookSlot")
     fun BookSlot(@Body data: HashMap<String, Any>): Call<BookSlotResponce>

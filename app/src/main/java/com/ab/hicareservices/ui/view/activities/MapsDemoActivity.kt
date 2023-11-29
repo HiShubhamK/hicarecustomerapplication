@@ -182,6 +182,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double) {
+        progressDialog.show()
+
         val geocoder = Geocoder(this, Locale.getDefault())
         val addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
@@ -225,8 +227,11 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             tvAddressdetail.text = "$nearbyArea, $state, India"
             if (addressTextView.text.isNotEmpty()&&tvAddressdetail.text.isNotEmpty()){
                 cardView.visibility= View.VISIBLE
+                progressDialog.dismiss()
             }else{
                 cardView.visibility= View.GONE
+                progressDialog.dismiss()
+
 
             }
 
@@ -253,7 +258,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             userData.Lat=AppUtils2.Latt
             userData.Long= AppUtils2.Longg
             moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-            progressDialog.dismiss()
 
 
         }

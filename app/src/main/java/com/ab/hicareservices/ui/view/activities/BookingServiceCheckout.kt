@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -33,5 +34,10 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding.recycleviewproduct.adapter = mAdapter
         mAdapter.setServiceList(AppUtils2.getServicePlanResponseData,this@BookingServiceCheckout)
 
+        binding.txtplcaeorder.setOnClickListener {
+            val intent=Intent(this@BookingServiceCheckout,BookingPaymentActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

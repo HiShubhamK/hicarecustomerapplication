@@ -12,6 +12,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.data.model.servicesmodule.ExistingCustomerAddressData
 import com.ab.hicareservices.databinding.LayoutAddressBinding
+import com.ab.hicareservices.databinding.LayoutServiceAddressListBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddressActivity
 import com.ab.hicareservices.ui.view.activities.ServicesAddresslistActivity
@@ -29,13 +30,12 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     lateinit var viewProductModel: ProductViewModel
     var selectedPosition = -1
     var shipping=""
-
     private var onAddressClickedHandler: onAddressClickedHandler? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        var binding = LayoutAddressBinding.inflate(inflater, parent, false)
+        var binding = LayoutServiceAddressListBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
@@ -47,7 +47,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
             holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
             if (cutomeraddressdata.IsDefault == true) {
-                holder.binding.addresscard.setCardBackgroundColor(Color.parseColor("#F6F6F6"))
+                holder.binding.addresscard.setBackgroundColor(Color.parseColor("#F6F6F6"))
             }
 
             holder.binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
@@ -84,7 +84,6 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 userData.Lat=cutomeraddressdata.Lat.toString()
                 userData.Long=cutomeraddressdata.Long.toString()
                 userData.Address_Id= cutomeraddressdata.Id!!.toInt()
-
                 SharedPreferencesManager(requireActivity).saveUserData(userData)
 
 
@@ -96,14 +95,14 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 )
             }
 
-            holder.binding.txtusername.text = cutomeraddressdata.CustomerName.toString()
-            holder.binding.txtphoneno.text =
-                cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName + "," +
+            holder.binding.txtAddressHead1.text = cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName
+            holder.binding.txtAddress2.text =
                         cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
                         cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
-                        cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
+                        cutomeraddressdata.State + "-" + cutomeraddressdata.Pincode
 
-//            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.MobileNo
+            holder.binding.txtUsername.text = cutomeraddressdata.CustomerName
+            holder.binding.txtphone.text = cutomeraddressdata.MobileNo
 
     }
 
@@ -130,6 +129,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     ) {
         this.shipping=shipping
         this.addressData= productlist!!.toMutableList()
+        this.requireActivity=addressActivity
         notifyDataSetChanged()
     }
 
@@ -137,6 +137,6 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
         onAddressClickedHandler = l
     }
 
-    class MainViewHolder(val binding: LayoutAddressBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: LayoutServiceAddressListBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

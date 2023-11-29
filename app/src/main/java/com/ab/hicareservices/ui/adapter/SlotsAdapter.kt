@@ -36,6 +36,8 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
         val slotlist=getSlotresponse
 
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
+        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+
 //        if (position == lastSelectedPosition) {
 //            holder.binding.radioSlots.isChecked = true
 //            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
@@ -49,13 +51,13 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
 
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
+            onSlotSelection?.onSlotBookSelect(lastSelectedPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
 
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
+            onSlotSelection?.onSlotBookSelect(lastSelectedPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
 
         }
     }

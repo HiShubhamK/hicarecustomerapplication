@@ -76,6 +76,29 @@ class GetSlotViewModel : ViewModel() {
                 }
             })
     }
+    fun GetSlotCustomerAppServiceCompliance(data: HashMap<String, Any>) {
+        repository.GetSlotCustomerAppServiceCompliance(data)
+            .enqueue(object : Callback<GetComplaiceResponce> {
+                override fun onResponse(
+                    call: Call<GetComplaiceResponce>,
+                    response: Response<GetComplaiceResponce>
+                ) {
+                    if(response.code()==200){
+                        if (response.body()?.IsSuccess == true) {
+                            val responseBody = response.body()?.Data
+                            getcomplainceresponse.postValue(responseBody!!)
+                        }
+                    }else if(response.code()==401){
+                        requestcodes.postValue("401")
+                    }
+                }
+
+                override fun onFailure(call: Call<GetComplaiceResponce>, t: Throwable) {
+                    errorMessage.postValue(t.message)
+
+                }
+            })
+    }
 
     fun BookSlot(data: HashMap<String, Any>) {
         repository.BookSlot(data)
