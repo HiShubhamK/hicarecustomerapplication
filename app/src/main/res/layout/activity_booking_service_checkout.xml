@@ -142,14 +142,10 @@
                     android:elevation="5dp"
                     app:cardCornerRadius="5dp">
 
-
-
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
-
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
