@@ -26,8 +26,9 @@ class BookingServiceCheckout : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
-        binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingserviceprice
-        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingserviceprice
+        binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+        binding.txtdiscount.text="\u20B9" + AppUtils2.bookingdiscount
 
         binding.recycleviewproduct.layoutManager = LinearLayoutManager(this@BookingServiceCheckout, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceCheckoutAdapter()

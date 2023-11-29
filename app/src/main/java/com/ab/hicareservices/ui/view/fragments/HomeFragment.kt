@@ -290,6 +290,7 @@ class HomeFragment : Fragment() {
 
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish()
+
         })
 
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {

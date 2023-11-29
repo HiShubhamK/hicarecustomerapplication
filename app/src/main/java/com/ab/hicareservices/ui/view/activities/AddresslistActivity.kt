@@ -26,7 +26,6 @@ import com.ab.hicareservices.utils.AppUtils2
 
 class AddresslistActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityAddresslistBinding
     private lateinit var mAdapter: AddAddressListAdapter
     private val viewProductModel: ProductViewModel by viewModels()
@@ -52,13 +51,17 @@ class AddresslistActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-//            val intent=Intent(this,AddressActivity::class.java)
-//            startActivity(intent)
-//            finish()
+            val intent=Intent(this,AddressActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog(shipping,0)
+
+            val intent = Intent(this, ProductAddAddressActivity::class.java)
+            intent.putExtra("AddressActivity", "AddresslistActivity")
+            intent.putExtra("Shipping", "Shipping")
+            startActivity(intent)
         }
 
     }
@@ -428,5 +431,21 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent=Intent(this,AddressActivity::class.java)
+        startActivity(intent)
+        finish()
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewProductModel.cutomeraddress.observe(this, Observer {
+            progressDialog.dismiss()
+            mAdapter.setAddressList(it, this, viewProductModel,shipping)
+            mAdapter.notifyDataSetChanged()
+
+        })
+        viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
+
+    }
+
 }

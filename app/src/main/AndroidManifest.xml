@@ -35,6 +35,9 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.ProductAddAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activities.BookingPaymentActivity"
             android:exported="false" />
 
@@ -240,7 +243,6 @@
             android:name=".ui.view.activities.SplashActivity"
             android:exported="true"
             android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="LockedOrientationActivity">
@@ -329,7 +331,7 @@
             android:name=".ui.view.activities.ComplaintsActivityNew"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.view.activities.MyOrderActivityNew" />
-        <activity android:name=".ui.view.activities.MapsActivity"></activity>
+        <activity android:name=".ui.view.activities.MapsActivity" />
         <activity android:name=".ui.view.activities.MapsDemoActivity" />
         <activity android:name=".ui.view.activities.AddAddressActivity" />
         <activity android:name=".ui.view.activities.ServicesAddresslistActivity" />
