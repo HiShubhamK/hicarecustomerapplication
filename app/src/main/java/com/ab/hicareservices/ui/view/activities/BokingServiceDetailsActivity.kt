@@ -80,6 +80,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
+            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+            startActivity(intent)
         }
 
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
@@ -228,8 +230,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener{
             onBackPressed()
+            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+            startActivity(intent)
             finish()
         }
-
     }
 }

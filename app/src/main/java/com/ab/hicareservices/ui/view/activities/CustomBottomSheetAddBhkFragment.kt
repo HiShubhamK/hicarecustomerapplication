@@ -111,7 +111,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
 
         imgclose.setOnClickListener {
-
+            dismiss()
         }
 
 //        button.alpha=0.6f
