@@ -77,11 +77,17 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-            if (b == true) {
-                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
-            } else {
+//            if (b == true) {
 
-            }
+                val intent = Intent(this, ProductAddAddressActivity::class.java)
+                intent.putExtra("AddressActivity", "AddressActivity")
+                intent.putExtra("Shipping", "Billing")
+                startActivity(intent)
+
+//                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
+//            } else {
+//
+//            }
         }
 
         binding.imgLogo.setOnClickListener {
@@ -154,7 +160,13 @@ class AddressActivity : AppCompatActivity() {
         }
 
         binding.lnraddress.setOnClickListener {
-            showAddNewAddressdialog("true", binding.checkbox, AppUtils2.pincode)
+
+            val intent = Intent(this, ProductAddAddressActivity::class.java)
+            intent.putExtra("AddressActivity", "AddresslistActivity")
+            intent.putExtra("Shipping", "Shipping")
+            startActivity(intent)
+
+//            showAddNewAddressdialog("true", binding.checkbox, AppUtils2.pincode)
         }
 
     }

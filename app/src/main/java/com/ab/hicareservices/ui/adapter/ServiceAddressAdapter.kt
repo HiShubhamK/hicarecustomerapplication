@@ -21,7 +21,6 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.SharedPreferencesManager
 import com.ab.hicareservices.utils.UserData
 
-
 class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainViewHolder>() {
 
     var addressData = mutableListOf<ExistingCustomerAddressData>()
@@ -31,7 +30,6 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     var shipping=""
 
     private var onAddressClickedHandler: onAddressClickedHandler? = null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -102,8 +100,6 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                         cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
                         cutomeraddressdata.State + "," + cutomeraddressdata.Pincode
 
-//            holder.binding.txtphoneno.text = "Phone No:" + cutomeraddressdata.MobileNo
-
     }
 
     override fun getItemId(position: Int): Long {
@@ -129,6 +125,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
     ) {
         this.shipping=shipping
         this.addressData= productlist!!.toMutableList()
+        this.requireActivity=addressActivity
         notifyDataSetChanged()
     }
 
