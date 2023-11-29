@@ -160,7 +160,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                     val sharedPreferencesManager = SharedPreferencesManager(requireContext()).saveUserData(userData)
 
 
-
+                                    AppUtils2.bookingdiscount=bhkandpincodedata.get(i).Discount.toString()
+                                    AppUtils2.bookingdiscountedprice=bhkandpincodedata.get(i).DiscountedPrice.toString()
                                     pricewisebhk.text =
                                         "\u20B9" + bhkandpincodedata.get(i).Price.toString()
                                     discountedamount.text =

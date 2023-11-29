@@ -76,6 +76,8 @@ object AppUtils2 {
     var servicecode =""
     lateinit var getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
     var bookingserviceprice=""
+    var bookingdiscount=""
+    var bookingdiscountedprice=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

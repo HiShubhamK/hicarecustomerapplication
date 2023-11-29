@@ -406,21 +406,21 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                 }
             })
 
-            viewModels.requestcode.observe(this, Observer {
-                Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
-
-                SharedPreferenceUtil.setData(this, "mobileNo", "-1")
-                SharedPreferenceUtil.setData(this, "bToken", "")
-                SharedPreferenceUtil.setData(this, "IsLogin", false)
-                SharedPreferenceUtil.setData(this, "pincode", "")
-                SharedPreferenceUtil.setData(this, "customerid", "")
-                SharedPreferenceUtil.setData(this, "FirstName", "")
-                SharedPreferenceUtil.setData(this, "MobileNo", "")
-
-                val intent= Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            })
+//            viewModels.requestcode.observe(this, Observer {
+//                Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
+//
+//                SharedPreferenceUtil.setData(this, "mobileNo", "-1")
+//                SharedPreferenceUtil.setData(this, "bToken", "")
+//                SharedPreferenceUtil.setData(this, "IsLogin", false)
+//                SharedPreferenceUtil.setData(this, "pincode", "")
+//                SharedPreferenceUtil.setData(this, "customerid", "")
+//                SharedPreferenceUtil.setData(this, "FirstName", "")
+//                SharedPreferenceUtil.setData(this, "MobileNo", "")
+//
+//                val intent= Intent(this, LoginActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            })
 
             viewModels.getleaderspinner("pest")
         } catch (e: Exception) {
@@ -612,10 +612,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
     private fun checkUserStatus() {
         val mobileNo = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         if (mobileNo == "-1") {
-            val i = Intent(this, LoginActivity::class.java)
-            //i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(i)
-            finish()
+//            val i = Intent(this, LoginActivity::class.java)
+//            //i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(i)
+//            finish()
         }
     }
 
