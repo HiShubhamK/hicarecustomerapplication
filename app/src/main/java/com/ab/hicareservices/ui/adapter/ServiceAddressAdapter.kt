@@ -83,6 +83,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 userData.BuildingName=cutomeraddressdata.BuildingName.toString()
                 userData.Lat=cutomeraddressdata.Lat.toString()
                 userData.Long=cutomeraddressdata.Long.toString()
+                userData.Address_Id= cutomeraddressdata.Id!!.toInt()
 
                 SharedPreferencesManager(requireActivity).saveUserData(userData)
 

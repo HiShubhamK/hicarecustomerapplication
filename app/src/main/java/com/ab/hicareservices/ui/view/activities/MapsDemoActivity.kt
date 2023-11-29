@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
 class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
+    lateinit var progressDialog: ProgressDialog
 
     private var mMap: GoogleMap? = null
     private lateinit var cardView: CardView
@@ -63,6 +65,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
 
         ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
         SlotDate = intent.getStringExtra("SlotDate").toString()
@@ -94,6 +99,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 super.onLocationResult(locationResult)
                 locationResult ?: return
                 for (location in locationResult.locations) {
+
                     // Update the map and address information here with the received location
                     updateMapAndAddress(location)
                 }
@@ -228,6 +234,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun updateMapAndAddress(location: Location) {
+        progressDialog.show()
+
         val latLng = LatLng(location.latitude, location.longitude)
         val markerOptions = MarkerOptions()
             .position(latLng)
@@ -245,6 +253,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             userData.Lat=AppUtils2.Latt
             userData.Long= AppUtils2.Longg
             moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            progressDialog.dismiss()
+
 
         }
     }
