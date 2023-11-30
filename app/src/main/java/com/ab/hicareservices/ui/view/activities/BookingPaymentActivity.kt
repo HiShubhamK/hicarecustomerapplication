@@ -57,7 +57,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             }
 
         })
-        viewProductModels.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
+        viewProductModels.CreateRazorpayOrderId(AppUtils2.bookingdiscountedprice.toDouble(), 12342)
 
         val notes = prepareNotes(
             "accountId",
@@ -116,7 +116,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
-        options.put("amount", "${amount.toDouble().roundToInt()}00")
+        options.put("amount", "${AppUtils2.bookingdiscountedprice.toDouble().roundToInt()}00")
         options.put("notes", notes)
         options.put("order_id", AppUtils2.razorpayorderid)
         val prefill = JSONObject()
