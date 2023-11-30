@@ -19,6 +19,7 @@ interface OnBookingViewDetials {
         getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
         price: Int?,
         discountedAmount: Int?,
-        discountedPrice: Int?
+        discountedPrice: Int?,
+        servicePlanName: String?
     )
 }

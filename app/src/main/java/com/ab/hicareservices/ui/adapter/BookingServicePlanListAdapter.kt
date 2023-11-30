@@ -34,7 +34,7 @@ class BookingServicePlanListAdapter :
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
         holder.binding.pricewisebhk.text = "\u20B9" + plan.Price.toString()
-        holder.binding.servicepriceplan.text = "\u20B9 " + plan.DiscountedPrice.toString()
+        holder.binding.servicepriceplan.text = "\u20B9" + plan.DiscountedPrice.toString()
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         holder.binding.txtdescription.text = plan.ServicePlanDescription
@@ -85,7 +85,8 @@ class BookingServicePlanListAdapter :
                 getServicePlanResponseData,
                 plan.Price,
                 plan.DiscountedAmount,
-                plan.DiscountedPrice
+                plan.DiscountedPrice,
+                plan.ServicePlanName
                 )
 
         }

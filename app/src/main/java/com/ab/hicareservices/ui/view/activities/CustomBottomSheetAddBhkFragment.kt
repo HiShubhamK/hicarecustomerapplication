@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
@@ -49,7 +47,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     var prices=""
     var discountedPrice=""
     val userData = UserData()
-
+    var servicePlanName=""
+    var planid=""
+    var planidforbhk=""
 
     companion object {
         private const val ARG_DATA = "list_key"
@@ -58,7 +58,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         private const val PLANLIST = "PLAN_LIST"
         private const val ARG_PRICE ="data_PRICE"
         private const val ARG_DISCOUNTEDPRICE ="data_DISCOUNTEDPRICE"
-
+        private const val ARG_SERVICEPLAN ="data_SERVICEPLAN"
 
         fun newInstance(
             bhklistResponseData: List<BhklistResponseData>,
@@ -66,7 +66,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             pincodeid: String,
             getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
             price: Int?,
-            discountedPrice: Int?
+            discountedPrice: Int?,
+            servicePlanName: String?
         ): CustomBottomSheetAddBhkFragment {
             val fragment = CustomBottomSheetAddBhkFragment()
             val bundle = Bundle()
@@ -76,7 +77,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             bundle.putString(PINCODE_ID, pincodeid)
             bundle.putString(ARG_PRICE,price.toString())
             bundle.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
-
+            bundle.putString(ARG_SERVICEPLAN,servicePlanName.toString())
 
             fragment.arguments = bundle
             return fragment
@@ -95,9 +96,10 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
         val planlist = arguments?.getParcelableArrayList<GetServicePlanResponseData>(ARG_DATA)
         var pincode = arguments?.getString(PINCODE_ID).toString()
-        var planid = arguments?.getString(PLAN_ID).toString()
+        planid = arguments?.getString(PLAN_ID).toString()
         prices=arguments?.getString(ARG_PRICE).toString()
         discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
+        servicePlanName=arguments?.getString(ARG_SERVICEPLAN).toString()
 
         bhkandpincodedata = ArrayList<BHKandPincodeData>()
 
@@ -107,10 +109,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val imgclose = view.findViewById<ImageView>(R.id.imgclose)
 
 
-        pricewisebhk.text =
-            "\u20B9" + prices.toString()
-        discountedamount.text =
-            "\u20B9" + discountedPrice.toString()
+        pricewisebhk.text = "\u20B9" + prices.toString()
+        discountedamount.text = "\u20B9" + discountedPrice.toString()
         pricewisebhk.paintFlags =
             pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
@@ -137,28 +137,35 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         }
 
         mAdapter.setonViewdatail(object : OnBookingFlatPerPrice {
-            override fun onClickonFlat(position: Int, noofbhk: String?, selectedPosition: Int) {
+            override fun onClickonFlat(
+                position: Int,
+                noofbhk: String?,
+                selectedPosition: Int,
+                id: Int?
+            ) {
 
                 button.isEnabled=true
                 button.alpha = 1f
+
+                planidforbhk=id.toString()
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {
 
                         try {
                             userData.User_Id=AppUtils2.customerid.toInt()
-                            userData.BHK=noofbhk.toString()
+                            userData.BHK= noofbhk.toString()
 
                             bhkandpincodedata = it
 
                             for (i in 0 until bhkandpincodedata.size) {
 
-                                if (bhkandpincodedata.get(i).Pincode.equals("400601")) {
+                                if (bhkandpincodedata.get(i).ServicePlanName.equals(servicePlanName)) {
+
                                     userData.DiscountValue=bhkandpincodedata.get(i).DiscountedPrice.toString()
                                     userData.MRP=bhkandpincodedata.get(i).Price.toString()
                                     userData.Remarks=bhkandpincodedata[i].ServicePlanName.toString()
                                     val sharedPreferencesManager = SharedPreferencesManager(requireContext()).saveUserData(userData)
-
 
                                     AppUtils2.bookingdiscount=bhkandpincodedata.get(i).Discount.toString()
                                     AppUtils2.bookingdiscountedprice=bhkandpincodedata.get(i).DiscountedPrice.toString()
@@ -169,14 +176,11 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                     pricewisebhk.paintFlags =
                                         pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-
                                     price = bhkandpincodedata.get(i).Price.toString()
                                     AppUtils2.bookingserviceprice =
                                         bhkandpincodedata.get(i).Price.toString()
-//                                if (bhkandpincodedata.get(i).Price != 0) {
-//                                }else{
-//                                    pricewisebhk.text = "\u20B9" + "00"
-//                                }
+
+                                    break
                                 }
                             }
                         }catch(e:Exception){
@@ -187,14 +191,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                     }
                 })
-
-                viewProductModel.getPlanAndPriceByBHKandPincode("400601", noofbhk.toString(), "CMS")
-
-//                viewProductModel.getPlanAndPriceByBHKandPincode(
-//                    pincode,
-//                    noofbhk.toString(),
-//                    AppUtils2.servicecode
-//                )
+                viewProductModel.getPlanAndPriceByBHKandPincode(AppUtils2.pincode, noofbhk.toString(), AppUtils2.servicecode,planidforbhk.toInt())
             }
         })
 
