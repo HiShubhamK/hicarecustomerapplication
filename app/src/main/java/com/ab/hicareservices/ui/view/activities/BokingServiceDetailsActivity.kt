@@ -87,7 +87,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
 
         binding.imgLogo.setOnClickListener {
-            onBackPressed()
             val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
             startActivity(intent)
         }
@@ -95,10 +94,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
-        binding.imgbanner.setOnClickListener{
-            val intent=Intent(this@BokingServiceDetailsActivity, MapsDemoActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.imgbanner.setOnClickListener{
+//            onBackPressed()
+//
+//        }
 
 
         progressDialog.show()
@@ -236,11 +235,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         spinnerlist= ArrayList()
         spinnerlist.add("Select flat area")
 
-        binding.imgLogo.setOnClickListener{
-            onBackPressed()
-            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
+    }
+
+    override fun onBackPressed() {
+        val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
+        startActivity(intent)
+
     }
 }

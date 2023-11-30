@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.BookingServiceDetailsActivity
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddresslistBinding
@@ -431,7 +432,7 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this,AddressActivity::class.java)
+        val intent=Intent(this,BokingServiceDetailsActivity::class.java)
         startActivity(intent)
         finish()
     }

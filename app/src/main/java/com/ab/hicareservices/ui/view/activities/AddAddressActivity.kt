@@ -82,6 +82,9 @@ class AddAddressActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
 
+        binding.imgBack.setOnClickListener{
+            onBackPressed()
+        }
 
         pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 

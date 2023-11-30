@@ -82,7 +82,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         }
 
         binding.lnraddress.setOnClickListener {
-            val intent = Intent(this, AddAddressActivity::class.java)
+            val intent = Intent(this, MapsDemoActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
             intent.putExtra("SlotDate", "")
             intent.putExtra("TaskId", "")
@@ -111,9 +111,22 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         binding.recycleviewaddress.adapter = mAdapter
 
         viewProductModel.existingAddressListModel.observe(this, Observer {
+            if (it!=null) {
+                if (it.isNotEmpty()) {
+                    mAdapter.setAddressList(it, this, viewProductModel, shipping)
+                    mAdapter.notifyDataSetChanged()
+
+                } else {
+                    binding.tvNoAddress.visibility = View.VISIBLE
+                    binding.recycleviewaddress.visibility = View.GONE
+
+                }
+            }else{
+                binding.tvNoAddress.visibility = View.VISIBLE
+                binding.recycleviewaddress.visibility = View.GONE
+            }
             progressDialog.dismiss()
-            mAdapter.setAddressList(it, this, viewProductModel, shipping)
-            mAdapter.notifyDataSetChanged()
+
 
         })
 

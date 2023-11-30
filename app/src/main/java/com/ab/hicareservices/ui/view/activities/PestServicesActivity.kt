@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -27,6 +28,7 @@ class PestServicesActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_pest_services)
@@ -49,7 +51,8 @@ class PestServicesActivity : AppCompatActivity() {
         }
 
         binding.imgLogo.setOnClickListener {
-            onBackPressed()
+          onBackPressed()
+
         }
 
 
@@ -96,5 +99,10 @@ class PestServicesActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onBackPressed() {
+        val intent=Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -102,7 +102,15 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                         cutomeraddressdata.State + "-" + cutomeraddressdata.Pincode
 
             holder.binding.txtUsername.text = cutomeraddressdata.CustomerName
+
+        if (cutomeraddressdata.MobileNo!!.isNotEmpty()){
             holder.binding.txtphone.text = cutomeraddressdata.MobileNo
+            holder.binding.txtphone.visibility=View.VISIBLE
+
+
+        }else{
+            holder.binding.txtphone.visibility=View.GONE
+        }
 
     }
 

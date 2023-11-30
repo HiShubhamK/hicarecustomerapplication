@@ -13,6 +13,7 @@ import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.SharedPreferencesManager
 
 class BookingServiceCheckout : AppCompatActivity() {
 
@@ -24,6 +25,10 @@ class BookingServiceCheckout : AppCompatActivity() {
         setContentView(R.layout.activity_booking_service_checkout)
         binding = ActivityBookingServiceCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+
+        val retrievedUserData = sharedPreferencesManager.getUserData()
+
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
