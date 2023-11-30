@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:text="Cockroach Monitoring System"
                     android:fontFamily="@font/lato_semibold"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="@color/colorAccent"
                     />
 
@@ -42,8 +42,8 @@
                     android:layout_marginTop="3dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:src="@drawable/baseline_star_24"
                         android:layout_gravity="center"/>
 
@@ -127,9 +127,9 @@
             android:layout_height="wrap_content"
             android:text="Short description here"
             android:fontFamily="@font/lato_regular"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:background="@color/white"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_font"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp" />
 

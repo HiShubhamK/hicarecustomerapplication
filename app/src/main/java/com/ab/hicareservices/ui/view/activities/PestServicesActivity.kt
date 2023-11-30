@@ -81,6 +81,9 @@ class PestServicesActivity : AppCompatActivity() {
 
         binding.imgsearch.setOnClickListener{
 
+            SharedPreferenceUtil.setData(this, "pincode",binding.getpincodetext.text.toString())
+            AppUtils2.pincode=binding.getpincodetext.text.toString()
+
             progressDialog.show()
 
             Handler(Looper.getMainLooper()).postDelayed({

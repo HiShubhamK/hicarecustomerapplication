@@ -229,7 +229,8 @@ interface IRetrofit {
     @GET("Service/GetPlanAndPriceByBHKandPincode")
     fun getPlanAndPriceByBHKandPincode(@Query("pincode") pincode:String,
                                        @Query("noofBHK") noofBHK:String,
-                                       @Query("servicecode") servicecode:String):Call<BHKandPincode>
+                                       @Query("servicecode") servicecode:String,
+                                       @Query("planId") planId:Int):Call<BHKandPincode>
 
     @GET("Service/GetActiveServiceDetailById")
     fun getActiveServiceDetailById(@Query("serviceId") serviceId:Int) :Call<BookingServiceDetailResponse>

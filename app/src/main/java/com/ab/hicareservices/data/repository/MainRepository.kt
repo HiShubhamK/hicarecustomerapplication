@@ -58,7 +58,7 @@ class MainRepository {
     fun getcurrentAppversion(mobileNo: String)=retrofitService.getcurrentAppversion(mobileNo)
     fun GetActiveServiceList()=retrofitService.GetActiveServiceList()
     fun GetActiveBHKList()=retrofitService.GetActiveBHKList()
-    fun getPlanAndPriceByBHKandPincode(pincode:String ,noofBHK:String, servicecode:String)= retrofitService.getPlanAndPriceByBHKandPincode(pincode ,noofBHK, servicecode)
+    fun getPlanAndPriceByBHKandPincode(pincode:String ,noofBHK:String, servicecode:String , planid:Int)= retrofitService.getPlanAndPriceByBHKandPincode(pincode ,noofBHK, servicecode,planid)
     fun getActiveServiceDetailById(serviceId:Int)=retrofitService.getActiveServiceDetailById(serviceId)
     fun getPlanAndPriceByPincodeAndServiceCode(pincode:String ,servicecode:String) = retrofitService.getPlanAndPriceByPincodeAndServiceCode(pincode, servicecode)
     fun AddOrderAsync(data: HashMap<String, Any>) = retrofitService.AddOrderAsync(data)

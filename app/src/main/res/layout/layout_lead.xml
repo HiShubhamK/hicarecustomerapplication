@@ -87,7 +87,8 @@
                     android:background="@null"
                     android:textColor="@color/grey_font"
                     android:textSize="13sp"
-                    android:padding="12dp" />
+                    android:padding="12dp"
+                    android:singleLine="true"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -133,7 +134,8 @@
                     android:textColor="@color/grey_font"
                     android:textSize="13sp"
                     android:maxLength="10"
-                    android:padding="12dp" />
+                    android:padding="12dp"
+                    android:singleLine="true"/>
 
             </androidx.cardview.widget.CardView>
 

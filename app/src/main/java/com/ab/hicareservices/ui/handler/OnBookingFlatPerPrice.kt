@@ -5,6 +5,7 @@ interface OnBookingFlatPerPrice {
         position: Int,
         productid: String?,
         selectedPosition: Int,
+        id: Int?,
     )
 
 }

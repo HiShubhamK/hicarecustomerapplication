@@ -95,8 +95,8 @@ class ServiceBooking : ViewModel() {
         })
     }
 
-    fun getPlanAndPriceByBHKandPincode(pincode: String, noofbhk: String, services: String) {
-        val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services)
+    fun getPlanAndPriceByBHKandPincode(pincode: String, noofbhk: String, services: String,planid:Int) {
+        val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services,planid)
         response.enqueue(object : Callback<BHKandPincode> {
             override fun onResponse(call: Call<BHKandPincode>, response: Response<BHKandPincode>) {
                 if (response.body()!!.IsSuccess == true) {

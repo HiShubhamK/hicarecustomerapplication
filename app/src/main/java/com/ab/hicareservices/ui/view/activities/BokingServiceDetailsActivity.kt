@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +44,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var thumbnail=""
     var servicecode=""
     var servicename=""
+    var ServiceId=""
     lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +54,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding=ActivityBokingServiceDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        MyLocationListener(this)
+//
+//        MyLocationListener(this)
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
@@ -74,6 +74,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         serviceThumbnail = intent.getStringExtra("ServiceThumbnail").toString()
         shortDescription = intent.getStringExtra("ShortDescription").toString()
         stailDescription = intent.getStringExtra("DetailDescription").toString()
+        ServiceId = intent.getStringExtra("ServiceId").toString()
+
         val userData = UserData()
 
         userData.ServiceCode=serviceCode.toString()
@@ -111,9 +113,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             }
         })
 
-        viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
+        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(AppUtils2.pincode,AppUtils2.servicecode)
 
         binding.imgsearch.setOnClickListener{
+
+            SharedPreferenceUtil.setData(this, "pincode",binding.getpincodetext.text.toString())
+            AppUtils2.pincode=binding.getpincodetext.text.toString()
 
             progressDialog.show()
 
@@ -128,7 +133,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     progressDialog.dismiss()
 
                 })
-                viewProductModel.getPlanAndPriceByPincodeAndServiceCode("400601",AppUtils2.servicecode)
+                viewProductModel.getPlanAndPriceByPincodeAndServiceCode(AppUtils2.pincode,AppUtils2.servicecode)
             }, 300)
 
         }
@@ -143,7 +148,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
             override fun onViewDetails(
                 position: Int,
-                productid: Int,
+                planid: Int,
                 servicePlanDescription: String?,
                 price: Int?,
                 discountedPrice: Int?
@@ -164,7 +169,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                     }
                 })
-                viewProductModel.getActiveServiceDetailById(1)
+                viewProductModel.getActiveServiceDetailById(ServiceId.toInt())
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription,price,discountedPrice)
@@ -180,7 +185,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,
                 price: Int?,
                 discountedAmount: Int?,
-                discountedPrice: Int?
+                discountedPrice: Int?,
+                servicePlanName: String?
             ) {
 
                 progressDialog.show()
@@ -207,7 +213,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         bhklistResponseData as ArrayList<BhklistResponseData>,
                         planid,
                         pincodeid,
-                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,price,discountedPrice)
+                        getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
+                        price,
+                        discountedPrice,
+                        servicePlanName)
                     bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                 }, 200)
             }
@@ -241,6 +250,14 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
 }

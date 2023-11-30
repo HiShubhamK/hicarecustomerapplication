@@ -41,7 +41,7 @@
         android:paddingLeft="9dp"
         android:text="@string/my_orders"
         android:textColor="@color/black"
-        android:textSize="14sp"/>
+        android:textSize="16sp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -67,9 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:text="aksha"
                 android:fontFamily="@font/lato_regular"
                 android:paddingLeft="9dp"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_font"
                 android:textSize="14sp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -174,6 +175,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="end"
+                    android:textColor="@color/colorAccent"
                     android:text="more"
                     android:textSize="14sp" />
 

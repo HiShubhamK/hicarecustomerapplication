@@ -74,7 +74,7 @@ class BookingServiceBhklistAdapter : RecyclerView.Adapter<BookingServiceBhklistA
         }
         if (selectedPosition === holder.adapterPosition) {
             holder.binding.txtaddbhk.setTextColor(ContextCompat.getColor(requireActivity, R.color.colorAccent))
-            onBookingViewDetials!!.onClickonFlat(position,service[position].NoOfBHK,selectedPosition)
+            onBookingViewDetials!!.onClickonFlat(position,service[position].NoOfBHK,selectedPosition,service[position].Id)
         } else {
             holder.binding.txtaddbhk.setTextColor(Color.GRAY)
         }
