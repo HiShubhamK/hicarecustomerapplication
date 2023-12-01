@@ -33,18 +33,18 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var shortDescription: String? = null
     var stailDescription: String? = null
     lateinit var spinnerlist: ArrayList<String>
-    var selectedLocation:String?=null
+    var selectedLocation: String? = null
     private lateinit var mAdapter: BookingServicePlanListAdapter
     private val viewProductModel: ServiceBooking by viewModels()
     private lateinit var nAdapter: BookingServiceListDetailsAdapter
     lateinit var bhklistResponseData: List<BhklistResponseData>
-    var descrition=""
-    var shortdescrition=""
-    var id=0
-    var thumbnail=""
-    var servicecode=""
-    var servicename=""
-    var ServiceId=""
+    var descrition = ""
+    var shortdescrition = ""
+    var id = 0
+    var thumbnail = ""
+    var servicecode = ""
+    var servicename = ""
+    var ServiceId = ""
     lateinit var progressDialog: ProgressDialog
     lateinit var faqList: List<FaqList>
 
@@ -54,7 +54,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
 //        setContentView(R.layout.activity_boking_service_details)
 
-        binding=ActivityBokingServiceDetailsBinding.inflate(layoutInflater)
+        binding = ActivityBokingServiceDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //
 //        MyLocationListener(this)
@@ -62,11 +62,13 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-        AppUtils2.pincode= SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "").toString()
+        AppUtils2.pincode =
+            SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "")
+                .toString()
 
-        if(AppUtils2.pincode.equals("")){
+        if (AppUtils2.pincode.equals("")) {
             binding.getpincodetext.setText("400080")
-        }else{
+        } else {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
@@ -78,12 +80,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         stailDescription = intent.getStringExtra("DetailDescription").toString()
         ServiceId = intent.getStringExtra("ServiceId").toString()
 
-        faqList=ArrayList()
+        faqList = ArrayList()
 
         val userData = UserData()
 
-        userData.ServiceCode=serviceCode.toString()
-        userData.ServiceType="Pest"
+        userData.ServiceCode = serviceCode.toString()
+        userData.ServiceType = "Pest"
         val sharedPreferencesManager = SharedPreferencesManager(this).saveUserData(userData)
 
 
@@ -93,11 +95,15 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
 
         binding.imgLogo.setOnClickListener {
-            val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+            val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
             startActivity(intent)
         }
 
-        binding.recycleviewplans.layoutManager = LinearLayoutManager(this@BokingServiceDetailsActivity, LinearLayoutManager.VERTICAL, false)
+        binding.recycleviewplans.layoutManager = LinearLayoutManager(
+            this@BokingServiceDetailsActivity,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
 //        binding.imgbanner.setOnClickListener{
@@ -107,42 +113,49 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         progressDialog.show()
 
-        viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
-            if (it.isNotEmpty()) {
-                progressDialog.dismiss()
-                mAdapter.setServiceList(it,this)
-            } else {
+        viewProductModel.servicePlanResponseData.observe(
+            this@BokingServiceDetailsActivity,
+            Observer {
+                if (it.isNotEmpty()) {
+                    progressDialog.dismiss()
+                    mAdapter.setServiceList(it, this)
+                } else {
 
-            }
-        })
+                }
+            })
 
-        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(AppUtils2.pincode,AppUtils2.servicecode)
+        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+            AppUtils2.pincode,
+            AppUtils2.servicecode
+        )
 
-        binding.imgsearch.setOnClickListener{
+        binding.imgsearch.setOnClickListener {
 
-            SharedPreferenceUtil.setData(this, "pincode",binding.getpincodetext.text.toString())
-            AppUtils2.pincode=binding.getpincodetext.text.toString()
+            SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
+            AppUtils2.pincode = binding.getpincodetext.text.toString()
 
             progressDialog.show()
 
             Handler(Looper.getMainLooper()).postDelayed({
 
-                viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
-                    if (it.isNotEmpty()) {
-                        mAdapter.setServiceList(it,this)
-                    } else {
+                viewProductModel.servicePlanResponseData.observe(
+                    this@BokingServiceDetailsActivity,
+                    Observer {
+                        if (it.isNotEmpty()) {
+                            mAdapter.setServiceList(it, this)
+                        } else {
 
-                    }
-                    progressDialog.dismiss()
+                        }
+                        progressDialog.dismiss()
 
-                })
-                viewProductModel.getPlanAndPriceByPincodeAndServiceCode(AppUtils2.pincode,AppUtils2.servicecode)
+                    })
+                viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                    AppUtils2.pincode,
+                    AppUtils2.servicecode
+                )
             }, 300)
 
         }
-
-
-//        mAdapter.setonViewdatail(object : )
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
 
@@ -155,24 +168,35 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             ) {
                 progressDialog.show()
 
-                viewProductModel.bookingServiceDetailResponseData.observe(this@BokingServiceDetailsActivity, Observer {
-                    if (it.Id!=0) {
-                        progressDialog.dismiss()
-                        descrition= it.DetailDescription.toString()
-                        shortdescrition= it.ShortDescription.toString()
-                        id= it.Id!!
-                        thumbnail= it.ServiceThumbnail.toString()
-                        servicecode= it.ServiceCode.toString()
-                        servicename= it.ServiceName.toString()
-                        faqList=it.FaqList
-                    } else {
+                viewProductModel.bookingServiceDetailResponseData.observe(
+                    this@BokingServiceDetailsActivity,
+                    Observer {
+                        if (it.Id != 0) {
+                            progressDialog.dismiss()
+                            descrition = it.DetailDescription.toString()
+                            shortdescrition = it.ShortDescription.toString()
+                            id = it.Id!!
+                            thumbnail = it.ServiceThumbnail.toString()
+                            servicecode = it.ServiceCode.toString()
+                            servicename = it.ServiceName.toString()
+                            faqList = it.FaqList
+                        } else {
 
-                    }
-                })
+                        }
+                    })
                 viewProductModel.getActiveServiceDetailById(ServiceId.toInt())
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription,price,discountedPrice,
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(
+                        id,
+                        servicename,
+                        servicecode,
+                        thumbnail,
+                        shortdescrition,
+                        descrition,
+                        servicePlanDescription,
+                        price,
+                        discountedPrice,
                         faqList as ArrayList<FaqList>
                     )
                     bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
@@ -193,7 +217,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 progressDialog.show()
 
-                AppUtils2.getServicePlanResponseData= ArrayList()
+                AppUtils2.getServicePlanResponseData = ArrayList()
 
                 AppUtils2.getServicePlanResponseData.clear()
 
@@ -202,7 +226,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
                     if (it.isNotEmpty()) {
                         progressDialog.dismiss()
-                        bhklistResponseData=it
+                        bhklistResponseData = it
 
                     } else {
 
@@ -218,7 +242,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
                         price,
                         discountedPrice,
-                        servicePlanName)
+                        servicePlanName
+                    )
                     bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                 }, 200)
             }
@@ -226,24 +251,36 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         })
 
-        binding.recMenu.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recMenu.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         nAdapter = BookingServiceListDetailsAdapter()
         binding.recMenu.adapter = nAdapter
 
         viewProductModel.serviceresponssedata.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                nAdapter.setServiceLists(it,this)
-            } else {
-
-            }
-            progressDialog.dismiss()
         })
         viewProductModel.getActiveServiceList()
 
-        binding.txtshortdes.text=shortDescription.toString()
-        binding.txtlongdes.text=stailDescription.toString()
 
-        spinnerlist= ArrayList()
+        viewProductModel.bookingServiceDetailResponseData.observe(
+            this@BokingServiceDetailsActivity,
+            Observer {
+                if (it.Id != 0) {
+                    nAdapter.setServiceLists(it.OtherServiceList, this)
+                    progressDialog.dismiss()
+
+                } else {
+
+                }
+            })
+        viewProductModel.getActiveServiceDetailById(ServiceId.toInt())
+
+
+
+
+        binding.txtshortdes.text = shortDescription.toString()
+        binding.txtlongdes.text = stailDescription.toString()
+
+        spinnerlist = ArrayList()
         spinnerlist.add("Select flat area")
 
 
@@ -251,7 +288,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this@BokingServiceDetailsActivity,PestServicesActivity::class.java)
+        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
         finish()
 

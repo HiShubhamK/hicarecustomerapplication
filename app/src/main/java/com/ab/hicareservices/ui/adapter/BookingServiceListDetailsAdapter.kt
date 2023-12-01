@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.data.model.OtherServiceList
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.BookingServicelistLayoutBinding
-import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
 import com.squareup.picasso.Picasso
 
 class BookingServiceListDetailsAdapter: RecyclerView.Adapter<BookingServiceListDetailsAdapter.MainViewHolder>() {
 
-    var service = mutableListOf<ServiceListResponseData>()
+    var service = mutableListOf<OtherServiceList>()
     lateinit var requireActivity: FragmentActivity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -32,6 +32,7 @@ class BookingServiceListDetailsAdapter: RecyclerView.Adapter<BookingServiceListD
 
         holder.itemView.setOnClickListener {
             val intent= Intent(requireActivity, BokingServiceDetailsActivity::class.java)
+            intent.putExtra("ServiceId", service.Id.toString())
             intent.putExtra("ServiceName",service.ServiceName.toString())
             intent.putExtra("ServiceCode",service.ServiceCode.toString())
             intent.putExtra("ServiceThumbnail",service.ServiceThumbnail.toString())
@@ -41,13 +42,13 @@ class BookingServiceListDetailsAdapter: RecyclerView.Adapter<BookingServiceListD
         }
     }
 
-
     override fun getItemCount(): Int {
         return service.size
     }
 
-    fun setServiceLists(movies: List<ServiceListResponseData>?,
-    pestServicesActivity: Context
+    fun setServiceLists(
+        movies: ArrayList<OtherServiceList>,
+        pestServicesActivity: Context
     ) {
         if (movies != null) {
             this.service = movies.toMutableList()
