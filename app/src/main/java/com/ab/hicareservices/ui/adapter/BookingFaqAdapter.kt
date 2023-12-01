@@ -1,24 +1,18 @@
 package com.ab.hicareservices.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ab.hicareservices.data.model.product.ProductFAQ
-import com.ab.hicareservices.data.model.product.ProductGallery
-import com.ab.hicareservices.data.model.product.RelatedProducts
-import com.ab.hicareservices.databinding.LayoutBannerItemBinding
+import com.ab.hicareservices.data.model.FaqList
+import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.databinding.LayoutFaqBinding
-import com.ab.hicareservices.databinding.LayoutRelatedProductBinding
-import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
-import com.squareup.picasso.Picasso
+import java.util.ArrayList
 
-
-class FAQAdapter() : RecyclerView.Adapter<FAQAdapter.MainViewHolder>() {
-    var productDetails = mutableListOf<ProductFAQ>()
+class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>() {
+    var productDetails = mutableListOf<FaqList>()
     lateinit var productDetailActivity: FragmentActivity
 
 
@@ -49,19 +43,17 @@ class FAQAdapter() : RecyclerView.Adapter<FAQAdapter.MainViewHolder>() {
         }
     }
 
-
     override fun getItemCount(): Int {
         return productDetails.size
     }
     fun setFaq(
-        productDetails: ArrayList<ProductFAQ>,
-        productDetailActivity: ProductDetailActivity
+        productDetails: ArrayList<FaqList>?,
+        productDetailActivity: FragmentActivity
     ) {
-        this.productDetails = productDetails
+        this.productDetails = productDetails!!
         this.productDetailActivity = productDetailActivity
         notifyDataSetChanged()
     }
-
 
     class MainViewHolder(val binding: LayoutFaqBinding) :
         RecyclerView.ViewHolder(binding.root)

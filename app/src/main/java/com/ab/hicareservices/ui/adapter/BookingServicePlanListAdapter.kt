@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingPlanServicesAdapterBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
+import com.ab.hicareservices.utils.AppUtils2
 
 class BookingServicePlanListAdapter :
     RecyclerView.Adapter<BookingServicePlanListAdapter.MainViewHolder>() {
@@ -43,6 +44,8 @@ class BookingServicePlanListAdapter :
         }
 
         holder.binding.btnaddtocart.setOnClickListener {
+
+            AppUtils2.planid=plan.PlanId.toString()
 
             getServicePlanResponseData = ArrayList()
 
@@ -79,7 +82,7 @@ class BookingServicePlanListAdapter :
 
             onBookingViewDetials?.onClickAddButton(
                 position,
-                plan.Id,
+                plan.PlanId,
                 plan.PincodeId.toString(),
                 plan.NoOfBHK,
                 getServicePlanResponseData,

@@ -115,67 +115,51 @@
                 android:background="@color/white"
                 android:textColor="@color/grey_font" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/lnrFAQ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+                </View>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="FAQ"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+                </View>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_regular"
-                android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recFAQ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
+
 
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

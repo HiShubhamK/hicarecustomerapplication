@@ -7,7 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.model.FaqList
+import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
+import com.ab.hicareservices.ui.adapter.BookingFaqAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -22,6 +28,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
     var fulldescritpition=""
     var price=""
     var discountedPrice=""
+    private lateinit var mAdapter: BookingFaqAdapter
 
     companion object {
         private const val ARG_DATA = "data_key"
@@ -33,6 +40,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         private const val ARG_FUL_DESCRIPTION ="data_full_description"
         private const val ARG_PRICE ="data_PRICE"
         private const val ARG_DISCOUNTEDPRICE ="data_DISCOUNTEDPRICE"
+        private const val ARG_FAQLIST ="data_FAQLIST"
 
 
         fun newInstance(
@@ -44,7 +52,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             descrition: String?,
             servicePlanDescription: String?,
             price: Int?,
-            discountedPrice: Int?
+            discountedPrice: Int?,
+            faqList: ArrayList<FaqList>
         ): CustomBottomSheetFragment {
             val fragment = CustomBottomSheetFragment()
             val args = Bundle()
@@ -57,6 +66,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             args.putString(ARG_FUL_DESCRIPTION,servicePlanDescription.toString())
             args.putString(ARG_PRICE,price.toString())
             args.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
+            args.putParcelableArrayList(ARG_FAQLIST,ArrayList(faqList))
             fragment.arguments = args
             return fragment
         }
@@ -78,17 +88,29 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         fulldescritpition=arguments?.getString(ARG_FUL_DESCRIPTION).toString()
         price=arguments?.getString(ARG_PRICE).toString()
         discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
+        val serviceList = arguments?.getParcelableArrayList<FaqList>(ARG_FAQLIST)
 
         val textView = view.findViewById<AppCompatTextView>(R.id.servicename)
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)
         val thumbnails = view.findViewById<AppCompatImageView>(R.id.servicethumbnail)
         val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
         val imgclose = view.findViewById<ImageView>(R.id.imgclose)
+        val recFAQ=view.findViewById<RecyclerView>(R.id.recFAQ)
 
         textView.text = servicename
         textViewdescription.text=descrition
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
+
+
+//        recFAQ.layoutManager = GridLayoutManager(activity, 3)
+        recFAQ.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        mAdapter = BookingFaqAdapter()
+        recFAQ.adapter = this.mAdapter
+
+        if (serviceList != null) {
+            mAdapter.setFaq(serviceList, activity!!)
+        }
 
 
         imgclose.setOnClickListener {

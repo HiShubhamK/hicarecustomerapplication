@@ -13,7 +13,7 @@ interface OnBookingViewDetials {
 
     fun onClickAddButton(
         position: Int,
-        id1: Int?,
+        planid: Int?,
         id: String,
         noOfBHK: String?,
         getServicePlanResponseData: ArrayList<GetServicePlanResponseData>,

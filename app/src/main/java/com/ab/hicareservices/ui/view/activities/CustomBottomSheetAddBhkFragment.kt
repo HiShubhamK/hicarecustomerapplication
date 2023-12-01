@@ -191,7 +191,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                     }
                 })
-                viewProductModel.getPlanAndPriceByBHKandPincode(AppUtils2.pincode, noofbhk.toString(), AppUtils2.servicecode,planidforbhk.toInt())
+                viewProductModel.getPlanAndPriceByBHKandPincode(AppUtils2.pincode, noofbhk.toString(), AppUtils2.servicecode,planid.toInt())
             }
         })
 
