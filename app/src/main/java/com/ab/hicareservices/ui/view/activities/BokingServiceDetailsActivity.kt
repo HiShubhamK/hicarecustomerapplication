@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
+import com.ab.hicareservices.data.model.FaqList
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
-import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
@@ -46,6 +46,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var servicename=""
     var ServiceId=""
     lateinit var progressDialog: ProgressDialog
+    lateinit var faqList: List<FaqList>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         stailDescription = intent.getStringExtra("DetailDescription").toString()
         ServiceId = intent.getStringExtra("ServiceId").toString()
 
+        faqList=ArrayList()
+
         val userData = UserData()
 
         userData.ServiceCode=serviceCode.toString()
@@ -100,7 +104,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //            onBackPressed()
 //
 //        }
-
 
         progressDialog.show()
 
@@ -143,9 +146,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
 
-
-
-
             override fun onViewDetails(
                 position: Int,
                 planid: Int,
@@ -164,7 +164,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         thumbnail= it.ServiceThumbnail.toString()
                         servicecode= it.ServiceCode.toString()
                         servicename= it.ServiceName.toString()
-
+                        faqList=it.FaqList
                     } else {
 
                     }
@@ -172,7 +172,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 viewProductModel.getActiveServiceDetailById(ServiceId.toInt())
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription,price,discountedPrice)
+                    val bottomSheetFragment = CustomBottomSheetFragment.newInstance(id,servicename,servicecode,thumbnail,shortdescrition,descrition,servicePlanDescription,price,discountedPrice,
+                        faqList as ArrayList<FaqList>
+                    )
                     bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
                 }, 200)
             }
@@ -244,12 +246,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         spinnerlist= ArrayList()
         spinnerlist.add("Select flat area")
 
-
-    }
-
-    override fun onBackPressed() {
-        val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
-        startActivity(intent)
 
     }
 
