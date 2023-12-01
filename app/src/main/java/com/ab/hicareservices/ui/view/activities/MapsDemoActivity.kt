@@ -108,7 +108,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         btnNext.setOnClickListener {
             userData.Pincode=AppUtils2.pincode
             userData.ServiceType="Pest"
-            val intent=Intent(this,ServicesAddresslistActivity::class.java)
+            val intent=Intent(this,AddAddressActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
             intent.putExtra("SlotDate", "")
             intent.putExtra("TaskId", "")

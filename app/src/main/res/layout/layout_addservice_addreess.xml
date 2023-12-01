@@ -454,6 +454,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:maxLength="50"
+                        android:singleLine="true"
                         android:padding="12dp"
                         android:textColor="@color/grey_font"
                         android:textSize="13sp"
@@ -493,8 +494,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:maxLength="100"
+                            android:maxLength="50"
                             android:padding="12dp"
+                            android:singleLine="true"
                             android:textColor="@color/grey_font"
                             android:textSize="13sp"
                             android:layout_marginHorizontal="6dp"
@@ -728,7 +730,7 @@
                         android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:orientation="vertical">
@@ -756,7 +758,7 @@
 
                                 <EditText
                                     android:id="@+id/etflatno"
-                                    android:layout_width="50dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:padding="12dp"

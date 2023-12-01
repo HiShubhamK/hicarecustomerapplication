@@ -198,7 +198,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         button.setOnClickListener {
 
 
-            val intent = Intent(activity, MapsDemoActivity::class.java)
+            val intent = Intent(activity, ServicesAddresslistActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
             intent.putExtra("SlotDate", "")
             intent.putExtra("TaskId", "")
