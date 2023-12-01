@@ -102,7 +102,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         progressDialog.show()
 
         viewProductModel.servicePlanResponseData.observe(this@BokingServiceDetailsActivity, Observer {
@@ -143,9 +142,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //        mAdapter.setonViewdatail(object : )
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
-
-
-
 
             override fun onViewDetails(
                 position: Int,
