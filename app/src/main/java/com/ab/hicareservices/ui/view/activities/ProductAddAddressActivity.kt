@@ -43,7 +43,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
         activityname = intent.getStringExtra("AddressActivity").toString()
         checkshippingbilling = intent.getStringExtra("Shipping").toString()
 
-        binding.title.setText("Add new " + checkshippingbilling + " Address")
+        binding.title.setText("Add New " + checkshippingbilling + " Address")
 
         binding.imgLogo.setOnClickListener {
             if (activityname.equals("AddressActivity")) {
@@ -562,6 +562,9 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+
+        Toast.makeText(this,activityname.toString(),Toast.LENGTH_LONG).show()
+
         if (activityname.equals("AddressActivity")) {
             val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
             startActivity(intent)
@@ -571,7 +574,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
             intent.putExtra("shippingaddress", "true")
             startActivity(intent)
             finish()
-
         }
     }
 

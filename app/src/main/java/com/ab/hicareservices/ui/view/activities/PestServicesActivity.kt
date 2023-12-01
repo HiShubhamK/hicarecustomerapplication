@@ -24,10 +24,7 @@ class PestServicesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPestServicesBinding
     private lateinit var mAdapter: BookingServiceListAdapter
     private val viewProductModel: ServiceBooking by viewModels()
-
     lateinit var progressDialog: ProgressDialog
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +39,21 @@ class PestServicesActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
 
-        AppUtils2.pincode= SharedPreferenceUtil.getData(this@PestServicesActivity, "pincode", "").toString()
+        AppUtils2.pincode =
+            SharedPreferenceUtil.getData(this@PestServicesActivity, "pincode", "").toString()
 
-        if(AppUtils2.pincode.equals("")){
+        if (AppUtils2.pincode.equals("")) {
             binding.getpincodetext.setText("400080")
-        }else{
+        } else {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
         binding.imgLogo.setOnClickListener {
-          onBackPressed()
+            onBackPressed()
 
         }
-
-
-
-//        binding.recMenu.layoutManager = GridLayoutManager(this@PestServicesActivity, 3)
-        binding.recMenu.layoutManager = LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)
+        binding.recMenu.layoutManager =
+            LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceListAdapter()
         binding.recMenu.adapter = mAdapter
 
@@ -67,22 +62,17 @@ class PestServicesActivity : AppCompatActivity() {
         viewProductModel.serviceresponssedata.observe(this@PestServicesActivity, Observer {
             if (it.isNotEmpty()) {
                 progressDialog.dismiss()
-
-                mAdapter.setServiceList(it,this)
-
-// Set other properties...
-
-
+                mAdapter.setServiceList(it, this)
             } else {
 
             }
         })
         viewProductModel.getActiveServiceList()
 
-        binding.imgsearch.setOnClickListener{
+        binding.imgsearch.setOnClickListener {
 
-            SharedPreferenceUtil.setData(this, "pincode",binding.getpincodetext.text.toString())
-            AppUtils2.pincode=binding.getpincodetext.text.toString()
+            SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
+            AppUtils2.pincode = binding.getpincodetext.text.toString()
 
             progressDialog.show()
 
@@ -93,19 +83,15 @@ class PestServicesActivity : AppCompatActivity() {
                         progressDialog.dismiss()
                         mAdapter.setServiceList(it, this)
                     } else {
-
                     }
                 })
                 viewProductModel.getActiveServiceList()
-
             }, 300)
-
         }
-
     }
 
     override fun onBackPressed() {
-        val intent=Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
 }

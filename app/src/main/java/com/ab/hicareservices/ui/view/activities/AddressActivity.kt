@@ -162,7 +162,7 @@ class AddressActivity : AppCompatActivity() {
         binding.lnraddress.setOnClickListener {
 
             val intent = Intent(this, ProductAddAddressActivity::class.java)
-            intent.putExtra("AddressActivity", "AddresslistActivity")
+            intent.putExtra("AddressActivity", "AddressActivity")
             intent.putExtra("Shipping", "Shipping")
             startActivity(intent)
 

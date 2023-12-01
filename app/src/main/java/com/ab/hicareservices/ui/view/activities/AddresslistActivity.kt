@@ -432,7 +432,7 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this,BokingServiceDetailsActivity::class.java)
+        val intent=Intent(this,AddressActivity::class.java)
         startActivity(intent)
         finish()
     }
