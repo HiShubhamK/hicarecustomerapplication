@@ -65,202 +65,227 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
-        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
-        progressDialog.setCancelable(false)
+        try{
+            progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+            progressDialog.setCancelable(false)
 
 
-        ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
-        SlotDate = intent.getStringExtra("SlotDate").toString()
-        TaskId = intent.getStringExtra("TaskId").toString()
-        SkillId = intent.getStringExtra("SkillId").toString()
-        Latt = intent.getStringExtra("Lat").toString()
-        Longg = intent.getStringExtra("Long").toString()
-        ServiceType = intent.getStringExtra("ServiceType").toString()
-        Pincode = intent.getStringExtra("Pincode").toString()
-        Service_Code = intent.getStringExtra("Service_Code").toString()
-        Unit = intent.getStringExtra("Unit").toString()
-        spcode = intent.getStringExtra("SPCode").toString()
+            ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
+            SlotDate = intent.getStringExtra("SlotDate").toString()
+            TaskId = intent.getStringExtra("TaskId").toString()
+            SkillId = intent.getStringExtra("SkillId").toString()
+            Latt = intent.getStringExtra("Lat").toString()
+            Longg = intent.getStringExtra("Long").toString()
+            ServiceType = intent.getStringExtra("ServiceType").toString()
+            Pincode = intent.getStringExtra("Pincode").toString()
+            Service_Code = intent.getStringExtra("Service_Code").toString()
+            Unit = intent.getStringExtra("Unit").toString()
+            spcode = intent.getStringExtra("SPCode").toString()
 
 
-        userData.ServiceArea="Home Type"
-        userData.LeadSource="MobileApp"
+            userData.ServiceArea="Home Type"
+            userData.LeadSource="MobileApp"
 
 
-        addressTextView = findViewById(R.id.addressTextView)
-        tvAddressdetail = findViewById(R.id.tvAddressdetail)
-        btnNext = findViewById(R.id.btnNext)
-        cardView = findViewById(R.id.cardView)
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+            addressTextView = findViewById(R.id.addressTextView)
+            tvAddressdetail = findViewById(R.id.tvAddressdetail)
+            btnNext = findViewById(R.id.btnNext)
+            cardView = findViewById(R.id.cardView)
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            mapFragment.getMapAsync(this)
 
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                super.onLocationResult(locationResult)
-                locationResult ?: return
-                for (location in locationResult.locations) {
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+                    locationResult ?: return
+                    for (location in locationResult.locations) {
 
-                    // Update the map and address information here with the received location
-                    updateMapAndAddress(location)
+                        // Update the map and address information here with the received location
+                        updateMapAndAddress(location)
+                    }
                 }
             }
-        }
-        btnNext.setOnClickListener {
-            userData.Pincode=AppUtils2.pincode
-            userData.ServiceType="Pest"
-            val intent=Intent(this,AddAddressActivity::class.java)
-            intent.putExtra("ServiceCenter_Id", "")
-            intent.putExtra("SlotDate", "")
-            intent.putExtra("TaskId", "")
-            intent.putExtra("SkillId", "")
-            intent.putExtra("Latt", lat)
-            intent.putExtra("Longg", longg)
-            intent.putExtra("ServiceType", "pest")
-            intent.putExtra("Pincode", AppUtils2.pincode)
-            intent.putExtra("Service_Code", AppUtils2.servicecode)
-            intent.putExtra("Unit", Unit)
-            intent.putExtra("SPCode", spcode)
+            btnNext.setOnClickListener {
+                userData.Pincode=AppUtils2.pincode
+                userData.ServiceType="Pest"
+                val intent=Intent(this,AddAddressActivity::class.java)
+                intent.putExtra("ServiceCenter_Id", "")
+                intent.putExtra("SlotDate", "")
+                intent.putExtra("TaskId", "")
+                intent.putExtra("SkillId", "")
+                intent.putExtra("Latt", lat)
+                intent.putExtra("Longg", longg)
+                intent.putExtra("ServiceType", "pest")
+                intent.putExtra("Pincode", AppUtils2.pincode)
+                intent.putExtra("Service_Code", AppUtils2.servicecode)
+                intent.putExtra("Unit", Unit)
+                intent.putExtra("SPCode", spcode)
 
-            startActivity(intent)
+                startActivity(intent)
 
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
 
 
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        try {
+            mMap = googleMap
 
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            mMap!!.isMyLocationEnabled = true
-            startLocationUpdates()
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                mMap!!.isMyLocationEnabled = true
+                startLocationUpdates()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_LOCATION_PERMISSION
+                )
+            }
+
+            mMap!!.setOnMapLongClickListener { latLng ->
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
-        mMap!!.setOnMapLongClickListener { latLng ->
-        }
     }
 
     private fun startLocationUpdates() {
-        val locationRequest = LocationRequest.create().apply {
-            interval = 1000
-            fastestInterval = 1000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        try {
+            val locationRequest = LocationRequest.create().apply {
+                interval = 1000
+                fastestInterval = 1000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
+            mFusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        mFusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
     }
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double) {
-        progressDialog.show()
+        try {
+            progressDialog.show()
 
-        val geocoder = Geocoder(this, Locale.getDefault())
-        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
-        if (!addresses.isNullOrEmpty()) {
-            val address = addresses[0]
-            val street = address.thoroughfare // Street name
-            val state = address.adminArea // State name
-            val postalCode = address.postalCode // Postal code
-            val nearbyArea = address.subLocality ?: address.locality // Nearby area or locality
-            val companyName = address.featureName // Nearby company name or business name
-            val landmark = address.featureName // Landmark
-            val locality = address.subLocality // Locality
-            val buildingName = address.featureName // Building name
-            val industryArea = address.subAdminArea ?: address.locality // Industry area
+            if (!addresses.isNullOrEmpty()) {
+                val address = addresses[0]
+                val street = address.thoroughfare // Street name
+                val state = address.adminArea // State name
+                val postalCode = address.postalCode // Postal code
+                val nearbyArea = address.subLocality ?: address.locality // Nearby area or locality
+                val companyName = address.featureName // Nearby company name or business name
+                val landmark = address.featureName // Landmark
+                val locality = address.subLocality // Locality
+                val buildingName = address.featureName // Building name
+                val industryArea = address.subAdminArea ?: address.locality // Industry area
 
-            val addressDetails = StringBuilder()
-
-
-            locality?.let {
-                addressDetails.append("Locality: $it\n")
-            }
-            buildingName?.let {
-                addressDetails.append("Building Name: $it\n")
-            }
-            state?.let {
-                addressDetails.append("State: $it\n")
-            }
-            postalCode?.let {
-                addressDetails.append("Postal Code: $it\n")
-            }
-            nearbyArea?.let {
-                addressDetails.append("Nearby Area: $it\n")
-            }
-            companyName?.let {
-                addressDetails.append("Company Name: $it\n")
-            }
-            landmark?.let {
-                addressDetails.append("Landmark: $it\n")
-            }
-            addressTextView.text = industryArea
-            tvAddressdetail.text = "$nearbyArea, $state, India"
-            if (addressTextView.text.isNotEmpty()&&tvAddressdetail.text.isNotEmpty()){
-                cardView.visibility= View.VISIBLE
-                progressDialog.dismiss()
-            }else{
-                cardView.visibility= View.GONE
-                progressDialog.dismiss()
+                val addressDetails = StringBuilder()
 
 
-            }
+                locality?.let {
+                    addressDetails.append("Locality: $it\n")
+                }
+                buildingName?.let {
+                    addressDetails.append("Building Name: $it\n")
+                }
+                state?.let {
+                    addressDetails.append("State: $it\n")
+                }
+                postalCode?.let {
+                    addressDetails.append("Postal Code: $it\n")
+                }
+                nearbyArea?.let {
+                    addressDetails.append("Nearby Area: $it\n")
+                }
+                companyName?.let {
+                    addressDetails.append("Company Name: $it\n")
+                }
+                landmark?.let {
+                    addressDetails.append("Landmark: $it\n")
+                }
+                addressTextView.text = industryArea
+                tvAddressdetail.text = "$nearbyArea, $state, India"
+                if (addressTextView.text.isNotEmpty()&&tvAddressdetail.text.isNotEmpty()){
+                    cardView.visibility= View.VISIBLE
+                    progressDialog.dismiss()
+                }else{
+                    cardView.visibility= View.GONE
+                    progressDialog.dismiss()
 
+
+                }
+
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
     }
 
     private fun updateMapAndAddress(location: Location) {
-        progressDialog.show()
+        try {
+            progressDialog.show()
 
-        val latLng = LatLng(location.latitude, location.longitude)
-        val markerOptions = MarkerOptions()
-            .position(latLng)
-            .title("Current Position")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            val latLng = LatLng(location.latitude, location.longitude)
+            val markerOptions = MarkerOptions()
+                .position(latLng)
+                .title("Current Position")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 
-        mMap?.apply {
-            clear()
-            addMarker(markerOptions)
-            getAddressFromLocation(latLng.latitude, latLng.longitude)
-            lat=latLng.latitude.toString()
-            longg=latLng.longitude.toString()
-            AppUtils2.Latt=latLng.latitude.toString()
-            AppUtils2.Longg=latLng.longitude.toString()
-            userData.Lat=AppUtils2.Latt
-            userData.Long= AppUtils2.Longg
-            moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            mMap?.apply {
+                clear()
+                addMarker(markerOptions)
+                getAddressFromLocation(latLng.latitude, latLng.longitude)
+                lat=latLng.latitude.toString()
+                longg=latLng.longitude.toString()
+                AppUtils2.Latt=latLng.latitude.toString()
+                AppUtils2.Longg=latLng.longitude.toString()
+                userData.Lat=AppUtils2.Latt
+                userData.Long= AppUtils2.Longg
+                moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
 
 
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
     }
 
     override fun onRequestPermissionsResult(
