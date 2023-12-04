@@ -22,7 +22,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object AppUtils2 {
-
     var TOKEN = ""
     var NotificationChannelid = ""
     var mobileno=""
@@ -80,6 +79,14 @@ object AppUtils2 {
     var bookingdiscountedprice=""
     var planid=""
     var bookingserviceaddress=""
+    var ServicePlanName=""
+    var spcode=""
+    var AppointmentStart=""
+    var AppointmentEnd=""
+    var addresscode=""
+    var cutomerid=""
+    var serviceemail=""
+    var bhk=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

@@ -33,7 +33,6 @@ class AddresslistActivity : AppCompatActivity() {
     var shipping=""
     lateinit var progressDialog: ProgressDialog
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresslist)
@@ -64,7 +63,6 @@ class AddresslistActivity : AppCompatActivity() {
             intent.putExtra("Shipping", "Shipping")
             startActivity(intent)
         }
-
     }
 
     private fun getAddressList(shipping: String) {
@@ -432,9 +430,8 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this,AddressActivity::class.java)
-        startActivity(intent)
-        finish()
+//        val intent=Intent(this,AddressActivity::class.java)
+//        startActivity(intent)
     }
 
     override fun onResume() {
@@ -443,10 +440,7 @@ class AddresslistActivity : AppCompatActivity() {
             progressDialog.dismiss()
             mAdapter.setAddressList(it, this, viewProductModel,shipping)
             mAdapter.notifyDataSetChanged()
-
         })
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
-
     }
-
 }

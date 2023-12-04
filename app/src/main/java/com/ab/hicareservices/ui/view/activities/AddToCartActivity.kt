@@ -80,6 +80,7 @@ class AddToCartActivity : AppCompatActivity() {
         }
         binding.imgLogo.setOnClickListener{
             onBackPressed()
+            finish()
         }
     }
 

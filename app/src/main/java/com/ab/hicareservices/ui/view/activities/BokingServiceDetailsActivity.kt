@@ -82,7 +82,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         faqList = ArrayList()
 
+
+
         val userData = UserData()
+
+        SharedPreferenceUtil.setData(this, "ServiceCode", serviceCode.toString())
+
 
         userData.ServiceCode = serviceCode.toString()
         userData.ServiceType = "Pest"

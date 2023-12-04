@@ -34,6 +34,7 @@ class BookingServicePlanListAdapter :
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
+        AppUtils2.ServicePlanName=plan.ServicePlanName.toString()
         holder.binding.pricewisebhk.text = "\u20B9" + plan.Price.toString()
         holder.binding.servicepriceplan.text = "\u20B9" + plan.DiscountedPrice.toString()
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -46,6 +47,7 @@ class BookingServicePlanListAdapter :
         holder.binding.btnaddtocart.setOnClickListener {
 
             AppUtils2.planid=plan.PlanId.toString()
+            AppUtils2.spcode=plan.SPCode.toString()
 
             getServicePlanResponseData = ArrayList()
 

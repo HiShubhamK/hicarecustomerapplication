@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincodeData
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
@@ -44,21 +45,21 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
-    var prices=""
-    var discountedPrice=""
+    var prices = ""
+    var discountedPrice = ""
     val userData = UserData()
-    var servicePlanName=""
-    var planid=""
-    var planidforbhk=""
+    var servicePlanName = ""
+    var planid = ""
+    var planidforbhk = ""
 
     companion object {
         private const val ARG_DATA = "list_key"
         private const val PLAN_ID = "PLAN_ID"
         private const val PINCODE_ID = "PINCODE_ID"
         private const val PLANLIST = "PLAN_LIST"
-        private const val ARG_PRICE ="data_PRICE"
-        private const val ARG_DISCOUNTEDPRICE ="data_DISCOUNTEDPRICE"
-        private const val ARG_SERVICEPLAN ="data_SERVICEPLAN"
+        private const val ARG_PRICE = "data_PRICE"
+        private const val ARG_DISCOUNTEDPRICE = "data_DISCOUNTEDPRICE"
+        private const val ARG_SERVICEPLAN = "data_SERVICEPLAN"
 
         fun newInstance(
             bhklistResponseData: List<BhklistResponseData>,
@@ -75,9 +76,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             bundle.putParcelableArrayList(PLANLIST, ArrayList(getServicePlanResponseData))
             bundle.putString(PLAN_ID, planid.toString())
             bundle.putString(PINCODE_ID, pincodeid)
-            bundle.putString(ARG_PRICE,price.toString())
-            bundle.putString(ARG_DISCOUNTEDPRICE,discountedPrice.toString())
-            bundle.putString(ARG_SERVICEPLAN,servicePlanName.toString())
+            bundle.putString(ARG_PRICE, price.toString())
+            bundle.putString(ARG_DISCOUNTEDPRICE, discountedPrice.toString())
+            bundle.putString(ARG_SERVICEPLAN, servicePlanName.toString())
 
             fragment.arguments = bundle
             return fragment
@@ -97,14 +98,14 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val planlist = arguments?.getParcelableArrayList<GetServicePlanResponseData>(ARG_DATA)
         var pincode = arguments?.getString(PINCODE_ID).toString()
         planid = arguments?.getString(PLAN_ID).toString()
-        prices=arguments?.getString(ARG_PRICE).toString()
-        discountedPrice=arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
-        servicePlanName=arguments?.getString(ARG_SERVICEPLAN).toString()
+        prices = arguments?.getString(ARG_PRICE).toString()
+        discountedPrice = arguments?.getString(ARG_DISCOUNTEDPRICE).toString()
+        servicePlanName = arguments?.getString(ARG_SERVICEPLAN).toString()
 
         bhkandpincodedata = ArrayList<BHKandPincodeData>()
 
         val pricewisebhk = view.findViewById<AppCompatTextView>(R.id.pricewisebhk)
-        val discountedamount= view.findViewById<AppCompatTextView>(R.id.discountedamount)
+        val discountedamount = view.findViewById<AppCompatTextView>(R.id.discountedamount)
         val button = view.findViewById<AppCompatButton>(R.id.btnproceed)
         val imgclose = view.findViewById<ImageView>(R.id.imgclose)
 
@@ -121,7 +122,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
 //        button.alpha=0.6f
 
-        button.isEnabled=false
+        button.isEnabled = false
         button.alpha = 0.6f
 
 
@@ -144,17 +145,30 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                 id: Int?
             ) {
 
-                button.isEnabled=true
+                button.isEnabled = true
                 button.alpha = 1f
 
-                planidforbhk=id.toString()
+                planidforbhk = id.toString()
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {
 
                         try {
-                            userData.User_Id=AppUtils2.customerid.toInt()
-                            userData.BHK= noofbhk.toString()
+
+                            SharedPreferenceUtil.setData(
+                                activity!!,
+                                "User_Id",
+                                AppUtils2.customerid.toInt()
+                            )
+                            SharedPreferenceUtil.setData(
+                                activity!!,
+                                "BHK",
+                                noofbhk
+                            )
+
+
+                            userData.User_Id = AppUtils2.customerid.toInt()
+                            userData.BHK = noofbhk.toString()
 
                             bhkandpincodedata = it
 
@@ -162,13 +176,37 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                                 if (bhkandpincodedata.get(i).ServicePlanName.equals(servicePlanName)) {
 
-                                    userData.DiscountValue=bhkandpincodedata.get(i).DiscountedPrice.toString()
-                                    userData.MRP=bhkandpincodedata.get(i).Price.toString()
-                                    userData.Remarks=bhkandpincodedata[i].ServicePlanName.toString()
-                                    val sharedPreferencesManager = SharedPreferencesManager(requireContext()).saveUserData(userData)
+                                    SharedPreferenceUtil.setData(
+                                        activity!!,
+                                        "DiscountValue",
+                                        bhkandpincodedata.get(i).DiscountedPrice.toString()
+                                    )
+                                    SharedPreferenceUtil.setData(
+                                        activity!!,
+                                        "MRP",
+                                        bhkandpincodedata.get(i).Price.toString()
+                                        )
+                                    SharedPreferenceUtil.setData(
+                                        activity!!,
+                                        "Remarks",
+                                        bhkandpincodedata[i].ServicePlanName.toString()
+                                    )
 
-                                    AppUtils2.bookingdiscount=bhkandpincodedata.get(i).Discount.toString()
-                                    AppUtils2.bookingdiscountedprice=bhkandpincodedata.get(i).DiscountedPrice.toString()
+
+                                    userData.DiscountValue =
+                                        bhkandpincodedata.get(i).DiscountedPrice.toString()
+                                    userData.MRP = bhkandpincodedata.get(i).Price.toString()
+                                    userData.Remarks =
+                                        bhkandpincodedata[i].ServicePlanName.toString()
+                                    val sharedPreferencesManager =
+                                        SharedPreferencesManager(requireContext()).saveUserData(
+                                            userData
+                                        )
+
+                                    AppUtils2.bookingdiscount =
+                                        bhkandpincodedata.get(i).Discount.toString()
+                                    AppUtils2.bookingdiscountedprice =
+                                        bhkandpincodedata.get(i).DiscountedPrice.toString()
                                     pricewisebhk.text =
                                         "\u20B9" + bhkandpincodedata.get(i).Price.toString()
                                     discountedamount.text =
@@ -183,7 +221,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                     break
                                 }
                             }
-                        }catch(e:Exception){
+                        } catch (e: Exception) {
                             e.printStackTrace()
                         }
 
@@ -191,12 +229,16 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                     }
                 })
-                viewProductModel.getPlanAndPriceByBHKandPincode(AppUtils2.pincode, noofbhk.toString(), AppUtils2.servicecode,planid.toInt())
+                viewProductModel.getPlanAndPriceByBHKandPincode(
+                    AppUtils2.pincode,
+                    noofbhk.toString(),
+                    AppUtils2.servicecode,
+                    planid.toInt()
+                )
             }
         })
 
         button.setOnClickListener {
-
 
             val intent = Intent(activity, ServicesAddresslistActivity::class.java)
             intent.putExtra("ServiceCenter_Id", "")
