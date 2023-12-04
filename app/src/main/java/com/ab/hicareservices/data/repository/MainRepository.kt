@@ -62,5 +62,5 @@ class MainRepository {
     fun getActiveServiceDetailById(serviceId:Int)=retrofitService.getActiveServiceDetailById(serviceId)
     fun getPlanAndPriceByPincodeAndServiceCode(pincode:String ,servicecode:String) = retrofitService.getPlanAndPriceByPincodeAndServiceCode(pincode, servicecode)
     fun AddOrderAsync(data: HashMap<String, Any>) = retrofitService.AddOrderAsync(data)
-
+    fun postvalidateServiceVoucher(vouchercode: String,planid: Int,serviceprice:Float) = retrofitService.postvalidateServiceVoucher(vouchercode, planid,serviceprice)
 }

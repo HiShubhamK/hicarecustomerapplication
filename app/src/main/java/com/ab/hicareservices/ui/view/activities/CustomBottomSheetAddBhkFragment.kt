@@ -150,6 +150,19 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                 planidforbhk = id.toString()
 
+
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "Plan_Id",
+                    0
+                )
+
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "Plan_Id",
+                    planid.toInt()
+                )
+
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
                     if (it.isNotEmpty()) {
 

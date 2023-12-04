@@ -36,6 +36,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
     private val viewProductModels: ProductViewModel by viewModels()
     var razorpayorderid = ""
     val bookingdiscountedprice = 1
+    var ordervalues = "1"
+    var vouchercode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,81 +48,13 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
         val fname = SharedPreferenceUtil.getData(this, "Fname", "").toString()
 
+        val intent = intent
+        ordervalues = intent.getStringExtra("Finalamount").toString()
+        vouchercode = intent.getStringExtra("Vouchercode").toString()
+
+        ordervalues = "1"
+
         orderPaymentlist = ArrayList()
-
-//        var orderpaymet=OrderPayments()
-//        orderpaymet.PaymentMode="Mobile"
-//        orderpaymet.PaymentMethod="RAZORPAY"
-//        orderpaymet.Amount= "1"
-//        orderpaymet.TransactionId= "p1!!.paymentId.toString()"
-//        orderpaymet.Type=""
-//        orderPaymentlist.add(orderpaymet)
-//
-//
-//        Log.d("Fnameforpayment",fname)
-//
-//        var data = HashMap<String, Any>()
-////
-//        data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
-//        data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
-//        data["WebId"] = ""
-//        data["WebCustId"] = ""
-//        data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
-//        data["LastName"] = SharedPreferenceUtil.getData(this, "Lname", "").toString()
-//        data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
-//        data["MobileNo"] =  SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//        data["CommunicationMobileNo"] =  SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//        data["AltMobileNo"] = ""
-//        data["Pincode"] =  SharedPreferenceUtil.getData(this, "Pincode", "").toString()
-//        data["Remarks"] =  SharedPreferenceUtil.getData(this, "Remarks", "").toString()
-//        data["BHK"] =  SharedPreferenceUtil.getData(this, "BHK", "").toString()
-//        data["ServiceArea"] = ""
-//        data["OrderCreatedDatetime"] = ""
-//        data["LeadSource"] = ""
-//        data["CampaignCode"] = ""
-//        data["PGResponse"] = ""
-//        data["MRP"] =  SharedPreferenceUtil.getData(this, "MRP", "").toString()
-//        data["DiscountValue"] = SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-//        data["DiscountPercent"] = ""
-//        data["OrderValue"] =  SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-//        data["VoucherCode"] = ""
-//        data["OnlinePaidAmount"] = ""
-//        data["PaybackPaidAmount"] = ""
-//        data["AppointmentStartDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
-//        data["AppointmentEndDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentEndDateTime", "").toString()
-//        data["FlatNo"] =  SharedPreferenceUtil.getData(this, "FlatNo", "").toString()
-//        data["BuildingName"] = SharedPreferenceUtil.getData(this, "BuildingName", "").toString()
-//        data["Locality"] = SharedPreferenceUtil.getData(this, "Locality", "").toString()
-//        data["Landmark"] =  SharedPreferenceUtil.getData(this, "Landmark", "").toString()
-//        data["Street"] = SharedPreferenceUtil.getData(this, "Street", "").toString()
-//        data["City"] = SharedPreferenceUtil.getData(this, "City", "").toString()
-//        data["State"] = SharedPreferenceUtil.getData(this, "State", "").toString()
-//        data["Lat"] = SharedPreferenceUtil.getData(this, "Lat", "").toString()
-//        data["Long"] =  SharedPreferenceUtil.getData(this, "Long", "").toString()
-//        data["ServiceCode"] =  SharedPreferenceUtil.getData(this, "ServiceCode", "").toString()
-//        data["Param1"] = ""
-//        data["Param2"] = ""
-//        data["Param3"] = ""
-//        data["Source"] = "MobileApp"
-//        data["SubSource"] = ""
-//        data["UtmSource"] = ""
-//        data["UtmSubsource"] = ""
-//        data["OrderCreatedFrom"] = "Customer App"
-//        data["Subscription"] = ""
-//        data["ServiceType"] = "pest"
-//        data["Customer_Type"] = ""
-//        data["Created_On"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
-//        data["Hygiene_Point_Percentage"] = ""
-//        data["Redeem_Hygine_Points"] = ""
-//        data["Is_Subscription_Order"] = false
-//        data["Subscription_Id"] = ""
-//        data["Subscription_Plan_Id"] = ""
-//        data["OrderPayments"] = orderPaymentlist
-//        data["Campaign_Url"] = ""
-//
-//
-//        Log.d("Paymentlist",data.toString())
-
 
         viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
             if (it.IsSuccess == true) {
@@ -143,7 +77,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         options = prepareOption(
             notes,
             "Service | Customer Mobile App",
-            "1.00"
+            "1"
         )
 
         try {
@@ -186,7 +120,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
-        options.put("amount", "${bookingdiscountedprice.toDouble().roundToInt()}00")
+        options.put("amount", "${ordervalues.toDouble().roundToInt()}00")
         options.put("notes", notes)
         options.put("order_id", AppUtils2.razorpayorderid)
         val prefill = JSONObject()
@@ -197,10 +131,6 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
     }
 
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
-//
-//        Toast.makeText(this, p1?.paymentId.toString(), Toast.LENGTH_LONG).show()
-//
-//        Log.d("Paymentlist", p1?.paymentId.toString())
 
         try {
             val sharedPreferencesManager = SharedPreferencesManager(this)
@@ -208,7 +138,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             var orderpaymet = OrderPayments()
             orderpaymet.PaymentMode = "Mobile"
             orderpaymet.PaymentMethod = "RAZORPAY"
-            orderpaymet.Amount = retrievedUserData!!.DiscountValue
+            orderpaymet.Amount = ordervalues
             orderpaymet.TransactionId = p1!!.paymentId.toString()
             orderpaymet.Type = ""
             orderPaymentlist.add(orderpaymet)
@@ -247,7 +177,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
 
-                    val intent=Intent(this@BookingPaymentActivity,HomeActivity::class.java)
+                    val intent = Intent(this@BookingPaymentActivity, HomeActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
 
@@ -276,8 +206,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["LastName"] = SharedPreferenceUtil.getData(this, "Lname", "").toString()
             data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
             data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["CommunicationMobileNo"] =
-                SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
+            data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["AltMobileNo"] = ""
             data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
             data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
@@ -289,11 +218,11 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["PGResponse"] = ""
             data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
             data["DiscountValue"] =
-                SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
+                "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
             data["DiscountPercent"] = ""
-            data["OrderValue"] = SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-            data["VoucherCode"] = ""
-            data["OnlinePaidAmount"] = ""
+            data["OrderValue"] = ordervalues
+            data["VoucherCode"] = vouchercode
+            data["OnlinePaidAmount"] = ordervalues
             data["PaybackPaidAmount"] = ""
             data["AppointmentStartDateTime"] =
                 SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
@@ -320,8 +249,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Subscription"] = ""
             data["ServiceType"] = "pest"
             data["Customer_Type"] = ""
-            data["Created_On"] =
-                SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
+            data["Created_On"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
             data["Hygiene_Point_Percentage"] = ""
             data["Redeem_Hygine_Points"] = ""
             data["Is_Subscription_Order"] = false
@@ -329,67 +257,6 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Subscription_Plan_Id"] = ""
             data["OrderPayments"] = orderPaymentlist
             data["Campaign_Url"] = ""
-
-
-//            if (retrievedUserData != null) {
-//                data["User_Id"] = retrievedUserData.User_Id
-//                data["Address_Id"] = retrievedUserData.Address_Id
-//                data["WebId"] = retrievedUserData.WebId
-//                data["WebCustId"] = retrievedUserData.WebCustId
-//                data["Fname"] = retrievedUserData.Fname
-//                data["LastName"] = retrievedUserData.LastName
-//                data["Email"] =retrievedUserData.Email
-//                data["MobileNo"] = retrievedUserData.MobileNo
-//                data["CommunicationMobileNo"] = retrievedUserData.MobileNo
-//                data["AltMobileNo"] = ""
-//                data["Pincode"] = AppUtils2.pincode
-//                data["Remarks"] = retrievedUserData.Remarks
-//                data["BHK"] = retrievedUserData.BHK
-//                data["ServiceArea"] = retrievedUserData.ServiceArea
-//                data["OrderCreatedDatetime"] = ""
-//                data["LeadSource"] = ""
-//                data["CampaignCode"] = ""
-//                data["PGResponse"] = ""
-//                data["MRP"] = retrievedUserData.MRP
-//                data["DiscountValue"] = retrievedUserData.DiscountValue
-//                data["DiscountPercent"] = ""
-//                data["OrderValue"] = retrievedUserData.DiscountValue
-//                data["VoucherCode"] = ""
-//                data["OnlinePaidAmount"] = ""
-//                data["PaybackPaidAmount"] = ""
-//                data["AppointmentStartDateTime"] = retrievedUserData.AppointmentStartDateTime
-//                data["AppointmentEndDateTime"] = retrievedUserData.AppointmentEndDateTime
-//                data["FlatNo"] = retrievedUserData.FlatNo
-//                data["BuildingName"] = retrievedUserData.BuildingName
-//                data["Locality"] = retrievedUserData.Locality
-//                data["Landmark"] = retrievedUserData.Landmark
-//                data["Street"] = retrievedUserData.Street
-//                data["City"] = retrievedUserData.City
-//                data["State"] = retrievedUserData.State
-//                data["Lat"] =retrievedUserData.Lat
-//                data["Long"] = retrievedUserData.Long
-//                data["ServiceCode"] = retrievedUserData.ServiceCode
-//                data["Param1"] = ""
-//                data["Param2"] = ""
-//                data["Param3"] = ""
-//                data["Source"] = "MobileApp"
-//                data["SubSource"] = ""
-//                data["UtmSource"] = ""
-//                data["UtmSubsource"] = ""
-//                data["OrderCreatedFrom"] = "Customer App"
-//                data["Subscription"] = ""
-//                data["ServiceType"] = "pest"
-//                data["Customer_Type"] = ""
-//                data["Created_On"] = retrievedUserData.Created_On
-//                data["Hygiene_Point_Percentage"] = ""
-//                data["Redeem_Hygine_Points"] = ""
-//                data["Is_Subscription_Order"] = false
-//                data["Subscription_Id"] = ""
-//                data["Subscription_Plan_Id"] = ""
-//                data["OrderPayments"] = orderPaymentlist
-//                data["Campaign_Url"] = ""
-//
-//            }
 
             viewProductModel.AddOrderAsync(data)
 

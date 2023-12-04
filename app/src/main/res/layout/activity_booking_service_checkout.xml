@@ -127,7 +127,7 @@
                     android:id="@+id/recycleviewproduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
@@ -137,7 +137,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     android:backgroundTint="@color/white"
                     android:elevation="5dp"
                     app:cardCornerRadius="5dp">
@@ -150,15 +150,15 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_home"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
-                                android:layout_gravity="center"/>
+                                android:src="@drawable/ic_home" />
 
                             <TextView
                                 android:id="@+id/txtbilling"
@@ -179,17 +179,17 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/baseline_calendar_month_24"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
-                                android:tint="@color/colorAccent"
-                                android:layout_gravity="center"/>
+                                android:src="@drawable/baseline_calendar_month_24"
+                                android:tint="@color/colorAccent" />
 
 
                             <TextView
@@ -216,7 +216,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     android:backgroundTint="@color/white"
                     android:elevation="5dp"
                     app:cardCornerRadius="5dp">
@@ -236,7 +236,6 @@
                             android:orientation="vertical"
                             android:padding="10dp"
                             android:visibility="visible">
-
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -322,6 +321,35 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/lato_regular"
+                                    android:text="Voucher Discount"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/voucherdiscount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="end"
+                                    android:text="₹0"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/lato_regular"
                                     android:text="Delivery Charge"
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
@@ -360,14 +388,12 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="@color/grey_font" />
 
-
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
                                 android:orientation="horizontal"
-                                android:visibility="gone"
                                 android:weightSum="2">
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -391,7 +417,6 @@
 
                                     <androidx.appcompat.widget.AppCompatEditText
                                         android:id="@+id/txtcoupon"
-
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:background="@null"
@@ -411,8 +436,7 @@
                                 android:id="@+id/btnappiledcoupon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:visibility="gone">
+                                android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/coupunname"
@@ -428,7 +452,6 @@
 
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
-
 
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
@@ -489,11 +512,9 @@
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.cardview.widget.CardView>
-
 
             </LinearLayout>
 

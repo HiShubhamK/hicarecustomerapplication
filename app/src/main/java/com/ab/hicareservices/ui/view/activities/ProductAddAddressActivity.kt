@@ -562,19 +562,19 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if (activityname.equals("AddressActivity")) {
-            val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
-        } else {
-            val intent = Intent(this@ProductAddAddressActivity, AddresslistActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.putExtra("shippingaddress", "true")
-            startActivity(intent)
-            finish()
-        }
+//
+//        if (activityname.equals("AddressActivity")) {
+//            val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
+//            finish()
+//        } else {
+//            val intent = Intent(this@ProductAddAddressActivity, AddresslistActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            intent.putExtra("shippingaddress", "true")
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
 }
