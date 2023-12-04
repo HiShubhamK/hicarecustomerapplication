@@ -1,11 +1,15 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +32,6 @@ class PestServicesActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_pest_services)
@@ -42,23 +45,24 @@ class PestServicesActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
 
-        AppUtils2.pincode= SharedPreferenceUtil.getData(this@PestServicesActivity, "pincode", "").toString()
+        AppUtils2.pincode =
+            SharedPreferenceUtil.getData(this@PestServicesActivity, "pincode", "").toString()
 
-        if(AppUtils2.pincode.equals("")){
+        if (AppUtils2.pincode.equals("")) {
             binding.getpincodetext.setText("400080")
-        }else{
+        } else {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
 
         binding.imgLogo.setOnClickListener {
-          onBackPressed()
+            onBackPressed()
 
         }
 
 
-
 //        binding.recMenu.layoutManager = GridLayoutManager(this@PestServicesActivity, 3)
-        binding.recMenu.layoutManager = LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)
+        binding.recMenu.layoutManager =
+            LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceListAdapter()
         binding.recMenu.adapter = mAdapter
 
@@ -68,7 +72,7 @@ class PestServicesActivity : AppCompatActivity() {
             if (it.isNotEmpty()) {
                 progressDialog.dismiss()
 
-                mAdapter.setServiceList(it,this)
+                mAdapter.setServiceList(it, this)
 
 // Set other properties...
 
@@ -79,10 +83,10 @@ class PestServicesActivity : AppCompatActivity() {
         })
         viewProductModel.getActiveServiceList()
 
-        binding.imgsearch.setOnClickListener{
+        binding.imgsearch.setOnClickListener {
 
-            SharedPreferenceUtil.setData(this, "pincode",binding.getpincodetext.text.toString())
-            AppUtils2.pincode=binding.getpincodetext.text.toString()
+            SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
+            AppUtils2.pincode = binding.getpincodetext.text.toString()
 
             progressDialog.show()
 
@@ -100,12 +104,19 @@ class PestServicesActivity : AppCompatActivity() {
 
             }, 300)
 
+            val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            // Check if there's a focused view before hiding the keyboard
+            if (this is Activity && this.currentFocus != null) {
+                imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+            }
+
+
         }
 
     }
 
     override fun onBackPressed() {
-        val intent=Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
 }

@@ -33,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -40,6 +41,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var progressDialog: ProgressDialog
 
     private var mMap: GoogleMap? = null
+    private var initialLocationFetched = false
+
     private lateinit var cardView: CardView
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var addressTextView: TextView
@@ -59,6 +62,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
+    private lateinit var marker:Marker
     val userData = UserData()
 
     @SuppressLint("MissingInflatedId")
@@ -95,17 +99,18 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
-            locationCallback = object : LocationCallback() {
-                override fun onLocationResult(locationResult: LocationResult) {
-                    super.onLocationResult(locationResult)
-                    locationResult ?: return
-                    for (location in locationResult.locations) {
-
-                        // Update the map and address information here with the received location
-                        updateMapAndAddress(location)
-                    }
-                }
-            }
+//            locationCallback = object : LocationCallback() {
+//                override fun onLocationResult(locationResult: LocationResult) {
+//                    super.onLocationResult(locationResult)
+//                    locationResult ?: return
+//                    for (location in locationResult.locations) {
+//
+////                        getAddressFromLocation(location.latitude,location.longitude)
+//                        // Update the map and address information here with the received location
+//                        updateMapAndAddress(location)
+//                    }
+//                }
+//            }
             btnNext.setOnClickListener {
                 userData.Pincode=AppUtils2.pincode
                 userData.ServiceType="Pest"
@@ -151,13 +156,101 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     REQUEST_LOCATION_PERMISSION
                 )
             }
-
-            mMap!!.setOnMapLongClickListener { latLng ->
+            mMap?.uiSettings?.apply {
+                isZoomControlsEnabled = true // Enable zoom controls
+                isZoomGesturesEnabled = true // Enable zoom gestures
+                isScrollGesturesEnabledDuringRotateOrZoom = true // Enable scroll gestures
+                isTiltGesturesEnabled = true // Enable tilt gestures
+                isRotateGesturesEnabled = true // Enable rotation gestures
             }
+            val defaultPosition = LatLng(40.7128, -74.0060) // New York City coordinates
+            marker = mMap?.addMarker(MarkerOptions().position(defaultPosition).draggable(true))!!
+
+            // Set marker drag listener to update position as the marker is moved
+
+
+            // Set camera move listener to update marker position as the map moves
+            mMap?.setOnCameraMoveListener {
+                // Update marker position when the camera moves
+                marker?.position = mMap?.cameraPosition?.target!!
+                // Get updated marker position and coordinates
+                val newPosition = marker?.position
+                val updatedLat = newPosition?.latitude
+                val updatedLng = newPosition?.longitude
+                getAddressFromLocation(updatedLat, updatedLng)
+
+                // Perform actions with the updated coordinates
+                // For example, update UI elements with the new coordinates
+            }
+            mMap?.uiSettings?.isScrollGesturesEnabled = true
+
+            mMap?.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+                override fun onMarkerDragStart(p0: Marker) {
+                    // Optional: Perform actions when marker drag starts
+                }
+
+                override fun onMarkerDrag(marker: Marker) {
+                    // Optional: Perform actions as the marker is dragged
+                }
+
+                override fun onMarkerDragEnd(marker: Marker) {
+                    val newPosition = marker.position
+                    val updatedLat = newPosition.latitude
+                    val updatedLng = newPosition.longitude
+
+                    // Update your variables or perform actions with the updated coordinates
+                    // For example, you can update lat and long variables and fetch location details
+                    lat = updatedLat.toString()
+                    longg = updatedLng.toString()
+                    getAddressFromLocation(updatedLat, updatedLng)
+                    val latLng = LatLng(updatedLat, updatedLng)
+
+                    if (marker == null) {
+                        val markerOptions = MarkerOptions()
+                            .position(latLng)
+                            .title("Current Position")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+
+                        this@MapsDemoActivity.marker = mMap?.addMarker(markerOptions)!!
+                        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
+                    } else {
+                        marker?.position = latLng
+                    }
+                }
+
+            })
+            mMap?.setOnCameraMoveListener {
+                if (initialLocationFetched) {
+                    val newPosition = mMap?.cameraPosition?.target
+                    newPosition?.let {
+                        updateMarkerPosition(it.latitude, it.longitude)
+                    }
+                }
+            }
+
         }catch (e:Exception){
             e.printStackTrace()
         }
 
+    }
+    private fun updateMarkerPosition(latitude: Double, longitude: Double) {
+        // Update the marker position and fetch the address information
+        lat = latitude.toString()
+        longg = longitude.toString()
+        getAddressFromLocation(latitude, longitude)
+        val latLng = LatLng(latitude, longitude)
+
+        if (marker == null) {
+            val markerOptions = MarkerOptions()
+                .position(latLng)
+                .title("Current Position")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+
+            marker = mMap?.addMarker(markerOptions)!!
+        } else {
+            marker?.position = latLng
+        }
     }
 
     private fun startLocationUpdates() {
@@ -176,6 +269,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
+
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -250,6 +344,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
                 }
+                progressDialog.dismiss()
+
 
             }
         }catch (e:Exception){
@@ -260,32 +356,35 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun updateMapAndAddress(location: Location) {
         try {
-            progressDialog.show()
+//            progressDialog.show()
 
             val latLng = LatLng(location.latitude, location.longitude)
-            val markerOptions = MarkerOptions()
-                .position(latLng)
-                .title("Current Position")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 
-            mMap?.apply {
-                clear()
-                addMarker(markerOptions)
-                getAddressFromLocation(latLng.latitude, latLng.longitude)
-                lat=latLng.latitude.toString()
-                longg=latLng.longitude.toString()
-                AppUtils2.Latt=latLng.latitude.toString()
-                AppUtils2.Longg=latLng.longitude.toString()
-                userData.Lat=AppUtils2.Latt
-                userData.Long= AppUtils2.Longg
-                moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            if (marker == null) {
+                val markerOptions = MarkerOptions()
+                    .position(latLng)
+                    .title("Current Position")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 
-
+                marker = mMap?.addMarker(markerOptions)!!
+            } else {
+                marker?.position = latLng
             }
-        }catch (e:Exception){
+
+            getAddressFromLocation(latLng.latitude, latLng.longitude)
+            lat = latLng.latitude.toString()
+            longg = latLng.longitude.toString()
+            AppUtils2.Latt = latLng.latitude.toString()
+            AppUtils2.Longg = latLng.longitude.toString()
+            userData.Lat = AppUtils2.Latt
+            userData.Long = AppUtils2.Longg
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
+
+//            progressDialog.dismiss()
+        } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -316,5 +415,34 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
+    }
+    private fun fetchInitialLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mFusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                location?.let {
+//                    updateMarkerPosition(it.latitude, it.longitude)
+                    updateMapAndAddress(it)
+
+                    initialLocationFetched = true
+                }
+            }
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!initialLocationFetched) {
+            fetchInitialLocation()
+        }
     }
 }

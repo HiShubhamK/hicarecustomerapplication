@@ -221,16 +221,23 @@
             android:visibility="gone"/>
 
     </RelativeLayout>
-
-    <Button
-        android:layout_alignParentBottom="true"
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/btn_gradient"
-        android:text="Submit"
-        android:textSize="18dp" />
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:text="Proceed"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:elevation="5dp"
+        android:background="@color/colorAccent"/>
+
+
+
 
 </RelativeLayout>

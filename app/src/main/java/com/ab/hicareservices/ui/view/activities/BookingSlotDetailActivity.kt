@@ -95,7 +95,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         Long = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
 
-        binding.bottomheadertext.text= AppUtils2.formatDateTime4(Service_Date)+", "+scheduledatetext
+        binding.bottomheadertext.text=scheduledatetext+", "+ AppUtils2.formatDateTime4(Service_Date)
 
         var data = AppUtils2.timeslotslist
         getOrdersList(data, Service_Date, scheduledatetext)

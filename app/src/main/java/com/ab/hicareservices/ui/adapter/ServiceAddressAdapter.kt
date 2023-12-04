@@ -46,7 +46,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
 
             holder.binding.radiobuttons.setChecked(position == selectedPosition)
 
-            if (cutomeraddressdata.IsDefault == true) {
+            if (cutomeraddressdata.IsDeafultAddress == true) {
                 holder.binding.addresscard.setBackgroundColor(Color.parseColor("#F6F6F6"))
             }
 
@@ -95,11 +95,10 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 )
             }
 
-            holder.binding.txtAddressHead1.text = cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName
-            holder.binding.txtAddress2.text =
-                        cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
-                        cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
-                        cutomeraddressdata.State + "-" + cutomeraddressdata.Pincode
+            holder.binding.txtAddressHead1.text = cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName+", "+cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
+                    cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
+                    cutomeraddressdata.State + "-" + cutomeraddressdata.Pincode
+
 
             holder.binding.txtUsername.text = cutomeraddressdata.CustomerName
 

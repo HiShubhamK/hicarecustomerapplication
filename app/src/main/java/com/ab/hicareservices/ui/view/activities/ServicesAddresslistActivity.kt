@@ -91,7 +91,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
             intent.putExtra("Longg", Longg)
             intent.putExtra("ServiceType", "Pest")
             intent.putExtra("Pincode", AppUtils2.pincode)
-            intent.putExtra("Service_Code", "CMS")
+            intent.putExtra("Service_Code", AppUtils2.servicecode)
             intent.putExtra("Unit", Unit)
             intent.putExtra("SPCode", spcode)
 
@@ -112,18 +112,25 @@ class ServicesAddresslistActivity : AppCompatActivity() {
 
         viewProductModel.existingAddressListModel.observe(this, Observer {
             if (it!=null) {
+                progressDialog.dismiss()
+
                 if (it.isNotEmpty()) {
                     mAdapter.setAddressList(it, this, viewProductModel, shipping)
                     mAdapter.notifyDataSetChanged()
+                    progressDialog.dismiss()
+
 
                 } else {
                     binding.tvNoAddress.visibility = View.VISIBLE
                     binding.recycleviewaddress.visibility = View.GONE
+                    progressDialog.dismiss()
 
                 }
             }else{
                 binding.tvNoAddress.visibility = View.VISIBLE
                 binding.recycleviewaddress.visibility = View.GONE
+                progressDialog.dismiss()
+
             }
             progressDialog.dismiss()
 
@@ -343,7 +350,6 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     data["IsDefault"] = false
 
                     viewProductModel.saveServiceAddressResponse.observe(this, Observer {
-                        progressDialog.dismiss()
                         if (it.IsSuccess == true) {
                             alertDialog.dismiss()
                             Toast.makeText(
@@ -355,6 +361,8 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                             Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
                                 .show()
                         }
+                        progressDialog.dismiss()
+
                     })
 
                     viewProductModel.SaveServiceAddressnew(data)
@@ -502,7 +510,6 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     data["IsDefault"] = false
 
                     viewProductModel.saveServiceAddressResponse.observe(this, Observer {
-                        progressDialog.dismiss()
                         if (it.IsSuccess == true) {
                             val mIntent = intent
                             finish()
@@ -513,6 +520,8 @@ class ServicesAddresslistActivity : AppCompatActivity() {
 
                         } else {
                         }
+                        progressDialog.dismiss()
+
                     })
 
                     viewProductModel.SaveServiceAddressnew(data)
