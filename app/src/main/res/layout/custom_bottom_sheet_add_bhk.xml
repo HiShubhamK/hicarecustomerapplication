@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:background="#f6f6f6"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/bottomsheetlayout">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -82,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Starts from"
+                        android:text="Price"
                         android:textColor="@color/grey_font"
                         android:fontFamily="@font/lato_semibold"
                         android:textSize="12sp"/>

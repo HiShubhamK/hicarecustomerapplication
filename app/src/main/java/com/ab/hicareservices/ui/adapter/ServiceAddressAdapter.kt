@@ -86,6 +86,11 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 userData.Address_Id= cutomeraddressdata.Id!!.toInt()
                 SharedPreferencesManager(requireActivity).saveUserData(userData)
 
+                AppUtils2.bookingserviceaddress=cutomeraddressdata.FlatNo + "," + cutomeraddressdata.BuildingName+","+
+                                                cutomeraddressdata.Street + "," + cutomeraddressdata.Locality + "," +
+                                                cutomeraddressdata.Landmark + "," + cutomeraddressdata.City + "," +
+                                                cutomeraddressdata.State + "-" + cutomeraddressdata.Pincode
+
 
                 onAddressClickedHandler!!.setItemClickLister(
                     position,

@@ -19,10 +19,21 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
+            <ImageView
+                android:id="@+id/imglogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_home"
+                android:layout_marginLeft="4dp"
+                android:layout_gravity="center_vertical"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -32,8 +43,7 @@
                     android:text="Cockroach Monitoring System"
                     android:fontFamily="@font/lato_semibold"
                     android:textSize="15sp"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -96,20 +106,46 @@
         </View>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtdescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Short description here"
+            android:text="Instruction"
             android:fontFamily="@font/lato_semibold"
-            android:textSize="14sp"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"/>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="5dp"
             android:background="@color/grey"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible">
+        </View>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtdescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Short description here"
+            android:fontFamily="@font/lato_regular"
+            android:textColor="@color/grey_font"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey_font"
             android:layout_margin="5dp"
             android:visibility="gone">
         </View>

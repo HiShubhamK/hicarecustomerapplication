@@ -92,9 +92,9 @@ class AddressActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-//            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
-//            startActivity(intent)
-//            finish()
+            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
 
@@ -666,8 +666,8 @@ class AddressActivity : AppCompatActivity() {
         SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         val intent = Intent(this@AddressActivity, AddToCartActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-
+        finish()
     }
 }

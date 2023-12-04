@@ -29,11 +29,11 @@ class BookingServiceCheckout : AppCompatActivity() {
 
         val retrievedUserData = sharedPreferencesManager.getUserData()
 
-
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txtdiscount.text="\u20B9" + AppUtils2.bookingdiscount
+        binding.txtbilling.text=AppUtils2.bookingserviceaddress
 
         binding.recycleviewproduct.layoutManager = LinearLayoutManager(this@BookingServiceCheckout, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceCheckoutAdapter()
