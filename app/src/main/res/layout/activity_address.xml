@@ -188,35 +188,49 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/lato_regular"/>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginHorizontal="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:background="#f6f6f6"-->
+<!--                android:weightSum="1">-->
+
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_weight="0.8"-->
+<!--                    android:fontFamily="@font/lato_semibold"-->
+<!--                    android:text="Add New Shipping Address"-->
+<!--                    android:textColor="#262626"-->
+<!--                    android:textSize="14sp" />-->
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_weight="0.2"-->
+<!--                    android:tint="@color/colorAccent"-->
+<!--                    android:src="@drawable/forward_arrow" />-->
+
+<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/lnraddress"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:orientation="horizontal"
-                android:background="#f6f6f6"
-                android:weightSum="1">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/lato_semibold"
-                    android:text="Add New Shipping Address"
-                    android:textColor="#262626"
-                    android:textSize="14sp" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="0.2"
-                    android:tint="@color/colorAccent"
-                    android:src="@drawable/forward_arrow" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:textAllCaps="true"
+                android:text="Add New Shipping Address"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/white"
+                android:elevation="5dp"
+                android:background="@color/colorAccent"/>
 
 
 
