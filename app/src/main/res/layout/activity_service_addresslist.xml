@@ -131,56 +131,71 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--            android:id="@+id/lnraddress"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="#f6f6f6"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:elevation="5dp"-->
+<!--                app:cardCornerRadius="5dp">-->
+
+<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:weightSum="1">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_weight="0.8"-->
+<!--                        android:fontFamily="@font/lato_semibold"-->
+<!--                        android:text="Add a New Address"-->
+<!--                        android:textColor="#262626"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatImageView-->
+<!--                        android:layout_width="20dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:layout_weight="0.2"-->
+<!--                        android:src="@drawable/forward_arrow"-->
+<!--                        android:tint="@color/colorAccent" />-->
+
+<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/lnraddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:textSize="14sp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#f6f6f6"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/white"
-                android:elevation="5dp"
-                app:cardCornerRadius="5dp">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:fontFamily="@font/lato_semibold"
-                        android:text="Add a New Address"
-                        android:textColor="#262626"
-                        android:textSize="14sp" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="0.2"
-                        android:src="@drawable/forward_arrow"
-                        android:tint="@color/colorAccent" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:textAllCaps="true"
+            android:text="Add New Address"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:background="@color/colorAccent"/>
 
     </RelativeLayout>
 

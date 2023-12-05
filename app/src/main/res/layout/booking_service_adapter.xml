@@ -176,7 +176,7 @@
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="end"
                     android:textColor="@color/colorAccent"
-                    android:text="view plan"
+                    android:text="View plan"
                     android:textSize="14sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
