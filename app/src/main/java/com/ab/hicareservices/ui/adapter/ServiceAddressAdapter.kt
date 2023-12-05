@@ -67,6 +67,46 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
             }
 
             holder.itemView.setOnClickListener {
+                AppUtils2.addresscode=cutomeraddressdata.Id.toString()
+                AppUtils2.cutomerid=cutomeraddressdata.UserId.toString()
+
+                SharedPreferenceUtil.setData(requireActivity, "Fname", "")
+                SharedPreferenceUtil.setData(requireActivity, "Lname", "")
+                SharedPreferenceUtil.setData(requireActivity, "Email", "")
+                SharedPreferenceUtil.setData(requireActivity, "Pincode", "")
+                SharedPreferenceUtil.setData(requireActivity, "MobileNo", "")
+                SharedPreferenceUtil.setData(requireActivity, "AltMobileNo", "")
+                SharedPreferenceUtil.setData(requireActivity, "FlatNo", "")
+                SharedPreferenceUtil.setData(requireActivity, "Landmark", "")
+                SharedPreferenceUtil.setData(requireActivity, "Locality", "")
+                SharedPreferenceUtil.setData(requireActivity, "State", "")
+                SharedPreferenceUtil.setData(requireActivity, "Street", "")
+                SharedPreferenceUtil.setData(requireActivity, "City", "")
+                SharedPreferenceUtil.setData(requireActivity, "BuildingName", "")
+                SharedPreferenceUtil.setData(requireActivity, "Lat", "")
+                SharedPreferenceUtil.setData(requireActivity, "Long", "")
+                SharedPreferenceUtil.setData(requireActivity, "Address_Id", "")
+
+
+                SharedPreferenceUtil.setData(requireActivity, "Fname", cutomeraddressdata.Fname.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Lname", cutomeraddressdata.LastName.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Email", cutomeraddressdata.EmailId.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Pincode", cutomeraddressdata.Pincode.toString())
+                SharedPreferenceUtil.setData(requireActivity, "MobileNo", cutomeraddressdata.MobileNo.toString())
+                SharedPreferenceUtil.setData(requireActivity, "AltMobileNo", cutomeraddressdata.AltMobileNo.toString())
+                SharedPreferenceUtil.setData(requireActivity, "FlatNo", cutomeraddressdata.FlatNo.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Landmark", cutomeraddressdata.Landmark.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Locality", cutomeraddressdata.Locality.toString())
+                SharedPreferenceUtil.setData(requireActivity, "State", cutomeraddressdata.State.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Street", cutomeraddressdata.Street.toString())
+                SharedPreferenceUtil.setData(requireActivity, "City", cutomeraddressdata.City.toString())
+                SharedPreferenceUtil.setData(requireActivity, "BuildingName", cutomeraddressdata.BuildingName.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Lat", cutomeraddressdata.Lat.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Long", cutomeraddressdata.Long.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Address_Id", cutomeraddressdata.Id!!.toInt())
+
+
+
                 val userData = UserData()
                 userData.Fname=cutomeraddressdata.CustomerName.toString()
                 userData.LastName="."

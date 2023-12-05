@@ -138,58 +138,26 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //            data["Source"] = "MobileApp"
 //            data["ServiceType"] = "Pest"
 
+
+            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime","")
+            SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", "")
+
+            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", AppointmentStart.toString())
+            SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", AppointmentEnd.toString())
+
+            AppUtils2.AppointmentStart = AppointmentStart.toString()
+            AppUtils2.AppointmentEnd = AppointmentEnd.toString()
             val userData = UserData()
-            userData.AppointmentStartDateTime=AppointmentStart.toString()
-            userData.AppointmentEndDateTime=AppointmentEnd.toString()
-            userData.OrderCreatedDatetime=Service_Date
-           SharedPreferencesManager(this).saveUserData(userData)
-            val intent= Intent(this@BookingSlotDetailActivity,BookingServiceCheckout::class.java)
-                    startActivity(intent)
-//                    finish()
-//            if (AppointmentStart!=""||AppointmentEnd!=""){
-//                viewModel.BookSlot(data)
-//
-//                viewModel.requestcodes.observe(this, Observer {
-//
-//                    SharedPreferenceUtil.setData(this, "mobileNo", "-1")
-//                    SharedPreferenceUtil.setData(this, "bToken", "")
-//                    SharedPreferenceUtil.setData(this, "IsLogin", false)
-//                    SharedPreferenceUtil.setData(this, "pincode", "")
-//                    SharedPreferenceUtil.setData(this, "customerid", "")
-//                    SharedPreferenceUtil.setData(this, "FirstName", "")
-//                    SharedPreferenceUtil.setData(this, "MobileNo", "")
-//
-//                    val intent= Intent(this@BookingSlotDetailActivity,LoginActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//
-//                })
-//
-//                viewModel.bookSlotResponce.observe(this, Observer {
-//                    Log.d("TAG", "onViewCreated: $it orders fragment")
-////                ShowBookingDialog(it)
-//                    if (it.IsSuccess == true) {
-//                        if (it.Data!!.IsSuccess == true) {
-//                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
-//                            progressDialog.dismiss()
-//                            getClearchache()
-//                            finish()
-//                        } else {
-//                            Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT).show()
-//                            progressDialog.dismiss()
-//                            finish()
-//                        }
-//
-//                    } else {
-//                        progressDialog.dismiss()
-//                        finish()
-//                    }
-//                })
-//
-//            }else{
-//                progressDialog.cancel()
-//                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
-//            }
+            userData.AppointmentStartDateTime = AppointmentStart.toString()
+            userData.AppointmentEndDateTime = AppointmentEnd.toString()
+            userData.OrderCreatedDatetime = Service_Date
+            SharedPreferencesManager(this).saveUserData(userData)
+
+            Log.d("Sharepreferncdata",SharedPreferencesManager(this).saveUserData(userData).toString())
+
+            val intent = Intent(this@BookingSlotDetailActivity, BookingServiceCheckout::class.java)
+            startActivity(intent)
+
         }
 
         mAdapter.setOnSlotSelection(object : onSlotSelection {
@@ -226,7 +194,8 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //        val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 //        startActivity(intent)
-        val intent = Intent(this@BookingSlotDetailActivity, BookingSlotComplinceActivity::class.java)
+        val intent =
+            Intent(this@BookingSlotDetailActivity, BookingSlotComplinceActivity::class.java)
         intent.putExtra("Service_Date", Service_Date)
         intent.putExtra("ServiceCenter_Id", "")
         intent.putExtra("scheduledatetext", scheduledatetext)

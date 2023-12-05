@@ -28,6 +28,7 @@ import com.ab.hicareservices.data.model.servicesmodule.BookingServiceDetailRespo
 import com.ab.hicareservices.data.model.servicesmodule.ExistingAddressListModel
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
+import com.ab.hicareservices.data.model.servicesmodule.ValidateServiceVoucherResponse
 import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import retrofit2.Call
 import retrofit2.http.Body
@@ -241,5 +242,11 @@ interface IRetrofit {
 
     @POST("Order/AddOrderAsync")
     fun AddOrderAsync(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
+
+    @POST("Service/ValidateServiceVoucher")
+    fun postvalidateServiceVoucher(@Query("vouchercode") vouchercode: String,
+                     @Query("planId") planId: Int,
+                     @Query("serviceprice") serviceprice: Float): Call<ValidateServiceVoucherResponse>
+
 
 }

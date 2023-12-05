@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.SaveSalesResponse
+import com.ab.hicareservices.data.model.dashboard.DashboardMainData
 import com.ab.hicareservices.data.model.product.SaveAddressResponse
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincodeData
@@ -16,6 +17,7 @@ import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponse
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
+import com.ab.hicareservices.data.model.servicesmodule.ValidateServiceVoucherResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
@@ -32,7 +34,7 @@ class ServiceBooking : ViewModel() {
     val bookingServiceDetailResponseData = MutableLiveData<BookingServiceDetailResponseData>()
     val servicePlanResponseData = MutableLiveData<List<GetServicePlanResponseData>>()
     val paymentsuceess = MutableLiveData<SaveSalesResponse>()
-
+    val validatevoucher = MutableLiveData<ValidateServiceVoucherResponse>()
 
     val errorMessage = MutableLiveData<String>()
 
@@ -191,6 +193,23 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
+
+    fun PostVoucherValidationcode(vouchercode:String,planId:Int,serviceprice:Float){
+        val response=repository.postvalidateServiceVoucher(vouchercode,planId,serviceprice)
+        response.enqueue(object :Callback<ValidateServiceVoucherResponse>{
+            override fun onResponse(
+                call: Call<ValidateServiceVoucherResponse>,
+                response: Response<ValidateServiceVoucherResponse>
+            ) {
+                validatevoucher.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ValidateServiceVoucherResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+        })
+    }
+
 
 }
 
