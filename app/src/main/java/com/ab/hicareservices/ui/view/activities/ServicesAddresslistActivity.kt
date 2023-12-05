@@ -26,7 +26,6 @@ import com.ab.hicareservices.utils.UserData
 
 class ServicesAddresslistActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityServiceAddresslistBinding
     private lateinit var mAdapter: ServiceAddressAdapter
     private val viewProductModel: ServiceBooking by viewModels()

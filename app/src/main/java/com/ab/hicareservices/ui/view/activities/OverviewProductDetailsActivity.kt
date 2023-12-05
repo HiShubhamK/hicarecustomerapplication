@@ -55,7 +55,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
-
+        binding.txtcoupon.setText("")
 
         binding.imgLogo.setOnClickListener {
             SharedPreferenceUtil.setData(this, "Billingdata", "")

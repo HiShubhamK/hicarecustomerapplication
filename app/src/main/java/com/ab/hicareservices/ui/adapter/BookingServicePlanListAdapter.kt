@@ -61,6 +61,8 @@ class BookingServicePlanListAdapter :
                     plan.PlanId,
                     plan.ServicePlanName,
                     plan.ServicePlanDescription,
+                    plan.ServiceInstructions,
+                    plan.ServiceLogo,
                     plan.SPCode,
                     plan.Price,
                     plan.DiscountedAmount,

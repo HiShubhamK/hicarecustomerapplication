@@ -79,6 +79,7 @@ object AppUtils2 {
     var bookingdiscount=""
     var bookingdiscountedprice=""
     var planid=""
+    var bookingserviceaddress=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

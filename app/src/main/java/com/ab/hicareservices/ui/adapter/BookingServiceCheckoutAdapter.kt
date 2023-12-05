@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
+import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
 class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
@@ -32,8 +34,11 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
-        holder.binding.servicepriceplan.text = "Start at" + " " + "\u20B9" + plan.Price.toString()
-        holder.binding.txtdescription.text = plan.ServicePlanDescription
+        holder.binding.servicepriceplan.text = "" + "" + "\u20B9"+ plan.Price.toString()
+        holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
+
+        Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
+
 //        holder.itemView.setOnClickListener {
 //            onBookingViewDetials?.onViewDetails(position, plan.Id!!)
 //        }
