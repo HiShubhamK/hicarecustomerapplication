@@ -88,7 +88,7 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                 SharedPreferenceUtil.setData(requireActivity, "Address_Id", "")
 
 
-                SharedPreferenceUtil.setData(requireActivity, "Fname", cutomeraddressdata.Fname.toString())
+                SharedPreferenceUtil.setData(requireActivity, "Fname", cutomeraddressdata.CustomerName.toString())
                 SharedPreferenceUtil.setData(requireActivity, "Lname", cutomeraddressdata.LastName.toString())
                 SharedPreferenceUtil.setData(requireActivity, "Email", cutomeraddressdata.EmailId.toString())
                 SharedPreferenceUtil.setData(requireActivity, "Pincode", cutomeraddressdata.Pincode.toString())

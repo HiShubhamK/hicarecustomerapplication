@@ -178,8 +178,8 @@ class AddAddressActivity : AppCompatActivity() {
                 data["Fname"] = binding.etname.text.toString()
                 data["LastName"] = "."
                 data["Customer_Name"] = binding.etname.text.toString()
-                data["Mobile_No"] = binding.edtmobileno.text.toString()
-                data["Alt_Mobile_No"] = ""
+                data["Mobile_No"] = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
+                data["Alt_Mobile_No"] = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
                 data["Email_Id"] = binding.etemps.text.toString()
                 data["FlatNo"] = binding.etflatno.text.toString()
                 data["BuildingName"] = binding.etbuildname.text.toString()
