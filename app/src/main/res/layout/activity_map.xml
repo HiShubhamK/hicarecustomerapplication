@@ -36,7 +36,7 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="start"
-                android:text="Selected Delivery Location"
+                android:text="Selected Service Location"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
                 android:textColor="@color/grey_font"
@@ -99,4 +99,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+
 </RelativeLayout>

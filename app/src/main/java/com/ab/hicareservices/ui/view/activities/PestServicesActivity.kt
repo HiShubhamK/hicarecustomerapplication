@@ -1,11 +1,15 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +28,9 @@ class PestServicesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPestServicesBinding
     private lateinit var mAdapter: BookingServiceListAdapter
     private val viewProductModel: ServiceBooking by viewModels()
+
     lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +58,9 @@ class PestServicesActivity : AppCompatActivity() {
             onBackPressed()
 
         }
+
+
+//        binding.recMenu.layoutManager = GridLayoutManager(this@PestServicesActivity, 3)
         binding.recMenu.layoutManager =
             LinearLayoutManager(this@PestServicesActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceListAdapter()
@@ -62,7 +71,12 @@ class PestServicesActivity : AppCompatActivity() {
         viewProductModel.serviceresponssedata.observe(this@PestServicesActivity, Observer {
             if (it.isNotEmpty()) {
                 progressDialog.dismiss()
+
                 mAdapter.setServiceList(it, this)
+
+// Set other properties...
+
+
             } else {
 
             }
@@ -83,11 +97,23 @@ class PestServicesActivity : AppCompatActivity() {
                         progressDialog.dismiss()
                         mAdapter.setServiceList(it, this)
                     } else {
+
+                    }
+                    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    // Check if there's a focused view before hiding the keyboard
+                    if (this is Activity && this.currentFocus != null) {
+                        imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
                     }
                 })
                 viewProductModel.getActiveServiceList()
+
             }, 300)
+
+
+
+
         }
+
     }
 
     override fun onBackPressed() {

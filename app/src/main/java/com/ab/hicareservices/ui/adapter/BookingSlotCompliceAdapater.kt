@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -66,6 +67,7 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
 
 
         if (complincelist.Title.equals("N/A")) {
+            holder.binding.fwdImg.visibility= View.GONE
 //            holder.binding.crdMain.setBackgroundColor(Color.parseColor("#D61A3C"))
             holder.binding.tvAvailablity.setTextColor(Color.parseColor("#D61A3C"))
 //
@@ -81,7 +83,7 @@ class BookingSlotCompliceAdapater : RecyclerView.Adapter<BookingSlotCompliceAdap
 
         }
         //Uncomment below line for validation click
-//        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
+        holder.binding.crdMain.isEnabled = complincelist.IsEnabled!!
         holder.itemView.setOnClickListener {
 //            Toast.makeText(requireActivity,""+complincelist.ScheduledDateText.toString(), Toast.LENGTH_SHORT).show()
 

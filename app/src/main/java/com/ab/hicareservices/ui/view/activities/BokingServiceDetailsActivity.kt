@@ -100,8 +100,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         Picasso.get().load(serviceThumbnail).into(binding.imgbanner)
 
         binding.imgLogo.setOnClickListener {
-            val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         binding.recycleviewplans.layoutManager = LinearLayoutManager(
@@ -292,10 +291,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
+        val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
-        finish()
-
     }
+
+
 }
