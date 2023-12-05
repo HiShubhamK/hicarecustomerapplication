@@ -30,4 +30,9 @@
         <item name="android:paddingRight">15dp</item>
     </style>
 
+
+    <style name="AppBottomsheetDialogtheme" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:background">@drawable/curve_bottmsheetbg</item>
+    </style>
+
 </resources>

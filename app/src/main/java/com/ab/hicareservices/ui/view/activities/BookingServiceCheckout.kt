@@ -85,7 +85,6 @@ class BookingServiceCheckout : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
-
                 })
 
                 viewProductModel.PostVoucherValidationcode(

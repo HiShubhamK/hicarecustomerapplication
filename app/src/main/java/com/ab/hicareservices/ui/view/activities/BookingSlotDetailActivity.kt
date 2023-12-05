@@ -219,6 +219,4 @@ class BookingSlotDetailActivity : AppCompatActivity() {
     private fun getClearchache() {
         viewProductModel.getClearCache(AppUtils2.mobileno)
     }
-
-
 }
