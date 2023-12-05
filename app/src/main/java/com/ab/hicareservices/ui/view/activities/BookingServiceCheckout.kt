@@ -38,6 +38,9 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding = ActivityBookingServiceCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgLogo.setOnClickListener{
+            onBackPressed()
+        }
         orderPaymentlist = ArrayList()
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()

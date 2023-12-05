@@ -252,7 +252,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             marker?.position = latLng
         }
     }
-
     private fun startLocationUpdates() {
         try {
             val locationRequest = LocationRequest.create().apply {
@@ -424,8 +423,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         ) {
             mFusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
-//                    updateMarkerPosition(it.latitude, it.longitude)
-                    updateMapAndAddress(it)
+                    updateMarkerPosition(it.latitude, it.longitude)
+//                    updateMapAndAddress(it)
 
                     initialLocationFetched = true
                 }
