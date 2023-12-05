@@ -95,7 +95,8 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         Long = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
 
-        binding.bottomheadertext.text=scheduledatetext+", "+ AppUtils2.formatDateTime4(Service_Date)
+        binding.bottomheadertext.text =
+            scheduledatetext + ", " + AppUtils2.formatDateTime4(Service_Date)
 
         var data = AppUtils2.timeslotslist
         getOrdersList(data, Service_Date, scheduledatetext)
@@ -139,21 +140,30 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //            data["ServiceType"] = "Pest"
 
 
-            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime","")
+            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
             SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", "")
 
-            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", AppointmentStart.toString())
-            SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", AppointmentEnd.toString())
 
             AppUtils2.AppointmentStart = AppointmentStart.toString()
             AppUtils2.AppointmentEnd = AppointmentEnd.toString()
-            val userData = UserData()
-            userData.AppointmentStartDateTime = AppointmentStart.toString()
-            userData.AppointmentEndDateTime = AppointmentEnd.toString()
-            userData.OrderCreatedDatetime = Service_Date
-            SharedPreferencesManager(this).saveUserData(userData)
+            SharedPreferenceUtil.setData(
+                this,
+                "AppointmentStartDateTime",
+                AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentStart
+            )
+            SharedPreferenceUtil.setData(
+                this,
+                "AppointmentEndDateTime",
+                AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentEnd
+            )
 
-            Log.d("Sharepreferncdata",SharedPreferencesManager(this).saveUserData(userData).toString())
+//            val userData = UserData()
+//            userData.AppointmentStartDateTime = AppointmentStart.toString()
+//            userData.AppointmentEndDateTime = AppointmentEnd.toString()
+//            userData.OrderCreatedDatetime = Service_Date
+//            SharedPreferencesManager(this).saveUserData(userData)
+
+//            Log.d("Sharepreferncdata",SharedPreferencesManager(this).saveUserData(userData).toString())
 
             val intent = Intent(this@BookingSlotDetailActivity, BookingServiceCheckout::class.java)
             startActivity(intent)

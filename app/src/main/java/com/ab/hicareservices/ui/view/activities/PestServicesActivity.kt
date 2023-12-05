@@ -99,16 +99,17 @@ class PestServicesActivity : AppCompatActivity() {
                     } else {
 
                     }
+                    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    // Check if there's a focused view before hiding the keyboard
+                    if (this is Activity && this.currentFocus != null) {
+                        imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+                    }
                 })
                 viewProductModel.getActiveServiceList()
 
             }, 300)
 
-            val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            // Check if there's a focused view before hiding the keyboard
-            if (this is Activity && this.currentFocus != null) {
-                imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
-            }
+
 
 
         }

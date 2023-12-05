@@ -152,12 +152,10 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     SharedPreferenceUtil.setData(this, "Lname", "")
                     SharedPreferenceUtil.setData(this, "Email", "")
                     SharedPreferenceUtil.setData(this, "MobileNo", "")
-                    SharedPreferenceUtil.setData(this, "MobileNo", "")
                     SharedPreferenceUtil.setData(this, "Pincode", "")
                     SharedPreferenceUtil.setData(this, "Remarks", "")
                     SharedPreferenceUtil.setData(this, "BHK", "")
                     SharedPreferenceUtil.setData(this, "MRP", "")
-                    SharedPreferenceUtil.setData(this, "DiscountValue", "")
                     SharedPreferenceUtil.setData(this, "DiscountValue", "")
                     SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
                     SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", "")
@@ -249,7 +247,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Subscription"] = ""
             data["ServiceType"] = "pest"
             data["Customer_Type"] = ""
-            data["Created_On"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
+            data["Created_On"] = AppUtils2.getCurrentDateTime().toString()
             data["Hygiene_Point_Percentage"] = ""
             data["Redeem_Hygine_Points"] = ""
             data["Is_Subscription_Order"] = false
