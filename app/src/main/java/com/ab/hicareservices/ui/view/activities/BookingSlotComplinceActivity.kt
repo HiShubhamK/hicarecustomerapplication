@@ -27,9 +27,7 @@ import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivityBookingSlotComplinceBinding
-import com.ab.hicareservices.databinding.ActivitySlotComplinceBinding
 import com.ab.hicareservices.ui.adapter.BookingSlotCompliceAdapater
-import com.ab.hicareservices.ui.adapter.SlotCompliceAdapater
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
 import com.ab.hicareservices.ui.handler.onSlotclick
@@ -460,7 +458,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 appointmentStart: String,
                 appointmentEnd: String?,
                 source: String?,
-                serviceType: String
+                serviceType: String,
+                toString: String
             ) {
 
 //                selectedTimePostion=position

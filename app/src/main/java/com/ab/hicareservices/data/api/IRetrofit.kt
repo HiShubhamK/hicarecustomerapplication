@@ -241,7 +241,7 @@ interface IRetrofit {
                                                @Query("servicecode") servicecode:String) :Call<GetServicePlanResponse>
 
     @POST("Order/AddOrderAsync")
-    fun AddOrderAsync(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
+    fun AddOrderAsync(@Body data: HashMap<String, Any>): Call<AddOrderAsyncResponse>
 
     @POST("Service/ValidateServiceVoucher")
     fun postvalidateServiceVoucher(@Query("vouchercode") vouchercode: String,

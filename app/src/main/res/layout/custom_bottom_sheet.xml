@@ -93,12 +93,14 @@
                 android:id="@+id/servicename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:text="Cockroach Monitoring System"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="16sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -116,7 +118,9 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lato_regular"
                 android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
-                android:textSize="14sp"
+                android:textSize="13sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@color/white"
                 android:textColor="@color/grey_font" />
 
@@ -144,7 +148,9 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="FAQ"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
 
                 <View
                     android:layout_width="match_parent"

@@ -3,9 +3,12 @@ package com.ab.hicareservices.ui.adapter
 import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
@@ -36,12 +39,18 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
         holder.binding.planname.text = plan.ServicePlanName
         holder.binding.servicepriceplan.text = "" + "" + "\u20B9"+ plan.Price.toString()
         holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
-
         Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
 
-//        holder.itemView.setOnClickListener {
-//            onBookingViewDetials?.onViewDetails(position, plan.Id!!)
-//        }
+        holder.binding.imgaddinstructoin.setOnClickListener {
+                    holder.binding.imgaddinstructoin.text="-"
+                    holder.binding.edtinstruction.visibility=View.VISIBLE
+            SharedPreferenceUtil.setData(requireActivity,"Instructions",holder.binding.edtinstruction.text.toString())
+        }
+
+        holder.binding.imgremoveinstructoin.setOnClickListener {
+            holder.binding.imgaddinstructoin.text="+"
+            holder.binding.edtinstruction.visibility=View.GONE
+        }
 
     }
 

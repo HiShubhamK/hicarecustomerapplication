@@ -31,15 +31,29 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
         holder.binding.tvQuetion.text=productlistdata.FAQTitle
         holder.binding.tvDesc.text=productlistdata.FAQDetail
         holder.binding.tvShowAnswer.setOnClickListener{
+
             if (holder.binding.crdDetail.isVisible){
+
+//                holder.binding.crdDetail.animate().apply {
+//                    scaleX(1.5f)
+//                    scaleY(1.5f)
+//                    duration = 500 // Adjust the duration as needed
+//                    start()
+//                }
+
                 holder.binding.tvShowAnswer.text="+"
                 holder.binding.crdDetail.visibility= View.GONE
+
             }else{
+//                holder.binding.crdDetail.animate().apply {
+//                    scaleX(1.0f)
+//                    scaleY(1.0f)
+//                    duration = 500
+//                    start()
+//                }
                 holder.binding.tvShowAnswer.text="-"
                 holder.binding.crdDetail.visibility= View.VISIBLE
-
             }
-
         }
     }
 

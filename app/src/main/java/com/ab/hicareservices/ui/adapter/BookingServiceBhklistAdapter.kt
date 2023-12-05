@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.databinding.CustomBottomSheetAddBhk2AdapterBinding
 import com.ab.hicareservices.ui.handler.OnBookingFlatPerPrice
@@ -44,27 +45,6 @@ class BookingServiceBhklistAdapter : RecyclerView.Adapter<BookingServiceBhklistA
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.binding.txtaddbhk.text=service[position].NoOfBHK
-//        holder.binding.txtaddbhk.setOnClickListener {
-//            if (position == selectedItemPosition) {
-//                holder.binding.txtaddbhk.setTextColor(Color.RED)
-//            } else {
-//                holder.binding.txtaddbhk.setTextColor(Color.BLACK)
-//            }
-//               onBookingViewDetials!!.onClickonFlat(position,service[position].NoOfBHK)
-//            notifyDataSetChanged()
-//        }
-//
-//        holder.itemView.setOnClickListener {
-//            if (position == selectedPosition) {
-//                holder.binding.txtaddbhk.setTextColor(Color.RED)
-//                onBookingViewDetials!!.onClickonFlat(position,service[position].NoOfBHK,selectedPosition)
-//                notifyDataSetChanged()
-//            } else {
-//                holder.binding.txtaddbhk.setTextColor(Color.RED)
-//                onBookingViewDetials!!.onClickonFlat(position,service[position].NoOfBHK,selectedPosition)
-//                notifyDataSetChanged()
-//            }
-//        }
 
         holder.binding.root.setOnClickListener { v ->
             lastSelectedPosition = selectedPosition
@@ -78,10 +58,6 @@ class BookingServiceBhklistAdapter : RecyclerView.Adapter<BookingServiceBhklistA
         } else {
             holder.binding.txtaddbhk.setTextColor(Color.GRAY)
         }
-
-
-
-
     }
 
     override fun getItemCount(): Int {

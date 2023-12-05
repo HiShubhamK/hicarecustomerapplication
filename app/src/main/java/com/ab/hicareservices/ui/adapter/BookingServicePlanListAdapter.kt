@@ -40,7 +40,7 @@ class BookingServicePlanListAdapter :
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         holder.binding.txtdescription.text = plan.ServicePlanDescription
-        holder.itemView.setOnClickListener {
+        holder.binding.txtviewdetails.setOnClickListener {
             onBookingViewDetials?.onViewDetails(position, plan.Id!!, plan.ServicePlanDescription,plan.Price,plan.DiscountedPrice)
         }
 

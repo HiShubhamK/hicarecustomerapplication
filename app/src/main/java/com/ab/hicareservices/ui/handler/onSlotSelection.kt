@@ -8,7 +8,8 @@ interface onSlotSelection {
         AppointmentStart: String,
         AppointmentEnd: String?,
         Source: String?,
-        ServiceType: String
+        ServiceType: String,
+        toString: String
 
     )
 

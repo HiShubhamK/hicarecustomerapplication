@@ -46,13 +46,13 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
 
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
+            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest",slotlist[position].Finish.toString() )
 
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
+            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest",slotlist[position].Finish.toString() )
 
         }
     }

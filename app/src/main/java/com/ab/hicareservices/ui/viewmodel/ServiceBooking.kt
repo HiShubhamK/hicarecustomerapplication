@@ -2,6 +2,8 @@ package com.ab.hicareservices.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.model.AddOrderAsyncResponse
+import com.ab.hicareservices.data.model.AddOrderAsyncResponseData
 import com.ab.hicareservices.data.model.SaveSalesResponse
 import com.ab.hicareservices.data.model.dashboard.DashboardMainData
 import com.ab.hicareservices.data.model.product.SaveAddressResponse
@@ -33,7 +35,7 @@ class ServiceBooking : ViewModel() {
     val activebhkpincode = MutableLiveData<List<BHKandPincodeData>>()
     val bookingServiceDetailResponseData = MutableLiveData<BookingServiceDetailResponseData>()
     val servicePlanResponseData = MutableLiveData<List<GetServicePlanResponseData>>()
-    val paymentsuceess = MutableLiveData<SaveSalesResponse>()
+    val paymentsuceess = MutableLiveData<AddOrderAsyncResponse>()
     val validatevoucher = MutableLiveData<ValidateServiceVoucherResponse>()
 
     val errorMessage = MutableLiveData<String>()
@@ -180,15 +182,15 @@ class ServiceBooking : ViewModel() {
 
     fun AddOrderAsync(data: HashMap<String, Any>){
         val response=repository.AddOrderAsync(data)
-        response.enqueue(object :Callback<SaveSalesResponse>{
+        response.enqueue(object :Callback<AddOrderAsyncResponse>{
             override fun onResponse(
-                call: Call<SaveSalesResponse>,
-                response: Response<SaveSalesResponse>
+                call: Call<AddOrderAsyncResponse>,
+                response: Response<AddOrderAsyncResponse>
             ) {
                 paymentsuceess.postValue(response.body())
             }
 
-            override fun onFailure(call: Call<SaveSalesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AddOrderAsyncResponse>, t: Throwable) {
                 errorMessage.postValue("Please Check Internet Connection.")
             }
         })

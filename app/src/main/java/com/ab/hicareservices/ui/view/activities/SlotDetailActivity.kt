@@ -201,7 +201,8 @@ class SlotDetailActivity : AppCompatActivity() {
                 appointmentStart: String,
                 appointmentEnd: String?,
                 source: String?,
-                serviceType: String
+                serviceType: String,
+                toString: String
             ) {
 
                 TaskId = taskid

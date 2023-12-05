@@ -413,14 +413,15 @@ class SlotComplinceFragment() : Fragment() {
                 appointmentStart: String,
                 appointmentEnd: String?,
                 source: String?,
-                serviceType: String
+                serviceType: String,
+                toString: String
             ) {
 
-                TaskId=taskid
-                AppointmentDate=appointmentDate
-                AppointmentStart=appointmentStart
-                AppointmentEnd=appointmentEnd!!
-                Source=source!!
+                TaskId= taskid
+                AppointmentDate= appointmentDate
+                AppointmentStart= appointmentStart
+                AppointmentEnd= appointmentEnd!!
+                Source= source!!
 
             }
 

@@ -7,14 +7,9 @@ import com.ab.hicareservices.ui.handler.OnListItemClickHandler
 import android.app.Activity
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import androidx.lifecycle.MutableLiveData
-import com.ab.hicareservices.R
-import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.slots.TimeSlot
 import com.ab.hicareservices.databinding.SlotsAdapterBinding
 import com.ab.hicareservices.ui.handler.onSlotSelection
-import com.ab.hicareservices.ui.handler.onSlotclick
-import com.ab.hicareservices.utils.AppUtils2
 
 class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicareservices.data.model.getslots.TimeSlot>, TaskId: String) : RecyclerView.Adapter<SlotsAdapter.ViewHolder>() {
     private val onItemClickHandler: OnListItemClickHandler? = null
@@ -51,13 +46,31 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
 
-            onSlotSelection?.onSlotBookSelect(lastSelectedPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" )
+            onSlotSelection?.onSlotBookSelect(
+                lastSelectedPosition,
+                taskid,
+                slotlist[position].Start.toString(),
+                slotlist[position].StartTime.toString(),
+                slotlist[position].FinishTime.toString(),
+                "",
+                "Pest",
+                slotlist[position].Finish.toString()
+            )
 
         }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
-            onSlotSelection?.onSlotBookSelect(lastSelectedPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest" )
+            onSlotSelection?.onSlotBookSelect(
+                lastSelectedPosition,
+                taskid,
+                slotlist[position].Start.toString(),
+                slotlist[position].StartTime.toString(),
+                slotlist[position].FinishTime.toString(),
+                "Mobile App",
+                "Pest",
+                slotlist[position].Finish.toString()
+            )
 
         }
     }

@@ -169,6 +169,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     SharedPreferenceUtil.setData(this, "Lat", "")
                     SharedPreferenceUtil.setData(this, "Long", "")
                     SharedPreferenceUtil.setData(this, "ServiceCode", "")
+                    SharedPreferenceUtil.setData(this, "Spcode", "")
                     SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
 
                     binding.imgOffer.visibility = View.VISIBLE
@@ -177,7 +178,6 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
                     val intent = Intent(this@BookingPaymentActivity, HomeActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
 
                 } else {
                     binding.imgOffer.visibility = View.GONE
@@ -186,6 +186,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     binding.txtpayment.text = "Payment Failed"
                     Handler(Looper.getMainLooper()).postDelayed({
                         onBackPressed()
+                        val intent = Intent(this@BookingPaymentActivity, HomeActivity::class.java)
+                        startActivity(intent)
                     }, 500)
 
                     Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
@@ -199,33 +201,31 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
             data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["WebId"] = ""
-            data["WebCustId"] = ""
+            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
-            data["LastName"] = SharedPreferenceUtil.getData(this, "Lname", "").toString()
+            data["LastName"] = "."
             data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
             data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["AltMobileNo"] = ""
+            data["AltMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
             data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
             data["BHK"] = SharedPreferenceUtil.getData(this, "BHK", "").toString()
-            data["ServiceArea"] = ""
-            data["OrderCreatedDatetime"] = ""
+            data["ServiceArea"] = "Home Type"
+            data["OrderCreatedDatetime"] = AppUtils2.getCurrentDateTime().toString()
             data["LeadSource"] = ""
             data["CampaignCode"] = ""
+            data["PaymentStatus"]="Online"
             data["PGResponse"] = ""
             data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
-            data["DiscountValue"] =
-                "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
+            data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
             data["DiscountPercent"] = ""
             data["OrderValue"] = ordervalues
             data["VoucherCode"] = vouchercode
             data["OnlinePaidAmount"] = ordervalues
             data["PaybackPaidAmount"] = ""
-            data["AppointmentStartDateTime"] =
-                SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
-            data["AppointmentEndDateTime"] =
-                SharedPreferenceUtil.getData(this, "AppointmentEndDateTime", "").toString()
+            data["AppointmentStartDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
+            data["AppointmentEndDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentEndDateTime", "").toString()
             data["FlatNo"] = SharedPreferenceUtil.getData(this, "FlatNo", "").toString()
             data["BuildingName"] = SharedPreferenceUtil.getData(this, "BuildingName", "").toString()
             data["Locality"] = SharedPreferenceUtil.getData(this, "Locality", "").toString()
@@ -235,8 +235,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["State"] = SharedPreferenceUtil.getData(this, "State", "").toString()
             data["Lat"] = SharedPreferenceUtil.getData(this, "Lat", "").toString()
             data["Long"] = SharedPreferenceUtil.getData(this, "Long", "").toString()
-            data["ServiceCode"] = SharedPreferenceUtil.getData(this, "ServiceCode", "").toString()
-            data["Param1"] = ""
+            data["ServiceCode"] = SharedPreferenceUtil.getData(this, "Spcode", "").toString()
+            data["Param1"] = SharedPreferenceUtil.getData(this,"Instructions","").toString()
             data["Param2"] = ""
             data["Param3"] = ""
             data["Source"] = "MobileApp"
@@ -246,7 +246,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["OrderCreatedFrom"] = "Customer App"
             data["Subscription"] = ""
             data["ServiceType"] = "pest"
-            data["Customer_Type"] = ""
+            data["Customer_Type"] = "Home"
             data["Created_On"] = AppUtils2.getCurrentDateTime().toString()
             data["Hygiene_Point_Percentage"] = ""
             data["Redeem_Hygine_Points"] = ""
@@ -254,10 +254,9 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Subscription_Id"] = ""
             data["Subscription_Plan_Id"] = ""
             data["OrderPayments"] = orderPaymentlist
-            data["Campaign_Url"] = ""
+            data["Campaign_Url"] = "https://hicare.in/"
 
             viewProductModel.AddOrderAsync(data)
-
 
         } catch (e: Exception) {
 

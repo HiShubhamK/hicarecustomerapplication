@@ -17,12 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="5dp"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:layout_marginLeft="5dp"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -131,7 +133,9 @@
             android:background="@color/white"
             android:textColor="@color/grey_font"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -149,6 +153,8 @@
             android:text="View details"
             android:fontFamily="@font/lato_semibold"
             android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
             android:textColor="@color/colorAccent"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"/>

@@ -7,22 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivityBookingSlotDetailBinding
-import com.ab.hicareservices.databinding.ActivitySlotDetailsBinding
 import com.ab.hicareservices.ui.adapter.BookingSlotsAdapter
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
@@ -30,8 +26,6 @@ import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
-import com.ab.hicareservices.utils.SharedPreferencesManager
-import com.ab.hicareservices.utils.UserData
 
 class BookingSlotDetailActivity : AppCompatActivity() {
 
@@ -171,7 +165,6 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         }
 
         mAdapter.setOnSlotSelection(object : onSlotSelection {
-//
 
             override fun onSlotBookSelect(
                 position: Int,
@@ -180,18 +173,17 @@ class BookingSlotDetailActivity : AppCompatActivity() {
                 appointmentStart: String,
                 appointmentEnd: String?,
                 source: String?,
-                serviceType: String
+                serviceType: String,
+                final: String
             ) {
 
                 TaskId = taskid
                 AppointmentDate = appointmentDate
-                AppointmentStart = appointmentStart
-                AppointmentEnd = appointmentEnd!!
+                AppointmentStart =appointmentDate.substring(11,19) +" "+ appointmentStart.substring(6,8)
+                AppointmentEnd = final.substring(11,19)+" "+appointmentEnd!!.substring(6,8)!!
                 Source = source!!
 
             }
-
-
         })
     }
 
