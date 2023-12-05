@@ -183,7 +183,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                             thumbnail = it.ServiceThumbnail.toString()
                             servicecode = it.ServiceCode.toString()
                             servicename = it.ServiceName.toString()
-                            faqList = it.FaqList
+                            if(it.FaqList!=null) {
+                                faqList = it.FaqList
+                            }else{
+                                faqList= ArrayList()
+                            }
                         } else {
 
                         }

@@ -280,4 +280,12 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent=Intent(this@BookingPaymentActivity,BookingServiceCheckout::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

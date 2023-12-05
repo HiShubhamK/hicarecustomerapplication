@@ -222,4 +222,9 @@ class BookingServiceCheckout : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }

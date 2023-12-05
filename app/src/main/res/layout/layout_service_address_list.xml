@@ -83,7 +83,7 @@
                 android:maxLines="3"
                 android:fontFamily="@font/lato_regular"
                 android:textColor="@color/grey_font"
-                android:textSize="14sp"/>
+                android:textSize="13sp"/>
 
             <TextView
                 android:layout_margin="2dp"

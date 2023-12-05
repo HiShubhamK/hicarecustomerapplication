@@ -113,7 +113,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val lnrprice=view.findViewById<LinearLayoutCompat>(R.id.lnrprice)
 
 
-        lnrprice.visibility=View.GONE
+        lnrprice.visibility=View.INVISIBLE
 
 
         pricewisebhk.text = "\u20B9" + prices.toString()
