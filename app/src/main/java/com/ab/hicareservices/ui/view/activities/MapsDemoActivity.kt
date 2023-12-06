@@ -5,12 +5,17 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +27,8 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.orders.Locality
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.UserData
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -35,13 +42,30 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import android.content.Context
+import com.google.android.libraries.places.api.Places
+
+import com.google.android.libraries.places.api.model.AutocompletePrediction
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import java.util.*
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var progressDialog: ProgressDialog
 
     private var mMap: GoogleMap? = null
     private var initialLocationFetched = false
+    private lateinit var placesClient: PlacesClient
+    private lateinit var autoCompleteTextView: AutoCompleteTextView
+
 
     private lateinit var cardView: CardView
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -49,8 +73,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var tvAddressdetail: TextView
     private lateinit var btnNext: Button
     private lateinit var locationCallback: LocationCallback
-    private lateinit var lat:String
-    private lateinit var longg:String
+    private lateinit var lat: String
+    private lateinit var longg: String
     private var ServiceCenter_Id = ""
     private var SkillId = ""
     private var SlotDate = ""
@@ -62,16 +86,18 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
-    private lateinit var marker:Marker
+    private lateinit var marker: Marker
     val userData = UserData()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
-        try{
+        try {
             progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
             progressDialog.setCancelable(false)
+            Places.initialize(applicationContext, "AIzaSyDxWpNjeNRl8_62bKRfS57AzgcvDZ-DxXM")
+            placesClient = Places.createClient(this)
 
 
             ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
@@ -87,16 +113,17 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             spcode = intent.getStringExtra("SPCode").toString()
 
 
-            userData.ServiceArea="Home Type"
-            userData.LeadSource="MobileApp"
+            userData.ServiceArea = "Home Type"
+            userData.LeadSource = "MobileApp"
 
 
-            addressTextView = findViewById(R.id.addressTextView)
+//            addressTextView = findViewById(R.id.addressTextView)
             tvAddressdetail = findViewById(R.id.tvAddressdetail)
             btnNext = findViewById(R.id.btnNext)
             cardView = findViewById(R.id.cardView)
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            val mapFragment =
+                supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
 //            locationCallback = object : LocationCallback() {
@@ -111,10 +138,49 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 //                    }
 //                }
 //            }
+
+
+            autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
+
+            val autocompleteSessionToken = AutocompleteSessionToken.newInstance()
+            val placeAutocompleteAdapter =
+                PlaceAutocompleteAdapter(this, placesClient, autocompleteSessionToken)
+            autoCompleteTextView.setAdapter(placeAutocompleteAdapter)
+
+            // Set a listener for item click on the AutoCompleteTextView
+            autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+                val item = placeAutocompleteAdapter.getItem(position)
+                val placeId = item?.placeId
+                val placeDescription = placeAutocompleteAdapter.getPlaceDescription(position)
+
+                // Set the full description in the AutoCompleteTextView
+                autoCompleteTextView.setText(placeDescription)
+
+                // Use the placeId to fetch details about the selected place
+                val placeFields = listOf(Place.Field.LAT_LNG) // Include required fields
+                val request = FetchPlaceRequest.newInstance(placeId!!, placeFields)
+
+                placesClient.fetchPlace(request).addOnSuccessListener { response ->
+                    val place = response.place
+
+                    // Extract the LatLng object from the fetched details
+                    val latLng = place.latLng
+
+                    // Update the marker position on the map with the fetched coordinates
+                    latLng?.let {
+                        updateMarkerPosition(it.latitude, it.longitude)
+                    }
+
+                    // Other actions with the selected place details
+                    // ...
+                }.addOnFailureListener { exception ->
+                    // Handle failure in fetching place details
+                }
+            }
             btnNext.setOnClickListener {
-                userData.Pincode=AppUtils2.pincode
-                userData.ServiceType="Pest"
-                val intent=Intent(this,AddAddressActivity::class.java)
+                userData.Pincode = AppUtils2.pincode
+                userData.ServiceType = "Pest"
+                val intent = Intent(this, AddAddressActivity::class.java)
                 intent.putExtra("ServiceCenter_Id", "")
                 intent.putExtra("SlotDate", "")
                 intent.putExtra("TaskId", "")
@@ -130,10 +196,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 startActivity(intent)
 
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
-
 
 
     }
@@ -177,7 +242,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 val newPosition = marker?.position
                 val updatedLat = newPosition?.latitude
                 val updatedLng = newPosition?.longitude
-                getAddressFromLocation(updatedLat, updatedLng)
+//                getAddressFromLocation(updatedLat, updatedLng)
+                updateMarkerPosition(updatedLat, updatedLng)
 
                 // Perform actions with the updated coordinates
                 // For example, update UI elements with the new coordinates
@@ -190,10 +256,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onMarkerDrag(marker: Marker) {
-                    // Optional: Perform actions as the marker is dragged
-                }
-
-                override fun onMarkerDragEnd(marker: Marker) {
                     val newPosition = marker.position
                     val updatedLat = newPosition.latitude
                     val updatedLng = newPosition.longitude
@@ -202,21 +264,27 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     // For example, you can update lat and long variables and fetch location details
                     lat = updatedLat.toString()
                     longg = updatedLng.toString()
-                    getAddressFromLocation(updatedLat, updatedLng)
+//                    getAddressFromLocation(updatedLat, updatedLng)
+                    updateMarkerPosition(updatedLat, updatedLng)
                     val latLng = LatLng(updatedLat, updatedLng)
+                    // Optional: Perform actions as the marker is dragged
+                }
 
-                    if (marker == null) {
-                        val markerOptions = MarkerOptions()
-                            .position(latLng)
-                            .title("Current Position")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                override fun onMarkerDragEnd(marker: Marker) {
 
-                        this@MapsDemoActivity.marker = mMap?.addMarker(markerOptions)!!
-                        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
 
-                    } else {
-                        marker?.position = latLng
-                    }
+//                    if (marker == null) {
+//                        val markerOptions = MarkerOptions()
+//                            .position(latLng)
+//                            .title("Current Position")
+//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//
+//                        this@MapsDemoActivity.marker = mMap?.addMarker(markerOptions)!!
+//                        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+//
+//                    } else {
+//                        marker?.position = latLng
+//                    }
                 }
 
             })
@@ -229,69 +297,19 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
     }
+
     private fun updateMarkerPosition(latitude: Double, longitude: Double) {
-        // Update the marker position and fetch the address information
+        // ... Your existing code ...
         lat = latitude.toString()
         longg = longitude.toString()
-        getAddressFromLocation(latitude, longitude)
-        val latLng = LatLng(latitude, longitude)
-
-        if (marker == null) {
-            val markerOptions = MarkerOptions()
-                .position(latLng)
-                .title("Current Position")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-
-            marker = mMap?.addMarker(markerOptions)!!
-        } else {
-            marker?.position = latLng
-        }
-    }
-    private fun startLocationUpdates() {
+//        getAddressFromLocation(latitude, longitude)
         try {
-            val locationRequest = LocationRequest.create().apply {
-                interval = 1000
-                fastestInterval = 1000
-                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return
-            }
-            mFusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            )
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-
-    }
-
-    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
-        try {
-            progressDialog.show()
+//            progressDialog.show()
 
             val geocoder = Geocoder(this, Locale.getDefault())
             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
@@ -332,59 +350,143 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 landmark?.let {
                     addressDetails.append("Landmark: $it\n")
                 }
-                addressTextView.text = industryArea
+//                addressTextView.text = industryArea
                 tvAddressdetail.text = "$nearbyArea, $state, India"
-                if (addressTextView.text.isNotEmpty()&&tvAddressdetail.text.isNotEmpty()){
-                    cardView.visibility= View.VISIBLE
+                if (tvAddressdetail.text.isNotEmpty() && tvAddressdetail.text.isNotEmpty()) {
+                    cardView.visibility = View.VISIBLE
                     progressDialog.dismiss()
-                }else{
-                    cardView.visibility= View.GONE
+                } else {
+                    cardView.visibility = View.GONE
                     progressDialog.dismiss()
 
 
                 }
+
                 progressDialog.dismiss()
 
-
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
+            progressDialog.dismiss()
+
         }
+
+        val latLng = LatLng(latitude, longitude)
+
+        val customMarkerView = layoutInflater.inflate(R.layout.custom_marker_layout, null)
+        val markerTextView = customMarkerView.findViewById<TextView>(R.id.markerTextView)
+        markerTextView.text = "Your service will be delivered here!" // Update text dynamically
+
+        val markerOptions = MarkerOptions()
+            .position(latLng)
+            .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(customMarkerView)))
+        marker?.remove() // Remove old marker
+        marker = mMap?.addMarker(markerOptions)!!
+        progressDialog.dismiss()
 
     }
 
-    private fun updateMapAndAddress(location: Location) {
+    private fun createDrawableFromView(view: View): Bitmap {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        val bitmap =
+            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    //    private fun updateMarkerPosition(latitude: Double, longitude: Double) {
+//        // Update the marker position and fetch the address information
+//        lat = latitude.toString()
+//        longg = longitude.toString()
+//        getAddressFromLocation(latitude, longitude)
+//        val latLng = LatLng(latitude, longitude)
+//
+//        if (marker == null) {
+//            val markerOptions = MarkerOptions()
+//                .position(latLng)
+//                .title("Current Position")
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//
+//            marker = mMap?.addMarker(markerOptions)!!
+//        } else {
+//            marker?.position = latLng
+//        }
+//    }
+    private fun startLocationUpdates() {
         try {
-//            progressDialog.show()
-
-            val latLng = LatLng(location.latitude, location.longitude)
-
-            if (marker == null) {
-                val markerOptions = MarkerOptions()
-                    .position(latLng)
-                    .title("Current Position")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-
-                marker = mMap?.addMarker(markerOptions)!!
-            } else {
-                marker?.position = latLng
+            val locationRequest = LocationRequest.create().apply {
+                interval = 1000
+                fastestInterval = 1000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             }
 
-            getAddressFromLocation(latLng.latitude, latLng.longitude)
-            lat = latLng.latitude.toString()
-            longg = latLng.longitude.toString()
-            AppUtils2.Latt = latLng.latitude.toString()
-            AppUtils2.Longg = latLng.longitude.toString()
-            userData.Lat = AppUtils2.Latt
-            userData.Long = AppUtils2.Longg
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
 
-
-//            progressDialog.dismiss()
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
+            mFusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
     }
+
+    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
+
+    }
+
+//    private fun updateMapAndAddress(location: Location) {
+//        try {
+////            progressDialog.show()
+//
+//            val latLng = LatLng(location.latitude, location.longitude)
+//
+//            if (marker == null) {
+//                val markerOptions = MarkerOptions()
+//                    .position(latLng)
+//                    .title("Current Position")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//
+//                marker = mMap?.addMarker(markerOptions)!!
+//            } else {
+//                marker?.position = latLng
+//            }
+//
+//            getAddressFromLocation(latLng.latitude, latLng.longitude)
+//            lat = latLng.latitude.toString()
+//            longg = latLng.longitude.toString()
+//            AppUtils2.Latt = latLng.latitude.toString()
+//            AppUtils2.Longg = latLng.longitude.toString()
+//            userData.Lat = AppUtils2.Latt
+//            userData.Long = AppUtils2.Longg
+//            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+//
+//
+////            progressDialog.dismiss()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -415,6 +517,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
     }
+
     private fun fetchInitialLocation() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -442,6 +545,82 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onResume()
         if (!initialLocationFetched) {
             fetchInitialLocation()
+        }
+    }
+}
+
+class PlaceAutocompleteAdapter(
+    context: Context,
+    private val placesClient: PlacesClient,
+    private val token: AutocompleteSessionToken
+) : ArrayAdapter<AutocompletePrediction>(context, android.R.layout.simple_dropdown_item_1line) {
+
+    private val resultList = mutableListOf<AutocompletePrediction>()
+
+    override fun getCount(): Int {
+        return resultList.size
+    }
+
+    override fun getItem(position: Int): AutocompletePrediction? {
+        return resultList.getOrNull(position)
+    }
+
+    // Add a new method to get the full description of the place
+    fun getPlaceDescription(position: Int): String {
+        return resultList.getOrNull(position)?.getFullText(null)?.toString() ?: ""
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filterResults = FilterResults()
+                constraint?.let {
+                    val scope = CoroutineScope(Dispatchers.IO)
+                    scope.launch {
+                        val predictions = getAutocomplete(constraint)
+                        withContext(Dispatchers.Main) {
+                            filterResults.values = predictions
+                            filterResults.count = predictions.size
+                            publishResults(constraint, filterResults)
+                        }
+                    }
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                results?.let {
+                    resultList.clear()
+                    if (results.count > 0) {
+                        val predictions = results.values as List<AutocompletePrediction>
+                        resultList.addAll(predictions)
+                        notifyDataSetChanged()
+                    } else {
+                        notifyDataSetInvalidated()
+                    }
+                }
+            }
+        }
+    }
+
+    private suspend fun getAutocomplete(constraint: CharSequence): List<AutocompletePrediction> {
+        return withContext(Dispatchers.IO) {
+            val request = FindAutocompletePredictionsRequest.builder()
+                .setSessionToken(token)
+                .setQuery(constraint.toString())
+                .build()
+
+            try {
+                val response = placesClient.findAutocompletePredictions(request).await()
+
+                if (response != null && response.autocompletePredictions != null) {
+                    return@withContext response.autocompletePredictions
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return@withContext emptyList()
         }
     }
 }

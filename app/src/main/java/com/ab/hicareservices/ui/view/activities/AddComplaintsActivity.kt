@@ -326,7 +326,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, "Please fill data properly.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 if (orderNo != "" && complaintTitle != "" && complaintDescr != ""&& selectedCType != "Complaint Type") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
@@ -336,7 +336,7 @@ class AddComplaintsActivity : AppCompatActivity() {
                     )
                 } else {
 //                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
-                    Toast.makeText(this, "Please fill data properly", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

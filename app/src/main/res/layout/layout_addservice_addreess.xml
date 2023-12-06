@@ -785,7 +785,7 @@
                                 android:layout_marginTop="4dp"
                                 android:layout_marginLeft="6dp"                                android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
-                                android:text="Building"
+                                android:text="Building Name"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 

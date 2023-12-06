@@ -343,7 +343,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
 
                     Toast.makeText(
                         this,
-                        "Please fill data properly.",
+                        "Please fill out all required fields.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
