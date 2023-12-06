@@ -111,9 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:text="Service Guidelines"
                 android:textColor="@color/colorAccent"
@@ -179,14 +179,6 @@
 
         <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/grey"
-            android:visibility="visible"></View>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtdescription"
@@ -202,24 +194,14 @@
             android:textSize="14sp"
             android:visibility="gone"/>
 
-
-
-<!--        <androidx.appcompat.widget.AppCompatEditText-->
-<!--            android:id="@+id/edtinstruction"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:maxLength="200"-->
-<!--            android:text="Instruction here"-->
-<!--            android:padding="12dp"-->
-<!--            android:textColor="@color/grey_font"-->
-<!--            android:textSize="13sp"-->
-<!--            android:layout_marginHorizontal="6dp"-->
-<!--            android:layout_marginVertical="5dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:visibility="gone"-->
-<!--            android:background="@drawable/round_border" />-->
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/grey"
+            android:visibility="visible"></View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -230,9 +212,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:text="Add Instructions for Service"
                 android:textColor="@color/colorAccent"
@@ -270,17 +252,13 @@
 
         </RelativeLayout>
 
-
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
             android:layout_marginVertical="5dp"
             android:background="@color/grey_font"
-            android:visibility="visible"></View>
-
-
+            android:visibility="gone"></View>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtinstruction"

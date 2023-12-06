@@ -84,7 +84,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         faqList = ArrayList()
 
 
-
         val userData = UserData()
 
         SharedPreferenceUtil.setData(this, "ServiceCode", serviceCode.toString())
@@ -128,14 +127,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     mAdapter.setServiceList(it, this)
                 } else {
-
-                    Toast.makeText(this@BokingServiceDetailsActivity,"plan is not avaiable",Toast.LENGTH_LONG).show()
-
-                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                        "400079",
-                        AppUtils2.servicecode
-                    )
-
+                    calldefaultplans()
                 }
             })
 
@@ -156,13 +148,13 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
 
-            }else if(binding.getpincodetext.text.length != 6){
+            } else if (binding.getpincodetext.text.length != 6) {
                 Toast.makeText(
                     this@BokingServiceDetailsActivity,
                     "Invalid pincode.",
                     Toast.LENGTH_LONG
                 ).show()
-            }else{
+            } else {
                 progressDialog.show()
                 Handler(Looper.getMainLooper()).postDelayed({
 
@@ -208,10 +200,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                             thumbnail = it.ServiceThumbnail.toString()
                             servicecode = it.ServiceCode.toString()
                             servicename = it.ServiceName.toString()
-                            if(it.FaqList!=null) {
+                            if (it.FaqList != null) {
                                 faqList = it.FaqList
-                            }else{
-                                faqList= ArrayList()
+                            } else {
+                                faqList = ArrayList()
                             }
                         } else {
 
@@ -314,8 +306,26 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         spinnerlist.add("Select flat area")
     }
 
+    private fun calldefaultplans() {
+
+//        viewProductModel.serviceresponssedata.observe(this@BokingServiceDetailsActivity,
+//            Observer {
+//                if (it.isNotEmpty()) {
+//                    progressDialog.dismiss()
+//                    mAdapter.setServiceList(it, this)
+//                } else {
+//                }
+//            })
+//
+//        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+//            "400079",
+//            AppUtils2.servicecode
+//        )
+
+    }
+
     override fun onBackPressed() {
-        val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
+        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
     }
 }

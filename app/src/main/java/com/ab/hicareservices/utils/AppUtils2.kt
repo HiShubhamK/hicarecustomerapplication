@@ -87,6 +87,7 @@ object AppUtils2 {
     var cutomerid=""
     var serviceemail=""
     var bhk=""
+    var Appointmentdataforcheckout=" "
 
     @JvmStatic
     fun startPayment(activity: Activity) {
@@ -199,6 +200,51 @@ object AppUtils2 {
 
         val date = inputFormat.parse(inputDate)
         return outputFormat.format(date!!)
+    }
+
+
+    fun formatDatetime(inputDate: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        val date = inputFormat.parse(inputDate)
+        return outputFormat.format(date!!)
+    }
+
+    fun formatDatetimeone(inputDate: String): String {
+//        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
+//        val outputFormat = SimpleDateFormat("hh:mm:ss a", Locale.US)
+//
+//        // Parse the original time
+//        val date = inputFormat.parse(inputDate)
+//
+//        // Format the parsed date into the desired format
+//        return outputFormat.format(date)
+
+        val sdf24 = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val sdf12 = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+        val date = sdf24.parse(inputDate)
+        return sdf12.format(date)
+
+    }
+
+    fun convertTo12HourFormat(time24: String): String {
+        val sdf24 = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val sdf12 = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+        val date = sdf24.parse(time24)
+        return sdf12.format(date)
+    }
+
+
+    fun convertTimeFormat(originalTime: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
+        val outputFormat = SimpleDateFormat("hh:mm:ss a", Locale.US)
+
+        // Parse the original time
+        val date = inputFormat.parse(originalTime)
+
+        // Format the parsed date into the desired format
+        return outputFormat.format(date)
     }
 
 }
