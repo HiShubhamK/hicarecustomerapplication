@@ -321,7 +321,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/lato_regular"
-                                    android:text="Voucher Discount"
+                                    android:text="Coupon Discount"
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
 
@@ -343,6 +343,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal"
+                                android:visibility="gone"
                                 android:weightSum="2">
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -394,13 +395,13 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
                                 android:orientation="horizontal"
-                                android:weightSum="2">
+                                android:weightSum="3">
 
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_weight="1.8"
+                                    android:layout_weight="1"
                                     android:fontFamily="@font/lato_regular"
                                     android:text="Coupon code"
                                     android:textColor="@color/black"
@@ -410,9 +411,12 @@
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.2"
+                                    android:layout_weight="1"
                                     android:backgroundTint="@color/white"
                                     android:elevation="3dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_gravity="center"
                                     app:cardCornerRadius="3dp">
 
                                     <androidx.appcompat.widget.AppCompatEditText
@@ -430,34 +434,71 @@
 
                                 </androidx.cardview.widget.CardView>
 
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:id="@+id/btnappiledcoupon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/coupunname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:background="@color/colorAccent"
+                                        android:fontFamily="@font/lato_semibold"
+                                        android:gravity="center"
+                                        android:text="Apply"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="13sp" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:id="@+id/btnappiledcoupon"
+
+                            <View
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/coupunname"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:background="@color/colorAccent"
-                                    android:fontFamily="@font/lato_semibold"
-                                    android:gravity="center"
-                                    android:text="Apply coupon"
-                                    android:textAllCaps="false"
-                                    android:textColor="@color/white"
-                                    android:textSize="13sp" />
-
-
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
+                                android:layout_height="0.8dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:background="@color/grey_font" />
+
+
+
+
+<!--                            <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                                android:id="@+id/btnappiledcoupon"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                    android:id="@+id/coupunname"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="40dp"-->
+<!--                                    android:background="@color/colorAccent"-->
+<!--                                    android:fontFamily="@font/lato_semibold"-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:text="Apply coupon"-->
+<!--                                    android:textAllCaps="false"-->
+<!--                                    android:textColor="@color/white"-->
+<!--                                    android:textSize="13sp" />-->
+
+
+<!--                            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+
+
+
+
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
                                 android:orientation="horizontal"
                                 android:weightSum="2">
 

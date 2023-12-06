@@ -24,11 +24,9 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val binding = BookingCheckoutAdapterLayoutBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
-
 
     override fun getItemCount(): Int {
         return plandata.size
@@ -40,6 +38,14 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
         holder.binding.servicepriceplan.text = "" + "" + "\u20B9" + plan.Price.toString()
         holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
         Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
+
+        SharedPreferenceUtil.setData(
+            requireActivity,
+            "Instructions",
+            holder.binding.edtinstruction.text.toString()
+        )
+
+        holder.binding.edtinstruction.setText(SharedPreferenceUtil.getData(requireActivity,"Instructions","").toString())
 
         holder.binding.imgaddinstructoin.setOnClickListener {
             holder.binding.imgaddinstructoin.visibility = View.GONE
@@ -58,6 +64,24 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
             holder.binding.imgaddinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.GONE
             holder.binding.txtdescription.visibility=View.GONE
+        }
+
+
+        holder.binding.imgaddinstructoinforextra.setOnClickListener {
+            holder.binding.imgaddinstructoinforextra.visibility = View.GONE
+            holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
+            holder.binding.edtinstruction.visibility = View.VISIBLE
+            SharedPreferenceUtil.setData(
+                requireActivity,
+                "Instructions",
+                holder.binding.edtinstruction.text.toString()
+            )
+        }
+
+        holder.binding.imgremoveinstructoinextra.setOnClickListener {
+            holder.binding.imgremoveinstructoinextra.visibility = View.GONE
+            holder.binding.imgaddinstructoinforextra.visibility = View.VISIBLE
+            holder.binding.edtinstruction.visibility = View.GONE
         }
     }
 

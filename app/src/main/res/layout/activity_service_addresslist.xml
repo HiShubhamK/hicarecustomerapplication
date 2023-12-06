@@ -84,6 +84,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tvHeading"
             android:layout_below="@+id/headerView"
@@ -95,8 +96,7 @@
             android:text="Existing Address:"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:visibility="visible" />
-
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/lnrData"
@@ -124,9 +124,9 @@
                 android:textAlignment="center"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="center"
-                android:text="No Existing Address Available!"
+                android:text="No Address Available!"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:visibility="visible" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

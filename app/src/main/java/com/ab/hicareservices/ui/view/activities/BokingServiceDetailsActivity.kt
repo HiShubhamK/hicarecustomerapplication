@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -110,12 +111,15 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         )
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
-//        binding.imgbanner.setOnClickListener{
-//            onBackPressed()
-//
-//        }
 
         progressDialog.show()
+
+        viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
+            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                "400079",
+                AppUtils2.servicecode
+            )
+        })
 
         viewProductModel.servicePlanResponseData.observe(
             this@BokingServiceDetailsActivity,
@@ -124,6 +128,13 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     mAdapter.setServiceList(it, this)
                 } else {
+
+                    Toast.makeText(this@BokingServiceDetailsActivity,"plan is not avaiable",Toast.LENGTH_LONG).show()
+
+                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                        "400079",
+                        AppUtils2.servicecode
+                    )
 
                 }
             })
@@ -138,27 +149,41 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
             AppUtils2.pincode = binding.getpincodetext.text.toString()
 
-            progressDialog.show()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-
-                viewProductModel.servicePlanResponseData.observe(
+            if (binding.getpincodetext.text.equals("")) {
+                Toast.makeText(
                     this@BokingServiceDetailsActivity,
-                    Observer {
-                        if (it.isNotEmpty()) {
-                            mAdapter.setServiceList(it, this)
-                        } else {
+                    "Please enter pincode",
+                    Toast.LENGTH_LONG
+                ).show()
 
-                        }
-                        progressDialog.dismiss()
+            }else if(binding.getpincodetext.text.length != 6){
+                Toast.makeText(
+                    this@BokingServiceDetailsActivity,
+                    "Invalid pincode.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }else{
+                progressDialog.show()
+                Handler(Looper.getMainLooper()).postDelayed({
 
-                    })
-                viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                    AppUtils2.pincode,
-                    AppUtils2.servicecode
-                )
-            }, 300)
+                    viewProductModel.servicePlanResponseData.observe(
+                        this@BokingServiceDetailsActivity,
+                        Observer {
+                            if (it.isNotEmpty()) {
+                                mAdapter.setServiceList(it, this)
+                            } else {
 
+                            }
+                            progressDialog.dismiss()
+
+                        })
+                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                        AppUtils2.pincode,
+                        AppUtils2.servicecode
+                    )
+                }, 300)
+
+            }
         }
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {

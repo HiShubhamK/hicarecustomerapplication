@@ -1,12 +1,8 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -15,13 +11,9 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.OrderPayments
 import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
-import com.ab.hicareservices.databinding.ActivityMyOrderBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
-import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
-import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
-import com.ab.hicareservices.utils.SharedPreferencesManager
 
 class BookingServiceCheckout : AppCompatActivity() {
 
