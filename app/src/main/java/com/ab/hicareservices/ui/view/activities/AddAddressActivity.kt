@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +75,8 @@ class AddAddressActivity : AppCompatActivity() {
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
+
+        Log.d("map",lat +" "+longg)
 
         MyLocationListener(this)
 
