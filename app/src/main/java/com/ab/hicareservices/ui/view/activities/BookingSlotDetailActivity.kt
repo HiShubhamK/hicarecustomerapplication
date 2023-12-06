@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -178,11 +179,15 @@ class BookingSlotDetailActivity : AppCompatActivity() {
             ) {
 
                 TaskId = taskid
-                AppointmentDate = appointmentDate
-                AppointmentStart =appointmentDate.substring(11,19) +" "+ appointmentStart.substring(6,8)
-                AppointmentEnd = final.substring(11,19)+" "+appointmentEnd!!.substring(6,8)!!
-                Source = source!!
+                var changefinaltime=AppUtils2.formatDatetimeone(final.substring(11,19))
+                var changestarttime=AppUtils2.formatDatetimeone(appointmentDate.substring(11,19))
 
+                AppointmentDate = appointmentDate
+                AppointmentStart = changestarttime
+                AppointmentEnd = changefinaltime
+                Source = source!!
+                AppUtils2.Appointmentdataforcheckout = AppUtils2.formatDate(appointmentDate.substring(1,10))+" | "+appointmentStart+" - "+appointmentEnd
+                Log.d("datalink",changefinaltime)
             }
         })
     }

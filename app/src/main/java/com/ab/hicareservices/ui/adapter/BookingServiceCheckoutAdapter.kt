@@ -15,8 +15,7 @@ import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class BookingServiceCheckoutAdapter :
-    RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
+class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
 
     var plandata = mutableListOf<GetServicePlanResponseData>()
     lateinit var requireActivity: FragmentActivity
@@ -25,11 +24,9 @@ class BookingServiceCheckoutAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val binding = BookingCheckoutAdapterLayoutBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
-
 
     override fun getItemCount(): Int {
         return plandata.size
@@ -42,10 +39,19 @@ class BookingServiceCheckoutAdapter :
         holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
         Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
 
+        SharedPreferenceUtil.setData(
+            requireActivity,
+            "Instructions",
+            holder.binding.edtinstruction.text.toString()
+        )
+
+        holder.binding.edtinstruction.setText(SharedPreferenceUtil.getData(requireActivity,"Instructions","").toString())
+
         holder.binding.imgaddinstructoin.setOnClickListener {
             holder.binding.imgaddinstructoin.visibility = View.GONE
             holder.binding.imgremoveinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.VISIBLE
+            holder.binding.txtdescription.visibility=View.VISIBLE
             SharedPreferenceUtil.setData(
                 requireActivity,
                 "Instructions",
@@ -57,8 +63,26 @@ class BookingServiceCheckoutAdapter :
             holder.binding.imgremoveinstructoin.visibility = View.GONE
             holder.binding.imgaddinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.GONE
+            holder.binding.txtdescription.visibility=View.GONE
         }
 
+
+        holder.binding.imgaddinstructoinforextra.setOnClickListener {
+            holder.binding.imgaddinstructoinforextra.visibility = View.GONE
+            holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
+            holder.binding.edtinstruction.visibility = View.VISIBLE
+            SharedPreferenceUtil.setData(
+                requireActivity,
+                "Instructions",
+                holder.binding.edtinstruction.text.toString()
+            )
+        }
+
+        holder.binding.imgremoveinstructoinextra.setOnClickListener {
+            holder.binding.imgremoveinstructoinextra.visibility = View.GONE
+            holder.binding.imgaddinstructoinforextra.visibility = View.VISIBLE
+            holder.binding.edtinstruction.visibility = View.GONE
+        }
     }
 
     fun setServiceList(

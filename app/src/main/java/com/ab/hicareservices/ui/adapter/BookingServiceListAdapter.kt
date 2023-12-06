@@ -46,7 +46,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         holder.binding.txtshortdes.text = service.ShortDescription.toString()
         holder.binding.txtlongdes.text = service.DetailDescription.toString()
 
-        holder.itemView.setOnClickListener {
+        holder.binding.txtrupees.setOnClickListener {
             val intent = Intent(requireActivity, BokingServiceDetailsActivity::class.java)
             AppUtils2.servicecode = service.ServiceCode.toString()
             intent.putExtra("ServiceId", service.Id.toString())

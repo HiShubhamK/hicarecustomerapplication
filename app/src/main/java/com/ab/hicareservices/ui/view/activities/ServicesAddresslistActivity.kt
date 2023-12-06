@@ -109,6 +109,12 @@ class ServicesAddresslistActivity : AppCompatActivity() {
 
         binding.recycleviewaddress.adapter = mAdapter
 
+        viewProductModel.errorMessage.observe(this, Observer {
+            binding.tvNoAddress.visibility = View.VISIBLE
+            binding.recycleviewaddress.visibility = View.GONE
+            progressDialog.dismiss()
+        })
+
         viewProductModel.existingAddressListModel.observe(this, Observer {
             if (it!=null) {
                 progressDialog.dismiss()
