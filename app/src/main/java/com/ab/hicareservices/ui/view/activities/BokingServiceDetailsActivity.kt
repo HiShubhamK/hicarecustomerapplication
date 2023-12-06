@@ -282,22 +282,15 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             })
         viewProductModel.getActiveServiceDetailById(ServiceId.toInt())
 
-
-
-
         binding.txtshortdes.text = shortDescription.toString()
         binding.txtlongdes.text = stailDescription.toString()
 
         spinnerlist = ArrayList()
         spinnerlist.add("Select flat area")
-
-
     }
 
     override fun onBackPressed() {
         val intent=Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
     }
-
-
 }

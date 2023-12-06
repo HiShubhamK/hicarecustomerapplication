@@ -15,8 +15,7 @@ import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class BookingServiceCheckoutAdapter :
-    RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
+class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
 
     var plandata = mutableListOf<GetServicePlanResponseData>()
     lateinit var requireActivity: FragmentActivity
@@ -46,6 +45,7 @@ class BookingServiceCheckoutAdapter :
             holder.binding.imgaddinstructoin.visibility = View.GONE
             holder.binding.imgremoveinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.VISIBLE
+            holder.binding.txtdescription.visibility=View.VISIBLE
             SharedPreferenceUtil.setData(
                 requireActivity,
                 "Instructions",
@@ -57,8 +57,8 @@ class BookingServiceCheckoutAdapter :
             holder.binding.imgremoveinstructoin.visibility = View.GONE
             holder.binding.imgaddinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.GONE
+            holder.binding.txtdescription.visibility=View.GONE
         }
-
     }
 
     fun setServiceList(

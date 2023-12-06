@@ -179,8 +179,6 @@ class BookingServiceCheckout : AppCompatActivity() {
 //            data["OrderPayments"] = orderPaymentlist
 //            data["Campaign_Url"] = "https://hicare.in/"
 //
-//
-//
 //            Log.d("paydata",data.toString())
 
             val intent = Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
