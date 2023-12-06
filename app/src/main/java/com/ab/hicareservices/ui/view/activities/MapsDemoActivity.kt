@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import android.content.Context
+import com.ab.hicareservices.location.MyLocationListener
 import com.google.android.libraries.places.api.Places
 
 import com.google.android.libraries.places.api.model.AutocompletePrediction
@@ -69,6 +70,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var cardView: CardView
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var btnChangeLoc: TextView
     private lateinit var addressTextView: TextView
     private lateinit var tvAddressdetail: TextView
     private lateinit var btnNext: Button
@@ -117,7 +119,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             userData.LeadSource = "MobileApp"
 
 
-//            addressTextView = findViewById(R.id.addressTextView)
+            btnChangeLoc = findViewById(R.id.btnChangeLoc)
             tvAddressdetail = findViewById(R.id.tvAddressdetail)
             btnNext = findViewById(R.id.btnNext)
             cardView = findViewById(R.id.cardView)
@@ -148,6 +150,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             autoCompleteTextView.setAdapter(placeAutocompleteAdapter)
 
             // Set a listener for item click on the AutoCompleteTextView
+            // Inside your AutoCompleteTextView's item click listener
             autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
                 val item = placeAutocompleteAdapter.getItem(position)
                 val placeId = item?.placeId
@@ -169,6 +172,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     // Update the marker position on the map with the fetched coordinates
                     latLng?.let {
                         updateMarkerPosition(it.latitude, it.longitude)
+
+                        // Move the camera to the selected location
+                        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
                     }
 
                     // Other actions with the selected place details
@@ -177,6 +183,36 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     // Handle failure in fetching place details
                 }
             }
+
+//            autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+//                val item = placeAutocompleteAdapter.getItem(position)
+//                val placeId = item?.placeId
+//                val placeDescription = placeAutocompleteAdapter.getPlaceDescription(position)
+//
+//                // Set the full description in the AutoCompleteTextView
+//                autoCompleteTextView.setText(placeDescription)
+//
+//                // Use the placeId to fetch details about the selected place
+//                val placeFields = listOf(Place.Field.LAT_LNG) // Include required fields
+//                val request = FetchPlaceRequest.newInstance(placeId!!, placeFields)
+//
+//                placesClient.fetchPlace(request).addOnSuccessListener { response ->
+//                    val place = response.place
+//
+//                    // Extract the LatLng object from the fetched details
+//                    val latLng = place.latLng
+//
+//                    // Update the marker position on the map with the fetched coordinates
+//                    latLng?.let {
+//                        updateMarkerPosition(it.latitude, it.longitude)
+//                    }
+//
+//                    // Other actions with the selected place details
+//                    // ...
+//                }.addOnFailureListener { exception ->
+//                    // Handle failure in fetching place details
+//                }
+//            }
             btnNext.setOnClickListener {
                 userData.Pincode = AppUtils2.pincode
                 userData.ServiceType = "Pest"
@@ -228,7 +264,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 isTiltGesturesEnabled = true // Enable tilt gestures
                 isRotateGesturesEnabled = true // Enable rotation gestures
             }
-            val defaultPosition = LatLng(40.7128, -74.0060) // New York City coordinates
+            MyLocationListener(this)
+
+            val defaultPosition = LatLng(AppUtils2.Latt.toDouble(), AppUtils2.Longg.toDouble()) // New York City coordinates
             marker = mMap?.addMarker(MarkerOptions().position(defaultPosition).draggable(true))!!
 
             // Set marker drag listener to update position as the marker is moved

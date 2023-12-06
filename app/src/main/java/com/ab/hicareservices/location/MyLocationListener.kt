@@ -61,7 +61,9 @@ class MyLocationListener(context: Context) : LocationListener {
                 location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
             latitude = location?.latitude.toString().toDouble()
+            AppUtils2.Latt = location?.latitude.toString()
             longitude = location?.longitude.toString().toDouble()
+            AppUtils2.Longg = location?.longitude.toString()
 //            AppUtils2.postalcode="Lat and long"+latitude.toString()+" "+longitude.toString()
 
           mGeocoder = Geocoder(context, Locale.getDefault())
