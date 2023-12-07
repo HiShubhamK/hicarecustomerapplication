@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.AddOrderAsyncResponse
 import com.ab.hicareservices.data.model.AddOrderAsyncResponseData
+import com.ab.hicareservices.data.model.GetServicePincodeDetailResponse
 import com.ab.hicareservices.data.model.SaveSalesResponse
 import com.ab.hicareservices.data.model.dashboard.DashboardMainData
 import com.ab.hicareservices.data.model.product.SaveAddressResponse
@@ -29,6 +30,7 @@ import retrofit2.Response
 class ServiceBooking : ViewModel() {
     val repository = MainRepository()
     val saveServiceAddressResponse = MutableLiveData<SaveAddressResponse>()
+    val getServicePincodeDetailResponse=MutableLiveData<GetServicePincodeDetailResponse>()
     val serviceresponssedata = MutableLiveData<List<ServiceListResponseData>>()
     val existingAddressListModel = MutableLiveData<List<ExistingCustomerAddressData>>()
     val activebhklist = MutableLiveData<List<BhklistResponseData>>()
@@ -211,6 +213,24 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
+
+
+    fun GetServicePincodeDetail(pincode:String,servicecode:String,serviceType:String){
+        val response=repository.GetServicePincodeDetail(pincode,servicecode,serviceType)
+        response.enqueue(object :Callback<GetServicePincodeDetailResponse>{
+            override fun onResponse(
+                call: Call<GetServicePincodeDetailResponse>,
+                response: Response<GetServicePincodeDetailResponse>
+            ) {
+               getServicePincodeDetailResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<GetServicePincodeDetailResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+        })
+    }
+
 
 
 }
