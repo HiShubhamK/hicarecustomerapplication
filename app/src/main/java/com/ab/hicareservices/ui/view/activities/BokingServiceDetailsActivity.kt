@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -142,7 +143,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                     if (it.isNotEmpty()) {
                                         mAdapter.setServiceList(it, this)
                                     } else {
-
+                                        binding.recycleviewplans.visibility= View.GONE
+                                        Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
                                     }
                                     progressDialog.dismiss()
 
@@ -161,7 +163,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             })
 
 
-
+            viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
 
 
 
@@ -195,10 +197,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //
 //
 
-
-
-
-
         binding.imgsearch.setOnClickListener {
 
             SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
@@ -224,7 +222,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                         if(it.IsSuccess==true){
 
-
                             if (it.Data != null) {
                                 progressDialog.show()
                                 Handler(Looper.getMainLooper()).postDelayed({
@@ -235,10 +232,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                             if (it.isNotEmpty()) {
                                                 mAdapter.setServiceList(it, this)
                                             } else {
-
+                                                binding.recycleviewplans.visibility= View.GONE
+                                                Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
                                             }
                                             progressDialog.dismiss()
-
                                         })
                                     viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
                                         AppUtils2.pincode,
@@ -255,11 +252,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
+                viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
 
 
             }
