@@ -134,6 +134,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
         try {
 
+            var VoucherDiscount="0"
             val sharedPreferencesManager = SharedPreferencesManager(this)
             val retrievedUserData = sharedPreferencesManager.getUserData()
             var orderpaymet = OrderPayments()
@@ -143,6 +144,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             orderpaymet.TransactionId = p1!!.paymentId.toString()
             orderpaymet.Type = ""
             orderPaymentlist.add(orderpaymet)
+
+            VoucherDiscount=SharedPreferenceUtil.getData(this, "VoucherDiscount", "").toString()
 
             viewProductModel.paymentsuceess.observe(this, Observer {
                 if (it.IsSuccess == true) {
@@ -172,6 +175,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     SharedPreferenceUtil.setData(this, "ServiceCode", "")
                     SharedPreferenceUtil.setData(this, "Spcode", "")
                     SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
+                    SharedPreferenceUtil.setData(this, "VoucherDiscount", "")
 
                     binding.imgOffer.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
@@ -220,7 +224,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["PGResponse"] = ""
             data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
             data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-            data["DiscountPercent"] = ""
+            data["DiscountPercent"] = VoucherDiscount
             data["OrderValue"] = ordervalues
             data["VoucherCode"] = vouchercode
             data["OnlinePaidAmount"] = ordervalues
@@ -244,7 +248,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["SubSource"] = ""
             data["UtmSource"] = ""
             data["UtmSubsource"] = ""
-            data["OrderCreatedFrom"] = "Customer App"
+            data["OrderCreatedFrom"] = "Website"  //Customer App
             data["Subscription"] = ""
             data["ServiceType"] = "pest"
             data["Customer_Type"] = "Home"

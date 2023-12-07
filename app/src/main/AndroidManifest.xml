@@ -35,6 +35,9 @@
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.activities.FetchLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activities.ProductAddAddressActivity"
             android:exported="false" />
         <activity
