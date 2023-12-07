@@ -179,7 +179,7 @@ class AddAddressActivity : AppCompatActivity() {
                 data["Id"] = 0
                 data["User_Id"] = AppUtils2.customerid.toInt()
                 data["Fname"] = binding.etname.text.toString()
-                data["LastName"] = "."
+                data["LastName"] = ""
                 data["Customer_Name"] = binding.etname.text.toString()
                 data["Mobile_No"] = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
                 data["Alt_Mobile_No"] = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()

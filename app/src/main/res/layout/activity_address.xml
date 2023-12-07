@@ -226,7 +226,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:textAllCaps="true"
-                android:text="Add New Shipping Address"
+                android:text="Add a New Shipping Address"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/white"
                 android:elevation="5dp"

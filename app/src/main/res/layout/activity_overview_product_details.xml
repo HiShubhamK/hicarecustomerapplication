@@ -388,7 +388,6 @@
                                 android:textColor="@color/white"
                                 android:textSize="13sp" />
 
-
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
 

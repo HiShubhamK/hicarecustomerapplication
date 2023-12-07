@@ -231,7 +231,7 @@
         android:layout_marginBottom="10dp"
         android:textSize="18sp"
         android:textAllCaps="true"
-        android:text="Proceed"
+        android:text="PROCEED TO CHECKOUT"
         android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:elevation="5dp"

@@ -51,12 +51,12 @@ class AddresslistActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-            val intent=Intent(this,AddressActivity::class.java)
-            startActivity(intent)
-            finish()
+//            val intent=Intent(this,AddressActivity::class.java)
+//            startActivity(intent)
+//            finish()
         }
 
-        binding.lnraddress.setOnClickListener {
+        binding.btnchecklocation.setOnClickListener {
 
             val intent = Intent(this, ProductAddAddressActivity::class.java)
             intent.putExtra("AddressActivity", "AddresslistActivity")
