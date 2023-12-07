@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -120,21 +121,81 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             )
         })
 
-        viewProductModel.servicePlanResponseData.observe(
-            this@BokingServiceDetailsActivity,
+
+
+
+
+
+
+        viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
             Observer {
-                if (it.isNotEmpty()) {
-                    progressDialog.dismiss()
-                    mAdapter.setServiceList(it, this)
-                } else {
-                    calldefaultplans()
+
+                if(it.IsSuccess==true){
+
+
+                    if (it.Data != null) {
+                        progressDialog.show()
+                        Handler(Looper.getMainLooper()).postDelayed({
+
+                            viewProductModel.servicePlanResponseData.observe(
+                                this@BokingServiceDetailsActivity,
+                                Observer {
+                                    if (it.isNotEmpty()) {
+                                        mAdapter.setServiceList(it, this)
+                                    } else {
+                                        binding.recycleviewplans.visibility= View.GONE
+                                        Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
+                                    }
+                                    progressDialog.dismiss()
+
+                                })
+                            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                                AppUtils2.pincode,
+                                AppUtils2.servicecode
+                            )
+                        }, 300)
+
+                    }
+                }
+                else{
+                    Toast.makeText(this@BokingServiceDetailsActivity,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
                 }
             })
 
-        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-            AppUtils2.pincode,
-            AppUtils2.servicecode
-        )
+
+            viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        viewProductModel.servicePlanResponseData.observe(
+//            this@BokingServiceDetailsActivity,
+//            Observer {
+//                if (it.isNotEmpty()) {
+//                    progressDialog.dismiss()
+//                    mAdapter.setServiceList(it, this)
+//                } else {
+//                    calldefaultplans()
+//                }
+//            })
+//
+//        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+//            AppUtils2.pincode,
+//            AppUtils2.servicecode
+//        )
+//
+//
 
         binding.imgsearch.setOnClickListener {
 
@@ -155,25 +216,44 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                progressDialog.show()
-                Handler(Looper.getMainLooper()).postDelayed({
 
-                    viewProductModel.servicePlanResponseData.observe(
-                        this@BokingServiceDetailsActivity,
-                        Observer {
-                            if (it.isNotEmpty()) {
-                                mAdapter.setServiceList(it, this)
-                            } else {
+                viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
+                    Observer {
+
+                        if(it.IsSuccess==true){
+
+                            if (it.Data != null) {
+                                progressDialog.show()
+                                Handler(Looper.getMainLooper()).postDelayed({
+
+                                    viewProductModel.servicePlanResponseData.observe(
+                                        this@BokingServiceDetailsActivity,
+                                        Observer {
+                                            if (it.isNotEmpty()) {
+                                                mAdapter.setServiceList(it, this)
+                                            } else {
+                                                binding.recycleviewplans.visibility= View.GONE
+                                                Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
+                                            }
+                                            progressDialog.dismiss()
+                                        })
+                                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                                        AppUtils2.pincode,
+                                        AppUtils2.servicecode
+                                    )
+                                }, 300)
 
                             }
-                            progressDialog.dismiss()
+                        }
+                        else{
+                            Toast.makeText(this@BokingServiceDetailsActivity,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
+                        }
+                    })
 
-                        })
-                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                        AppUtils2.pincode,
-                        AppUtils2.servicecode
-                    )
-                }, 300)
+
+
+                viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
+
 
             }
         }

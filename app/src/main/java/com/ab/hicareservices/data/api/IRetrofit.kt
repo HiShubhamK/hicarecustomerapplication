@@ -249,4 +249,11 @@ interface IRetrofit {
                      @Query("serviceprice") serviceprice: Float): Call<ValidateServiceVoucherResponse>
 
 
+    @GET("Pincode/GetServicePincodeDetail")
+    fun GetServicePincodeDetail(@Query("pincode") pincode:String,
+                                @Query("serviceCode") serviceCode:String,
+                                @Query("serviceType") serviceType:String): Call<GetServicePincodeDetailResponse>
+
+
+
 }

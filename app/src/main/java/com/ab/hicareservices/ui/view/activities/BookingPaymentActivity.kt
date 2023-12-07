@@ -52,7 +52,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         ordervalues = intent.getStringExtra("Finalamount").toString()
         vouchercode = intent.getStringExtra("Vouchercode").toString()
 
-        ordervalues = "1"
+//        ordervalues = "1"
 
         orderPaymentlist = ArrayList()
 
