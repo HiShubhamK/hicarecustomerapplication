@@ -1,53 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Toolbar with Back Arrow -->
     <!-- Map Fragment -->
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+    <RelativeLayout
+        android:id="@+id/lnrPlaces"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_login_edittext"
-        android:hint="Search places..."
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColorHint="@color/black" />
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/inputTxt"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
+        android:orientation="horizontal">
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/searchEditText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="Search for a location"-->
-<!--            android:inputType="text" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/clearButton"
+            android:background="@drawable/bg_login_edittext"
+            android:hint="Search for your location"
+            android:inputType="text"
+            android:maxLines="1"
+
+            android:padding="10dp"
+            android:textColorHint="@color/grey_font"
+            android:textSize="14sp" />
+
+        <!-- Cross-mark button to clear AutoCompleteTextView -->
+        <ImageView
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Clear"
+            android:src="@drawable/ic_baseline_cancel"
+            android:visibility="visible" />
+    </RelativeLayout>
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/inputTxt"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/searchEditText"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="Search for a location"-->
+    <!--            android:inputType="text" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
     <fragment
-        android:layout_below="@+id/autoCompleteTextView"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_below="@+id/lnrPlaces" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnCurrentLocation"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/lnrPlaces"
+        android:elevation="5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+
+                android:id="@+id/imgData"
+                android:src="@drawable/ic_location"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:tint="@color/colorAccent">
+
+            </ImageView>
+
+            <TextView
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Locate Me"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp">
+
+            </TextView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/locateMeButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/lnrPlaces"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_margin="16dp"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        android:contentDescription="Locate Me"-->
+    <!--        android:src="@drawable/ic_location_marker" />-->
 
     <!-- CardView with TextView for Address -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:visibility="gone">
 
         <LinearLayout
 
@@ -62,7 +135,7 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/lato_semibold"
                 android:gravity="start"
-                android:text="Selected Service Location"
+                android:text="Select Service Location"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
                 android:textColor="@color/grey_font"
@@ -78,7 +151,8 @@
                     android:layout_width="30sp"
                     android:layout_height="30sp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/ic_location">
+                    android:src="@drawable/ic_location"
+                    app:tint="@color/colorAccent">
 
                 </ImageView>
 
@@ -94,35 +168,71 @@
                     android:textStyle="bold" />
 
 
-
             </LinearLayout>
+
             <TextView
                 android:id="@+id/btnChangeLoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_regular"
-                android:text="Change Location"
-                android:visibility="gone"
                 android:layout_marginVertical="5dp"
                 android:layout_marginStart="48dp"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/lato_regular"
                 android:maxLines="3"
+                android:text="Change Location"
                 android:textColor="@color/md_black_1000"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/btnNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:fontFamily="@font/lato_semibold"
                 android:layout_margin="10dp"
+                android:background="@color/colorAccent"
+                android:elevation="5dp"
+                android:fontFamily="@font/lato_semibold"
                 android:text="CONFIRM LOCATION"
                 android:textColor="@color/white"
-                android:elevation="5dp"
-                android:background="@color/colorAccent"/>
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="start"
+                    android:text="Note:-"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="start"
+                    android:text="Select the correct location for the Best slot selection and On-time delivery."
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
+
 
     </androidx.cardview.widget.CardView>
 

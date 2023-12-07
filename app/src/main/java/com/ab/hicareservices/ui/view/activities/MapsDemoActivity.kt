@@ -2,7 +2,9 @@ package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,12 +16,14 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +31,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.viewmodel.PlaceApi
 import com.ab.hicareservices.utils.AppUtils2
@@ -34,6 +39,7 @@ import com.ab.hicareservices.utils.UserData
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -120,19 +126,30 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             val mapFragment =
                 supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
+            val clearButton = findViewById<ImageView>(R.id.clearButton)
 
-//            locationCallback = object : LocationCallback() {
-//                override fun onLocationResult(locationResult: LocationResult) {
-//                    super.onLocationResult(locationResult)
-//                    locationResult ?: return
-//                    for (location in locationResult.locations) {
-//
-////                        getAddressFromLocation(location.latitude,location.longitude)
-//                        // Update the map and address information here with the received location
-//                        updateMapAndAddress(location)
-//                    }
-//                }
-//            }
+            clearButton.setOnClickListener {
+                autoCompleteTextView.text.clear()
+            }
+            var btnCurrentLocation = findViewById<CardView>(R.id.btnCurrentLocation)
+            btnCurrentLocation.setOnClickListener{
+                fetchInitialLocation()
+            }
+
+
+
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+                    locationResult ?: return
+                    for (location in locationResult.locations) {
+
+//                        getAddressFromLocation(location.latitude,location.longitude)
+                        // Update the map and address information here with the received location
+                        updateMarkerPosition(location.latitude, location.longitude)
+                    }
+                }
+            }
 
 
             autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
@@ -152,7 +169,14 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d("Lat Lng : ", " " + latLng.latitude + " " + latLng.longitude)
                         val address: Address? = getAddressFromLatLng(latLng)
                         if (address != null) {
-                            updateMarkerPosition(latLng.latitude,latLng.longitude)
+                            updateMarkerPosition(latLng.latitude, latLng.longitude)
+                            val imm =
+                                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            // Check if there's a focused view before hiding the keyboard
+                            if (this is Activity && this.currentFocus != null) {
+                                imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+                            }
+
 
                             // Handle the address when it's not null
                             Log.d("Address : ", "" + address.toString())
@@ -235,10 +259,13 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 intent.putExtra("SlotDate", "")
                 intent.putExtra("TaskId", "")
                 intent.putExtra("SkillId", "")
-                intent.putExtra("Latt", lat)
-                intent.putExtra("Longg", longg)
+                intent.putExtra("Latt", AppUtils2.Latt)
+                intent.putExtra("Longg", AppUtils2.Longg)
                 intent.putExtra("ServiceType", "pest")
-                intent.putExtra("Pincode", AppUtils2.pincode)
+                intent.putExtra(
+                    "Pincode",
+                    AppUtils2.pincode
+                )
                 intent.putExtra("Service_Code", AppUtils2.servicecode)
                 intent.putExtra("Unit", Unit)
                 intent.putExtra("SPCode", spcode)
@@ -283,7 +310,18 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 mMap!!.isMyLocationEnabled = true
-                startLocationUpdates()
+                mMap?.uiSettings?.isMyLocationButtonEnabled = false
+                mMap?.setOnMyLocationButtonClickListener {
+                    fetchInitialLocation()
+                    // Handle the click event of the default "My Location" button
+                    // Perform your custom action here
+                    // Return 'false' to allow the default behavior (centering the map on the user's location)
+                    // Return 'true' to prevent the default behavior
+                    true // Return 'false' to allow default behavior
+                }
+
+
+//                startLocationUpdates()
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -303,7 +341,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             val defaultPosition = LatLng(
                 AppUtils2.Latt.toDouble(),
                 AppUtils2.Longg.toDouble()
-            ) // New York City coordinates
+            ) // default current
             marker = mMap?.addMarker(MarkerOptions().position(defaultPosition).draggable(true))!!
 
             // Set marker drag listener to update position as the marker is moved
@@ -336,24 +374,20 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     markerUpdateJob = CoroutineScope(Dispatchers.Main).launch {
                         delay(markerUpdateDelay)
 
-
                         val newPosition = marker.position
-                    val updatedLat = newPosition.latitude
-                    val updatedLng = newPosition.longitude
+                        val updatedLat = newPosition.latitude
+                        val updatedLng = newPosition.longitude
 
-                    // Update your variables or perform actions with the updated coordinates
-                    // For example, you can update lat and long variables and fetch location details
-                    lat = updatedLat.toString()
-                    longg = updatedLng.toString()
-//                    getAddressFromLocation(updatedLat, updatedLng)
-                    updateMarkerPosition(updatedLat, updatedLng)
-
-//                    val latLng = LatLng(updatedLat, updatedLng)
+                        lat = updatedLat.toString()
+                        longg = updatedLng.toString()
+                        autoCompleteTextView.text.clear()
+                        updateMarkerPosition(updatedLat, updatedLng)
                     }
                     // Optional: Perform actions as the marker is dragged
                 }
 
                 override fun onMarkerDragEnd(marker: Marker) {
+                    autoCompleteTextView.text.clear()
 
 
 //                    if (marker == null) {
@@ -390,6 +424,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         // ... Your existing code ...
         lat = latitude.toString()
         longg = longitude.toString()
+        AppUtils2.Latt = lat
+        AppUtils2.Longg = longg
 //        getAddressFromLocation(latitude, longitude)
         try {
 //            progressDialog.show()
@@ -423,6 +459,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 postalCode?.let {
                     addressDetails.append("Postal Code: $it\n")
+
+
                 }
                 nearbyArea?.let {
                     addressDetails.append("Nearby Area: $it\n")
@@ -434,7 +472,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     addressDetails.append("Landmark: $it\n")
                 }
 //                addressTextView.text = industryArea
-                tvAddressdetail.text = "$nearbyArea, $state, India"
+                tvAddressdetail.text = "$nearbyArea, $state, India, $postalCode"
+                AppUtils2.pincode=postalCode
+                SharedPreferenceUtil.setData(this, "Pincode", postalCode).toString()
                 if (tvAddressdetail.text.isNotEmpty() && tvAddressdetail.text.isNotEmpty()) {
                     cardView.visibility = View.VISIBLE
                     progressDialog.dismiss()
@@ -586,7 +626,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     mMap!!.isMyLocationEnabled = true
-                    startLocationUpdates()
+//                    startLocationUpdates()
                 }
             } else {
                 Toast.makeText(
@@ -601,6 +641,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
     }
+
     private fun getAddressFromLatLng(latLng: LatLng): Address? {
         lateinit var mGeocoder: Geocoder
         mGeocoder = Geocoder(this, Locale.getDefault())

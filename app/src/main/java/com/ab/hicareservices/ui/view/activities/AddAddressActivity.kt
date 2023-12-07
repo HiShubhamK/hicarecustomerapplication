@@ -89,7 +89,7 @@ class AddAddressActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+        pincode = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
 
 
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
