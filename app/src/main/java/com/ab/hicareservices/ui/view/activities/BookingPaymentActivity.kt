@@ -191,7 +191,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     binding.txtpayment.text = "Payment Failed"
                     Handler(Looper.getMainLooper()).postDelayed({
                         onBackPressed()
-                        val intent = Intent(this@BookingPaymentActivity, HomeActivity::class.java)
+                        val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
                         startActivity(intent)
                     }, 500)
 

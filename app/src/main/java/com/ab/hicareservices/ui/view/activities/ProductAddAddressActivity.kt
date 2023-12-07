@@ -43,20 +43,20 @@ class ProductAddAddressActivity : AppCompatActivity() {
         activityname = intent.getStringExtra("AddressActivity").toString()
         checkshippingbilling = intent.getStringExtra("Shipping").toString()
 
-        binding.title.setText("Add New " + checkshippingbilling + " Address")
+        binding.title.setText("Add A New " + checkshippingbilling + " Address")
 
         binding.imgLogo.setOnClickListener {
-            if (activityname.equals("AddressActivity")) {
-                val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                val intent = Intent(this@ProductAddAddressActivity, AddresslistActivity::class.java)
-                intent.putExtra("shippingaddress", "true")
-                startActivity(intent)
-                finish()
-
-            }
+            onBackPressed()
+//            if (activityname.equals("AddressActivity")) {
+//                val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            } else {
+//                val intent = Intent(this@ProductAddAddressActivity, AddresslistActivity::class.java)
+//                intent.putExtra("shippingaddress", "true")
+//                startActivity(intent)
+//                finish()
+//            }
         }
 
         if (activityname.equals("AddressActivity")) {

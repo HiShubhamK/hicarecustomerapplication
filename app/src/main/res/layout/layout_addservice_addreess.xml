@@ -58,7 +58,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:src="@drawable/ic_baseline_cancel"
             app:tint="@color/colorAccent" />
 
@@ -84,7 +84,7 @@
             android:layout_above="@+id/cardbutton"
             android:layout_below="@+id/headerView"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
@@ -823,7 +823,9 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="vertical"
                         android:weightSum="1">
 

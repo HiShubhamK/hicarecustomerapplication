@@ -113,6 +113,23 @@
         android:orientation="horizontal"
         android:background="#f6f6f6">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnchecklocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:textAllCaps="true"
+            android:text="Add a New Shipping Address"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:background="@color/colorAccent"/>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -120,6 +137,7 @@
             android:elevation="5dp"
             app:cardCornerRadius="5dp"
             android:layout_margin="10dp"
+            android:visibility="gone"
            >
 
             <androidx.appcompat.widget.LinearLayoutCompat

@@ -92,9 +92,9 @@ class AddressActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
-            startActivity(intent)
-            finish()
+//            val intent= Intent(this@AddressActivity,AddToCartActivity::class.java)
+//            startActivity(intent)
+//            finish()
         }
 
 
