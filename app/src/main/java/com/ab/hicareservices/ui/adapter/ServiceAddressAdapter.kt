@@ -1,7 +1,6 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.data.model.product.CustomerAddressData
 import com.ab.hicareservices.data.model.servicesmodule.ExistingCustomerAddressData
-import com.ab.hicareservices.databinding.LayoutAddressBinding
 import com.ab.hicareservices.databinding.LayoutServiceAddressListBinding
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
-import com.ab.hicareservices.ui.view.activities.AddressActivity
 import com.ab.hicareservices.ui.view.activities.ServicesAddresslistActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
@@ -136,7 +132,9 @@ class ServiceAddressAdapter : RecyclerView.Adapter<ServiceAddressAdapter.MainVie
                     position,
                     cutomeraddressdata.Id,
                     true,
-                    cutomeraddressdata.Pincode.toString()
+                    cutomeraddressdata.Pincode.toString(),
+                    cutomeraddressdata.Lat.toString(),
+                    cutomeraddressdata.Long.toString()
                 )
             }
 

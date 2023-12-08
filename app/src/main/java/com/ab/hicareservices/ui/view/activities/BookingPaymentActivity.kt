@@ -206,7 +206,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
             data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["WebId"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
+            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()+"_"+SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
             data["LastName"] = "."
             data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()

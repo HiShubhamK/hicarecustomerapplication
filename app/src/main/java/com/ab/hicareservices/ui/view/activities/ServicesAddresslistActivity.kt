@@ -23,7 +23,6 @@ import com.ab.hicareservices.ui.adapter.ServiceAddressAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
-import com.ab.hicareservices.utils.UserData
 
 class ServicesAddresslistActivity : AppCompatActivity() {
 
@@ -156,7 +155,14 @@ class ServicesAddresslistActivity : AppCompatActivity() {
 
             }
 
-            override fun setItemClickLister(position: Int, id: Int?, b: Boolean, toString: String) {
+            override fun setItemClickLister(
+                position: Int,
+                id: Int?,
+                b: Boolean,
+                toString: String,
+                Lat: String,
+                Long: String
+            ) {
                 if (b == true) {
                     SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "pincode", "")
                     SharedPreferenceUtil.setData(
@@ -171,17 +177,14 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                         id.toString()
                     )
                     val intent =
-                        Intent(
-                            this@ServicesAddresslistActivity,
-                            BookingSlotComplinceActivity::class.java
-                        )
+                        Intent(this@ServicesAddresslistActivity, BookingSlotComplinceActivity::class.java)
                     intent.putExtra("AddressId", id.toString())
                     intent.putExtra("ServiceCenter_Id", "")
                     intent.putExtra("SlotDate", "")
                     intent.putExtra("TaskId", "")
                     intent.putExtra("SkillId", "")
-                    intent.putExtra("Latt", Latt)
-                    intent.putExtra("Longg", Longg)
+                    intent.putExtra("Lat", Lat)
+                    intent.putExtra("Long", Long)
                     intent.putExtra("ServiceType", "pest")
                     intent.putExtra("Pincode", AppUtils2.pincode)
                     intent.putExtra("Service_Code", AppUtils2.servicecode)

@@ -65,7 +65,9 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
                     position,
                     cutomeraddressdata.Id,
                     true,
-                    cutomeraddressdata.Pincode.toString()
+                    cutomeraddressdata.Pincode.toString(),
+                    cutomeraddressdata.AddressLat.toString(),
+                    cutomeraddressdata.AddressLong.toString()
                 )
             }
 
@@ -99,7 +101,14 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
                 val intent= Intent(requireActivity, AddressActivity::class.java)
                 requireActivity.startActivity(intent)
                 requireActivity.finish()
-                onAddressClickedHandler!!.setItemClickLister(position, cutomeraddressdata.Id,false,cutomeraddressdata.Pincode.toString())
+                onAddressClickedHandler!!.setItemClickLister(
+                    position,
+                    cutomeraddressdata.Id,
+                    false,
+                    cutomeraddressdata.Pincode.toString(),
+                    cutomeraddressdata.AddressLat.toString(),
+                    cutomeraddressdata.AddressLong.toString()
+                )
             }
 
             holder.binding.txtusername.text = cutomeraddressdata.Id.toString()

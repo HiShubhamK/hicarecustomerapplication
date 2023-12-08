@@ -196,8 +196,9 @@ class BookingSlotDetailActivity : AppCompatActivity() {
                 AppointmentStart = changestarttime
                 AppointmentEnd = changefinaltime
                 Source = source!!
+                AppUtils2.Appointmentdataforcheckout=""
                 AppUtils2.Appointmentdataforcheckout = AppUtils2.formatDate(
-                    appointmentDate.substring(
+                    AppointmentDate.substring(
                         1,
                         10
                     )

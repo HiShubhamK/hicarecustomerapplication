@@ -99,6 +99,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
 
+//        Toast.makeText(this@BookingSlotComplinceActivity, AppUtils2.servicecode.toString(),Toast.LENGTH_LONG).show()
+
         binding.calendarView.setOnDateChangeListener(CalendarView.OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
             var date = ""
             var months = month + 1
@@ -306,13 +308,13 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-                Toast.makeText(this@BookingSlotComplinceActivity, "Please Wait", Toast.LENGTH_LONG)
-                    .show()
+//                Toast.makeText(this@BookingSlotComplinceActivity, "Please Wait", Toast.LENGTH_LONG)
+//                    .show()
 
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
-                data["Service_Code"] = Service_Code
+                data["Service_Code"] = AppUtils2.servicecode
                 data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
                 data["Service_Subscription"] = Service_Subscription.toString()
                 data["Unit"] = unit.toString()

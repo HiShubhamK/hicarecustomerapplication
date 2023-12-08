@@ -224,15 +224,6 @@ object AppUtils2 {
     }
 
     fun formatDatetimeone(inputDate: String): String {
-//        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
-//        val outputFormat = SimpleDateFormat("hh:mm:ss a", Locale.US)
-//
-//        // Parse the original time
-//        val date = inputFormat.parse(inputDate)
-//
-//        // Format the parsed date into the desired format
-//        return outputFormat.format(date)
-
         val sdf24 = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         val sdf12 = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
         val date = sdf24.parse(inputDate)

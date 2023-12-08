@@ -15,12 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ab.hicareservices.BookingServiceDetailsActivity
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityAddresslistBinding
 import com.ab.hicareservices.ui.adapter.AddAddressListAdapter
-import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
@@ -94,7 +92,14 @@ class AddresslistActivity : AppCompatActivity() {
 
             }
 
-            override fun setItemClickLister(position: Int, id: Int?, b: Boolean, toString: String) {
+            override fun setItemClickLister(
+                position: Int,
+                id: Int?,
+                b: Boolean,
+                toString: String,
+                toString1: String,
+                toString2: String
+            ) {
                 if(b==true){
                     SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode","")
                     SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode",toString)
