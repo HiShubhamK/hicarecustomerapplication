@@ -181,7 +181,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
 
-                    val intent = Intent(this@BookingPaymentActivity, HomeActivity::class.java)
+                    val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
                     startActivity(intent)
 
                 } else {
