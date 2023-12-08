@@ -711,7 +711,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginVertical="5dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="right"
                 android:padding="10dp">
 
@@ -817,21 +817,9 @@
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:orientation="vertical"
-                        android:weightSum="1">
-
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:orientation="vertical">
 
                             <TextView
@@ -845,31 +833,31 @@
                                 android:textSize="14sp"
                                 android:layout_marginLeft="6dp"/>
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                app:cardCornerRadius="5dp">-->
+                            <!--                            <androidx.cardview.widget.CardView-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginHorizontal="6dp"-->
+                            <!--                                android:layout_marginVertical="5dp"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:elevation="10dp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                app:cardCornerRadius="5dp">-->
 
-                                <EditText
-                                    android:id="@+id/etstreet"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:maxLength="50"
-                                    android:padding="12dp"
-                                    android:singleLine="true"
-                                    android:textColor="@color/grey_font"
-                                    android:textSize="13sp"
-                                    android:layout_marginHorizontal="6dp"
-                                    android:layout_marginVertical="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/round_border"/>
-<!--                            </androidx.cardview.widget.CardView>-->
+                            <EditText
+                                android:id="@+id/etstreet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:maxLength="50"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"/>
+                            <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -890,42 +878,33 @@
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                app:cardCornerRadius="5dp">-->
+                            <!--                            <androidx.cardview.widget.CardView-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginHorizontal="6dp"-->
+                            <!--                                android:layout_marginVertical="5dp"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:elevation="10dp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                app:cardCornerRadius="5dp">-->
 
-                                <EditText
-                                    android:id="@+id/etlocality"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:maxLength="50"
-                                    android:padding="12dp"
-                                    android:singleLine="true"
-                                    android:textColor="@color/grey_font"
-                                    android:textSize="13sp"
-                                    android:layout_marginHorizontal="6dp"
-                                    android:layout_marginVertical="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/round_border"/>
-<!--                            </androidx.cardview.widget.CardView>-->
+                            <EditText
+                                android:id="@+id/etlocality"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:maxLength="50"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"/>
+                            <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -943,34 +922,44 @@
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                android:maxLength="50"-->
-<!--                                app:cardCornerRadius="5dp">-->
+                            <!--                            <androidx.cardview.widget.CardView-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginHorizontal="6dp"-->
+                            <!--                                android:layout_marginVertical="5dp"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:elevation="10dp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:maxLength="50"-->
+                            <!--                                app:cardCornerRadius="5dp">-->
 
-                                <EditText
-                                    android:id="@+id/etlandmark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:padding="12dp"
-                                    android:singleLine="true"
-                                    android:maxLength="55"
-                                    android:textColor="@color/grey_font"
-                                    android:textSize="13sp"
-                                    android:layout_marginHorizontal="6dp"
-                                    android:layout_marginVertical="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/round_border"/>
-<!--                            </androidx.cardview.widget.CardView>-->
+                            <EditText
+                                android:id="@+id/etlandmark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:maxLength="55"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"/>
+                            <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -989,16 +978,6 @@
                                 android:text="City"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
-
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                app:cardCornerRadius="5dp">-->
 
                                 <EditText
                                     android:id="@+id/etcitites"
@@ -1045,16 +1024,6 @@
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                android:maxLength="50"-->
-<!--                                app:cardCornerRadius="5dp">-->
 
                                 <EditText
                                     android:id="@+id/etstate"
@@ -1091,16 +1060,6 @@
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
-<!--                            <androidx.cardview.widget.CardView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginHorizontal="6dp"-->
-<!--                                android:layout_marginVertical="5dp"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:elevation="10dp"-->
-<!--                                android:gravity="center"-->
-<!--                                app:cardCornerRadius="5dp">-->
-
                                 <EditText
                                     android:id="@+id/etpincodes"
                                     android:layout_width="match_parent"
@@ -1124,20 +1083,6 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>
-
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:id="@id/saveBtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:layout_marginBottom="30dp"-->
-<!--                android:background="@color/colorAccent"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Save"-->
-<!--                android:textColor="@color/white" />-->
 
         </LinearLayout>
 

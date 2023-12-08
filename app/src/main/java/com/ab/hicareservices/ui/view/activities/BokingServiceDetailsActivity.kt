@@ -49,7 +49,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     var ServiceId = ""
     lateinit var progressDialog: ProgressDialog
     lateinit var faqList: List<FaqList>
-
+    var checkserchbutton = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,22 +115,17 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         progressDialog.show()
 
         viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
-            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                "400079",
-                AppUtils2.servicecode
-            )
+//            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+//                "400079",
+//                AppUtils2.servicecode
+//            )
         })
-
-
-
-
-
 
 
         viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
             Observer {
 
-                if(it.IsSuccess==true){
+                if (it.IsSuccess == true) {
 
 
                     if (it.Data != null) {
@@ -141,10 +136,18 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 this@BokingServiceDetailsActivity,
                                 Observer {
                                     if (it.isNotEmpty()) {
+                                        binding.recycleviewplans.visibility = View.VISIBLE
+
                                         mAdapter.setServiceList(it, this)
+                                        checkserchbutton = false
                                     } else {
-                                        binding.recycleviewplans.visibility= View.GONE
-                                        Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
+                                        binding.recycleviewplans.visibility = View.GONE
+                                        Toast.makeText(
+                                            this@BokingServiceDetailsActivity,
+                                            "Invalid pincode. Plan are not available ",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        checkserchbutton = false
                                     }
                                     progressDialog.dismiss()
 
@@ -153,30 +156,21 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 AppUtils2.pincode,
                                 AppUtils2.servicecode
                             )
+                            checkserchbutton = false
                         }, 300)
 
                     }
-                }
-                else{
-                    Toast.makeText(this@BokingServiceDetailsActivity,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        this@BokingServiceDetailsActivity,
+                        it.ResponseMessage.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
 
 
-            viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
-
-
-
-
-
-
-
-
-
-
-
-
-
+        viewProductModel.GetServicePincodeDetail(AppUtils2.pincode, serviceCode.toString(), "Pest")
 
 
 //        viewProductModel.servicePlanResponseData.observe(
@@ -196,66 +190,66 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //        )
 //
 //
-
-        binding.imgsearch.setOnClickListener {
-
-            SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
-            AppUtils2.pincode = binding.getpincodetext.text.toString()
-
-            if (binding.getpincodetext.text.equals("")) {
-                Toast.makeText(
-                    this@BokingServiceDetailsActivity,
-                    "Please enter pincode",
-                    Toast.LENGTH_LONG
-                ).show()
-
-            } else if (binding.getpincodetext.text.length != 6) {
-                Toast.makeText(
-                    this@BokingServiceDetailsActivity,
-                    "Invalid pincode.",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-
-                viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
-                    Observer {
-
-                        if(it.IsSuccess==true){
-
-                            if (it.Data != null) {
-                                progressDialog.show()
-                                Handler(Looper.getMainLooper()).postDelayed({
-
-                                    viewProductModel.servicePlanResponseData.observe(
-                                        this@BokingServiceDetailsActivity,
-                                        Observer {
-                                            if (it.isNotEmpty()) {
-                                                mAdapter.setServiceList(it, this)
-                                            } else {
-                                                binding.recycleviewplans.visibility= View.GONE
-                                                Toast.makeText(this@BokingServiceDetailsActivity,"Invalid pincode. Plan are not available",Toast.LENGTH_LONG).show()
-                                            }
-                                            progressDialog.dismiss()
-                                        })
-                                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                                        AppUtils2.pincode,
-                                        AppUtils2.servicecode
-                                    )
-                                }, 300)
-
-                            }
-                        }
-                        else{
-                            Toast.makeText(this@BokingServiceDetailsActivity,it.ResponseMessage.toString(),Toast.LENGTH_LONG).show()
-                        }
-                    })
+        if (checkserchbutton == false) {
 
 
+            binding.imgsearch.setOnClickListener {
 
-                viewProductModel.GetServicePincodeDetail(AppUtils2.pincode,serviceCode.toString(),"Pest")
+                checkserchbutton = true
+
+                SharedPreferenceUtil.setData(
+                    this,
+                    "pincode",
+                    binding.getpincodetext.text.toString()
+                )
+                AppUtils2.pincode = binding.getpincodetext.text.toString()
+
+                if (binding.getpincodetext.text.trim().equals("")) {
+                    Toast.makeText(
+                        this@BokingServiceDetailsActivity,
+                        "Please enter pincode",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                } else if (binding.getpincodetext.text.length != 6) {
+                    Toast.makeText(
+                        this@BokingServiceDetailsActivity,
+                        "Invalid pincode.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+
+                    progressDialog.show()
+                    binding.recycleviewplans.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+
+                        viewProductModel.servicePlanResponseData.observe(
+                            this@BokingServiceDetailsActivity,
+                            Observer {
+                                if (it.isNotEmpty()) {
+                                    mAdapter.setServiceList(it, this)
+                                } else {
+                                    binding.recycleviewplans.visibility = View.GONE
+//                                    Toast.makeText(
+//                                        this@BokingServiceDetailsActivity,
+//                                        "Invalid pincode. Plan are not available ",
+//                                        Toast.LENGTH_LONG
+//                                    ).show()
+                                    checkserchbutton = false
+                                }
+                                progressDialog.dismiss()
+                            })
+                        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                            AppUtils2.pincode,
+                            AppUtils2.servicecode
+                        )
+                    }, 300)
 
 
+                }
             }
+
+
         }
 
         mAdapter.setonViewdatail(object : OnBookingViewDetials {
@@ -386,23 +380,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         spinnerlist.add("Select flat area")
     }
 
-    private fun calldefaultplans() {
-
-//        viewProductModel.serviceresponssedata.observe(this@BokingServiceDetailsActivity,
-//            Observer {
-//                if (it.isNotEmpty()) {
-//                    progressDialog.dismiss()
-//                    mAdapter.setServiceList(it, this)
-//                } else {
-//                }
-//            })
-//
-//        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-//            "400079",
-//            AppUtils2.servicecode
-//        )
-
-    }
 
     override fun onBackPressed() {
         val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
