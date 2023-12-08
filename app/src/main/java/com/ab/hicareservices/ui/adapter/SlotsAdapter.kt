@@ -31,7 +31,7 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
         val slotlist=getSlotresponse
 
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
-        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
 
 //        if (position == lastSelectedPosition) {
 //            holder.binding.radioSlots.isChecked = true

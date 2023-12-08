@@ -194,6 +194,18 @@ object AppUtils2 {
         sdf.timeZone = TimeZone.getTimeZone("UTC") // Set timezone to UTC for Zulu time
         return sdf.format(Date())
     }
+
+    fun getCurrentDateTimeplusone(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // Get current date
+        val currentDate = Calendar.getInstance()
+
+        // Add one day to the current date
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+
+        return sdf.format(currentDate.time)
+    }
     fun formatDate(inputDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

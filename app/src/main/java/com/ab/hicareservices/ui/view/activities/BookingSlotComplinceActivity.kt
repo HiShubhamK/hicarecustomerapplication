@@ -27,6 +27,7 @@ import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivityBookingSlotComplinceBinding
+import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingSlotCompliceAdapater
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
@@ -254,10 +255,17 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                "Pincode": "string",
 //                "ServiceCode": "string"
 //            }
+//            MyLocationListener(this)
+// Check if Pincode is null or empty
+//            if (Pincode == null) {
+//                MyLocationListener(this)
+//                Pincode = AppUtils2.pincode
+//            }
+
             data["SlotDate"] = date
             data["Lat"] = AppUtils2.Latt
-            data["Long"] =  AppUtils2.Longg
-            data["Pincode"] =  Pincode
+            data["Long"] = AppUtils2.Longg
+            data["Pincode"] = Pincode
             data["ServiceType"] = "Pest"
             data["ServiceCode"] = AppUtils2.servicecode
 
@@ -298,7 +306,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-                Toast.makeText(this@BookingSlotComplinceActivity,"Please Wait",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BookingSlotComplinceActivity, "Please Wait", Toast.LENGTH_LONG)
+                    .show()
 
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
@@ -317,7 +326,10 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                         progressDialog.dismiss()
                         AppUtils2.timeslotslist = it.TimeSlots
                         val intent =
-                            Intent(this@BookingSlotComplinceActivity, BookingSlotDetailActivity::class.java)
+                            Intent(
+                                this@BookingSlotComplinceActivity,
+                                BookingSlotDetailActivity::class.java
+                            )
                         intent.putExtra("Service_Date", AppUtils2.ServiceDate)
                         intent.putExtra("SkillId", SkillId)
                         intent.putExtra("ServiceCenter_Id", ServiceCenter_Id)
@@ -326,6 +338,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                         intent.putExtra("Lat", Latt)
                         intent.putExtra("Long", Longg)
                         intent.putExtra("ServiceType", ServiceType)
+                        intent.putExtra("Pincode", Pincode)
                         startActivity(intent)
                         finish()
 //                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
@@ -474,6 +487,11 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        getOrdersList(AppUtils2.getCurrentDateTimeplusone())
+    }
 }
 
 private fun Bundle.putParcelableArrayList(s: String, timeSlots: ArrayList<TimeSlot>) {

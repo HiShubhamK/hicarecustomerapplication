@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -89,6 +90,8 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         Lat = intent.getStringExtra("Lat").toString()
         Long = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
+        Pincode = intent.getStringExtra("Pincode").toString()
+        AppUtils2.pincode = intent.getStringExtra("Pincode").toString()
 
         binding.bottomheadertext.text =
             scheduledatetext + ", " + AppUtils2.formatDateTime4(Service_Date)
@@ -134,23 +137,23 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //            data["Source"] = "MobileApp"
 //            data["ServiceType"] = "Pest"
 
+            if (AppointmentStart.toString().isNotEmpty()) {
+                SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
+                SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", "")
 
-            SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
-            SharedPreferenceUtil.setData(this, "AppointmentEndDateTime", "")
 
-
-            AppUtils2.AppointmentStart = AppointmentStart.toString()
-            AppUtils2.AppointmentEnd = AppointmentEnd.toString()
-            SharedPreferenceUtil.setData(
-                this,
-                "AppointmentStartDateTime",
-                AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentStart
-            )
-            SharedPreferenceUtil.setData(
-                this,
-                "AppointmentEndDateTime",
-                AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentEnd
-            )
+                AppUtils2.AppointmentStart = AppointmentStart.toString()
+                AppUtils2.AppointmentEnd = AppointmentEnd.toString()
+                SharedPreferenceUtil.setData(
+                    this,
+                    "AppointmentStartDateTime",
+                    AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentStart
+                )
+                SharedPreferenceUtil.setData(
+                    this,
+                    "AppointmentEndDateTime",
+                    AppUtils2.formatDate(Service_Date) + " " + AppUtils2.AppointmentEnd
+                )
 
 //            val userData = UserData()
 //            userData.AppointmentStartDateTime = AppointmentStart.toString()
@@ -160,8 +163,15 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 
 //            Log.d("Sharepreferncdata",SharedPreferencesManager(this).saveUserData(userData).toString())
 
-            val intent = Intent(this@BookingSlotDetailActivity, BookingServiceCheckout::class.java)
-            startActivity(intent)
+                val intent =
+                    Intent(this@BookingSlotDetailActivity, BookingServiceCheckout::class.java)
+                startActivity(intent)
+
+            }else{
+                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
+
+            }
+
 
         }
 
@@ -179,15 +189,20 @@ class BookingSlotDetailActivity : AppCompatActivity() {
             ) {
 
                 TaskId = taskid
-                var changefinaltime=AppUtils2.formatDatetimeone(final.substring(11,19))
-                var changestarttime=AppUtils2.formatDatetimeone(appointmentDate.substring(11,19))
+                var changefinaltime = AppUtils2.formatDatetimeone(final.substring(11, 19))
+                var changestarttime = AppUtils2.formatDatetimeone(appointmentDate.substring(11, 19))
 
                 AppointmentDate = appointmentDate
                 AppointmentStart = changestarttime
                 AppointmentEnd = changefinaltime
                 Source = source!!
-                AppUtils2.Appointmentdataforcheckout = AppUtils2.formatDate(appointmentDate.substring(1,10))+" | "+appointmentStart+" - "+appointmentEnd
-                Log.d("datalink",changefinaltime)
+                AppUtils2.Appointmentdataforcheckout = AppUtils2.formatDate(
+                    appointmentDate.substring(
+                        1,
+                        10
+                    )
+                ) + " | " + appointmentStart + " - " + appointmentEnd
+                Log.d("datalink", changefinaltime)
             }
         })
     }
@@ -201,8 +216,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
 //        val intent = Intent(this@SlotDetailActivity, SlotComplinceActivity::class.java)
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 //        startActivity(intent)
-        val intent =
-            Intent(this@BookingSlotDetailActivity, BookingSlotComplinceActivity::class.java)
+        val intent = Intent(this@BookingSlotDetailActivity, BookingSlotComplinceActivity::class.java)
         intent.putExtra("Service_Date", Service_Date)
         intent.putExtra("ServiceCenter_Id", "")
         intent.putExtra("scheduledatetext", scheduledatetext)
@@ -211,6 +225,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         intent.putExtra("Lat", Lat)
         intent.putExtra("Long", Long)
         intent.putExtra("ServiceType", ServiceType)
+        intent.putExtra("Pincode", AppUtils2.pincode)
         startActivity(intent)
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")
