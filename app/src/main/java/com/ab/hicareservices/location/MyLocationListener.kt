@@ -72,6 +72,7 @@ class MyLocationListener(context: Context) : LocationListener {
                 if (postalcode != null && postalcode.size > 0) {
                     for (i in 0 until postalcode.size){
                         SharedPreferenceUtil.setData(context, "pincode",postalcode.get(i).postalCode.toString())
+                        AppUtils2.pincode=postalcode.get(i).postalCode.toString()
 //                        Toast.makeText(context,postalcode.get(i).postalCode.toString(),Toast.LENGTH_LONG).show()
                         break
                     }

@@ -204,17 +204,17 @@
                 android:layout_margin="5dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/lato_semibold"
-                    android:gravity="start"
-                    android:text="Note:-"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:fontFamily="@font/lato_semibold"-->
+<!--                    android:gravity="start"-->
+<!--                    android:text="*"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="12sp" />-->
 
                 <TextView
                     android:id="@+id/tvNote"
@@ -223,7 +223,7 @@
                     android:layout_margin="5dp"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="start"
-                    android:text="Select the correct location for the Best slot selection and On-time delivery."
+                    android:text="*Select the correct location for the Best slot selection and On-time delivery."
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/red"

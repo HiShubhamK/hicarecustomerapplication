@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ab.hicareservices.BookingServiceDetailsActivity
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityServiceAddresslistBinding
@@ -74,9 +75,8 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         getAddressList(shipping)
 
         binding.imgLogo.setOnClickListener {
-            onBackPressed()
-//            val intent=Intent(this,AddressActivity::class.java)
-//            startActivity(intent)
+            val intent=Intent(this,BookingServiceDetailsActivity::class.java)
+            startActivity(intent)
 //            finish()
         }
 

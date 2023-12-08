@@ -34,7 +34,7 @@ class BookingServiceDetailsActivity : AppCompatActivity() {
 
             }
         })
-        viewProductModel.getActiveBHKList()
+
 
 
 //        binding.recycleviewaddarea.layoutManager = GridLayoutManager(this, 3)
@@ -82,6 +82,12 @@ class BookingServiceDetailsActivity : AppCompatActivity() {
 //            }
 //        })
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewProductModel.getActiveBHKList()
 
     }
 }

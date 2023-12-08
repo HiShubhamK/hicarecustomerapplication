@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
@@ -14,6 +15,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -370,19 +372,20 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onMarkerDrag(marker: Marker) {
-                    markerUpdateJob?.cancel()
-                    markerUpdateJob = CoroutineScope(Dispatchers.Main).launch {
-                        delay(markerUpdateDelay)
+                    val newPosition = marker.position
+                    val updatedLat = newPosition.latitude
+                    val updatedLng = newPosition.longitude
 
-                        val newPosition = marker.position
-                        val updatedLat = newPosition.latitude
-                        val updatedLng = newPosition.longitude
-
-                        lat = updatedLat.toString()
-                        longg = updatedLng.toString()
-                        autoCompleteTextView.text.clear()
-                        updateMarkerPosition(updatedLat, updatedLng)
-                    }
+                    lat = updatedLat.toString()
+                    longg = updatedLng.toString()
+                    autoCompleteTextView.text.clear()
+                    updateMarkerPosition(updatedLat, updatedLng)
+//                    markerUpdateJob?.cancel()
+//                    markerUpdateJob = CoroutineScope(Dispatchers.Main).launch {
+//                        delay(markerUpdateDelay)
+//
+//
+//                    }
                     // Optional: Perform actions as the marker is dragged
                 }
 
@@ -405,6 +408,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
             })
+
             mMap?.setOnCameraMoveListener {
                 if (initialLocationFetched) {
                     val newPosition = mMap?.cameraPosition?.target
@@ -499,6 +503,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         val customMarkerView = layoutInflater.inflate(R.layout.custom_marker_layout, null)
         val markerTextView = customMarkerView.findViewById<TextView>(R.id.markerTextView)
         markerTextView.text = "Your service will be delivered here!" // Update text dynamically
+        val defaultLocation = LatLng(40.7128, -74.0060)
 
         val markerOptions = MarkerOptions()
             .position(latLng)
@@ -806,4 +811,5 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 //        }
 //    }
 //}
+
 
