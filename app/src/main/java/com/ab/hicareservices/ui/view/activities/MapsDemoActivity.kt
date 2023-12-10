@@ -369,6 +369,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 override fun onMarkerDragStart(p0: Marker) {
                     // Optional: Perform actions when marker drag starts
+                    Log.e("draglog","1 start")
                 }
 
                 override fun onMarkerDrag(marker: Marker) {
@@ -380,6 +381,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     longg = updatedLng.toString()
                     autoCompleteTextView.text.clear()
                     updateMarkerPosition(updatedLat, updatedLng)
+                    Log.e("draglog","2 start")
+
 //                    markerUpdateJob?.cancel()
 //                    markerUpdateJob = CoroutineScope(Dispatchers.Main).launch {
 //                        delay(markerUpdateDelay)
@@ -391,6 +394,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 override fun onMarkerDragEnd(marker: Marker) {
                     autoCompleteTextView.text.clear()
+                    Log.e("draglog","3 start")
 
 
 //                    if (marker == null) {
@@ -409,14 +413,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
             })
 
-            mMap?.setOnCameraMoveListener {
-                if (initialLocationFetched) {
-                    val newPosition = mMap?.cameraPosition?.target
-                    newPosition?.let {
-                        updateMarkerPosition(it.latitude, it.longitude)
-                    }
-                }
-            }
 
         } catch (e: Exception) {
             e.printStackTrace()
