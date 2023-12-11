@@ -1,14 +1,18 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
@@ -251,6 +255,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     }, 300)
 
 
+                }
+                val imm =
+                    this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Check if there's a focused view before hiding the keyboard
+                if (this is Activity && this.currentFocus != null) {
+                    imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
                 }
             }
 
