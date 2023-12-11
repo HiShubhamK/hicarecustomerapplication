@@ -196,12 +196,18 @@ class BookingSlotDetailActivity : AppCompatActivity() {
                 AppointmentStart = changestarttime
                 AppointmentEnd = changefinaltime
                 Source = source!!
+//                Log.d("dataerror",AppUtils2.dateformatterfroslot(
+//                    AppointmentDate.substring(
+//                        1,
+//                        10
+//                    ).toString()
+//                ))
                 AppUtils2.Appointmentdataforcheckout=""
-                AppUtils2.Appointmentdataforcheckout = AppUtils2.formatDate(
+                AppUtils2.Appointmentdataforcheckout = AppUtils2.dateformatterfroslot(
                     AppointmentDate.substring(
-                        1,
+                        0,
                         10
-                    )
+                    ).trim()
                 ) + " | " + appointmentStart + " - " + appointmentEnd
                 Log.d("datalink", changefinaltime)
             }

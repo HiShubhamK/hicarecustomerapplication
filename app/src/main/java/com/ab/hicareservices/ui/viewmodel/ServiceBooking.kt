@@ -30,7 +30,7 @@ import retrofit2.Response
 class ServiceBooking : ViewModel() {
     val repository = MainRepository()
     val saveServiceAddressResponse = MutableLiveData<SaveAddressResponse>()
-    val getServicePincodeDetailResponse=MutableLiveData<GetServicePincodeDetailResponse>()
+    val getServicePincodeDetailResponse = MutableLiveData<GetServicePincodeDetailResponse>()
     val serviceresponssedata = MutableLiveData<List<ServiceListResponseData>>()
     val existingAddressListModel = MutableLiveData<List<ExistingCustomerAddressData>>()
     val activebhklist = MutableLiveData<List<BhklistResponseData>>()
@@ -41,6 +41,9 @@ class ServiceBooking : ViewModel() {
     val validatevoucher = MutableLiveData<ValidateServiceVoucherResponse>()
 
     val errorMessage = MutableLiveData<String>()
+
+    val errorMessagess = MutableLiveData<String>()
+
 
     fun getActiveServiceList() {
         val response = repository.GetActiveServiceList()
@@ -61,6 +64,7 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
+
     fun getexistingcustomeraddress(userId: Int) {
         val response = repository.getexistingserviceAddress(userId)
         response.enqueue(object : Callback<ExistingAddressListModel> {
@@ -101,12 +105,21 @@ class ServiceBooking : ViewModel() {
         })
     }
 
-    fun getPlanAndPriceByBHKandPincode(pincode: String, noofbhk: String, services: String,planid:Int) {
-        val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services,planid)
+    fun getPlanAndPriceByBHKandPincode(
+        pincode: String,
+        noofbhk: String,
+        services: String,
+        planid: Int
+    ) {
+        val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services, planid)
         response.enqueue(object : Callback<BHKandPincode> {
             override fun onResponse(call: Call<BHKandPincode>, response: Response<BHKandPincode>) {
                 if (response.body()!!.IsSuccess == true) {
-                    activebhkpincode.postValue(response.body()!!.Data)
+                    if (response.body()!!.Data.isNotEmpty()) {
+                        activebhkpincode.postValue(response.body()!!.Data)
+                    }else{
+                        errorMessagess.postValue("Please Check Internet Connection.")
+                    }
                 } else {
                     errorMessage.postValue(response.body()?.ResponseMessage!!)
                 }
@@ -143,7 +156,6 @@ class ServiceBooking : ViewModel() {
         val response = repository.getPlanAndPriceByPincodeAndServiceCode(pincode, services)
         response.enqueue(object : Callback<GetServicePlanResponse> {
 
-
             override fun onResponse(
                 call: Call<GetServicePlanResponse>,
                 response: Response<GetServicePlanResponse>
@@ -151,7 +163,7 @@ class ServiceBooking : ViewModel() {
                 if (response.body()?.IsSuccess == true) {
                     servicePlanResponseData.postValue(response.body()!!.Data)
                 } else {
-                    errorMessage.postValue("Please Check Internet Connection.")
+                    errorMessage.postValue("this service is not available.please check your pincode.")
                 }
             }
 
@@ -181,10 +193,9 @@ class ServiceBooking : ViewModel() {
     }
 
 
-
-    fun AddOrderAsync(data: HashMap<String, Any>){
-        val response=repository.AddOrderAsync(data)
-        response.enqueue(object :Callback<AddOrderAsyncResponse>{
+    fun AddOrderAsync(data: HashMap<String, Any>) {
+        val response = repository.AddOrderAsync(data)
+        response.enqueue(object : Callback<AddOrderAsyncResponse> {
             override fun onResponse(
                 call: Call<AddOrderAsyncResponse>,
                 response: Response<AddOrderAsyncResponse>
@@ -198,9 +209,9 @@ class ServiceBooking : ViewModel() {
         })
     }
 
-    fun PostVoucherValidationcode(vouchercode:String,planId:Int,serviceprice:Float){
-        val response=repository.postvalidateServiceVoucher(vouchercode,planId,serviceprice)
-        response.enqueue(object :Callback<ValidateServiceVoucherResponse>{
+    fun PostVoucherValidationcode(vouchercode: String, planId: Int, serviceprice: Float) {
+        val response = repository.postvalidateServiceVoucher(vouchercode, planId, serviceprice)
+        response.enqueue(object : Callback<ValidateServiceVoucherResponse> {
             override fun onResponse(
                 call: Call<ValidateServiceVoucherResponse>,
                 response: Response<ValidateServiceVoucherResponse>
@@ -215,14 +226,14 @@ class ServiceBooking : ViewModel() {
     }
 
 
-    fun GetServicePincodeDetail(pincode:String,servicecode:String,serviceType:String){
-        val response=repository.GetServicePincodeDetail(pincode,servicecode,serviceType)
-        response.enqueue(object :Callback<GetServicePincodeDetailResponse>{
+    fun GetServicePincodeDetail(pincode: String, servicecode: String, serviceType: String) {
+        val response = repository.GetServicePincodeDetail(pincode, servicecode, serviceType)
+        response.enqueue(object : Callback<GetServicePincodeDetailResponse> {
             override fun onResponse(
                 call: Call<GetServicePincodeDetailResponse>,
                 response: Response<GetServicePincodeDetailResponse>
             ) {
-               getServicePincodeDetailResponse.postValue(response.body())
+                getServicePincodeDetailResponse.postValue(response.body())
             }
 
             override fun onFailure(call: Call<GetServicePincodeDetailResponse>, t: Throwable) {
@@ -230,7 +241,6 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
-
 
 
 }

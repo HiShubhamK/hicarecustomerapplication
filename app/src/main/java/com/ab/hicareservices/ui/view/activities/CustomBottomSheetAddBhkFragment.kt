@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
@@ -53,6 +54,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
     var servicePlanName = ""
     var planid = ""
     var planidforbhk = ""
+    private var lastClickTime: Long = 0
+    private val clickTimeThreshold = 1000L
 
     companion object {
         private const val ARG_DATA = "list_key"
@@ -116,10 +119,10 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         lnrprice.visibility=View.INVISIBLE
 
 
-        pricewisebhk.text = "\u20B9" + prices.toString()
-        discountedamount.text = "\u20B9" + discountedPrice.toString()
-        pricewisebhk.paintFlags =
-            pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+//        pricewisebhk.text = "\u20B9" + prices.toString()
+//        discountedamount.text = "\u20B9" + discountedPrice.toString()
+//        pricewisebhk.paintFlags =
+//            pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
 
         imgclose.setOnClickListener {
@@ -150,14 +153,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                 selectedPosition: Int,
                 id: Int?
             ) {
-
-                lnrprice.visibility=View.VISIBLE
-
-                button.isEnabled = true
-                button.alpha = 1f
-
+                val
                 planidforbhk = id.toString()
-
 
                 SharedPreferenceUtil.setData(
                     activity!!,
@@ -171,8 +168,26 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     planid.toInt()
                 )
 
+                viewProductModel.errorMessagess.observe(activity!!, Observer {
+                    lnrprice.visibility=View.INVISIBLE
+                    button.isEnabled = false
+                    button.alpha = 0.6f
+
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - lastClickTime > clickTimeThreshold) {
+                        Toast.makeText(activity!!,"this service is not available.please check your pincode.",Toast.LENGTH_SHORT).show()
+                        lastClickTime = currentTime
+                    }
+                })
+
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
-                    if (it.isNotEmpty()) {
+
+                    if (it!=null) {
+
+                        lnrprice.visibility=View.VISIBLE
+                        button.isEnabled = true
+                        button.alpha = 1f
+
 
                         try {
 
@@ -250,7 +265,15 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         }
 
                     } else {
+                        lnrprice.visibility=View.INVISIBLE
+                        button.isEnabled = false
+                        button.alpha = 0.6f
 
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastClickTime > clickTimeThreshold) {
+                            Toast.makeText(activity!!,"this service is not available.please check your pincode.",Toast.LENGTH_SHORT).show()
+                            lastClickTime = currentTime
+                        }
                     }
                 })
                 viewProductModel.getPlanAndPriceByBHKandPincode(

@@ -88,8 +88,7 @@ class PestServicesActivity : AppCompatActivity() {
             SharedPreferenceUtil.setData(this, "pincode", binding.getpincodetext.text.toString())
             AppUtils2.pincode = binding.getpincodetext.text.toString()
 
-
-            if (binding.getpincodetext.text.equals("")) {
+            if (binding.getpincodetext.text.length == 0) {
                 Toast.makeText(
                     this@PestServicesActivity,
                     "Please enter pincode",

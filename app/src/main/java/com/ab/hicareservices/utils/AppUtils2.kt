@@ -18,6 +18,8 @@ import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -248,6 +250,12 @@ object AppUtils2 {
 
         // Format the parsed date into the desired format
         return outputFormat.format(date)
+    }
+
+    fun dateformatterfroslot(inputDate:String):String{
+        val parsedDate = LocalDate.parse(inputDate)
+        val outputDate = parsedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        return outputDate
     }
 
 }
