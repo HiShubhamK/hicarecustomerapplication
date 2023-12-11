@@ -1,7 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
@@ -14,8 +13,8 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -45,6 +44,8 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener
+import com.google.android.gms.maps.GoogleMap.OnCameraMoveStartedListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -65,6 +66,11 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
     private var initialLocationFetched = false
+    private var isSuccess = true
+    private var _stopBWasNotPressed = true
+    private var lastUpdatedPosition: LatLng? = null
+
+
     private lateinit var placesClient: PlacesClient
     private lateinit var autoCompleteTextView: AutoCompleteTextView
 
@@ -134,7 +140,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 autoCompleteTextView.text.clear()
             }
             var btnCurrentLocation = findViewById<CardView>(R.id.btnCurrentLocation)
-            btnCurrentLocation.setOnClickListener{
+            btnCurrentLocation.setOnClickListener {
                 fetchInitialLocation()
             }
 
@@ -303,6 +309,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        Log.e("TAGDRAG", "googlemapstart")// Cleaning all the markers.
+
         try {
             mMap = googleMap
 
@@ -350,26 +358,71 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
             // Set camera move listener to update marker position as the map moves
-            mMap?.setOnCameraMoveListener {
-                // Update marker position when the camera moves
-                marker?.position = mMap?.cameraPosition?.target!!
-                // Get updated marker position and coordinates
-                val newPosition = marker?.position
-                val updatedLat = newPosition?.latitude
-                val updatedLng = newPosition?.longitude
-//                getAddressFromLocation(updatedLat, updatedLng)
-                updateMarkerPosition(updatedLat, updatedLng)
+//            mMap?.setOnCameraMoveListener {
+//                // Update marker position when the camera moves
+//                marker?.position = mMap?.cameraPosition?.target!!
+//                // Get updated marker position and coordinates
+//                val newPosition = marker?.position
+//                val updatedLat = newPosition?.latitude
+//                val updatedLng = newPosition?.longitude
+////                getAddressFromLocation(updatedLat, updatedLng)
+//                updateMarkerPosition(updatedLat, updatedLng)
+//
+//                // Perform actions with the updated coordinates
+//                // For example, update UI elements with the new coordinates
+//            }
+//            mMap!!.setOnCameraMoveStartedListener(GoogleMap.OnCameraMoveStartedListener {
+//
+//            })
+            mMap!!.setOnCameraMoveStartedListener(OnCameraMoveStartedListener {
+//                mDragTimer.start()
+//                mTimerIsRunning = true
 
-                // Perform actions with the updated coordinates
-                // For example, update UI elements with the new coordinates
-            }
+            })
+            val handler = Handler()
+
+
+            mMap!!.setOnCameraChangeListener(GoogleMap.OnCameraChangeListener {
+                Log.e("OnCam:","1233")
+//                marker?.position = mMap?.cameraPosition?.target!!
+//                // Get updated marker position and coordinates
+//                val newPosition = marker?.position
+//                val updatedLat = newPosition?.latitude
+//                val updatedLng = newPosition?.longitude
+////                getAddressFromLocation(updatedLat, updatedLng)
+//
+//                updateMarkerPosition(updatedLat, updatedLng)
+                if (mMap != null) {
+                    // Get the new position
+                    val newPosition = mMap!!.cameraPosition.target
+
+                    // Check if the marker is null or if the position has changed
+                    if (marker == null || lastUpdatedPosition == null || lastUpdatedPosition != newPosition) {
+                        mMap!!.clear() // Clear the map
+                        lastUpdatedPosition = newPosition // Update the last known position
+
+                        // Create or update the marker position
+                        if (marker == null) {
+                            marker = mMap!!.addMarker(MarkerOptions().position(newPosition))!!
+                        } else {
+                            marker!!.position = newPosition
+                        }
+
+                        // Update other functionalities with the new position
+                        isSuccess = false
+                        val updatedLat = newPosition.latitude
+                        val updatedLng = newPosition.longitude
+                        updateMarkerPosition(updatedLat, updatedLng)
+                    }
+                }
+            })
             mMap?.uiSettings?.isScrollGesturesEnabled = true
 
             mMap?.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
 
                 override fun onMarkerDragStart(p0: Marker) {
                     // Optional: Perform actions when marker drag starts
-                    Log.e("draglog","1 start")
+                    Log.e("draglog", "1 start")
                 }
 
                 override fun onMarkerDrag(marker: Marker) {
@@ -380,8 +433,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                     lat = updatedLat.toString()
                     longg = updatedLng.toString()
                     autoCompleteTextView.text.clear()
-                    updateMarkerPosition(updatedLat, updatedLng)
-                    Log.e("draglog","2 start")
+//                    updateMarkerPosition(updatedLat, updatedLng)
+                    Log.e("draglog", "2 start")
 
 //                    markerUpdateJob?.cancel()
 //                    markerUpdateJob = CoroutineScope(Dispatchers.Main).launch {
@@ -394,7 +447,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 override fun onMarkerDragEnd(marker: Marker) {
                     autoCompleteTextView.text.clear()
-                    Log.e("draglog","3 start")
+                    Log.e("draglog", "3 start")
 
 
 //                    if (marker == null) {
@@ -412,11 +465,62 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
             })
+//            mMap!!.setOnCameraIdleListener(OnCameraIdleListener { //
+//                Log.e("TAGDRAG", "draglistner")// Cleaning all the markers.
+////                var updatedLat = 0.0
+////                var updatedLng = 0.0
+////                if (mMap != null) {
+////                    mMap!!.clear()
+////                    marker.position = mMap!!.cameraPosition.target
+////
+//////                                marker?.position = mMap?.cameraPosition?.target!!
+////                    // Get updated marker position and coordinates
+////                    isSuccess = false
+////                    val newPosition = marker.position
+////                    updatedLat = newPosition.latitude
+////                    updatedLng = newPosition.longitude
+//////                getAddressFromLocation(updatedLat, updatedLng)
+////                    updateMarkerPosition(updatedLat, updatedLng)
+//                if (mMap != null) {
+//                    // Get the new position
+//                    val newPosition = mMap!!.cameraPosition.target
+//
+//                    // Check if the marker is null or if the position has changed
+//                    if (marker == null || lastUpdatedPosition == null || lastUpdatedPosition != newPosition) {
+//                        mMap!!.clear() // Clear the map
+//                        lastUpdatedPosition = newPosition // Update the last known position
+//
+//                        // Create or update the marker position
+//                        if (marker == null) {
+//                            marker = mMap!!.addMarker(MarkerOptions().position(newPosition))!!
+//                        } else {
+//                            marker!!.position = newPosition
+//                        }
+//
+//                        // Update other functionalities with the new position
+//                        isSuccess = false
+//                        val updatedLat = newPosition.latitude
+//                        val updatedLng = newPosition.longitude
+//                        updateMarkerPosition(updatedLat, updatedLng)
+//                    }
+//                }
+//
+//
+//
+//
+//
+////                mPosition = mMap!!.cameraPosition.target
+////                mZoom = mMap!!.getCameraPosition().zoom
+////                if (mTimerIsRunning) {
+////                    mDragTimer.cancel()
+////                }
+//            })
 
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
 
     }
 
@@ -473,7 +577,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 //                addressTextView.text = industryArea
                 tvAddressdetail.text = "$nearbyArea, $state, India, $postalCode"
-                AppUtils2.pincode=postalCode
+                AppUtils2.pincode = postalCode
                 SharedPreferenceUtil.setData(this, "Pincode", postalCode).toString()
                 if (tvAddressdetail.text.isNotEmpty() && tvAddressdetail.text.isNotEmpty()) {
                     cardView.visibility = View.VISIBLE
@@ -520,7 +624,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         view.draw(canvas)
         return bitmap
     }
-
     //    private fun updateMarkerPosition(latitude: Double, longitude: Double) {
 //        // Update the marker position and fetch the address information
 //        lat = latitude.toString()
