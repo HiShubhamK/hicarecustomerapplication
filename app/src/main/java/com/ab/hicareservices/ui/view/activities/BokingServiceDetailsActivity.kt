@@ -20,6 +20,7 @@ import com.ab.hicareservices.databinding.ActivityBokingServiceDetailsBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
+import com.ab.hicareservices.ui.handler.OnServiceclicklistner
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.SharedPreferencesManager
@@ -50,7 +51,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     lateinit var faqList: List<FaqList>
     var checkserchbutton = false
-    var checkbottomsheet=false
+    var checkbottomsheet = false
+
+    private var lastClickTime: Long = 0
+    private val clickTimeThreshold = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +117,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         mAdapter = BookingServicePlanListAdapter()
         binding.recycleviewplans.adapter = mAdapter
 
-        getplanlist()
+        getplanlist(servicecode)
 
         viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
 //            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
@@ -321,29 +325,37 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     Observer {
 
                         if (it.IsSuccess == true) {
-                            if(it.Data!=null){
+                            if (it.Data != null) {
 
                                 AppUtils2.getServicePlanResponseData = ArrayList()
 
                                 AppUtils2.getServicePlanResponseData.clear()
 
-                                AppUtils2.getServicePlanResponseData.addAll(getServicePlanResponseData)
+                                AppUtils2.getServicePlanResponseData.addAll(
+                                    getServicePlanResponseData
+                                )
 
-                                viewProductModel.activebhklist.observe(this@BokingServiceDetailsActivity, Observer {
-                                    if (it.isNotEmpty()) {
-                                        progressDialog.dismiss()
-                                        bhklistResponseData = it
+                                viewProductModel.activebhklist.observe(
+                                    this@BokingServiceDetailsActivity,
+                                    Observer {
+                                        if (it.isNotEmpty()) {
+                                            progressDialog.dismiss()
+                                            bhklistResponseData = it
 
-                                    } else {
+                                        } else {
 
-                                    }
-                                })
+                                        }
+                                    })
                                 viewProductModel.getActiveBHKList()
-                                checkbottomsheet=true
-                            }else{
-                                Toast.makeText(this@BokingServiceDetailsActivity,"This pincode is not available",Toast.LENGTH_LONG).show()
+                                checkbottomsheet = true
+                            } else {
+                                Toast.makeText(
+                                    this@BokingServiceDetailsActivity,
+                                    "This pincode is not available",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
-                        }else{
+                        } else {
 
                         }
                     })
@@ -356,8 +368,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 )
 
 
-                if(checkbottomsheet==true) {
-                    checkbottomsheet=false
+                if (checkbottomsheet == true) {
+                    checkbottomsheet = false
                     Handler(Looper.getMainLooper()).postDelayed({
                         val bottomSheetFragments = CustomBottomSheetAddBhkFragment.newInstance(
                             bhklistResponseData as ArrayList<BhklistResponseData>,
@@ -370,7 +382,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                         )
                         bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
                     }, 200)
-                }else{
+                } else {
 
                 }
 
@@ -416,8 +428,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         binding.recMenu.adapter = nAdapter
 
         viewProductModel.serviceresponssedata.observe(this, Observer {
+
+
         })
         viewProductModel.getActiveServiceList()
+
 
 
         viewProductModel.bookingServiceDetailResponseData.observe(
@@ -426,7 +441,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 if (it.Id != 0) {
                     nAdapter.setServiceLists(it.OtherServiceList, this)
                     progressDialog.dismiss()
-
                 } else {
 
                 }
@@ -438,9 +452,50 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         spinnerlist = ArrayList()
         spinnerlist.add("Select flat area")
+        nAdapter.getservicelistdata(object : OnServiceclicklistner {
+            override fun onClickListnerdata(
+                position: Int,
+                ids: Int?,
+                serviceNames: String?,
+                serviceCodes: String?,
+                serviceThumbnails: String?,
+                shortDescriptions: String?,
+                detailDescriptions: String?
+            ) {
+                super.onClickListnerdata(
+                    position,
+                    ids,
+                    serviceNames,
+                    serviceCodes,
+                    serviceThumbnails,
+                    shortDescriptions,
+                    detailDescriptions
+                )
+
+                Toast.makeText(
+                    this@BokingServiceDetailsActivity,
+                    serviceCodes.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                binding.txtservicename.text = serviceNames.toString()
+                Picasso.get().load(serviceThumbnails).into(binding.imgbanner)
+
+                serviceName = serviceNames.toString()
+                serviceCode = serviceCodes.toString()
+                serviceThumbnail = serviceThumbnails
+                shortDescription = shortDescriptions
+                stailDescription = detailDescriptions
+                ServiceId = ids.toString()
+
+                getplanlist(serviceCodes.toString()!!)
+
+
+            }
+        })
     }
 
-    fun getplanlist() {
+    fun getplanlist(serviceCode: String) {
         viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
             Observer {
 
@@ -472,11 +527,15 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                     checkserchbutton = false
                                                 } else {
                                                     binding.recycleviewplans.visibility = View.GONE
-                                                    Toast.makeText(
-                                                        this@BokingServiceDetailsActivity,
-                                                        "Invalid pincode. Plan are not available ",
-                                                        Toast.LENGTH_LONG
-                                                    ).show()
+                                                    val currentTime = System.currentTimeMillis()
+                                                    if (currentTime - lastClickTime > clickTimeThreshold) {
+                                                        Toast.makeText(
+                                                            this@BokingServiceDetailsActivity,
+                                                            "Invalid pincode. Plan are not available ",
+                                                            Toast.LENGTH_LONG
+                                                        ).show()
+                                                        lastClickTime = currentTime
+                                                    }
                                                     checkserchbutton = false
                                                 }
                                                 progressDialog.dismiss()
@@ -488,11 +547,17 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                         )
 
                                         binding.recycleviewplans.visibility = View.GONE
-                                        Toast.makeText(
-                                            this@BokingServiceDetailsActivity,
-                                            "Invalid pincode. Plan are not available ",
-                                            Toast.LENGTH_LONG
-                                        ).show()
+
+
+                                        val currentTime = System.currentTimeMillis()
+                                        if (currentTime - lastClickTime > clickTimeThreshold) {
+                                            Toast.makeText(
+                                                this@BokingServiceDetailsActivity,
+                                                "Invalid pincode. Plan are not available ",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            lastClickTime = currentTime
+                                        }
                                         checkserchbutton = false
                                     }
                                     progressDialog.dismiss()
@@ -515,7 +580,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 }
             })
 
-        viewProductModel.GetServicePincodeDetail(AppUtils2.pincode, serviceCode.toString(), "Pest")
+        viewProductModel.GetServicePincodeDetail(AppUtils2.pincode, AppUtils2.servicecode, "Pest")
 
     }
 
