@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
@@ -19,6 +20,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -217,6 +219,13 @@ class ProductFragment : Fragment() {
                 )
                 getProductslist2(binding.getpincodetext.text.trim().toString())
             }
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            // Check if there's a focused view before hiding the keyboard
+            if (this is Fragment && requireActivity().currentFocus != null) {
+                imm.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, 0)
+            }
+
 
         }
 
