@@ -482,12 +482,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     detailDescriptions
                 )
 
-                Toast.makeText(
-                    this@BokingServiceDetailsActivity,
-                    serviceCodes.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 binding.txtservicename.text = serviceNames.toString()
                 Picasso.get().load(serviceThumbnails).into(binding.imgbanner)
 
