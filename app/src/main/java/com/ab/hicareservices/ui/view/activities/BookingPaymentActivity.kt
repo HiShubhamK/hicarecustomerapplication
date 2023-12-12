@@ -187,6 +187,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     SharedPreferenceUtil.setData(this, "VoucherDiscount", "")
 
                     progressDialog.dismiss()
+
+                    binding.txtpleasewait.visibility=View.GONE
                     binding.randomimg.visibility=View.GONE
                     binding.imgOffer.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
@@ -201,7 +203,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                 } else {
 
                     progressDialog.dismiss()
-
+                    binding.txtpleasewait.visibility=View.GONE
                     binding.randomimg.visibility=View.GONE
                     binding.imgOffer.visibility = View.GONE
                     binding.imgOffererror.visibility = View.VISIBLE
