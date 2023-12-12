@@ -34,9 +34,9 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime
         holder.binding.radioSlots.isChecked = position == lastSelectedPosition
         ;
-        if (holder.binding.radioSlots.isChecked) {
-            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
-        }
+//        if (holder.binding.radioSlots.isChecked) {
+//            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+//        }
 
 //        if (holder.binding.radioSlots.isChecked){
 //            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" ,slotlist[position].Finish.toString())
