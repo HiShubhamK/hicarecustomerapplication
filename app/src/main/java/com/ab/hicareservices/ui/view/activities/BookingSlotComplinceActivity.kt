@@ -91,7 +91,11 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         ServiceType = intent.getStringExtra("ServiceType").toString()
         Pincode = intent.getStringExtra("Pincode").toString()
         Service_Code = intent.getStringExtra("Service_Code").toString()
-        Unit = intent.getStringExtra("Unit").toString()
+        Unit = SharedPreferenceUtil.getData(
+            this!!,
+            "BHK",
+            ""
+        ).toString()
         spcode = intent.getStringExtra("SPCode").toString()
         AddressId = intent.getStringExtra("AddressId").toString()
 
@@ -343,6 +347,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                         intent.putExtra("Long", Longg)
                         intent.putExtra("ServiceType", ServiceType)
                         intent.putExtra("Pincode", Pincode)
+                        intent.putExtra("Unit", Unit)
                         startActivity(intent)
                         finish()
 //                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)
