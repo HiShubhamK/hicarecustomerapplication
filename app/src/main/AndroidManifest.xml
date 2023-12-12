@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
+    <uses-sdk tools:overrideLibrary="com.truecaller.android.sdk"/>
+
 
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
@@ -35,6 +37,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
+        <meta-data android:name="com.truecaller.android.sdk.PartnerKey"
+            android:value="@string/PartnerKey"/>
+
         <activity
             android:name=".ui.view.activities.FetchLocationActivity"
             android:exported="false" />

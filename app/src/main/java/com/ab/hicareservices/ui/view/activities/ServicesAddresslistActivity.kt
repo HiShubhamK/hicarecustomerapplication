@@ -61,6 +61,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
 
+
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
         progressDialog =
@@ -73,7 +74,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         getAddressList(shipping)
 
         binding.imgLogo.setOnClickListener {
-            val intent=Intent(this,BookingServiceDetailsActivity::class.java)
+            val intent=Intent(this,BokingServiceDetailsActivity::class.java)
             startActivity(intent)
 //            finish()
         }
@@ -540,7 +541,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
+        val intent=Intent(this,BokingServiceDetailsActivity::class.java)
+        startActivity(intent)
     }
 }

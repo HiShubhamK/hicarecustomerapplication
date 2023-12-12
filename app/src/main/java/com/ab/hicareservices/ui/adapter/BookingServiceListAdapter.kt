@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.BookingServiceAdapterBinding
 import com.ab.hicareservices.ui.view.activities.BokingServiceDetailsActivity
@@ -49,6 +50,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         holder.itemView.setOnClickListener {
             val intent = Intent(requireActivity, BokingServiceDetailsActivity::class.java)
             AppUtils2.servicecode = service.ServiceCode.toString()
+            SharedPreferenceUtil.setData(requireActivity,"ServiceId", service.Id.toString())
             intent.putExtra("ServiceId", service.Id.toString())
             intent.putExtra("ServiceName", service.ServiceName.toString())
             intent.putExtra("ServiceCode", service.ServiceCode.toString())

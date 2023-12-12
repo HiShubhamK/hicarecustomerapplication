@@ -89,7 +89,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         serviceThumbnail = intent.getStringExtra("ServiceThumbnail").toString()
         shortDescription = intent.getStringExtra("ShortDescription").toString()
         stailDescription = intent.getStringExtra("DetailDescription").toString()
-        ServiceId = intent.getStringExtra("ServiceId").toString()
+        ServiceId = SharedPreferenceUtil.getData(this,"ServiceId","").toString()
 
         faqList = ArrayList()
 
