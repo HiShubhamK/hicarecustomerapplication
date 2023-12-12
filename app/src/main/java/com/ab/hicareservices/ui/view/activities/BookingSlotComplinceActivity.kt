@@ -165,11 +165,13 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
                 getOrdersList(output.toString())
             }
-//
 
         })
         binding.imgLogo.setOnClickListener {
             onBackPressed()
+            val intent=Intent(this@BookingSlotComplinceActivity,ServicesAddresslistActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 //        binding.ivCalender.setOnClickListener{
 //            val c = Calendar.getInstance()
@@ -318,10 +320,10 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
-                data["Service_Code"] = AppUtils2.servicecode
+                data["Service_Code"] = SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "Spcode", "").toString()
                 data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
                 data["Service_Subscription"] = Service_Subscription.toString()
-                data["Unit"] = unit.toString()
+                data["Unit"] = SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "BHK", "").toString()
                 data["Lat"] = Lat
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
@@ -499,6 +501,14 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
         getOrdersList(AppUtils2.getCurrentDateTimeplusone())
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent=Intent(this@BookingSlotComplinceActivity,ServicesAddresslistActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }
 
 private fun Bundle.putParcelableArrayList(s: String, timeSlots: ArrayList<TimeSlot>) {

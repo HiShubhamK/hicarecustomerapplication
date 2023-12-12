@@ -38,7 +38,20 @@
             android:visibility="gone"
             />
 
+
+        <ImageView
+            android:id="@+id/randomimg"
+            android:src="@drawable/circle_background"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp" />
+
     </RelativeLayout>
+
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtpayment"

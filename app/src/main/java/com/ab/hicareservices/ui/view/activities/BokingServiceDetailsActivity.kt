@@ -93,6 +93,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         faqList = ArrayList()
 
+        serviceThumbnail= SharedPreferenceUtil.getData(this,"Servicethumbnail","").toString()
 
         val userData = UserData()
 

@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,6 +39,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
     val bookingdiscountedprice = 1
     var ordervalues = "1"
     var vouchercode = ""
+    lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,11 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         ordervalues = intent.getStringExtra("Finalamount").toString()
         vouchercode = intent.getStringExtra("Vouchercode").toString()
 
-//        ordervalues = "1"
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
+
+        ordervalues = "1"
 
         orderPaymentlist = ArrayList()
 
@@ -65,6 +72,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             }
         })
         viewProductModels.CreateRazorpayOrderId(bookingdiscountedprice.toDouble(), 12342)
+
+        progressDialog.show()
 
         val notes = prepareNotes(
             "accountId",
@@ -134,7 +143,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
         try {
 
-            var VoucherDiscount="0"
+            var VoucherDiscount = "0"
             val sharedPreferencesManager = SharedPreferencesManager(this)
             val retrievedUserData = sharedPreferencesManager.getUserData()
             var orderpaymet = OrderPayments()
@@ -145,7 +154,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             orderpaymet.Type = ""
             orderPaymentlist.add(orderpaymet)
 
-            VoucherDiscount=SharedPreferenceUtil.getData(this, "VoucherDiscount", "").toString()
+            VoucherDiscount = SharedPreferenceUtil.getData(this, "VoucherDiscount", "").toString()
 
             viewProductModel.paymentsuceess.observe(this, Observer {
                 if (it.IsSuccess == true) {
@@ -177,21 +186,30 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                     SharedPreferenceUtil.setData(this, "AppointmentStartDateTime", "")
                     SharedPreferenceUtil.setData(this, "VoucherDiscount", "")
 
+                    progressDialog.dismiss()
+                    binding.randomimg.visibility=View.GONE
                     binding.imgOffer.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.imgOffererror.visibility = View.GONE
 
-                    val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
-                    startActivity(intent)
 
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
+                        startActivity(intent)
+                        finish()
+                    }, 1000)
                 } else {
+
+                    progressDialog.dismiss()
+
                     binding.imgOffer.visibility = View.GONE
                     binding.imgOffererror.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.txtpayment.text = "Payment Failed"
                     Handler(Looper.getMainLooper()).postDelayed({
                         onBackPressed()
-                        val intent = Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
+                        val intent =
+                            Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
                         startActivity(intent)
                     }, 500)
 
@@ -206,12 +224,14 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
             data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["WebId"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()+"_"+SharedPreferenceUtil.getData(this, "Address_Id", 0)
+            data["WebCustId"] = SharedPreferenceUtil.getData(this, "MobileNo", "")
+                .toString() + "_" + SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
             data["LastName"] = "."
             data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
             data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
+            data["CommunicationMobileNo"] =
+                SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["AltMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
             data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
@@ -220,10 +240,11 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["OrderCreatedDatetime"] = AppUtils2.getCurrentDateTime().toString()
             data["LeadSource"] = ""
             data["CampaignCode"] = ""
-            data["PaymentStatus"]="Online"
+            data["PaymentStatus"] = "Online"
             data["PGResponse"] = ""
             data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
-            data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
+            data["DiscountValue"] =
+                "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
             data["DiscountPercent"] = VoucherDiscount
             data["OrderValue"] = ordervalues
             data["VoucherCode"] = vouchercode
@@ -258,13 +279,20 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Is_Subscription_Order"] = false
             data["Subscription_Id"] = ""
             data["Subscription_Plan_Id"] = ""
-            data["Cust_InstructionforService"]= SharedPreferenceUtil.getData(this, "Instructions", "").toString()
+            data["Cust_InstructionforService"] = SharedPreferenceUtil.getData(this, "Instructions", "").toString()
             data["OrderPayments"] = orderPaymentlist
             data["Campaign_Url"] = "https://hicare.in/"
 
             viewProductModel.AddOrderAsync(data)
 
+
+            progressDialog.dismiss()
+
+
         } catch (e: Exception) {
+
+
+            progressDialog.dismiss()
 
             Log.d("Paymentlist", "Failed")
 
@@ -273,7 +301,14 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
     override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
 
+
+        progressDialog.show()
+
+
         try {
+
+            progressDialog.dismiss()
+
             binding.imgOffer.visibility = View.GONE
             binding.imgOffererror.visibility = View.VISIBLE
             binding.txtpayment.visibility = View.VISIBLE
@@ -284,12 +319,14 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
         } catch (e: Exception) {
 
+            progressDialog.dismiss()
+
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this@BookingPaymentActivity,BookingServiceCheckout::class.java)
+        val intent = Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
         startActivity(intent)
         finish()
     }
