@@ -115,25 +115,14 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val imgclose = view.findViewById<ImageView>(R.id.imgclose)
         val lnrprice=view.findViewById<LinearLayoutCompat>(R.id.lnrprice)
 
-
         lnrprice.visibility=View.INVISIBLE
-
-
-//        pricewisebhk.text = "\u20B9" + prices.toString()
-//        discountedamount.text = "\u20B9" + discountedPrice.toString()
-//        pricewisebhk.paintFlags =
-//            pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
 
         imgclose.setOnClickListener {
             dismiss()
         }
 
-//        button.alpha=0.6f
-
         button.isEnabled = false
         button.alpha = 0.6f
-
 
         val recycleview = view.findViewById<RecyclerView>(R.id.recycleviewaddarea)
 
@@ -168,8 +157,6 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     planid.toInt()
                 )
 
-
-
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
 
                     if (it!=null) {
@@ -177,7 +164,6 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         lnrprice.visibility=View.VISIBLE
                         button.isEnabled = true
                         button.alpha = 1f
-
 
                         try {
 
@@ -191,7 +177,6 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                 "BHK",
                                 noofbhk
                             )
-
 
                             userData.User_Id = AppUtils2.customerid.toInt()
                             userData.BHK = noofbhk.toString()
@@ -261,7 +246,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(activity!!,"this service is not available.please check your pincode.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity!!,"Sorry, slots are not available as the area selected is not serviceable.",Toast.LENGTH_SHORT).show()
                             lastClickTime = currentTime
                         }
                     }
@@ -276,7 +261,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(activity!!, "this service is not available.please check your pincode.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity!!, "Sorry, slots are not available as the area selected is not serviceable.", Toast.LENGTH_SHORT).show()
                             lastClickTime = currentTime
                         }
                     })
@@ -307,7 +292,6 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             intent.putExtra("SPCode", spcode)
             startActivity(intent)
             dismiss()
-
         }
         return view
     }

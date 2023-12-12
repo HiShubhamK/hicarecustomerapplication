@@ -61,7 +61,6 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
 
-
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
         progressDialog =
@@ -542,5 +541,6 @@ class ServicesAddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+
     }
 }
