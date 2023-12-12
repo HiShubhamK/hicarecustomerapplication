@@ -90,6 +90,7 @@ object AppUtils2 {
     var serviceemail=""
     var bhk=""
     var Appointmentdataforcheckout=" "
+    var checkerrormessage=false
 
     @JvmStatic
     fun startPayment(activity: Activity) {

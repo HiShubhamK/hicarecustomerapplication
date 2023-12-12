@@ -168,17 +168,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     planid.toInt()
                 )
 
-                viewProductModel.errorMessagess.observe(activity!!, Observer {
-                    lnrprice.visibility=View.INVISIBLE
-                    button.isEnabled = false
-                    button.alpha = 0.6f
 
-                    val currentTime = System.currentTimeMillis()
-                    if (currentTime - lastClickTime > clickTimeThreshold) {
-                        Toast.makeText(activity!!,"this service is not available.please check your pincode.",Toast.LENGTH_SHORT).show()
-                        lastClickTime = currentTime
-                    }
-                })
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
 
@@ -276,6 +266,22 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         }
                     }
                 })
+
+                if(AppUtils2.checkerrormessage==true) {
+                    viewProductModel.errorMessagess.observe(activity!!, Observer {
+                        AppUtils2.checkerrormessage=false
+                        lnrprice.visibility = View.INVISIBLE
+                        button.isEnabled = false
+                        button.alpha = 0.6f
+
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastClickTime > clickTimeThreshold) {
+                            Toast.makeText(activity!!, "this service is not available.please check your pincode.", Toast.LENGTH_SHORT).show()
+                            lastClickTime = currentTime
+                        }
+                    })
+                }
+
                 viewProductModel.getPlanAndPriceByBHKandPincode(
                     AppUtils2.pincode,
                     noofbhk.toString(),

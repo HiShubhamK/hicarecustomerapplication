@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.AddOrderAsyncResponse
@@ -39,9 +40,7 @@ class ServiceBooking : ViewModel() {
     val servicePlanResponseData = MutableLiveData<List<GetServicePlanResponseData>>()
     val paymentsuceess = MutableLiveData<AddOrderAsyncResponse>()
     val validatevoucher = MutableLiveData<ValidateServiceVoucherResponse>()
-
     val errorMessage = MutableLiveData<String>()
-
     val errorMessagess = MutableLiveData<String>()
 
 
@@ -117,7 +116,9 @@ class ServiceBooking : ViewModel() {
                 if (response.body()!!.IsSuccess == true) {
                     if (response.body()!!.Data.isNotEmpty()) {
                         activebhkpincode.postValue(response.body()!!.Data)
-                    }else{
+                    }else if(response.body()!!.Data.isEmpty()){
+                        Log.d("Wrongcalling","Failed")
+                        AppUtils2.checkerrormessage=true
                         errorMessagess.postValue("Please Check Internet Connection.")
                     }
                 } else {
@@ -241,7 +242,5 @@ class ServiceBooking : ViewModel() {
             }
         })
     }
-
-
 }
 
