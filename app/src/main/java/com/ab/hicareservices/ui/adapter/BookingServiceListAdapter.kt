@@ -49,6 +49,8 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
 
         holder.itemView.setOnClickListener {
             val intent = Intent(requireActivity, BokingServiceDetailsActivity::class.java)
+            SharedPreferenceUtil.setData(requireActivity,"Servicethumbnail", "")
+            SharedPreferenceUtil.setData(requireActivity,"Servicethumbnail", service.ServiceThumbnail.toString())
             AppUtils2.servicecode = service.ServiceCode.toString()
             SharedPreferenceUtil.setData(requireActivity,"ServiceId", service.Id.toString())
             intent.putExtra("ServiceId", service.Id.toString())
