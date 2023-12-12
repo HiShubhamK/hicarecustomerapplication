@@ -272,7 +272,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 intent.putExtra("ServiceType", "pest")
                 intent.putExtra(
                     "Pincode",
-                    AppUtils2.pincode
+                    SharedPreferenceUtil.setData(this, "Pincode", AppUtils2.pincode).toString()
                 )
                 intent.putExtra("Service_Code", AppUtils2.servicecode)
                 intent.putExtra("Unit", Unit)
@@ -383,7 +383,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
             mMap!!.setOnCameraChangeListener(GoogleMap.OnCameraChangeListener {
-                Log.e("OnCam:","1233")
+                Log.e("OnCam:", "1233")
 //                marker?.position = mMap?.cameraPosition?.target!!
 //                // Get updated marker position and coordinates
 //                val newPosition = marker?.position
@@ -412,7 +412,11 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                         isSuccess = false
                         val updatedLat = newPosition.latitude
                         val updatedLng = newPosition.longitude
-                        updateMarkerPosition(updatedLat, updatedLng)
+                        if (autoCompleteTextView.text.toString().isNotEmpty()){
+                            autoCompleteTextView.text.clear()
+                        }
+
+                            updateMarkerPosition(updatedLat, updatedLng)
                     }
                 }
             })
@@ -446,7 +450,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onMarkerDragEnd(marker: Marker) {
-                    autoCompleteTextView.text.clear()
                     Log.e("draglog", "3 start")
 
 
@@ -577,7 +580,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 //                addressTextView.text = industryArea
                 tvAddressdetail.text = "$nearbyArea, $state, India, $postalCode"
-                AppUtils2.pincode = postalCode
+                SharedPreferenceUtil.setData(this,"Pincode","")
+                Pincode = postalCode
                 SharedPreferenceUtil.setData(this, "Pincode", postalCode).toString()
                 if (tvAddressdetail.text.isNotEmpty() && tvAddressdetail.text.isNotEmpty()) {
                     cardView.visibility = View.VISIBLE
@@ -624,6 +628,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
         view.draw(canvas)
         return bitmap
     }
+
     //    private fun updateMarkerPosition(latitude: Double, longitude: Double) {
 //        // Update the marker position and fetch the address information
 //        lat = latitude.toString()

@@ -288,7 +288,11 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             intent.putExtra("ServiceType", "pest")
             intent.putExtra("Pincode", AppUtils2.pincode)
             intent.putExtra("Service_Code", AppUtils2.servicecode)
-            intent.putExtra("Unit", Unit)
+            intent.putExtra("Unit",  SharedPreferenceUtil.getData(
+                activity!!,
+                "BHK",
+                ""
+            ).toString())
             intent.putExtra("SPCode", spcode)
             startActivity(intent)
             dismiss()

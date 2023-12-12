@@ -193,7 +193,7 @@ class AddAddressActivity : AppCompatActivity() {
                 data["State"] = ""
                 data["Lat"] = lat.toString()
                 data["Long"] = longg.toString()
-                data["Pincode"] = pincode.toString()
+                data["Pincode"] = Pincode
 
                 viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
@@ -211,6 +211,13 @@ class AddAddressActivity : AppCompatActivity() {
                         intent.putExtra("Unit", Unit)
                         intent.putExtra("SPCode", spcode)
                         startActivity(intent)
+                        binding.etname.text.clear()
+                        binding.etemps.text.clear()
+                        binding.etflatno.text.clear()
+                        binding.etbuildname.text.clear()
+                        binding.etstreet.text.clear()
+                        binding.etlocality.text.clear()
+                        binding.etlandmark.text.clear()
 
 //                        getAddressListdata2()
 //                        alertDialog.dismiss()

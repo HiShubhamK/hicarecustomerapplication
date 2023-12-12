@@ -91,6 +91,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         Long = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
         Pincode = intent.getStringExtra("Pincode").toString()
+        Unit = intent.getStringExtra("Unit").toString()
         AppUtils2.pincode = intent.getStringExtra("Pincode").toString()
 
         binding.bottomheadertext.text =
@@ -233,6 +234,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         intent.putExtra("Long", Long)
         intent.putExtra("ServiceType", ServiceType)
         intent.putExtra("Pincode", AppUtils2.pincode)
+        intent.putExtra("Unit", Unit)
         startActivity(intent)
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")
