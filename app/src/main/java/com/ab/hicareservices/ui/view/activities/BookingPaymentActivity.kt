@@ -202,6 +202,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
                     progressDialog.dismiss()
 
+                    binding.randomimg.visibility=View.GONE
                     binding.imgOffer.visibility = View.GONE
                     binding.imgOffererror.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
@@ -301,9 +302,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
     override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
 
-
         progressDialog.show()
-
 
         try {
 
