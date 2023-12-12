@@ -71,7 +71,7 @@ class AddAddressActivity : AppCompatActivity() {
         TaskId = intent.getStringExtra("TaskId").toString()
         SkillId = intent.getStringExtra("SkillId").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
-        Pincode = intent.getStringExtra("Pincode").toString()
+        Pincode = SharedPreferenceUtil.getData(this,"Pincode","").toString()
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
@@ -624,6 +624,7 @@ class AddAddressActivity : AppCompatActivity() {
         val intent = Intent(this@AddAddressActivity, ServicesAddresslistActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        finish()
 
     }
 }

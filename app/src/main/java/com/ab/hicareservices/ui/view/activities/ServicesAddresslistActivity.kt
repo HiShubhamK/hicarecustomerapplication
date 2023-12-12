@@ -159,16 +159,16 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                 position: Int,
                 id: Int?,
                 b: Boolean,
-                toString: String,
+                Pincode: String,
                 Lat: String,
                 Long: String
             ) {
                 if (b == true) {
-                    SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Pincode", "")
                     SharedPreferenceUtil.setData(
                         this@ServicesAddresslistActivity,
-                        "pincode",
-                        toString
+                        "Pincode",
+                        Pincode
                     )
                     AppUtils2.shippingdata = id.toString()
                     SharedPreferenceUtil.setData(
@@ -190,6 +190,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     intent.putExtra("Service_Code", AppUtils2.servicecode)
                     intent.putExtra("Unit", Unit)
                     intent.putExtra("SPCode", spcode)
+                    intent.putExtra("Pincode", Pincode)
                     startActivity(intent)
                     finish()
                 } else if (b == false) {

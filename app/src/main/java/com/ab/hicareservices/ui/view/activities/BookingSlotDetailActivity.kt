@@ -233,8 +233,8 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         intent.putExtra("Lat", Lat)
         intent.putExtra("Long", Long)
         intent.putExtra("ServiceType", ServiceType)
-        intent.putExtra("Pincode", AppUtils2.pincode)
-        intent.putExtra("Unit", Unit)
+        intent.putExtra("Pincode", SharedPreferenceUtil.getData(this,"Pincode","").toString())
+        intent.putExtra("Unit", SharedPreferenceUtil.getData(this,"BHK","").toString())
         startActivity(intent)
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")

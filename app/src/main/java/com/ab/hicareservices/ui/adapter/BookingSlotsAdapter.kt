@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.slots.TimeSlot
 import com.ab.hicareservices.databinding.SlotsAdapterBinding
 import com.ab.hicareservices.ui.handler.OnListItemClickHandler
@@ -30,8 +31,13 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val slotlist=getSlotresponse
 
-        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
+        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime
         holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+        ;
+        if (holder.binding.radioSlots.isChecked) {
+            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+        }
+
 //        if (holder.binding.radioSlots.isChecked){
 //            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" ,slotlist[position].Finish.toString())
 //        }
