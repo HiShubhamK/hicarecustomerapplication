@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
+import `in`.aabhasjindal.otptextview.OTPListener
 
 class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
@@ -64,7 +65,6 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
         val appSignatureHelper = AppSignatureHelper(this@OTPActivity)
         appSignatureHelper.appSignatures
         mSmsBroadcastReceiver = SMSListener()
@@ -94,6 +94,36 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
             startActivity(intent)
             finish()
         }
+
+            binding.otpView.otpListener = object : OTPListener {
+            override fun onInteractionListener() {
+                // Triggered when user interacts with the OTP field
+            }
+
+            override fun onOTPComplete(otp: String) {
+                if (otp.length == 4) {
+                    progressDialog.show()
+                    if (mOtp.equals(binding.otpView.otp.toString())) {
+                        validateAccount(mobileNo)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            progressDialog.dismiss()
+                            SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
+                            SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
+                            SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
+
+                            val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }, 2000)
+
+                    } else {
+                        progressDialog.dismiss()
+                        Toast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+
 
 //        if(AppUtils2.isNetworkAvailable(this)==true){
 

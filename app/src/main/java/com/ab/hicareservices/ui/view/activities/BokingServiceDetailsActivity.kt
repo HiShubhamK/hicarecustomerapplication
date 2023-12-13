@@ -95,6 +95,14 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         serviceThumbnail= SharedPreferenceUtil.getData(this,"Servicethumbnail","").toString()
 
+        if(serviceName.equals("")){
+            serviceName=SharedPreferenceUtil.getData(this,"ServicenName","").toString()
+        }else{
+            serviceName=SharedPreferenceUtil.getData(this,"ServicenName","").toString()
+        }
+
+//        Toast.makeText(this@BokingServiceDetailsActivity,SharedPreferenceUtil.getData(this,"ServicenName","").toString(),Toast.LENGTH_SHORT).show()
+
         val userData = UserData()
 
         SharedPreferenceUtil.setData(this, "ServiceCode", serviceCode.toString())
@@ -493,6 +501,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 stailDescription = detailDescriptions
                 ServiceId = ids.toString()
 
+                SharedPreferenceUtil.setData(this@BokingServiceDetailsActivity,"ServicenName", "")
+                SharedPreferenceUtil.setData(this@BokingServiceDetailsActivity,"ServicenName", serviceNames.toString().toString())
+
+
                 getplanlist(serviceCodes.toString()!!)
 
 
@@ -590,6 +602,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
         startActivity(intent)
     }

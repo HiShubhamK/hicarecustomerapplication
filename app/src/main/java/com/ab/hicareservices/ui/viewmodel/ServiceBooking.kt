@@ -122,7 +122,8 @@ class ServiceBooking : ViewModel() {
                         errorMessagess.postValue("Please Check Internet Connection.")
                     }
                 } else {
-                    errorMessage.postValue(response.body()?.ResponseMessage!!)
+                    AppUtils2.checkerrormessage=true
+                    errorMessagess.postValue(response.body()?.ResponseMessage!!)
                 }
             }
 
