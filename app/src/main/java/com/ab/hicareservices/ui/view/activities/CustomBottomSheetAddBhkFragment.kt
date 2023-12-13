@@ -113,9 +113,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val discountedamount = view.findViewById<AppCompatTextView>(R.id.discountedamount)
         val button = view.findViewById<AppCompatButton>(R.id.btnproceed)
         val imgclose = view.findViewById<ImageView>(R.id.imgclose)
-        val lnrprice=view.findViewById<LinearLayoutCompat>(R.id.lnrprice)
+        val lnrprice = view.findViewById<LinearLayoutCompat>(R.id.lnrprice)
 
-        lnrprice.visibility=View.INVISIBLE
+        lnrprice.visibility = View.INVISIBLE
 
         imgclose.setOnClickListener {
             dismiss()
@@ -143,7 +143,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                 id: Int?
             ) {
                 val
-                planidforbhk = id.toString()
+                        planidforbhk = id.toString()
 
                 SharedPreferenceUtil.setData(
                     activity!!,
@@ -159,9 +159,9 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                 viewProductModel.activebhkpincode.observe(activity!!, Observer {
 
-                    if (it!=null) {
+                    if (it != null) {
 
-                        lnrprice.visibility=View.VISIBLE
+                        lnrprice.visibility = View.VISIBLE
                         button.isEnabled = true
                         button.alpha = 1f
 
@@ -193,13 +193,17 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                         bhkandpincodedata.get(i).DiscountedPrice.toString()
                                     )
 
-                                    SharedPreferenceUtil.setData(activity!!,"Spcode",bhkandpincodedata.get(i).SPCode.toString())
+                                    SharedPreferenceUtil.setData(
+                                        activity!!,
+                                        "Spcode",
+                                        bhkandpincodedata.get(i).SPCode.toString()
+                                    )
 
                                     SharedPreferenceUtil.setData(
                                         activity!!,
                                         "MRP",
                                         bhkandpincodedata.get(i).Price.toString()
-                                        )
+                                    )
                                     SharedPreferenceUtil.setData(
                                         activity!!,
                                         "Remarks",
@@ -240,32 +244,38 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         }
 
                     } else {
-                        lnrprice.visibility=View.INVISIBLE
-                        button.isEnabled = false
-                        button.alpha = 0.6f
-
-                        val currentTime = System.currentTimeMillis()
-                        if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(activity!!,"Sorry, slots are not available as the area selected is not serviceable.",Toast.LENGTH_SHORT).show()
-                            lastClickTime = currentTime
-                        }
-                    }
-                })
-
-                if(AppUtils2.checkerrormessage==true) {
-                    viewProductModel.errorMessagess.observe(activity!!, Observer {
-                        AppUtils2.checkerrormessage=false
                         lnrprice.visibility = View.INVISIBLE
                         button.isEnabled = false
                         button.alpha = 0.6f
 
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(activity!!, "Sorry, slots are not available as the area selected is not serviceable.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                activity!!,
+                                "Sorry, slots are not available as the area selected is not serviceable.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             lastClickTime = currentTime
                         }
-                    })
-                }
+                    }
+                })
+
+                viewProductModel.errorMessagess.observe(activity!!, Observer {
+                    AppUtils2.checkerrormessage = false
+                    lnrprice.visibility = View.INVISIBLE
+                    button.isEnabled = false
+                    button.alpha = 0.6f
+
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - lastClickTime > clickTimeThreshold) {
+                        Toast.makeText(
+                            activity!!,
+                            "Sorry, slots are not available as the area selected is not serviceable.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        lastClickTime = currentTime
+                    }
+                })
 
                 viewProductModel.getPlanAndPriceByBHKandPincode(
                     AppUtils2.pincode,
@@ -288,11 +298,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
             intent.putExtra("ServiceType", "pest")
             intent.putExtra("Pincode", AppUtils2.pincode)
             intent.putExtra("Service_Code", AppUtils2.servicecode)
-            intent.putExtra("Unit",  SharedPreferenceUtil.getData(
-                activity!!,
-                "BHK",
-                ""
-            ).toString())
+            intent.putExtra("Unit", SharedPreferenceUtil.getData(activity!!, "BHK", "").toString())
             intent.putExtra("SPCode", spcode)
             startActivity(intent)
             dismiss()

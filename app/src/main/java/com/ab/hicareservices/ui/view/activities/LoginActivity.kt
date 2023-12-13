@@ -1,14 +1,20 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
+import android.app.Activity
+import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +39,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.otpless.dto.OtplessResponse
 import com.otpless.views.OtplessManager
 import com.otpless.views.WhatsappLoginButton
+import io.realm.RealmResults
 
 
 //import com.truecaller.android.sdk.ITrueCallback
@@ -44,85 +51,57 @@ import com.otpless.views.WhatsappLoginButton
 
 class LoginActivity : AppCompatActivity() {
 
+    private val RC_PENDING_INTENT = 123
+
+    private val requestPhoneNumberLauncher =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    val credential: Credential? = data.getParcelableExtra(Credential.EXTRA_KEY)
+                    val phoneNumber: String? = credential?.id
+                    Toast.makeText(this@LoginActivity, phoneNumber, Toast.LENGTH_LONG).show()
+                    binding.mobileNoEt.setText(phoneNumber!!.substring(3,13))
+                    val mobileNo = binding.mobileNoEt.text.toString()
+                    Log.d("Logincheckmobileno",mobileNo)
+                    if (binding.mobileNoEt.text.toString().equals("0000000000")) {
+                        Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG)
+                            .show()
+                    } else if (mobileNo.length != 10) {
+                        Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG)
+                            .show()
+                    } else {
+                        progressDialog.show()
+                        binding.signInBtn.isEnabled = false
+                        getOtp(mobileNo, progressDialog)
+                    }
+                }
+            } else {
+//                Toast.makeText(this@LoginActivity,"Failed",Toast.LENGTH_LONG).show()
+            }
+        }
+
+
     lateinit var binding: ActivityLoginBinding
     private val viewModel: OtpViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
     var data: String = ""
-    val REQUEST_CODE_PERMISSIONS =101
-    val LOCATION_PERMISSION_REQUEST_CODE=1001
+    val REQUEST_CODE_PERMISSIONS = 101
+    val LOCATION_PERMISSION_REQUEST_CODE = 1001
+
+    private val RC_HINT = 123
 
     private val RESOLVE_HINT = 1001
     private var googleApiClient: GoogleApiClient? = null
-    private lateinit var requestPhoneNumberLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-//        val sdkCallback: ITrueCallback = object : ITrueCallback {
-//            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
-//                AppUtils2.mobileno=trueProfile.phoneNumber
-//                SharedPreferenceUtil.setData(this@LoginActivity,"mobileNo",trueProfile.phoneNumber)
-//                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-//                startActivity(intent)
-//                finish()
-//
-//            }
-//            override fun onFailureProfileShared(trueError: TrueError) {
-//                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//                if (trueError.errorType == TrueError.ERROR_PROFILE_NOT_FOUND ) {
-//
-//                    // Handle unauthorized partner error
-//                    // For example, display a message to the user or take corrective action
-//                    Log.e("TruecallerError", "Unauthorized partner error")
-//                    // Perform necessary actions like notifying the user or handling the error scenario
-//                } else {
-//                    // Handle other error types if needed
-//                    Log.e("TruecallerError", "Other error: ${trueError.errorType}")
-//                }
-//
-//            }
-//            override fun onVerificationRequired(trueError: TrueError) {
-//                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//            }
-//        }
-//
-//        val trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
-//            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
-//            .buttonColor(Color.parseColor("#2bb77a"))
-//            .buttonTextColor(Color.WHITE)
-//            .loginTextPrefix(TruecallerSdkScope.LOGIN_TEXT_PREFIX_TO_GET_STARTED)
-//            .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
-//            .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
-//            .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
-//            .privacyPolicyUrl("http://connect.hicare.in/privacy_policy.html")
-//            .termsOfServiceUrl("https://hicare.in/terms-conditions")
-//            .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
-//            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
-//            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITHOUT_OTP)
-//            .build()
-//
-//        TruecallerSDK.init(trueScope)
-//
-//        if (TruecallerSDK.getInstance().isUsable){
-//            TruecallerSDK.getInstance().getUserProfile(this)
-//
-//        }else{
-////            try {
-////                TruecallerSDK.getInstance().requestVerification(
-////                    "IN",
-////                    "",
-////                    apiCallback,
-////                    this
-////                )
-////            } catch (e: RuntimeException) {
-////                Log.i("TAG", e.message!!)
-////            }
-//
-//        }
+
+
+
 
         if (checkLocationPermissions()) {
             // Permissions are already granted, enable location
@@ -132,13 +111,12 @@ class LoginActivity : AppCompatActivity() {
             requestLocationPermission()
         }
 
-
-        googleApiClient = GoogleApiClient.Builder(this)
+        googleApiClient = GoogleApiClient.Builder(this@LoginActivity)
             .addApi(Auth.CREDENTIALS_API)
             .build()
 
         binding.mobileNoEt.setOnClickListener {
-            requestHint()
+            requestHint(googleApiClient!!)
         }
 
         checkUserStatus()
@@ -172,76 +150,26 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        requestPhoneNumberLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val data: Intent? = result.data
-                    if (data != null) {
-                        val credential: Credential? = data.getParcelableExtra(Credential.EXTRA_KEY)
-                        val phoneNumber: String? = credential?.id
-                        binding.mobileNoEt.setText(phoneNumber.toString())
-                        val mobileNo = binding.mobileNoEt.text.toString()
-                        Toast.makeText(this@LoginActivity,mobileNo.toString(),Toast.LENGTH_LONG).show()
-                        if (binding.mobileNoEt.text.toString().equals("0000000000")) {
-                            Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
-                        } else if (mobileNo.length != 10) {
-                            Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
-                        } else {
-                            progressDialog.show()
-                            binding.signInBtn.isEnabled = false
-                            getOtp(mobileNo, progressDialog)
-                        }
-                    }
-                } else {
-                    Toast.makeText(this, "Failed to retrieve phone number", Toast.LENGTH_SHORT).show()
-                }
-            }
-
     }
 
-    private fun requestHint() {
-
+    private fun requestHint(googleApiClient: GoogleApiClient) {
         val hintRequest = HintRequest.Builder()
             .setPhoneNumberIdentifierSupported(true)
             .build()
 
-        val intent = Auth.CredentialsApi.getHintPickerIntent(
-            googleApiClient!!, hintRequest
-        )
+        val intentSender = Auth.CredentialsApi.getHintPickerIntent(
+            googleApiClient, hintRequest
+        ).intentSender
+
+        val intentSenderRequest = IntentSenderRequest.Builder(intentSender).build()
+
         try {
-            requestPhoneNumberLauncher.launch(intent)
+            requestPhoneNumberLauncher.launch(intentSenderRequest)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
-//        val hintRequest = HintRequest.Builder()
-//            .setPhoneNumberIdentifierSupported(true)
-//            .build()
-//
-//        val intent = Auth.CredentialsApi.getHintPickerIntent(
-//            googleApiClient!!, hintRequest
-//        )
-//        try {
-//            startIntentSenderForResult(
-//                intent.intentSender,
-//                RESOLVE_HINT, null, 0, 0, 0
-//            )
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-
     }
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        TruecallerSDK.clear();
-//    }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == TruecallerSDK.SHARE_PROFILE_REQUEST_CODE) {
-//            TruecallerSDK.getInstance()
-//                .onActivityResultObtained(this, requestCode, resultCode, data)
-//        }
-//    }
+
 
     private fun checkLocationPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -310,12 +238,12 @@ class LoginActivity : AppCompatActivity() {
                         } catch (e: ClassCastException) {
                             // Ignore, should be an impossible error.
                         }
+
                     LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
                 }
             }
         }
     }
-
 
 
     private fun getwhatapplogin(waid: String?, progressDialog: ProgressDialog) {
@@ -340,22 +268,6 @@ class LoginActivity : AppCompatActivity() {
         //      binding.signInBtn.isEnabled = true
         super.onResume()
     }
-//    private fun fetchTruecallerProfile(phoneNumber: String) {
-//        TruecallerSDK.getInstance().getUserProfile(this@LoginActivity, object : ITrueCallback {
-//            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
-//                // Handle successful profile retrieval
-//                // Access profile details via trueProfile object
-//            }
-//
-//            override fun onFailureProfileShared(trueError: TrueError) {
-//                // Handle failure to fetch profile
-//                // Check trueError.getErrorType() for the error type
-//            }
-//
-//            override fun onVerificationRequired(p0: TrueError?) {
-//            }
-//        })
-//    }
 
     private fun getOtp(mobileNo: String, progressDialog: ProgressDialog) {
         if (AppUtils2.isNetworkAvailable(this) == true) {
@@ -392,16 +304,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-//    private fun isNetworkAvailable(): Boolean {
-//        val connectivityManager =
-//            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//
-//        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-//        return activeNetwork?.isConnected == true
-//    }
-
-
 }
+
+
 
 
 

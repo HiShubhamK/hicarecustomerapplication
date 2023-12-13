@@ -201,14 +201,15 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                         finish()
                     }, 1000)
                 } else {
-
                     progressDialog.dismiss()
+                    Handler(Looper.getMainLooper()).postDelayed({
                     binding.txtpleasewait.visibility=View.GONE
                     binding.randomimg.visibility=View.GONE
                     binding.imgOffer.visibility = View.GONE
                     binding.imgOffererror.visibility = View.VISIBLE
                     binding.txtpayment.visibility = View.VISIBLE
                     binding.txtpayment.text = "Payment Failed"
+                }, 500)
                     Handler(Looper.getMainLooper()).postDelayed({
                         onBackPressed()
                         val intent =
