@@ -3,15 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    android:background="#f6f6f6"
     android:orientation="vertical"
-    android:id="@+id/bottomsheetlayout">
+    android:background="#FF000000"
+    android:alpha="0.8"
+    android:src="@drawable/ic_baseline_cancel"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:background="#00000000">
+
+        <ImageView
+            android:id="@+id/imgclose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_cancel"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:background="@drawable/bottomsheet_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,15 +50,15 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/imgclose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_baseline_cancel"
-                app:tint="@color/colorAccent" />
+<!--            <ImageView-->
+<!--                android:id="@+id/imgclose"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:src="@drawable/ic_baseline_cancel"-->
+<!--                app:tint="@color/colorAccent" />-->
 
         </RelativeLayout>
 

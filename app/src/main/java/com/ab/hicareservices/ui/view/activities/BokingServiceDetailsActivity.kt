@@ -225,14 +225,14 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 if (binding.getpincodetext.text.length == 0) {
                     Toast.makeText(
                         this@BokingServiceDetailsActivity,
-                        "Please enter pincode",
+                        "Please enter your pincode",
                         Toast.LENGTH_LONG
                     ).show()
 
                 } else if (binding.getpincodetext.text.length != 6) {
                     Toast.makeText(
                         this@BokingServiceDetailsActivity,
-                        "Invalid pincode.",
+                        "Please enter valid pincode",
                         Toast.LENGTH_LONG
                     ).show()
                 } else {

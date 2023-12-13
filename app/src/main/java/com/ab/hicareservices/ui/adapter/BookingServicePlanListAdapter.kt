@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
 import android.graphics.Paint
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -39,7 +40,7 @@ class BookingServicePlanListAdapter :
         holder.binding.servicepriceplan.text = "\u20B9" + plan.DiscountedPrice.toString()
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-        holder.binding.txtdescription.text = plan.ServicePlanDescription
+        holder.binding.txtdescription.text = Html.fromHtml(plan.ServicePlanDescription)
         holder.binding.txtviewdetails.setOnClickListener {
             onBookingViewDetials?.onViewDetails(position, plan.Id!!, plan.ServicePlanDescription,plan.Price,plan.DiscountedPrice)
         }

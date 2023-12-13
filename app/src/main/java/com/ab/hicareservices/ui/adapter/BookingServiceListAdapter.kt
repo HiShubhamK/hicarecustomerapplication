@@ -2,6 +2,7 @@ package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -44,7 +45,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         holder.binding.tvOrderName.text = service.ServiceName
         Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo)
 
-        holder.binding.txtshortdes.text = service.ShortDescription.toString()
+        holder.binding.txtshortdes.text = Html.fromHtml(service.ShortDescription.toString())
         holder.binding.txtlongdes.text = service.DetailDescription.toString()
 
         holder.itemView.setOnClickListener {
