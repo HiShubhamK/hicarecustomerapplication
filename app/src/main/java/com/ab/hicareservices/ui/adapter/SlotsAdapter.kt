@@ -7,6 +7,7 @@ import com.ab.hicareservices.ui.handler.OnListItemClickHandler
 import android.app.Activity
 import android.view.ViewGroup
 import android.view.LayoutInflater
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.slots.TimeSlot
 import com.ab.hicareservices.databinding.SlotsAdapterBinding
 import com.ab.hicareservices.ui.handler.onSlotSelection
@@ -31,7 +32,15 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
         val slotlist=getSlotresponse
 
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
-//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+        if (position == lastSelectedPosition) {
+            holder.binding.radioSlots.isChecked = true
+            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+        } else {
+            holder.binding.radioSlots.isChecked=false
+            holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
+
+        }
 
 //        if (position == lastSelectedPosition) {
 //            holder.binding.radioSlots.isChecked = true

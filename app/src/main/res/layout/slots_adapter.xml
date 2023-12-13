@@ -24,9 +24,13 @@
 
         <RadioButton
             android:id="@+id/radioSlots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:padding="2dp"
+            android:button="@null"
+            android:layout_margin="5dp"
+            android:background="@drawable/unselected_radio_button_bg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true" />
 
     </RelativeLayout>

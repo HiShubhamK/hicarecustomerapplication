@@ -1,9 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- In your drawable folder, create custom_checked_radio_button.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="@color/colorAccent" /> <!-- Red color for demonstration -->
-    <size
-        android:width="20dp"
-        android:height="20dp" />
-</shape>
+<?xml version="1.0" encoding="utf-8"?><!-- In your drawable folder, create custom_checked_radio_button.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer shape representing the border -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/grey_font" />
+            <size
+                android:width="30dp"
+                android:height="30dp" />
+        </shape>
+    </item>
+    <!-- Inner shape representing the checked color with a margin -->
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorAccent" />
+            <size
+                android:width="26dp"
+                android:height="26dp" />
+        </shape>
+    </item>
+</layer-list>

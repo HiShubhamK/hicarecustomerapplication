@@ -460,7 +460,14 @@ class SlotComplinceActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getOrdersList(AppUtils2.getCurrentDateTimeplusone())
+
+    }
+
 }
+
 
 private fun Bundle.putParcelableArrayList(s: String, timeSlots: ArrayList<TimeSlot>) {
 

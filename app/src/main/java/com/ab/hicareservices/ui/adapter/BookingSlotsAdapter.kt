@@ -15,6 +15,7 @@ import com.ab.hicareservices.ui.handler.onSlotSelection
 class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicareservices.data.model.getslots.TimeSlot>, TaskId: String) : RecyclerView.Adapter<BookingSlotsAdapter.ViewHolder>() {
     private val onItemClickHandler: OnListItemClickHandler? = null
 
+
     val getSlotresponse = slotData
     private var onSlotSelection: onSlotSelection? = null
 
@@ -36,6 +37,8 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
         ;
 //        if (holder.binding.radioSlots.isChecked) {
 //            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+//        }else{
+//
 //        }
 
 //        if (holder.binding.radioSlots.isChecked){
@@ -43,13 +46,14 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
 //        }
 
 
-//        if (position == lastSelectedPosition) {
-//            holder.binding.radioSlots.isChecked = true
-//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
-//        } else {
-//            holder.binding.radioSlots.isChecked = true
-//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_greyslot)
-//        }
+        if (position == lastSelectedPosition) {
+            holder.binding.radioSlots.isChecked = true
+            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+        } else {
+            holder.binding.radioSlots.isChecked=false
+            holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
+
+        }
 //        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
 
         holder.binding.relSlot.setOnClickListener {
