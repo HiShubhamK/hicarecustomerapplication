@@ -193,7 +193,7 @@ class AddAddressActivity : AppCompatActivity() {
                 data["State"] = ""
                 data["Lat"] = lat.toString()
                 data["Long"] = longg.toString()
-                data["Pincode"] = Pincode
+                data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
 
                 viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
@@ -206,7 +206,7 @@ class AddAddressActivity : AppCompatActivity() {
                         intent.putExtra("Latt", Latt)
                         intent.putExtra("Longg", Longg)
                         intent.putExtra("ServiceType", "pest")
-                        intent.putExtra("Pincode", AppUtils2.pincode)
+                        intent.putExtra("Pincode", SharedPreferenceUtil.getData(this, "Pincode", "").toString())
                         intent.putExtra("Service_Code", "CMS")
                         intent.putExtra("Unit", Unit)
                         intent.putExtra("SPCode", spcode)

@@ -95,7 +95,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.MainViewHolder>() {
                 AppUtils2.pincode=cutomeraddressdata.Pincode.toString()
                 SharedPreferenceUtil.setData(
                     requireActivity,
-                    "pincode",
+                    "Pincode",
                     cutomeraddressdata.Pincode.toString()
                 )
                 val intent= Intent(requireActivity, AddressActivity::class.java)

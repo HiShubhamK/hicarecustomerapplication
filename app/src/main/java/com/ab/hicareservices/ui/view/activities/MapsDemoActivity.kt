@@ -272,7 +272,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
                 intent.putExtra("ServiceType", "pest")
                 intent.putExtra(
                     "Pincode",
-                    SharedPreferenceUtil.setData(this, "Pincode", AppUtils2.pincode).toString()
+                    SharedPreferenceUtil.getData(this, "Pincode", "").toString()
                 )
                 intent.putExtra("Service_Code", AppUtils2.servicecode)
                 intent.putExtra("Unit", Unit)

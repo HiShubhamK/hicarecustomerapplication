@@ -89,7 +89,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         Latt = intent.getStringExtra("Lat").toString()
         Longg = intent.getStringExtra("Long").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
-        Pincode = intent.getStringExtra("Pincode").toString()
+        Pincode = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
+
         Service_Code = intent.getStringExtra("Service_Code").toString()
         Unit = SharedPreferenceUtil.getData(
             this!!,
@@ -169,7 +170,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         })
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-            val intent=Intent(this@BookingSlotComplinceActivity,ServicesAddresslistActivity::class.java)
+            val intent =
+                Intent(this@BookingSlotComplinceActivity, ServicesAddresslistActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -314,16 +316,23 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-//                Toast.makeText(this@BookingSlotComplinceActivity, "Please Wait", Toast.LENGTH_LONG)
-//                    .show()
+                Toast.makeText(
+                    this@BookingSlotComplinceActivity,
+                    "'Please wait while we fetch slot for you. This might take upto 30 seconds.",
+                    Toast.LENGTH_LONG
+                ).show()
 
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
-                data["Service_Code"] = SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "Spcode", "").toString()
+                data["Service_Code"] =
+                    SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "Spcode", "")
+                        .toString()
                 data["Service_Date"] = AppUtils2.formatDateTime(scheduledate)
                 data["Service_Subscription"] = Service_Subscription.toString()
-                data["Unit"] = SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "BHK", "").toString()
+                data["Unit"] =
+                    SharedPreferenceUtil.getData(this@BookingSlotComplinceActivity, "BHK", "")
+                        .toString()
                 data["Lat"] = Lat
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
@@ -504,7 +513,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this@BookingSlotComplinceActivity,ServicesAddresslistActivity::class.java)
+        val intent =
+            Intent(this@BookingSlotComplinceActivity, ServicesAddresslistActivity::class.java)
         startActivity(intent)
         finish()
     }
