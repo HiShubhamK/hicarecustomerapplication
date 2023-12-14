@@ -106,17 +106,21 @@ class LoginActivity : AppCompatActivity() {
             .addApi(Auth.CREDENTIALS_API)
             .build()
 
-        binding.mobileNoEt.setOnClickListener {
-            if(checkloging==false){
-                hideKeyboard()
-                requestHint(googleApiClient!!)
-            }else{
-                showKeyboard(binding.mobileNoEt)
+        AppUtils2.checkloging= SharedPreferenceUtil.getData(this@LoginActivity, "getchecklogindata", false) as Boolean
 
-//                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-            }
-        }
+
+//        binding.mobileNoEt.setOnClickListener {
+//            if(checkloging==false){
+//                hideKeyboard()
+//                requestHint(googleApiClient!!)
+//
+//            }else{
+//                showKeyboard(binding.mobileNoEt)
+//
+////                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+////                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+//            }
+//        }
         
         
         val sdkCallback: ITrueCallback = object : ITrueCallback {
@@ -196,112 +200,20 @@ class LoginActivity : AppCompatActivity() {
             TruecallerSDK.getInstance().getUserProfile(this)
 
         }else{
-//            try {
-//                TruecallerSDK.getInstance().requestVerification(
-//                    "IN",
-//                    "",
-//                    apiCallback,
-//                    this
-//                )
-//            } catch (e: RuntimeException) {
-//                Log.i("TAG", e.message!!)
-//            }
 
         }
 
-
-
-
-
-
-
         if (checkLocationPermissions()) {
+//            requestHint(this.googleApiClient!!)
+
             // Permissions are already granted, enable location
             enableLoc()
+//            Toast.makeText(this,"Tost last 20",Toast.LENGTH_LONG).show()
+            requestHint(this.googleApiClient!!)
         } else {
             // Request location permissions
             requestLocationPermission()
         }
-
-
-//
-//        if (ContextCompat.checkSelfPermission(
-//                this@LoginActivity,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            )
-//            == PackageManager.PERMISSION_GRANTED
-//            && ContextCompat.checkSelfPermission(
-//                this@LoginActivity,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            )
-//            == PackageManager.PERMISSION_GRANTED
-//            && ContextCompat.checkSelfPermission(
-//                this@LoginActivity,
-//                Manifest.permission.POST_NOTIFICATIONS
-//            )
-//            == PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // When permission is granted
-//            // Call method
-//            enableLoc()
-//
-//        } else {
-//            // When permission is not granted
-//            // Call method
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                requestPermissions(
-//                    arrayOf(
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION,
-//                        Manifest.permission.POST_NOTIFICATIONS
-//                    ),
-//                    100
-//                )
-//                enableLoc()
-//            }
-//
-//        }
-
-
-
-
-
-
-
-//        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
-//        var gps_enabled = false
-//        var network_enabled = false
-//
-//        try {
-//            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
-//        } catch (ex: Exception) {
-//        }
-//
-//        try {
-//            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-//        } catch (ex: Exception) {
-//        }
-//        if (!gps_enabled && !network_enabled) {
-//            if(AppUtils2.ISChecklocationpermission==true){
-//
-//            }else{
-//                enableLoc()
-//            }
-//        }else if (!gps_enabled){
-//            if(AppUtils2.ISChecklocationpermission==true){
-//
-//            }else{
-//                enableLoc()
-//            }
-//        }else if(!network_enabled){
-//            if(AppUtils2.ISChecklocationpermission==true){
-//
-//            }else{
-//                enableLoc()
-//            }
-//        }else{
-//            enableLoc()
-//        }
 
         checkUserStatus()
 
@@ -408,7 +320,15 @@ class LoginActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, enable location
                 enableLoc()
+                if(AppUtils2.checkloging==false) {
+                    requestHint(this.googleApiClient!!)
+                    SharedPreferenceUtil.setData(this@LoginActivity, "getchecklogindata", true)
+//                    Toast.makeText(this,"Tost last 2",Toast.LENGTH_LONG).show()
+                }else{
+
+                }
             } else {
+                requestHint(this.googleApiClient!!)
                 // Permission denied, handle accordingly (e.g., show a message, disable location features)
             }
         }

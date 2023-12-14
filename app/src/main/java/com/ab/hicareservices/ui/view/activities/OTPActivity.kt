@@ -91,6 +91,8 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
             }
         }
         binding.backIvs.setOnClickListener {
+            SharedPreferenceUtil.setData(this@OTPActivity, "getchecklogindata", false)
+
             val intent=Intent(this@OTPActivity,LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -240,6 +242,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
 
     override fun onBackPressed() {
         super.onBackPressed()
+        SharedPreferenceUtil.setData(this@OTPActivity, "getchecklogindata", false)
         val intent=Intent(this@OTPActivity,LoginActivity::class.java)
         startActivity(intent)
         finish()

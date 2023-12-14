@@ -177,6 +177,7 @@ class AccountFragment : Fragment() {
         SharedPreferenceUtil.setData(requireContext(), "customerid", "")
         SharedPreferenceUtil.setData(requireContext(), "FirstName", "")
         SharedPreferenceUtil.setData(requireContext(), "MobileNo", "")
+        SharedPreferenceUtil.setData(requireContext(), "getchecklogindata", false)
 
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()

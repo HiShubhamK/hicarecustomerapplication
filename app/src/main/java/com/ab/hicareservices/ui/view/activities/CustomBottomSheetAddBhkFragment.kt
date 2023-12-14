@@ -266,15 +266,18 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     button.isEnabled = false
                     button.alpha = 0.6f
 
-                    val currentTime = System.currentTimeMillis()
-                    if (currentTime - lastClickTime > clickTimeThreshold) {
-                        Toast.makeText(
-                            activity!!,
-                            "Sorry, slots are not available as the area selected is not serviceable.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        lastClickTime = currentTime
+                    if(AppUtils2.checkerrormessage==true){
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastClickTime > clickTimeThreshold) {
+                            Toast.makeText(
+                                activity!!,
+                                "Sorry, slots are not available as the area selected is not serviceable.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            lastClickTime = currentTime
+                        }
                     }
+
                 })
 
                 viewProductModel.getPlanAndPriceByBHKandPincode(

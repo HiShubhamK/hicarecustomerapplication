@@ -91,6 +91,7 @@ object AppUtils2 {
     var bhk=""
     var Appointmentdataforcheckout=" "
     var checkerrormessage=false
+    var checkloging=false
 
     @JvmStatic
     fun startPayment(activity: Activity) {
