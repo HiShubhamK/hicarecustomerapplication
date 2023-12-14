@@ -3,9 +3,11 @@ package com.ab.hicareservices.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.model.FaqList
 import com.ab.hicareservices.data.model.servicesmodule.BhklistResponseData
 import com.ab.hicareservices.databinding.LayoutFaqBinding
@@ -32,7 +34,15 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
         holder.binding.tvDesc.text=productlistdata.FAQDetail
         holder.binding.tvShowAnswer.setOnClickListener{
 
+
+            val animation = AnimationUtils.loadAnimation(productDetailActivity, R.anim.slide_up)
+            val animation2 = AnimationUtils.loadAnimation(productDetailActivity, R.anim.slide_down)
+
+
             if (holder.binding.crdDetail.isVisible){
+
+                holder.binding.crdDetail.startAnimation(animation2)
+
 
 //                holder.binding.crdDetail.animate().apply {
 //                    scaleX(1.5f)
@@ -51,6 +61,7 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
 //                    duration = 500
 //                    start()
 //                }
+                holder.binding.crdDetail.startAnimation(animation2)
                 holder.binding.tvShowAnswer.text="-"
                 holder.binding.crdDetail.visibility= View.VISIBLE
             }

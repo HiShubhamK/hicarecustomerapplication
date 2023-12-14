@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.view.activities
 import android.Manifest
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -10,11 +11,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -45,6 +48,7 @@ import com.truecaller.android.sdk.TruecallerSdkScope
 
 class LoginActivity : AppCompatActivity() {
     private val RC_PENDING_INTENT = 123
+    var checkloging=false
 
     private val requestPhoneNumberLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
@@ -70,6 +74,9 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             } else {
+
+                checkloging=true
+
 //                Toast.makeText(this@LoginActivity,"Failed",Toast.LENGTH_LONG).show()
             }
         }
@@ -97,7 +104,15 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         binding.mobileNoEt.setOnClickListener {
-            requestHint(googleApiClient!!)
+            if(checkloging==false){
+                hideKeyboard()
+                requestHint(googleApiClient!!)
+            }else{
+                showKeyboard(binding.mobileNoEt)
+
+//                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
         
         
@@ -317,6 +332,15 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    private fun showKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
     private fun requestHint(googleApiClient: GoogleApiClient) {
         val hintRequest = HintRequest.Builder()
             .setPhoneNumberIdentifierSupported(true)

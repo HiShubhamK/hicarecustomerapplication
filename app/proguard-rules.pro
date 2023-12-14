@@ -46,6 +46,7 @@
 
 -dontwarn com.razorpay.**
 -keep class com.razorpay.** {*;}
+-keep class com.razorpay.** {<fields>;}
 
 -optimizations !method/inlining/*
 

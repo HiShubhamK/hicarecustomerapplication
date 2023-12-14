@@ -213,7 +213,6 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 "Coupon Applied Successfully.",
                                 Toast.LENGTH_LONG
                             ).show()
-                            binding.txtcoupon.setText("")
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "\u20B9" + voucherdiscount

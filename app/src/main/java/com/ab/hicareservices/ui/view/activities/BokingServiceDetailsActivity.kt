@@ -548,7 +548,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                     if (currentTime - lastClickTime > clickTimeThreshold) {
                                                         Toast.makeText(
                                                             this@BokingServiceDetailsActivity,
-                                                            "Invalid pincode. Plan are not available ",
+                                                            "Sorry this pincode is not available for serviceable ",
                                                             Toast.LENGTH_LONG
                                                         ).show()
                                                         lastClickTime = currentTime

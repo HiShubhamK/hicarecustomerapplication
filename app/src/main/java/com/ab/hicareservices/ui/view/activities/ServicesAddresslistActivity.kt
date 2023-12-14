@@ -43,6 +43,8 @@ class ServicesAddresslistActivity : AppCompatActivity() {
     private var Unit = ""
     private var spcode = ""
 
+    private var lastClickTime: Long = 0
+    private val clickTimeThreshold = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         getAddressList(shipping)
 
         binding.imgLogo.setOnClickListener {
-            val intent=Intent(this,BokingServiceDetailsActivity::class.java)
+            val intent = Intent(this, BokingServiceDetailsActivity::class.java)
             startActivity(intent)
 //            finish()
         }
@@ -115,7 +117,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         })
 
         viewProductModel.existingAddressListModel.observe(this, Observer {
-            if (it!=null) {
+            if (it != null) {
                 progressDialog.dismiss()
 
                 if (it.isNotEmpty()) {
@@ -130,7 +132,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     progressDialog.dismiss()
 
                 }
-            }else{
+            } else {
                 binding.tvNoAddress.visibility = View.VISIBLE
                 binding.recycleviewaddress.visibility = View.GONE
                 progressDialog.dismiss()
@@ -164,35 +166,99 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                 Long: String
             ) {
                 if (b == true) {
-                    SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Pincode", "")
-                    SharedPreferenceUtil.setData(
+
+                    viewProductModel.getServicePincodeDetailResponse.observe(
                         this@ServicesAddresslistActivity,
-                        "Pincode",
-                        Pincode
+                        Observer {
+                            if (it.IsSuccess == true) {
+                                SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Pincode", "")
+                                SharedPreferenceUtil.setData(
+                                    this@ServicesAddresslistActivity,
+                                    "Pincode",
+                                    Pincode
+                                )
+                                AppUtils2.shippingdata = id.toString()
+                                SharedPreferenceUtil.setData(
+                                    this@ServicesAddresslistActivity,
+                                    "Shippingdata",
+                                    id.toString()
+                                )
+
+
+                                val intent =
+                                    Intent(
+                                        this@ServicesAddresslistActivity,
+                                        BookingSlotComplinceActivity::class.java
+                                    )
+                                intent.putExtra("AddressId", id.toString())
+                                intent.putExtra("ServiceCenter_Id", "")
+                                intent.putExtra("SlotDate", "")
+                                intent.putExtra("TaskId", "")
+                                intent.putExtra("SkillId", "")
+                                intent.putExtra("Lat", Lat)
+                                intent.putExtra("Long", Long)
+                                intent.putExtra("ServiceType", "pest")
+                                intent.putExtra("Pincode", AppUtils2.pincode)
+                                intent.putExtra("Service_Code", AppUtils2.servicecode)
+                                intent.putExtra("Unit", Unit)
+                                intent.putExtra("SPCode", spcode)
+                                intent.putExtra("Pincode", Pincode)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                val currentTime = System.currentTimeMillis()
+                                if (currentTime - lastClickTime > clickTimeThreshold) {
+                                    Toast.makeText(
+                                        this@ServicesAddresslistActivity,
+                                        "Sorry, this area is not serviceable. Please try a different pincode",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    lastClickTime = currentTime
+                                }
+                            }
+                        })
+
+                    viewProductModel.GetServicePincodeDetail(
+                        Pincode,
+                        AppUtils2.servicecode,
+                        "Pest"
                     )
-                    AppUtils2.shippingdata = id.toString()
-                    SharedPreferenceUtil.setData(
-                        this@ServicesAddresslistActivity,
-                        "Shippingdata",
-                        id.toString()
-                    )
-                    val intent =
-                        Intent(this@ServicesAddresslistActivity, BookingSlotComplinceActivity::class.java)
-                    intent.putExtra("AddressId", id.toString())
-                    intent.putExtra("ServiceCenter_Id", "")
-                    intent.putExtra("SlotDate", "")
-                    intent.putExtra("TaskId", "")
-                    intent.putExtra("SkillId", "")
-                    intent.putExtra("Lat", Lat)
-                    intent.putExtra("Long", Long)
-                    intent.putExtra("ServiceType", "pest")
-                    intent.putExtra("Pincode", AppUtils2.pincode)
-                    intent.putExtra("Service_Code", AppUtils2.servicecode)
-                    intent.putExtra("Unit", Unit)
-                    intent.putExtra("SPCode", spcode)
-                    intent.putExtra("Pincode", Pincode)
-                    startActivity(intent)
-                    finish()
+
+
+//                    SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Pincode", "")
+//                    SharedPreferenceUtil.setData(
+//                        this@ServicesAddresslistActivity,
+//                        "Pincode",
+//                        Pincode
+//                    )
+//                    AppUtils2.shippingdata = id.toString()
+//                    SharedPreferenceUtil.setData(
+//                        this@ServicesAddresslistActivity,
+//                        "Shippingdata",
+//                        id.toString()
+//                    )
+//
+//
+//                    val intent =
+//                        Intent(
+//                            this@ServicesAddresslistActivity,
+//                            BookingSlotComplinceActivity::class.java
+//                        )
+//                    intent.putExtra("AddressId", id.toString())
+//                    intent.putExtra("ServiceCenter_Id", "")
+//                    intent.putExtra("SlotDate", "")
+//                    intent.putExtra("TaskId", "")
+//                    intent.putExtra("SkillId", "")
+//                    intent.putExtra("Lat", Lat)
+//                    intent.putExtra("Long", Long)
+//                    intent.putExtra("ServiceType", "pest")
+//                    intent.putExtra("Pincode", AppUtils2.pincode)
+//                    intent.putExtra("Service_Code", AppUtils2.servicecode)
+//                    intent.putExtra("Unit", Unit)
+//                    intent.putExtra("SPCode", spcode)
+//                    intent.putExtra("Pincode", Pincode)
+//                    startActivity(intent)
+//                    finish()
                 } else if (b == false) {
 //                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
                 }
@@ -542,7 +608,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent=Intent(this,BokingServiceDetailsActivity::class.java)
+        val intent = Intent(this, BokingServiceDetailsActivity::class.java)
         startActivity(intent)
     }
 }

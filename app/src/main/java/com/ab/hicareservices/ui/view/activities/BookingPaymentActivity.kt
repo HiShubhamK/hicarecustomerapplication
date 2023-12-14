@@ -49,6 +49,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         binding = ActivityBookingPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val fname = SharedPreferenceUtil.getData(this, "Fname", "").toString()
 
         val intent = intent
@@ -72,6 +73,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             }
         })
         viewProductModels.CreateRazorpayOrderId(bookingdiscountedprice.toDouble(), 12342)
+
+
 
         progressDialog.show()
 

@@ -5,9 +5,11 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
@@ -47,7 +49,15 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
 
         holder.binding.edtinstruction.setText(SharedPreferenceUtil.getData(requireActivity,"Instructions","").toString())
 
+        val animation = AnimationUtils.loadAnimation(requireActivity, R.anim.slide_up)
+        val animation2 = AnimationUtils.loadAnimation(requireActivity, R.anim.slide_down)
+
+//        binding.splashimg.startAnimation(animation)
+
+
+
         holder.binding.imgaddinstructoin.setOnClickListener {
+            holder.binding.txtdescription.startAnimation(animation2)
             holder.binding.imgaddinstructoin.visibility = View.GONE
             holder.binding.imgremoveinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.VISIBLE
@@ -60,14 +70,18 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
         }
 
         holder.binding.imgremoveinstructoin.setOnClickListener {
+
             holder.binding.imgremoveinstructoin.visibility = View.GONE
             holder.binding.imgaddinstructoin.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.GONE
             holder.binding.txtdescription.visibility=View.GONE
+            holder.binding.txtdescription.startAnimation(animation)
+
         }
 
 
         holder.binding.imgaddinstructoinforextra.setOnClickListener {
+            holder.binding.edtinstruction.startAnimation(animation2)
             holder.binding.imgaddinstructoinforextra.visibility = View.GONE
             holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.VISIBLE
@@ -79,6 +93,7 @@ class BookingServiceCheckoutAdapter : RecyclerView.Adapter<BookingServiceCheckou
         }
 
         holder.binding.imgremoveinstructoinextra.setOnClickListener {
+            holder.binding.edtinstruction.startAnimation(animation)
             holder.binding.imgremoveinstructoinextra.visibility = View.GONE
             holder.binding.imgaddinstructoinforextra.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.GONE
