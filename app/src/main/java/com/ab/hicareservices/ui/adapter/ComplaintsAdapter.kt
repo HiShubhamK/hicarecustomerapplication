@@ -70,6 +70,7 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
             holder.itemView.setOnClickListener {
 
                 try {
+
                     val intent = Intent(requireActivity, ComplaintDetailsActivity::class.java)
                     intent.putExtra("Dateformat", complaints.CreatedDate.toString())
                     intent.putExtra("ComplaintNo", complaints.ComplaintNo_c.toString())

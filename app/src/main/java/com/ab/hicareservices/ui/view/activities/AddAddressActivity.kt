@@ -7,27 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatCheckBox
-import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
-import com.ab.hicareservices.databinding.ActivityAddressBinding
-import com.ab.hicareservices.databinding.LayoutAddnewAddreessBinding
 import com.ab.hicareservices.databinding.LayoutAddserviceAddreessBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.AddressAdapter
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
-import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
-import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import java.util.*
 
 class AddAddressActivity : AppCompatActivity() {
@@ -155,24 +148,33 @@ class AddAddressActivity : AppCompatActivity() {
                 binding.etlandmark.text.toString().trim().equals("")
             ) {
 
-                Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "All fields are mandatory", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
 
             } else if (binding.etname.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter name", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etemps.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter email address", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etemps.text.toString()).matches()) {
-                Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter correct email address", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etflatno.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter flat number", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etbuildname.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter Building name", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter Building name", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etstreet.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter street name", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etlocality.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter Locality", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter Locality", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else if (binding.etlandmark.text.toString().trim().equals("")) {
-                Toast.makeText(this, "Enter Landmark", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Enter Landmark", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
             } else {
                 progressDialog.show()
                 var data = HashMap<String, Any>()
@@ -193,11 +195,13 @@ class AddAddressActivity : AppCompatActivity() {
                 data["State"] = ""
                 data["Lat"] = lat.toString()
                 data["Long"] = longg.toString()
-                data["Pincode"] = Pincode
+                data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
 
                 viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
                         progressDialog.dismiss()
+                        DesignToast.makeText(this, "Address added successfully!", Toast.LENGTH_SHORT,DesignToast.TYPE_SUCCESS).show();
+
                         val intent=Intent(this@AddAddressActivity,ServicesAddresslistActivity::class.java)
                         intent.putExtra("ServiceCenter_Id", "")
                         intent.putExtra("SlotDate", "")
@@ -206,7 +210,7 @@ class AddAddressActivity : AppCompatActivity() {
                         intent.putExtra("Latt", Latt)
                         intent.putExtra("Longg", Longg)
                         intent.putExtra("ServiceType", "pest")
-                        intent.putExtra("Pincode", AppUtils2.pincode)
+                        intent.putExtra("Pincode", SharedPreferenceUtil.getData(this, "Pincode", "").toString())
                         intent.putExtra("Service_Code", "CMS")
                         intent.putExtra("Unit", Unit)
                         intent.putExtra("SPCode", spcode)
@@ -224,14 +228,16 @@ class AddAddressActivity : AppCompatActivity() {
 //                        binding.checkbox.isChecked == false
 //                        appCompatCheckBox.isChecked = false
 
-                        Toast.makeText(
-                            this,
-                            "Address added successfully!",
-                            Toast.LENGTH_LONG
-                        ).show()
+
+
                     } else {
-                        Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
-                            .show()
+                        DesignToast.makeText(this, it.ResponseMessage, Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
+//                        DesignToast.makeText(this, "This is a SUCCESS Toast", DesignToast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
+//
+//                        Toast.makeText(this, ""+it.ResponseMessage.toString(), Toast.LENGTH_LONG)
+//                            .show()
                     }
                     progressDialog.dismiss()
 

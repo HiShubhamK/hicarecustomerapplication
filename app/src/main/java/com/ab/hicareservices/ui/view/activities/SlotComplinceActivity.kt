@@ -286,8 +286,11 @@ class SlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-                Toast.makeText(this@SlotComplinceActivity,"Please Wait",Toast.LENGTH_LONG).show()
-
+                Toast.makeText(
+                    this@SlotComplinceActivity,
+                    "'Please wait while we fetch slot for you. This might take upto 30 seconds.",
+                    Toast.LENGTH_LONG
+                ).show()
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode

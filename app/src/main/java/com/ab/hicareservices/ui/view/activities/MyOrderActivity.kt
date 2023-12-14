@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -32,7 +33,7 @@ class MyOrderActivity : AppCompatActivity() {
     private var mobile = ""
     private var ordertype = ""
     lateinit var progressDialog: ProgressDialog
-    var paymentdone=""
+    var paymentdone = ""
 
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -53,7 +54,7 @@ class MyOrderActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-         paymentdone = SharedPreferenceUtil.getData(this, "Paymentback", "-1").toString()
+        paymentdone = SharedPreferenceUtil.getData(this, "Paymentback", "-1").toString()
 
         getOrdersList(progressDialog, "No Active Orders")
 
@@ -117,9 +118,9 @@ class MyOrderActivity : AppCompatActivity() {
 
 
         viewModel.responseMessage.observe(this, Observer {
-            if(it.equals("Success")){
+            if (it.equals("Success")) {
                 binding.textnotfound.visibility = View.GONE
-            }else if(it.equals("No Orders")) {
+            } else if (it.equals("No Orders")) {
                 binding.textnotfound.visibility = View.VISIBLE
                 binding.textnotfound.text = it.toString()
                 progressDialog.dismiss()
@@ -134,7 +135,7 @@ class MyOrderActivity : AppCompatActivity() {
 
         viewModel.ordersList.observe(this, Observer {
 
-            var data=it
+            var data = it
             if (it.isNotEmpty()) {
                 nAdapter.setOrdersList(it)
                 binding.textnotfound.visibility = View.GONE
@@ -148,12 +149,12 @@ class MyOrderActivity : AppCompatActivity() {
         })
 
         if (mobile != "-1") {
-            if (ordertype != null&& ordertype == "") {
+            if (ordertype != null && ordertype == "") {
                 ordertype = "All"
-                AppUtils2.TOKEN=""
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,this@MyOrderActivity)
+                AppUtils2.TOKEN = ""
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog, this@MyOrderActivity)
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog,this@MyOrderActivity)
+                viewModel.getCustomerOrdersByMobileNo(mobile, progressDialog, this@MyOrderActivity)
             }
         }
         progressDialog.dismiss()
@@ -172,8 +173,12 @@ class MyOrderActivity : AppCompatActivity() {
 
         viewModel.ordersList.observe(this, Observer {
 
-            if(it!=null) {
-
+            if (it != null) {
+                Toast.makeText(
+                    this,
+                    "Please wait while we load your list.This might take upto 30 seconds.",
+                    Toast.LENGTH_LONG
+                ).show()
                 if (it.isNotEmpty()) {
                     binding.textnotfound.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
@@ -183,22 +188,22 @@ class MyOrderActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     binding.recyclerView.visibility = View.GONE
                     binding.textnotfound.visibility = View.VISIBLE
-                    binding.textnotfound.text=s
+                    binding.textnotfound.text = s
                 }
-            }else{
+            } else {
                 progressDialog.dismiss()
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
-                binding.textnotfound.text=s
+                binding.textnotfound.text = s
             }
             progressDialog.dismiss()
 
         })
 
         viewModel.responseMessage.observe(this, Observer {
-            if(it.equals("Success")){
+            if (it.equals("Success")) {
                 binding.textnotfound.visibility = View.GONE
-            }else if(it.equals("No Orders")) {
+            } else if (it.equals("No Orders")) {
                 binding.recyclerView.visibility = View.GONE
                 binding.textnotfound.visibility = View.VISIBLE
                 binding.textnotfound.text = s
@@ -210,7 +215,7 @@ class MyOrderActivity : AppCompatActivity() {
 //            Toast.makeText(requireActivity(), it.toString(), Toast.LENGTH_LONG).show()
             binding.recyclerView.visibility = View.GONE
             binding.textnotfound.visibility = View.VISIBLE
-            binding.textnotfound.text=s
+            binding.textnotfound.text = s
             progressDialog.dismiss()
         })
 
@@ -252,8 +257,8 @@ class MyOrderActivity : AppCompatActivity() {
                 intent.putExtra("ACCOUNT_NO", customerIdC)
                 intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
                 intent.putExtra("PAYMENT", orderValueWithTaxC)
-                intent.putExtra("SERVICE_TYPE",serviceType)
-                intent.putExtra("Standard_Value__c",standardValueC)
+                intent.putExtra("SERVICE_TYPE", serviceType)
+                intent.putExtra("Standard_Value__c", standardValueC)
                 intent.putExtra("Product", false)
 
                 activityResultLauncher.launch(intent)
@@ -268,14 +273,25 @@ class MyOrderActivity : AppCompatActivity() {
         if (mobile != "-1") {
             if (ordertype.equals("") && ordertype != null) {
                 ordertype = "Active"
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,this@MyOrderActivity)
+                viewModel.getCustomerOrdersByMobileNo(
+                    mobile,
+                    ordertype,
+                    progressDialog,
+                    this@MyOrderActivity
+                )
             } else {
-                viewModel.getCustomerOrdersByMobileNo(mobile, ordertype, progressDialog,this@MyOrderActivity)
+                viewModel.getCustomerOrdersByMobileNo(
+                    mobile,
+                    ordertype,
+                    progressDialog,
+                    this@MyOrderActivity
+                )
             }
         }
 
         progressDialog.dismiss()
     }
+
     override fun onDestroy() {
         super.onDestroy()
     }
@@ -291,6 +307,7 @@ class MyOrderActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
     }
+
     fun createNotification() {
 //        val myIntent = Intent(applicationContext, NotifyService::class.java)
 //        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
@@ -312,9 +329,6 @@ class MyOrderActivity : AppCompatActivity() {
 //            (1000 * 60 * 60 * 24).toLong(),
 //            pendingIntent
 //        )
-
-
-
 
 
     }
