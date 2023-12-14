@@ -26,6 +26,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityLoginBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.credentials.Credential
 import com.google.android.gms.auth.api.credentials.HintRequest
@@ -62,11 +63,13 @@ class LoginActivity : AppCompatActivity() {
                     val mobileNo = binding.mobileNoEt.text.toString()
                     Log.d("Logincheckmobileno",mobileNo)
                     if (binding.mobileNoEt.text.toString().equals("0000000000")) {
-                        Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG)
-                            .show()
+
+                        DesignToast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     } else if (mobileNo.length != 10) {
-                        Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG)
-                            .show()
+
+                        DesignToast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     } else {
                         progressDialog.show()
                         binding.signInBtn.isEnabled = false
@@ -318,10 +321,17 @@ class LoginActivity : AppCompatActivity() {
         binding.signInBtn.setOnClickListener {
             val mobileNo = binding.mobileNoEt.text.toString()
             if (binding.mobileNoEt.text.toString().equals("0000000000")) {
-                Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
+
+
+                DesignToast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
+
             } else if (mobileNo.length != 10) {
-                Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
-//                binding.mobileNoEt.setError("Invalid Phone Number")
+
+                DesignToast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+                //                binding.mobileNoEt.setError("Invalid Phone Number")
                 return@setOnClickListener
             } else {
                 progressDialog.show()
@@ -498,7 +508,10 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 } else {
                     binding.signInBtn.isEnabled = true
-                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT).show()
+
+                    DesignToast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                    Toast.makeText(this, it.responseMessage.toString(), Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()
                 }
             })
@@ -506,7 +519,10 @@ class LoginActivity : AppCompatActivity() {
         } else {
             binding.signInBtn.isEnabled = true
             progressDialog.dismiss()
-            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show()
+
+            DesignToast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show()
         }
     }
 

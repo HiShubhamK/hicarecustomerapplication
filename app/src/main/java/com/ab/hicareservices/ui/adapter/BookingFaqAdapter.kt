@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
+import androidx.core.view.postDelayed
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
@@ -42,28 +43,17 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
             if (holder.binding.crdDetail.isVisible){
 
                 holder.binding.crdDetail.startAnimation(animation2)
-
-
-//                holder.binding.crdDetail.animate().apply {
-//                    scaleX(1.5f)
-//                    scaleY(1.5f)
-//                    duration = 500 // Adjust the duration as needed
-//                    start()
-//                }
-
-                holder.binding.tvShowAnswer.text="+"
-                holder.binding.crdDetail.visibility= View.GONE
-
+                    holder.binding.tvShowAnswer.text="+"
+                    holder.binding.crdDetail.visibility= View.GONE
             }else{
-//                holder.binding.crdDetail.animate().apply {
-//                    scaleX(1.0f)
-//                    scaleY(1.0f)
-//                    duration = 500
-//                    start()
-//                }
                 holder.binding.crdDetail.startAnimation(animation2)
-                holder.binding.tvShowAnswer.text="-"
-                holder.binding.crdDetail.visibility= View.VISIBLE
+
+               holder.binding.crdDetail.postDelayed({
+                   holder.binding.tvShowAnswer.text="-"
+                   holder.binding.crdDetail.visibility= View.VISIBLE
+               },500)
+
+
             }
         }
     }

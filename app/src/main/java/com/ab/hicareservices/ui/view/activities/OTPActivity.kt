@@ -23,6 +23,7 @@ import com.ab.hicareservices.databinding.ActivityOtpactivityBinding
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppSignatureHelper
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.OtpReceivedInterface
 import com.ab.hicareservices.utils.SMSListener
 import com.google.android.gms.auth.api.Auth
@@ -118,7 +119,11 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
 
                     } else {
                         progressDialog.dismiss()
-                        Toast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_LONG).show()
+
+                        DesignToast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR).show()
+
+//                        Toast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -146,11 +151,19 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
 
                     } else {
                         progressDialog.dismiss()
-                        Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
+
+                        DesignToast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR).show()
+
+
+//                        Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
                     }
                 }else{
                     progressDialog.dismiss()
-                    Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(this@OTPActivity, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR).show()
+
+//                    Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -188,17 +201,26 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                 if (it.isSuccess == true) {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
                     mOtp = it.data.toString()
-                    Toast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT).show()
+
+                    DesignToast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_SUCCESS).show()
 
                     startCounter()
                 } else {
                     binding.resentSuccessTv.visibility = View.GONE
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_WARNING).show()
+
                 }
             }
             viewModel.getOtp(mobileNo)
         }else{
-            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+            DesignToast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
+                DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
         }
     }
 

@@ -20,6 +20,7 @@ import com.ab.hicareservices.databinding.ActivityBookingPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.SharedPreferencesManager
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
@@ -219,9 +220,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                             Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
                         startActivity(intent)
                     }, 500)
-
-                    Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
-
+//                    Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(this, "Failed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
                 }
             })
 

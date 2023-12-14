@@ -20,8 +20,8 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.databinding.ActivityBookInspectionBinding
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
+import com.ab.hicareservices.utils.DesignToast
 import java.util.HashMap
-
 
 class BookInspectionActivity : AppCompatActivity() {
     private lateinit var binding:ActivityBookInspectionBinding
@@ -111,34 +111,62 @@ class BookInspectionActivity : AppCompatActivity() {
                 binding.etlandmark.text.toString().trim().equals("") && binding.etpincode.text.toString().trim().equals(""))
 //                && binding.etcity.text.toString().trim().equals("") && binding.etstate.text.toString().trim().equals(""))
             {
+//
+//                Toast.makeText(this,"All fields are mandatory",Toast.LENGTH_LONG).show()
 
-                Toast.makeText(this,"All fields are mandatory",Toast.LENGTH_LONG).show()
+
+                DesignToast.makeText(this@BookInspectionActivity, "All fields are mandatory", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
             }
             else if(binding.etname.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter name",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter name",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter name", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.edtmobileno.text.toString().trim().equals("") && !binding.edtmobileno.text.toString().equals("0000000000")){
-                Toast.makeText(this,"Enter mobile number",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter mobile number",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter mobile number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.edtmobileno.text.toString().trim().length<10){
-                Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter correct mobile number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.edtmobileno.text.toString().trim().equals("0000000000")){
-                Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter correct mobile number",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter correct mobile number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             } else if(binding.etemps.text.toString().trim().equals("") ){
-                Toast.makeText(this,"Enter email address",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter email address",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter email address", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etemps.text.toString()).matches()){
-                Toast.makeText(this,"Enter correct email address",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter correct email address",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter correct email address", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             } else if(selectedLocation.toString().trim().equals("Select Type")){
-                Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this,"Please select service type", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Please select service type", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.etflatno.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter flat number",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter flat number",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter flat number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.etbuildname.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter building name",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter building name",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter building name", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.etstreet.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter street name",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter street name",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter street name", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else if(binding.etlocality.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter locality",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter locality", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
+
             }else if(binding.etlandmark.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter landmark",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter landmark",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter landmark", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }
 //            else if( binding.etcity.text.toString().trim().equals("")){
 //                Toast.makeText(this,"Enter city",Toast.LENGTH_LONG).show()
@@ -146,9 +174,13 @@ class BookInspectionActivity : AppCompatActivity() {
 //                Toast.makeText(this,"Enter state",Toast.LENGTH_LONG).show()
 //            }
             else if(binding.etpincodes.text.toString().trim().equals("")){
-                Toast.makeText(this,"Enter pincode",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Enter pincode",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Enter pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             } else if(binding.etpincodes.text.toString().trim().length<6){
-                Toast.makeText(this,"Invalid pincode",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Invalid pincode",Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@BookInspectionActivity, "Invalid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             }else{
 
                 progressDialog.show()
@@ -205,7 +237,7 @@ class BookInspectionActivity : AppCompatActivity() {
 
                     viewModels.responseMessgae.observe(this, Observer {
                         progressDialog.dismiss()
-                        Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this@BookInspectionActivity, it.toString(), Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
                     })
 
                     viewModels.leadResponse.observe(this, Observer {
@@ -216,18 +248,18 @@ class BookInspectionActivity : AppCompatActivity() {
                             finish()
                             progressDialog.dismiss()
 
-                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG)
-                                .show()
+//                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG).show()
+
+                            DesignToast.makeText(this, "Inspection appointment booked", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+
                         } else {
                             progressDialog.dismiss()
-                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
-                                .show()
+//                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG).show()
+
+                            DesignToast.makeText(this, "Something went to wrong.", Toast.LENGTH_SHORT, DesignToast.TYPE_WARNING).show()
                         }
-
                     })
-
                     progressDialog.dismiss()
-
                     viewModels.postleaderdata(data)
                 },1000)
 

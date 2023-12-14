@@ -132,8 +132,8 @@
 
             <ImageView
                 android:id="@+id/imgaddinstructoin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
@@ -141,8 +141,8 @@
 
             <ImageView
                 android:id="@+id/imgremoveinstructoin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
@@ -233,8 +233,8 @@
 
             <ImageView
                 android:id="@+id/imgaddinstructoinforextra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
@@ -242,8 +242,8 @@
 
             <ImageView
                 android:id="@+id/imgremoveinstructoinextra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"

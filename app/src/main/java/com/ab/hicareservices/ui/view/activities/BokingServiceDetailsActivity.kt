@@ -67,11 +67,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         binding = ActivityBokingServiceDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//
-//        MyLocationListener(this)
 
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+
+        progressDialog.show()
 
         AppUtils2.pincode =
             SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "")
@@ -101,17 +101,9 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             serviceName=SharedPreferenceUtil.getData(this,"ServicenName","").toString()
         }
 
-//        Toast.makeText(this@BokingServiceDetailsActivity,SharedPreferenceUtil.getData(this,"ServicenName","").toString(),Toast.LENGTH_SHORT).show()
-
         val userData = UserData()
 
         SharedPreferenceUtil.setData(this, "ServiceCode", serviceCode.toString())
-
-
-        userData.ServiceCode = serviceCode.toString()
-        userData.ServiceType = "Pest"
-        val sharedPreferencesManager = SharedPreferencesManager(this).saveUserData(userData)
-
 
         bhklistResponseData = ArrayList<BhklistResponseData>()
 
@@ -133,82 +125,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         getplanlist(servicecode)
 
         viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
-//            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-//                "400079",
-//                AppUtils2.servicecode
-//            )
+            progressDialog.dismiss()
         })
 
-
-//        viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
-//            Observer {
-//
-//                if (it.IsSuccess == true) {
-//
-//
-//                    if (it.Data != null) {
-//                        progressDialog.show()
-//                        Handler(Looper.getMainLooper()).postDelayed({
-//
-//                            viewProductModel.servicePlanResponseData.observe(
-//                                this@BokingServiceDetailsActivity,
-//                                Observer {
-//                                    if (it.isNotEmpty()) {
-//                                        binding.recycleviewplans.visibility = View.VISIBLE
-//
-//                                        mAdapter.setServiceList(it, this)
-//                                        checkserchbutton = false
-//                                    } else {
-//                                        binding.recycleviewplans.visibility = View.GONE
-//                                        Toast.makeText(
-//                                            this@BokingServiceDetailsActivity,
-//                                            "Invalid pincode. Plan are not available ",
-//                                            Toast.LENGTH_LONG
-//                                        ).show()
-//                                        checkserchbutton = false
-//                                    }
-//                                    progressDialog.dismiss()
-//
-//                                })
-//                            viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-//                                AppUtils2.pincode,
-//                                AppUtils2.servicecode
-//                            )
-//                            checkserchbutton = false
-//                        }, 300)
-//
-//                    }
-//                } else {
-//                    Toast.makeText(
-//                        this@BokingServiceDetailsActivity,
-//                        it.ResponseMessage.toString(),
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            })
-//
-//
-//        viewProductModel.GetServicePincodeDetail(AppUtils2.pincode, serviceCode.toString(), "Pest")
-
-
-//        viewProductModel.servicePlanResponseData.observe(
-//            this@BokingServiceDetailsActivity,
-//            Observer {
-//                if (it.isNotEmpty()) {
-//                    progressDialog.dismiss()
-//                    mAdapter.setServiceList(it, this)
-//                } else {
-//                    calldefaultplans()
-//                }
-//            })
-//
-//        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-//            AppUtils2.pincode,
-//            AppUtils2.servicecode
-//        )
-//
-//
-        if (checkserchbutton == false) {
+      if (checkserchbutton == false) {
 
 
             binding.imgsearch.setOnClickListener {
@@ -510,6 +430,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
             }
         })
+        progressDialog.dismiss()
     }
 
     fun getplanlist(serviceCode: String) {
@@ -520,7 +441,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
 
                     if (it.Data != null) {
-                        progressDialog.show()
                         Handler(Looper.getMainLooper()).postDelayed({
 
                             viewProductModel.servicePlanResponseData.observe(

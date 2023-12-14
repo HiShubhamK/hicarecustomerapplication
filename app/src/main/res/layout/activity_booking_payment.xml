@@ -32,22 +32,30 @@
 
             android:id="@+id/imgOffererror"
             android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="129dp"
+            android:visibility="gone"
+            android:layout_marginEnd="132dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/error_occurred"
-            android:layout_height="150dp"
-            android:visibility="gone"
-            />
+            app:lottie_rawRes="@raw/error_occurred" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/randomimg"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_below="@+id/imgOffererror"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="151dp"
+            android:gravity="center"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lodingjson"
-            android:gravity="center"
-            android:layout_marginTop="10dp" />
+            app:lottie_rawRes="@raw/lodingjson" />
 
     </RelativeLayout>
 
