@@ -154,7 +154,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                     } else {
                         progressDialog.dismiss()
 
-                        DesignToast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
+                        DesignToast.makeText(this@OTPActivity, "Enter valid OTP", Toast.LENGTH_SHORT,
                             DesignToast.TYPE_ERROR).show()
 
 

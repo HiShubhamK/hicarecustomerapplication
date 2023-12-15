@@ -44,6 +44,7 @@ import com.ab.hicareservices.ui.adapter.RelatedProductAdapter
 import com.ab.hicareservices.ui.handler.OnRelatedProductClick
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -168,11 +169,13 @@ class ProductDetailActivity : AppCompatActivity() {
             this@ProductDetailActivity,
             Observer {
                 if (it.IsSuccess == true) {
-                    Toast.makeText(
-                        this@ProductDetailActivity,
-                        "Thank You! For Notifying Us",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@ProductDetailActivity,
+//                        "Thank You! For Notifying Us",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    DesignToast.makeText(this, "Thank You! For Notifying Us", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
                 }
             })
 
@@ -224,15 +227,19 @@ class ProductDetailActivity : AppCompatActivity() {
                     viewProductModel.addtocart.observe(this, Observer {
                         if (it.IsSuccess == true) {
                             getSummarydata()
-                            Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
+                            DesignToast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
 
 //                            binding.tvAddToCart.text = "Goto Cart"
                         } else {
-                            Toast.makeText(
-                                this,
-                                "Something went wrong! Unable to add product into cart",
-                                Toast.LENGTH_SHORT
-                            ).show()
+//                            Toast.makeText(
+//                                this,
+//                                "Something went wrong! Unable to add product into cart",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+                            DesignToast.makeText(this, "Something went wrong! Unable to add product into cart", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
 
                         }
                     })

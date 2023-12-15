@@ -23,6 +23,7 @@ import com.ab.hicareservices.ui.adapter.OrderSummeryAdapter
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class OrderSummeryFragment : Fragment() {
 
@@ -70,6 +71,9 @@ class OrderSummeryFragment : Fragment() {
     private fun getProductsSummerylist() {
 
         progressDialog.show()
+
+        DesignToast.makeText(requireContext(), "Please wait while we load your list.This might take upto 30 seconds.", Toast.LENGTH_LONG,
+            DesignToast.TYPE_SUCCESS).show()
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mAdapter = OrderSummeryAdapter()

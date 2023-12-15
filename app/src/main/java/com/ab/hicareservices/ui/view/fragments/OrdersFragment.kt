@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -27,6 +28,7 @@ import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.utils.DesignToast
 import org.json.JSONObject
 
 class OrdersFragment() : Fragment() {
@@ -92,7 +94,7 @@ class OrdersFragment() : Fragment() {
 
             getOrdersList(progressDialog,"No Active Orders")
 
-        }, 2000)
+        }, 500)
 
         if (isfromMenu){
             binding.headerView.visibility=View.VISIBLE
@@ -206,6 +208,7 @@ class OrdersFragment() : Fragment() {
     private fun getOrdersList(progressDialog: ProgressDialog, s: String) {
         binding.textnotfound.visibility = View.GONE
         progressDialog.show()
+
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

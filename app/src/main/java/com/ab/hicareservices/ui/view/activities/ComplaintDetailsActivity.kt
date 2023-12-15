@@ -111,8 +111,10 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         binding.txtcomplainttype.text = complainttype
         binding.txtServicePlan.text = serviceplan
         binding.txtSubject.text = subject
-        if(description==null){
-            binding.txtDescription.text="-"
+        if(description==null) {
+            binding.txtDescription.text = "-"
+        }else{
+            binding.txtDescription.text=description
         }
 
         if (status == "Open") {

@@ -22,6 +22,7 @@ import com.ab.hicareservices.ui.adapter.OrdersAdapter
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 
 class MyOrderActivity : AppCompatActivity() {
@@ -174,11 +175,8 @@ class MyOrderActivity : AppCompatActivity() {
         viewModel.ordersList.observe(this, Observer {
 
             if (it != null) {
-                Toast.makeText(
-                    this,
-                    "Please wait while we load your list.This might take upto 30 seconds.",
-                    Toast.LENGTH_LONG
-                ).show()
+
+
                 if (it.isNotEmpty()) {
                     binding.textnotfound.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE

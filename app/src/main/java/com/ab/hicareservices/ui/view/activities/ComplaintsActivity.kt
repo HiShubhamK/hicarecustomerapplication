@@ -18,6 +18,7 @@ import com.ab.hicareservices.ui.adapter.ComplaintsAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class ComplaintsActivity : AppCompatActivity() {
     private val TAG = "ComplaintsActivity"
@@ -47,12 +48,15 @@ class ComplaintsActivity : AppCompatActivity() {
         imageList = ArrayList()
         Handler(Looper.getMainLooper()).postDelayed({
             getAllComplaints(progressDialog)
-        }, 1500)
+
+        }, 500)
     }
 
     private fun getAllComplaints(progressDialog: ProgressDialog) {
         try {
             progressDialog.show()
+            DesignToast.makeText(this, "Please wait while loading complaints it will take upto 30 seconds", Toast.LENGTH_SHORT,DesignToast.TYPE_ERROR).show();
+
 
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
             mAdapter = ComplaintsAdapter(this)

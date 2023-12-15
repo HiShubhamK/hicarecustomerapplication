@@ -26,6 +26,7 @@ import com.ab.hicareservices.ui.adapter.BookingServiceBhklistAdapter
 import com.ab.hicareservices.ui.handler.OnBookingFlatPerPrice
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.SharedPreferencesManager
 import com.ab.hicareservices.utils.UserData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -266,15 +267,18 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     button.isEnabled = false
                     button.alpha = 0.6f
 
-                    if(AppUtils2.checkerrormessage==true){
+                    if (AppUtils2.checkerrormessage == true) {
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(
-                                activity!!,
-                                "Sorry, slots are not available as the area selected is not serviceable.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+//
                             lastClickTime = currentTime
+
+                            DesignToast.makeText(
+                                requireContext(),
+                                "Sorry, slots are not available as the area selected is not serviceable.",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_SUCCESS
+                            ).show()
                         }
                     }
 
