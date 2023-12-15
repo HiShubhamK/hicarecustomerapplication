@@ -1,13 +1,12 @@
 package com.ab.hicareservices.ui.viewmodel
 
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.AddOrderAsyncResponse
-import com.ab.hicareservices.data.model.AddOrderAsyncResponseData
 import com.ab.hicareservices.data.model.GetServicePincodeDetailResponse
-import com.ab.hicareservices.data.model.SaveSalesResponse
-import com.ab.hicareservices.data.model.dashboard.DashboardMainData
 import com.ab.hicareservices.data.model.product.SaveAddressResponse
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincode
 import com.ab.hicareservices.data.model.servicesmodule.BHKandPincodeData
@@ -23,6 +22,7 @@ import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponse
 import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.data.model.servicesmodule.ValidateServiceVoucherResponse
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.ui.view.activities.BookingServiceCheckout
 import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
@@ -108,7 +108,8 @@ class ServiceBooking : ViewModel() {
         pincode: String,
         noofbhk: String,
         services: String,
-        planid: Int
+        planid: Int,
+        activity: FragmentActivity
     ) {
         val response = repository.getPlanAndPriceByBHKandPincode(pincode, noofbhk, services, planid)
         response.enqueue(object : Callback<BHKandPincode> {
@@ -117,13 +118,14 @@ class ServiceBooking : ViewModel() {
                     if (response.body()!!.Data.isNotEmpty()) {
                         activebhkpincode.postValue(response.body()!!.Data)
                     }else if(response.body()!!.Data.isEmpty()){
-                        Log.d("Wrongcalling","Failed")
+//                        Log.d("Wrongcalling","Failed")
                         AppUtils2.checkerrormessage=true
                         errorMessagess.postValue("Please Check Internet Connection.")
                     }
                 } else {
                     Log.d("Wrongcallingapi","Failed")
                     AppUtils2.checkerrormessage=true
+                    SharedPreferenceUtil.setData(activity, "checkerrormessage", true)
                     errorMessagess.postValue(response.body()?.ResponseMessage!!)
                 }
             }
@@ -212,7 +214,12 @@ class ServiceBooking : ViewModel() {
         })
     }
 
-    fun PostVoucherValidationcode(vouchercode: String, planId: Int, serviceprice: Float) {
+    fun PostVoucherValidationcode(
+        vouchercode: String,
+        planId: Int,
+        serviceprice: Float,
+        bookingServiceCheckout: BookingServiceCheckout
+    ) {
         val response = repository.postvalidateServiceVoucher(vouchercode, planId, serviceprice)
         response.enqueue(object : Callback<ValidateServiceVoucherResponse> {
             override fun onResponse(

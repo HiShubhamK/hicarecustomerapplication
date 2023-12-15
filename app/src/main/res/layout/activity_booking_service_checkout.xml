@@ -426,6 +426,7 @@
                                         android:background="@null"
                                         android:fontFamily="@font/lato_regular"
                                         android:gravity="start"
+                                        android:singleLine="true"
                                         android:hint="Enter coupon code"
                                         android:padding="5dp"
                                         android:textColor="@color/black"

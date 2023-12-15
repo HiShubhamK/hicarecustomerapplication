@@ -3,7 +3,6 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -15,6 +14,7 @@ import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class BookingServiceCheckout : AppCompatActivity() {
 
@@ -24,6 +24,7 @@ class BookingServiceCheckout : AppCompatActivity() {
     private val viewProductModel: ServiceBooking by viewModels()
     var voucherdiscount = ""
     var finalamount = ""
+    var checkappliedcoupon=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,8 +184,8 @@ class BookingServiceCheckout : AppCompatActivity() {
         }
 
         binding.coupunname.setOnClickListener {
-            if (binding.coupunname.text.toString().equals("Remove Coupon")) {
-                binding.coupunname.text = "Apply Coupon"
+            if (binding.coupunname.text.toString().equals("Remove")) {
+                binding.coupunname.text = "Apply"
                 binding.txtcoupon.setText("")
                 binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
                 binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
@@ -194,13 +195,18 @@ class BookingServiceCheckout : AppCompatActivity() {
 
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+
+
+                    DesignToast.makeText(this, "Please enter valid coupon", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
+
                 } else {
                     viewProductModel.validatevoucher.observe(this, Observer {
 
                         if (it.IsSuccess == true) {
                             binding.coupunname.text = "Remove"
-
+                            checkappliedcoupon=true
                             voucherdiscount = it.Data?.VoucherDiscount.toString()
                             finalamount = it.Data?.FinalAmount.toString()
                             SharedPreferenceUtil.setData(
@@ -208,22 +214,34 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 "VoucherDiscount",
                                 it.Data?.VoucherDiscountInPercentage.toString()
                             )
-                            Toast.makeText(
-                                this@BookingServiceCheckout,
-                                "Coupon Applied Successfully.",
-                                Toast.LENGTH_LONG
-                            ).show()
+
+                            if(checkappliedcoupon==true) {
+                                checkappliedcoupon=false
+//                                Toast.makeText(
+//                                    this@BookingServiceCheckout,
+//                                    "Coupon code applied successfully!",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+
+                                DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+
+
+                            }
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "\u20B9" + voucherdiscount
 
                         } else {
-                            Toast.makeText(
-                                this@BookingServiceCheckout,
-                                "Invalid Coupon code",
-                                Toast.LENGTH_LONG
-                            ).show()
+//                            Toast.makeText(
+//                                this@BookingServiceCheckout,
+//                                "Invalid Coupon code",
+//                                Toast.LENGTH_LONG
+//                            ).show()
+
+                            DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
                         }
+
                     })
 
                     viewProductModel.PostVoucherValidationcode(
@@ -233,7 +251,8 @@ class BookingServiceCheckout : AppCompatActivity() {
                             "Plan_Id",
                             0
                         ) as Int,
-                        AppUtils2.bookingdiscountedprice.toFloat()
+                        AppUtils2.bookingdiscountedprice.toFloat(),
+                        this@BookingServiceCheckout
                     )
                 }
             }

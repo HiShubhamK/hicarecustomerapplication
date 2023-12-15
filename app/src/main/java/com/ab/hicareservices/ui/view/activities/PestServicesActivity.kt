@@ -21,6 +21,7 @@ import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingServiceListAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.SharedPreferencesManager
 import com.ab.hicareservices.utils.UserData
 
@@ -89,18 +90,27 @@ class PestServicesActivity : AppCompatActivity() {
             AppUtils2.pincode = binding.getpincodetext.text.toString()
 
             if (binding.getpincodetext.text.length == 0) {
-                Toast.makeText(
-                    this@PestServicesActivity,
-                    "Please enter your pincode",
-                    Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    this@PestServicesActivity,
+//                    "Please enter your pincode",
+//                    Toast.LENGTH_LONG
+//                ).show()
+
+
+                DesignToast.makeText(this, "Please enter your pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+
 
             }else if(binding.getpincodetext.text.length != 6){
-                Toast.makeText(
-                    this@PestServicesActivity,
-                    "Please enter valid pincode",
-                    Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    this@PestServicesActivity,
+//                    "Please enter valid pincode",
+//                    Toast.LENGTH_LONG
+//                ).show()
+
+                DesignToast.makeText(this, "Please enter valid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+
             } else {
 
                 progressDialog.show()
