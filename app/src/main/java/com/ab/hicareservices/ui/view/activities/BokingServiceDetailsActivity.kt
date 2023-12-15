@@ -74,11 +74,12 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         progressDialog.show()
 
         AppUtils2.pincode =
-            SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "")
+            SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "pincode", "400080")
                 .toString()
 
         if (AppUtils2.pincode.equals("")) {
             binding.getpincodetext.setText("400080")
+            AppUtils2.pincode="400080"
         } else {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }

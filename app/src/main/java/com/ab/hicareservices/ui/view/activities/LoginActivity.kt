@@ -58,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
                 if (data != null) {
                     val credential: Credential? = data.getParcelableExtra(Credential.EXTRA_KEY)
                     val phoneNumber: String? = credential?.id
-//                    Toast.makeText(this@LoginActivity, phoneNumber, Toast.LENGTH_LONG).show()
                     binding.mobileNoEt.setText(phoneNumber!!.substring(3,13))
                     val mobileNo = binding.mobileNoEt.text.toString()
                     Log.d("Logincheckmobileno",mobileNo)
@@ -464,7 +463,6 @@ class LoginActivity : AppCompatActivity() {
 //        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
 //        return activeNetwork?.isConnected == true
 //    }
-
 
 }
 

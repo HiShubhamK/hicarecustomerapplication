@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -210,7 +209,6 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                         bhkandpincodedata[i].ServicePlanName.toString()
                                     )
 
-
                                     userData.DiscountValue =
                                         bhkandpincodedata.get(i).DiscountedPrice.toString()
                                     userData.MRP = bhkandpincodedata.get(i).Price.toString()
@@ -248,14 +246,16 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         button.isEnabled = false
                         button.alpha = 0.6f
 
-                        val currentTime = System.currentTimeMillis()
-                        if (currentTime - lastClickTime > clickTimeThreshold) {
-                            Toast.makeText(
-                                activity!!,
-                                "Sorry, slots are not available as the area selected is not serviceable.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            lastClickTime = currentTime
+                        if (AppUtils2.checkerrormessage == true) {
+                            val currentTime = System.currentTimeMillis()
+                            if (currentTime - lastClickTime > clickTimeThreshold) {
+                                Toast.makeText(
+                                    activity!!,
+                                    "Sorry, slots are not available as the area selected is not serviceable.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                lastClickTime = currentTime
+                            }
                         }
                     }
                 })
@@ -265,10 +265,16 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     lnrprice.visibility = View.INVISIBLE
                     button.isEnabled = false
                     button.alpha = 0.6f
+//
+//                    Toast.makeText(activity,AppUtils2.checkerrormessage.toString(),Toast.LENGTH_SHORT).show()
 
-                    if(AppUtils2.checkerrormessage==true){
+                    AppUtils2.checkerrormessage=SharedPreferenceUtil.getData(activity!!, "checkerrormessage", false) as Boolean
+
+                    if (AppUtils2.checkerrormessage == true) {
+                        AppUtils2.checkerrormessage = false
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
+                            SharedPreferenceUtil.setData(activity!!, "checkerrormessage", false)
                             Toast.makeText(
                                 activity!!,
                                 "Sorry, slots are not available as the area selected is not serviceable.",
@@ -284,7 +290,8 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                     AppUtils2.pincode,
                     noofbhk.toString(),
                     AppUtils2.servicecode,
-                    planid.toInt()
+                    planid.toInt(),
+                    activity!!
                 )
             }
         })

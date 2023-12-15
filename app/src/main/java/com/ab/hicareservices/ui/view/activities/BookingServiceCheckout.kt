@@ -3,7 +3,6 @@ package com.ab.hicareservices.ui.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -24,6 +23,7 @@ class BookingServiceCheckout : AppCompatActivity() {
     private val viewProductModel: ServiceBooking by viewModels()
     var voucherdiscount = ""
     var finalamount = ""
+    var checkappliedcoupon=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,8 +183,8 @@ class BookingServiceCheckout : AppCompatActivity() {
         }
 
         binding.coupunname.setOnClickListener {
-            if (binding.coupunname.text.toString().equals("Remove Coupon")) {
-                binding.coupunname.text = "Apply Coupon"
+            if (binding.coupunname.text.toString().equals("Remove")) {
+                binding.coupunname.text = "Apply"
                 binding.txtcoupon.setText("")
                 binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
                 binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
@@ -200,7 +200,7 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                         if (it.IsSuccess == true) {
                             binding.coupunname.text = "Remove"
-
+                            checkappliedcoupon=true
                             voucherdiscount = it.Data?.VoucherDiscount.toString()
                             finalamount = it.Data?.FinalAmount.toString()
                             SharedPreferenceUtil.setData(
@@ -208,11 +208,15 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 "VoucherDiscount",
                                 it.Data?.VoucherDiscountInPercentage.toString()
                             )
-                            Toast.makeText(
-                                this@BookingServiceCheckout,
-                                "Coupon Applied Successfully.",
-                                Toast.LENGTH_LONG
-                            ).show()
+
+                            if(checkappliedcoupon==true) {
+                                checkappliedcoupon=false
+                                Toast.makeText(
+                                    this@BookingServiceCheckout,
+                                    "Coupon Applied Successfully.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "\u20B9" + voucherdiscount
@@ -233,7 +237,8 @@ class BookingServiceCheckout : AppCompatActivity() {
                             "Plan_Id",
                             0
                         ) as Int,
-                        AppUtils2.bookingdiscountedprice.toFloat()
+                        AppUtils2.bookingdiscountedprice.toFloat(),
+                        this@BookingServiceCheckout
                     )
                 }
             }
