@@ -23,6 +23,7 @@ import com.ab.hicareservices.ui.adapter.ServiceAddressAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class ServicesAddresslistActivity : AppCompatActivity() {
 
@@ -208,11 +209,13 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                             } else {
                                 val currentTime = System.currentTimeMillis()
                                 if (currentTime - lastClickTime > clickTimeThreshold) {
-                                    Toast.makeText(
-                                        this@ServicesAddresslistActivity,
-                                        "Sorry, this area is not serviceable. Please try a different pincode",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+//                                    Toast.makeText(
+//                                        this@ServicesAddresslistActivity,
+//                                        "Sorry, this area is not serviceable. Please try a different pincode",
+//                                        Toast.LENGTH_LONG
+//                                    ).show()
+                                    DesignToast.makeText(this@ServicesAddresslistActivity, "Sorry, this area is not serviceable. Please try a different pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                                     lastClickTime = currentTime
                                 }
                             }

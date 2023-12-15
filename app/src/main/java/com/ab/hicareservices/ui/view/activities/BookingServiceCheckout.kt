@@ -14,6 +14,7 @@ import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class BookingServiceCheckout : AppCompatActivity() {
 
@@ -194,7 +195,12 @@ class BookingServiceCheckout : AppCompatActivity() {
 
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+
+
+                    DesignToast.makeText(this, "Please enter valid coupon", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
+
                 } else {
                     viewProductModel.validatevoucher.observe(this, Observer {
 
@@ -211,23 +217,31 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                             if(checkappliedcoupon==true) {
                                 checkappliedcoupon=false
-                                Toast.makeText(
-                                    this@BookingServiceCheckout,
-                                    "Coupon Applied Successfully.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+//                                Toast.makeText(
+//                                    this@BookingServiceCheckout,
+//                                    "Coupon code applied successfully!",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+
+                                DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+
+
                             }
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "\u20B9" + voucherdiscount
 
                         } else {
-                            Toast.makeText(
-                                this@BookingServiceCheckout,
-                                "Invalid Coupon code",
-                                Toast.LENGTH_LONG
-                            ).show()
+//                            Toast.makeText(
+//                                this@BookingServiceCheckout,
+//                                "Invalid Coupon code",
+//                                Toast.LENGTH_LONG
+//                            ).show()
+
+                            DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
                         }
+
                     })
 
                     viewProductModel.PostVoucherValidationcode(

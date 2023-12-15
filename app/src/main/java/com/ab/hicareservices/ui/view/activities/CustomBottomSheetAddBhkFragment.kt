@@ -25,6 +25,7 @@ import com.ab.hicareservices.ui.adapter.BookingServiceBhklistAdapter
 import com.ab.hicareservices.ui.handler.OnBookingFlatPerPrice
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.SharedPreferencesManager
 import com.ab.hicareservices.utils.UserData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -249,11 +250,19 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                         if (AppUtils2.checkerrormessage == true) {
                             val currentTime = System.currentTimeMillis()
                             if (currentTime - lastClickTime > clickTimeThreshold) {
-                                Toast.makeText(
-                                    activity!!,
-                                    "Sorry, slots are not available as the area selected is not serviceable.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+//                                Toast.makeText(
+//                                    activity!!,
+//                                    "Sorry, slots are not available as the area selected is not serviceable.",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+
+                                DesignToast.makeText(
+                                    activity,
+                                    "Sorry , this area is not serviceable. Please try a different pincode.",
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_ERROR
+                                ).show();
+
                                 lastClickTime = currentTime
                             }
                         }
@@ -268,18 +277,31 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 //
 //                    Toast.makeText(activity,AppUtils2.checkerrormessage.toString(),Toast.LENGTH_SHORT).show()
 
-                    AppUtils2.checkerrormessage=SharedPreferenceUtil.getData(activity!!, "checkerrormessage", false) as Boolean
+                    AppUtils2.checkerrormessage = SharedPreferenceUtil.getData(
+                        activity!!,
+                        "checkerrormessage",
+                        false
+                    ) as Boolean
 
                     if (AppUtils2.checkerrormessage == true) {
                         AppUtils2.checkerrormessage = false
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - lastClickTime > clickTimeThreshold) {
                             SharedPreferenceUtil.setData(activity!!, "checkerrormessage", false)
-                            Toast.makeText(
-                                activity!!,
-                                "Sorry, slots are not available as the area selected is not serviceable.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+//                            Toast.makeText(
+//                                activity!!,
+//                                "Sorry, slots are not available as the area selected is not serviceable.",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+
+                            DesignToast.makeText(
+                                activity,
+                                "Sorry , this area is not serviceable. Please try a different pincode.",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show();
+
+
                             lastClickTime = currentTime
                         }
                     }

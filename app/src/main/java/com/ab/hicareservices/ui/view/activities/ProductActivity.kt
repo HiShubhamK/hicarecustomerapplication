@@ -157,7 +157,7 @@ class ProductActivity : AppCompatActivity() {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
                 Toast.makeText(this@ProductActivity, "Please enter valid pincode", Toast.LENGTH_LONG).show()
             } else if(binding.getpincodetext.text.toString().trim().length<6){
-                Toast.makeText(this@ProductActivity, "Invalid pincode", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@ProductActivity, "Please enter valid pincode", Toast.LENGTH_LONG).show()
             }else{
                 AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
                 SharedPreferenceUtil.setData(
