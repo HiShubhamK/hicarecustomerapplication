@@ -18,6 +18,7 @@ import com.ab.hicareservices.databinding.ActivityPaymentBinding
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.razorpay.*
 import org.json.JSONObject
 import java.util.*
@@ -56,7 +57,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     var pincode = ""
     var totaldiscount = ""
     var actualvalue = ""
-    var razorpayorderid=""
+    var razorpayorderid = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +81,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         for (i in 0 until datalist.size) {
             homeproduct.add(
-                HomeProduct(datalist.get(i).ProductId,
+                HomeProduct(
+                    datalist.get(i).ProductId,
                     datalist.get(i).ProductName,
                     datalist.get(i).ProductCode,
                     datalist.get(i).ProductDisplayName,
@@ -92,7 +94,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     0.0,
                     datalist.get(i).ProductWeight?.toDouble(),
                     datalist.get(i).Quantity,
-                    0.0f)
+                    0.0f
+                )
             )
         }
 
@@ -101,32 +104,18 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         service = intent.getStringExtra("SERVICETYPE_NO").toString()
         serviceType = intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
-        stdvalues = intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
+        stdvalues =
+            intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
 
         product = intent.getBooleanExtra("Product", false)
 
         Checkout.sdkCheckIntegration(this)
 
-        if(product==true){
+        if (product == true) {
 
             getSummarydata()
 //
 //            Handler(Looper.getMainLooper()).postDelayed({
-
-                viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
-
-                    if (it.IsSuccess == true) {
-                        razorpayorderid = it.Data.toString()
-                        AppUtils2.razorpayorderid = it.Data.toString()
-                    } else {
-
-                    }
-
-                })
-
-                viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
-//            },1000)
-        }else{
 
             viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
 
@@ -139,7 +128,22 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             })
 
-            viewProductModel.CreateRazorpayOrderId(payment.toDouble(),12342)
+            viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
+//            },1000)
+        } else {
+
+            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+
+                if (it.IsSuccess == true) {
+                    razorpayorderid = it.Data.toString()
+                    AppUtils2.razorpayorderid = it.Data.toString()
+                } else {
+
+                }
+
+            })
+
+            viewProductModel.CreateRazorpayOrderId(payment.toDouble(), 12342)
         }
 
 
@@ -155,20 +159,26 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 AppUtils2.productamount
             )
 
-            Log.d("OptionTag",options.toString())
+            Log.d("OptionTag", options.toString())
 
 
             try {
                 Checkout.preload(applicationContext)
-                val activity:PaymentActivity = this
+                val activity: PaymentActivity = this
                 val co = Checkout()
 //                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
                 co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
 
                 co.open(this, options)
-            }
-            catch (e: Exception){
-                Toast.makeText(this,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
+
+                DesignToast.makeText(
+                    this@PaymentActivity,
+                    "Error in payment: " + e.message,
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
                 e.printStackTrace()
             }
 
@@ -220,8 +230,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             AppUtils2.locality = it.Locality.toString()
             AppUtils2.landmark = it.Landmark.toString()
             AppUtils2.pincodelast = it.Pincode.toString()
-            AppUtils2.city=it.City.toString()
-            AppUtils2.state=it.State.toString()
+            AppUtils2.city = it.City.toString()
+            AppUtils2.state = it.State.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata?.toInt())
     }
@@ -233,7 +243,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", "Product | Customer Mobile App")
-        options.put("order_id", AppUtils2.razorpayorderid )
+        options.put("order_id", AppUtils2.razorpayorderid)
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
@@ -245,10 +255,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 //        prefill.put("email","akshay.tabib@hicare.in")
 //        prefill.put("contact","7738753827")
 
-        prefill.put("email",AppUtils2.customeremail)
-        prefill.put("contact",AppUtils2.mobileno)
+        prefill.put("email", AppUtils2.customeremail)
+        prefill.put("contact", AppUtils2.mobileno)
 
-        options.put("prefill",prefill)
+        options.put("prefill", prefill)
 //        options.put("prefill.contact", AppUtils2.mobileno)
 //        options.put("prefill.email", AppUtils2.email)
         return options
@@ -299,10 +309,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("notes", notes)
         options.put("order_id", AppUtils2.razorpayorderid)
         val prefill = JSONObject()
-        prefill.put("email",AppUtils2.customeremail)
-        prefill.put("contact",AppUtils2.mobileno)
+        prefill.put("email", AppUtils2.customeremail)
+        prefill.put("contact", AppUtils2.mobileno)
 
-        options.put("prefill",prefill)
+        options.put("prefill", prefill)
 
         return options
     }
@@ -311,22 +321,33 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
 
-        Log.d("Paymenttag",response!!.paymentId+" "+response.signature+" "+response.signature)
+        Log.d(
+            "Paymenttag",
+            response!!.paymentId + " " + response.signature + " " + response.signature
+        )
 
         if (product == true) {
 
             try {
                 viewProductModel.paymentsuceess.observe(this, Observer {
-                    if(it.IsSuccess==true){
+                    if (it.IsSuccess == true) {
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
                         SharedPreferenceUtil.setData(this, "Shippingdata", "")
                         SharedPreferenceUtil.setData(this, "Billingdata", "")
-                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
-                        SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
+//                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
+
+                        DesignToast.makeText(
+                            this@PaymentActivity,
+                            "Payment Successfully Done",
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_SUCCESS
+                        ).show()
+
+                        SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback", "true")
                         getClearchache()
-                        val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
+                        val intent = Intent(this@PaymentActivity, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
                         binding.imgOffer.visibility = View.GONE
@@ -345,7 +366,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Pincode"] = AppUtils2.pincode
                 data["CartAmount"] = AppUtils2.actualvalue.toDouble()
                 data["PayableAmount"] = AppUtils2.productamount.toDouble()
-                data["DiscountAmount"] = AppUtils2.totaldiscount.toDouble()+AppUtils2.voucherdiscount.toDouble()
+                data["DiscountAmount"] =
+                    AppUtils2.totaldiscount.toDouble() + AppUtils2.voucherdiscount.toDouble()
                 data["DelieveryCharges"] = 0.0
                 data["InstallationCharges"] = 0.0
                 data["VoucherCode"] = AppUtils2.vouchercode
@@ -366,7 +388,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                 viewProductModel.postSaveSalesOrder(data)
 
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -381,9 +403,17 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     binding.imgOffererror.visibility = View.GONE
 //                    SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback","true")
                     getClearchache()
+//
+//                    Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
 
-                    Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
-                    val intent=Intent(this@PaymentActivity,HomeActivity::class.java)
+                    DesignToast.makeText(
+                        this@PaymentActivity,
+                        "Payment Successfully Done",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_SUCCESS
+                    ).show()
+
+                    val intent = Intent(this@PaymentActivity, HomeActivity::class.java)
                     startActivity(intent)
                 } else {
 

@@ -20,6 +20,7 @@ import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.view.activities.AddToCartActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import okhttp3.internal.notify
@@ -108,7 +109,13 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
             progressDialog.setCancelable(false)
             counts = counts + 1
             if (counts > 1) {
-                Toast.makeText(requireActivity, "Product Added to Cart", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireActivity, "Product Added to Cart", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    requireActivity,
+                    "Product Added to Cart",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_SUCCESS
+                ).show()
                 holder.binding.textcount.text = counts.toString()
                 holder.binding.imgremove.isEnabled = true
                 holder.binding.imgremove.isClickable = true
@@ -151,8 +158,14 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MainViewHolder>() {
                 holder.binding.imgremove.isEnabled = false
                 progressDialog.dismiss()
             } else if (counts > 1) {
-                Toast.makeText(requireActivity, "Product Removed from Cart", Toast.LENGTH_SHORT)
-                    .show()
+//                Toast.makeText(requireActivity, "Product Removed from Cart", Toast.LENGTH_SHORT)
+//                    .show()
+                DesignToast.makeText(
+                    requireActivity,
+                    "Product Removed from Cart",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
                 counts = counts - 1
                 holder.binding.textcount.text = counts.toString()
                 onCartClickedHandler!!.setonaddclicklistener(

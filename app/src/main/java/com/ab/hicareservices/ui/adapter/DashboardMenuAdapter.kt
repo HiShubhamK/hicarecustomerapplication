@@ -13,6 +13,7 @@ import com.ab.hicareservices.data.model.servicesmodule.ServiceListResponseData
 import com.ab.hicareservices.databinding.DashboardMenuAdapterBinding
 import com.ab.hicareservices.ui.view.activities.*
 import com.ab.hicareservices.ui.view.fragments.SupportFragments
+import com.ab.hicareservices.utils.DesignToast
 import com.squareup.picasso.Picasso
 
 class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
@@ -121,7 +122,13 @@ class DashboardMenuAdapter(private val fragmentActivity: FragmentActivity?) :
                     intent.putExtra("PageLink", service.PageLink)
                     fragmentActivity!!.startActivity(intent)
                 } else {
-                    Toast.makeText(fragmentActivity, "Coming Soon!", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(fragmentActivity, "Coming Soon!", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(
+                        fragmentActivity,
+                        "Coming Soon!",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
                 }
             }
 

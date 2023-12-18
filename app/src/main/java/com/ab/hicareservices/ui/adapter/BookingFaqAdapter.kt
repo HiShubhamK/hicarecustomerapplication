@@ -18,14 +18,11 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
     var productDetails = mutableListOf<FaqList>()
     lateinit var productDetailActivity: FragmentActivity
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val binding = LayoutFaqBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
-
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
 

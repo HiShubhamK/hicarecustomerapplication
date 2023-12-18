@@ -17,6 +17,7 @@ import com.ab.hicareservices.databinding.ActivityOverviewProductDetailsBinding
 import com.ab.hicareservices.ui.adapter.OverviewDetailAdapter
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.location.*
 import kotlin.collections.ArrayList
 
@@ -96,7 +97,14 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                 getSummarydata("")
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Please enter valid coupon",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+
                 } else {
 
                     viewProductModel.validateVoucherResponse.observe(this, Observer {
@@ -104,11 +112,19 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                             if (it.Data.toString() != null) {
                                 binding.coupunname.text = "Remove Coupon"
                                 getSummarydata(binding.txtcoupon.text.toString())
-                                Toast.makeText(
+//                                Toast.makeText(
+//                                    this,
+//                                    "Applied coupon successfully",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+
+                                DesignToast.makeText(
                                     this,
                                     "Applied coupon successfully",
-                                    Toast.LENGTH_LONG
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_SUCCESS
                                 ).show()
+
                             } else {
                                 ShowCustomeDialog()
 //                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
