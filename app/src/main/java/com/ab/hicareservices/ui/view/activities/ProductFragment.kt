@@ -41,6 +41,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 import java.text.SimpleDateFormat
 import java.util.Date
 
+
 class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
@@ -199,17 +200,13 @@ class ProductFragment : Fragment() {
 
         binding.imgsearch.setOnClickListener {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
+                DesignToast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
 //                Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG).show()
-
-                DesignToast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-
-
             } else if(binding.getpincodetext.text.toString().trim().length<6){
-  //              Toast.makeText(requireActivity(), "Please enter valid pincode", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
-                DesignToast.makeText(requireActivity(), "Please enter valid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-
-
+//                Toast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_LONG).show()
             }else{
                 AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
                 SharedPreferenceUtil.setData(
@@ -320,9 +317,9 @@ class ProductFragment : Fragment() {
             viewProductModel.responseMessage.observe(requireActivity(), Observer {
                 progressDialog.dismiss()
                 binding.recycleviewproduct.visibility = View.GONE
-//                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
-                DesignToast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                DesignToast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
+//                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
             })
                 viewProductModel.getProductlist(pincode)
 
@@ -347,17 +344,9 @@ class ProductFragment : Fragment() {
 //                                "Something went wrong! Unable to add product into cart",
 //                                Toast.LENGTH_SHORT
 //                            ).show()
-//                        }
+                            DesignToast.makeText(requireActivity(), "Something went wrong! Unable to add product into cart", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
-                            DesignToast.makeText(
-                                requireActivity(),
-                                "Something went wrong! Unable to add product into cart",
-                                Toast.LENGTH_SHORT,
-                                DesignToast.TYPE_ERROR
-                            ).show()
                         }
-
-
                     })
 
 
@@ -415,19 +404,11 @@ class ProductFragment : Fragment() {
         binding.recycleviewproduct.adapter = mAdapter
         viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
             if (it.IsSuccess == true) {
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "Thank You! For Notifying Us",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-
-                DesignToast.makeText(
+                Toast.makeText(
                     requireActivity(),
                     "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_SUCCESS
+                    Toast.LENGTH_SHORT
                 ).show()
-
             }
         })
 
@@ -454,12 +435,8 @@ class ProductFragment : Fragment() {
             progressDialog.dismiss()
             binding.recycleviewproduct.visibility = View.GONE
 //            Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
-            DesignToast.makeText(
-                requireActivity(),
-                "Invalid Pincode",
-                Toast.LENGTH_SHORT,
-                DesignToast.TYPE_SUCCESS
-            ).show()
+            DesignToast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
 
         })
         viewProductModel.getProductlist(pincode)
@@ -485,13 +462,7 @@ class ProductFragment : Fragment() {
 //                            Toast.LENGTH_SHORT
 //                        ).show()
 
-                        DesignToast.makeText(
-                            requireActivity(),
-                            "Something went wrong! Unable to add product into cart",
-                            Toast.LENGTH_SHORT,
-                            DesignToast.TYPE_SUCCESS
-                        ).show()
-
+                        DesignToast.makeText(requireActivity(), "Something went wrong! Unable to add product into cart", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
                     }
                 })
@@ -542,14 +513,8 @@ class ProductFragment : Fragment() {
 //                            "Thank You! For Notifying Us",
 //                            Toast.LENGTH_SHORT
 //                        ).show()
+                        DesignToast.makeText(requireActivity(), "Thank You! For Notifying Us", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
 
-
-                        DesignToast.makeText(
-                            requireActivity(),
-                            "Thank You! For Notifying Us",
-                            Toast.LENGTH_SHORT,
-                            DesignToast.TYPE_SUCCESS
-                        ).show()
                     }
                 })
 //                {

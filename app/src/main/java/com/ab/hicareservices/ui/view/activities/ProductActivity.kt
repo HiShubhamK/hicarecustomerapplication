@@ -31,6 +31,7 @@ import com.ab.hicareservices.ui.adapter.ProductAdapter
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
@@ -155,9 +156,13 @@ class ProductActivity : AppCompatActivity() {
 
         binding.imgsearch.setOnClickListener {
             if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
-                Toast.makeText(this@ProductActivity, "Please enter valid pincode", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Please enter your pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this@ProductActivity, "Please enter your pincode", Toast.LENGTH_LONG).show()
             } else if(binding.getpincodetext.text.toString().trim().length<6){
-                Toast.makeText(this@ProductActivity, "Please enter valid pincode", Toast.LENGTH_LONG).show()
+//                Toast.makeText(this@ProductActivity, "Invalid pincode", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this, "Invalid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
             }else{
                 AppUtils2.pincode = binding.getpincodetext.text.trim().toString()
                 SharedPreferenceUtil.setData(
@@ -248,11 +253,13 @@ class ProductActivity : AppCompatActivity() {
         binding.recycleviewproduct.adapter = mAdapter
         viewProductModel.CreateEventNotificationResponse.observe(this@ProductActivity, Observer {
             if (it.IsSuccess == true) {
-                Toast.makeText(
-                    this@ProductActivity,
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this@ProductActivity,
+//                    "Thank You! For Notifying Us",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                DesignToast.makeText(this, "Thank You! For Notifying Us", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
             }
         })
 
@@ -286,7 +293,9 @@ class ProductActivity : AppCompatActivity() {
         viewProductModel.responseMessage.observe(this@ProductActivity, Observer {
             progressDialog.dismiss()
             binding.recycleviewproduct.visibility = View.GONE
-            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
+            DesignToast.makeText(this, "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
         })
         viewProductModel.getProductlist(pincode)
 
@@ -305,11 +314,13 @@ class ProductActivity : AppCompatActivity() {
                     if (it.IsSuccess == true) {
                         getproductcount()
                     } else {
-                        Toast.makeText(
-                            this@ProductActivity,
-                            "Something went wrong! Unable to add product into cart",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@ProductActivity,
+//                            "Something went wrong! Unable to add product into cart",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                        DesignToast.makeText(this@ProductActivity, "Something went wrong! Unable to add product into cart", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     }
                 })
 
@@ -396,7 +407,9 @@ class ProductActivity : AppCompatActivity() {
             viewProductModel.responseMessage.observe(this@ProductActivity,Observer {
                 progressDialog.dismiss()
                 binding.recycleviewproduct.visibility = View.GONE
-                Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
             })
             viewProductModel.getProductlist(pincode)
 
@@ -415,11 +428,13 @@ class ProductActivity : AppCompatActivity() {
                     if (it.IsSuccess == true) {
                         getproductcount()
                     } else {
-                        Toast.makeText(
-                            this@ProductActivity,
-                            "Something went wrong! Unable to add product into cart",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@ProductActivity,
+//                            "Something went wrong! Unable to add product into cart",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                        DesignToast.makeText(this@ProductActivity, "Something went wrong! Unable to add product into cart", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     }
                 })
 

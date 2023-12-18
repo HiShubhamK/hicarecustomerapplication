@@ -25,6 +25,7 @@ import com.ab.hicareservices.ui.view.fragments.ProductComplaintsFragment
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import org.json.JSONObject
 import kotlin.collections.ArrayList
 
@@ -154,7 +155,8 @@ class ComplaintsActivityNew : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-
+        DesignToast.makeText(this, "Please wait while we load your list.This might take upto 30 seconds.", Toast.LENGTH_LONG,
+            DesignToast.TYPE_SUCCESS).show()
         val orderfragment = ProductComplaintsFragment()
         val extraList = ProductComplaintsFragment()
         val adapter = ProductViewPagerAdapter(supportFragmentManager)
