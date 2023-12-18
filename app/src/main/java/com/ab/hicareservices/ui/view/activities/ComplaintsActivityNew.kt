@@ -155,7 +155,7 @@ class ComplaintsActivityNew : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-        DesignToast.makeText(this, "Please wait while we load your list.This might take upto 30 seconds.", Toast.LENGTH_LONG,
+        DesignToast.makeText(this, "Please wait while we load your list.This might take upto 15 seconds.", Toast.LENGTH_LONG,
             DesignToast.TYPE_SUCCESS).show()
         val orderfragment = ProductComplaintsFragment()
         val extraList = ProductComplaintsFragment()

@@ -151,20 +151,20 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 0
             ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE c is selected date
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
+            val sdfnew = SimpleDateFormat("dd-MM-yyyy")
             var output = sdf1.format(c.time)
-            val output1 = sdf1.format(c1.time)
-            if (c1.time > c.time || c2.time < c.time) {
+            val output1 = AppUtils2.formatDatetime(AppUtils2.getCurrentDateTimeplusone())
+            var output2 = sdfnew.format(c2.time)
+//            output2=AppUtils2.formatDate(output2)
+            if (c1.time > c.time ||c2.time < c.time  ) {
                 binding.recyclerView.visibility = View.GONE
                 binding.lnrAvailableSlot.visibility = View.GONE
 //                Toast.makeText(
 //                    this,
-//                    "Please select a valid date in the range of " + c1.time + "to " + c2.time + " to reschedule a slot.",
+//                    "Please select a valid date in the range of "+output1 + "to "+output2+" to schedule a slot.",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-
-                Log.d("GETVALIDATESDATES", c1.time.toString()+" "+c2.time.toString())
-
-                DesignToast.makeText(this@BookingSlotComplinceActivity, "Please select a valid date in the range of " + c1.time + "to " + c2.time + " to reschedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
 
             } else {
@@ -329,7 +329,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                    Toast.LENGTH_LONG
 //                ).show()
 
-                DesignToast.makeText(this@BookingSlotComplinceActivity, "Please wait while we fetch slot for you. This might take upto 30 seconds", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+                DesignToast.makeText(this@BookingSlotComplinceActivity, "Please wait while we fetch slot for you. This might take upto 15 seconds", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
 
 
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
