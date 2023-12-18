@@ -836,21 +836,14 @@ class AddComplaintsActivity : AppCompatActivity() {
             if (it.isSuccess == true) {
                 finish()
                 progressDialog.dismiss()
-                DesignToast.makeText(
-                    this,
-                    "Complaint Raised Successfully!",
-                    Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_SUCCESS
-                ).show();
+//
+                DesignToast.makeText(this,"Please fill out all required fields.", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
 
 //                Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                DesignToast.makeText(
-                    this,
-                    "Something went wrong!",
-                    Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_ERROR
-                ).show();
+                DesignToast.makeText(this,"Something went wrong!", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
 
 //                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
             }
