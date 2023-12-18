@@ -245,13 +245,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun onFailureProfileShared(p0: TrueError) {
-            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+//            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
 
 
         }
 
         override fun onVerificationRequired(p0: TrueError?) {
-            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+//            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
 
         }
 

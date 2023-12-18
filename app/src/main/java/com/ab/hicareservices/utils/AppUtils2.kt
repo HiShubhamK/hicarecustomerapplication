@@ -221,7 +221,7 @@ object AppUtils2 {
 
     fun formatDatetime(inputDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
         val date = inputFormat.parse(inputDate)
         return outputFormat.format(date!!)

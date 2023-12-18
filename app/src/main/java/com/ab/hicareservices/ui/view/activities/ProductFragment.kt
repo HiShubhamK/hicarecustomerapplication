@@ -591,6 +591,7 @@ class ProductFragment : Fragment() {
                 }
             }
     }
+    @SuppressLint("SimpleDateFormat")
     private fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         return sdf.format(Date())

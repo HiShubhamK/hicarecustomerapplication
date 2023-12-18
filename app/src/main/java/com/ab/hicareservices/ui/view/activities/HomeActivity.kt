@@ -55,6 +55,7 @@ import android.net.ConnectivityManager
 import android.provider.Settings
 import androidx.activity.result.IntentSenderRequest
 import androidx.core.app.NotificationManagerCompat
+import com.ab.hicareservices.ui.view.fragments.PestServiceFragment
 import com.ab.hicareservices.utils.AppUpdater
 import com.ab.hicareservices.utils.ConnectivityChangeListener
 import com.ab.hicareservices.utils.ConnectivityReceiver
@@ -231,11 +232,12 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     true
                 }
                 R.id.nav_orders -> {
+
                     binding.addFab.visibility = View.GONE
-                    AppUtils2.fromdasboardmenu = false
+//                    AppUtils2.fromdasboardmenu = false
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrdersFragmentNew.newInstance())
-                        .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
+                        .replace(R.id.container, PestServiceFragment.newInstance())
+                        .addToBackStack("PestServiceFragment").commitAllowingStateLoss()
                     true
                 }
                 else -> false
@@ -794,8 +796,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         binding.addFab.visibility = View.GONE
                         AppUtils2.fromdasboardmenu = false
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, OrdersFragmentNew.newInstance())
-                            .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
+                            .replace(R.id.container, PestServiceFragment.newInstance())
+                            .addToBackStack("PestServiceFragment").commitAllowingStateLoss()
                         true
                     }
                     else -> false

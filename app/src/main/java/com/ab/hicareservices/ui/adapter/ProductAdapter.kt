@@ -73,7 +73,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 }
             }else{
                 holder.binding.btnaddtocart.setOnClickListener {
-                    DesignToast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG,DesignToast.TYPE_SUCCESS)
+                    DesignToast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG,DesignToast.TYPE_SUCCESS).show()
 //                    Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
                     onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)

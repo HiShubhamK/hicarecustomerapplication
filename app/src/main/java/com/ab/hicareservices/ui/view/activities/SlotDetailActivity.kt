@@ -29,6 +29,7 @@ import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class SlotDetailActivity : AppCompatActivity() {
 
@@ -183,8 +184,9 @@ class SlotDetailActivity : AppCompatActivity() {
 
             }else{
                 progressDialog.cancel()
+                DesignToast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
-                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Please select atleast one slot to proceed!", Toast.LENGTH_SHORT).show()
             }
 
 

@@ -72,7 +72,7 @@ class OrderSummeryFragment : Fragment() {
 
         progressDialog.show()
 
-        DesignToast.makeText(requireContext(), "Please wait while we load your list.This might take upto 30 seconds.", Toast.LENGTH_LONG,
+        DesignToast.makeText(requireContext(), "Please wait while we load your list.This might take upto 15 seconds.", Toast.LENGTH_LONG,
             DesignToast.TYPE_SUCCESS).show()
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

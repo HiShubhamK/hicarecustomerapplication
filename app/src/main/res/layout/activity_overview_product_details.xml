@@ -356,6 +356,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
+                                    android:maxLength="30"
                                     android:fontFamily="@font/lato_regular"
                                     android:gravity="start"
                                     android:hint="Enter coupon code"

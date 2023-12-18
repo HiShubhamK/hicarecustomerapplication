@@ -16,16 +16,18 @@ import com.ab.hicareservices.ui.view.fragments.ComplaintDetailsFragment
 import com.ab.hicareservices.utils.AppUtils2
 
 
-class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
+class ComplaintsAdapter(requireActivity: FragmentActivity) :
+    RecyclerView.Adapter<ComplaintsAdapter.MainViewHolder>() {
 
     var complaints = mutableListOf<ComplaintsData>()
     var imageList = ArrayList<String>()
-    val requireActivity=requireActivity
+    val requireActivity = requireActivity
 //    private lateinit var requireActivity: ComplaintsActivity
 
     fun setComplaintsList(
         complaintdata: List<ComplaintsData>?,
-        imageList: ArrayList<String>) {
+        imageList: ArrayList<String>
+    ) {
         if (complaintdata != null) {
             complaints = complaintdata.toMutableList()
             this.imageList = imageList
@@ -70,6 +72,13 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
             holder.itemView.setOnClickListener {
 
                 try {
+                    val description = if (complaints.Description?.toString()
+                            .isNullOrBlank() || complaints.Description.toString() == "null"
+                    ) {
+                        "-"
+                    } else {
+                        complaints.Description.toString() // Set the actual description if it exists
+                    }
 
                     val intent = Intent(requireActivity, ComplaintDetailsActivity::class.java)
                     intent.putExtra("Dateformat", complaints.CreatedDate.toString())
@@ -79,16 +88,15 @@ class ComplaintsAdapter(requireActivity: FragmentActivity) : RecyclerView.Adapte
                     intent.putExtra("Cdescription", complaints.ComplaintDescription_c.toString())
                     intent.putExtra("ServicePlan", complaints.ServicePlan_c.toString())
                     intent.putExtra("Subject", complaints.Subject.toString())
-                    intent.putExtra("Description", complaints.Description.toString())
+                    intent.putExtra("Description", description.toString())
                     intent.putExtra("status", holder.binding.txtStatus.text.toString())
                     intent.putExtra("CaseNo", complaints.CaseNumber.toString())
                     intent.putStringArrayListExtra("Imagelist", imageList)
                     intent.putExtra("Complaintid", complaints.Id.toString())
                     requireActivity.startActivity(intent)
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
 
 
             }

@@ -33,7 +33,7 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
         val slotlist=getSlotresponse
 
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime
-        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
         ;
 //        if (holder.binding.radioSlots.isChecked) {
 //            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)

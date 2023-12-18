@@ -138,16 +138,21 @@ class SlotComplinceActivity : AppCompatActivity() {
                 0
             ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE c is selected date
             val sdf1 = SimpleDateFormat("yyyy-MM-dd")
+            val sdfnew = SimpleDateFormat("dd-MM-yyyy")
             var output = sdf1.format(c.time)
-            val output1 = sdf1.format(c1.time)
+            val output1 = AppUtils2.formatDatetime(AppUtils2.getCurrentDateTimeplusone())
+            var output2 = sdfnew.format(c2.time)
+//            output2=AppUtils2.formatDate(output2)
             if (c1.time > c.time ||c2.time < c.time  ) {
                 binding.recyclerView.visibility = View.GONE
                 binding.lnrAvailableSlot.visibility = View.GONE
-                Toast.makeText(
-                    this,
-                    "Please select a valid date in the range of "+c1.time + "to "+c2.time+" to reschedule a slot.",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this,
+//                    "Please select a valid date in the range of "+output1 + "to "+output2+" to schedule a slot.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+
             } else {
                 binding.recyclerView.visibility = View.VISIBLE
 //                binding.lnrAvailableSlot.visibility=View.VISIBLE
@@ -289,9 +294,9 @@ class SlotComplinceActivity : AppCompatActivity() {
                 progressDialog.show()
                 DesignToast.makeText(
                     this@SlotComplinceActivity,
-                    "Please wait while we fetch slot for you. This might take upto 30 seconds.",
+                    "Please wait while we fetch slot for you. This might take upto 15 seconds.",
                     Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_ERROR
+                    DesignToast.TYPE_SUCCESS
                 ).show()
 //                Toast.makeText(
 //                    this@SlotComplinceActivity,

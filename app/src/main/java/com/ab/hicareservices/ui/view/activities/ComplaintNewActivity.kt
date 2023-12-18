@@ -27,6 +27,7 @@ import com.ab.hicareservices.ui.adapter.SocialMediaAdapter
 import com.ab.hicareservices.ui.view.fragments.ProductComplaintsFragment
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -246,11 +247,15 @@ class ComplaintNewActivity : AppCompatActivity() {
 
                 viewModels.leadResponse.observe(this, androidx.lifecycle.Observer {
                     if (it.IsSuccess == true) {
-                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Request submitted successfully", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
+//                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
                         alertDialog.cancel()
                     } else {
                         alertDialog.cancel()
-                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Something went to wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
                     }
                 })
 
