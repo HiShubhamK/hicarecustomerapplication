@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.ab.hicareservices.R
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
@@ -121,7 +122,8 @@ class FetchLocationActivity()  : FragmentActivity(), OnMapReadyCallback, Locatio
         var addressList: List<Address>? = null
 
         if (location == null || location == "") {
-            Toast.makeText(applicationContext,"provide location",Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this,"provide location", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
         }
         else{
             val geoCoder = Geocoder(this)

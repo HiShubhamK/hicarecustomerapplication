@@ -58,6 +58,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.ab.hicareservices.utils.AppUpdater
 import com.ab.hicareservices.utils.ConnectivityChangeListener
 import com.ab.hicareservices.utils.ConnectivityReceiver
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
@@ -178,7 +179,8 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     if(AppUtils2.isNetworkAvailable(this)==true){
 
                     }else{
-                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     }
                     binding.addFab.visibility = View.VISIBLE
                     supportFragmentManager.beginTransaction()
@@ -190,7 +192,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     if(AppUtils2.isNetworkAvailable(this)==true){
 
                     }else{
-                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                     }
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
@@ -202,7 +206,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     if(AppUtils2.isNetworkAvailable(this)==true){
 
                     }else{
-                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                     }
                     binding.addFab.visibility = View.GONE
                     supportFragmentManager.beginTransaction()
@@ -214,7 +220,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                     if(AppUtils2.isNetworkAvailable(this)==true){
 
                     }else{
-                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                     }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
@@ -578,12 +586,16 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
                 viewModels.leadResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
-                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
-                            .show()
+                        DesignToast.makeText(this,"Request submitted successfully", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
+//                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
+//                            .show()
                         alertDialog.cancel()
                     } else {
                         alertDialog.cancel()
-                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Something went to wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
                     }
                 })
                 viewModels.postleaderdata(data)
@@ -604,7 +616,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
             startActivity(intent)
 //
         } else {
-            Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this,"Enter Phone Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -621,7 +635,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
     override fun onPaymentSuccess(p0: String?, response: PaymentData?) {
         if (response != null) {
-            Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this,"${response.paymentId}", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this, "${response.paymentId}", Toast.LENGTH_SHORT).show()
             paymentListener?.onPaymentSuccess(p0, response)
         }
     }
@@ -722,7 +738,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         if(AppUtils2.isNetworkAvailable(this)==true){
 
                         }else{
-                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                         }
                         binding.addFab.visibility = View.VISIBLE
                         supportFragmentManager.beginTransaction()
@@ -734,7 +752,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         if(AppUtils2.isNetworkAvailable(this)==true){
 
                         }else{
-                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                         }
                         binding.addFab.visibility = View.GONE
                         supportFragmentManager.beginTransaction()
@@ -746,7 +766,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         if(AppUtils2.isNetworkAvailable(this)==true){
 
                         }else{
-                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                         }
                         binding.addFab.visibility = View.GONE
                         supportFragmentManager.beginTransaction()
@@ -758,7 +780,9 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
                         if(AppUtils2.isNetworkAvailable(this)==true){
 
                         }else{
-                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
                         }
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, HomeFragment.newInstance()).addToBackStack("Tag")
@@ -789,8 +813,10 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
 
             } else {
-                Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG)
-                    .show()
+                DesignToast.makeText(this,"Please Check Your Internet Connection", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_LONG)
+//                    .show()
             }
         }catch (e:Exception){
             e.printStackTrace()

@@ -30,6 +30,7 @@ import com.ab.hicareservices.databinding.ActivitySupportBinding
 import com.ab.hicareservices.ui.adapter.SocialMediaAdapter
 import com.ab.hicareservices.ui.viewmodel.HomeActivityViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -100,7 +101,9 @@ class SupportActivity : AppCompatActivity() {
             startActivity(intent)
 //
         } else {
-            Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this,"Enter Phone Number", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//            Toast.makeText(this, "Enter Phone Number", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -210,7 +213,9 @@ class SupportActivity : AppCompatActivity() {
             } else if (edtpincode.text.toString().trim().equals("000000")) {
                 edtpincode.setError("Enter correct pincode")
             } else if (selectedLocation.toString().trim().equals("Select Type")) {
-                Toast.makeText(this, "Please select Service type", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Please select Service type", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Please select Service type", Toast.LENGTH_SHORT).show()
             } else {
                 var data = HashMap<String, Any>()
                 data["LMSId"] = ""
@@ -262,11 +267,15 @@ class SupportActivity : AppCompatActivity() {
 
                 viewModels.leadResponse.observe(this, androidx.lifecycle.Observer {
                     if (it.IsSuccess == true) {
-                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Request submitted successfully", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
+//                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show()
                         alertDialog.cancel()
                     } else {
                         alertDialog.cancel()
-                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
+                        DesignToast.makeText(this,"Something went to wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                        Toast.makeText(this, "Something went to wrong", Toast.LENGTH_LONG).show()
                     }
                 })
 

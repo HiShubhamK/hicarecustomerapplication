@@ -122,30 +122,7 @@ class LoginActivity : AppCompatActivity() {
 //        }
         
         
-        val sdkCallback: ITrueCallback = object : ITrueCallback {
-            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
-                val userName = trueProfile.firstName // Retrieve the user's first name
-                val userNumber = trueProfile.phoneNumber // Retrieve the user's phone number
 
-                // Proceed with using the obtained user details
-                // For example:
-                Log.e("TruecallerProfile", "User Name: $userName, Phone Number: $userNumber")
-                Toast.makeText(this@LoginActivity, "User Name: $userName, Phone Number: $userNumber", Toast.LENGTH_LONG).show()
-
-                // Perform actions based on this information
-            }
-
-            override fun onFailureProfileShared(p0: TrueError) {
-                Toast.makeText(this@LoginActivity, ""+ p0?.errorType, Toast.LENGTH_LONG).show()
-
-            }
-
-            override fun onVerificationRequired(p0: TrueError?) {
-                Toast.makeText(this@LoginActivity, ""+p0?.errorType, Toast.LENGTH_LONG).show()
-            }
-
-            // ... (Other methods like onFailureProfileShared and onVerificationRequired)
-        }
 //        val sdkCallback: ITrueCallback = object : ITrueCallback {
 //            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 //                AppUtils2.mobileno=trueProfile.phoneNumber
@@ -186,14 +163,15 @@ class LoginActivity : AppCompatActivity() {
             .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
             .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
             .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
-            .privacyPolicyUrl("http://connect.hicare.in/privacy_policy.html")
-            .termsOfServiceUrl("https://hicare.in/terms-conditions")
+            .privacyPolicyUrl("https://.truecaller.com")
+            .termsOfServiceUrl("https://.truecaller.com")
             .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
             .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
-            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITHOUT_OTP)
+            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITH_OTP)
             .build()
 
         TruecallerSDK.init(trueScope)
+
 
         if (TruecallerSDK.getInstance().isUsable){
             TruecallerSDK.getInstance().getUserProfile(this)
@@ -250,6 +228,36 @@ class LoginActivity : AppCompatActivity() {
                 getOtp(mobileNo, progressDialog)
             }
         }
+
+    }
+   private val sdkCallback: ITrueCallback = object : ITrueCallback {
+        override fun onSuccessProfileShared(trueProfile: TrueProfile) {
+            val userName = trueProfile.firstName // Retrieve the user's first name
+            val userNumber = trueProfile.phoneNumber // Retrieve the user's phone number
+
+            // Proceed with using the obtained user details
+            // For example:
+            Log.e("TruecallerProfile", "User Name: $userName, Phone Number: $userNumber")
+//            Toast.makeText(this@LoginActivity, "User Name: $userName, Phone Number: $userNumber", Toast.LENGTH_LONG).show()
+            DesignToast.makeText(this@LoginActivity, "User Name: $userName, Phone Number: $userNumber", Toast.LENGTH_LONG, DesignToast.TYPE_SUCCESS).show();
+
+            // Perform actions based on this information
+        }
+
+        override fun onFailureProfileShared(p0: TrueError) {
+            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+
+
+        }
+
+        override fun onVerificationRequired(p0: TrueError?) {
+            DesignToast.makeText(this@LoginActivity, p0?.errorType.toString(), Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+
+        }
+
+        // ... (Other methods like onFailureProfileShared and onVerificationRequired)
+    }
+    fun verify(v:View){
 
     }
 

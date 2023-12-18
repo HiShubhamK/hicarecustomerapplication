@@ -20,6 +20,7 @@ import com.ab.hicareservices.ui.adapter.ComplaintAttachmentAdapter
 import com.ab.hicareservices.ui.viewmodel.ComplaintsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class ComplaintAttachmentFragment() : Fragment() {
     private val TAG = "ComplaintsActivity"
@@ -113,7 +114,13 @@ class ComplaintAttachmentFragment() : Fragment() {
         viewModel.errorMessage.observe(requireActivity(), Observer {
 //            Log.d(TAG, "onViewCreated: $it")
 //            Toast.makeText(applicationContext,viewModel.complaintList.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(
+                requireActivity(),
+                it.toString(),
+                Toast.LENGTH_SHORT,
+                DesignToast.TYPE_ERROR
+            ).show();
 
 //        Log.e("TAG", "Attachments: $imageList")
 //            Toast.makeText(requireContext(),"attacchmnt"+imageList,Toast.LENGTH_SHORT).show()

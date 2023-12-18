@@ -14,6 +14,7 @@ import com.ab.hicareservices.data.model.product.SaveAddressResponse
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +50,8 @@ class OrdersViewModel : ViewModel() {
                 }
                 else if(response.code()==401){
 
-                    Toast.makeText(fragmentActivity,"Session Expired",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(fragmentActivity,"Session Expired",Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(fragmentActivity, "Session Expired", Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
 
                     SharedPreferenceUtil.setData(fragmentActivity, "mobileNo", "-1")
                     SharedPreferenceUtil.setData(fragmentActivity, "bToken", "")
@@ -64,7 +66,9 @@ class OrdersViewModel : ViewModel() {
                     fragmentActivity.finish()
 
                 }else if(response.code()==500){
-                    Toast.makeText(fragmentActivity,"Internal server error",Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(fragmentActivity, "Internal server error", Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+
+//                    Toast.makeText(fragmentActivity,"Internal server error",Toast.LENGTH_LONG).show()
                 }else{
 
                 }
@@ -118,7 +122,9 @@ class OrdersViewModel : ViewModel() {
                     myOrderActivity.startActivity(intent)
                     myOrderActivity.finish()
                 } else if(response.code()==401){
-                    Toast.makeText(myOrderActivity,"Internal server error",Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(myOrderActivity, "Internal server error", Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+
+//                    Toast.makeText(myOrderActivity,"Internal server error",Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -173,7 +179,10 @@ class OrdersViewModel : ViewModel() {
                     requireActivity.finish()
 
                 }else if(response.code()==500){
-                    Toast.makeText(requireActivity,"Internal server error",Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(requireActivity, "Internal server error", Toast.LENGTH_LONG, DesignToast.TYPE_ERROR).show();
+
+
+//                    Toast.makeText(requireActivity,"Internal server error",Toast.LENGTH_LONG).show()
                 }
             }
 

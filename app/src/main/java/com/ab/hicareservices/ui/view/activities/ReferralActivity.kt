@@ -17,6 +17,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.databinding.ActivityReferralBinding
 import com.ab.hicareservices.ui.viewmodel.ReferralViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 
 class ReferralActivity : AppCompatActivity() {
@@ -51,7 +52,9 @@ class ReferralActivity : AppCompatActivity() {
             if (referralCode != "") {
                 shareLink()
             } else {
-                Toast.makeText(this, "Please wait...", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Please wait...", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Please wait...", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -66,7 +69,9 @@ class ReferralActivity : AppCompatActivity() {
                 shareOnWhatsapp()
             } else {
                 shareLink()
-                Toast.makeText(this, "Whatsapp not installed", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Whatsapp not installed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Whatsapp not installed", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnTwitter.setOnClickListener {
@@ -74,7 +79,10 @@ class ReferralActivity : AppCompatActivity() {
                 shareOnTwitter()
             } else {
                 shareLink()
-                Toast.makeText(this, "Twitter not installed", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Twitter not installed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+
+//                Toast.makeText(this, "Twitter not installed", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnFacebook.setOnClickListener {
@@ -82,7 +90,9 @@ class ReferralActivity : AppCompatActivity() {
                 shareOnFacebook()
             } else {
                 shareLink()
-                Toast.makeText(this, "Facebook not installed", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Facebook not installed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                Toast.makeText(this, "Facebook not installed", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -164,7 +174,9 @@ class ReferralActivity : AppCompatActivity() {
                     binding.txtTitle.text = ""
                     binding.txtDescription.text = ""
                     binding.tvShareText.text = ""
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(this,"Something went wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                     progressDialog.dismiss()
 
                 }
@@ -175,7 +187,10 @@ class ReferralActivity : AppCompatActivity() {
                 binding.txtTitle.text = ""
                 binding.txtDescription.text = ""
                 binding.tvShareText.text = ""
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(this,"Something went wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+
+//                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 progressDialog.dismiss()
             }
             progressDialog.dismiss()

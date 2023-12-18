@@ -46,6 +46,7 @@ import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -255,7 +256,12 @@ class AddComplaintsActivity : AppCompatActivity() {
 
         val mobile =
             SharedPreferenceUtil.getData(this@AddComplaintsActivity, "mobileNo", "-1").toString()
-        viewModels.getCustomerOrdersByMobileNo(mobile, "Active", progressDialog,this@AddComplaintsActivity)
+        viewModels.getCustomerOrdersByMobileNo(
+            mobile,
+            "Active",
+            progressDialog,
+            this@AddComplaintsActivity
+        )
 
 
         val extrass = getIntent().extras
@@ -316,6 +322,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
+            AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
             val serviceNo = binding.serviceNoEt.text.toString().trim()
             val complaintTitle = binding.complaintTitleEt.text.toString().trim()
             val complaintDescr = binding.complaintDescrEt.text.toString().trim()
@@ -326,17 +333,23 @@ class AddComplaintsActivity : AppCompatActivity() {
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(this,"Please fill out all required fields.", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
+//                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT)
+//                        .show()
                 }
             } else {
-                if (orderNo != "" && complaintTitle != "" && complaintDescr != ""&& selectedCType != "Complaint Type") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
+                if (orderNo != "" && complaintTitle != "" && complaintDescr != "" && selectedCType != "Complaint Type") {    //&& selectedCType != ""&& selectedCType != "Complaint Type"
                     addComplaint(
                         orderNo, serviceNo, selectedCType,
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
+                    DesignToast.makeText(this,"Please fill out all required fields.", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
 //                    Toast.makeText(this, orderNo, Toast.LENGTH_LONG).show()
-                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT)
+//                        .show()
                 }
             }
         }
@@ -751,11 +764,15 @@ class AddComplaintsActivity : AppCompatActivity() {
         val subtype = ArrayList<String>()
 
         complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this, it.toString(), Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS)
+                .show();
+
         })
 
         complaintViewModel.responseMessage.observe(this, androidx.lifecycle.Observer {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            DesignToast.makeText(this, it.toString(), Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS)
+                .show();
         })
 
         complaintViewModel.complaintReasons.observe(this) {
@@ -778,11 +795,18 @@ class AddComplaintsActivity : AppCompatActivity() {
                 Log.d("TAG", typeHash.toString())
                 initArrayAdapter(serviceType, type, subtype)
             } else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
-                    .show()
+                DesignToast.makeText(
+                    this,
+                    "Something went wrong",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show();
+
+//                Toast.makeText(applicationContext, , Toast.LENGTH_SHORT)
+//                    .show()
             }
         }
-        complaintViewModel.getComplaintReasonses(serviceType,this)
+        complaintViewModel.getComplaintReasonses(serviceType, this)
     }
 
     private fun addComplaint(
@@ -804,6 +828,7 @@ class AddComplaintsActivity : AppCompatActivity() {
         hashMap["Source"] = "mobileApp"
         hashMap["SubSource"] = "mobileApp"
         hashMap["ComplaintAttachment"] = arraylistImages
+        hashMap["MobileNo"] = AppUtils2.mobileno
 
 
         complaintViewModel.createComplaint(hashMap)
@@ -811,9 +836,23 @@ class AddComplaintsActivity : AppCompatActivity() {
             if (it.isSuccess == true) {
                 finish()
                 progressDialog.dismiss()
-                Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this,
+                    "Complaint Raised Successfully!",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_SUCCESS
+                ).show();
+
+//                Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this,
+                    "Something went wrong!",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show();
+
+//                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
             }
             progressDialog.dismiss()
 
@@ -991,7 +1030,14 @@ class AddComplaintsActivity : AppCompatActivity() {
                     }
                 })
                 .withErrorListener {
-                    Toast.makeText(this, "Error occurred! ", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(
+                        this,
+                        "Error occurred! ",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show();
+
+//                    Toast.makeText(this, "Error occurred! ", Toast.LENGTH_SHORT).show()
                 }
                 .onSameThread()
                 .check()
@@ -1324,8 +1370,11 @@ class AddComplaintsActivity : AppCompatActivity() {
                 // If permissions are not granted,
                 // present a toast to notify the user that
                 // the permissions were not granted.
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT)
-                    .show()
+
+//                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT)
+//                    .show()
+                DesignToast.makeText(this,"Permissions not granted by the user.", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+
                 finish()
             }
         }
