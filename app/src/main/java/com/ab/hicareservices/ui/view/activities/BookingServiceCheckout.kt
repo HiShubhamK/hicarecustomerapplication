@@ -196,10 +196,7 @@ class BookingServiceCheckout : AppCompatActivity() {
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
 //                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
-
-
                     DesignToast.makeText(this, "Please enter valid coupon", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-
 
                 } else {
                     viewProductModel.validatevoucher.observe(this, Observer {

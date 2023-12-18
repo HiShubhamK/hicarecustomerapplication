@@ -31,6 +31,7 @@ import com.ab.hicareservices.ui.adapter.CartAdapter
 import com.ab.hicareservices.ui.handler.onCartClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -66,19 +67,19 @@ class AddToCartActivity : AppCompatActivity() {
         getproductlist()
         getSummarydata()
         pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
-        if (!pincode.isNullOrEmpty()){
-            binding.tvPincode.text="Deliver to pincode "+pincode
+        if (!pincode.isNullOrEmpty()) {
+            binding.tvPincode.text = "Deliver to pincode " + pincode
 
-        }else {
-            binding.tvPincode.visibility=View.GONE
+        } else {
+            binding.tvPincode.visibility = View.GONE
         }
-        binding.txtplcaeorder.setOnClickListener{
-            SharedPreferenceUtil.setData(this,"Billingdata","")
-            val intent= Intent(this,AddressActivity::class.java)
+        binding.txtplcaeorder.setOnClickListener {
+            SharedPreferenceUtil.setData(this, "Billingdata", "")
+            val intent = Intent(this, AddressActivity::class.java)
             startActivity(intent)
             finish()
         }
-        binding.imgLogo.setOnClickListener{
+        binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
     }
@@ -94,31 +95,37 @@ class AddToCartActivity : AppCompatActivity() {
         binding.recycleviewproduct.adapter = mAdapter
 
 
-        viewProductModel.responseMessage.observe(this,Observer{
-            binding.upcomingservices.visibility=View.VISIBLE
-            binding.scrollview.visibility=View.GONE
-            binding.recycleviewproduct.visibility=View.GONE
-            binding.cardviewprice.visibility= View.GONE
-            binding.lnrbuttoncart.visibility=View.GONE
+        viewProductModel.responseMessage.observe(this, Observer {
+            binding.upcomingservices.visibility = View.VISIBLE
+            binding.scrollview.visibility = View.GONE
+            binding.recycleviewproduct.visibility = View.GONE
+            binding.cardviewprice.visibility = View.GONE
+            binding.lnrbuttoncart.visibility = View.GONE
         })
 
         viewProductModel.cartlist.observe(this, Observer {
 
-            if(it!=null) {
+            if (it != null) {
 
-                binding.upcomingservices.visibility=View.GONE
-                binding.recycleviewproduct.visibility=View.VISIBLE
-                binding.cardviewprice.visibility= View.VISIBLE
-                binding.lnrbuttoncart.visibility=View.VISIBLE
-                mAdapter.setCartList(it, this, viewProductModel,progressDialog,AppUtils2.changebuttonstatus)
+                binding.upcomingservices.visibility = View.GONE
+                binding.recycleviewproduct.visibility = View.VISIBLE
+                binding.cardviewprice.visibility = View.VISIBLE
+                binding.lnrbuttoncart.visibility = View.VISIBLE
+                mAdapter.setCartList(
+                    it,
+                    this,
+                    viewProductModel,
+                    progressDialog,
+                    AppUtils2.changebuttonstatus
+                )
                 progressDialog.dismiss()
-            }else{
+            } else {
                 progressDialog.dismiss()
-                binding.upcomingservices.visibility=View.VISIBLE
-                binding.scrollview.visibility=View.GONE
-                binding.recycleviewproduct.visibility=View.GONE
-                binding.cardviewprice.visibility= View.GONE
-                binding.lnrbuttoncart.visibility=View.GONE
+                binding.upcomingservices.visibility = View.VISIBLE
+                binding.scrollview.visibility = View.GONE
+                binding.recycleviewproduct.visibility = View.GONE
+                binding.cardviewprice.visibility = View.GONE
+                binding.lnrbuttoncart.visibility = View.GONE
             }
         })
 
@@ -129,11 +136,11 @@ class AddToCartActivity : AppCompatActivity() {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewProductModel.getDeleteProductCart.observe(this@AddToCartActivity, Observer {
-                        if(it.IsSuccess==true){
+                        if (it.IsSuccess == true) {
                             progressDialog.dismiss()
                             getSummarydata()
-                            AppUtils2.cartcounts=""
-                            AppUtils2.changebuttonstatus=false
+                            AppUtils2.cartcounts = ""
+                            AppUtils2.changebuttonstatus = false
 
                             Handler(Looper.getMainLooper()).postDelayed({
                                 val mIntent = intent
@@ -147,7 +154,10 @@ class AddToCartActivity : AppCompatActivity() {
                         progressDialog.dismiss()
 
                     })
-                    viewProductModel.getDeleteProductCart(cartId!!.toInt(), AppUtils2.customerid.toInt())
+                    viewProductModel.getDeleteProductCart(
+                        cartId!!.toInt(),
+                        AppUtils2.customerid.toInt()
+                    )
 
                 }, 1000)
 
@@ -166,19 +176,22 @@ class AddToCartActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewProductModel.addtocart.observe(this@AddToCartActivity, Observer {
                         progressDialog.dismiss()
-                        if(it.IsSuccess==true){
-                            imgadd.isClickable=true
-                            imgadd.isEnabled=true
+                        if (it.IsSuccess == true) {
+                            imgadd.isClickable = true
+                            imgadd.isEnabled = true
                             progressDialog.dismiss()
                             getSummarydata()
-                            AppUtils2.changebuttonstatus=false
-                        }else{
+                            AppUtils2.changebuttonstatus = false
+                        } else {
 //                        progressDialog.dismiss()
-                            Toast.makeText(this@AddToCartActivity,"Something went to wrong",Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(
+                                this@AddToCartActivity,
+                                "Something went to wrong",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
                         }
-
                     })
-
                     viewProductModel.getAddProductInCart(i, productid, AppUtils2.customerid.toInt())
                 }, 1000)
             }
@@ -186,7 +199,7 @@ class AddToCartActivity : AppCompatActivity() {
         })
 
 //        viewProductModel.getProductCartByUserId(customerid!!.toInt())
-        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(),AppUtils2.pincode)
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(), AppUtils2.pincode)
     }
 
     fun getSummarydata() {
@@ -199,16 +212,16 @@ class AddToCartActivity : AppCompatActivity() {
 
             if (it.TotalAmount!!.toDouble().toInt() != 0) {
                 progressDialog.dismiss()
-                binding.upcomingservices.visibility=View.GONE
-                binding.cardviewprice.visibility= View.VISIBLE
-                binding.lnrbuttoncart.visibility=View.VISIBLE
+                binding.upcomingservices.visibility = View.GONE
+                binding.cardviewprice.visibility = View.VISIBLE
+                binding.lnrbuttoncart.visibility = View.VISIBLE
                 binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
-                binding.txtdiscount.text = "-"+"\u20B9" + it.TotalDiscount!!.toDouble().toString()
+                binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
                 binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
                 binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
 
             } else if (it.TotalAmount!!.toDouble().toInt() == 0) {
-                binding.upcomingservices.visibility=View.VISIBLE
+                binding.upcomingservices.visibility = View.VISIBLE
                 binding.lnrbuttoncart.visibility = View.GONE
                 binding.cardviewprice.visibility = View.GONE
                 progressDialog.dismiss()
