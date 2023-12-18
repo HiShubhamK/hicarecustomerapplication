@@ -46,6 +46,7 @@ import com.ab.hicareservices.ui.handler.SpinnerItemSelectedListener
 import com.ab.hicareservices.ui.viewmodel.CComplaintViewModel
 import com.ab.hicareservices.ui.viewmodel.UploadAttachmentViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -327,10 +328,16 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
                         selectedCSubType, complaintTitle, complaintDescr, serviceType
                     )
                 } else {
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        "Please fill complaint details properly.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    DesignToast.makeText(
+                        this@AddProductComplaintsActivity,
                         "Please fill complaint details properly.",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
                     ).show()
                 }
             } else {
@@ -341,10 +348,16 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
                     )
                 } else {
 
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        "Please fill out all required fields.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    DesignToast.makeText(
+                        this@AddProductComplaintsActivity,
                         "Please fill out all required fields.",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
                     ).show()
                 }
             }
@@ -858,7 +871,13 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         complaintViewModel.CreateProductComplaint(hashMap)
         complaintViewModel.SaveSalesResponse.observe(this, {
             if (it.isNotEmpty()) {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this@AddProductComplaintsActivity,
+                    it,
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_SUCCESS
+                ).show()
+//                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                 finish()
                 progressDialog.dismiss()
 
@@ -1374,8 +1393,14 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
                 // If permissions are not granted,
                 // present a toast to notify the user that
                 // the permissions were not granted.
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT)
-                    .show()
+//                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT)
+//                    .show()
+                DesignToast.makeText(
+                    this@AddProductComplaintsActivity,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
                 finish()
             }
         }

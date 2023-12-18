@@ -365,45 +365,153 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     etcity.text.toString().trim().equals("") && etstate.text.toString().trim()
                         .equals("")
                 ) {
+                    DesignToast.makeText(
+                        this,
+                        "All fields are mandatory",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
 
-                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
                 } else if (selectedLocation.toString().trim().equals("Select Address Type")) {
-                    Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(
+                        this,
+                        "Please select Address Type",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
                 } else if (etname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
                         .equals("") && !edtmobileno.text.toString().equals("0000000000")
                 ) {
-                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim().length < 10) {
-                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
-                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (etemps.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter email address",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter email address", Toast.LENGTH_LONG).show()
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
-                    Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct email address",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct email address", Toast.LENGTH_LONG).show()
                 } else if (selectedLocation.toString().trim().equals("Select Type")) {
-                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(
+                        this,
+                        "Please select service type",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
                 } else if (etflatno.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter flat number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
                 } else if (etbuildname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter building name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
                 } else if (etstreet.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter street name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
                 } else if (etlocality.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter locality",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
                 } else if (etlandmark.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter landmark",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
                 } else if (etcity.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter city",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter city", Toast.LENGTH_LONG).show()
                 } else if (etstate.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter state",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter state", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
-                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
                 } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()
@@ -430,14 +538,26 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     viewProductModel.saveServiceAddressResponse.observe(this, Observer {
                         if (it.IsSuccess == true) {
                             alertDialog.dismiss()
-                            Toast.makeText(
+//                            Toast.makeText(
+//                                this,
+//                                "Shipping address added successfully",
+//                                Toast.LENGTH_LONG
+//                            ).show()
+                            DesignToast.makeText(
                                 this,
                                 "Shipping address added successfully",
-                                Toast.LENGTH_LONG
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_SUCCESS
                             ).show()
                         } else {
-                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
-                                .show()
+                            DesignToast.makeText(
+                                this,
+                                "Something went to wrong.",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
+//                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
+//                                .show()
                         }
                         progressDialog.dismiss()
 
@@ -531,39 +651,128 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                     etlandmark.text.toString().trim().equals("") && etpincode.text.toString().trim()
                         .equals("")
                 ) {
-
-                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "All fields are mandatory",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show()
 
                 } else if (etname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim()
                         .equals("") && !edtmobileno.text.toString().equals("0000000000")
                 ) {
-                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter mobile number", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim().length < 10) {
-                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (edtmobileno.text.toString().trim().equals("0000000000")) {
-                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct mobile number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct mobile number", Toast.LENGTH_LONG).show()
                 } else if (etemps.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter email adress", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter email adress",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter email adress", Toast.LENGTH_LONG).show()
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(etemps.text.toString()).matches()) {
-                    Toast.makeText(this, "Enter correct email adress", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct email adress",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct email adress", Toast.LENGTH_LONG).show()
                 } else if (selectedLocation.toString().trim().equals("Select Type")) {
-                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
+                    DesignToast.makeText(
+                        this,
+                        "Please select service type",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Please select service type", Toast.LENGTH_SHORT).show()
                 } else if (etflatno.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter flat number",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter flat number", Toast.LENGTH_LONG).show()
                 } else if (etbuildname.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter building name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter building name", Toast.LENGTH_LONG).show()
                 } else if (etstreet.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter street name",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter street name", Toast.LENGTH_LONG).show()
                 } else if (etlocality.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter locality",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter locality", Toast.LENGTH_LONG).show()
                 } else if (etlandmark.text.toString().trim().equals("")) {
-                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter landmark",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter landmark", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
-                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter  pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
-                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(
+                        this,
+                        "Enter correct pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+//                    Toast.makeText(this, "Enter correct pincode", Toast.LENGTH_LONG).show()
                 } else {
                     progressDialog.show()
                     var data = HashMap<String, Any>()

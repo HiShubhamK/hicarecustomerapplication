@@ -44,6 +44,7 @@ import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -268,11 +269,23 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                     viewModel.addtocart.observe(this@ProductSummaryDetailActivity, Observer {
                         progressDialog.dismiss()
                         if(it.IsSuccess==true){
-                            Toast.makeText(this@ProductSummaryDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(
+                                this@ProductSummaryDetailActivity,
+                                "Product Added to Cart",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_SUCCESS
+                            ).show()
+//                            Toast.makeText(this@ProductSummaryDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
                             getSummarydata()
                         }else{
                             progressDialog.dismiss()
-                            Toast.makeText(this@ProductSummaryDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
+                            DesignToast.makeText(
+                                this@ProductSummaryDetailActivity,
+                                "Something went to wrong",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
+//                            Toast.makeText(this@ProductSummaryDetailActivity,"Something went to wrong", Toast.LENGTH_LONG).show()
                         }
 
                     })

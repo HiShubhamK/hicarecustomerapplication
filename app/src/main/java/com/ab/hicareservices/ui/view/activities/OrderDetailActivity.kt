@@ -29,6 +29,7 @@ import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -375,7 +376,13 @@ class OrderDetailActivity : AppCompatActivity() {
             }
 
             orderDetailsViewModel.requestcodes.observe(this){
-                Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"Session Expired", Toast.LENGTH_LONG).show()
+                DesignToast.makeText(
+                    this@OrderDetailActivity,
+                    "Session Expired",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
 
                 SharedPreferenceUtil.setData(this, "mobileNo", "-1")
                 SharedPreferenceUtil.setData(this, "bToken", "")

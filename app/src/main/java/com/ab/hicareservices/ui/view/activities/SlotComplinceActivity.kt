@@ -34,6 +34,7 @@ import com.ab.hicareservices.ui.handler.onSlotclick
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -286,11 +287,17 @@ class SlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-                Toast.makeText(
+                DesignToast.makeText(
                     this@SlotComplinceActivity,
-                    "'Please wait while we fetch slot for you. This might take upto 30 seconds.",
-                    Toast.LENGTH_LONG
+                    "Please wait while we fetch slot for you. This might take upto 30 seconds.",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
                 ).show()
+//                Toast.makeText(
+//                    this@SlotComplinceActivity,
+//                    "Please wait while we fetch slot for you. This might take upto 30 seconds.",
+//                    Toast.LENGTH_LONG
+//                ).show()
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
                 var data = HashMap<String, Any>()
                 data["Pincode"] = Pincode
@@ -428,7 +435,13 @@ class SlotComplinceActivity : AppCompatActivity() {
                 viewModel.BookSlot(data)
 
             }else{
-                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this@SlotComplinceActivity,
+                    "Please select slot time to book a slot!",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
+//                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT).show()
             }
 
 

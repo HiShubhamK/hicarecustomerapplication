@@ -36,6 +36,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.viewmodel.PlaceApi
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.UserData
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -738,10 +739,16 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 //                    startLocationUpdates()
                 }
             } else {
-                Toast.makeText(
+//                Toast.makeText(
+//                    this,
+//                    "Location permission denied",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                DesignToast.makeText(
                     this,
                     "Location permission denied",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
                 ).show()
             }
         }

@@ -19,6 +19,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ab.hicareservices.R
+import com.ab.hicareservices.utils.DesignToast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -201,7 +202,13 @@ class CameraActivity : AppCompatActivity() {
                 // If permissions are not granted,
                 // present a toast to notify the user that
                 // the permissions were not granted.
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_SUCCESS
+                ).show()
+//                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }

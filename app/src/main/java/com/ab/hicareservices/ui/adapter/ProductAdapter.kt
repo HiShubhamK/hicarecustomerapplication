@@ -16,6 +16,7 @@ import com.ab.hicareservices.databinding.LayoutProductlistBinding
 import com.ab.hicareservices.ui.handler.OnProductClickedHandler
 import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
+import com.ab.hicareservices.utils.DesignToast
 import com.bumptech.glide.Glide
 
 class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
@@ -72,7 +73,8 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 }
             }else{
                 holder.binding.btnaddtocart.setOnClickListener {
-                    Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
+                    DesignToast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG,DesignToast.TYPE_SUCCESS)
+//                    Toast.makeText(requireActivity,"Product Added to Cart",Toast.LENGTH_LONG).show()
                     onProductClickedHandler?.onProductClickedHandler(position,productlists.ProductId!!.toInt())
 //                viewProductModel.getAddProductInCart(1,productlists.ProductId!!.toInt(),20)
                 }

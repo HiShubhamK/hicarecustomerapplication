@@ -210,7 +210,8 @@ class ReferralActivity : AppCompatActivity() {
     fun Context.copyToClipboard(text: CharSequence) {
         val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
         clipboard?.setPrimaryClip(ClipData.newPlainText("", text))
-        Toast.makeText(applicationContext, "Copied!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(applicationContext, "Copied!", Toast.LENGTH_SHORT).show();
+        DesignToast.makeText(this,"Copied!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
 
     }
 }

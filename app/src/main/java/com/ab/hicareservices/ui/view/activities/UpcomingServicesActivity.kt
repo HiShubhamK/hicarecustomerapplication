@@ -18,6 +18,7 @@ import com.ab.hicareservices.ui.adapter.UpcomingServicesAdapter
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class UpcomingServicesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUpcomingServicesBinding
@@ -77,7 +78,13 @@ class UpcomingServicesActivity : AppCompatActivity() {
                 }
             })
             viewModel.errorMessage.observe(this, Observer {
-                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                DesignToast.makeText(
+                    this@UpcomingServicesActivity,
+                    "Something went wrong!",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
+//                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
             })
 
             binding.recUpcomingData.adapter = mAdapter
