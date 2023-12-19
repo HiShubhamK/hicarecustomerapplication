@@ -20,7 +20,7 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
 
     //        private List<SlotResponse> items = null;
     private val context: Activity
-    private var lastSelectedPosition = 0
+    private var lastSelectedPosition = -1
     val taskid=TaskId
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = SlotsAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)

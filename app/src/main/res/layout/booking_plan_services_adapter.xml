@@ -101,7 +101,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnaddtocart"
+                    android:id="@+id/btnaddtocart"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"

@@ -3,9 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:alpha="0.8"
     android:background="@android:color/transparent"
-    android:alpha="0.8">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/imgclose"
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -13,147 +22,139 @@
         android:background="@drawable/bottomsheet_bg">
 
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:alpha="0.8"-->
-<!--        android:visibility="gone"-->
-<!--        android:background="#00000000">-->
+        <!--    <RelativeLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:alpha="0.8"-->
+        <!--        android:visibility="gone"-->
+        <!--        android:background="#00000000">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imgclose"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:src="@drawable/ic_baseline_cancel"-->
-<!--            app:tint="@color/white" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imgclose"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_margin="10dp"-->
+        <!--            android:src="@drawable/ic_baseline_cancel"-->
+        <!--            app:tint="@color/white" />-->
 
-<!--    </RelativeLayout>-->
+        <!--    </RelativeLayout>-->
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bottomsheet_bg"
-        android:padding="5dp">
-
-        <RelativeLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottomsheet_bg"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Select BHK Size"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgclose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_baseline_cancel"
-                app:tint="@color/colorAccent" />
 
-        </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Select BHK Size"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp" />
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="5dp"-->
-<!--            app:cardCornerRadius="5dp">-->
+
+            </RelativeLayout>
+
+            <!--        <androidx.cardview.widget.CardView-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_margin="5dp"-->
+            <!--            app:cardCornerRadius="5dp">-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleviewaddarea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="6dp"/>
+                android:layout_margin="6dp" />
 
 
-<!--        </androidx.cardview.widget.CardView>-->
+            <!--        </androidx.cardview.widget.CardView>-->
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="10dp"
-            >
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/lnrprice"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.5"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Price"
-                        android:textColor="@color/grey_font"
-                        android:fontFamily="@font/lato_semibold"
-                        android:textSize="12sp"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/pricewisebhk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="Price"
-                        android:textSize="10sp"
-                        android:textColor="@color/grey_font"
-                        android:fontFamily="@font/lato_semibold"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/discountedamount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="Price"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/lato_semibold"/>
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnproceed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
                     android:layout_margin="5dp"
-                    android:layout_weight=".5"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="Proceed "
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-            </LinearLayout>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnrprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.5"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
 
-        </androidx.cardview.widget.CardView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Price"
+                            android:textColor="@color/grey_font"
+                            android:textSize="12sp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/pricewisebhk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Price"
+                            android:textColor="@color/grey_font"
+                            android:textSize="10sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/discountedamount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/lato_semibold"
+                            android:text="Price"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnproceed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".5"
+                        android:background="@color/colorAccent"
+                        android:gravity="center"
+                        android:text="Proceed "
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </androidx.cardview.widget.CardView>

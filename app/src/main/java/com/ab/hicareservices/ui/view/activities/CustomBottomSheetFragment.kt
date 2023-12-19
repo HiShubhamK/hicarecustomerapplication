@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -94,7 +95,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         val textViewdescription = view.findViewById<AppCompatTextView>(R.id.servicedescription)
         val thumbnails = view.findViewById<AppCompatImageView>(R.id.servicethumbnail)
         val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
-        val imgclose = view.findViewById<ImageView>(R.id.imgclose)
+        val imgclose = view.findViewById<LinearLayout>(R.id.imgclose)
         val recFAQ=view.findViewById<RecyclerView>(R.id.recFAQ)
 
         textView.text = servicename

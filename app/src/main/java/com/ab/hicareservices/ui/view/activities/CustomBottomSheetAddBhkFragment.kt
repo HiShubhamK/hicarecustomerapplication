@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -112,7 +113,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
         val pricewisebhk = view.findViewById<AppCompatTextView>(R.id.pricewisebhk)
         val discountedamount = view.findViewById<AppCompatTextView>(R.id.discountedamount)
         val button = view.findViewById<AppCompatButton>(R.id.btnproceed)
-        val imgclose = view.findViewById<ImageView>(R.id.imgclose)
+        val imgclose = view.findViewById<LinearLayout>(R.id.imgclose)
         val lnrprice = view.findViewById<LinearLayoutCompat>(R.id.lnrprice)
 
         lnrprice.visibility = View.INVISIBLE
