@@ -12,6 +12,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.OrderPayments
 import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
@@ -25,6 +26,8 @@ class BookingServiceCheckout : AppCompatActivity() {
     var voucherdiscount = ""
     var finalamount = ""
     var checkappliedcoupon=false
+    private val viewProductModels: ProductViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -176,11 +179,31 @@ class BookingServiceCheckout : AppCompatActivity() {
 //
 //            Log.d("paydata",data.toString())
 
-            val intent = Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
-            intent.putExtra("Finalamount", finalamount)
-            intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
-            startActivity(intent)
-            finish()
+            SharedPreferenceUtil.setData(this, "razorpayorderid","")
+
+            viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+
+                if (it.IsSuccess == true) {
+                    AppUtils2.razorpayorderid = it.Data.toString()
+                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
+                    val intent = Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
+                    intent.putExtra("Finalamount", finalamount)
+                    intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
+                    startActivity(intent)
+                    finish()
+                } else {
+
+                }
+
+            })
+
+            viewProductModels.CreateRazorpayOrderId(finalamount.toDouble(), 12342)
+
+
+
+
+
+
         }
 
         binding.coupunname.setOnClickListener {

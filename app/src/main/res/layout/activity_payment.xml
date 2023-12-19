@@ -8,6 +8,7 @@
     android:background="@color/white"
     tools:context=".ui.view.activities.PaymentActivity">
 
+
     <RelativeLayout
         android:id="@+id/lnrlottiimg"
         android:layout_width="match_parent"
@@ -15,43 +16,137 @@
         android:orientation="vertical"
         android:layout_centerInParent="true"
         android:gravity="center">
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/imgOffer"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/paymentsuccessful"
-        android:layout_marginTop="70dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity=""
-        android:visibility="gone"/>
-<!--    </com.airbnb.lottie.LottieAnimationView>-->
 
-    <com.airbnb.lottie.LottieAnimationView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imgOffer"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/paymentsuccessful"
+            android:layout_marginTop="70dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity=""
+            android:visibility="gone"/>
+        <!--    </com.airbnb.lottie.LottieAnimationView>-->
 
-        android:id="@+id/imgOffererror"
-        android:layout_width="150dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/error_occurred"
-        android:layout_height="150dp"
-        android:visibility="gone"
-        />
+        <com.airbnb.lottie.LottieAnimationView
 
-</RelativeLayout>
+            android:id="@+id/imgOffererror"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="129dp"
+            android:visibility="gone"
+            android:layout_marginEnd="132dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/error_occurred" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtpayment"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/randomimg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/imgOffererror"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="151dp"
+            android:gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lodingjson" />
+
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Payment Successful !"
-        android:fontFamily="@font/lato_semibold"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/lnrlottiimg"
-        android:visibility="gone"/>
+        android:orientation="vertical"
+        android:layout_below="@+id/lnrlottiimg">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtpayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Successful !"
+            android:fontFamily="@font/lato_semibold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtpleasewait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please Wait !"
+            android:fontFamily="@font/lato_semibold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/lnrlottiimg" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+    <!--    <RelativeLayout-->
+<!--        android:id="@+id/lnrlottiimg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:gravity="center">-->
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/imgOffer"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_rawRes="@raw/paymentsuccessful"-->
+<!--        android:layout_marginTop="70dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_gravity=""-->
+<!--        android:visibility="gone"/>-->
+<!--&lt;!&ndash;    </com.airbnb.lottie.LottieAnimationView>&ndash;&gt;-->
+
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+
+<!--        android:id="@+id/imgOffererror"-->
+<!--        android:layout_width="150dp"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_rawRes="@raw/error_occurred"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
+
+<!--</RelativeLayout>-->
+
+<!--    <androidx.appcompat.widget.AppCompatTextView-->
+<!--        android:id="@+id/txtpayment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Payment Successful !"-->
+<!--        android:fontFamily="@font/lato_semibold"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:gravity="center"-->
+<!--        android:textSize="18sp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_below="@id/lnrlottiimg"-->
+<!--        android:visibility="gone"/>-->
 
 </RelativeLayout>

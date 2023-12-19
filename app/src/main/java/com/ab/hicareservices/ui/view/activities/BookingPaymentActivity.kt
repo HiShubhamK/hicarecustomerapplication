@@ -64,17 +64,18 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         ordervalues = "1"
 
         orderPaymentlist = ArrayList()
+//
+//        viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+//            if (it.IsSuccess == true) {
+//                razorpayorderid = it.Data.toString()
+//                AppUtils2.razorpayorderid = it.Data.toString()
+//            } else {
+//
+//            }
+//        })
+//        viewProductModels.CreateRazorpayOrderId(bookingdiscountedprice.toDouble(), 12342)
 
-        viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
-            if (it.IsSuccess == true) {
-                razorpayorderid = it.Data.toString()
-                AppUtils2.razorpayorderid = it.Data.toString()
-            } else {
-
-            }
-        })
-        viewProductModels.CreateRazorpayOrderId(bookingdiscountedprice.toDouble(), 12342)
-
+        AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@BookingPaymentActivity, "razorpayorderid","").toString()
 
 
         progressDialog.show()
@@ -92,6 +93,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             "Service | Customer Mobile App",
             "1"
         )
+
+        Log.d("OptionTag", options.toString())
 
         try {
             val co = Checkout()

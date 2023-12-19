@@ -111,24 +111,31 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         Checkout.sdkCheckIntegration(this)
 
+//        payment="1"
+
+//        SharedPreferenceUtil.setData(this, "razorpayorderid","")
+
+
         if (product == true) {
 
             getSummarydata()
 //
 //            Handler(Looper.getMainLooper()).postDelayed({
-
-            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
-
-                if (it.IsSuccess == true) {
-                    razorpayorderid = it.Data.toString()
-                    AppUtils2.razorpayorderid = it.Data.toString()
-                } else {
-
-                }
-
-            })
-
-            viewProductModel.CreateRazorpayOrderId(AppUtils2.productamount.toDouble(), 12342)
+//
+//            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+//
+//                if (it.IsSuccess == true) {
+//                    razorpayorderid = it.Data.toString()
+//                    AppUtils2.razorpayorderid = it.Data.toString()
+//                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
+//
+//                } else {
+//
+//                }
+//
+//            })
+//
+//            viewProductModel.CreateRazorpayOrderId(payment.toDouble(), 12342)
 //            },1000)
         } else {
 
@@ -137,6 +144,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 if (it.IsSuccess == true) {
                     razorpayorderid = it.Data.toString()
                     AppUtils2.razorpayorderid = it.Data.toString()
+                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
                 } else {
 
                 }
@@ -163,13 +171,23 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
 
             try {
-                Checkout.preload(applicationContext)
-                val activity: PaymentActivity = this
-                val co = Checkout()
-//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
-                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
+                AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
+                if(AppUtils2.razorpayorderid!=null) {
+                    if(!AppUtils2.razorpayorderid.equals("")){
 
-                co.open(this, options)
+                        Checkout.preload(applicationContext)
+                        val activity: PaymentActivity = this
+                        val co = Checkout()
+//                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
+                        co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
+
+                        co.open(this, options)
+                    }else{
+                        onBackPressed()
+                    }
+                }else{
+                    onBackPressed()
+                }
             } catch (e: Exception) {
                 Toast.makeText(this, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
 
@@ -198,11 +216,25 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 payment
             )
 
+
+            Log.d("OptionTags", options.toString())
+
             try {
-                val co = Checkout()
+
+                AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
+                if(AppUtils2.razorpayorderid!=null) {
+                    if(!AppUtils2.razorpayorderid.equals("")) {
+
+                        val co = Checkout()
 //                co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
-                co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
-                co.open(this, options)
+                        co.setKeyID("rzp_live_2QlgSaiHhGkoo8")
+                        co.open(this, options)
+                    }else{
+                        onBackPressed()
+                    }
+                }else{
+                    onBackPressed()
+                }
             } catch (e: Exception) {
                 Log.d("TAG", "$e")
             }
@@ -240,14 +272,16 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notesproduct: JSONObject,
         productamount: String
     ): JSONObject {
+
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", "Product | Customer Mobile App")
-        options.put("order_id", AppUtils2.razorpayorderid)
+        options.put("order_id", SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString())
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
-        options.put("amount", "${AppUtils2.productamount.toDouble().roundToInt()}00")
+        options.put("amount", "${payment.toDouble().roundToInt()}00")
+//        options.put("amount", "${AppUtils2.productamount.toDouble().roundToInt()}00")
         options.put("notes", notesproduct)
         val prefill = JSONObject()
 
@@ -307,7 +341,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         options.put("currency", "INR")
         options.put("amount", "${amount.toDouble().roundToInt()}00")
         options.put("notes", notes)
-        options.put("order_id", AppUtils2.razorpayorderid)
+        options.put("order_id", SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString())  //AppUtils2.razorpayorderid
         val prefill = JSONObject()
         prefill.put("email", AppUtils2.customeremail)
         prefill.put("contact", AppUtils2.mobileno)
@@ -321,10 +355,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     override fun onPaymentSuccess(s: String?, response: PaymentData?) {
 
 
-        Log.d(
-            "Paymenttag",
-            response!!.paymentId + " " + response.signature + " " + response.signature
-        )
+        Log.d("Paymenttag", response!!.paymentId + " " + response.signature + " " + response.signature)
+
+        Log.d("Paymentstatuscheck", response.toString())
 
         if (product == true) {
 
@@ -383,9 +416,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 data["Razorpay_Payment_Id"] = response.paymentId.toString()
                 data["User_Id"] = AppUtils2.customerid.toInt()
 
-
-
-
                 viewProductModel.postSaveSalesOrder(data)
 
             } catch (e: Exception) {
@@ -426,7 +456,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             })
 
             data1["razorpay_payment_id"] = response?.paymentId.toString()
-            data1["razorpay_order_id"] = AppUtils2.razorpayorderid
+            data1["razorpay_order_id"] = SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString() //AppUtils2.razorpayorderid
             data1["razorpay_signature"] = response?.signature.toString()
 
             orderDetailsViewModel.saveAppPaymentDetails(data1)
@@ -442,6 +472,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onPaymentError(p0: Int, p1: String?, response: PaymentData?) {
         try {
+
             binding.imgOffer.visibility = View.GONE
             binding.imgOffererror.visibility = View.VISIBLE
             binding.txtpayment.visibility = View.VISIBLE
@@ -481,5 +512,4 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("Locality", AppUtils2.locality)
         return notes
     }
-
 }

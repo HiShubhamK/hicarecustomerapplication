@@ -37,7 +37,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
     var checkalterbox=false
-
+    var paymentvalue=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,9 +84,25 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         }
 
         binding.txtplcaeorder.setOnClickListener {
-            val intent = Intent(this, PaymentActivity::class.java)
-            intent.putExtra("Product", true)
-            startActivity(intent)
+
+            SharedPreferenceUtil.setData(this, "razorpayorderid","")
+
+            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+
+                if (it.IsSuccess == true) {
+                    AppUtils2.razorpayorderid = it.Data.toString()
+                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
+                    val intent = Intent(this, PaymentActivity::class.java)
+                    intent.putExtra("Product", true)
+                    startActivity(intent)
+                } else {
+
+                }
+
+            })
+
+            viewProductModel.CreateRazorpayOrderId(paymentvalue.toDouble(), 12342)
+
         }
 
         binding.btnappiledcoupon.setOnClickListener {
@@ -249,6 +265,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             AppUtils2.vouchercode = it.VoucherCode.toString()
             AppUtils2.voucherdiscount = it.VoucherDiscount.toString()
             binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
+            paymentvalue=it.FinalAmount!!.toDouble().toString()
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()

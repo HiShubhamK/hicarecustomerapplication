@@ -59,6 +59,12 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/lnrlottiimg">
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtpayment"
         android:layout_width="match_parent"
@@ -69,9 +75,7 @@
         android:gravity="center"
         android:textSize="18sp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/lnrlottiimg"
         android:visibility="gone"/>
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtpleasewait"
@@ -85,6 +89,6 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/lnrlottiimg" />
 
-
+    </LinearLayout>
 
 </RelativeLayout>
