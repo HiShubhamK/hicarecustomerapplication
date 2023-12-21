@@ -166,8 +166,6 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
         viewModels.getcurretnapversioncode(AppUtils2.mobileno)
 
-
-
         binding.addFab.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, HomeFragment.newInstance()).commitAllowingStateLoss()

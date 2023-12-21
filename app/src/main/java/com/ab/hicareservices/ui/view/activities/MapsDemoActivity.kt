@@ -59,7 +59,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.*
 import java.util.*
 
-
 class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var progressDialog: ProgressDialog
     private var markerUpdateJob: Job? = null
@@ -109,7 +108,6 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             Places.initialize(applicationContext, "AIzaSyDxWpNjeNRl8_62bKRfS57AzgcvDZ-DxXM")
             placesClient = Places.createClient(this)
 
-
             ServiceCenter_Id = intent.getStringExtra("ServiceCenter_Id").toString()
             SlotDate = intent.getStringExtra("SlotDate").toString()
             TaskId = intent.getStringExtra("TaskId").toString()
@@ -122,10 +120,8 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             Unit = intent.getStringExtra("Unit").toString()
             spcode = intent.getStringExtra("SPCode").toString()
 
-
             userData.ServiceArea = "Home Type"
             userData.LeadSource = "MobileApp"
-
 
             btnChangeLoc = findViewById(R.id.btnChangeLoc)
             tvAddressdetail = findViewById(R.id.tvAddressdetail)
@@ -520,12 +516,9 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 ////                }
 //            })
 
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
     }
 
     private fun updateMarkerPosition(latitude: Double, longitude: Double) {

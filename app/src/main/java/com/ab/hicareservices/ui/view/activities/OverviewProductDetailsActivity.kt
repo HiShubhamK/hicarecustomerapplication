@@ -19,6 +19,7 @@ import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.location.*
+import org.json.JSONObject
 import kotlin.collections.ArrayList
 
 class OverviewProductDetailsActivity : AppCompatActivity() {
@@ -36,8 +37,14 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     private var longg: String? = ""
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
-    var checkalterbox=false
-    var paymentvalue=""
+    var checkalterbox = false
+    var paymentvalue = ""
+    var discountvalue = ""
+    var paymenttotalamount = ""
+    var voucherdiscount=""
+    var vouchercode=""
+    lateinit var cartid: ArrayList<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +56,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             ProgressDialog(this, com.ab.hicareservices.R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
         AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
@@ -73,7 +81,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         getproductlist()
         getSummarydata("")
         getAddressList()
-        if(!billdata.equals("")) {
+        if (!billdata.equals("")) {
             getAddressforbilling()
         }
 
@@ -83,15 +91,19 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.tvPincode.visibility = View.GONE
         }
 
+
+
         binding.txtplcaeorder.setOnClickListener {
 
-            SharedPreferenceUtil.setData(this, "razorpayorderid","")
+            val notes = prepareNotes()
+
+            SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
             viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
 
                 if (it.IsSuccess == true) {
                     AppUtils2.razorpayorderid = it.Data.toString()
-                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
+                    SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
                     val intent = Intent(this, PaymentActivity::class.java)
                     intent.putExtra("Product", true)
                     startActivity(intent)
@@ -146,8 +158,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 //                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            if(checkalterbox==false) {
-                                checkalterbox=true
+                            if (checkalterbox == false) {
+                                checkalterbox = true
                                 ShowCustomeDialog()
                             }
 //                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
@@ -164,6 +176,21 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+
+    private fun prepareNotes(): JSONObject {
+        val notes = JSONObject()
+        var resultString = cartid.joinToString(separator = "|")
+        notes.put("cartsyncforpayment", resultString)
+        notes.put("userId", AppUtils2.customerid.toString())
+        notes.put("TotalAmount", paymenttotalamount.toString())
+        notes.put("DeliveryCharges", "0")
+        notes.put("FinalAmount", paymentvalue)
+        notes.put("VoucherCode", vouchercode)
+        notes.put("VoucherDiscount", voucherdiscount)
+        notes.put("OrderSource", "CustomerApp")
+        return notes
     }
 
     private fun getAddressforbilling() {
@@ -189,7 +216,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         viewProductModel.getAddressDetailbyId(billdata!!.toInt())
 
     }
-
 
     private fun getAddressList() {
 
@@ -226,7 +252,6 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         viewProductModel.getCustomerAddress(AppUtils2.customerid.toInt())
     }
 
-
     private fun getproductlist() {
 
         progressDialog.show()
@@ -242,6 +267,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             progressDialog.dismiss()
 
+            cartid= ArrayList()
+
+            for (i in 0 until it.size){
+                cartid.add(it.get(i).CartId.toString())
+            }
+
             AppUtils2.leaderlist = it as ArrayList<CartlistResponseData>
 //             datalist= it as ArrayList<CartlistResponseData>
 //            Toast.makeText(this,AppUtils2.leaderlist.size.toString(),Toast.LENGTH_LONG).show()
@@ -249,7 +280,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(),AppUtils2.pincode)
+        viewProductModel.getProductCartByUserId(AppUtils2.customerid.toInt(), AppUtils2.pincode)
     }
 
     fun getSummarydata(toString: String) {
@@ -258,17 +289,20 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         viewProductModel.getsummarydata.observe(this, Observer {
 
-
             AppUtils2.productamount = it.FinalAmount.toString()
             AppUtils2.actualvalue = it.TotalAmount.toString()
             AppUtils2.totaldiscount = it.TotalDiscount.toString()
             AppUtils2.vouchercode = it.VoucherCode.toString()
             AppUtils2.voucherdiscount = it.VoucherDiscount.toString()
             binding.txtfinaltext.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
-            paymentvalue=it.FinalAmount!!.toDouble().toString()
+            paymentvalue = it.FinalAmount!!.toDouble().toString()
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
+            discountvalue = it.TotalDiscount!!.toDouble().toString()
+            paymenttotalamount = it.TotalAmount!!.toDouble().toString()
+            vouchercode=it.VoucherCode.toString()
+            voucherdiscount=it.VoucherDiscount!!.toDouble().toString()
             if (it.DeliveryCharges != null && it.DeliveryCharges!!.toDouble().toInt() == 0) {
                 binding.tvDeliveryCharge.text = "Free "
             } else {
@@ -295,6 +329,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
+
     public fun ShowCustomeDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Hicare Alert!")
@@ -307,12 +342,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 //                applicationContext,
 //                android.R.string.ok, Toast.LENGTH_SHORT
 //            ).show()
-            checkalterbox=false
+            checkalterbox = false
             dialog.dismiss()
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            checkalterbox=false
+            checkalterbox = false
             dialog.dismiss()
         }
 
