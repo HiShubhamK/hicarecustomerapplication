@@ -364,7 +364,8 @@
                                     android:singleLine="true"
                                     android:textColor="@color/black"
                                     android:textSize="13sp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                  />
 
                                 </androidx.cardview.widget.CardView>
 

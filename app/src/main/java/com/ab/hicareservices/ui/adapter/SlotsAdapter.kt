@@ -34,10 +34,10 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
         holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
 //        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
         if (position == lastSelectedPosition) {
-            holder.binding.radioSlots.isChecked = true
+//            holder.binding.radioSlots.isChecked = true
             holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
         } else {
-            holder.binding.radioSlots.isChecked=false
+//            holder.binding.radioSlots.isChecked=false
             holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
 
         }

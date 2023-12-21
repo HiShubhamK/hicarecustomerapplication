@@ -186,9 +186,14 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 progressDialog.dismiss()
                                 if (it.isNotEmpty()) {
                                     mAdapter.setServiceList(it, this)
+                                    binding.txtNoPlan.visibility = View.GONE
+                                    binding.recycleviewplans.visibility = View.VISIBLE
+
                                 } else {
                                     progressDialog.dismiss()
                                     binding.recycleviewplans.visibility = View.GONE
+                                    binding.txtNoPlan.visibility = View.VISIBLE
+                                    binding.txtNoPlan.text = "Sorry, this pincode is not serviceable. Please try a different pincode."
 //                                    Toast.makeText(
 //                                        this@BokingServiceDetailsActivity,
 //                                        "Invalid pincode. Plan are not available ",
@@ -199,7 +204,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 progressDialog.dismiss()
                             })
                         viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                            "400080",
+                            AppUtils2.pincode,
                             AppUtils2.servicecode
                         )
                     }, 300)
@@ -493,11 +498,16 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                 if (it.isNotEmpty()) {
                                                     binding.recycleviewplans.visibility =
                                                         View.VISIBLE
+                                                    binding.txtNoPlan.visibility = View.GONE
+
 
                                                     mAdapter.setServiceList(it, this)
                                                     checkserchbutton = false
                                                 } else {
                                                     binding.recycleviewplans.visibility = View.GONE
+                                                    binding.txtNoPlan.visibility = View.VISIBLE
+
+                                                    binding.txtNoPlan.text="Sorry, this pincode is not serviceable. Please try a different pincode."
                                                     val currentTime = System.currentTimeMillis()
                                                     if (currentTime - lastClickTime > clickTimeThreshold) {
 //                                                        Toast.makeText(
@@ -509,10 +519,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                                                         DesignToast.makeText(
                                                             this@BokingServiceDetailsActivity,
-                                                            "Sorry this pincode is not available for serviceable",
+                                                            "Sorry, this pincode is not serviceable. Please try a different pincode.",
                                                             Toast.LENGTH_SHORT,
                                                             DesignToast.TYPE_ERROR
-                                                        ).show();
+                                                        ).show()
 
 
                                                         lastClickTime = currentTime
@@ -553,7 +563,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                                 })
                             viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                                "400080",
+                                AppUtils2.pincode,
                                 AppUtils2.servicecode
                             )
                             checkserchbutton = false
@@ -573,6 +583,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                             } else {
                                 progressDialog.dismiss()
                                 binding.recycleviewplans.visibility = View.GONE
+                                binding.txtNoPlan.visibility = View.VISIBLE
+                                binding.txtNoPlan.text="Sorry, this pincode is not serviceable. Please try a different pincode."
 //                                    Toast.makeText(
 //                                        this@BokingServiceDetailsActivity,
 //                                        "Invalid pincode. Plan are not available ",
@@ -583,7 +595,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                             progressDialog.dismiss()
                         })
                     viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                        "400080",
+                        AppUtils2.pincode,
                         AppUtils2.servicecode
                     )
 
@@ -602,8 +614,19 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
-        startActivity(intent)
+//        super.onBackPressed()
+        val fragmentManager = this.supportFragmentManager
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStack() // This handles the back navigation
+        } else {
+            super.onBackPressed()
+//            fragmentManager.popBackStack() // If there are no Fragments in the back stack, perform default back action (e.g., go back to the Activity)
+        }
+////        supportFragmentManager.beginTransaction()
+////            .replace(R.id.container, PestServiceFragment.newInstance())
+////            .addToBackStack("PestServiceFragment").commitAllowingStateLoss()
+//        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
+//        startActivity(intent)
     }
+
 }

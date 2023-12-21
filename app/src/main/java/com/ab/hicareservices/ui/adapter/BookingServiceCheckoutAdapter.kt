@@ -81,7 +81,7 @@ class BookingServiceCheckoutAdapter :
 
         holder.binding.imgremoveinstructoin.setOnClickListener {
 
-            holder.binding.txtdescription.startAnimation(animation)
+//            holder.binding.txtdescription.startAnimation(animation)
             holder.binding.imgremoveinstructoin.postDelayed({
                 holder.binding.imgremoveinstructoin.visibility = View.GONE
                 holder.binding.imgaddinstructoin.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ class BookingServiceCheckoutAdapter :
 
 
         holder.binding.imgaddinstructoinforextra.setOnClickListener {
-            holder.binding.edtinstruction.startAnimation(animation2)
+//            holder.binding.edtinstruction.startAnimation(animation2)
             holder.binding.imgaddinstructoinforextra.visibility = View.GONE
             holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
             holder.binding.edtinstruction.visibility = View.VISIBLE
@@ -105,7 +105,7 @@ class BookingServiceCheckoutAdapter :
         }
 
         holder.binding.imgremoveinstructoinextra.setOnClickListener {
-            holder.binding.edtinstruction.startAnimation(animation)
+//            holder.binding.edtinstruction.startAnimation(animation)
             holder.binding.imgremoveinstructoin.postDelayed({
                 holder.binding.imgremoveinstructoinextra.visibility = View.GONE
                 holder.binding.imgaddinstructoinforextra.visibility = View.VISIBLE

@@ -47,10 +47,10 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
 
 
         if (position == lastSelectedPosition) {
-            holder.binding.radioSlots.isChecked = true
+//            holder.binding.radioSlots.isChecked = true
             holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
         } else {
-            holder.binding.radioSlots.isChecked=false
+//            holder.binding.radioSlots.isChecked=false
             holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
 
         }
