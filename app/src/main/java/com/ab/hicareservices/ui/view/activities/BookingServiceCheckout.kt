@@ -44,10 +44,9 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
-        binding.txtbilling.text = AppUtils2.bookingserviceaddress
+        binding.txtbilling.text = AppUtils2.bookingserviceaddress+"\n"+"("+SharedPreferenceUtil.getData(this, "BHK", "").toString()+")"
         finalamount = AppUtils2.bookingdiscountedprice
-        binding.txtshipping.text =
-            AppUtils2.Appointmentdataforcheckout //SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
+        binding.txtshipping.text = AppUtils2.Appointmentdataforcheckout //SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
 
         binding.recycleviewproduct.layoutManager =
             LinearLayoutManager(this@BookingServiceCheckout, LinearLayoutManager.VERTICAL, false)

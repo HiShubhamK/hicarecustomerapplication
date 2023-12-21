@@ -222,7 +222,6 @@
 <!--                    android:src="@drawable/ic_baseline_delete_outline_24"-->
 <!--                    android:gravity="center"/>-->
 
-
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

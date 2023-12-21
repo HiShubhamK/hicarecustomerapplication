@@ -148,7 +148,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 } else {
 
                 }
-
             })
 
             viewProductModel.CreateRazorpayOrderId(payment.toDouble(), 12342)
@@ -380,7 +379,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
                         SharedPreferenceUtil.setData(this@PaymentActivity, "Paymentback", "true")
                         getClearchache()
-                        val intent = Intent(this@PaymentActivity, HomeActivity::class.java)
+                        val intent = Intent(this@PaymentActivity, MyOrderActivityNew::class.java)
                         startActivity(intent)
                     } else {
                         binding.imgOffer.visibility = View.GONE
@@ -443,7 +442,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         DesignToast.TYPE_SUCCESS
                     ).show()
 
-                    val intent = Intent(this@PaymentActivity, HomeActivity::class.java)
+                    val intent = Intent(this@PaymentActivity, MyOrderActivityNew::class.java)
                     startActivity(intent)
                 } else {
 

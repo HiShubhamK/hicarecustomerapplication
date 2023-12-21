@@ -234,14 +234,12 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
             data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["WebId"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["WebCustId"] = SharedPreferenceUtil.getData(this, "MobileNo", "")
-                .toString() + "_" + SharedPreferenceUtil.getData(this, "Address_Id", 0)
+            data["WebCustId"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString() + "_" + SharedPreferenceUtil.getData(this, "Address_Id", 0)
             data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
             data["LastName"] = "."
             data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
             data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-            data["CommunicationMobileNo"] =
-                SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
+            data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["AltMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
             data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
             data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
@@ -253,8 +251,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["PaymentStatus"] = "Online"
             data["PGResponse"] = ""
             data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
-            data["DiscountValue"] =
-                "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
+            data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
             data["DiscountPercent"] = VoucherDiscount
             data["OrderValue"] = ordervalues
             data["VoucherCode"] = vouchercode
