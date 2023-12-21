@@ -84,6 +84,10 @@ class BookingServiceDetailsActivity : AppCompatActivity() {
 
 
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 
     override fun onResume() {
         super.onResume()

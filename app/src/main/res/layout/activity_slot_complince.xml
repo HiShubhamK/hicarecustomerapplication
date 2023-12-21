@@ -189,7 +189,7 @@
         android:layout_marginBottom="2dp"
         android:fontFamily="@font/lato_semibold"
         android:gravity="center"
-        android:text="-:Select Date:-"
+        android:text="- Select Date -"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <CalendarView
@@ -253,7 +253,7 @@
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
-            android:text="-:Available Slot:-"
+            android:text="- Available Slots -"
             android:textColor="@color/grey_font"
             android:textSize="16sp" />
         <LinearLayout

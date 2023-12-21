@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
+import android.os.Looper
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
@@ -58,25 +59,28 @@ class BookingServiceCheckoutAdapter :
         )
 
         val animation = AnimationUtils.loadAnimation(requireActivity, R.anim.slide_up)
-        val animation2 = AnimationUtils.loadAnimation(requireActivity, R.anim.slide_down)
+        val animation2 = AnimationUtils.loadAnimation(requireActivity, R.anim.slide_up)
 
 //        binding.splashimg.startAnimation(animation)
 
 
         holder.binding.imgaddinstructoin.setOnClickListener {
 
-            Log.d("Buttonclick","1")
+            Log.d("Buttonclick", "1")
+            android.os.Handler(Looper.getMainLooper()).postDelayed({
+                holder.binding.imgaddinstructoin.visibility = View.GONE
+                holder.binding.imgremoveinstructoin.visibility = View.VISIBLE
+                holder.binding.txtdescription.visibility = View.VISIBLE
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "Instructions",
+                    holder.binding.edtinstruction.text.toString()
+                )
 
-            holder.binding.txtdescription.startAnimation(animation2)
-            holder.binding.imgaddinstructoin.visibility = View.GONE
-            holder.binding.imgremoveinstructoin.visibility = View.VISIBLE
-            holder.binding.edtinstruction.visibility = View.VISIBLE
-            holder.binding.txtdescription.visibility = View.VISIBLE
-            SharedPreferenceUtil.setData(
-                requireActivity,
-                "Instructions",
-                holder.binding.edtinstruction.text.toString()
-            )
+            }, 200)
+
+//            holder.binding.txtdescription.startAnimation(animation2)
+
         }
 
         holder.binding.imgremoveinstructoin.setOnClickListener {
@@ -87,21 +91,25 @@ class BookingServiceCheckoutAdapter :
                 holder.binding.imgaddinstructoin.visibility = View.VISIBLE
                 holder.binding.edtinstruction.visibility = View.GONE
                 holder.binding.txtdescription.visibility = View.GONE
-            }, 500)
+            }, 200)
 
         }
 
 
         holder.binding.imgaddinstructoinforextra.setOnClickListener {
 //            holder.binding.edtinstruction.startAnimation(animation2)
-            holder.binding.imgaddinstructoinforextra.visibility = View.GONE
-            holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
-            holder.binding.edtinstruction.visibility = View.VISIBLE
-            SharedPreferenceUtil.setData(
-                requireActivity,
-                "Instructions",
-                holder.binding.edtinstruction.text.toString()
-            )
+            holder.binding.imgaddinstructoinforextra.postDelayed({
+
+                holder.binding.imgaddinstructoinforextra.visibility = View.GONE
+                holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
+                holder.binding.edtinstruction.visibility = View.VISIBLE
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "Instructions",
+                    holder.binding.edtinstruction.text.toString()
+                )
+            }, 200)
+
         }
 
         holder.binding.imgremoveinstructoinextra.setOnClickListener {
@@ -110,7 +118,7 @@ class BookingServiceCheckoutAdapter :
                 holder.binding.imgremoveinstructoinextra.visibility = View.GONE
                 holder.binding.imgaddinstructoinforextra.visibility = View.VISIBLE
                 holder.binding.edtinstruction.visibility = View.GONE
-            }, 500)
+            }, 200)
 
         }
     }

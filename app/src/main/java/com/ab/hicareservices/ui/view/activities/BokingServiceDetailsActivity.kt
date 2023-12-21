@@ -128,6 +128,16 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
             progressDialog.dismiss()
+            DesignToast.makeText(
+                this,
+                "Sorry, this pincode is not serviceable. Please try a different pincode.",
+                Toast.LENGTH_SHORT,
+                DesignToast.TYPE_ERROR
+            ).show()
+            binding.recycleviewplans.visibility = View.GONE
+            binding.txtNoPlan.visibility = View.VISIBLE
+            binding.txtNoPlan.text = "Sorry, this pincode is not serviceable. Please try a different pincode."
+
         })
 
         if (checkserchbutton == false) {
@@ -199,12 +209,18 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //                                        "Invalid pincode. Plan are not available ",
 //                                        Toast.LENGTH_LONG
 //                                    ).show()
+                                    DesignToast.makeText(
+                                        this,
+                                        "Sorry, this pincode is not serviceable. Please try a different pincode.",
+                                        Toast.LENGTH_SHORT,
+                                        DesignToast.TYPE_ERROR
+                                    ).show();
                                     checkserchbutton = false
                                 }
                                 progressDialog.dismiss()
                             })
                         viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                            AppUtils2.pincode,
+                            binding.getpincodetext.text.toString(),
                             AppUtils2.servicecode
                         )
                     }, 300)
@@ -413,9 +429,15 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             this@BokingServiceDetailsActivity,
             Observer {
                 if (it.Id != 0) {
-                    nAdapter.setServiceLists(it.OtherServiceList, this)
+                    if (!it.OtherServiceList.isNullOrEmpty()){
+                        nAdapter.setServiceLists(it.OtherServiceList, this)
+
+                    }else{
+                        binding.lnrOurServices.visibility=View.GONE
+                    }
                     progressDialog.dismiss()
                 } else {
+                    progressDialog.dismiss()
 
                 }
             })

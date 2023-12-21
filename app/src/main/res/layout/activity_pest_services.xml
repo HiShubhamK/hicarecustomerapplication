@@ -152,6 +152,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible">
+        <TextView
+            android:id="@+id/txtNoPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="No Plans Available!"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recMenu"

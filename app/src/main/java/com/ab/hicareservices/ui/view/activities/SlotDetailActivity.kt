@@ -102,6 +102,9 @@ class SlotDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+        binding.btnEditSlot.setOnClickListener {
+            onBackPressed()
+        }
 
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({

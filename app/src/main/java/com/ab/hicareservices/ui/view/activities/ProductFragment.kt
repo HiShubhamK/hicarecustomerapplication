@@ -199,12 +199,12 @@ class ProductFragment : Fragment() {
         }
 
         binding.imgsearch.setOnClickListener {
-            if (binding.getpincodetext.text.equals("") || binding.getpincodetext.text.length != 6) {
+            if (binding.getpincodetext.text.equals("")) {
                 DesignToast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
 //                Toast.makeText(requireActivity(), "Please enter your pincode", Toast.LENGTH_LONG).show()
             } else if(binding.getpincodetext.text.toString().trim().length<6){
-                DesignToast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+                DesignToast.makeText(requireActivity(), "Please enter valid pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
 //                Toast.makeText(requireActivity(), "Invalid pincode", Toast.LENGTH_LONG).show()
             }else{

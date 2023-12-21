@@ -818,9 +818,8 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         }
         alertDialog.show()
     }
-
     override fun onBackPressed() {
-        val intent = Intent(this, BokingServiceDetailsActivity::class.java)
-        startActivity(intent)
+        super.onBackPressed()
+        finish()
     }
 }

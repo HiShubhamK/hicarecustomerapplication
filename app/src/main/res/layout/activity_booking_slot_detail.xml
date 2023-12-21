@@ -221,20 +221,41 @@
             android:visibility="gone"/>
 
     </RelativeLayout>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="18sp"
-        android:textAllCaps="true"
-        android:text="PROCEED TO CHECKOUT"
+    <LinearLayout
         android:layout_alignParentBottom="true"
-        android:textColor="@color/white"
-        android:elevation="5dp"
-        android:background="@color/colorAccent"/>
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEditSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:text="Edit Slot"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:background="@color/colorAccent"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmit"
+            android:layout_below="@+id/btnEditSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:text="PROCEED TO CHECKOUT"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

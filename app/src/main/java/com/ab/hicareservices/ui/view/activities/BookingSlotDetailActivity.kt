@@ -105,6 +105,10 @@ class BookingSlotDetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        binding.btnEditSlot.setOnClickListener {
+            onBackPressed()
+        }
+
 //        getOrdersList2()
         Handler(Looper.getMainLooper()).postDelayed({
 //            getOrdersList()
@@ -239,6 +243,7 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         intent.putExtra("Pincode", SharedPreferenceUtil.getData(this,"Pincode","").toString())
         intent.putExtra("Unit", SharedPreferenceUtil.getData(this,"BHK","").toString())
         startActivity(intent)
+        finish()
 //        if(paymentdone.equals("true")){
 //            SharedPreferenceUtil.setData(this@SlotDetailActivity, "Paymentback","")
 //            val intent=Intent(this@SlotDetailActivity,HomeActivity::class.java)

@@ -100,6 +100,16 @@ class PestServiceFragment : Fragment() {
 
 
         viewProductModel.errorMessage.observe(requireActivity(), Observer {
+            DesignToast.makeText(
+                requireContext(),
+                "Sorry, this pincode is not serviceable. Please try a different pincode.",
+                Toast.LENGTH_SHORT,
+                DesignToast.TYPE_ERROR
+            ).show()
+            binding.recMenu.visibility = View.GONE
+            binding.txtNoPlan.visibility = View.VISIBLE
+            binding.txtNoPlan.text = "Sorry, this pincode is not serviceable. Please try a different pincode."
+            progressDialog.dismiss()
 
             viewProductModel.getActiveServiceList()
 
@@ -149,6 +159,7 @@ class PestServiceFragment : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
 
                     viewProductModel.errorMessage.observe(requireActivity(), Observer {
+                        DesignToast.makeText(requireActivity(), it.toString(), Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
 
                         viewProductModel.getActiveServiceList()
 
