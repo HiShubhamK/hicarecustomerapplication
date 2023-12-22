@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -18,7 +19,6 @@ import com.ab.hicareservices.ui.adapter.OverviewDetailAdapter
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
-import com.google.android.gms.location.*
 import org.json.JSONObject
 import kotlin.collections.ArrayList
 
@@ -92,14 +92,15 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         }
 
 
-
         binding.txtplcaeorder.setOnClickListener {
 
             val notes = prepareNotes()
 
+            Log.d("Notescheck", notes.toString())
+
             SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
-            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+            viewProductModel.GetCreateRazorpayProductOrderIdResponse.observe(this, Observer{
 
                 if (it.IsSuccess == true) {
                     AppUtils2.razorpayorderid = it.Data.toString()
@@ -110,10 +111,47 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                 } else {
 
                 }
-
             })
 
-            viewProductModel.CreateRazorpayOrderId(paymentvalue.toDouble(), 12342)
+//            notes.put("cartsyncforpayment", resultString)
+//            notes.put("userId", AppUtils2.customerid.toString())
+//            notes.put("TotalAmount", paymenttotalamount.toString())
+//            notes.put("DeliveryCharges", "0")
+//            notes.put("FinalAmount", paymentvalue)
+//            notes.put("VoucherCode", vouchercode)
+//            notes.put("VoucherDiscount", voucherdiscount)
+//            notes.put("OrderSource", "CustomerApp")
+
+            var resultString = cartid.joinToString(separator = "|")
+
+            var data = HashMap<String, Any>()
+
+            data["cartsyncforpayment"] = resultString
+            data["userId"] = AppUtils2.customerid.toString()
+            data["TotalAmount"] = paymenttotalamount
+            data["DeliveryCharges"] = "0"
+            data["FinalAmount"] = paymentvalue
+            data["VoucherCode"] = vouchercode
+            data["VoucherDiscount"] = voucherdiscount
+                data["OrderSource"] ="CustomerApp"
+
+            viewProductModel.GetCreateRazorpayProductOrderId(data)
+
+//            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
+//
+//                if (it.IsSuccess == true) {
+//                    AppUtils2.razorpayorderid = it.Data.toString()
+//                    SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
+//                    val intent = Intent(this, PaymentActivity::class.java)
+//                    intent.putExtra("Product", true)
+//                    startActivity(intent)
+//                } else {
+//
+//                }
+//
+//            })
+//
+//            viewProductModel.CreateRazorpayOrderId(paymentvalue.toDouble(), 12342)
 
         }
 

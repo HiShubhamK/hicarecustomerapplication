@@ -187,7 +187,7 @@ interface IRetrofit {
     fun postSaveSalesOrder(@Body data: HashMap<String, Any>): Call<SaveSalesResponse>
 
 
-    @GET("Order/CreateRazorpayOrderId")
+    @GET("Order/CreateRazorpayServiceOrderId")
     fun CreateRazorpayOrderId(
         @Query("amount") amount: Double,
         @Query("mobilenumber") mobilenumer: Int
@@ -255,5 +255,7 @@ interface IRetrofit {
                                 @Query("serviceType") serviceType:String): Call<GetServicePincodeDetailResponse>
 
 
+    @POST("Order/CreateRazorpayProductOrderId")
+    fun GetCreateRazorpayProductOrderId(@Body toString: HashMap<String, Any>):Call<GetCreateRazorpayProductOrderIdResponse>
 
 }

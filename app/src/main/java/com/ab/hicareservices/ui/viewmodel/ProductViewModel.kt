@@ -3,6 +3,7 @@ package com.ab.hicareservices.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.CreateEventNotificationResponse
+import com.ab.hicareservices.data.model.GetCreateRazorpayProductOrderIdResponse
 import com.ab.hicareservices.data.model.SaveSalesResponse
 import com.ab.hicareservices.data.model.ValidateVoucherResponse
 import com.ab.hicareservices.data.model.getaddressdetailbyidmodel.AddressByCustomerModel
@@ -37,6 +38,7 @@ class ProductViewModel: ViewModel() {
     val CreateEventNotificationResponse = MutableLiveData<CreateEventNotificationResponse>()
     val responseMessage = MutableLiveData<String>()
     val clearCacheResponse=MutableLiveData<ClearCacheResponse>()
+    val GetCreateRazorpayProductOrderIdResponse=MutableLiveData<GetCreateRazorpayProductOrderIdResponse>()
 
 
 
@@ -322,5 +324,18 @@ class ProductViewModel: ViewModel() {
         })
     }
 
+    fun GetCreateRazorpayProductOrderId(toString: HashMap<String, Any>) {
+        val response=repository.GetCreateRazorpayProductOrderId(toString)
+        response.enqueue(object : Callback<GetCreateRazorpayProductOrderIdResponse>{
+            override fun onResponse(call: Call<GetCreateRazorpayProductOrderIdResponse>, response: Response<GetCreateRazorpayProductOrderIdResponse>) {
+                GetCreateRazorpayProductOrderIdResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<GetCreateRazorpayProductOrderIdResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+
+        })
+    }
 }
 

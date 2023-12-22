@@ -1,7 +1,6 @@
 package com.ab.hicareservices.data.repository
 
 import com.ab.hicareservices.data.api.RetrofitService
-import retrofit2.http.Query
 
 class MainRepository {
     private val retrofitService = RetrofitService.getInstance()
@@ -66,5 +65,7 @@ class MainRepository {
     fun postvalidateServiceVoucher(vouchercode: String,planid: Int,serviceprice:Float) = retrofitService.postvalidateServiceVoucher(vouchercode, planid,serviceprice)
 
     fun GetServicePincodeDetail(pincode:String,serviceCode:String,serviceType: String) = retrofitService.GetServicePincodeDetail(pincode,serviceCode,serviceType)
+
+    fun GetCreateRazorpayProductOrderId(toString: HashMap<String, Any>) = retrofitProduct.GetCreateRazorpayProductOrderId(toString)
 
 }
