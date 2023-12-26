@@ -822,6 +822,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent =
             Intent(this, BokingServiceDetailsActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }
