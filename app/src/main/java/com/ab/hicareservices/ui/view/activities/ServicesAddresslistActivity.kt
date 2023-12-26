@@ -170,6 +170,10 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                         Observer {
                             if (it.IsSuccess == true) {
                                 SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Pincode", "")
+                                SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Lat", "")
+                                SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Long", "")
+                                SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Lat", Lat)
+                                SharedPreferenceUtil.setData(this@ServicesAddresslistActivity, "Long", Long)
                                 SharedPreferenceUtil.setData(
                                     this@ServicesAddresslistActivity,
                                     "Pincode",
@@ -816,7 +820,9 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         alertDialog.show()
     }
     override fun onBackPressed() {
-        super.onBackPressed()
+        val intent =
+            Intent(this, BokingServiceDetailsActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }

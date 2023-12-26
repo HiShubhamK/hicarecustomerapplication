@@ -215,7 +215,7 @@
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:text="No Record Found"
+            android:text="Sorry, no slots are available. Please select a different date."
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:visibility="gone"/>
@@ -235,9 +235,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:text="PROCEED TO CHECKOUT"
+            android:textSize="14sp"
+            android:text="Proceed To Checkout"
             android:textColor="@color/white"
             android:elevation="5dp"
             android:background="@color/colorAccent"/>

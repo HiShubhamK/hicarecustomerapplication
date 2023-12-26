@@ -644,7 +644,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         if (fragmentManager.backStackEntryCount > 0) {
             fragmentManager.popBackStack() // This handles the back navigation
         } else {
-            super.onBackPressed()
+            finish()
+//            fragmentManager.popBackStack() // This handles the back navigation
+
+//            super.onBackPressed()
 //            fragmentManager.popBackStack() // If there are no Fragments in the back stack, perform default back action (e.g., go back to the Activity)
         }
 ////        supportFragmentManager.beginTransaction()

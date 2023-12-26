@@ -315,7 +315,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="No Plans Available!"
+            android:text="Sorry, no slots are available. Please select a different date."
             android:visibility="gone" />
         <LinearLayout
             android:id="@+id/lnrOurServices"

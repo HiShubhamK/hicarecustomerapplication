@@ -156,7 +156,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 //                    "Please select a valid date in the range of "+output1 + "to "+output2+" to schedule a slot.",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + AppUtils2.getCurrentDateTimeminusone(output2) + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + AppUtils2.getCurrentDateTimeminusone(c2.time) + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
             } else {
                 binding.recyclerView.visibility = View.VISIBLE

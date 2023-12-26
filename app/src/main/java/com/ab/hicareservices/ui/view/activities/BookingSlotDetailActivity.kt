@@ -125,7 +125,15 @@ class BookingSlotDetailActivity : AppCompatActivity() {
         scheduledatetext: String
     ) {
 
-        binding.recyclerView.visibility = View.VISIBLE
+
+        if (timeslotslist.isEmpty()){
+            binding.recyclerView.visibility = View.GONE
+            binding.btnSubmit.visibility=View.GONE
+            binding.textnotfound.visibility = View.VISIBLE
+        }else{
+            binding.recyclerView.visibility = View.VISIBLE
+
+        }
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingSlotsAdapter(this@BookingSlotDetailActivity, timeslotslist, TaskId)

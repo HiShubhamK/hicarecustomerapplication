@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.ab.hicareservices.data.model.dashboard.SocialMediadata
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.orders.OrdersData
@@ -17,6 +16,7 @@ import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -24,6 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object AppUtils2 {
+    var vouchercodedata=""
     var TOKEN = ""
     var NotificationChannelid = ""
     var mobileno=""
@@ -210,17 +211,40 @@ object AppUtils2 {
 
         return sdf.format(currentDate.time)
     }
-    fun getCurrentDateTimeminusone(dateTime: String): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    fun getCurrentDateTimeminusone(dateTime: Date): String {
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())  // Adjust format as needed
 
-        // Get current date
-        val currentDate = Calendar.getInstance()
+        // Validate input format
+//        try {
+//            sdf.parse(dateTime)  // Check if parsing is successful
+//        } catch (e: ParseException) {
+//            throw IllegalArgumentException("Invalid datetime format: $dateTime")
+//        }
 
-        // Add one day to the current date
-        currentDate.add(Calendar.DAY_OF_MONTH, -1)
+        // Parse input datetime
+//        val parsedDate = sdf.parse(dateTime)
 
-        return sdf.format(currentDate.time)
+        // Create calendar object and subtract one day
+        val calendar = Calendar.getInstance().apply {
+            time = dateTime
+            add(Calendar.DAY_OF_MONTH, -1)
+        }
+
+        // Format and return the previous datetime
+        return sdf.format(calendar.time)
     }
+//    fun getCurrentDateTimeminusone(dateTime: String): String {
+//        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//
+//        // Get current date
+//        val currentDate = Calendar.getInstance()
+//
+//        // Add one day to the current date
+//        currentDate.add(Calendar.DAY_OF_MONTH, -1)
+//
+//        return sdf.format(dateTime)
+//    }
+
     fun formatDate(inputDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

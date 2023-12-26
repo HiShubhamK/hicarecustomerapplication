@@ -147,21 +147,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnEditSlot"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:textSize="14sp"
-                            android:textAllCaps="true"
-                            android:text="Edit Slot"
-                            android:layout_alignParentBottom="true"
-                            android:textColor="@color/white"
-                            android:elevation="5dp"
-                            android:background="@color/colorAccent"/>
-
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -175,7 +160,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:src="@drawable/baseline_account_circle_24"
-                                android:tint="@color/colorAccent"/>
+                                android:tint="@color/colorAccent" />
 
                             <TextView
                                 android:id="@+id/txtname"
@@ -192,7 +177,6 @@
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -254,6 +238,20 @@
                                 android:textSize="13sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnEditSlot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:padding="2dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@color/colorAccent"
+                            android:fontFamily="@font/lato_regular"
+                            android:text="Edit Slot"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -459,12 +457,12 @@
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/white"
                                     android:elevation="3dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_gravity="center"
                                     app:cardCornerRadius="3dp">
 
                                     <androidx.appcompat.widget.AppCompatEditText
@@ -474,10 +472,10 @@
                                         android:background="@null"
                                         android:fontFamily="@font/lato_regular"
                                         android:gravity="start"
-                                        android:singleLine="true"
-                                        android:maxLength="30"
                                         android:hint="Enter coupon code"
+                                        android:maxLength="30"
                                         android:padding="5dp"
+                                        android:singleLine="true"
                                         android:textColor="@color/black"
                                         android:textSize="13sp"
                                         android:textStyle="bold" />
@@ -516,33 +514,26 @@
                                 android:background="@color/grey_font" />
 
 
+                            <!--                            <androidx.appcompat.widget.LinearLayoutCompat-->
+                            <!--                                android:id="@+id/btnappiledcoupon"-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:orientation="vertical">-->
+
+                            <!--                                <androidx.appcompat.widget.AppCompatTextView-->
+                            <!--                                    android:id="@+id/coupunname"-->
+                            <!--                                    android:layout_width="match_parent"-->
+                            <!--                                    android:layout_height="40dp"-->
+                            <!--                                    android:background="@color/colorAccent"-->
+                            <!--                                    android:fontFamily="@font/lato_semibold"-->
+                            <!--                                    android:gravity="center"-->
+                            <!--                                    android:text="Apply coupon"-->
+                            <!--                                    android:textAllCaps="false"-->
+                            <!--                                    android:textColor="@color/white"-->
+                            <!--                                    android:textSize="13sp" />-->
 
 
-<!--                            <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                                android:id="@+id/btnappiledcoupon"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:orientation="vertical">-->
-
-<!--                                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                                    android:id="@+id/coupunname"-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="40dp"-->
-<!--                                    android:background="@color/colorAccent"-->
-<!--                                    android:fontFamily="@font/lato_semibold"-->
-<!--                                    android:gravity="center"-->
-<!--                                    android:text="Apply coupon"-->
-<!--                                    android:textAllCaps="false"-->
-<!--                                    android:textColor="@color/white"-->
-<!--                                    android:textSize="13sp" />-->
-
-
-<!--                            </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-
-
-
-
+                            <!--                            </androidx.appcompat.widget.LinearLayoutCompat>-->
 
 
                             <androidx.appcompat.widget.LinearLayoutCompat

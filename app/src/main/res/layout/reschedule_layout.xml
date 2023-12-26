@@ -125,7 +125,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="No Slots Available!"
+                android:text="Sorry, no slots are available. Please select a different date."
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
