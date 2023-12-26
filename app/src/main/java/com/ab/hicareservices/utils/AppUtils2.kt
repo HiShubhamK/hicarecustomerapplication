@@ -94,6 +94,9 @@ object AppUtils2 {
     var checkerrormessage=false
     var checkloging=false
     var vouchercodedata=""
+    var finalamounts=""
+    var voucherdiscounts=""
+
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

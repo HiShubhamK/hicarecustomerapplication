@@ -203,6 +203,9 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
 
                     Handler(Looper.getMainLooper()).postDelayed({
+                        AppUtils2.vouchercodedata=""
+                        var finalamounts=""
+                        var voucherdiscounts=""
                         val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
                         startActivity(intent)
                         finish()

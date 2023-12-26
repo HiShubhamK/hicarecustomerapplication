@@ -44,7 +44,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     var voucherdiscount=""
     var vouchercode=""
     lateinit var cartid: ArrayList<String>
-
+    private var lastClickTime: Long = 0
+    private val clickTimeThreshold = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,19 +188,34 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
                                 DesignToast.makeText(
                                     this,
-                                    "Applied coupon successfully",
+                                    "Coupon code applied successfully!",
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
 
                             } else {
-                                ShowCustomeDialog()
+
+                                if (checkalterbox == false) {
+                                    checkalterbox = true
+
+                                    val currentTimes = System.currentTimeMillis()
+                                    if (currentTimes - lastClickTime > clickTimeThreshold) {
+                                        DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                                        lastClickTime = currentTimes
+                                    }
+                                }
+//                                ShowCustomeDialog()
 //                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
                             if (checkalterbox == false) {
                                 checkalterbox = true
-                                ShowCustomeDialog()
+
+                                val currentTimes = System.currentTimeMillis()
+                                if (currentTimes - lastClickTime > clickTimeThreshold) {
+                                    DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                                    lastClickTime = currentTimes
+                                }
                             }
 //                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
@@ -363,6 +379,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.vouchercodedata=""
         SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
