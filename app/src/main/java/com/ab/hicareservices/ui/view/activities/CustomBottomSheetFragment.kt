@@ -121,7 +121,6 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
             mAdapter.setFaq(serviceList, activity!!)
         }
 
-
         imgclose.setOnClickListener {
             dismiss()
         }
