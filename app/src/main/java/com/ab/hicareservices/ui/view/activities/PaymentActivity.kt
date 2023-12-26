@@ -370,6 +370,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         SharedPreferenceUtil.setData(this, "Billingdata", "")
 //                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
 
+                        AppUtils2.vouchercodedata=""
+
+
                         DesignToast.makeText(
                             this@PaymentActivity,
                             "Payment Successfully Done",

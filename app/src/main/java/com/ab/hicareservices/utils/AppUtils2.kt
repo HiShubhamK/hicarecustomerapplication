@@ -59,6 +59,7 @@ object AppUtils2 {
     var vouchercode=""
     var Latt=""
     var Longg=""
+    var billingAddress=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
     var socialmedia = ArrayList<SocialMediadata>()
     var servicetype=ArrayList<String>()
@@ -93,6 +94,9 @@ object AppUtils2 {
     var Appointmentdataforcheckout=" "
     var checkerrormessage=false
     var checkloging=false
+    var vouchercodedata=""
+    var finalamounts=""
+    var voucherdiscounts=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {

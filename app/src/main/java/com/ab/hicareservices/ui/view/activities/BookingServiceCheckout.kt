@@ -46,8 +46,17 @@ class BookingServiceCheckout : AppCompatActivity() {
         orderPaymentlist = ArrayList()
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
-        binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+        if(AppUtils2.finalamounts.equals("")){
+            binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+            binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+        }else{
+            binding.txtfinaltext.text = "\u20B9" + AppUtils2.finalamounts
+            binding.txttoalamount.text = "\u20B9" + AppUtils2.finalamounts
+            binding.voucherdiscount.text="\u20B9" + AppUtils2.voucherdiscounts
+        }
+
+
+//        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
         binding.txtname.text=SharedPreferenceUtil.getData(this, "Fname", "").toString()
         binding.txtbilling.text = AppUtils2.bookingserviceaddress+"\n"+"("+SharedPreferenceUtil.getData(this, "BHK", "").toString()+")"
@@ -59,6 +68,12 @@ class BookingServiceCheckout : AppCompatActivity() {
         mAdapter = BookingServiceCheckoutAdapter()
         binding.recycleviewproduct.adapter = mAdapter
         mAdapter.setServiceList(AppUtils2.getServicePlanResponseData, this@BookingServiceCheckout)
+
+        if(AppUtils2.vouchercodedata.equals("")){
+            binding.txtcoupon.setText("")
+        }else{
+            binding.txtcoupon.setText(AppUtils2.vouchercodedata.toString())
+        }
 
         binding.txtplcaeorder.setOnClickListener {
 
@@ -239,6 +254,9 @@ class BookingServiceCheckout : AppCompatActivity() {
                             checkappliedcoupon=true
                             voucherdiscount = it.Data?.VoucherDiscount.toString()
                             finalamount = it.Data?.FinalAmount.toString()
+                            AppUtils2.vouchercodedata=binding.txtcoupon.text.toString()
+                            AppUtils2.finalamounts=it.Data?.FinalAmount.toString()
+                            AppUtils2.voucherdiscounts=it.Data?.VoucherDiscount.toString()
                             SharedPreferenceUtil.setData(
                                 this,
                                 "VoucherDiscount",
@@ -315,6 +333,10 @@ class BookingServiceCheckout : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.vouchercodedata=""
+        var finalamounts=""
+        var voucherdiscounts=""
     }
+
 
 }

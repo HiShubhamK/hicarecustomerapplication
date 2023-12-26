@@ -59,16 +59,16 @@ class AddressActivity : AppCompatActivity() {
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
-
-        if (checkboxcheck == false) {
-            checkboxcheck == true
-            binding.checkbox.isChecked == false
-            binding.checkbox.isClickable == true
-        } else {
-            checkboxcheck == false
-            binding.checkbox.isChecked == true
-            binding.checkbox.isClickable == false
-        }
+//
+//        if (checkboxcheck == false) {
+//            checkboxcheck == true
+//            binding.checkbox.isChecked == false
+//            binding.checkbox.isClickable == true
+//        } else {
+//            checkboxcheck == false
+//            binding.checkbox.isChecked == true
+//            binding.checkbox.isClickable == false
+//        }
 
         if (!pincode.isNullOrEmpty()) {
             binding.tvPincode.text = "Deliver to pincode " + pincode
@@ -77,19 +77,28 @@ class AddressActivity : AppCompatActivity() {
             binding.tvPincode.visibility = View.GONE
         }
 
-        binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
-//            if (b == true) {
+        binding.checkbox.setOnClickListener {
 
-                val intent = Intent(this, ProductAddAddressActivity::class.java)
-                intent.putExtra("AddressActivity", "AddressActivity")
-                intent.putExtra("Shipping", "Billing")
-                startActivity(intent)
+            val intent = Intent(this, ProductAddAddressActivity::class.java)
+            intent.putExtra("AddressActivity", "AddressActivity")
+            intent.putExtra("Shipping", "Billing")
+            startActivity(intent)
 
-//                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
-//            } else {
-//
-//            }
         }
+
+//        binding.checkbox.setOnCheckedChangeListener { compoundButton, b ->
+////            if (b == true) {
+//
+//                val intent = Intent(this, ProductAddAddressActivity::class.java)
+//                intent.putExtra("AddressActivity", "AddressActivity")
+//                intent.putExtra("Shipping", "Billing")
+//                startActivity(intent)
+//
+////                showAddNewAddressdialog("false", binding.checkbox, AppUtils2.pincode)
+////            } else {
+////
+////            }
+//        }
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
@@ -111,7 +120,7 @@ class AddressActivity : AppCompatActivity() {
         if (!billingdata.equals("")) {
             getAddressforbilling()
         } else {
-            binding.txtbilling.text = ""
+            binding.txtbilling.text = AppUtils2.billingAddress
         }
 
 
@@ -186,6 +195,9 @@ class AddressActivity : AppCompatActivity() {
             binding.txtbilling.text =
                 it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
                         it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
+
+            AppUtils2.billingAddress=it.FlatNo.toString() + "," + it.BuildingName.toString() + "," + it.Street.toString() + "," +
+                    it.Locality.toString() + "," + it.Landmark.toString() + "," + it.Pincode.toString()
         })
         viewProductModel.getAddressDetailbyId(billingdata!!.toInt())
     }
@@ -334,7 +346,7 @@ class AddressActivity : AppCompatActivity() {
 
             imgcancels.setOnClickListener {
                 alertDialog.cancel()
-                binding.checkbox.isChecked == false
+//                binding.checkbox.isChecked == false
                 appCompatCheckBox.isChecked = false
             }
             AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
@@ -584,7 +596,7 @@ class AddressActivity : AppCompatActivity() {
                             SharedPreferenceUtil.setData(this, "Shippingdata", newAddressid)
                             getAddressListdata2()
                             alertDialog.dismiss()
-                            binding.checkbox.isChecked == false
+//                            binding.checkbox.isChecked == false
                             appCompatCheckBox.isChecked = false
 
 //                            Toast.makeText(
@@ -904,7 +916,7 @@ class AddressActivity : AppCompatActivity() {
                                 DesignToast.TYPE_SUCCESS
                             ).show()
 
-                            binding.checkbox.isChecked == false
+//                            binding.checkbox.isChecked == false
                             appCompatCheckBox.isChecked = false
                             alertDialog.dismiss()
 
@@ -926,6 +938,7 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.billingAddress=""
         SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         val intent = Intent(this@AddressActivity, AddToCartActivity::class.java)
