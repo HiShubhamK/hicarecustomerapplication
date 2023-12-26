@@ -25,6 +25,7 @@ import com.ab.hicareservices.ui.adapter.BookingServiceListDetailsAdapter
 import com.ab.hicareservices.ui.adapter.BookingServicePlanListAdapter
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
 import com.ab.hicareservices.ui.handler.OnServiceclicklistner
+import com.ab.hicareservices.ui.view.fragments.PestServiceFragment
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
@@ -644,15 +645,16 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         if (fragmentManager.backStackEntryCount > 0) {
             fragmentManager.popBackStack() // This handles the back navigation
         } else {
-            finish()
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, PestServiceFragment.newInstance())
+//                .addToBackStack("PestServiceFragment").commitAllowingStateLoss()
+//            finish()
 //            fragmentManager.popBackStack() // This handles the back navigation
 
-//            super.onBackPressed()
+            super.onBackPressed()
 //            fragmentManager.popBackStack() // If there are no Fragments in the back stack, perform default back action (e.g., go back to the Activity)
         }
-////        supportFragmentManager.beginTransaction()
-////            .replace(R.id.container, PestServiceFragment.newInstance())
-////            .addToBackStack("PestServiceFragment").commitAllowingStateLoss()
+
 //        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
 //        startActivity(intent)
     }

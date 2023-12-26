@@ -556,7 +556,6 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         val intent =
             Intent(this@BookingSlotComplinceActivity, ServicesAddresslistActivity::class.java)
         startActivity(intent)
