@@ -257,7 +257,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     binding.orderNoTv.text = ": " + orderNo
 
                     if (data.appointmentStartDateTime__c!=null){
-                        binding.dateTv.text = ": " + AppUtils2.formatDateTime4(data!!.appointmentStartDateTime__c.toString())
+                        binding.dateTv.text = ": " + AppUtils2.formatDateTime4(data!!.createdDate.toString())
                     }else{
                         binding.dateTv.visibility=View.GONE
                     }

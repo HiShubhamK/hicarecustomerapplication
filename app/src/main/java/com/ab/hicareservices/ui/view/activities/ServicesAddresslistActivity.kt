@@ -43,7 +43,6 @@ class ServicesAddresslistActivity : AppCompatActivity() {
     private var Service_Code = ""
     private var Unit = ""
     private var spcode = ""
-
     private var lastClickTime: Long = 0
     private val clickTimeThreshold = 1000L
 

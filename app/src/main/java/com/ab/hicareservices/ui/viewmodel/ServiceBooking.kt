@@ -42,7 +42,7 @@ class ServiceBooking : ViewModel() {
     val validatevoucher = MutableLiveData<ValidateServiceVoucherResponse>()
     val errorMessage = MutableLiveData<String>()
     val errorMessagess = MutableLiveData<String>()
-
+    val errorMessageplan= MutableLiveData<String>()
 
     fun getActiveServiceList() {
         val response = repository.GetActiveServiceList()
@@ -168,12 +168,12 @@ class ServiceBooking : ViewModel() {
                 if (response.body()?.IsSuccess == true) {
                     servicePlanResponseData.postValue(response.body()!!.Data)
                 } else {
-                    errorMessage.postValue("this service is not available.please check your pincode.")
+                    errorMessageplan.postValue("this service is not available.please check your pincode.")
                 }
             }
 
             override fun onFailure(call: Call<GetServicePlanResponse>, t: Throwable) {
-                errorMessage.postValue("Please Check Internet Connection.")
+                errorMessageplan.postValue("Please Check Internet Connection.")
             }
 
         })

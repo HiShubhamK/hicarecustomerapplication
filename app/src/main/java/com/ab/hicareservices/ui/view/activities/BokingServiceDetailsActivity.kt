@@ -126,7 +126,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
         getplanlist(servicecode)
 
-        viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity, Observer {
+        viewProductModel.errorMessageplan.observe(this@BokingServiceDetailsActivity, Observer {
             progressDialog.dismiss()
             DesignToast.makeText(
                 this,
@@ -500,7 +500,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 if (it.IsSuccess == true) {
 
-
                     if (it.Data != null) {
                         Handler(Looper.getMainLooper()).postDelayed({
 
@@ -526,6 +525,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                     mAdapter.setServiceList(it, this)
                                                     checkserchbutton = false
                                                 } else {
+
                                                     binding.recycleviewplans.visibility = View.GONE
                                                     binding.txtNoPlan.visibility = View.VISIBLE
 
@@ -558,6 +558,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                             AppUtils2.pincode,
                                             AppUtils2.servicecode
                                         )
+
 
                                         binding.recycleviewplans.visibility = View.GONE
 
@@ -652,5 +653,4 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //        val intent = Intent(this@BokingServiceDetailsActivity, PestServicesActivity::class.java)
 //        startActivity(intent)
     }
-
 }

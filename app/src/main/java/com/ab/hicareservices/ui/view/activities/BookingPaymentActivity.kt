@@ -38,7 +38,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
     private val viewProductModels: ProductViewModel by viewModels()
     var razorpayorderid = ""
     val bookingdiscountedprice = 1
-    var ordervalues = "1"
+    var ordervalues = ""
     var vouchercode = ""
     lateinit var progressDialog: ProgressDialog
 
@@ -60,8 +60,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-
-        ordervalues = "1"
+//
+//        ordervalues = ""
 
         orderPaymentlist = ArrayList()
 //
