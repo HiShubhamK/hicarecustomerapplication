@@ -76,9 +76,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
         getAddressList(shipping)
 
         binding.imgLogo.setOnClickListener {
-            val intent = Intent(this, BokingServiceDetailsActivity::class.java)
-            startActivity(intent)
-//            finish()
+            onBackPressed()
         }
 
         binding.lnraddress.setOnClickListener {

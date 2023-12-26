@@ -93,6 +93,11 @@ class SlotComplinceActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+            // Set default date to current date +1
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_MONTH, 1) // Advance to the next day
+            val defaultDate = calendar.timeInMillis
+            binding.calendarView.date = defaultDate
         
         binding.calendarView.setOnDateChangeListener(CalendarView.OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
             var date = ""
@@ -151,7 +156,7 @@ class SlotComplinceActivity : AppCompatActivity() {
 //                    "Please select a valid date in the range of "+output1 + "to "+output2+" to schedule a slot.",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + AppUtils2.getCurrentDateTimeminusone(output2) + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
             } else {
                 binding.recyclerView.visibility = View.VISIBLE
