@@ -210,6 +210,17 @@ object AppUtils2 {
 
         return sdf.format(currentDate.time)
     }
+    fun getCurrentDateTimeminusone(dateTime: String): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // Get current date
+        val currentDate = Calendar.getInstance()
+
+        // Add one day to the current date
+        currentDate.add(Calendar.DAY_OF_MONTH, -1)
+
+        return sdf.format(currentDate.time)
+    }
     fun formatDate(inputDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

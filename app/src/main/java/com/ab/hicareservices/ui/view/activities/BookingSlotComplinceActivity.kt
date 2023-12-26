@@ -144,7 +144,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
             }
             c2.add(
                 Calendar.DAY_OF_MONTH,
-                8
+                7
             )
             c.add(
                 Calendar.DAY_OF_MONTH,
@@ -156,7 +156,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
             val output1 = AppUtils2.formatDatetime(AppUtils2.getCurrentDateTimeplusone())
             var output2 = sdfnew.format(c2.time)
 //            output2=AppUtils2.formatDate(output2)
-            if (c1.time > c.time ||c2.time < c.time  ) {
+            if (c1.time > c.time || c2.time < c.time) {
                 binding.recyclerView.visibility = View.GONE
                 binding.lnrAvailableSlot.visibility = View.GONE
 //                Toast.makeText(
@@ -164,7 +164,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                    "Please select a valid date in the range of "+output1 + "to "+output2+" to schedule a slot.",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-                DesignToast.makeText(this, "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                DesignToast.makeText(
+                    this,
+                    "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
 
 
             } else {
@@ -329,7 +334,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                    Toast.LENGTH_LONG
 //                ).show()
 
-                DesignToast.makeText(this@BookingSlotComplinceActivity, "Please wait while we fetch slot for you. This might take upto 15 seconds", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+                DesignToast.makeText(
+                    this@BookingSlotComplinceActivity,
+                    "Please wait while we fetch slot for you. This might take upto 15 seconds",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_SUCCESS
+                ).show()
 
 
                 AppUtils2.ServiceDate = AppUtils2.formatDateTime(scheduledate)
@@ -464,7 +474,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                        .show()
 
 
-                    DesignToast.makeText(this@BookingSlotComplinceActivity, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                    DesignToast.makeText(
+                        this@BookingSlotComplinceActivity,
+                        it.Data!!.ResponseMessage,
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
 
 
                     progressDialog.dismiss()
@@ -472,7 +487,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 } else {
 //                    Toast.makeText(this, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT)
 //                        .show()
-                    DesignToast.makeText(this@BookingSlotComplinceActivity, it.Data!!.ResponseMessage, Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                    DesignToast.makeText(
+                        this@BookingSlotComplinceActivity,
+                        it.Data!!.ResponseMessage,
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
 
                     alertDialog.dismiss()
                     progressDialog.dismiss()
@@ -489,7 +509,12 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                Toast.makeText(this, "Please select slot time to book a slot!", Toast.LENGTH_SHORT)
 //                    .show()
 
-                DesignToast.makeText(this@BookingSlotComplinceActivity, "Please select slot time to book a slot!" , Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+                DesignToast.makeText(
+                    this@BookingSlotComplinceActivity,
+                    "Please select slot time to book a slot!",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show();
 
             }
 

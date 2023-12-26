@@ -638,7 +638,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
 
 //        super.onBackPressed()
         val fragmentManager = this.supportFragmentManager

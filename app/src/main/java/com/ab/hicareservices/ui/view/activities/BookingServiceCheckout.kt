@@ -39,6 +39,11 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+        binding.btnEditSlot.setOnClickListener {
+            val intent=Intent(this@BookingServiceCheckout,BookingSlotComplinceActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         orderPaymentlist = ArrayList()
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
