@@ -43,6 +43,8 @@ class ServiceBooking : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val errorMessagess = MutableLiveData<String>()
     val errorMessageplan= MutableLiveData<String>()
+    val errorMessagevoucher = MutableLiveData<String>()
+
 
     fun getActiveServiceList() {
         val response = repository.GetActiveServiceList()
@@ -226,7 +228,11 @@ class ServiceBooking : ViewModel() {
                 call: Call<ValidateServiceVoucherResponse>,
                 response: Response<ValidateServiceVoucherResponse>
             ) {
-                validatevoucher.postValue(response.body())
+                if(response.body()?.IsSuccess ==true) {
+                    validatevoucher.postValue(response.body())
+                }else{
+                    errorMessagevoucher.postValue("invalid voucher")
+                }
             }
 
             override fun onFailure(call: Call<ValidateServiceVoucherResponse>, t: Throwable) {

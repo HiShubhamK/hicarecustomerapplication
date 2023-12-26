@@ -241,34 +241,57 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 it.Data?.VoucherDiscountInPercentage.toString()
                             )
 
-                            if(checkappliedcoupon==true) {
-                                checkappliedcoupon=false
-                                val currentTime = System.currentTimeMillis()
-                                if (currentTime - lastClickTime > clickTimeThreshold) {
-                                    DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
-                                    lastClickTime = currentTime
-                                }
-
-
+                            val currentTime = System.currentTimeMillis()
+                            if (currentTime - lastClickTime > clickTimeThreshold) {
+                                DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+                                lastClickTime = currentTime
                             }
+//
+//                            if(checkappliedcoupon==true) {
+//                                checkappliedcoupon=false
+//                                val currentTime = System.currentTimeMillis()
+//                                if (currentTime - lastClickTime > clickTimeThreshold) {
+//                                    DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+//                                    lastClickTime = currentTime
+//                                }
+//                            }
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "\u20B9" + voucherdiscount
 
                         } else {
+                            binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+                            binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+                            binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
+                            binding.txtbilling.text = AppUtils2.bookingserviceaddress
+                            finalamount = AppUtils2.bookingdiscountedprice
 //                            Toast.makeText(
 //                                this@BookingServiceCheckout,
 //                                "Invalid Coupon code",
 //                                Toast.LENGTH_LONG
 //                            ).show()
 
-
-                            val currentTime = System.currentTimeMillis()
-                            if (currentTime - lastClickTime > clickTimeThreshold) {
-                                DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-                                lastClickTime = currentTime
-                            }
+//
+//                            val currentTime = System.currentTimeMillis()
+//                            if (currentTime - lastClickTime > clickTimeThreshold) {
+//                                DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+//                                lastClickTime = currentTime
+//                            }
                         }
+                    })
+
+                    viewProductModel.errorMessagevoucher.observe(this, Observer {
+
+                        val currentTimes = System.currentTimeMillis()
+                        if (currentTimes - lastClickTime > clickTimeThreshold) {
+                            DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                            lastClickTime = currentTimes
+                        }
+                        binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+                        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+                        binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
+                        binding.txtbilling.text = AppUtils2.bookingserviceaddress
+                        finalamount = AppUtils2.bookingdiscountedprice
                     })
 
                     viewProductModel.PostVoucherValidationcode(
