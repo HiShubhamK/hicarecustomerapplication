@@ -177,6 +177,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                         if (it.IsSuccess == true) {
                             if (it.Data.toString() != null) {
                                 binding.coupunname.text = "Remove Coupon"
+                                AppUtils2.vouchercodedata=binding.txtcoupon.text.toString()
                                 getSummarydata(binding.txtcoupon.text.toString())
 //                                Toast.makeText(
 //                                    this,
@@ -351,7 +352,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, toString)
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, AppUtils2.vouchercodedata)
 
     }
 
