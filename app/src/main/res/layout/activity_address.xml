@@ -295,17 +295,41 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/lato_regular"/>
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:visibility="visible"
                 android:textSize="13sp"
-                android:text=" My Billing &amp; Shipping address are different"
-                android:buttonTint="@color/colorAccent"/>
+                android:textColor="@color/white"
+                android:elevation="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:textAllCaps="true"
+                android:background="@color/colorAccent"
+                android:text="Add a New Billing Address" />
 
-<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/lato_semibold"
+                android:gravity="start"
+                android:text="* Only add a billing address, if the shipping and billing addresses differ.."
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/red"
+                android:textSize="12sp" />
+
+
+            <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
 <!--                android:id="@+id/lnraddress"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="40dp"-->
