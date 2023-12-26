@@ -27,7 +27,8 @@ class BookingServiceCheckout : AppCompatActivity() {
     var finalamount = ""
     var checkappliedcoupon=false
     private val viewProductModels: ProductViewModel by viewModels()
-
+    private var lastClickTime: Long = 0
+    private val clickTimeThreshold = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -208,6 +209,11 @@ class BookingServiceCheckout : AppCompatActivity() {
 
         binding.coupunname.setOnClickListener {
             if (binding.coupunname.text.toString().equals("Remove")) {
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - lastClickTime > clickTimeThreshold) {
+                    DesignToast.makeText(this, "Coupon removed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                    lastClickTime = currentTime
+                }
                 binding.coupunname.text = "Apply"
                 binding.txtcoupon.setText("")
                 binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
@@ -237,13 +243,11 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                             if(checkappliedcoupon==true) {
                                 checkappliedcoupon=false
-//                                Toast.makeText(
-//                                    this@BookingServiceCheckout,
-//                                    "Coupon code applied successfully!",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-
-                                DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+                                val currentTime = System.currentTimeMillis()
+                                if (currentTime - lastClickTime > clickTimeThreshold) {
+                                    DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+                                    lastClickTime = currentTime
+                                }
 
 
                             }
@@ -258,10 +262,13 @@ class BookingServiceCheckout : AppCompatActivity() {
 //                                Toast.LENGTH_LONG
 //                            ).show()
 
-                            DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
 
+                            val currentTime = System.currentTimeMillis()
+                            if (currentTime - lastClickTime > clickTimeThreshold) {
+                                DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                                lastClickTime = currentTime
+                            }
                         }
-
                     })
 
                     viewProductModel.PostVoucherValidationcode(

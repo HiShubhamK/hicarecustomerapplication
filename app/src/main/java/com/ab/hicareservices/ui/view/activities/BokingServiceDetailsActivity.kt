@@ -360,18 +360,20 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 if (checkbottomsheet == true) {
                     checkbottomsheet = false
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val bottomSheetFragments = CustomBottomSheetAddBhkFragment.newInstance(
-                            bhklistResponseData as ArrayList<BhklistResponseData>,
-                            planid,
-                            pincodeid,
-                            getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
-                            price,
-                            discountedPrice,
-                            servicePlanName
-                        )
-                        bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
-                    }, 200)
+                    if(bhklistResponseData!=null){
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            val bottomSheetFragments = CustomBottomSheetAddBhkFragment.newInstance(
+                                bhklistResponseData as ArrayList<BhklistResponseData>,
+                                planid,
+                                pincodeid,
+                                getServicePlanResponseData as ArrayList<GetServicePlanResponseData>,
+                                price,
+                                discountedPrice,
+                                servicePlanName
+                            )
+                            bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
+                        }, 200)
+                    }
                 } else {
 
                 }
@@ -545,7 +547,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                             Toast.LENGTH_SHORT,
                                                             DesignToast.TYPE_ERROR
                                                         ).show()
-
 
                                                         lastClickTime = currentTime
                                                     }
