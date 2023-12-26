@@ -337,6 +337,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
+            binding.txtvoucherdiscount.text="\u20B9" + it.VoucherDiscount!!.toDouble().toString()
             discountvalue = it.TotalDiscount!!.toDouble().toString()
             paymenttotalamount = it.TotalAmount!!.toDouble().toString()
             vouchercode=it.VoucherCode.toString()
