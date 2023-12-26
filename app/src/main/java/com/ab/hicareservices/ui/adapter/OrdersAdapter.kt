@@ -12,6 +12,7 @@ import com.ab.hicareservices.databinding.LayoutOrdersAdapterBinding
 import com.ab.hicareservices.ui.handler.OnOrderClickedHandler
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
+import kotlin.math.roundToInt
 
 class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
 
@@ -52,7 +53,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtname.text=orders.ServicePlanName_c
             holder.binding.txtnameorder.text=orders.OrderNumber_c
             holder.binding.txtnamestatus.text=orders.Status_c
-            holder.binding.txtrupees.text = "₹ ${orders.OrderValueWithTax_c}"
+//            var roundValue = orders.OrderValueWithTax_c?.toDouble().roundToInt()
+            holder.binding.txtrupees.text = "₹ ${orders.OrderValueWithTax_c?.toDouble()?.roundToInt()}"
             holder.binding.startdate.text=AppUtils2.formatDateTime4(orders.StartDate_c.toString())
             holder.binding.enddate.text=AppUtils2.formatDateTime4(orders.EndDate_c.toString())
 

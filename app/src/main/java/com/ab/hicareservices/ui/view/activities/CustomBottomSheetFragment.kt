@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -97,12 +98,19 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         val shortdecriptions = view.findViewById<AppCompatTextView>(R.id.serviceshortdescription)
         val imgclose = view.findViewById<LinearLayout>(R.id.imgclose)
         val recFAQ=view.findViewById<RecyclerView>(R.id.recFAQ)
+        var lnrFAQ=view.findViewById<LinearLayout>(R.id.lnrFAQ)
 
         textView.text = servicename
         textViewdescription.text=descrition
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
 
+         if(serviceList!!.isNotEmpty() || serviceList!=null){
+             lnrFAQ.visibility=View.VISIBLE
+             Toast.makeText(activity,serviceList.toString(),Toast.LENGTH_SHORT).show()
+         }else{
+             lnrFAQ.visibility=View.GONE
+         }
 
 //        recFAQ.layoutManager = GridLayoutManager(activity, 3)
         recFAQ.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -112,7 +120,6 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         if (serviceList != null) {
             mAdapter.setFaq(serviceList, activity!!)
         }
-
 
         imgclose.setOnClickListener {
             dismiss()
