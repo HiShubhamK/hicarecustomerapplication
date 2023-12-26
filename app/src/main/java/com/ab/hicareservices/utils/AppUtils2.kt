@@ -24,7 +24,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object AppUtils2 {
-    var vouchercodedata=""
     var TOKEN = ""
     var NotificationChannelid = ""
     var mobileno=""
