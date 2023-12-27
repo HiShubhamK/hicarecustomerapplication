@@ -53,9 +53,8 @@ class BookingServiceCheckout : AppCompatActivity() {
         }else{
             binding.txtfinaltext.text = "\u20B9" + AppUtils2.finalamounts
             binding.txttoalamount.text = "\u20B9" + AppUtils2.finalamounts
-            binding.voucherdiscount.text="\u20B9" + AppUtils2.voucherdiscounts
+            binding.voucherdiscount.text="-"+"\u20B9" + AppUtils2.voucherdiscounts
         }
-
 
 //        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
         binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount

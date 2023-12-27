@@ -161,6 +161,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             if (binding.coupunname.text.toString().equals("Remove Coupon")) {
                 binding.coupunname.text = "Apply Coupon"
                 binding.txtcoupon.setText("")
+                AppUtils2.vouchercodedata=""
                 getSummarydata("")
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
@@ -354,7 +355,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
-            binding.txtvoucherdiscount.text="\u20B9" + it.VoucherDiscount!!.toDouble().toString()
+            binding.txtvoucherdiscount.text="-"+"\u20B9" + it.VoucherDiscount!!.toDouble().toString()
             discountvalue = it.TotalDiscount!!.toDouble().toString()
             paymenttotalamount = it.TotalAmount!!.toDouble().toString()
             vouchercode=it.VoucherCode.toString()
