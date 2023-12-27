@@ -104,6 +104,7 @@ class BookInspectionActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
+
             if(binding.etname.text.toString().trim().equals("") && binding.edtmobileno.text.toString().trim().equals("") &&
                 binding.etemps.text.toString().trim().equals("")  && selectedLocation.toString().trim().equals("Select Type") &&
                 binding.etflatno.text.toString().trim().equals("") && binding.etbuildname.text.toString().trim().equals("") &&

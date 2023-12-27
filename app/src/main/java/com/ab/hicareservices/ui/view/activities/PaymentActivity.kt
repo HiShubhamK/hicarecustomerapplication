@@ -64,6 +64,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         setContentView(R.layout.activity_payment)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppUtils2.eventCall(this,"Payment Page open by :"+AppUtils2.mobileno)
+
 
         AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
@@ -364,7 +366,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
             try {
                 viewProductModel.paymentsuceess.observe(this, Observer {
-                    if (it.IsSuccess == true) {
+                    if(it.IsSuccess==true){
+                        AppUtils2.eventCall(this,"Payment Success: Paymentid: "+response!!.paymentId)
+
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
@@ -387,6 +391,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         val intent = Intent(this@PaymentActivity, MyOrderActivityNew::class.java)
                         startActivity(intent)
                     } else {
+                        AppUtils2.eventCall(this,"Payment Failed: Paymentid: "+response!!.paymentId)
+
                         binding.imgOffer.visibility = View.GONE
                         binding.imgOffererror.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE

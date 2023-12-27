@@ -179,7 +179,8 @@ class SlotDetailActivity : AppCompatActivity() {
                 serviceType: String,
                 toString: String
             ) {
-//                AppUtils2.eventCall(this@SlotDetailActivity,"Slot Booked : {"+"taskid: "+taskid+" appointmentDate: "+appointmentDate+" appointmentStart:"+appointmentStart+" appointmentEnd: "+appointmentEnd+" source: "+source+" serviceType: "+serviceType+"}")
+                AppUtils2.eventCall(this@SlotDetailActivity,"Slot Booked : {"+"taskid: "+taskid+" appointmentDate: "+appointmentDate+" appointmentStart:"+appointmentStart+" appointmentEnd: "+appointmentEnd+" source: "+source+" serviceType: "+serviceType+"}")
+
                 TaskId = taskid
                 AppointmentDate = appointmentDate
                 AppointmentStart = appointmentStart

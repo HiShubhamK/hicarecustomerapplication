@@ -139,6 +139,8 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                 if(AppUtils2.isNetworkAvailable(this)==true){
                     progressDialog.show()
                     if (mOtp.equals(binding.otpView.otp.toString())) {
+                        AppUtils2.eventCall(this,"Login")
+
                         validateAccount(mobileNo)
                         Handler(Looper.getMainLooper()).postDelayed({
                             progressDialog.dismiss()

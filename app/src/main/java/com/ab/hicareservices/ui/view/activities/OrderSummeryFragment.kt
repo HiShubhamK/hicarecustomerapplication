@@ -147,6 +147,8 @@ class OrderSummeryFragment : Fragment() {
                         )
 
                         startActivity(intent)
+                        AppUtils2.eventCall(requireActivity(),"Product Added To Cart: ProductId:"+ordersummerydata.ProductId)
+
                     }
 
                 } catch (e: Exception) {

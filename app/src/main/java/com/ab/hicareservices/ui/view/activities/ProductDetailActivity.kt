@@ -226,6 +226,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
                     viewProductModel.addtocart.observe(this, Observer {
                         if (it.IsSuccess == true) {
+
                             getSummarydata()
 //                            Toast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT).show()
                             DesignToast.makeText(this, "Product Added To Cart", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
@@ -317,6 +318,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         getSummarydata()
+                        AppUtils2.eventCall(this@ProductDetailActivity,"Product Added To Cart: {ProductId:"+productid+" Quantity: "+i+"}")
 
                         val mIntent = intent
                         finish()

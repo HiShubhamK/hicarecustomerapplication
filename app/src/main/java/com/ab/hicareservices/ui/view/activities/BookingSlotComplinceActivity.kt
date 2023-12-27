@@ -327,11 +327,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 scheduledatetext: String
             ) {
                 progressDialog.show()
-//                Toast.makeText(
-//                    this@BookingSlotComplinceActivity,
-//                    "'Please wait while we fetch slot for you. This might take upto 30 seconds.",
-//                    Toast.LENGTH_LONG
-//                ).show()
+
 
                 DesignToast.makeText(
                     this@BookingSlotComplinceActivity,
