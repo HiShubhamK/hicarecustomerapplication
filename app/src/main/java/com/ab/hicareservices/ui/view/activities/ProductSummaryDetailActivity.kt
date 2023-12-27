@@ -321,22 +321,28 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
 
 
     private fun getSummarydata() {
-        viewModel.productcount.observe(this, Observer {
-            if (it.IsSuccess == true) {
+        try{
+            viewModel.productcount.observe(this, Observer {
+                if (it.IsSuccess == true) {
 
-                if (it.Data == 0) {
-                    binding.cartmenu.visibility = View.INVISIBLE
+                    if (it.Data == 0) {
+                        binding.cartmenu.visibility = View.INVISIBLE
+                    } else {
+                        binding.cartmenu.visibility = View.VISIBLE
+                        AppUtils2.cartcounts = it.Data.toString()
+                        binding.appCompatImageViewd.text = it.Data.toString()
+                    }
                 } else {
-                    binding.cartmenu.visibility = View.VISIBLE
-                    AppUtils2.cartcounts = it.Data.toString()
-                    binding.appCompatImageViewd.text = it.Data.toString()
+                    binding.cartmenu.visibility = View.INVISIBLE
                 }
-            } else {
-                binding.cartmenu.visibility = View.INVISIBLE
-            }
-        })
+            })
 
-        viewModel.getProductCountInCar(AppUtils2.customerid.toInt())
+            viewModel.getProductCountInCar(AppUtils2.customerid.toInt())
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
 
     }
     private fun getServiceLists(progressDialog: ProgressDialog) {

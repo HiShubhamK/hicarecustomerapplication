@@ -126,6 +126,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         AppUtils2.cutomername = SharedPreferenceUtil.getData(this, "FirstName", "").toString()
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
         AppUtils2.customeremail = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
+        AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
 
         AppUtils2.IsCheckbutton=false
 
@@ -857,7 +858,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         hashMap["Contact_Person_Name"] = AppUtils2.cutomername
         hashMap["Contact_Person_Mobile"] = AppUtils2.customermobile
         hashMap["Product_Display_Name"] = displayname
-        hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toInt()
+        hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toDouble().toString()
         hashMap["Last_Interaction"] = ""
 
         complaintViewModel.errorMessage.observe(this, {

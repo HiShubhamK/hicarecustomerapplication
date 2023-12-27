@@ -217,7 +217,7 @@
             android:fontFamily="@font/lato_semibold"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:text="No Record Found"
+            android:text="Sorry, no slots are available. Please select a different date."
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:visibility="gone"/>
@@ -243,6 +243,7 @@
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEditSlot"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

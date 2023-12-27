@@ -129,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
+        var trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
             .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
             .buttonColor(Color.parseColor("#2bb77a"))
             .buttonTextColor(Color.WHITE)
@@ -222,22 +222,22 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //        }
 
-        val trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
-            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
-            .buttonColor(Color.parseColor("#2bb77a"))
-            .buttonTextColor(Color.WHITE)
-            .loginTextPrefix(TruecallerSdkScope.LOGIN_TEXT_PREFIX_TO_GET_STARTED)
-            .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
-            .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
-            .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
-            .privacyPolicyUrl("https://.truecaller.com")
-            .termsOfServiceUrl("https://.truecaller.com")
-            .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
-            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
-            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITH_OTP)
-            .build()
+//        val trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
+//            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
+//            .buttonColor(Color.parseColor("#2bb77a"))
+//            .buttonTextColor(Color.WHITE)
+//            .loginTextPrefix(TruecallerSdkScope.LOGIN_TEXT_PREFIX_TO_GET_STARTED)
+//            .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
+//            .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
+//            .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
+//            .privacyPolicyUrl("https://.truecaller.com")
+//            .termsOfServiceUrl("https://.truecaller.com")
+//            .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
+//            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
+//            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITH_OTP)
+//            .build()
 
-        TruecallerSDK.init(trueScope)
+//        TruecallerSDK.init(trueScope)
 
 
         if (TruecallerSDK.getInstance().isUsable){
