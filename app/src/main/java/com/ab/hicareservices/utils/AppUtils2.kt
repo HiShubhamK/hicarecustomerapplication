@@ -13,6 +13,7 @@ import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.ui.view.activities.LoginActivity
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.razorpay.Checkout
 import org.json.JSONObject
 import java.text.DateFormat
@@ -26,23 +27,23 @@ import kotlin.collections.ArrayList
 object AppUtils2 {
     var TOKEN = ""
     var NotificationChannelid = ""
-    var mobileno=""
-    var order_number=""
-    var ServiceDate=""
-    var paymentsucess=""
-    var leaderlist= ArrayList<CartlistResponseData>()
-    var timeslotslist=  ArrayList<TimeSlot>()
-    var cartcounts=""
-    var customerid=""
-    var cutomername=""
-    var customermobile=""
-    var customeremail=""
-    var productamount=""
-    var actualvalue=""
-    var totaldiscount=""
-    var pincode=""
-    var email=""
-    var razorpayorderid=""
+    var mobileno = ""
+    var order_number = ""
+    var ServiceDate = ""
+    var paymentsucess = ""
+    var leaderlist = ArrayList<CartlistResponseData>()
+    var timeslotslist = ArrayList<TimeSlot>()
+    var cartcounts = ""
+    var customerid = ""
+    var cutomername = ""
+    var customermobile = ""
+    var customeremail = ""
+    var productamount = ""
+    var actualvalue = ""
+    var totaldiscount = ""
+    var pincode = ""
+    var email = ""
+    var razorpayorderid = ""
     var flat = ""
     var street = ""
     var landmark = ""
@@ -61,7 +62,7 @@ object AppUtils2 {
     var billingAddress=""
     private lateinit var imageListnew: ArrayList<ComplaintAttachment>
     var socialmedia = ArrayList<SocialMediadata>()
-    var servicetype=ArrayList<String>()
+    var servicetype = ArrayList<String>()
     lateinit var datalist: MutableList<OrdersData>
     lateinit var Spinnerlist: ArrayList<String>
     var getsummarydata = ArrayList<OrderSummeryData>()
@@ -110,53 +111,53 @@ object AppUtils2 {
             val options = JSONObject()
             options.put("name", "HiCare Services")
             options.put("description", "CMS Service Renewal")
-            options.put("image","https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
+            options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
             options.put("theme.color", "#2bb77a")
             options.put("currency", "INR")
             options.put("amount", "40000")
-            co.open(activity,options)
-        }catch (e: Exception){
-            Toast.makeText(activity,"Error in payment: "+ e.message, Toast.LENGTH_LONG).show()
+            co.open(activity, options)
+        } catch (e: Exception) {
+            Toast.makeText(activity, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
     }
 
-    fun formatDateTime(dateTime: String): String{
+    fun formatDateTime(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
         val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
-    fun formatDateTime2(dateTime: String): String{
+    fun formatDateTime2(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val simpleDateFormatOut = SimpleDateFormat("dd.LLL.yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
-    fun formatDateTime3(dateTime: String): String{
+    fun formatDateTime3(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("E.LLLL.yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
-    fun formatDateTime4(dateTime: String): String{
+    fun formatDateTime4(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("dd-MM-yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
-    fun formatDateTime5(dateTime: String): String{
+    fun formatDateTime5(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("dd/MM/yyyy")
         val parsedDate = simpleDateFormat.parse(dateTime)
         return simpleDateFormatOut.format(parsedDate)
     }
 
-    fun formatDateTimeApi(dateTime: String): String{
+    fun formatDateTimeApi(dateTime: String): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val simpleDateFormatOut = SimpleDateFormat("yyyy-MM-dd")
         val parsedDate = simpleDateFormat.parse(dateTime)
@@ -178,11 +179,38 @@ object AppUtils2 {
 
 
     fun isNetworkAvailable(loginActivity: Context): Boolean {
-        val connectivityManager = loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         return activeNetwork?.isConnected == true
     }
+
+    fun eventCall(activity: Activity, eventname: String?) {
+        var mixpanel = MixpanelAPI.getInstance(activity, "47be6ebfebef9c2d2e27f42c66a90ced")
+
+// Track an event
+
+// Identify and set user properties
+        mixpanel.identify(mobileno)
+        mixpanel.people.set("\$name", cutomername)
+        mixpanel.people.set("\$email", email)
+
+        // Use the extension function to register the custom properties
+//        mixpanel.registerSuperProperties(properties)
+//
+        val properties: Map<String, Any> = mapOf(
+            "eventname" to eventname.toString(),
+            // Add more relevant properties here,
+        )
+
+        // Track the event with properties
+        mixpanel.trackMap(eventname, properties)
+    }
+//    fun MixpanelAPI.registerSuperProperties(properties: Map<String, String>) {
+//        registerSuperProperties(properties)
+//    }
+    // Extension function for MixpanelAPI to register super properties
 
 
     fun requestcode(dateTime: String): String{
@@ -300,3 +328,4 @@ object AppUtils2 {
     }
 
 }
+

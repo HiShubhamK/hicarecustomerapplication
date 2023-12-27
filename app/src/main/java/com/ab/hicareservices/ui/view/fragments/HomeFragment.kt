@@ -537,6 +537,9 @@ class HomeFragment : Fragment() {
                 intent.putExtra("SERVICE_TYPE", order[position].ServiceType)
                 intent.putExtra("Standard_Value__c", order[position].StandardValue_c)
                 intent.putExtra("Product", false)
+                AppUtils2.eventCall(requireActivity(),"PayNow Dashboard Services OrderNo: "+order[position].OrderNumber_c)
+
+
 
                 startActivity(intent)
             }

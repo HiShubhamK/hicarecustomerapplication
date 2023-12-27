@@ -53,7 +53,7 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
 
         holder.binding.relSlot.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
 
             onSlotSelection?.onSlotBookSelect(
                 lastSelectedPosition,
