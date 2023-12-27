@@ -74,7 +74,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
     var captureby = ""
     var Complaint_Status = ""
     var Created_On = ""
-    var OrderValuePostDiscount = ""
+    var OrderValuePostDiscount =0.0
     var ProductId = ""
     var OrderId = ""
     private val complaintViewModel: CComplaintViewModel by viewModels()
@@ -121,7 +121,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         Complaint_Status = intent.getStringExtra("Complaint_Status").toString()
         OrderId = intent.getStringExtra("OrderId").toString()
         Iscomplaintactivity = intent.getBooleanExtra("complaintactivity", false)
-        OrderValuePostDiscount = intent.getStringExtra("OrderValuePostDiscount").toString()
+        OrderValuePostDiscount = intent.getStringExtra("OrderValuePostDiscount")!!.toDouble()
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         AppUtils2.cutomername = SharedPreferenceUtil.getData(this, "FirstName", "").toString()
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
@@ -151,7 +151,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
                 orderNo = AppUtils2.getsummarydata[position].OrderNumber.toString()
                 OrderId = AppUtils2.getsummarydata[position].Id.toString()
                 Created_On = AppUtils2.getsummarydata[position].OrderDate.toString()
-                OrderValuePostDiscount = AppUtils2.getsummarydata[position].OrderValuePostDiscount.toString()
+                OrderValuePostDiscount = AppUtils2.getsummarydata[position].OrderValuePostDiscount!!.toDouble()
                 Complaint_Status = AppUtils2.getsummarydata[position].OrderStatus.toString()
                 binding.bottomheadertext.text = AppUtils2.getsummarydata[position].OrderNumber
             }
@@ -858,7 +858,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         hashMap["Contact_Person_Name"] = AppUtils2.cutomername
         hashMap["Contact_Person_Mobile"] = AppUtils2.customermobile
         hashMap["Product_Display_Name"] = displayname
-        hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toDouble().toString()
+        hashMap["OrderValuePostDiscount"] = OrderValuePostDiscount.toDouble()
         hashMap["Last_Interaction"] = ""
 
         complaintViewModel.errorMessage.observe(this, {
@@ -1479,7 +1479,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         orderNo = OrderNumber
         OrderId = id
         Created_On = orderDate.toString()
-        OrderValuePostDiscount = orderValuePostDiscount.toString()
+        OrderValuePostDiscount = orderValuePostDiscount.toDouble()
         Complaint_Status = orderStatus.toString()
         binding.bottomheadertext.text = OrderNumber
     }
