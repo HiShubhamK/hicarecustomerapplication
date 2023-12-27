@@ -98,6 +98,8 @@ object AppUtils2 {
     var voucherdiscounts=""
     var finaldataamount=""
     var Checkpayment=""
+    var paymentcheckbutton=false
+
     @JvmStatic
     fun startPayment(activity: Activity) {
         /*

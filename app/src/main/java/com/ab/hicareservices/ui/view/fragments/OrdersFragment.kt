@@ -56,7 +56,6 @@ class OrdersFragment() : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             isfromMenu = it.getBoolean("isfromMenu")
-
         }
     }
 

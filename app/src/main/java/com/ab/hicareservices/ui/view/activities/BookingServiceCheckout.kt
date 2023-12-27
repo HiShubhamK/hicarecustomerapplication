@@ -76,6 +76,8 @@ class BookingServiceCheckout : AppCompatActivity() {
 
         binding.txtcoupon.setText("")
 
+
+
         binding.txtplcaeorder.setOnClickListener {
 
 //            var data = HashMap<String, Any>()
@@ -200,32 +202,40 @@ class BookingServiceCheckout : AppCompatActivity() {
 //
 //            Log.d("paydata",data.toString())
 
-            SharedPreferenceUtil.setData(this, "razorpayorderid", "")
+            if(AppUtils2.paymentcheckbutton==false){
 
-            viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+                AppUtils2.paymentcheckbutton=true
 
-                if (it.IsSuccess == true) {
+                SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
-                    if (AppUtils2.voucherdiscounts.equals("")) {
+                viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+
+                    if (it.IsSuccess == true) {
+
+                        if (AppUtils2.voucherdiscounts.equals("")) {
+                        } else {
+                            finalamount = AppUtils2.voucherdiscounts
+
+                        }
+                        AppUtils2.razorpayorderid = it.Data.toString()
+                        SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
+                        val intent =
+                            Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
+                        intent.putExtra("Finalamount", finalamount)
+                        intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
+                        startActivity(intent)
+                        finish()
                     } else {
-                        finalamount = AppUtils2.voucherdiscounts
 
                     }
-                    AppUtils2.razorpayorderid = it.Data.toString()
-                    SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
-                    val intent =
-                        Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
-                    intent.putExtra("Finalamount", finalamount)
-                    intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
-                    startActivity(intent)
-                    finish()
-                } else {
 
-                }
+                })
 
-            })
+                viewProductModels.CreateRazorpayOrderId(finalamount.toDouble(), 12342)
 
-            viewProductModels.CreateRazorpayOrderId(finalamount.toDouble(), 12342)
+            }else{
+
+            }
 
 
         }

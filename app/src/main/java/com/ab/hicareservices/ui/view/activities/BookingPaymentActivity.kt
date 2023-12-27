@@ -294,16 +294,12 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Campaign_Url"] = "https://hicare.in/"
 
             viewProductModel.AddOrderAsync(data)
-
-
             progressDialog.dismiss()
 
 
         } catch (e: Exception) {
 
-
             progressDialog.dismiss()
-
             Log.d("Paymentlist", "Failed")
 
         }
@@ -334,6 +330,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.paymentcheckbutton=false
         val intent = Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
         startActivity(intent)
         finish()
