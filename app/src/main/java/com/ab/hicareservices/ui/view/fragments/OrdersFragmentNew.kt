@@ -81,6 +81,7 @@ class OrdersFragmentNew() : Fragment() {
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        progressDialog.show()
         if (AppUtils2.fromdasboardmenu==false){
             binding.headerView.visibility=View.VISIBLE
 
@@ -106,6 +107,7 @@ class OrdersFragmentNew() : Fragment() {
         val viewPager = binding.vpFragments
         viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.vpFragments)
+        progressDialog.dismiss()
 //
 //        binding.tabLayout.setOnClickListener {
 //            binding.tabLayout.tavt

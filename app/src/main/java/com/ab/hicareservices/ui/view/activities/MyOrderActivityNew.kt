@@ -37,7 +37,6 @@ class MyOrderActivityNew : AppCompatActivity() {
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
 
-
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback<ActivityResult> { activityResult ->
@@ -55,6 +54,7 @@ class MyOrderActivityNew : AppCompatActivity() {
         mobile = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
+        progressDialog.show()
         AppUtils2.fromdasboardmenu=true
         binding.imgLogo.setOnClickListener {
             onBackPressed()
@@ -78,6 +78,9 @@ class MyOrderActivityNew : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, OrdersFragmentNew.newInstance())
             .addToBackStack("OrdersFragmentNew").commitAllowingStateLoss()
+
+        progressDialog.dismiss()
+
 //        binding.tabLayout.setOnClickListener {
 //            binding.tabLayout.tavt
 //        }
