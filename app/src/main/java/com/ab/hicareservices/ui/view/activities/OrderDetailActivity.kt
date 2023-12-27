@@ -136,7 +136,8 @@ class OrderDetailActivity : AppCompatActivity() {
             binding.payNowBtn.setOnClickListener {
                 try {
 
-
+                    AppUtils2.Checkpayment=""
+                    AppUtils2.Checkpayment="orderdeatils"
                     val intent = Intent(this, PaymentActivity::class.java)
                     intent.putExtra("ORDER_NO", orderNo)
                     intent.putExtra("ACCOUNT_NO", accountId)

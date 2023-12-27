@@ -105,9 +105,8 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
 
-         if(serviceList!!.isNotEmpty() || serviceList!=null){
+         if(serviceList!!.isNotEmpty()){
              lnrFAQ.visibility=View.VISIBLE
-             Toast.makeText(activity,serviceList.toString(),Toast.LENGTH_SHORT).show()
          }else{
              lnrFAQ.visibility=View.GONE
          }

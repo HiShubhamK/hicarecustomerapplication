@@ -115,6 +115,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             }
 
             holder.binding.btnPayNow.setOnClickListener {
+                AppUtils2.Checkpayment=""
+                AppUtils2.Checkpayment="OrderfragmentNew"
                 onOrderClickedHandler?.onOrderPaynowClicked(
                     position,
                     orders.OrderNumber_c.toString(),

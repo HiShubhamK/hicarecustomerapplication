@@ -156,6 +156,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         if (product == true) {
 
+            payment=AppUtils2.finaldataamount
+
 //            getproductlist()
 
             getAddressforbilling()
@@ -462,10 +464,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             data1["razorpay_signature"] = response?.signature.toString()
 
             orderDetailsViewModel.saveAppPaymentDetails(data1)
-
         }
-
-
     }
 
     private fun getClearchache() {
@@ -490,9 +489,23 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val data1 = Intent()
-        data1.putExtra("title", AppUtils2.paymentsucess)
-        finish()
+        if(product==true) {
+            val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if(AppUtils2.Checkpayment.equals("orderdeatils")){
+            val intent = Intent(this, OrderDetailActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if(AppUtils2.Checkpayment.equals("OrderfragmentNew")) {
+            val intent = Intent(this, MyOrderActivityNew::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 

@@ -479,6 +479,7 @@
                                         android:singleLine="true"
                                         android:textColor="@color/black"
                                         android:textSize="13sp"
+                                        android:textAllCaps="true"
                                         android:textStyle="bold" />
 
                                 </androidx.cardview.widget.CardView>
