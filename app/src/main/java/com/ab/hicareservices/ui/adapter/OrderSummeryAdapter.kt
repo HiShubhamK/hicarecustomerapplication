@@ -56,7 +56,7 @@ class OrderSummeryAdapter() : RecyclerView.Adapter<OrderSummeryAdapter.MainViewH
 //            drawable.setColorFilter(Color.parseColor("#FFEA00"), PorterDuff.Mode.SRC_ATOP)
             drawable.setColorFilter(Color.parseColor("#fec348"), PorterDuff.Mode.SRC_ATOP)
 
-            if (productlists.Discount!=0) {
+            if (productlists.Discount!!.toInt()!=0) {
                 holder.binding.txtdealodday.text ="Saved " +"\u20B9" + productlists.ItemDiscount.toString()
                 holder.binding.txtprice.text = productlists.OrderValuePostDiscount.toString()
                 holder.binding.txtpriceline.text = ""+"\u20B9" + productlists.OrderValue.toString()
