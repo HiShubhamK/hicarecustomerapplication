@@ -68,8 +68,8 @@ class MyOrderActivityNew : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent=Intent(this@MyOrderActivityNew,HomeActivity::class.java)
-        startActivity(intent)
+//        val intent=Intent(this@MyOrderActivityNew,HomeActivity::class.java)
+//        startActivity(intent)
         finish()
     }
 

@@ -510,8 +510,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 this@BokingServiceDetailsActivity,
                                 Observer {
                                     if (it.isNotEmpty()) {
+                                        binding.txtNoPlan.visibility = View.GONE
                                         binding.recycleviewplans.visibility = View.VISIBLE
-
                                         mAdapter.setServiceList(it, this)
                                         checkserchbutton = false
                                     } else {

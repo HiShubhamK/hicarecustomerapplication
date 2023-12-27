@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#f6f6f6"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/headerView"
@@ -254,6 +252,7 @@
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:elevation="5dp"
+            android:visibility="gone"
             android:background="@color/colorAccent"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSubmit"
@@ -272,9 +271,5 @@
             android:background="@color/colorAccent"/>
 
     </LinearLayout>
-
-
-
-
 
 </RelativeLayout>

@@ -243,6 +243,8 @@ class BookInspectionActivity : AppCompatActivity() {
                     viewModels.leadResponse.observe(this, Observer {
                         if (it.IsSuccess == true) {
 
+                            DesignToast.makeText(this@BookInspectionActivity, "Inspection appointment booked", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
+
                             val intent=Intent(this,HomeActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -250,7 +252,6 @@ class BookInspectionActivity : AppCompatActivity() {
 
 //                            Toast.makeText(this, "Inspection appointment booked", Toast.LENGTH_LONG).show()
 
-                            DesignToast.makeText(this, "Inspection appointment booked", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
 
                         } else {
                             progressDialog.dismiss()

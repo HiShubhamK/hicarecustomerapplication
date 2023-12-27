@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -66,6 +67,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         AppUtils2.email = SharedPreferenceUtil.getData(this, "EMAIL", "").toString()
 
         binding.txtcoupon.setText("")
+
+        binding.txtcoupon.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
 
         binding.imgLogo.setOnClickListener {
             SharedPreferenceUtil.setData(this, "Billingdata", "")
@@ -164,8 +167,13 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             if (binding.coupunname.text.toString().equals("Remove Coupon")) {
                 binding.coupunname.text = "Apply Coupon"
                 binding.txtcoupon.setText("")
-                AppUtils2.vouchercodedata=""
+//                AppUtils2.vouchercodedata=""
                 getSummarydata("")
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - lastClickTime > clickTimeThreshold) {
+                    DesignToast.makeText(this, "Coupon removed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                    lastClickTime = currentTime
+                }
             } else {
                 if (binding.txtcoupon.text.toString().trim().equals("")) {
 //                    Toast.makeText(this, "Please enter valid coupon", Toast.LENGTH_LONG).show()
@@ -182,7 +190,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                         if (it.IsSuccess == true) {
                             if (it.Data.toString() != null) {
                                 binding.coupunname.text = "Remove Coupon"
-                                AppUtils2.vouchercodedata=binding.txtcoupon.text.toString()
+//                                AppUtils2.vouchercodedata=binding.txtcoupon.text.toString()
                                 getSummarydata(binding.txtcoupon.text.toString())
 //                                Toast.makeText(
 //                                    this,
@@ -373,7 +381,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
         })
 
-        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, AppUtils2.vouchercodedata)
+        viewProductModel.getCartSummary(AppUtils2.customerid.toInt(), AppUtils2.pincode, toString)
 
     }
 
@@ -384,7 +392,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        AppUtils2.vouchercodedata=""
+//        AppUtils2.vouchercodedata=""
         SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)

@@ -79,7 +79,6 @@ class AccountFragment : Fragment() {
             binding.updateNow.visibility=View.GONE
         }
 
-
         binding.updateNow.setOnClickListener {
             val updateManager = AppUpdater(requireActivity(),versioncode.toString(), isupdated)
             updateManager.checkForUpdate(versioncode.toString(),isupdated)
