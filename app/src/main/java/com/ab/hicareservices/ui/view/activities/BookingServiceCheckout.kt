@@ -42,7 +42,6 @@ class BookingServiceCheckout : AppCompatActivity() {
         binding.btnEditSlot.setOnClickListener {
             val intent=Intent(this@BookingServiceCheckout,BookingSlotComplinceActivity::class.java)
             startActivity(intent)
-            finish()
         }
         orderPaymentlist = ArrayList()
 

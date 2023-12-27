@@ -27,7 +27,6 @@ import com.ab.hicareservices.data.model.getslots.Data
 import com.ab.hicareservices.data.model.getslots.TimeSlot
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.ActivityBookingSlotComplinceBinding
-import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.BookingSlotCompliceAdapater
 import com.ab.hicareservices.ui.adapter.SlotsAdapter
 import com.ab.hicareservices.ui.handler.onSlotSelection
@@ -87,8 +86,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         SlotDate = intent.getStringExtra("SlotDate").toString()
         TaskId = intent.getStringExtra("TaskId").toString()
         SkillId = intent.getStringExtra("SkillId").toString()
-        Latt = intent.getStringExtra("Lat").toString()
-        Longg = intent.getStringExtra("Long").toString()
+        Latt = SharedPreferenceUtil.getData(this, "Lat", "").toString()
+        Longg = SharedPreferenceUtil.getData(this, "Long", "").toString()
         ServiceType = intent.getStringExtra("ServiceType").toString()
         Pincode = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
 
@@ -166,7 +165,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                ).show()
                 DesignToast.makeText(
                     this,
-                    "Please select a valid date in the range of " + output1 + " to " + output2 + " to schedule a slot",
+                    "Please select a valid date in the range of " + output1 + " to " + AppUtils2.getCurrentDateTimeminusone(c2.time) + " to schedule a slot",
                     Toast.LENGTH_SHORT,
                     DesignToast.TYPE_ERROR
                 ).show()
@@ -557,7 +556,6 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         val intent =
             Intent(this@BookingSlotComplinceActivity, ServicesAddresslistActivity::class.java)
         startActivity(intent)
