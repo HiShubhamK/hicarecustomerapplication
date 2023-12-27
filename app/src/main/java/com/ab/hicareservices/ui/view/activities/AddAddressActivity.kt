@@ -88,6 +88,7 @@ class AddAddressActivity : AppCompatActivity() {
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
+        binding.tvPincod.text=pincode.toString()
 
 
         val arrayAdapter =

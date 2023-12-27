@@ -8,8 +8,9 @@ data class OrderSummeryData(
     @SerializedName("OrderDate") var OrderDate: String? = null,
     @SerializedName("OrderStatus") var OrderStatus: String? = null,
     @SerializedName("OrderValue") var OrderValue: Int? = null,
-    @SerializedName("Discount") var Discount: Int? = null,
-    @SerializedName("OrderValuePostDiscount") var OrderValuePostDiscount: Int? = null,
+    @SerializedName("Discount") var Discount: Double? = null,
+    @SerializedName("OrderValuePostDiscount") var OrderValuePostDiscount: Double? = null,
+    @SerializedName("TotalOrderValuePostDiscount") var TotalOrderValuePostDiscount: Int? = null,
     @SerializedName("Tax") var Tax: Int? = null,
     @SerializedName("ShippingCharge") var ShippingCharge: Int? = null,
     @SerializedName("InstallationCharge") var InstallationCharge: Int? = null,
@@ -50,8 +51,14 @@ data class OrderSummeryData(
     @SerializedName("No_Of_Box") var NoOfBox: Int? = null,
     @SerializedName("Created_By") var CreatedBy: Int? = null,
     @SerializedName("Delivery_Partner") var DeliveryPartner: String? = null,
+    @SerializedName("Delivered_On") var DeliveredOn: String? = null,
     @SerializedName("Booking_Source") var BookingSource: String? = null,
     @SerializedName("AWB_No") var AWBNo: String? = null,
-    @SerializedName("Subscription_Id") var SubscriptionId: Int? = null
+    @SerializedName("Subscription_Id") var SubscriptionId: Int? = null,
+    @SerializedName("Subscription_Status") var SubscriptionStatus: Int? = null,
+    @SerializedName("Delivery_TAT") var DeliveryTAT: String? = null,
+    @SerializedName("Undelivered_Reasons") var UndeliveredReasons: String? = null,
+    @SerializedName("Cancellation_Reasons") var CancellationReasons: String? = null
+
 
 )

@@ -952,6 +952,51 @@
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginLeft="6dp"
+                                android:fontFamily="@font/lato_semibold"
+                                android:text="Pincode"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <!--                            <androidx.cardview.widget.CardView-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginHorizontal="6dp"-->
+                            <!--                                android:layout_marginVertical="5dp"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:elevation="10dp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:maxLength="50"-->
+                            <!--                                app:cardCornerRadius="5dp">-->
+
+                            <TextView
+                                android:id="@+id/tvPincod"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:padding="12dp"
+                                android:enabled="false"
+                                android:singleLine="true"
+                                android:maxLength="55"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"/>
+                            <!--                            </androidx.cardview.widget.CardView>-->
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
