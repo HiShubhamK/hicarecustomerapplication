@@ -361,10 +361,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         })
 
                         viewProductModel.postSaveAddress(data)
-
-
                     }
-
                 }
 
             } else {
@@ -373,10 +370,10 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
                 var courses = arrayOf<String?>("Select Address Type", "Home", "Office", "Others")
 
-                binding.etpincodes.setText(AppUtils2.pincode)
+                binding.etpincodes.setText("")
 
-                binding.etpincodes.isEnabled = false
-                binding.etpincodes.isClickable = false
+                binding.etpincodes.isEnabled = true
+                binding.etpincodes.isClickable = true
 
                 AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
