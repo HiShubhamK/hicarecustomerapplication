@@ -130,7 +130,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/cardbutton"
-        android:layout_below="@id/view1">
+        android:layout_below="@id/view1"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="-3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -298,8 +300,8 @@
                     android:layout_marginHorizontal="6dp"
                     android:layout_marginVertical="5dp"
                     android:layout_weight="1"
-                    android:gravity="right"
                     android:background="@drawable/round_border"
+                    android:gravity="right"
                     android:orientation="vertical">
 
 
@@ -360,16 +362,16 @@
                     android:id="@+id/etname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:maxLength="50"
-                    android:singleLine="true"
-                    android:padding="12dp"
-                    android:textColor="@color/grey_font"
-                    android:textSize="13sp"
                     android:layout_marginHorizontal="6dp"
                     android:layout_marginVertical="5dp"
+                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:background="@drawable/round_border"/>
+                    android:background="@drawable/round_border"
+                    android:maxLength="50"
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grey_font"
+                    android:textSize="13sp" />
 
                 <!--                </androidx.cardview.widget.CardView>-->
                 <!--            <androidx.cardview.widget.CardView-->
@@ -568,14 +570,14 @@
                         android:id="@+id/edtmobileno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="6dp"
+                        android:layout_marginVertical="5dp"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_border"
                         android:inputType="number"
                         android:maxLength="10"
                         android:padding="12dp"
-                        android:layout_marginHorizontal="6dp"
-                        android:layout_marginVertical="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/round_border"
                         android:textColor="@color/grey_font"
                         android:textSize="13sp" />
                     <!--                    </androidx.cardview.widget.CardView>-->
@@ -613,16 +615,16 @@
                         android:id="@+id/etemps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="6dp"
+                        android:layout_marginVertical="5dp"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_border"
                         android:maxLength="100"
                         android:padding="12dp"
                         android:singleLine="true"
                         android:textColor="@color/grey_font"
-                        android:textSize="13sp"
-                        android:layout_marginHorizontal="6dp"
-                        android:layout_marginVertical="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/round_border"/>
+                        android:textSize="13sp" />
                     <!--                    </androidx.cardview.widget.CardView>-->
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -747,13 +749,13 @@
                 android:textSize="14sp" />
 
             <androidx.cardview.widget.CardView
-                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginVertical="5dp"
                 android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
                 android:gravity="right"
                 android:padding="10dp">
 
@@ -800,16 +802,16 @@
                                 android:id="@+id/etflatno"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:maxLength="10"
-                                android:singleLine="true"
-                                android:padding="12dp"
-                                android:textColor="@color/grey_font"
-                                android:textSize="13sp"
                                 android:layout_marginHorizontal="6dp"
                                 android:layout_marginVertical="5dp"
+                                android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:background="@drawable/round_border"
+                                android:maxLength="10"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -824,8 +826,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginLeft="6dp"                                android:enabled="false"
+                                android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="Building"
                                 android:textColor="@color/black"
@@ -845,16 +848,16 @@
                                 android:id="@+id/etbuildname"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
                                 android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"
                                 android:maxLength="50"
                                 android:padding="12dp"
                                 android:singleLine="true"
                                 android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:layout_marginHorizontal="6dp"
-                                android:layout_marginVertical="5dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -878,13 +881,13 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
                                 android:layout_marginTop="4dp"
                                 android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="Street"
                                 android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:layout_marginLeft="6dp"/>
+                                android:textSize="14sp" />
 
                             <!--                            <androidx.cardview.widget.CardView-->
                             <!--                                android:layout_width="match_parent"-->
@@ -900,16 +903,16 @@
                                 android:id="@+id/etstreet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:maxLength="50"
-                                android:singleLine="true"
-                                android:padding="12dp"
-                                android:textColor="@color/grey_font"
-                                android:textSize="13sp"
                                 android:layout_marginHorizontal="6dp"
                                 android:layout_marginVertical="5dp"
+                                android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:background="@drawable/round_border"
+                                android:maxLength="50"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -924,8 +927,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginLeft="6dp"                                android:enabled="false"
+                                android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="Locality"
                                 android:textColor="@color/black"
@@ -945,16 +949,16 @@
                                 android:id="@+id/etlocality"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
                                 android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"
                                 android:maxLength="50"
                                 android:padding="12dp"
                                 android:singleLine="true"
                                 android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:layout_marginHorizontal="6dp"
-                                android:layout_marginVertical="5dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -977,8 +981,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
                                 android:layout_marginLeft="6dp"
+                                android:layout_marginTop="4dp"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="Landmark"
                                 android:textColor="@color/black"
@@ -999,15 +1003,15 @@
                                 android:id="@+id/etlandmark"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:padding="12dp"
-                                android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:singleLine="true"
                                 android:layout_marginHorizontal="6dp"
                                 android:layout_marginVertical="5dp"
+                                android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:background="@drawable/round_border"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -1022,8 +1026,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginLeft="6dp"                                android:enabled="false"
+                                android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="City"
                                 android:textColor="@color/black"
@@ -1043,16 +1048,16 @@
                                 android:id="@+id/etcitites"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:maxLength="50"
-                                android:padding="12dp"
-                                android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:singleLine="true"
                                 android:layout_marginHorizontal="6dp"
                                 android:layout_marginVertical="5dp"
+                                android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:background="@drawable/round_border"
+                                android:maxLength="50"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -1076,8 +1081,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
                                 android:layout_marginLeft="6dp"
+                                android:layout_marginTop="4dp"
                                 android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="State"
@@ -1099,15 +1104,15 @@
                                 android:id="@+id/etstate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:padding="12dp"
-                                android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:singleLine="true"
                                 android:layout_marginHorizontal="6dp"
                                 android:layout_marginVertical="5dp"
+                                android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:background="@drawable/round_border"
+                                android:padding="12dp"
+                                android:singleLine="true"
+                                android:textColor="@color/grey_font"
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -1122,8 +1127,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
                                 android:layout_marginLeft="6dp"
+                                android:layout_marginTop="4dp"
                                 android:enabled="false"
                                 android:fontFamily="@font/lato_semibold"
                                 android:text="Pincode"
@@ -1144,17 +1149,17 @@
                                 android:id="@+id/etpincodes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="5dp"
                                 android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_border"
                                 android:inputType="number"
                                 android:maxLength="6"
                                 android:padding="12dp"
                                 android:singleLine="true"
                                 android:textColor="@color/grey_font"
-                                android:textSize="13sp"
-                                android:layout_marginHorizontal="6dp"
-                                android:layout_marginVertical="5dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/round_border"/>
+                                android:textSize="13sp" />
                             <!--                            </androidx.cardview.widget.CardView>-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
