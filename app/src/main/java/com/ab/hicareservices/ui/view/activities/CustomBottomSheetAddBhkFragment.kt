@@ -259,7 +259,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                                 DesignToast.makeText(
                                     activity,
-                                    "Sorry , this area is not serviceable. Please try a different pincode.",
+                                    "Sorry , this area is not serviceable",
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_ERROR
                                 ).show();
@@ -297,7 +297,7 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
 
                             DesignToast.makeText(
                                 activity,
-                                "Sorry , this area is not serviceable. Please try a different pincode.",
+                                "Sorry , this area is not serviceable.",
                                 Toast.LENGTH_SHORT,
                                 DesignToast.TYPE_ERROR
                             ).show();

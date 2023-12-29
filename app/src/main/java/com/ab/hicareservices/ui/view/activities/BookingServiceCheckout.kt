@@ -241,7 +241,7 @@ class BookingServiceCheckout : AppCompatActivity() {
 
         }
 
-        binding.coupunname.setOnClickListener {
+        binding.btnappiledcoupon.setOnClickListener {
             if (binding.coupunname.text.toString().equals("Remove")) {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > clickTimeThreshold) {
@@ -289,16 +289,16 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 it.Data?.VoucherDiscountInPercentage.toString()
                             )
 
-                            val currentTime = System.currentTimeMillis()
-                            if (currentTime - lastClickTime > clickTimeThreshold) {
+//                            val currentTime = System.currentTimeMillis()
+//                            if (currentTime - lastClickTime > clickTimeThreshold) {
                                 DesignToast.makeText(
                                     this,
                                     "Coupon code applied successfully!",
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
-                                lastClickTime = currentTime
-                            }
+//                                lastClickTime = currentTime
+//                            }
 //
 //                            if(checkappliedcoupon==true) {
 //                                checkappliedcoupon=false

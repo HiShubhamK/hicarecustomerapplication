@@ -121,7 +121,7 @@ class OrderSummeryFragment : Fragment() {
                         intent.putExtra("Discount", ordersummerydata.Discount.toString())
                         intent.putExtra(
                             "OrderValuePostDiscount",
-                            ordersummerydata.OrderValuePostDiscount.toString()
+                            ordersummerydata.OrderValuePostDiscount!!.toDouble()
                         )
                         intent.putExtra("Tax", ordersummerydata.Tax.toString())
                         intent.putExtra(

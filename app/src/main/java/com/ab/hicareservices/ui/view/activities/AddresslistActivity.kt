@@ -73,8 +73,16 @@ class AddresslistActivity : AppCompatActivity() {
 
         viewProductModel.cutomeraddress.observe(this, Observer {
             progressDialog.dismiss()
-            mAdapter.setAddressList(it, this, viewProductModel,shipping)
-            mAdapter.notifyDataSetChanged()
+            if (it.isNullOrEmpty()){
+                binding.recycleviewaddress.visibility=View.GONE
+                binding.tvNodata.visibility=View.VISIBLE
+            }else{
+                binding.recycleviewaddress.visibility=View.VISIBLE
+                binding.tvNodata.visibility=View.GONE
+                mAdapter.setAddressList(it, this, viewProductModel,shipping)
+                mAdapter.notifyDataSetChanged()
+            }
+
 
         })
 

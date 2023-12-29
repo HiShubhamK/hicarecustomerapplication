@@ -220,7 +220,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 //                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            if (checkalterbox == false) {
+//                            if (checkalterbox == false) {
                                 checkalterbox = true
 
                                 val currentTimes = System.currentTimeMillis()
@@ -228,7 +228,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                                     DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
                                     lastClickTime = currentTimes
                                 }
-                            }
+//                            }
 //                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
                     })

@@ -102,7 +102,7 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:fontFamily="@font/lato_semibold"
-        android:text="No Services Available"
+        android:text="No Upcoming Services"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="visible">

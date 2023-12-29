@@ -84,6 +84,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="match_parent"
         android:layout_above="@+id/lnraddress"
         android:layout_below="@+id/headerView"
@@ -91,12 +92,25 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleviewaddress"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp" />
+        <TextView
+            android:id="@+id/tvNodata"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/lato_semibold"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Please add shipping address"
+            android:visibility="gone"
+            android:textSize="16sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -317,19 +317,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                     getServicePlanResponseData
                                 )
 
-                                viewProductModel.activebhklist.observe(
-                                    this@BokingServiceDetailsActivity,
-                                    Observer {
-                                        if (it.isNotEmpty()) {
-                                            progressDialog.dismiss()
-                                            bhklistResponseData = it
 
-                                        } else {
-
-                                        }
-                                    })
-                                viewProductModel.getActiveBHKList()
-                                checkbottomsheet = true
                             } else {
 //                                Toast.makeText(
 //                                    this@BokingServiceDetailsActivity,
@@ -357,6 +345,19 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     serviceCode.toString(),
                     "Pest"
                 )
+                viewProductModel.activebhklist.observe(
+                    this@BokingServiceDetailsActivity,
+                    Observer {
+                        if (it.isNotEmpty()) {
+                            progressDialog.dismiss()
+                            bhklistResponseData = it
+
+                        } else {
+
+                        }
+                    })
+                viewProductModel.getActiveBHKList()
+                checkbottomsheet = true
 
 
                 if (checkbottomsheet == true) {

@@ -831,13 +831,14 @@ class AddComplaintsActivity : AppCompatActivity() {
         hashMap["MobileNo"] = AppUtils2.mobileno
 
 
-        complaintViewModel.createComplaint(hashMap)
         complaintViewModel.createComplaintResponse.observe(this, {
             if (it.isSuccess == true) {
+                DesignToast.makeText(this,"Complaint raised successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+
                 finish()
                 progressDialog.dismiss()
 //
-                DesignToast.makeText(this,"Please fill out all required fields.", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+//                DesignToast.makeText(this,"Complaint raised successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
 
 
 //                Toast.makeText(this, "Complaint Raised Successfully!", Toast.LENGTH_SHORT).show()
@@ -850,6 +851,8 @@ class AddComplaintsActivity : AppCompatActivity() {
             progressDialog.dismiss()
 
         })
+        complaintViewModel.createComplaint(hashMap)
+
     }
 
     private fun uploadattachment(

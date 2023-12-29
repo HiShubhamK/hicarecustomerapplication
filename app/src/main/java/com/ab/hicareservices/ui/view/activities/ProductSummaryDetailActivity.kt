@@ -83,7 +83,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
     //    var discount = ""
     var orderValueWithTaxAfterDiscount = ""
     var Discount: String = ""
-    var OrderValuePostDiscount: String = ""
+    var OrderValuePostDiscount: Double = 0.0
     var Tax: String = ""
     var ShippingCharge = ""
 
@@ -129,6 +129,8 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener {
             onBackPressed()
         }
+        binding.cartmenu.visibility=View.GONE
+
         binding.cartmenu.setOnClickListener {
             val intent = Intent(this, AddToCartActivity::class.java)
             startActivity(intent)
@@ -143,7 +145,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
         OrderDate = intent.getStringExtra("OrderDate").toString()
         OrderStatus = intent.getStringExtra("OrderStatus").toString()
         Discount = intent.getStringExtra("Discount").toString()
-        OrderValuePostDiscount = intent.getStringExtra("OrderValuePostDiscount").toString()
+        OrderValuePostDiscount = intent.getDoubleExtra("OrderValuePostDiscount",0.0)
         Tax = intent.getStringExtra("Tax").toString()
         ShippingCharge = intent.getStringExtra("ShippingCharge").toString()
         InstallationCharge = intent.getStringExtra("InstallationCharge").toString()
@@ -243,7 +245,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             )
             viewModel.producDetailsResponse.observe(this, Observer {
                 if (it.RelatedProducts != null) {
-                    binding.recRelatedProduct.visibility = View.VISIBLE
+                    binding.recRelatedProduct.visibility = View.GONE
                     relatedProductAdapter.setRelatedProduct(it.RelatedProducts, this)
                     progressDialog.dismiss()
                 } else {
@@ -276,7 +278,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                                 DesignToast.TYPE_SUCCESS
                             ).show()
 //                            Toast.makeText(this@ProductSummaryDetailActivity,"Product Added to Cart", Toast.LENGTH_LONG).show()
-                            getSummarydata()
+//                            getSummarydata()
                         }else{
                             progressDialog.dismiss()
                             DesignToast.makeText(
@@ -328,7 +330,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
                     if (it.Data == 0) {
                         binding.cartmenu.visibility = View.INVISIBLE
                     } else {
-                        binding.cartmenu.visibility = View.VISIBLE
+                        binding.cartmenu.visibility = View.INVISIBLE
                         AppUtils2.cartcounts = it.Data.toString()
                         binding.appCompatImageViewd.text = it.Data.toString()
                     }
@@ -396,7 +398,7 @@ class ProductSummaryDetailActivity : AppCompatActivity() {
             binding.discountTv.text =
                 if (Discount != null) "- ₹ ${Math.round(Discount.toDouble())}" else "- ₹ 0"
             binding.totalAmountTv.text =
-                "₹ ${Math.round(OrderValuePostDiscount!!.toDouble())}"
+                "₹"+OrderValuePostDiscount!!.toDouble()
 //                binding.completionDateTv.text = data.end_Date__c ?: "N/A"
 //        binding.contactDetailsTv.text =
 //            "${data.account_Name__r?.name} | ${data.account_Name__r?.mobile__c}"

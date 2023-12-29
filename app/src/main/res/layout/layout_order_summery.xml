@@ -206,7 +206,7 @@
                         android:layout_height="55dp"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="View Detail"
+                        android:text="View Details"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 

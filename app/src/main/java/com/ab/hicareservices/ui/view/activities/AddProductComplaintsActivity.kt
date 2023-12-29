@@ -121,7 +121,7 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
         Complaint_Status = intent.getStringExtra("Complaint_Status").toString()
         OrderId = intent.getStringExtra("OrderId").toString()
         Iscomplaintactivity = intent.getBooleanExtra("complaintactivity", false)
-        OrderValuePostDiscount = intent.getStringExtra("OrderValuePostDiscount")!!.toDouble()
+        OrderValuePostDiscount = intent.getDoubleExtra("OrderValuePostDiscount",0.0)
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         AppUtils2.cutomername = SharedPreferenceUtil.getData(this, "FirstName", "").toString()
         AppUtils2.customermobile = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()

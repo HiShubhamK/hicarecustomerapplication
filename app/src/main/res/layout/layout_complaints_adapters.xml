@@ -170,7 +170,7 @@
                     android:textColor="@color/colorAccent"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="end"
-                    android:text="View Detail"
+                    android:text="View Details"
                     android:textSize="14sp" />
 
                 <ImageView

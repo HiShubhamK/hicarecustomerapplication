@@ -591,7 +591,7 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
                 viewModels.leadResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
-                        DesignToast.makeText(this,"Request submitted successfully", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+                        DesignToast.makeText(this,"Thanks for your call request. Our team will contact you soon", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
 
 //                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
 //                            .show()
