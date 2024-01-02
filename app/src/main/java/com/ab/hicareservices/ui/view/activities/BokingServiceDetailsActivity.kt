@@ -137,7 +137,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             ).show()
             binding.recycleviewplans.visibility = View.GONE
             binding.txtNoPlan.visibility = View.VISIBLE
-            binding.txtNoPlan.text = "Sorry, this pincode is not serviceable. Please try a different pincode."
+            binding.txtNoPlan.text =
+                "Sorry, this pincode is not serviceable. Please try a different pincode."
 
         })
 
@@ -204,7 +205,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                     progressDialog.dismiss()
                                     binding.recycleviewplans.visibility = View.GONE
                                     binding.txtNoPlan.visibility = View.VISIBLE
-                                    binding.txtNoPlan.text = "Sorry, this pincode is not serviceable. Please try a different pincode."
+                                    binding.txtNoPlan.text =
+                                        "Sorry, this pincode is not serviceable. Please try a different pincode."
 //                                    Toast.makeText(
 //                                        this@BokingServiceDetailsActivity,
 //                                        "Invalid pincode. Plan are not available ",
@@ -330,9 +332,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                     "This pincode is not available",
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_ERROR
-                                ).show();
-
-
+                                ).show()
                             }
                         } else {
 
@@ -359,11 +359,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                 viewProductModel.getActiveBHKList()
                 checkbottomsheet = true
 
-
                 if (checkbottomsheet == true) {
                     checkbottomsheet = false
-                    if(bhklistResponseData!=null){
-                        Handler(Looper.getMainLooper()).postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (bhklistResponseData != null) {
+
                             val bottomSheetFragments = CustomBottomSheetAddBhkFragment.newInstance(
                                 bhklistResponseData as ArrayList<BhklistResponseData>,
                                 planid,
@@ -373,15 +373,16 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 discountedPrice,
                                 servicePlanName
                             )
-                            bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
-                        }, 200)
-                    }
+                            bottomSheetFragments.show(
+                                supportFragmentManager,
+                                bottomSheetFragments.tag
+                            )
+                        }
+                    }, 400)
                 } else {
 
                 }
 
-
-//
 //                AppUtils2.getServicePlanResponseData = ArrayList()
 //
 //                AppUtils2.getServicePlanResponseData.clear()
@@ -412,8 +413,6 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 //                    bottomSheetFragments.show(supportFragmentManager, bottomSheetFragments.tag)
 //                }, 200)
             }
-
-
         })
 
         binding.recMenu.layoutManager =
@@ -433,11 +432,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
             this@BokingServiceDetailsActivity,
             Observer {
                 if (it.Id != 0) {
-                    if (!it.OtherServiceList.isNullOrEmpty()){
+                    if (!it.OtherServiceList.isNullOrEmpty()) {
                         nAdapter.setServiceLists(it.OtherServiceList, this)
 
-                    }else{
-                        binding.lnrOurServices.visibility=View.GONE
+                    } else {
+                        binding.lnrOurServices.visibility = View.GONE
                     }
                     progressDialog.dismiss()
                 } else {
@@ -533,7 +532,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                                     binding.recycleviewplans.visibility = View.GONE
                                                     binding.txtNoPlan.visibility = View.VISIBLE
 
-                                                    binding.txtNoPlan.text="Sorry, this pincode is not serviceable. Please try a different pincode."
+                                                    binding.txtNoPlan.text =
+                                                        "Sorry, this pincode is not serviceable. Please try a different pincode."
                                                     val currentTime = System.currentTimeMillis()
                                                     if (currentTime - lastClickTime > clickTimeThreshold) {
 //                                                        Toast.makeText(
@@ -610,7 +610,8 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 progressDialog.dismiss()
                                 binding.recycleviewplans.visibility = View.GONE
                                 binding.txtNoPlan.visibility = View.VISIBLE
-                                binding.txtNoPlan.text="Sorry, this pincode is not serviceable. Please try a different pincode."
+                                binding.txtNoPlan.text =
+                                    "Sorry, this pincode is not serviceable. Please try a different pincode."
 //                                    Toast.makeText(
 //                                        this@BokingServiceDetailsActivity,
 //                                        "Invalid pincode. Plan are not available ",

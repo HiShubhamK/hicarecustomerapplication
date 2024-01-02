@@ -228,9 +228,13 @@ class ServiceBooking : ViewModel() {
                 call: Call<ValidateServiceVoucherResponse>,
                 response: Response<ValidateServiceVoucherResponse>
             ) {
+
                 if(response.body()?.IsSuccess ==true) {
+                    AppUtils2.checkvoucheer=true
+                    Log.d("checkstatusdata",response.body()?.IsSuccess!!.toString())
                     validatevoucher.postValue(response.body())
                 }else{
+                    AppUtils2.checkerrormessage=true
                     Log.d("checkstatus",response.body()?.IsSuccess!!.toString())
                     errorMessagevoucher.postValue(response.body()?.IsSuccess!!.toString())
                 }

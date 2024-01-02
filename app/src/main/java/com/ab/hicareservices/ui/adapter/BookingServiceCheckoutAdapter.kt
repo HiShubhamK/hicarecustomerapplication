@@ -16,6 +16,7 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
 import com.ab.hicareservices.ui.handler.OnBookingViewDetials
+import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 import java.util.logging.Handler
 
@@ -89,7 +90,7 @@ class BookingServiceCheckoutAdapter :
             holder.binding.imgremoveinstructoin.postDelayed({
                 holder.binding.imgremoveinstructoin.visibility = View.GONE
                 holder.binding.imgaddinstructoin.visibility = View.VISIBLE
-                holder.binding.edtinstruction.visibility = View.GONE
+//                holder.binding.edtinstruction.visibility = View.GONE
                 holder.binding.txtdescription.visibility = View.GONE
             }, 200)
 
@@ -103,12 +104,20 @@ class BookingServiceCheckoutAdapter :
                 holder.binding.imgaddinstructoinforextra.visibility = View.GONE
                 holder.binding.imgremoveinstructoinextra.visibility = View.VISIBLE
                 holder.binding.edtinstruction.visibility = View.VISIBLE
-                SharedPreferenceUtil.setData(
-                    requireActivity,
-                    "Instructions",
-                    holder.binding.edtinstruction.text.toString()
-                )
+//                AppUtils2.checkinstruction=holder.binding.edtinstruction.text.toString()
+//                SharedPreferenceUtil.setData(
+//                    requireActivity,
+//                    "Instructions",
+//                    holder.binding.edtinstruction.text.toString()
+//                )
             }, 200)
+
+            AppUtils2.checkinstruction=holder.binding.edtinstruction.text.toString()
+            SharedPreferenceUtil.setData(
+                requireActivity,
+                "Instructions",
+                holder.binding.edtinstruction.text.toString()
+            )
 
         }
 
