@@ -231,7 +231,8 @@ class ServiceBooking : ViewModel() {
                 if(response.body()?.IsSuccess ==true) {
                     validatevoucher.postValue(response.body())
                 }else{
-                    errorMessagevoucher.postValue("invalid voucher")
+                    Log.d("checkstatus",response.body()?.IsSuccess!!.toString())
+                    errorMessagevoucher.postValue(response.body()?.IsSuccess!!.toString())
                 }
             }
 

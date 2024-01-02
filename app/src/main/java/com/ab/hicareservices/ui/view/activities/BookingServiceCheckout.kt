@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -30,13 +31,15 @@ class BookingServiceCheckout : AppCompatActivity() {
     private val viewProductModels: ProductViewModel by viewModels()
     private var lastClickTime: Long = 0
     private val clickTimeThreshold = 1000L
-
+    private var lastClickTimes: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_service_checkout)
 
         binding = ActivityBookingServiceCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AppUtils2.paymentcheckbutton=false
 
         binding.txtcoupon.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
 
@@ -76,8 +79,6 @@ class BookingServiceCheckout : AppCompatActivity() {
         mAdapter.setServiceList(AppUtils2.getServicePlanResponseData, this@BookingServiceCheckout)
 
         binding.txtcoupon.setText("")
-
-
 
         binding.txtplcaeorder.setOnClickListener {
 
@@ -215,13 +216,11 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                         if (AppUtils2.voucherdiscounts.equals("")) {
                         } else {
-                            finalamount = AppUtils2.voucherdiscounts
-
+                            finalamount = AppUtils2.finalamounts
                         }
                         AppUtils2.razorpayorderid = it.Data.toString()
                         SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
-                        val intent =
-                            Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
+                        val intent = Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
                         intent.putExtra("Finalamount", finalamount)
                         intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
                         startActivity(intent)
@@ -229,7 +228,6 @@ class BookingServiceCheckout : AppCompatActivity() {
                     } else {
 
                     }
-
                 })
 
                 viewProductModels.CreateRazorpayOrderId(finalamount.toDouble(), 12342)
@@ -237,8 +235,6 @@ class BookingServiceCheckout : AppCompatActivity() {
             }else{
 
             }
-
-
         }
 
         binding.btnappiledcoupon.setOnClickListener {
@@ -289,35 +285,27 @@ class BookingServiceCheckout : AppCompatActivity() {
                                 it.Data?.VoucherDiscountInPercentage.toString()
                             )
 
-//                            val currentTime = System.currentTimeMillis()
-//                            if (currentTime - lastClickTime > clickTimeThreshold) {
+                            val currentTimes = System.currentTimeMillis()
+                            if (currentTimes - lastClickTime > clickTimeThreshold) {
                                 DesignToast.makeText(
                                     this,
                                     "Coupon code applied successfully!",
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
-//                                lastClickTime = currentTime
-//                            }
-//
-//                            if(checkappliedcoupon==true) {
-//                                checkappliedcoupon=false
-//                                val currentTime = System.currentTimeMillis()
-//                                if (currentTime - lastClickTime > clickTimeThreshold) {
-//                                    DesignToast.makeText(this, "Coupon code applied successfully!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show()
-//                                    lastClickTime = currentTime
-//                                }
-//                            }
+                                lastClickTime = currentTimes
+                            }
                             binding.txtfinaltext.text = "\u20B9" + finalamount
                             binding.txttoalamount.text = "\u20B9" + finalamount
                             binding.voucherdiscount.text = "-" + "\u20B9" + voucherdiscount
 
                         } else {
-                            binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-                            binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-                            binding.txtdiscount.text = "-" + "\u20B9" + AppUtils2.bookingdiscount
-                            binding.txtbilling.text = AppUtils2.bookingserviceaddress
-                            finalamount = AppUtils2.bookingdiscountedprice
+//                            binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+//                            binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+//                            binding.txtdiscount.text = "-" + "\u20B9" + AppUtils2.bookingdiscount
+//                            binding.txtbilling.text = AppUtils2.bookingserviceaddress
+//                            finalamount = AppUtils2.bookingdiscountedprice
+//
 //                            Toast.makeText(
 //                                this@BookingServiceCheckout,
 //                                "Invalid Coupon code",
@@ -335,16 +323,21 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                     viewProductModel.errorMessagevoucher.observe(this, Observer {
 
-                        val currentTimes = System.currentTimeMillis()
-                        if (currentTimes - lastClickTime > clickTimeThreshold) {
-                            DesignToast.makeText(
-                                this,
-                                "Invalid Coupon code",
-                                Toast.LENGTH_SHORT,
-                                DesignToast.TYPE_ERROR
-                            ).show()
-                            lastClickTime = currentTimes
+                        Log.d("checkcoupon","Wrongtoast")
+
+                        if(it.equals("false")) {
+//                            val currentTimess = System.currentTimeMillis()
+//                            if (currentTimess - lastClickTimes > clickTimeThreshold) {
+                               DesignToast.makeText(
+                                    this,
+                                    "Invalid Coupon code",
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_ERROR
+                                ).show()
+//                                lastClickTimes = currentTimess
+//                            }
                         }
+
                         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
                         binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
                         binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
@@ -373,6 +366,4 @@ class BookingServiceCheckout : AppCompatActivity() {
         var finalamounts = ""
         var voucherdiscounts = ""
     }
-
-
 }

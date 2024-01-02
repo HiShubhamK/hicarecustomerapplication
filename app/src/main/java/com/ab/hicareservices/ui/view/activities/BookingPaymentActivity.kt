@@ -50,6 +50,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         binding = ActivityBookingPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ordervalues = ""
 
         val fname = SharedPreferenceUtil.getData(this, "Fname", "").toString()
 
@@ -61,7 +62,9 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         progressDialog.setCancelable(false)
 
 //
-//        ordervalues = ""
+
+//
+//        Toast.makeText(this,ordervalues,Toast.LENGTH_SHORT).show()
 
         orderPaymentlist = ArrayList()
 //
