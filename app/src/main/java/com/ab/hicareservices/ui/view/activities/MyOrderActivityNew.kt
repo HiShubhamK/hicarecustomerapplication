@@ -57,7 +57,10 @@ class MyOrderActivityNew : AppCompatActivity() {
         progressDialog.show()
         AppUtils2.fromdasboardmenu=true
         binding.imgLogo.setOnClickListener {
-            onBackPressed()
+//            onBackPressed()
+            val intent=Intent(this@MyOrderActivityNew,HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
         setupViewPager()
     }

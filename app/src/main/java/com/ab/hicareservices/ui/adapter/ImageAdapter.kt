@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ab.hicareservices.R
-import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.BannerData
 import com.ab.hicareservices.ui.view.activities.BookInspectionActivity
 import com.ab.hicareservices.ui.view.activities.ComplaintsActivityNew
@@ -36,10 +35,10 @@ class ImageAdapter(
 
 
     }
-    fun serBanner(bannerListt: ArrayList<BannerData>){
+    fun serBanner(bannerListt: ArrayList<BannerData>, pincode: String){
         this.bannerLis=bannerListt
+        this.pincode=pincode
         notifyDataSetChanged()
-
 
     }
 

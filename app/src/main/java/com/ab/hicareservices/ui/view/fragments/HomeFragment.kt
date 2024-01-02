@@ -297,7 +297,7 @@ class HomeFragment : Fragment() {
         dashboardViewModel.dashboardmain.observe(requireActivity(), Observer {
             Log.d(TAG, "onDashboardData: $it orders fragment")
             try {
-                adapter.serBanner(it!!.BannerData)
+                adapter.serBanner(it!!.BannerData,AppUtils2.pincode)
 //                it.MenuData.forEach{
 //                    if(it.Title.equals("Products")){
 //                        menudatanew.add(it)

@@ -81,12 +81,12 @@ class ProductDetailActivity : AppCompatActivity() {
         val intent = intent
         productid = intent.getStringExtra("productid").toString()
         if (intent != null) {
-            if (intent.getStringExtra("pincode")
-                    .toString() != ""
-            ) {
+            if (intent.getStringExtra("pincode").toString() != "") {
                 AppUtils2.pincode = intent.getStringExtra("pincode").toString()
             } else {
-                AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
+                Toast.makeText(this,"two "+AppUtils2.pincode.toString(),Toast.LENGTH_SHORT).show()
+                AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
+                MyLocationListener(this@ProductDetailActivity)
             }
         }
 
@@ -458,11 +458,21 @@ class ProductDetailActivity : AppCompatActivity() {
 
 //        viewProductModel.getProductDetails(productid!!.toInt(), "400601", customerid!!.toInt())
 
-        viewProductModel.getProductDetails(
-            productid!!.toInt(),
-            AppUtils2.pincode,
-            AppUtils2.customerid.toInt()
-        )
+        if(AppUtils2.pincode.equals("")){
+            viewProductModel.getProductDetails(
+                productid!!.toInt(),
+                "400080",
+                AppUtils2.customerid.toInt()
+            )
+        }else{
+
+            viewProductModel.getProductDetails(
+                productid!!.toInt(),
+                AppUtils2.pincode,
+                AppUtils2.customerid.toInt()
+            )
+        }
+
 
         binding.cartmenu.setOnClickListener {
             val intent = Intent(this, AddToCartActivity::class.java)

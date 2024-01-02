@@ -46,12 +46,19 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.btnetas.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
 
-
             val recipe=upcomingservicelist[position]
             holder.binding.ServiceName.text = recipe.ServicePlan_c
             holder.binding.tvServicestep.text=recipe.ServiceStep_c
             holder.binding.tvOrderNumber.text=": "+recipe.OrderNumber_c
 
+            holder.binding.tvseuenceno.visibility=View.VISIBLE
+            holder.binding.textsequence.visibility=View.VISIBLE
+
+            if(recipe.ServiceSequenceNumber_c==0) {
+                holder.binding.tvseuenceno.text = ": Complaint service"
+            }else {
+                holder.binding.tvseuenceno.text = ": " + recipe.ServiceSequenceNumber_c
+            }
 
             if(recipe.AppointmentTime.equals(" - ")){
                 holder.binding.tvappointmenttime.visibility=View.GONE
@@ -102,6 +109,9 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
 
         }else if (codOrders.isNotEmpty()){
+
+            holder.binding.textsequence.visibility=View.GONE
+            holder.binding.tvseuenceno.visibility=View.GONE
 
             holder.binding.btnetas.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
@@ -162,6 +172,16 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.tvOrderNumber.text=": "+recipe.OrderNumber_c
 
 //            holder.binding.tveta.text=recipe.HRAssignmentStartTimeAMPM_c+"-"+recipe.HRAssignmentFinishTimeAMPM_c
+
+
+            holder.binding.tvseuenceno.visibility=View.VISIBLE
+            holder.binding.textsequence.visibility=View.VISIBLE
+
+            if(recipe.ServiceSequenceNumber_c==0) {
+                holder.binding.tvseuenceno.text = ": Free"
+            }else {
+                holder.binding.tvseuenceno.text = ": " + recipe.ServiceSequenceNumber_c
+            }
 
             if(recipe.AppointmentTime.equals(" - ")){
                 holder.binding.tvappointmenttime.visibility=View.GONE

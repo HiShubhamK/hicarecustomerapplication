@@ -179,6 +179,22 @@
                                     android:textSize="13sp" />
 
 
+                                <TextView
+                                    android:id="@+id/textsequence"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text="Sequence no"
+                                    android:textColor="@color/grey_font"
+                                    android:textSize="13sp" />
+
+
                                 <!--                    <TextView-->
                                 <!--                        android:id="@+id/tvPlanDate"-->
                                 <!--                        android:layout_width="wrap_content"-->
@@ -233,8 +249,25 @@
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
 
+
                                 <TextView
                                     android:id="@+id/tvPlanDatetime"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:gravity="start"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp"  />
+
+
+                                <TextView
+                                    android:id="@+id/tvseuenceno"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
