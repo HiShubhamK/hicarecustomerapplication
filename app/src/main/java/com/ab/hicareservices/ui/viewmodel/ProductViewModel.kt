@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.CreateEventNotificationResponse
@@ -12,6 +13,7 @@ import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryResponse
 import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.repository.MainRepository
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +41,7 @@ class ProductViewModel: ViewModel() {
     val responseMessage = MutableLiveData<String>()
     val clearCacheResponse=MutableLiveData<ClearCacheResponse>()
     val GetCreateRazorpayProductOrderIdResponse=MutableLiveData<GetCreateRazorpayProductOrderIdResponse>()
+    val errorMessagevoucher = MutableLiveData<String>()
 
 
 
@@ -300,7 +303,13 @@ class ProductViewModel: ViewModel() {
         val response=repository.getValidateVoucher(vouchercode,userid,pincode)
         response.enqueue(object : Callback<ValidateVoucherResponse>{
             override fun onResponse(call: Call<ValidateVoucherResponse>, response: Response<ValidateVoucherResponse>) {
-                validateVoucherResponse.postValue(response.body())
+                if(response.body()?.IsSuccess ==true) {
+                    AppUtils2.checkvoucheer=true
+                    validateVoucherResponse.postValue(response.body())
+                }else{
+                    AppUtils2.checkerrormessage=true
+                    errorMessagevoucher.postValue(response.body()?.IsSuccess!!.toString())
+                }
             }
 
             override fun onFailure(call: Call<ValidateVoucherResponse>, t: Throwable) {

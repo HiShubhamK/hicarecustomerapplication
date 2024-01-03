@@ -474,7 +474,6 @@ class HomeFragment : Fragment() {
         binding.idViewPager.clipChildren = false
         binding.idViewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
-
         binding.idViewPager4.offscreenPageLimit = 3
         binding.idViewPager4.clipToPadding = false
         binding.idViewPager4.clipChildren = false
@@ -531,11 +530,11 @@ class HomeFragment : Fragment() {
             override fun onPaymentClick(position: Int, order: ArrayList<CODOrders>) {
                 val intent = Intent(requireActivity(), PaymentActivity::class.java)
                 intent.putExtra("ORDER_NO", order[position].OrderNumber_c)
-                intent.putExtra("ACCOUNT_NO", order[position].CustomerId_c)
+                intent.putExtra("ACCOUNT_NO", order[position].AccountName_r?.Id)
                 intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
                 intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
                 intent.putExtra("SERVICE_TYPE", order[position].ServiceType)
-                intent.putExtra("Standard_Value__c", order[position].StandardValue_c)
+                intent.putExtra("Standard_Value__c", order[position].StandardValue_c!!.toDouble())
                 intent.putExtra("Product", false)
                 AppUtils2.eventCall(requireActivity(),"PayNow Dashboard Services OrderNo: "+order[position].OrderNumber_c)
 

@@ -121,7 +121,11 @@ class ProductComplaintDetailsActivity : AppCompatActivity() {
             binding.txtSubject.text = subject
             binding.txtDescription.text = description
 
-            if (status == "Open") {
+            if (status == "Active"){
+
+                binding.txtStatus.setTextColor(Color.parseColor("#D50000"))
+
+            }else if (status == "Open") {
 
                 binding.txtStatus.setTextColor(Color.parseColor("#D50000"))
 

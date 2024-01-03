@@ -54,7 +54,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
 
-                <TextView
+                 <TextView
                     android:id="@+id/tvServicestep"
                     style="@style/FanBookNameTextStyle"
                     android:layout_width="match_parent"

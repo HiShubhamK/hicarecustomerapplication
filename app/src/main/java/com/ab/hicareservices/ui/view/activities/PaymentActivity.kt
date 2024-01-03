@@ -106,10 +106,13 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         service = intent.getStringExtra("SERVICETYPE_NO").toString()
         serviceType = intent.getStringExtra("SERVICE_TYPE").toString()
         payment = intent.getDoubleExtra("PAYMENT", Double.MIN_VALUE).toDouble().toString()
-        stdvalues =
-            intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
+        stdvalues = intent.getDoubleExtra("Standard_Value__c", Double.MIN_VALUE).toDouble().toString()
 
         product = intent.getBooleanExtra("Product", false)
+
+
+        Toast.makeText(this@PaymentActivity,accountId,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@PaymentActivity,stdvalues,Toast.LENGTH_SHORT).show()
 
         Checkout.sdkCheckIntegration(this)
 
@@ -204,6 +207,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             }
 
         } else {
+
 
             val notes = prepareNotes(
                 accountId,
@@ -321,10 +325,10 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         notes.put("InvoiceNo", "")
         notes.put("OrderNo", orderNo)
         notes.put("Service", service)
-        notes.put("OrderValue", stdvalues)
-        notes.put("OrderValueAfterDiscount", orderValue)
-        notes.put("ETDiscount", 5)
-        notes.put("ETPaidAmount", orderValue)
+        notes.put("OrderValue", stdvalues.toFloat())
+        notes.put("OrderValueAfterDiscount", orderValue.toFloat())
+        notes.put("ETDiscount", 5.0)
+        notes.put("ETPaidAmount", orderValue.toFloat())
         notes.put("Param1", "")
         notes.put("Param2", "")
         notes.put("Param3", "")
@@ -338,7 +342,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
     private fun prepareOption(notes: JSONObject, description: String, amount: String): JSONObject {
         val options = JSONObject()
         options.put("name", "HiCare Services")
-        options.put("description", description)
+        options.put("description", "Pest | Customer Mobile App")
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")

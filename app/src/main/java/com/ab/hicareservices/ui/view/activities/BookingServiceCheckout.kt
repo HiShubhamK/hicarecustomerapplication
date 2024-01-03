@@ -371,7 +371,7 @@ class BookingServiceCheckout : AppCompatActivity() {
 
                         binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
                         binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-                        binding.txtdiscount.text = "\u20B9" + AppUtils2.bookingdiscount
+                        binding.txtdiscount.text = "-"+"\u20B9" + AppUtils2.bookingdiscount
                         binding.txtbilling.text = AppUtils2.bookingserviceaddress
                         finalamount = AppUtils2.bookingdiscountedprice
                     })

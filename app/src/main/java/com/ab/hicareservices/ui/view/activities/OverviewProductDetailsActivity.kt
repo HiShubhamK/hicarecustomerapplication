@@ -42,8 +42,8 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     var paymentvalue = ""
     var discountvalue = ""
     var paymenttotalamount = ""
-    var voucherdiscount=""
-    var vouchercode=""
+    var voucherdiscount = ""
+    var vouchercode = ""
     lateinit var cartid: ArrayList<String>
     private var lastClickTime: Long = 0
     private val clickTimeThreshold = 1000L
@@ -107,7 +107,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
-            viewProductModel.GetCreateRazorpayProductOrderIdResponse.observe(this, Observer{
+            viewProductModel.GetCreateRazorpayProductOrderIdResponse.observe(this, Observer {
 
                 if (it.IsSuccess == true) {
                     AppUtils2.razorpayorderid = it.Data.toString()
@@ -140,7 +140,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             data["FinalAmount"] = paymentvalue
             data["VoucherCode"] = vouchercode
             data["VoucherDiscount"] = voucherdiscount
-                data["OrderSource"] ="CustomerApp"
+            data["OrderSource"] = "CustomerApp"
 
             viewProductModel.GetCreateRazorpayProductOrderId(data)
 
@@ -171,7 +171,12 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
                 getSummarydata("")
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > clickTimeThreshold) {
-                    DesignToast.makeText(this, "Coupon removed", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                    DesignToast.makeText(
+                        this,
+                        "Coupon removed",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
                     lastClickTime = currentTime
                 }
             } else {
@@ -186,48 +191,56 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
                 } else {
 
+                    viewProductModel.errorMessagevoucher.observe(this, Observer {
+
+                        if (AppUtils2.checkerrormessage == true) {
+                            AppUtils2.checkerrormessage = false
+                            val currentTimes = System.currentTimeMillis()
+                            if (currentTimes - lastClickTime > clickTimeThreshold) {
+                                DesignToast.makeText(
+                                    this,
+                                    "Invalid Coupon code",
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_ERROR
+                                ).show()
+                                lastClickTime = currentTimes
+                            }
+                        }
+                    })
+
                     viewProductModel.validateVoucherResponse.observe(this, Observer {
                         if (it.IsSuccess == true) {
-                            if (it.Data.toString() != null) {
-                                binding.coupunname.text = "Remove Coupon"
+                            if ( AppUtils2.checkvoucheer==true) {
+                                AppUtils2.checkvoucheer=false
+                                if (it.Data.toString() != null) {
+                                    binding.coupunname.text = "Remove Coupon"
 //                                AppUtils2.vouchercodedata=binding.txtcoupon.text.toString()
-                                getSummarydata(binding.txtcoupon.text.toString())
+                                    getSummarydata(binding.txtcoupon.text.toString())
 //                                Toast.makeText(
 //                                    this,
 //                                    "Applied coupon successfully",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
-                                DesignToast.makeText(
-                                    this,
-                                    "Coupon code applied successfully!",
-                                    Toast.LENGTH_SHORT,
-                                    DesignToast.TYPE_SUCCESS
-                                ).show()
+                                    DesignToast.makeText(
+                                        this,
+                                        "Coupon code applied successfully!",
+                                        Toast.LENGTH_SHORT,
+                                        DesignToast.TYPE_SUCCESS
+                                    ).show()
 
-                            } else {
-
-                                if (checkalterbox == false) {
-                                    checkalterbox = true
-
-                                    val currentTimes = System.currentTimeMillis()
-                                    if (currentTimes - lastClickTime > clickTimeThreshold) {
-                                        DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-                                        lastClickTime = currentTimes
-                                    }
                                 }
-//                                ShowCustomeDialog()
-//                                Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                             }
+
                         } else {
 //                            if (checkalterbox == false) {
-                                checkalterbox = true
-
-                                val currentTimes = System.currentTimeMillis()
-                                if (currentTimes - lastClickTime > clickTimeThreshold) {
-                                    DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
-                                    lastClickTime = currentTimes
-                                }
+//                                checkalterbox = true
+//
+//                                val currentTimes = System.currentTimeMillis()
+//                                if (currentTimes - lastClickTime > clickTimeThreshold) {
+//                                    DesignToast.makeText(this, "Invalid Coupon code", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+//                                    lastClickTime = currentTimes
+//                                }
 //                            }
 //                            Toast.makeText(this, "Invalid coupon", Toast.LENGTH_SHORT).show()
                         }
@@ -334,9 +347,9 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
 
             progressDialog.dismiss()
 
-            cartid= ArrayList()
+            cartid = ArrayList()
 
-            for (i in 0 until it.size){
+            for (i in 0 until it.size) {
                 cartid.add(it.get(i).CartId.toString())
             }
 
@@ -366,17 +379,19 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
             binding.txttotoalvalue.text = "\u20B9" + it.TotalAmount!!.toDouble().toString()
             binding.txtdiscount.text = "-" + "\u20B9" + it.TotalDiscount!!.toDouble().toString()
             binding.txttoalamount.text = "\u20B9" + it.FinalAmount!!.toDouble().toString()
-            if(it.VoucherDiscount==0.0){
-                binding.txtvoucherdiscount.text="\u20B9" + it.VoucherDiscount!!.toDouble().toString()
-            }else{
-                binding.txtvoucherdiscount.text="-"+"\u20B9" + it.VoucherDiscount!!.toDouble().toString()
+            if (it.VoucherDiscount == 0.0) {
+                binding.txtvoucherdiscount.text =
+                    "\u20B9" + it.VoucherDiscount!!.toDouble().toString()
+            } else {
+                binding.txtvoucherdiscount.text =
+                    "-" + "\u20B9" + it.VoucherDiscount!!.toDouble().toString()
             }
 
-            AppUtils2.finaldataamount=it.FinalAmount!!.toDouble().toString()
+            AppUtils2.finaldataamount = it.FinalAmount!!.toDouble().toString()
             discountvalue = it.TotalDiscount!!.toDouble().toString()
             paymenttotalamount = it.TotalAmount!!.toDouble().toString()
-            vouchercode=it.VoucherCode.toString()
-            voucherdiscount=it.VoucherDiscount!!.toDouble().toString()
+            vouchercode = it.VoucherCode.toString()
+            voucherdiscount = it.VoucherDiscount!!.toDouble().toString()
             if (it.DeliveryCharges != null && it.DeliveryCharges!!.toDouble().toInt() == 0) {
                 binding.tvDeliveryCharge.text = "Free "
             } else {

@@ -9,6 +9,7 @@ import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.databinding.LayoutPaymentDashboardAdapterBinding
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.utils.AppUtils2
+import kotlin.math.roundToInt
 
 class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.MainViewHolder>() {
 
@@ -125,7 +126,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
             holder.binding.tvappointmenttime.text="Amount to be paid"
 
-            holder.binding.tvPlanDatetime.text=": "+"₹ "+recipe.OrderValueWithTax_c
+            holder.binding.tvPlanDatetime.text=": "+"₹ "+ recipe.OrderValueWithTax_c?.toDouble()?.roundToInt()
             holder.binding.ServiceName.text = recipe.ServicePlanName_c
 //            holder.binding.serviceDesc.text = recipe.ServicePlan_c
             holder.binding.tvPayNows.visibility=View.VISIBLE

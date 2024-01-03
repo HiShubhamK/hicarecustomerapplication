@@ -77,11 +77,6 @@ class ProductComplaintsFragment() : Fragment() {
 
                 viewProductModel.getOrderSummeryList(AppUtils2.customerid.toInt())
 
-
-
-
-
-
         binding.addFab.setOnClickListener{
 
             if(getsummarydata.isNotEmpty()) {
