@@ -118,7 +118,6 @@ class BookingServiceCheckoutAdapter :
                 "Instructions",
                 holder.binding.edtinstruction.text.toString()
             )
-
         }
 
         holder.binding.imgremoveinstructoinextra.setOnClickListener {
