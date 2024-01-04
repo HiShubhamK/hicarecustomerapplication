@@ -98,6 +98,18 @@ class OrderDetailActivity : AppCompatActivity() {
         ServiceCenterId = intent.getStringExtra("ServiceCenterId").toString()
         stdvalue = intent.getStringExtra("Standard_Value__c").toString()
 
+        if(orderNo.equals("")){
+            orderNo=AppUtils2.ordernumbers
+        }
+
+        if(serviceType.equals("")){
+            serviceType= AppUtils2.serviceType
+        }
+
+        orderNo = SharedPreferenceUtil.getData(this, "Orderno", "").toString()
+        serviceType=SharedPreferenceUtil.getData(this, "serviceType", "").toString()
+
+
         Picasso.get().load(service_url_image).into(binding.imgType)
         getServiceDetails(orderNo, serviceType)
 

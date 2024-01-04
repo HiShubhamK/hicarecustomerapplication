@@ -28,6 +28,7 @@ import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import org.json.JSONObject
 
@@ -273,6 +274,13 @@ class OrdersFragment() : Fragment() {
             ) {
 
                 val intent = Intent(requireActivity(), OrderDetailActivity::class.java)
+
+                SharedPreferenceUtil.setData(requireActivity(), "Orderno", "")
+                SharedPreferenceUtil.setData(requireActivity(), "serviceType", "")
+                SharedPreferenceUtil.setData(requireActivity(), "Orderno", orderNo)
+                SharedPreferenceUtil.setData(requireActivity(), "serviceType", serviceType)
+                AppUtils2.ordernumbers=orderNo
+                AppUtils2.serviceType=serviceType
                 intent.putExtra("orderNo", orderNo)
                 intent.putExtra("serviceType", serviceType)
                 intent.putExtra("service_url_image", service_url_image)

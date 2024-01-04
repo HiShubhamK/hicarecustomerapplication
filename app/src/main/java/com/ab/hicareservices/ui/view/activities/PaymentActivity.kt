@@ -101,6 +101,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             )
         }
 
+        payment=""
+
         order_no = intent.getStringExtra("ORDER_NO").toString()
         accountId = intent.getStringExtra("ACCOUNT_NO").toString()
         service = intent.getStringExtra("SERVICETYPE_NO").toString()

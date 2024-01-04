@@ -102,6 +102,8 @@ object AppUtils2 {
     var paymentcheckbutton=false
     var checkvoucheer=false
     var checkinstruction=""
+    var ordernumbers=""
+    var serviceType=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {
