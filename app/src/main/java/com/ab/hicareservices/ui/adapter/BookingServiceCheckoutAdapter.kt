@@ -16,7 +16,7 @@ import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
-import com.ab.hicareservices.ui.handler.Checkoutinstruciton
+import com.ab.hicareservices.ui.handler.onCheckoutinstruciton
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
 
@@ -25,7 +25,7 @@ class BookingServiceCheckoutAdapter :
 
     var plandata = mutableListOf<GetServicePlanResponseData>()
     lateinit var requireActivity: FragmentActivity
-    private var checkoutinstrucitons: Checkoutinstruciton? = null
+    private var checkoutinstrucitons: onCheckoutinstruciton? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = BookingCheckoutAdapterLayoutBinding.inflate(inflater, parent, false)
@@ -91,7 +91,7 @@ class BookingServiceCheckoutAdapter :
 
             override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
                 val newText = charSequence?.toString() ?: ""
-                checkoutinstrucitons?.onTextChanged(newText)
+                checkoutinstrucitons?.onItemClick(newText)
 
                 SharedPreferenceUtil.setData(
                     requireActivity,
@@ -170,7 +170,7 @@ class BookingServiceCheckoutAdapter :
         notifyDataSetChanged()
     }
 
-    fun setTextChange(checkoutinstruciton: Checkoutinstruciton) {
+    fun setTextChangedata(checkoutinstruciton: onCheckoutinstruciton) {
         checkoutinstrucitons=checkoutinstruciton
     }
 

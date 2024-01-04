@@ -61,6 +61,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
+//        Toast.makeText(this@BookingPaymentActivity,SharedPreferenceUtil.getData(this, "Instructions", "").toString(),Toast.LENGTH_SHORT).show()
+
 //
 
 //

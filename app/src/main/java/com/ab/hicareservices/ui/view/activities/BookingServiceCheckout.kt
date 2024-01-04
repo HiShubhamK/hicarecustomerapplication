@@ -14,13 +14,11 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.OrderPayments
 import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
-import com.ab.hicareservices.ui.handler.Checkoutinstruciton
+import com.ab.hicareservices.ui.handler.onCheckoutinstruciton
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
-import java.text.DecimalFormat
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 class BookingServiceCheckout : AppCompatActivity(){
@@ -36,6 +34,7 @@ class BookingServiceCheckout : AppCompatActivity(){
     private var lastClickTime: Long = 0
     private val clickTimeThreshold = 1000L
     private var lastClickTimes: Long = 0
+    var data=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_service_checkout)
@@ -81,13 +80,35 @@ class BookingServiceCheckout : AppCompatActivity(){
         mAdapter = BookingServiceCheckoutAdapter()
         binding.recycleviewproduct.adapter = mAdapter
 
+        mAdapter.setTextChangedata(object : onCheckoutinstruciton{
+            override fun onItemClick(position: String) {
+
+                SharedPreferenceUtil.setData(
+                    this@BookingServiceCheckout,
+                    "Instructions",
+                    ""
+                )
+
+                data = position
+
+                SharedPreferenceUtil.setData(
+                    this@BookingServiceCheckout,
+                    "Instructions",
+                    data
+                )
+            }
+        })
+
         mAdapter.setServiceList(AppUtils2.getServicePlanResponseData, this@BookingServiceCheckout)
+
 
 
 
         binding.txtcoupon.setText("")
 
         binding.txtplcaeorder.setOnClickListener {
+
+//            Toast.makeText(this@BookingServiceCheckout,data,Toast.LENGTH_SHORT).show()
 
             var finalamountsdata=finalamount.toDouble().roundToInt()
 
