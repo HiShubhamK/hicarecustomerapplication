@@ -110,9 +110,9 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         product = intent.getBooleanExtra("Product", false)
 
-
-        Toast.makeText(this@PaymentActivity,accountId,Toast.LENGTH_SHORT).show()
-        Toast.makeText(this@PaymentActivity,stdvalues,Toast.LENGTH_SHORT).show()
+//
+//        Toast.makeText(this@PaymentActivity,accountId,Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this@PaymentActivity,stdvalues,Toast.LENGTH_SHORT).show()
 
         Checkout.sdkCheckIntegration(this)
 

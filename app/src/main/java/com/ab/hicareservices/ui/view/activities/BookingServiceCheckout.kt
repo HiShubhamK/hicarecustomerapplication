@@ -14,12 +14,16 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.OrderPayments
 import com.ab.hicareservices.databinding.ActivityBookingServiceCheckoutBinding
 import com.ab.hicareservices.ui.adapter.BookingServiceCheckoutAdapter
+import com.ab.hicareservices.ui.handler.Checkoutinstruciton
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
+import java.text.DecimalFormat
+import kotlin.math.round
+import kotlin.math.roundToInt
 
-class BookingServiceCheckout : AppCompatActivity() {
+class BookingServiceCheckout : AppCompatActivity(){
 
     private lateinit var mAdapter: BookingServiceCheckoutAdapter
     private lateinit var binding: ActivityBookingServiceCheckoutBinding
@@ -76,12 +80,16 @@ class BookingServiceCheckout : AppCompatActivity() {
             LinearLayoutManager(this@BookingServiceCheckout, LinearLayoutManager.VERTICAL, false)
         mAdapter = BookingServiceCheckoutAdapter()
         binding.recycleviewproduct.adapter = mAdapter
+
         mAdapter.setServiceList(AppUtils2.getServicePlanResponseData, this@BookingServiceCheckout)
+
+
 
         binding.txtcoupon.setText("")
 
         binding.txtplcaeorder.setOnClickListener {
 
+            var finalamountsdata=finalamount.toDouble().roundToInt()
 
 //            var data = HashMap<String, Any>()
 //
@@ -232,9 +240,10 @@ class BookingServiceCheckout : AppCompatActivity() {
                     }
                 })
 
-                viewProductModels.CreateRazorpayOrderId(finalamount.toDouble(), 12342)
+                viewProductModels.CreateRazorpayOrderId(finalamountsdata.toDouble(), 12342)
 
             } else {
+                AppUtils2.paymentcheckbutton = false
 
             }
         }
@@ -277,7 +286,8 @@ class BookingServiceCheckout : AppCompatActivity() {
 //        }
 
         binding.btnappiledcoupon.setOnClickListener {
-            Toast.makeText(this@BookingServiceCheckout, AppUtils2.checkinstruction,Toast.LENGTH_SHORT)
+            Toast.makeText(this@BookingServiceCheckout, SharedPreferenceUtil.getData(this@BookingServiceCheckout, "Instructions",
+                "").toString(),Toast.LENGTH_SHORT)
 
             Log.d("instuftion",SharedPreferenceUtil.getData(
                 this@BookingServiceCheckout,

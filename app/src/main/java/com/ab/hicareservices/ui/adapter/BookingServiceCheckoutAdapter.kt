@@ -2,32 +2,30 @@ package com.ab.hicareservices.ui.adapter
 
 import android.content.Context
 import android.os.Looper
+import android.text.Editable
 import android.text.Html
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.view.postDelayed
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
 import com.ab.hicareservices.databinding.BookingCheckoutAdapterLayoutBinding
-import com.ab.hicareservices.ui.handler.OnBookingViewDetials
+import com.ab.hicareservices.ui.handler.Checkoutinstruciton
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
-import java.util.logging.Handler
 
 class BookingServiceCheckoutAdapter :
     RecyclerView.Adapter<BookingServiceCheckoutAdapter.MainViewHolder>() {
 
     var plandata = mutableListOf<GetServicePlanResponseData>()
     lateinit var requireActivity: FragmentActivity
-    private var onBookingViewDetials: OnBookingViewDetials? = null
-    lateinit var getServicePlanResponseData: ArrayList<GetServicePlanResponseData>
-
+    private var checkoutinstrucitons: Checkoutinstruciton? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = BookingCheckoutAdapterLayoutBinding.inflate(inflater, parent, false)
@@ -83,6 +81,36 @@ class BookingServiceCheckoutAdapter :
 //            holder.binding.txtdescription.startAnimation(animation2)
 
         }
+
+
+
+        holder.binding.edtinstruction.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not needed for your case
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                val newText = charSequence?.toString() ?: ""
+                checkoutinstrucitons?.onTextChanged(newText)
+
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "Instructions",
+                    ""
+                )
+
+                SharedPreferenceUtil.setData(
+                    requireActivity,
+                    "Instructions",
+                    newText
+                )
+
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                // Not needed for your case
+            }
+        })
 
         holder.binding.imgremoveinstructoin.setOnClickListener {
 
@@ -141,6 +169,11 @@ class BookingServiceCheckoutAdapter :
         }
         notifyDataSetChanged()
     }
+
+    fun setTextChange(checkoutinstruciton: Checkoutinstruciton) {
+        checkoutinstrucitons=checkoutinstruciton
+    }
+
 
     class MainViewHolder(val binding: BookingCheckoutAdapterLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {}
