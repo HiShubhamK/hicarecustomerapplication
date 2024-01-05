@@ -35,20 +35,21 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         try {
             val service = services[position]
-
-            holder.binding.btnetas.visibility=View.GONE
-
             if(service.AppointmentTime.equals(" - ")){
 
-                holder.binding.tvappointmenttime.visibility=View.GONE
-                holder.binding.tvScheduletime.visibility=View.GONE
                 holder.binding.tvPlanDatetime.visibility=View.GONE
+                holder.binding.tvappointmenttime.visibility=View.GONE
+                holder.binding.tvScheduletime.visibility=View.GONE     //SR_Date__c
             }else{
                 holder.binding.tvappointmenttime.visibility=View.VISIBLE
                 holder.binding.tvScheduletime.visibility=View.VISIBLE
                 holder.binding.tvPlanDatetime.text=": "+service.AppointmentTime
             }
 
+            holder.binding.tvOrderNumber.text = ": "+service.OrderNumber_c
+            holder.binding.btnetas.visibility=View.GONE
+            holder.binding.ServiceName.text = service.ServicePlan_c
+            holder.binding.tvServicestep.text = service.ServiceStep_c
 
             if(service.ServiceSequenceNumber_c==0) {
                 holder.binding.tvseuenceno.text = ": " + service.Tag_c
@@ -60,21 +61,19 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 
             holder.binding.tvPayNow.text = "Reschedule"
             if (!service.AppointmentDateTime.equals(null)||!service.AppointmentDateTime.equals("")){
-                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
+                holder.binding.tvPlanDate.text =": " +service.SRDate_c
             }else{
-                holder.binding.tvPlanDate.text =": " +service.SRPlanDate
+                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
+
+//                holder.binding.tvPlanDate.text =": " +service.SRDate_c
             }
             if (service.HRAppointmentStartTimeAMPM_c.equals(null)||service.HRAppointmentFinishTimeAMPM_c.equals(null)){
                 holder.binding.tvScheduletime.text = " - "
-
             }else {
                 holder.binding.tvScheduletime.text = service.HRAppointmentStartTimeAMPM_c.toString() +" to "+service.HRAppointmentFinishTimeAMPM_c
 
             }
 
-            holder.binding.tvServicestep.text = service.ServiceStep_c
-            holder.binding.tvOrderNumber.text = ": "+service.OrderNumber_c
-            holder.binding.ServiceName.text = service.ServicePlan_c
 
         }catch (e:Exception){
             e.printStackTrace()
