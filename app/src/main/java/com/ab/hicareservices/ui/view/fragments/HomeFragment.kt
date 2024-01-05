@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -47,6 +48,7 @@ import com.ab.hicareservices.ui.adapter.*
 import com.ab.hicareservices.ui.handler.offerinterface
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.ui.view.StickyMessageView
+import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
@@ -55,6 +57,7 @@ import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.ui.viewmodel.PaymentCardViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter
@@ -66,6 +69,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -101,6 +105,7 @@ class HomeFragment : Fragment() {
     private var lastlat: String? = ""
     private var lastlongg: String? = ""
     private lateinit var stickyMessageView: StickyMessageView
+    private val viewProductModel: ProductViewModel by viewModels()
 
     val REQUEST_CODE_PERMISSIONS = 101
 
@@ -528,19 +533,40 @@ class HomeFragment : Fragment() {
             }
 
             override fun onPaymentClick(position: Int, order: ArrayList<CODOrders>) {
-                val intent = Intent(requireActivity(), PaymentActivity::class.java)
-                intent.putExtra("ORDER_NO", order[position].OrderNumber_c)
-                intent.putExtra("ACCOUNT_NO", order[position].AccountName_r?.Id)
-                intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
-                intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
-                intent.putExtra("SERVICE_TYPE", order[position].ServiceType)
-                intent.putExtra("Standard_Value__c", order[position].StandardValue_c!!.toDouble())
-                intent.putExtra("Product", false)
-                AppUtils2.eventCall(requireActivity(),"PayNow Dashboard Services OrderNo: "+order[position].OrderNumber_c)
+                viewProductModel.razorpayOrderIdResponse.observe(requireActivity(), Observer {
+
+                    if (it.IsSuccess == true) {
+                        AppUtils2.razorpayorderid = it.Data.toString()
+//                        SharedPreferenceUtil.setData(requireContext(), "razorpayorderid",it.Data.toString())
+                        AppUtils2.paynowamount=""
+                        AppUtils2.Checkpayment="HomeActivity"
+
+                        AppUtils2.paynowamount=order[position].OrderValueWithTax_c!!.toDouble().toString()
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+
+                        val intent = Intent(requireActivity(), PaymentActivity::class.java)
+                        AppUtils2.paynowamount=order[position].OrderValueWithTax_c!!.toDouble().toString()
+                        intent.putExtra("ORDER_NO", order[position].OrderNumber_c)
+                        intent.putExtra("ACCOUNT_NO", order[position].AccountName_r?.Id)
+                        intent.putExtra("SERVICETYPE_NO", order[position].ServicePlanName_c)
+                        intent.putExtra("PAYMENT", order[position].OrderValueWithTax_c!!.toDouble())
+                        intent.putExtra("SERVICE_TYPE", order[position].ServiceType)
+                        intent.putExtra("Standard_Value__c", order[position].StandardValue_c!!.toDouble())
+                        intent.putExtra("Product", false)
+                        AppUtils2.eventCall(requireActivity(),"PayNow Dashboard Services OrderNo: "+order[position].OrderNumber_c)
+                        startActivity(intent)
+
+                        }, 300)
+
+                    } else {
+                    }
+                })
+
+                viewProductModel.CreateRazorpayOrderId(order[position].OrderValueWithTax_c!!.toDouble(), 12342)
 
 
 
-                startActivity(intent)
             }
 
             override fun onPaymentitemsClick(position: Int, order: ArrayList<CODOrders>) {

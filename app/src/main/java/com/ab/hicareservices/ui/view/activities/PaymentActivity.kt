@@ -21,7 +21,6 @@ import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import com.razorpay.*
 import org.json.JSONObject
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.roundToInt
@@ -113,7 +112,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         product = intent.getBooleanExtra("Product", false)
 
 //
-//        Toast.makeText(this@PaymentActivity,accountId,Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this@PaymentActivity,payment + " "+AppUtils2.paynowamount ,Toast.LENGTH_SHORT).show()
 //        Toast.makeText(this@PaymentActivity,stdvalues,Toast.LENGTH_SHORT).show()
 
         Checkout.sdkCheckIntegration(this)
@@ -126,42 +125,14 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         if (product == true) {
 
             getSummarydata()
-//
-//            Handler(Looper.getMainLooper()).postDelayed({
-//
-//            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
-//
-//                if (it.IsSuccess == true) {
-//                    razorpayorderid = it.Data.toString()
-//                    AppUtils2.razorpayorderid = it.Data.toString()
-//                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
-//
-//                } else {
-//
-//                }
-//
-//            })
-//
-//            viewProductModel.CreateRazorpayOrderId(payment.toDouble(), 12342)
-//            },1000)
         } else {
 
-            viewProductModel.razorpayOrderIdResponse.observe(this, Observer {
-
-                if (it.IsSuccess == true) {
-                    razorpayorderid = it.Data.toString()
-                    AppUtils2.razorpayorderid = it.Data.toString()
-                    SharedPreferenceUtil.setData(this, "razorpayorderid",it.Data.toString())
-                } else {
-
-                }
-            })
-
-            viewProductModel.CreateRazorpayOrderId(payment.toDouble(), 12342)
         }
 
 
         if (product == true) {
+
+
 
             payment=AppUtils2.finaldataamount
 
@@ -197,7 +168,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     onBackPressed()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
 
                 DesignToast.makeText(
                     this@PaymentActivity,
@@ -210,6 +180,14 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
         } else {
 
+            payment=""
+
+            payment=AppUtils2.paynowamount
+
+
+//            AppUtils2.razorpayorderid=""
+//
+//            AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
 
             val notes = prepareNotes(
                 accountId,
@@ -222,15 +200,19 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             options = prepareOption(
                 notes,
                 serviceType,
-                payment
+                AppUtils2.paynowamount,
+                AppUtils2.razorpayorderid
             )
-
 
             Log.d("OptionTags", options.toString())
 
             try {
 
-                AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
+
+//                AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
+
+//                Toast.makeText(this@PaymentActivity,AppUtils2.razorpayorderid,Toast.LENGTH_SHORT).show()
+
                 if(AppUtils2.razorpayorderid!=null) {
                     if(!AppUtils2.razorpayorderid.equals("")) {
 
@@ -321,7 +303,6 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         service: String,
         stdvalues: String
     ): JSONObject {
-
         val notes = JSONObject()
         notes.put("Account_Id", accountId)
         notes.put("InvoiceNo", "")
@@ -341,16 +322,27 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
         return notes
     }
 
-    private fun prepareOption(notes: JSONObject, description: String, amount: String): JSONObject {
+    private fun prepareOption(
+        notes: JSONObject,
+        description: String,
+        amount: String,
+        razorpayorderid: String
+    ): JSONObject {
+//        Toast.makeText(this@PaymentActivity,AppUtils2.razorpayorderid,Toast.LENGTH_SHORT).show()
+
+//        AppUtils2.razorpayorderid=""
+//
+//        AppUtils2.razorpayorderid=SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString()
+
         val options = JSONObject()
         options.put("name", "HiCare Services")
         options.put("description", "Pest | Customer Mobile App")
         options.put("image", "https://hicare.in/pub/media/wysiwyg/home/Hyginenew1.png")
         options.put("theme.color", "#2BB77A")
         options.put("currency", "INR")
-        options.put("amount", "${amount.toDouble().roundToInt()}00")
+        options.put("amount", "${AppUtils2.paynowamount.toDouble().roundToInt()}00")
         options.put("notes", notes)
-        options.put("order_id", SharedPreferenceUtil.getData(this@PaymentActivity, "razorpayorderid", "").toString())  //AppUtils2.razorpayorderid
+        options.put("order_id", razorpayorderid)  //AppUtils2.razorpayorderid
         val prefill = JSONObject()
         prefill.put("email", AppUtils2.customeremail)
         prefill.put("contact", AppUtils2.mobileno)
@@ -501,6 +493,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        AppUtils2.paynowamount=""
+        payment=""
         if(product==true) {
             val intent = Intent(this, OverviewProductDetailsActivity::class.java)
             startActivity(intent)

@@ -27,6 +27,7 @@ import com.ab.hicareservices.ui.adapter.WeeksAdapter
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
@@ -39,6 +40,8 @@ class OrderDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrderDetailBinding
     private val viewModel: ServiceViewModel by viewModels()
+    private val viewProductModel: ProductViewModel by viewModels()
+
     private val orderDetailsViewModel: OrderDetailsViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
     private lateinit var mAdapter: ServiceRequestAdapter
@@ -150,15 +153,40 @@ class OrderDetailActivity : AppCompatActivity() {
 
                     AppUtils2.Checkpayment=""
                     AppUtils2.Checkpayment="orderdeatils"
-                    val intent = Intent(this, PaymentActivity::class.java)
-                    intent.putExtra("ORDER_NO", orderNo)
-                    intent.putExtra("ACCOUNT_NO", accountId)
-                    intent.putExtra("SERVICETYPE_NO", service)
-                    intent.putExtra("SERVICE_TYPE", serviceType)
-                    intent.putExtra("PAYMENT", orderValueWithTax)
-                    intent.putExtra("Standard_Value__c", stdvalue)
-                    intent.putExtra("Product", false)
-                    activityResultLauncher.launch(intent)
+                    AppUtils2.paynowamount=orderValueWithTax.toString()
+
+                    viewProductModel.razorpayOrderIdResponse.observe(this, androidx.lifecycle.Observer {
+
+                        if (it.IsSuccess == true) {
+
+                            AppUtils2.paynowamount=orderValueWithTax.toString()
+                            AppUtils2.razorpayorderid = it.Data.toString()
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+
+
+                                val intent = Intent(this, PaymentActivity::class.java)
+                                intent.putExtra("ORDER_NO", orderNo)
+                                intent.putExtra("ACCOUNT_NO", accountId)
+                                intent.putExtra("SERVICETYPE_NO", service)
+                                intent.putExtra("SERVICE_TYPE", serviceType)
+                                intent.putExtra("PAYMENT", orderValueWithTax)
+                                intent.putExtra("Standard_Value__c", stdvalue)
+                                intent.putExtra("Product", false)
+
+                                activityResultLauncher.launch(intent)
+                            },300)
+
+                        } else {
+                        }
+                    })
+
+
+                    viewProductModel.CreateRazorpayOrderId(orderValueWithTax.toDouble(), 12342)
+
+
+
+
 
 //                    val co = Checkout()
 //                    co.setKeyID("rzp_test_sgH3fCu3wJ3T82")
@@ -420,6 +448,8 @@ class OrderDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent=Intent(this@OrderDetailActivity,MyOrderActivityNew::class.java)
+        startActivity(intent)
     }
 
 }

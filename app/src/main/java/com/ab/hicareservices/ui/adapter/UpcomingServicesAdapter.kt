@@ -51,7 +51,7 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 
 
             if(service.ServiceSequenceNumber_c==0) {
-                holder.binding.tvseuenceno.text = ": Complaint service"
+                holder.binding.tvseuenceno.text = ": " + service.Tag_c
             }else {
                 holder.binding.tvseuenceno.text = ": " + service.ServiceSequenceNumber_c
             }

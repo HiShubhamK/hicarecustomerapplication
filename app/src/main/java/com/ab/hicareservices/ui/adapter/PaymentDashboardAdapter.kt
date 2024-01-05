@@ -56,7 +56,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             holder.binding.textsequence.visibility=View.VISIBLE
 
             if(recipe.ServiceSequenceNumber_c==0) {
-                holder.binding.tvseuenceno.text = ": Complaint service"
+                holder.binding.tvseuenceno.text = ": " + recipe.Tag_c
             }else {
                 holder.binding.tvseuenceno.text = ": " + recipe.ServiceSequenceNumber_c
             }

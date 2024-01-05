@@ -28,6 +28,7 @@ import com.ab.hicareservices.ui.view.activities.HomeActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrdersViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import org.json.JSONObject
@@ -44,6 +45,8 @@ class OrdersFragment() : Fragment() {
     lateinit var homeActivity: HomeActivity
     lateinit var options: JSONObject
     lateinit var progressDialog: ProgressDialog
+    private val viewProductModel: ProductViewModel by viewModels()
+
 
     var activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -301,16 +304,34 @@ class OrdersFragment() : Fragment() {
                 serviceType: String,
                 standardValueC: Double?
             ) {
-                val intent = Intent(requireContext(), PaymentActivity::class.java)
-                intent.putExtra("ORDER_NO", orderNumberC)
-                intent.putExtra("ACCOUNT_NO", customerIdC)
-                intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
-                intent.putExtra("PAYMENT", orderValueWithTaxC)
-                intent.putExtra("SERVICE_TYPE",serviceType)
-                intent.putExtra("Standard_Value__c",standardValueC)
-                intent.putExtra("Product", false)
+                viewProductModel.razorpayOrderIdResponse.observe(requireActivity(), Observer {
 
-                activityResultLauncher.launch(intent)
+                    if (it.IsSuccess == true) {
+                        AppUtils2.razorpayorderid = it.Data.toString()
+
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+
+                            AppUtils2.paynowamount=orderValueWithTaxC.toString()
+
+                            val intent = Intent(requireContext(), PaymentActivity::class.java)
+                            intent.putExtra("ORDER_NO", orderNumberC)
+                            intent.putExtra("ACCOUNT_NO", customerIdC)
+                            intent.putExtra("SERVICETYPE_NO", servicePlanNameC)
+                            intent.putExtra("PAYMENT", orderValueWithTaxC)
+                            intent.putExtra("SERVICE_TYPE", serviceType)
+                            intent.putExtra("Standard_Value__c", standardValueC)
+                            intent.putExtra("Product", false)
+
+                            activityResultLauncher.launch(intent)
+
+                        },300)
+
+                    } else {
+                    }
+                })
+
+                viewProductModel.CreateRazorpayOrderId(orderValueWithTaxC.toDouble(), 12342)
             }
 
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {

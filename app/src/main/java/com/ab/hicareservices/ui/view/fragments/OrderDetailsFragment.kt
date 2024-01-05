@@ -33,6 +33,7 @@ import com.ab.hicareservices.ui.view.activities.AddComplaintsActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
 import com.ab.hicareservices.ui.viewmodel.OrderDetailsViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
+import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.squareup.picasso.Picasso
@@ -69,6 +70,7 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
     var locationLatitudeS: String = ""
     var locationLongitudeS: String = ""
     var ServiceCenterId: String = ""
+    private val viewProductModel: ProductViewModel by viewModels()
 
     var backpressedlistener: Backpressedlistener? = null
 
@@ -198,15 +200,29 @@ class OrderDetailsFragment : Fragment(), Backpressedlistener {
             binding.payNowBtn.setOnClickListener {
                 try {
 
+                    viewProductModel.razorpayOrderIdResponse.observe(requireActivity(), Observer {
 
-                    val intent = Intent(requireContext(), PaymentActivity::class.java)
-                    intent.putExtra("ORDER_NO", orderNo)
-                    intent.putExtra("ACCOUNT_NO", accountId)
-                    intent.putExtra("SERVICETYPE_NO", service)
-                    intent.putExtra("PAYMENT", orderValueWithTax)
-                    intent.putExtra("Product", false)
+                        if (it.IsSuccess == true) {
+                            AppUtils2.razorpayorderid = it.Data.toString()
+//                        SharedPreferenceUtil.setData(requireContext(), "razorpayorderid",it.Data.toString())
+                            AppUtils2.paynowamount=orderValueWithTax.toString()
 
-                    activityResultLauncher.launch(intent)
+                            val intent = Intent(requireContext(), PaymentActivity::class.java)
+                            intent.putExtra("ORDER_NO", orderNo)
+                            intent.putExtra("ACCOUNT_NO", accountId)
+                            intent.putExtra("SERVICETYPE_NO", service)
+                            intent.putExtra("PAYMENT", orderValueWithTax)
+                            intent.putExtra("Product", false)
+
+                            activityResultLauncher.launch(intent)
+
+                        } else {
+                        }
+                    })
+
+                    viewProductModel.CreateRazorpayOrderId(orderValueWithTax.toDouble(), 12342)
+
+
 
 //                    val co = Checkout()
 //                    co.setKeyID("rzp_test_sgH3fCu3wJ3T82")

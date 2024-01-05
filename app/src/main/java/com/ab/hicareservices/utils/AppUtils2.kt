@@ -104,6 +104,7 @@ object AppUtils2 {
     var checkinstruction=""
     var ordernumbers=""
     var serviceType=""
+    var paynowamount=""
 
     @JvmStatic
     fun startPayment(activity: Activity) {
