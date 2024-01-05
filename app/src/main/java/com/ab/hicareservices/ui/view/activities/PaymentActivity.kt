@@ -193,7 +193,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 accountId,
                 order_no,
                 serviceType,
-                payment,
+                AppUtils2.paynowamount,
                 service,
                 stdvalues
             )

@@ -90,6 +90,19 @@ class SlotComplinceActivity : AppCompatActivity() {
         Unit = intent.getStringExtra("Unit").toString()
         spcode = intent.getStringExtra("SPCode").toString()
 
+
+        ServiceCenter_Id = SharedPreferenceUtil.getData(this, "ServiceCenter_Id","").toString()
+        SlotDate = SharedPreferenceUtil.getData(this, "SlotDate","").toString()
+        TaskId = SharedPreferenceUtil.getData(this, "TaskId","").toString()
+        SkillId = SharedPreferenceUtil.getData(this, "SkillId","").toString()
+        Latt = SharedPreferenceUtil.getData(this, "Lat","").toString()
+        Longg = SharedPreferenceUtil.getData(this, "Long","").toString()
+        ServiceType = SharedPreferenceUtil.getData(this, "ServiceType","").toString()
+        Pincode = SharedPreferenceUtil.getData(this, "Pincode","").toString()
+        Service_Code = SharedPreferenceUtil.getData(this, "Service_Code","").toString()
+        Unit = SharedPreferenceUtil.getData(this, "Unit","").toString()
+        spcode = SharedPreferenceUtil.getData(this, "SPCode","").toString()
+
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
@@ -334,6 +347,7 @@ class SlotComplinceActivity : AppCompatActivity() {
                         intent.putExtra("Lat", Latt)
                         intent.putExtra("Long", Longg)
                         intent.putExtra("ServiceType", ServiceType)
+
                         startActivity(intent)
                         finish()
 //                        ShowBookingDialog(it, Service_Date, scheduledatetext, progressDialog)

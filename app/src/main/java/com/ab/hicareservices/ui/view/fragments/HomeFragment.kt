@@ -512,6 +512,40 @@ class HomeFragment : Fragment() {
         )
         mpayentdashboardadapter.setRescudullClick(object : onResceduleInterface {
             override fun onRecheduleClick(position: Int, upcomingdata: ArrayList<UpcomingService>) {
+
+
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceCenter_Id", "")
+                SharedPreferenceUtil.setData(requireActivity(), "SlotDate","")
+                SharedPreferenceUtil.setData(requireActivity(), "TaskId", "")
+                SharedPreferenceUtil.setData(requireActivity(), "SkillId", "")
+                SharedPreferenceUtil.setData(requireActivity(), "Lat", "")
+                SharedPreferenceUtil.setData(requireActivity(), "Long", "")
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceType", "pest")
+                SharedPreferenceUtil.setData(requireActivity(), "Pincode", "")
+                SharedPreferenceUtil.setData(requireActivity(), "SPCode", "")
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceUnit", "")
+                SharedPreferenceUtil.setData(requireActivity(), "Unit", "")
+
+
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
+
+                if (upcomingdata[position].AppointmentDate != null) {
+                    SharedPreferenceUtil.setData(requireActivity(), "SlotDate", upcomingdata[position].AppointmentDate)
+                } else {
+                    SharedPreferenceUtil.setData(requireActivity(), "SlotDate", upcomingdata[position].SRPlanDate)
+//                        intent.putExtra("SlotDate", upcomingdata[position].SRPlanDate)
+                }
+
+                SharedPreferenceUtil.setData(requireActivity(), "TaskId", upcomingdata[position].Id)
+                SharedPreferenceUtil.setData(requireActivity(), "SkillId", upcomingdata[position].TaskSkill_c)
+                SharedPreferenceUtil.setData(requireActivity(), "Lat", upcomingdata[position].GoogleLat_c)
+                SharedPreferenceUtil.setData(requireActivity(), "Long", upcomingdata[position].GoogleLong_c)
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceType", "pest")
+                SharedPreferenceUtil.setData(requireActivity(), "Pincode", upcomingdata[position].HRZipPostalCode_c)
+                SharedPreferenceUtil.setData(requireActivity(), "SPCode", upcomingdata[position].OrderSPCode)
+                SharedPreferenceUtil.setData(requireActivity(), "ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
+                SharedPreferenceUtil.setData(requireActivity(), "Unit", upcomingdata[position].Unit)
+
                 val intent = Intent(requireActivity(), SlotComplinceActivity::class.java)
                 intent.putExtra("ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
                 if (upcomingdata[position].AppointmentDate != null) {

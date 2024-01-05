@@ -232,6 +232,33 @@ class OrderDetailActivity : AppCompatActivity() {
 
             override fun onRescheduleServiceClicked(position: Int, service: ServiceData) {
 
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceCenter_Id", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "SlotDate","")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "TaskId", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "SkillId", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Lat", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Long", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceType", "pest")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Pincode", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "SPCode", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceUnit", "")
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Unit", "")
+
+
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceCenter_Id", ServiceCenterId)
+                    SharedPreferenceUtil.setData(this@OrderDetailActivity, "SlotDate",getCurrentDate())
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "TaskId", service.ParentTaskId.toString())
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "SkillId", service.Parent_Task_Skill_Id)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Lat", locationLatitudeS)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Long", locationLongitudeS)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceType", serviceType)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Pincode",service.Pincode)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "SPCode", service_SP_Code__c)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "ServiceUnit", service.ServiceUnit)
+                SharedPreferenceUtil.setData(this@OrderDetailActivity, "Unit", unit)
+
+
+
                 val intent = Intent(this@OrderDetailActivity, SlotComplinceActivity::class.java)
                 intent.putExtra("ServiceCenter_Id", ServiceCenterId)
                 intent.putExtra("SlotDate", getCurrentDate())

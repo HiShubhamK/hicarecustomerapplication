@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
+import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.dashboard.CODOrders
 import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.databinding.ActivityUpcomingServicesBinding
@@ -93,9 +94,43 @@ class UpcomingServicesActivity : AppCompatActivity() {
                     position: Int,
                     upcomingdata: ArrayList<UpcomingService>
                 ) {
-                    val intent =
-                        Intent(this@UpcomingServicesActivity, SlotComplinceActivity::class.java)
+
+
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceCenter_Id", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SlotDate","")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "TaskId", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SkillId", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Lat", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Long", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceType", "pest")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Pincode", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SPCode", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceUnit", "")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Unit", "")
+
+
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
+
+                    if (upcomingdata[position].AppointmentDate != null) {
+                        SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SlotDate", upcomingdata[position].AppointmentDate)
+                    } else {
+                        SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SlotDate", upcomingdata[position].SRPlanDate)
+//                        intent.putExtra("SlotDate", upcomingdata[position].SRPlanDate)
+                    }
+
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "TaskId", upcomingdata[position].Id)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SkillId", upcomingdata[position].TaskSkill_c)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Lat", upcomingdata[position].GoogleLat_c)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Long", upcomingdata[position].GoogleLong_c)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceType", "pest")
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Pincode", upcomingdata[position].HRZipPostalCode_c)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "SPCode", upcomingdata[position].OrderSPCode)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "ServiceUnit", upcomingdata[position].OrderServiceArea_r!!.Unit_c)
+                    SharedPreferenceUtil.setData(this@UpcomingServicesActivity, "Unit", upcomingdata[position].Unit)
+
+                    val intent = Intent(this@UpcomingServicesActivity, SlotComplinceActivity::class.java)
                     intent.putExtra("ServiceCenter_Id", upcomingdata[position].HRRegion_r!!.Id)
+
                     if (upcomingdata[position].AppointmentDate != null) {
                         intent.putExtra("SlotDate", upcomingdata[position].AppointmentDate)
                     } else {
