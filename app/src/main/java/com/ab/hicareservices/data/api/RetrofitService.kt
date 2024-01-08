@@ -64,9 +64,9 @@ object RetrofitService {
             }.addInterceptor(interceptor).build()
 //        if (retrofitService == null) {
             val retrofit = Retrofit.Builder()
-//                .baseUrl("http://connect.hicare.in/mobileprod/api/")
+                .baseUrl("http://mobileapi.hicare.in/mobileprod/api/")// PROD COPY
 //                .baseUrl("http://mobileapi.hicare.in/mobileapi/api/") //prod
-                .baseUrl("http://connect.hicare.in/mobileapi_uat/api/")
+//                .baseUrl("http://mobileapi.hicare.in/mobileapi_uat/api/") //UAT
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
