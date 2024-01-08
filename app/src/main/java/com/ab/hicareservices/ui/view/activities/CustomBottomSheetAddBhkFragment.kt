@@ -143,8 +143,33 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                 selectedPosition: Int,
                 id: Int?
             ) {
-                val
-                        planidforbhk = id.toString()
+
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "DiscountValue",
+                    ""
+                )
+
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "Spcode",
+                    ""
+                )
+
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "MRP",
+                    ""
+                )
+                SharedPreferenceUtil.setData(
+                    activity!!,
+                    "Remarks",
+                    ""
+                )
+
+
+
+                val planidforbhk = id.toString()
 
                 SharedPreferenceUtil.setData(
                     activity!!,

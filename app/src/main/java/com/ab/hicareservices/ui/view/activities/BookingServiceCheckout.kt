@@ -245,9 +245,11 @@ class BookingServiceCheckout : AppCompatActivity(){
                     if (it.IsSuccess == true) {
 
                         if (AppUtils2.voucherdiscounts.equals("")) {
+                            finalamount=AppUtils2.bookingdiscountedprice
                         } else {
                             finalamount = AppUtils2.finalamounts
                         }
+                        AppUtils2.razorpayorderid=""
                         AppUtils2.razorpayorderid = it.Data.toString()
                         SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
                         val intent =
@@ -327,6 +329,7 @@ class BookingServiceCheckout : AppCompatActivity(){
                     ).show()
                     lastClickTime = currentTime
                 }
+                AppUtils2.finalamounts=""
                 binding.coupunname.text = "Apply"
                 binding.txtcoupon.setText("")
                 binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice

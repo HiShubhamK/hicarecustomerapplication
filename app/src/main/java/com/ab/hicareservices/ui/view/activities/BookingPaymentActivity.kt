@@ -336,6 +336,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
     override fun onBackPressed() {
         super.onBackPressed()
         AppUtils2.paymentcheckbutton=false
+        AppUtils2.voucherdiscounts=""
+        AppUtils2.voucherdiscounts=""
         val intent = Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
         startActivity(intent)
         finish()
