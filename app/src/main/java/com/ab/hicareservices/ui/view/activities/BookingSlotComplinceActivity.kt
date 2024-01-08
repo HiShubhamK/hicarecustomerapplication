@@ -331,7 +331,7 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
                 DesignToast.makeText(
                     this@BookingSlotComplinceActivity,
-                    "Please wait while we fetch slot for you. This might take upto 15 seconds",
+                    "Please wait while we fetch slots for you. This might take upto 15 seconds",
                     Toast.LENGTH_SHORT,
                     DesignToast.TYPE_SUCCESS
                 ).show()

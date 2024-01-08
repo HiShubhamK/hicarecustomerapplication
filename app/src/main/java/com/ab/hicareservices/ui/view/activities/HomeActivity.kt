@@ -591,13 +591,17 @@ class HomeActivity : AppCompatActivity(), PaymentResultWithDataListener,Connecti
 
                 viewModels.leadResponse.observe(this, Observer {
                     if (it.IsSuccess == true) {
-                        DesignToast.makeText(this,"Thanks for your call request. Our team will contact you soon", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
-
-//                        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG)
-//                            .show()
-                        alertDialog.cancel()
-                        AppUtils2.eventCall(this,"Get a call dashboard: "+data)
-
+                        if(AppUtils2.checkerrormessage==true) {
+                            AppUtils2.checkerrormessage=false
+                            DesignToast.makeText(
+                                this,
+                                "Thanks for your call request. Our team will contact you soon",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_SUCCESS
+                            ).show();
+                            alertDialog.cancel()
+                            AppUtils2.eventCall(this, "Get a call dashboard: " + data)
+                        }
                     } else {
                         alertDialog.cancel()
                         DesignToast.makeText(this,"Something went to wrong", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();

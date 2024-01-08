@@ -53,6 +53,7 @@ class HomeActivityViewModel: ViewModel() {
             .enqueue(object : Callback<LeadResponse>{
                 override fun onResponse(call: Call<LeadResponse>, response: Response<LeadResponse>) {
                     if (response.body()?.IsSuccess == true){
+                        AppUtils2.checkerrormessage=true
                         val responseBody = response.body()?.Data
                         AppUtils2.paymentsucess= response.body()!!.Data.toString()
                         leadResponse.postValue(response.body())
