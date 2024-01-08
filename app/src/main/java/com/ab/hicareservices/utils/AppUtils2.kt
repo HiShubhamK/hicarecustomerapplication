@@ -12,7 +12,6 @@ import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.CartlistResponseData
 import com.ab.hicareservices.data.model.productcomplaint.productdetails.ComplaintAttachment
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
-import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.razorpay.Checkout
 import org.json.JSONObject
@@ -22,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 object AppUtils2 {
     var TOKEN = ""
@@ -332,6 +331,14 @@ object AppUtils2 {
         val parsedDate = LocalDate.parse(inputDate)
         val outputDate = parsedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
         return outputDate
+    }
+
+    public fun convertDateFormat(inputDate: String): String? {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX")
+        val simpleDateFormatOut = SimpleDateFormat("dd-MM-yyyy")
+        val parsedDate = simpleDateFormat.parse(inputDate)
+        return simpleDateFormatOut.format(parsedDate)
+
     }
 
 }

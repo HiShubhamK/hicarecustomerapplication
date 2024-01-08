@@ -33,6 +33,7 @@ import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.viewmodel.GetSlotViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import java.util.Calendar
 
 
@@ -302,6 +303,19 @@ class SlotComplinceFragment() : Fragment() {
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
                 viewModel.GetSlots(data)
+                viewModel.errorMessage.observe(requireActivity(), Observer {
+                    if(AppUtils2.checkerrormessage==true) {
+                        AppUtils2.checkerrormessage=false
+                        DesignToast.makeText(
+                            requireActivity(),
+                            it.toString(),
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
+                        progressDialog.dismiss()
+                    }
+
+                })
                 viewModel.getSlotresponse.observe(requireActivity(), Observer {
                     Log.d(TAG, "onViewCreated: $it orders fragment")
                     ShowBookingDialog(it)

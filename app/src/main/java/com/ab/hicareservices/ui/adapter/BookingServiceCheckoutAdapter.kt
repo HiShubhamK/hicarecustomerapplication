@@ -40,6 +40,14 @@ class BookingServiceCheckoutAdapter :
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
         holder.binding.servicepriceplan.text = "" + "" + "\u20B9" + plan.Price.toString()
+        if(plan.ServiceInstructions.equals("") || plan.ServiceInstructions.equals(null)){
+            holder.binding.txtdescription.visibility = View.GONE
+            holder.binding.relativecheckout.visibility=View.GONE
+        }else{
+            holder.binding.txtdescription.visibility = View.VISIBLE
+            holder.binding.relativecheckout.visibility=View.VISIBLE
+        }
+
         holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
         Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
 

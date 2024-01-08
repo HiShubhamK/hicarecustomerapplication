@@ -59,13 +59,13 @@ class UpcomingServicesAdapter : RecyclerView.Adapter<UpcomingServicesAdapter.Mai
 //
 //            holder.binding.tvseuenceno.text=": " +service.ServiceSequenceNumber_c.toString()
 
-            holder.binding.tvPayNow.text = "Reschedule"
-            if (!service.AppointmentDateTime.equals(null)||!service.AppointmentDateTime.equals("")){
-                holder.binding.tvPlanDate.text =": " +service.SRDate_c
-            }else{
-                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
+//            var dtetime=AppUtils2.formatDateTime4(service.AppointmentStartDateTime?.substring(1,10)!!)
 
-//                holder.binding.tvPlanDate.text =": " +service.SRDate_c
+            holder.binding.tvPayNow.text = "Reschedule"
+            if (!service.AppointmentDateTime.equals(null) || !service.AppointmentDateTime.equals("")){
+                holder.binding.tvPlanDate.text =": " +AppUtils2.formatDateTime4(service.AppointmentStartDateTime.toString())
+            }else{
+                holder.binding.tvPlanDate.text =": " +service.SRDate_c
             }
             if (service.HRAppointmentStartTimeAMPM_c.equals(null)||service.HRAppointmentFinishTimeAMPM_c.equals(null)){
                 holder.binding.tvScheduletime.text = " - "

@@ -11,6 +11,7 @@ import com.ab.hicareservices.data.model.slotcomplaincemodel.GetComplaiceResponce
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.SlotDetailActivity
+import com.ab.hicareservices.utils.AppUtils2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +44,16 @@ class GetSlotViewModel : ViewModel() {
             .enqueue(object : Callback<GetSlots> {
                 override fun onResponse(call: Call<GetSlots>, response: Response<GetSlots>) {
                     if (response.body()?.IsSuccess == true) {
-                        val responseBody = response.body()?.Data
-                        getSlotresponse.postValue(responseBody!!)
+                        if(response.body()!!.Data?.IsSuccess ==true) {
+                            val responseBody = response.body()?.Data
+                            getSlotresponse.postValue(responseBody!!)
+                        }else{
+                            AppUtils2.checkerrormessage=true
+                            errorMessage.postValue(response.body()?.Data?.ResponseMessage!!)
+                        }
+                    }else{
+                        AppUtils2.checkerrormessage=true
+                        errorMessage.postValue(response.body()?.Data?.ResponseMessage!!)
                     }
                 }
 

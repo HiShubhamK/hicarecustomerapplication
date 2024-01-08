@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Paint
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,12 @@ class BookingServicePlanListAdapter :
         holder.binding.pricewisebhk.text = "\u20B9" + plan.Price.toString()
         holder.binding.servicepriceplan.text = "\u20B9" + plan.DiscountedPrice.toString()
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+        if(plan.ServiceInstructions.equals("") || plan.ServiceInstructions.equals("null")){
+            holder.binding.txtdescription.visibility=View.GONE
+        }else{
+            holder.binding.txtdescription.visibility=View.VISIBLE
+        }
 
         holder.binding.txtdescription.text = Html.fromHtml(plan.ServicePlanDescription)
         holder.binding.txtviewdetails.setOnClickListener {

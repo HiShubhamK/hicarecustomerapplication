@@ -13,7 +13,6 @@ import kotlin.math.roundToInt
 
 class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.MainViewHolder>() {
 
-
     var upcomingservicelist = mutableListOf<UpcomingService>()
     var codOrders= mutableListOf<CODOrders>()
     var todaysservices = mutableListOf<UpcomingService>()
@@ -43,7 +42,6 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
 
         if (upcomingservicelist.isNotEmpty()){
 
-
             holder.binding.btnetas.visibility=View.GONE
             holder.binding.btnPayNows.visibility=View.VISIBLE
 
@@ -60,6 +58,7 @@ class PaymentDashboardAdapter() : RecyclerView.Adapter<PaymentDashboardAdapter.M
             }else {
                 holder.binding.tvseuenceno.text = ": " + recipe.ServiceSequenceNumber_c
             }
+
 
             if(recipe.AppointmentTime.equals(" - ")){
                 holder.binding.tvappointmenttime.visibility=View.GONE

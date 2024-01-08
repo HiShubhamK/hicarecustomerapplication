@@ -352,6 +352,21 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
                 data["Long"] = Long
                 data["ServiceType"] = ServiceType
                 viewModel.GetSlots(data)
+
+                viewModel.errorMessage.observe(this@BookingSlotComplinceActivity, Observer {
+                    if(AppUtils2.checkerrormessage==true) {
+                        AppUtils2.checkerrormessage=false
+                        DesignToast.makeText(
+                            this@BookingSlotComplinceActivity,
+                            it.toString(),
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
+                        progressDialog.dismiss()
+                    }
+
+                })
+
                 viewModel.getSlotresponse.observe(this@BookingSlotComplinceActivity, Observer {
 //                    Log.d(TAG, "onViewCreated: $it orders fragment")
                     if (it.IsSuccess == true) {
