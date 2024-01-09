@@ -5,6 +5,7 @@ import android.content.Intent
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -45,7 +46,8 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         holder.binding.tvOrderName.text = service.ServiceName
         Picasso.get().load(service.ServiceThumbnail).into(holder.binding.imgLogo)
 
-        holder.binding.txtshortdes.text = Html.fromHtml(service.ShortDescription.toString())
+        holder.binding.txtshortdes.text = Html.fromHtml(service.ShortDescription.toString(),
+            HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binding.txtlongdes.text = service.DetailDescription.toString()
 
         holder.itemView.setOnClickListener {

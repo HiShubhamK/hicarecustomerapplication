@@ -6,6 +6,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.servicesmodule.GetServicePlanResponseData
@@ -47,7 +48,7 @@ class BookingServicePlanListAdapter :
             holder.binding.txtdescription.visibility=View.VISIBLE
         }
 
-        holder.binding.txtdescription.text = Html.fromHtml(plan.ServicePlanDescription)
+        holder.binding.txtdescription.text = Html.fromHtml(plan.ServicePlanDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binding.txtviewdetails.setOnClickListener {
             onBookingViewDetials?.onViewDetails(position, plan.Id!!, plan.ServicePlanDescription,plan.Price,plan.DiscountedPrice)
         }

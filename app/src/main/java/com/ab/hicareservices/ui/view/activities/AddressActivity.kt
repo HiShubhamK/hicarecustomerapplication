@@ -110,10 +110,13 @@ class AddressActivity : AppCompatActivity() {
 
 
         if (shippingdata.equals("")) {
-            binding.txtshipping.text = ""
+//            binding.txtshipping.text = ""
+
+
             getAddressListdata()
         } else {
-            getAddressListdata2()
+
+            getAddressListdata()
 //            getAddressforshipping()
         }
 
@@ -230,6 +233,7 @@ class AddressActivity : AppCompatActivity() {
 
                 var data = it.get(i).Id.toString()
                 if (data.equals(shippingdata)) {
+
                     binding.txtshipping.text =
                         it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
                             i
@@ -243,6 +247,9 @@ class AddressActivity : AppCompatActivity() {
                     binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
                     break
                 } else if (it.get(i).IsDefault == true) {
+
+
+
                     binding.txtshipping.text =
                         it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
                             i
@@ -258,6 +265,8 @@ class AddressActivity : AppCompatActivity() {
                     binding.tvPincode.text = "Deliver to pincode " + pincodeshipping
                     break
                 } else {
+
+
                     binding.txtshipping.text =
                         it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
                             i
@@ -291,6 +300,7 @@ class AddressActivity : AppCompatActivity() {
 
                 var data = it.get(i).Id.toString()
                 if (data.equals(shippingdata)) {
+
                     binding.txtshipping.text =
                         it.get(i).FlatNo.toString() + "," + it.get(i).BuildingName.toString() + "," + it.get(
                             i

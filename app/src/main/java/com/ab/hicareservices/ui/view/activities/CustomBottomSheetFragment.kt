@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -102,7 +103,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         var lnrFAQ=view.findViewById<LinearLayout>(R.id.lnrFAQ)
 
         textView.text = servicename
-        textViewdescription.text= Html.fromHtml(descrition)
+        textViewdescription.text= Html.fromHtml(descrition,HtmlCompat.FROM_HTML_MODE_COMPACT)
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
 

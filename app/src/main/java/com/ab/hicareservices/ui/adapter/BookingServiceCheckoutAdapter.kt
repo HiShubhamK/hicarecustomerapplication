@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.R
@@ -43,12 +44,9 @@ class BookingServiceCheckoutAdapter :
         if(plan.ServiceInstructions.equals("") || plan.ServiceInstructions.equals(null)){
             holder.binding.txtdescription.visibility = View.GONE
             holder.binding.relativecheckout.visibility=View.GONE
-        }else{
-            holder.binding.txtdescription.visibility = View.VISIBLE
-            holder.binding.relativecheckout.visibility=View.VISIBLE
         }
 
-        holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions)
+        holder.binding.txtdescription.text = Html.fromHtml(plan.ServiceInstructions, HtmlCompat.FROM_HTML_MODE_COMPACT)
         Picasso.get().load(plan.ServiceLogo).into(holder.binding.imglogo)
 
         SharedPreferenceUtil.setData(

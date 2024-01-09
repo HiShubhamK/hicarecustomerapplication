@@ -61,6 +61,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
             } else {
                 holder.binding.txtprice.text = "\u20B9" + productlists.PricePerQuantity.toString()
                 holder.binding.txtpriceline.visibility= View.GONE
+                holder.binding.txtdealodday.visibility= View.GONE
             }
 
             if (productlists.StockCount!!.toInt()<=0||productlists.IsStockAvailable==false){

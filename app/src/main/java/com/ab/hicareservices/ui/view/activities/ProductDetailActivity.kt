@@ -29,6 +29,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -407,14 +408,14 @@ class ProductDetailActivity : AppCompatActivity() {
 
             if (it.ProductConfiguration!!.ProductShortDescription != null || it.ProductConfiguration!!.ProductShortDescription != "") {
                 binding.tvProductdesc.text =
-                    Html.fromHtml(it.ProductConfiguration!!.ProductShortDescription)
+                    Html.fromHtml(it.ProductConfiguration!!.ProductShortDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
             } else {
                 binding.tvProductdesc.visibility = View.GONE
             }
             if (it.ProductConfiguration!!.ProductDetailDescription != null || it.ProductConfiguration!!.ProductDetailDescription != "") {
                 binding.tvProductdescLong.text =
-                    Html.fromHtml(it.ProductConfiguration!!.ProductDetailDescription)
+                    Html.fromHtml(it.ProductConfiguration!!.ProductDetailDescription,HtmlCompat.FROM_HTML_MODE_COMPACT)
 
             } else {
                 binding.lnrMoreItem.visibility = View.GONE
