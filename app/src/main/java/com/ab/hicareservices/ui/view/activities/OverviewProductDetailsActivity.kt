@@ -418,6 +418,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        finish()
     }
 
     public fun ShowCustomeDialog() {

@@ -30,22 +30,11 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         val slotlist=getSlotresponse
 
-        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime
-        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
-        ;
-//        if (holder.binding.radioSlots.isChecked) {
-//            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
-//        }else{
-//
-//        }
-
-//        if (holder.binding.radioSlots.isChecked){
-//            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" ,slotlist[position].Finish.toString())
-//        }
-
-
+        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime;
+//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
         if (position == lastSelectedPosition) {
 //            holder.binding.radioSlots.isChecked = true
             holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
@@ -54,21 +43,90 @@ class BookingSlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab
             holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
 
         }
+
+//        if (position == lastSelectedPosition) {
+//            holder.binding.radioSlots.isChecked = true
+//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_slot)
+//        } else {
+//            holder.binding.radioSlots.isChecked = true
+//            holder.binding.relSlot.setBackgroundResource(R.drawable.bg_greyslot)
+//        }
 //        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//
 
-        holder.binding.relSlot.setOnClickListener {
-            lastSelectedPosition = holder.adapterPosition
-            notifyDataSetChanged()
+//        holder.binding.relSlot.setOnClickListener {
+//            lastSelectedPosition = holder.adapterPosition
+////            notifyDataSetChanged()
+//
+//            onSlotSelection?.onSlotBookSelect(
+//                holder.adapterPosition,
+//                taskid,
+//                slotlist[position].Start.toString(),
+//                slotlist[position].StartTime.toString(),
+//                slotlist[position].FinishTime.toString(),
+//                "",
+//                "Pest",
+//                slotlist[position].Finish.toString()
+//            )
+//        }
 
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest",slotlist[position].Finish.toString() )
 
-        }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()
-            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest",slotlist[position].Finish.toString() )
+            onSlotSelection?.onSlotBookSelect(
+                holder.adapterPosition,
+                taskid,
+                slotlist[position].Start.toString(),
+                slotlist[position].StartTime.toString(),
+                slotlist[position].FinishTime.toString(),
+                "Mobile App",
+                "Pest",
+                slotlist[position].Finish.toString()
+            )
 
         }
+
+
+
+//        val slotlist=getSlotresponse
+//
+//        holder.binding.txtSlots.text = slotlist[position].StartTime+" to "+slotlist[position].FinishTime
+//        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//        ;
+////        if (holder.binding.radioSlots.isChecked) {
+////            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+////        }else{
+////
+////        }
+//
+////        if (holder.binding.radioSlots.isChecked){
+////            onSlotSelection?.onSlotBookSelect(position, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest" ,slotlist[position].Finish.toString())
+////        }
+//
+//
+//        if (position == lastSelectedPosition) {
+////            holder.binding.radioSlots.isChecked = true
+//            holder.binding.radioSlots.setBackgroundResource(R.drawable.selected_radio_button_bg)
+//        } else {
+////            holder.binding.radioSlots.isChecked=false
+//            holder.binding.radioSlots.setBackgroundResource(R.drawable.unselected_radio_button_bg)
+//
+//        }
+////        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
+//
+//        holder.binding.relSlot.setOnClickListener {
+//            lastSelectedPosition = holder.adapterPosition
+//            notifyDataSetChanged()
+//            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"", "Pest",slotlist[position].Finish.toString() )
+//
+//        }
+//        holder.binding.radioSlots.setOnClickListener {
+//            lastSelectedPosition = holder.adapterPosition
+//            notifyDataSetChanged()
+//            onSlotSelection?.onSlotBookSelect(holder.adapterPosition, taskid,slotlist[position].Start.toString(),slotlist[position].StartTime.toString(),slotlist[position].FinishTime.toString(),"Mobile App", "Pest",slotlist[position].Finish.toString() )
+//
+//        }
     }
 
     override fun getItemCount(): Int {

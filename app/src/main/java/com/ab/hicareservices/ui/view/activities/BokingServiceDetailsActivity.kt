@@ -85,6 +85,10 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         } else {
             binding.getpincodetext.setText(AppUtils2.pincode)
         }
+//
+//        AppUtils2.servicecode=
+//            SharedPreferenceUtil.getData(this@BokingServiceDetailsActivity, "ServicenNameCode", "")
+//                .toString()
 
         val intent = intent
         serviceName = intent.getStringExtra("ServiceName").toString()

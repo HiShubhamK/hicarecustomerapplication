@@ -19,6 +19,8 @@ import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.ui.viewmodel.ServiceBooking
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
+import java.math.BigDecimal
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 class BookingServiceCheckout : AppCompatActivity(){
@@ -58,8 +60,8 @@ class BookingServiceCheckout : AppCompatActivity(){
 
         binding.txttotoalvalue.text = AppUtils2.bookingserviceprice.toString()
 //        if (AppUtils2.finalamounts.equals("")) {
-        binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+        binding.txtfinaltext.text = "\u20B9" + round( AppUtils2.bookingdiscountedprice.toInt().toDouble())
+        binding.txttoalamount.text = "\u20B9" + round(AppUtils2.bookingdiscountedprice.toInt().toDouble())
 
 
 //        binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
@@ -254,7 +256,7 @@ class BookingServiceCheckout : AppCompatActivity(){
                         SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
                         val intent =
                             Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
-                        intent.putExtra("Finalamount", finalamount)
+                        intent.putExtra("Finalamount", finalamountsdata.toDouble().toString())
                         intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
                         startActivity(intent)
                         finish()
@@ -332,8 +334,8 @@ class BookingServiceCheckout : AppCompatActivity(){
                 AppUtils2.finalamounts=""
                 binding.coupunname.text = "Apply"
                 binding.txtcoupon.setText("")
-                binding.txtfinaltext.text = "\u20B9" + AppUtils2.bookingdiscountedprice
-                binding.txttoalamount.text = "\u20B9" + AppUtils2.bookingdiscountedprice
+                binding.txtfinaltext.text = "\u20B9" + round( AppUtils2.bookingdiscountedprice.toInt().toDouble())
+                binding.txttoalamount.text = "\u20B9" + round(AppUtils2.bookingdiscountedprice.toInt().toDouble())
                 binding.txtdiscount.text = "-" + "\u20B9" + AppUtils2.bookingdiscount
                 binding.txtbilling.text = AppUtils2.bookingserviceaddress
                 binding.voucherdiscount.text = "0.0"
@@ -378,8 +380,9 @@ class BookingServiceCheckout : AppCompatActivity(){
                                     ).show()
                                     lastClickTime = currentTimes
                                 }
-                                binding.txtfinaltext.text = "\u20B9" + finalamount
-                                binding.txttoalamount.text = "\u20B9" + finalamount
+                                var ranges=finalamount.toDouble().roundToInt()    //roundString(finalamount)
+                                binding.txtfinaltext.text = "\u20B9" + ranges.toDouble().toString()
+                                binding.txttoalamount.text = "\u20B9" + ranges.toDouble().toString()
                                 binding.voucherdiscount.text = "-" + "\u20B9" + voucherdiscount
 
                             } else {
@@ -430,5 +433,21 @@ class BookingServiceCheckout : AppCompatActivity(){
         AppUtils2.vouchercodedata = ""
         var finalamounts = ""
         var voucherdiscounts = ""
+    }
+
+    fun roundString(input: String): String {
+        try {
+            // Convert the string to a BigDecimal
+            val bigDecimalValue = BigDecimal(input)
+
+            // Round the BigDecimal value
+            val roundedValue = bigDecimalValue.setScale(2, BigDecimal.ROUND_HALF_UP)
+
+            // Convert the rounded value back to a string
+            return roundedValue.toString()
+        } catch (e: NumberFormatException) {
+            // Handle the exception or simply return the original string
+            return input
+        }
     }
 }

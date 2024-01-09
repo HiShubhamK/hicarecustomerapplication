@@ -347,10 +347,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
 
-                                val intent = Intent(
-                                    this@ProductAddAddressActivity,
-                                    AddressActivity::class.java
-                                )
+                                val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(intent)
                                 finish()
 
@@ -641,10 +639,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
 
-                                val intent = Intent(
-                                    this@ProductAddAddressActivity,
-                                    AddressActivity::class.java
-                                )
+                                val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(intent)
                                 finish()
 

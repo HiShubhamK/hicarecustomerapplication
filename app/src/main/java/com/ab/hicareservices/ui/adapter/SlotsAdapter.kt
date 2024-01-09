@@ -51,22 +51,22 @@ class SlotsAdapter(activity: FragmentActivity, slotData: ArrayList<com.ab.hicare
 //        }
 //        holder.binding.radioSlots.isChecked = position == lastSelectedPosition
 
-        holder.binding.relSlot.setOnClickListener {
-            lastSelectedPosition = holder.adapterPosition
-//            notifyDataSetChanged()
-
-            onSlotSelection?.onSlotBookSelect(
-                lastSelectedPosition,
-                taskid,
-                slotlist[position].Start.toString(),
-                slotlist[position].StartTime.toString(),
-                slotlist[position].FinishTime.toString(),
-                "",
-                "Pest",
-                slotlist[position].Finish.toString()
-            )
-
-        }
+//        holder.binding.relSlot.setOnClickListener {
+//            lastSelectedPosition = holder.adapterPosition
+////            notifyDataSetChanged()
+//
+//            onSlotSelection?.onSlotBookSelect(
+//                lastSelectedPosition,
+//                taskid,
+//                slotlist[position].Start.toString(),
+//                slotlist[position].StartTime.toString(),
+//                slotlist[position].FinishTime.toString(),
+//                "",
+//                "Pest",
+//                slotlist[position].Finish.toString()
+//            )
+//
+//        }
         holder.binding.radioSlots.setOnClickListener {
             lastSelectedPosition = holder.adapterPosition
             notifyDataSetChanged()

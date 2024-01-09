@@ -53,6 +53,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
             SharedPreferenceUtil.setData(requireActivity,"Servicethumbnail", "")
             SharedPreferenceUtil.setData(requireActivity,"Servicethumbnail", service.ServiceThumbnail.toString())
             AppUtils2.servicecode = service.ServiceCode.toString()
+            SharedPreferenceUtil.setData(requireActivity,"ServicenNameCode", "")
             SharedPreferenceUtil.setData(requireActivity,"ServicenName", "")
             SharedPreferenceUtil.setData(requireActivity,"ServicenName", service.ServiceName.toString())
             SharedPreferenceUtil.setData(requireActivity,"ServiceId", service.Id.toString())

@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,7 +102,7 @@ class CustomBottomSheetFragment() : BottomSheetDialogFragment() {
         var lnrFAQ=view.findViewById<LinearLayout>(R.id.lnrFAQ)
 
         textView.text = servicename
-        textViewdescription.text=descrition
+        textViewdescription.text= Html.fromHtml(descrition)
         shortdecriptions.text=fulldescritpition
         Glide.with(activity!!).load(thumbnail).into(thumbnails)
 
