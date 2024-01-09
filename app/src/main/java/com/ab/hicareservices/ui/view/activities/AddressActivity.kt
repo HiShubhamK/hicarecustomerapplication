@@ -111,12 +111,10 @@ class AddressActivity : AppCompatActivity() {
 
         if (shippingdata.equals("")) {
 //            binding.txtshipping.text = ""
-
-
             getAddressListdata()
         } else {
 
-            getAddressListdata()
+            getAddressListdata2()
 //            getAddressforshipping()
         }
 

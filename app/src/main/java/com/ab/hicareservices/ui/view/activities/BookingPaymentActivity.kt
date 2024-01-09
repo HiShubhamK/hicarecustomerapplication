@@ -284,7 +284,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["SubSource"] = ""
             data["UtmSource"] = ""
             data["UtmSubsource"] = ""
-            data["OrderCreatedFrom"] = "Customer App"
+            data["OrderCreatedFrom"] = "Website" //"Customer App"
             data["Subscription"] = ""
             data["ServiceType"] = "pest"
             data["Customer_Type"] = "Home"
