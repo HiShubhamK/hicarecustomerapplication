@@ -110,6 +110,9 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 // Set the default selected date in the CalendarView
         binding.calendarView.setDate(currentDate.timeInMillis)
 
+//        binding.calendarView.dateTextAppearance
+//
+//        binding.calendarView.setWeekDayTextAppearance(R.style.TransparentProgressDialog)
 
 
 //        Toast.makeText(this@BookingSlotComplinceActivity, AppUtils2.servicecode.toString(),Toast.LENGTH_LONG).show()

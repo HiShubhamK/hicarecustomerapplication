@@ -1463,18 +1463,18 @@ class AddProductComplaintsActivity : AppCompatActivity(),SpinnerItemSelectedList
     }
 
     override fun onItemSelected(
-        ProductDisplayName: Int,
+        position: Int,
+        ProductDisplayName: String,
         OrderDate: String,
         productId: String,
         OrderNumber: String,
         id: String,
         orderDate: String?,
-        orderValuePostDiscount: String,
-        orderStatus: String?,
-        position: String
+        orderValuePostDiscount: Double,
+        orderStatus: String
     ) {
-//        binding.tvProductName.text = ProductDisplayName
-        binding.tvOrderdate.text = AppUtils2.formatDateTime4(OrderDate.toString())
+        binding.tvProductName.text = ProductDisplayName
+        binding.tvOrderdate.text = orderDate
         ProductId = productId
         orderNo = OrderNumber
         OrderId = id

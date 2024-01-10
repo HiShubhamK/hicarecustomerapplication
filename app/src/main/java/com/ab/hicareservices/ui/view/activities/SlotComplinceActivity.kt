@@ -106,7 +106,14 @@ class SlotComplinceActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)
 
-            // Set default date to current date +1
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+
+// Set the default selected date in the CalendarView
+        binding.calendarView.setDate(currentDate.timeInMillis)
+
+
+        // Set default date to current date +1
 //            val calendar = Calendar.getInstance()
 //            calendar.add(Calendar.DAY_OF_MONTH, 1) // Advance to the next day
 //            val defaultDate = calendar.timeInMillis

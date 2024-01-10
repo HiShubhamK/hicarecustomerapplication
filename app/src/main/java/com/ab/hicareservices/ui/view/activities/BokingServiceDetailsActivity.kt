@@ -192,45 +192,207 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 } else {
 
-                    progressDialog.show()
-                    binding.recycleviewplans.visibility = View.VISIBLE
-                    Handler(Looper.getMainLooper()).postDelayed({
 
-                        viewProductModel.servicePlanResponseData.observe(
-                            this@BokingServiceDetailsActivity,
-                            Observer {
-                                progressDialog.dismiss()
-                                if (it.isNotEmpty()) {
-                                    mAdapter.setServiceList(it, this)
-                                    binding.txtNoPlan.visibility = View.GONE
-                                    binding.recycleviewplans.visibility = View.VISIBLE
+                    viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity,
+                        Observer {
+                            if(AppUtils2.checkerrormessage==true){
+                                AppUtils2.checkerrormessage=false
+
+                                binding.recycleviewplans.visibility = View.GONE
+                                binding.txtNoPlan.visibility = View.VISIBLE
+                                binding.txtNoPlan.text =
+                                    "Sorry, this pincode is not serviceable. Please try a different pincode."
+                                DesignToast.makeText(
+                                    this@BokingServiceDetailsActivity,
+                                    "This pincode is not available",
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_ERROR
+                                ).show()
+                            }
+                        })
+
+
+                    viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
+                        Observer {
+
+                            if (it.IsSuccess == true) {
+                                if (it.Data != null) {
+
+                                    Handler(Looper.getMainLooper()).postDelayed({
+
+                                        viewProductModel.servicePlanResponseData.observe(
+                                            this@BokingServiceDetailsActivity,
+                                            Observer {
+                                                if (it.isNotEmpty()) {
+                                                    binding.txtNoPlan.visibility = View.GONE
+                                                    binding.recycleviewplans.visibility = View.VISIBLE
+                                                    mAdapter.setServiceList(it, this)
+                                                    checkserchbutton = false
+                                                } else {
+
+                                                    viewProductModel.servicePlanResponseData.observe(
+                                                        this@BokingServiceDetailsActivity,
+                                                        Observer {
+                                                            if (it.isNotEmpty()) {
+                                                                binding.recycleviewplans.visibility =
+                                                                    View.VISIBLE
+                                                                binding.txtNoPlan.visibility = View.GONE
+
+
+                                                                mAdapter.setServiceList(it, this)
+                                                                checkserchbutton = false
+                                                            } else {
+
+                                                                binding.recycleviewplans.visibility = View.GONE
+                                                                binding.txtNoPlan.visibility = View.VISIBLE
+
+                                                                binding.txtNoPlan.text =
+                                                                    "Sorry, this pincode is not serviceable. Please try a different pincode."
+                                                                val currentTime = System.currentTimeMillis()
+                                                                if (currentTime - lastClickTime > clickTimeThreshold) {
+//                                                        Toast.makeText(
+//                                                            this@BokingServiceDetailsActivity,
+//                                                            "Sorry this pincode is not available for serviceable",
+//                                                            Toast.LENGTH_LONG
+//                                                        ).show()
+
+
+                                                                    DesignToast.makeText(
+                                                                        this@BokingServiceDetailsActivity,
+                                                                        "Sorry, this pincode is not serviceable. Please try a different pincode.",
+                                                                        Toast.LENGTH_SHORT,
+                                                                        DesignToast.TYPE_ERROR
+                                                                    ).show()
+
+                                                                    lastClickTime = currentTime
+                                                                }
+                                                                checkserchbutton = false
+                                                            }
+                                                            progressDialog.dismiss()
+
+                                                        })
+                                                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                                                        AppUtils2.pincode,
+                                                        AppUtils2.servicecode
+                                                    )
+
+
+                                                    binding.recycleviewplans.visibility = View.GONE
+
+
+                                                    val currentTime = System.currentTimeMillis()
+                                                    if (currentTime - lastClickTime > clickTimeThreshold) {
+//                                            Toast.makeText(
+//                                                this@BokingServiceDetailsActivity,
+//                                                "Invalid pincode. Plan are not available ",
+//                                                Toast.LENGTH_LONG
+//                                            ).show()
+
+                                                        DesignToast.makeText(
+                                                            this@BokingServiceDetailsActivity,
+                                                            "Invalid pincode. Plan are not available",
+                                                            Toast.LENGTH_SHORT,
+                                                            DesignToast.TYPE_ERROR
+                                                        ).show();
+
+                                                        lastClickTime = currentTime
+                                                    }
+                                                    checkserchbutton = false
+                                                }
+                                                progressDialog.dismiss()
+
+                                            })
+                                        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+                                            AppUtils2.pincode,
+                                            AppUtils2.servicecode
+                                        )
+                                        checkserchbutton = false
+                                    }, 300)
+
 
                                 } else {
-                                    progressDialog.dismiss()
+//                                Toast.makeText(
+//                                    this@BokingServiceDetailsActivity,
+//                                    "This pincode is not available",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
                                     binding.recycleviewplans.visibility = View.GONE
                                     binding.txtNoPlan.visibility = View.VISIBLE
                                     binding.txtNoPlan.text =
                                         "Sorry, this pincode is not serviceable. Please try a different pincode."
-//                                    Toast.makeText(
-//                                        this@BokingServiceDetailsActivity,
-//                                        "Invalid pincode. Plan are not available ",
-//                                        Toast.LENGTH_LONG
-//                                    ).show()
                                     DesignToast.makeText(
-                                        this,
-                                        "Sorry, this pincode is not serviceable. Please try a different pincode.",
+                                        this@BokingServiceDetailsActivity,
+                                        "This pincode is not available",
                                         Toast.LENGTH_SHORT,
                                         DesignToast.TYPE_ERROR
-                                    ).show();
-                                    checkserchbutton = false
+                                    ).show()
                                 }
-                                progressDialog.dismiss()
-                            })
-                        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                            binding.getpincodetext.text.toString(),
-                            AppUtils2.servicecode
-                        )
-                    }, 300)
+                            } else {
+
+                                if(AppUtils2.checkerrormessage==true) {
+                                    AppUtils2.checkerrormessage=false
+                                    binding.recycleviewplans.visibility = View.GONE
+                                    binding.txtNoPlan.visibility = View.VISIBLE
+                                    binding.txtNoPlan.text =
+                                        "Sorry, this pincode is not serviceable. Please try a different pincode."
+                                    DesignToast.makeText(
+                                        this@BokingServiceDetailsActivity,
+                                        "This pincode is not available",
+                                        Toast.LENGTH_SHORT,
+                                        DesignToast.TYPE_ERROR
+                                    ).show()
+                                }
+                            }
+                        })
+
+
+                    viewProductModel.GetServicePincodeDetail(
+                        AppUtils2.pincode,
+                        serviceCode.toString(),
+                        "Pest"
+                    )
+
+
+
+//                    progressDialog.show()
+//                    binding.recycleviewplans.visibility = View.VISIBLE
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//
+//                        viewProductModel.servicePlanResponseData.observe(
+//                            this@BokingServiceDetailsActivity,
+//                            Observer {
+//                                progressDialog.dismiss()
+//                                if (it.isNotEmpty()) {
+//                                    mAdapter.setServiceList(it, this)
+//                                    binding.txtNoPlan.visibility = View.GONE
+//                                    binding.recycleviewplans.visibility = View.VISIBLE
+//
+//                                } else {
+//                                    progressDialog.dismiss()
+//                                    binding.recycleviewplans.visibility = View.GONE
+//                                    binding.txtNoPlan.visibility = View.VISIBLE
+//                                    binding.txtNoPlan.text =
+//                                        "Sorry, this pincode is not serviceable. Please try a different pincode."
+////                                    Toast.makeText(
+////                                        this@BokingServiceDetailsActivity,
+////                                        "Invalid pincode. Plan are not available ",
+////                                        Toast.LENGTH_LONG
+////                                    ).show()
+//                                    DesignToast.makeText(
+//                                        this,
+//                                        "Sorry, this pincode is not serviceable. Please try a different pincode.",
+//                                        Toast.LENGTH_SHORT,
+//                                        DesignToast.TYPE_ERROR
+//                                    ).show();
+//                                    checkserchbutton = false
+//                                }
+//                                progressDialog.dismiss()
+//                            })
+//                        viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
+//                            binding.getpincodetext.text.toString(),
+//                            AppUtils2.servicecode
+//                        )
+//                    }, 300)
 
 
                 }
@@ -339,7 +501,21 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                                 ).show()
                             }
                         } else {
+                            if(AppUtils2.checkerrormessage==true) {
+                                AppUtils2.checkerrormessage=false
+                                binding.recycleviewplans.visibility = View.GONE
+                                binding.txtNoPlan.visibility = View.VISIBLE
+                                binding.txtNoPlan.text =
+                                    "Sorry, this pincode is not serviceable. Please try a different pincode."
 
+
+                                DesignToast.makeText(
+                                    this@BokingServiceDetailsActivity,
+                                    "This pincode is not available",
+                                    Toast.LENGTH_SHORT,
+                                    DesignToast.TYPE_ERROR
+                                ).show()
+                            }
                         }
                     })
 
@@ -602,33 +778,19 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     }
                 } else {
 
-                    binding.recycleviewplans.visibility = View.VISIBLE
-
-                    viewProductModel.servicePlanResponseData.observe(
-                        this@BokingServiceDetailsActivity,
-                        Observer {
-                            progressDialog.dismiss()
-                            if (it.isNotEmpty()) {
-                                mAdapter.setServiceList(it, this)
-                            } else {
-                                progressDialog.dismiss()
-                                binding.recycleviewplans.visibility = View.GONE
-                                binding.txtNoPlan.visibility = View.VISIBLE
-                                binding.txtNoPlan.text =
-                                    "Sorry, this pincode is not serviceable. Please try a different pincode."
-//                                    Toast.makeText(
-//                                        this@BokingServiceDetailsActivity,
-//                                        "Invalid pincode. Plan are not available ",
-//                                        Toast.LENGTH_LONG
-//                                    ).show()
-                                checkserchbutton = false
-                            }
-                            progressDialog.dismiss()
-                        })
-                    viewProductModel.getPlanAndPriceByPincodeAndServiceCode(
-                        AppUtils2.pincode,
-                        AppUtils2.servicecode
-                    )
+                    if(AppUtils2.checkerrormessage==true) {
+                        AppUtils2.checkerrormessage=false
+                        binding.recycleviewplans.visibility = View.GONE
+                        binding.txtNoPlan.visibility = View.VISIBLE
+                        binding.txtNoPlan.text =
+                            "Sorry, this pincode is not serviceable. Please try a different pincode."
+                        DesignToast.makeText(
+                            this@BokingServiceDetailsActivity,
+                            "This pincode is not available",
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
+                    }
 
 
 //

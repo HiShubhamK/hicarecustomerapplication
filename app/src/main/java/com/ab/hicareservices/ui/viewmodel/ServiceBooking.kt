@@ -254,7 +254,12 @@ class ServiceBooking : ViewModel() {
                 call: Call<GetServicePincodeDetailResponse>,
                 response: Response<GetServicePincodeDetailResponse>
             ) {
-                getServicePincodeDetailResponse.postValue(response.body())
+                if(response.body()?.IsSuccess ==true) {
+                    getServicePincodeDetailResponse.postValue(response.body())
+                }else{
+                    AppUtils2.checkerrormessage=true
+                    errorMessage.postValue(response.body()?.ResponseMessage.toString())
+                }
             }
 
             override fun onFailure(call: Call<GetServicePincodeDetailResponse>, t: Throwable) {

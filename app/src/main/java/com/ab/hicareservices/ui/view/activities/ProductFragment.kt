@@ -38,6 +38,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -118,6 +120,8 @@ class ProductFragment : Fragment() {
         }
 
 
+
+
 //        if (ContextCompat.checkSelfPermission(
 //                requireActivity(),
 //                Manifest.permission.ACCESS_FINE_LOCATION
@@ -154,6 +158,40 @@ class ProductFragment : Fragment() {
 //                )
 //            }
 //        }
+
+
+        val config = ShowcaseConfig()
+        config.delay = 300 // half second between each showcase view
+
+
+        val sequence = MaterialShowcaseSequence(activity, "Hicare")
+
+        sequence.setConfig(config)
+
+        sequence.addSequenceItem(
+            binding.getpincodetext,
+            "Hi there, Search product delivery by pincode.", "GOT IT"
+        )
+
+//        sequence.addSequenceItem(
+//            binding.imgsearch,
+//            "Using this you can call customer.", "GOT IT"
+//        )
+
+        sequence.addSequenceItem(
+            binding.cartmenu,
+            "You can Now see your added products here.", "GOT IT"
+        )
+
+//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+//                        "This is technician helpline number.", "GOT IT");
+
+
+//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+//                        "This is technician helpline number.", "GOT IT");
+        sequence.start()
+
+
 
         MyLocationListener(requireActivity())
 
@@ -630,3 +668,4 @@ class ProductFragment : Fragment() {
         return sdf.format(Date())
     }
 }
+

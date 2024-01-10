@@ -38,21 +38,25 @@ class CustomSpinnerProductAdapter(private val context: Context,private val items
         val serviceaddress = view.findViewById<TextView>(R.id.serviceaddress)
         val serviceimageview = view.findViewById<ImageView>(R.id.serviceimageview)
         val createddate=view.findViewById<TextView>(R.id.createddate)
-        val cardview=view.findViewById<TextView>(R.id.cardviewselection)
+        val cardview=view.findViewById<CardView>(R.id.cardviewselection)
         createddate.text=AppUtils2.formatDateTime4(items[position].OrderDate.toString())
         serviceaddress.text=items[position].FlatNo+" "+items[position].FlatNo+" "+items[position].BuildingName+" "+items[position].Locality+" "+items[position].Landmark+" "+items[position].Street+" "+items[position].City+" "+items[position].Pincode
         servicename.text=items[position].ProductName.toString()
         serviceorders.text=items[position].OrderNumber.toString()
         Picasso.get().load(items[position].ProductThumbnail).into(serviceimageview)
 
+        var datechanes =AppUtils2.formatDateTime4(items[position].OrderDate.toString())
+
         serviceimageview.setOnClickListener {
-            itemSelectedListener?.onItemSelected(position,items[position].ProductDisplayName.toString(),
-                items[position].OrderDate.toString(),
+            itemSelectedListener?.onItemSelected(
+                position,
+                items[position].ProductDisplayName.toString(),
+                datechanes,
                 items[position].ProductId.toString(),
                 items[position].OrderNumber.toString(),
                 items[position].Id.toString(),
                 items[position].OrderDate.toString(),
-                items[position].OrderValuePostDiscount.toString(),
+                items[position].OrderValuePostDiscount!!.toDouble(),
                 items[position].OrderStatus.toString())
         }
 

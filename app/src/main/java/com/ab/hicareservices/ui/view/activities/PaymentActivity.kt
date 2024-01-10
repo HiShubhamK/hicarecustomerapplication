@@ -100,6 +100,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
             )
         }
 
+
+
         payment=""
 
         order_no = intent.getStringExtra("ORDER_NO").toString()
