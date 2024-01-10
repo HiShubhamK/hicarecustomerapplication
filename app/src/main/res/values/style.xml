@@ -35,4 +35,10 @@
         <item name="android:background">@drawable/curve_bottmsheetbg</item>
     </style>
 
+
+    <style name="BlackTextAppearance">
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Add other styling attributes if needed -->
+    </style>
+
 </resources>

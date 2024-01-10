@@ -1,5 +1,6 @@
 package com.ab.hicareservices.ui.view.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,7 @@ import kotlin.math.roundToInt
 
 class BookingServiceCheckout : AppCompatActivity(){
 
+    lateinit var progressDialog: ProgressDialog
     private lateinit var mAdapter: BookingServiceCheckoutAdapter
     private lateinit var binding: ActivityBookingServiceCheckoutBinding
     lateinit var orderPaymentlist: ArrayList<OrderPayments>
@@ -40,6 +42,10 @@ class BookingServiceCheckout : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_service_checkout)
+
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
 
         binding = ActivityBookingServiceCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -109,6 +115,8 @@ class BookingServiceCheckout : AppCompatActivity(){
         binding.txtcoupon.setText("")
 
         binding.txtplcaeorder.setOnClickListener {
+
+            progressDialog.show()
 
 //            Toast.makeText(this@BookingServiceCheckout,data,Toast.LENGTH_SHORT).show()
 
@@ -238,11 +246,15 @@ class BookingServiceCheckout : AppCompatActivity(){
 
             if (AppUtils2.paymentcheckbutton == false) {
 
+                progressDialog.dismiss()
+
                 AppUtils2.paymentcheckbutton = true
 
                 SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
                 viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+
+                    progressDialog.dismiss()
 
                     if (it.IsSuccess == true) {
 
@@ -261,7 +273,7 @@ class BookingServiceCheckout : AppCompatActivity(){
                         startActivity(intent)
                         finish()
                     } else {
-
+                        progressDialog.dismiss()
                     }
                 })
 
@@ -271,6 +283,7 @@ class BookingServiceCheckout : AppCompatActivity(){
                 AppUtils2.paymentcheckbutton = false
 
             }
+            progressDialog.dismiss()
         }
 
 //        binding.btnappiledcoupon.setOnClickListener {

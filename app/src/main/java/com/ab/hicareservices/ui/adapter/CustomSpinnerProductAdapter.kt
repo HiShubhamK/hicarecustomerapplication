@@ -38,6 +38,7 @@ class CustomSpinnerProductAdapter(private val context: Context,private val items
         val serviceaddress = view.findViewById<TextView>(R.id.serviceaddress)
         val serviceimageview = view.findViewById<ImageView>(R.id.serviceimageview)
         val createddate=view.findViewById<TextView>(R.id.createddate)
+        val cardview=view.findViewById<TextView>(R.id.cardviewselection)
         createddate.text=AppUtils2.formatDateTime4(items[position].OrderDate.toString())
         serviceaddress.text=items[position].FlatNo+" "+items[position].FlatNo+" "+items[position].BuildingName+" "+items[position].Locality+" "+items[position].Landmark+" "+items[position].Street+" "+items[position].City+" "+items[position].Pincode
         servicename.text=items[position].ProductName.toString()

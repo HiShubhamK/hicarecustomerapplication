@@ -6,12 +6,14 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -27,6 +29,8 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -38,11 +42,14 @@ import com.ab.hicareservices.ui.viewmodel.PlaceApi
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import com.ab.hicareservices.utils.UserData
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener
@@ -98,11 +105,68 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var marker: Marker
     val userData = UserData()
 
+    private var launcher=  registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result->
+        if (result.resultCode == Activity.RESULT_OK) {
+//            Toast.makeText(this,"Hello akshay",Toast.LENGTH_SHORT).show()
+        } else {
+            AppUtils2.ISChecklocationpermission=true
+//            Toast.makeText(this,"Hello akshay fails ",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
         try {
+
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                // When permission is granted
+                // Call method
+//            getCurrentLocations()
+
+            } else {
+                enableLoc()
+
+                // When permission is not granted
+                // Call method
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ),
+                        100
+                    )
+                }
+            }
+
+
+
+
+
+
+
+
+
+
             progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
             progressDialog.setCancelable(false)
             Places.initialize(applicationContext, "AIzaSyDxWpNjeNRl8_62bKRfS57AzgcvDZ-DxXM")
@@ -284,6 +348,7 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     }
+
 
     private fun getLatLngFromAddress(address: String): LatLng? {
         val geocoder = Geocoder(this)
@@ -836,6 +901,56 @@ class MapsDemoActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+    private fun enableLoc() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000
+        locationRequest.fastestInterval = 5 * 1000
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+        val result = LocationServices.getSettingsClient(this).checkLocationSettings(builder.build())
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(
+                    ApiException::class.java
+                )
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                        val intentSenderRequest =
+                            IntentSenderRequest.Builder(exception.status.resolution!!!!).build()
+                        launcher.launch(intentSenderRequest)
+                    } catch (e: IntentSender.SendIntentException) {
+                    }
+                }
+//                when (exception.statusCode) {
+//                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->                         // Location settings are not satisfied. But could be fixed by showing the
+//                        // user a dialog.
+//                        try {
+//                            // Cast to a resolvable exception.
+//                            val resolvable = exception as ResolvableApiException
+//                            // Show the dialog by calling startResolutionForResult(),
+//                            // and check the result in onActivityResult().
+//                            resolvable.startResolutionForResult(
+//                                this,
+//                                REQUEST_CODE_PERMISSIONS
+//                            )
+//
+//                        } catch (e: IntentSender.SendIntentException) {
+//                            // Ignore the error.
+//                        } catch (e: ClassCastException) {
+//                            // Ignore, should be an impossible error.
+//                        }
+//                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
+//                }
+            }
+        }
+    }
+
 
 }
 

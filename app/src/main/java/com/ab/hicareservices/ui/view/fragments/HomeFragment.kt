@@ -567,9 +567,13 @@ class HomeFragment : Fragment() {
             }
 
             override fun onPaymentClick(position: Int, order: ArrayList<CODOrders>) {
+
+                progressDialog.show()
+
                 viewProductModel.razorpayOrderIdResponse.observe(requireActivity(), Observer {
 
                     if (it.IsSuccess == true) {
+                        progressDialog.dismiss()
                         AppUtils2.razorpayorderid = it.Data.toString()
 //                        SharedPreferenceUtil.setData(requireContext(), "razorpayorderid",it.Data.toString())
                         AppUtils2.paynowamount=""
@@ -594,7 +598,9 @@ class HomeFragment : Fragment() {
                         }, 300)
 
                     } else {
+                        progressDialog.dismiss()
                     }
+                    progressDialog.dismiss()
                 })
 
                 viewProductModel.CreateRazorpayOrderId(order[position].OrderValueWithTax_c!!.toDouble(), 12342)

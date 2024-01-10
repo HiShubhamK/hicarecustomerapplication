@@ -151,6 +151,8 @@ class OrderDetailActivity : AppCompatActivity() {
             binding.payNowBtn.setOnClickListener {
                 try {
 
+                    progressDialog.show()
+
                     AppUtils2.Checkpayment=""
                     AppUtils2.Checkpayment="orderdeatils"
                     AppUtils2.paynowamount=orderValueWithTax.toString()
@@ -158,6 +160,8 @@ class OrderDetailActivity : AppCompatActivity() {
                     viewProductModel.razorpayOrderIdResponse.observe(this, androidx.lifecycle.Observer {
 
                         if (it.IsSuccess == true) {
+
+                            progressDialog.dismiss()
 
                             AppUtils2.paynowamount=orderValueWithTax.toString()
                             AppUtils2.razorpayorderid = it.Data.toString()
@@ -177,7 +181,10 @@ class OrderDetailActivity : AppCompatActivity() {
                                 activityResultLauncher.launch(intent)
                             },300)
 
+                            progressDialog.dismiss()
+
                         } else {
+                            progressDialog.dismiss()
                         }
                     })
 
@@ -185,7 +192,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     viewProductModel.CreateRazorpayOrderId(orderValueWithTax.toDouble(), 12342)
 
 
-
+                    progressDialog.dismiss()
 
 
 //                    val co = Checkout()

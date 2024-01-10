@@ -304,9 +304,11 @@ class OrdersFragment() : Fragment() {
                 serviceType: String,
                 standardValueC: Double?
             ) {
+                progressDialog.show()
                 viewProductModel.razorpayOrderIdResponse.observe(requireActivity(), Observer {
 
                     if (it.IsSuccess == true) {
+                        progressDialog.dismiss()
                         AppUtils2.razorpayorderid = it.Data.toString()
 
 
@@ -326,12 +328,14 @@ class OrdersFragment() : Fragment() {
                             activityResultLauncher.launch(intent)
 
                         },300)
-
+                        progressDialog.dismiss()
                     } else {
+                        progressDialog.dismiss()
                     }
                 })
 
                 viewProductModel.CreateRazorpayOrderId(orderValueWithTaxC.toDouble(), 12342)
+                progressDialog.dismiss()
             }
 
             override fun onNotifyMeclick(position: Int, orderNumberC: String, customerIdC: String) {

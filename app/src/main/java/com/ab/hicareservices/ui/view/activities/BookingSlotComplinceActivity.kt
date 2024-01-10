@@ -104,6 +104,14 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
 
 
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+
+// Set the default selected date in the CalendarView
+        binding.calendarView.setDate(currentDate.timeInMillis)
+
+
+
 //        Toast.makeText(this@BookingSlotComplinceActivity, AppUtils2.servicecode.toString(),Toast.LENGTH_LONG).show()
 
         binding.calendarView.setOnDateChangeListener(CalendarView.OnDateChangeListener { CalendarView, year, month, dayOfMonth ->
