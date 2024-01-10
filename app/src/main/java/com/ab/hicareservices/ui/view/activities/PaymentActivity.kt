@@ -372,6 +372,8 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                         binding.imgOffer.visibility = View.VISIBLE
                         binding.txtpayment.visibility = View.VISIBLE
                         binding.imgOffererror.visibility = View.GONE
+
+                        AppUtils2.billingAddress=""
                         SharedPreferenceUtil.setData(this, "Shippingdata", "")
                         SharedPreferenceUtil.setData(this, "Billingdata", "")
 //                        Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
@@ -445,6 +447,11 @@ class PaymentActivity : AppCompatActivity(), PaymentResultWithDataListener {
                     getClearchache()
 //
 //                    Toast.makeText(this, "Payment Successfully Done", Toast.LENGTH_LONG).show()
+
+
+                    AppUtils2.billingAddress=""
+                    SharedPreferenceUtil.setData(this, "Billingdata", "")
+                    SharedPreferenceUtil.setData(this, "Shippingdata", "")
 
                     DesignToast.makeText(
                         this@PaymentActivity,

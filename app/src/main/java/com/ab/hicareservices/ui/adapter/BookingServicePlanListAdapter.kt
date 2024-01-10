@@ -38,6 +38,13 @@ class BookingServicePlanListAdapter :
         val plan = plandata[position]
         holder.binding.planname.text = plan.ServicePlanName
         AppUtils2.ServicePlanName=plan.ServicePlanName.toString()
+
+        if(plan.Price.toString().equals(plan.DiscountedPrice.toString())){
+            holder.binding.pricewisebhk.visibility=View.GONE
+        }else{
+            holder.binding.pricewisebhk.visibility=View.VISIBLE
+        }
+
         holder.binding.pricewisebhk.text = "\u20B9" + plan.Price.toString()
         holder.binding.servicepriceplan.text = "\u20B9" + plan.DiscountedPrice.toString()
         holder.binding.pricewisebhk.paintFlags = holder.binding.pricewisebhk.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

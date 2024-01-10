@@ -198,6 +198,7 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                             if(AppUtils2.checkerrormessage==true){
                                 AppUtils2.checkerrormessage=false
 
+                                progressDialog.dismiss()
                                 binding.recycleviewplans.visibility = View.GONE
                                 binding.txtNoPlan.visibility = View.VISIBLE
                                 binding.txtNoPlan.text =
@@ -471,6 +472,27 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
 
                 progressDialog.show()
 
+                viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity,
+                    Observer {
+                        progressDialog.dismiss()
+                        if(AppUtils2.checkerrormessage==true){
+                            AppUtils2.checkerrormessage=false
+
+                            binding.recycleviewplans.visibility = View.GONE
+                            binding.txtNoPlan.visibility = View.VISIBLE
+                            binding.txtNoPlan.text =
+                                "Sorry, this pincode is not serviceable. Please try a different pincode."
+                            DesignToast.makeText(
+                                this@BokingServiceDetailsActivity,
+                                "This pincode is not available",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
+                        }
+                    })
+
+
+
                 viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
                     Observer {
 
@@ -678,6 +700,28 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
     }
 
     fun getplanlist(serviceCode: String) {
+
+        viewProductModel.errorMessage.observe(this@BokingServiceDetailsActivity,
+            Observer {
+                progressDialog.dismiss()
+                if(AppUtils2.checkerrormessage==true){
+                    AppUtils2.checkerrormessage=false
+
+                    binding.recycleviewplans.visibility = View.GONE
+                    binding.txtNoPlan.visibility = View.VISIBLE
+                    binding.txtNoPlan.text =
+                        "Sorry, this pincode is not serviceable. Please try a different pincode."
+                    DesignToast.makeText(
+                        this@BokingServiceDetailsActivity,
+                        "This pincode is not available",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+                }
+            })
+
+
+
         viewProductModel.getServicePincodeDetailResponse.observe(this@BokingServiceDetailsActivity,
             Observer {
 

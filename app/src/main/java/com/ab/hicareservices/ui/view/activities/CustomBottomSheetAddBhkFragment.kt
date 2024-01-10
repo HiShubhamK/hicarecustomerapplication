@@ -246,6 +246,12 @@ class CustomBottomSheetAddBhkFragment() : BottomSheetDialogFragment() {
                                             userData
                                         )
 
+                                    if(bhkandpincodedata.get(i).Price.toString().equals(bhkandpincodedata.get(i).DiscountedPrice.toString())){
+                                        pricewisebhk.visibility=View.GONE
+                                    }else{
+                                        pricewisebhk.visibility=View.VISIBLE
+                                    }
+
                                     AppUtils2.bookingdiscount =
                                         bhkandpincodedata.get(i).Discount.toString()
                                     AppUtils2.bookingdiscountedprice =

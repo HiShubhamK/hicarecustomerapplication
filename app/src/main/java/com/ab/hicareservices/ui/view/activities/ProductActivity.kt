@@ -17,14 +17,12 @@ import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
 import com.ab.hicareservices.data.model.ordersummery.OrderSummeryData
 import com.ab.hicareservices.data.model.product.ProductListResponseData
-import com.ab.hicareservices.databinding.ActivityOverviewProductDetailsBinding
 import com.ab.hicareservices.databinding.ActivityProductBinding
 import com.ab.hicareservices.location.MyLocationListener
 import com.ab.hicareservices.ui.adapter.ProductAdapter
@@ -33,7 +31,6 @@ import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
@@ -327,8 +324,16 @@ class ProductActivity : AppCompatActivity() {
 
         viewProductModel.responseMessage.observe(this@ProductActivity, Observer {
             progressDialog.dismiss()
-            binding.recycleviewproduct.visibility = View.GONE
-            DesignToast.makeText(this, "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
+            if(AppUtils2.checkerrormessage==true){
+                AppUtils2.checkerrormessage=false
+                binding.recycleviewproduct.visibility = View.GONE
+                DesignToast.makeText(
+                    this@ProductActivity,
+                    "Invalid Pincode",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
+            }
 
 //            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
         })
@@ -441,9 +446,16 @@ class ProductActivity : AppCompatActivity() {
 
             viewProductModel.responseMessage.observe(this@ProductActivity,Observer {
                 progressDialog.dismiss()
-                binding.recycleviewproduct.visibility = View.GONE
-                DesignToast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show();
-
+                if(AppUtils2.checkerrormessage==true){
+                    AppUtils2.checkerrormessage=false
+                    binding.recycleviewproduct.visibility = View.GONE
+                    DesignToast.makeText(
+                        this@ProductActivity,
+                        "Invalid Pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+                }
 //                Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
             })
             viewProductModel.getProductlist(pincode)

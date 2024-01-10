@@ -160,37 +160,64 @@ class ProductFragment : Fragment() {
 //        }
 
 
-        val config = ShowcaseConfig()
-        config.delay = 300 // half second between each showcase view
+        SharedPreferenceUtil.setData(requireActivity(), "ShowCase", "")
+
+        val showcasedata= SharedPreferenceUtil.getData(requireActivity(), "ShowCase", "").toString()
+
+        if(showcasedata.equals("")){
+            val config = ShowcaseConfig()
+            config.delay = 300 // half second between each showcase view
 
 
-        val sequence = MaterialShowcaseSequence(activity, "Hicare")
+            val sequence = MaterialShowcaseSequence(activity, "Hicare")
 
-        sequence.setConfig(config)
+            sequence.setConfig(config)
 
-        sequence.addSequenceItem(
-            binding.getpincodetext,
-            "Hi there, Search product delivery by pincode.", "GOT IT"
-        )
+            sequence.addSequenceItem(
+                binding.getpincodetext,
+                "Hi there, Search product delivery by pincode.", "GOT IT"
+            )
 
+            sequence.addSequenceItem(
+                binding.cartmenu,
+                "You can Now see your added products here.", "GOT IT"
+            )
+
+            sequence.start()
+
+        }
+//
+//        val config = ShowcaseConfig()
+//        config.delay = 300 // half second between each showcase view
+//
+//
+//        val sequence = MaterialShowcaseSequence(activity, "Hicare")
+//
+//        sequence.setConfig(config)
+//
 //        sequence.addSequenceItem(
-//            binding.imgsearch,
-//            "Using this you can call customer.", "GOT IT"
+//            binding.getpincodetext,
+//            "Hi there, Search product delivery by pincode.", "GOT IT"
 //        )
-
-        sequence.addSequenceItem(
-            binding.cartmenu,
-            "You can Now see your added products here.", "GOT IT"
-        )
-
-//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
-//                        "This is technician helpline number.", "GOT IT");
-
-
-//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
-//                        "This is technician helpline number.", "GOT IT");
-        sequence.start()
-
+//
+////        sequence.addSequenceItem(
+////            binding.imgsearch,
+////            "Using this you can call customer.", "GOT IT"
+////        )
+//
+//        sequence.addSequenceItem(
+//            binding.cartmenu,
+//            "You can Now see your added products here.", "GOT IT"
+//        )
+//
+////                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+////                        "This is technician helpline number.", "GOT IT");
+//
+//
+////                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+////                        "This is technician helpline number.", "GOT IT");
+//        sequence.start()
+//
 
 
         MyLocationListener(requireActivity())
@@ -357,13 +384,18 @@ class ProductFragment : Fragment() {
 
         viewProductModel.responseMessage.observe(requireActivity(), Observer {
             progressDialog.dismiss()
-            binding.recycleviewproduct.visibility = View.GONE
-            DesignToast.makeText(
-                requireActivity(),
-                "Invalid Pincode",
-                Toast.LENGTH_SHORT,
-                DesignToast.TYPE_ERROR
-            ).show();
+
+            if(AppUtils2.checkerrormessage==true){
+                AppUtils2.checkerrormessage=false
+                binding.recycleviewproduct.visibility = View.GONE
+                DesignToast.makeText(
+                    requireActivity(),
+                    "Invalid Pincode",
+                    Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
+            }
+
 
 //                Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
         })
@@ -485,14 +517,17 @@ class ProductFragment : Fragment() {
 
             viewProductModel.responseMessage.observe(requireActivity(), Observer {
                 progressDialog.dismiss()
-                binding.recycleviewproduct.visibility = View.GONE
-//            Toast.makeText(requireActivity(), "Invalid Pincode", Toast.LENGTH_LONG).show()
-                DesignToast.makeText(
-                    requireActivity(),
-                    "Invalid Pincode",
-                    Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_ERROR
-                ).show();
+
+                if(AppUtils2.checkerrormessage==true){
+                    AppUtils2.checkerrormessage=false
+                    binding.recycleviewproduct.visibility = View.GONE
+                    DesignToast.makeText(
+                        requireActivity(),
+                        "Invalid Pincode",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+                }
 
 
             })
@@ -552,7 +587,10 @@ class ProductFragment : Fragment() {
             }
 
             override fun onNotifyMeclick(position: Int, response: ProductListResponseData) {
+
+
                 val data = HashMap<String, Any>()
+
                 data["Id"] = 0
                 data["Mobile_No"] = AppUtils2.mobileno
                 data["Event_Source"] = "Product"
@@ -567,26 +605,13 @@ class ProductFragment : Fragment() {
                 data["Notification_Tag"] = "string"
                 data["Notification_Title"] = "string"
                 data["Notification_Body"] = "string"
+
+                viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
+                    DesignToast.makeText(requireActivity(), "Notify me", Toast.LENGTH_SHORT, DesignToast.TYPE_ERROR).show()
+                })
+
                 viewProductModel.CreateEventForMobileAppNotification(data)
 
-                viewProductModel.CreateEventNotificationResponse.observe(
-                    requireActivity(),
-                    Observer {
-                        if (it.IsSuccess == true) {
-//                        Toast.makeText(
-//                            requireActivity(),
-//                            "Thank You! For Notifying Us",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-                            DesignToast.makeText(
-                                requireActivity(),
-                                "Thank You! For Notifying Us",
-                                Toast.LENGTH_SHORT,
-                                DesignToast.TYPE_SUCCESS
-                            ).show();
-
-                        }
-                    })
 //                {
 //                    "Id": 0,
 //                    "Mobile_No": "string",

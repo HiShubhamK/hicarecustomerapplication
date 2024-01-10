@@ -43,6 +43,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -75,6 +77,23 @@ class PestServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         MyLocationListener(requireActivity())
 
+
+
+        val config = ShowcaseConfig()
+        config.delay = 300 // half second between each showcase view
+
+
+        val sequence = MaterialShowcaseSequence(activity, "Hicare")
+
+
+        sequence.setConfig(config)
+
+        sequence.addSequenceItem(
+            binding.imgsearch,
+            "Hi there, Enter your pincode to view the pest control services that we provide.", "GOT IT"
+        )
+
+        sequence.start()
 
         progressDialog = ProgressDialog(requireActivity(), R.style.TransparentProgressDialog)
         progressDialog.setCancelable(false)

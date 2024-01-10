@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.viewmodel
 
-import android.util.Log
+import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ab.hicareservices.data.model.CreateEventNotificationResponse
@@ -14,6 +15,7 @@ import com.ab.hicareservices.data.model.ordersummery.OrderSummeryResponse
 import com.ab.hicareservices.data.model.product.*
 import com.ab.hicareservices.data.repository.MainRepository
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,7 +88,7 @@ class ProductViewModel: ViewModel() {
                 if(response.body()!!.IsSuccess==true) {
                     productlist.postValue(response.body()!!.Data)
                 }else{
-
+                    AppUtils2.checkerrormessage=true
                     responseMessage.postValue(response.body()?.ResponseMessage!!)
                 }
             }
@@ -275,6 +277,26 @@ class ProductViewModel: ViewModel() {
                 response: Response<CreateEventNotificationResponse>
             ) {
                 CreateEventNotificationResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<CreateEventNotificationResponse>, t: Throwable) {
+                errorMessage.postValue("Please Check Internet Connection.")
+            }
+        })
+    }
+
+    fun CreateEventForMobileAppNotificationProductfragment(
+        data: HashMap<String, Any>,
+        requireActivity: FragmentActivity
+    ){
+        val response=repository.CreateEventForMobileAppNotification(data)
+        response.enqueue(object :Callback<CreateEventNotificationResponse>{
+            override fun onResponse(
+                call: Call<CreateEventNotificationResponse>,
+                response: Response<CreateEventNotificationResponse>
+            ) {
+                CreateEventNotificationResponse.postValue(response.body())
+
             }
 
             override fun onFailure(call: Call<CreateEventNotificationResponse>, t: Throwable) {
