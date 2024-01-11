@@ -80,8 +80,14 @@ class AccountFragment : Fragment() {
         }
 
         binding.updateNow.setOnClickListener {
-            val updateManager = AppUpdater(requireActivity(),versioncode.toString(), isupdated)
-            updateManager.checkForUpdate(versioncode.toString(),isupdated)
+            requireActivity().startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=com.ab.hicareservices")
+                )
+            )
+//            val updateManager = AppUpdater(requireActivity(),versioncode.toString(), isupdated)
+//            updateManager.checkForUpdate(versioncode.toString(),isupdated)
         }
 
         binding.constraintorderid.setOnClickListener {

@@ -67,7 +67,7 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
 
     private fun showUpdateDialog() {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Update Available")
+        builder.setTitle("New Update Available")
         builder.setMessage("A new version of the app is available. Do you want to update now?")
         builder.setPositiveButton("Update") { _, _ ->
             // Start the download and installation process
