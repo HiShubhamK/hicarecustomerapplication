@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:alpha="0.8"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.8"
-        android:background="@drawable/bottomsheet_bg">
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/imgclose"
@@ -98,7 +98,8 @@
                 android:fontFamily="@font/lato_semibold"
                 android:text="Cockroach Monitoring System"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:background="@color/white"/>
 
             <View
                 android:layout_width="match_parent"
@@ -119,14 +120,15 @@
                 android:fontFamily="@font/lato_regular"
                 android:text="Pest control workers are responsible for inspecting buildings and the surrounding property for signs of insects, rodents and other pests. They determine which treatment is best and use the proper baits or traps to remove them. Pest control workers also create barriers to prevent insects and rodents from re-entering."
                 android:textColor="@color/grey_font"
-                android:textSize="13sp" />
+                android:textSize="13sp"/>
 
             <LinearLayout
                 android:id="@+id/lnrFAQ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white">
 
                 <View
                     android:layout_width="match_parent"
@@ -146,7 +148,8 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="FAQ"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:background="@color/white"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -160,7 +163,8 @@
                     android:id="@+id/recFAQ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp" />
+                    android:layout_margin="5dp"
+                    android:background="@color/white"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
     app:cardCornerRadius="5dp"
     android:elevation="8dp"
     android:layout_margin="10dp">
@@ -11,21 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_marginLeft="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/planname"
@@ -35,6 +40,7 @@
                     android:fontFamily="@font/lato_semibold"
                     android:textSize="15sp"
                     android:textColor="@color/colorAccent"
+                    android:background="@color/white"
                     />
 
                 <LinearLayout
@@ -156,7 +162,9 @@
             android:layout_marginRight="2dp"
             android:textColor="@color/colorAccent"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+
+            android:background="@color/white"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

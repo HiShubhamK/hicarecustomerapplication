@@ -119,9 +119,6 @@ class ProductFragment : Fragment() {
             enableLoc()
         }
 
-
-
-
 //        if (ContextCompat.checkSelfPermission(
 //                requireActivity(),
 //                Manifest.permission.ACCESS_FINE_LOCATION
@@ -159,33 +156,33 @@ class ProductFragment : Fragment() {
 //            }
 //        }
 
-
-        SharedPreferenceUtil.setData(requireActivity(), "ShowCase", "")
-
-        val showcasedata= SharedPreferenceUtil.getData(requireActivity(), "ShowCase", "").toString()
-
-        if(showcasedata.equals("")){
-            val config = ShowcaseConfig()
-            config.delay = 300 // half second between each showcase view
-
-
-            val sequence = MaterialShowcaseSequence(activity, "Hicare")
-
-            sequence.setConfig(config)
-
-            sequence.addSequenceItem(
-                binding.getpincodetext,
-                "Hi there, Search product delivery by pincode.", "GOT IT"
-            )
-
-            sequence.addSequenceItem(
-                binding.cartmenu,
-                "You can Now see your added products here.", "GOT IT"
-            )
-
-            sequence.start()
-
-        }
+//
+//        SharedPreferenceUtil.setData(requireActivity(), "ShowCase", "")
+//
+//        val showcasedata= SharedPreferenceUtil.getData(requireActivity(), "ShowCase", "").toString()
+//
+//        if(showcasedata.equals("")){
+//            val config = ShowcaseConfig()
+//            config.delay = 300 // half second between each showcase view
+//
+//
+//            val sequence = MaterialShowcaseSequence(activity, "Hicare")
+//
+//            sequence.setConfig(config)
+//
+//            sequence.addSequenceItem(
+//                binding.getpincodetext,
+//                "Hi there, Search product delivery by pincode.", "GOT IT"
+//            )
+//
+//            sequence.addSequenceItem(
+//                binding.cartmenu,
+//                "You can Now see your added products here.", "GOT IT"
+//            )
+//
+//            sequence.start()
+//
+//        }
 //
 //        val config = ShowcaseConfig()
 //        config.delay = 300 // half second between each showcase view
@@ -675,7 +672,6 @@ class ProductFragment : Fragment() {
         progressDialog.dismiss()
 
     }
-
 
     companion object {
         @JvmStatic

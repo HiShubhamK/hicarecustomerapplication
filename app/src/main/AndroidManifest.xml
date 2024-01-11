@@ -47,13 +47,16 @@
 
         <activity
             android:name=".ui.view.activities.FetchLocationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.ProductAddAddressActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.BookingPaymentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -61,32 +64,40 @@
 
         <activity
             android:name=".BookingServiceDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.BookingServiceCheckout"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.BookingSlotDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.BookingSlotComplinceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.BokingServiceDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.PestServicesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.ProductActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.view.activities.ComplaintNewActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -344,11 +355,16 @@
         <activity
             android:name=".ui.view.activities.ComplaintsActivityNew"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.view.activities.MyOrderActivityNew" />
-        <activity android:name=".ui.view.activities.MapsActivity" />
-        <activity android:name=".ui.view.activities.MapsDemoActivity" />
-        <activity android:name=".ui.view.activities.AddAddressActivity" />
-        <activity android:name=".ui.view.activities.ServicesAddresslistActivity" />
+        <activity android:name=".ui.view.activities.MyOrderActivityNew"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.MapsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.MapsDemoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.AddAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activities.ServicesAddresslistActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

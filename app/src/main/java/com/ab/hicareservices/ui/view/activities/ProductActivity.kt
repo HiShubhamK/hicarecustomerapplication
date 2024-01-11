@@ -108,33 +108,33 @@ class ProductActivity : AppCompatActivity() {
         val config = ShowcaseConfig()
         config.delay = 300 // half second between each showcase view
 
-
-        val sequence = MaterialShowcaseSequence(this@ProductActivity, "Hicare")
-
-        sequence.setConfig(config)
-
-        sequence.addSequenceItem(
-            binding.getpincodetext,
-            "Hi there, Search product delivery by pincode.", "GOT IT"
-        )
-
+//
+//        val sequence = MaterialShowcaseSequence(this@ProductActivity, "Hicare")
+//
+//        sequence.setConfig(config)
+//
 //        sequence.addSequenceItem(
-//            binding.imgsearch,
-//            "Using this you can call customer.", "GOT IT"
+//            binding.getpincodetext,
+//            "Hi there, Search product delivery by pincode.", "GOT IT"
 //        )
-
-        sequence.addSequenceItem(
-            binding.cartmenu,
-            "You can Now see your added products here.", "GOT IT"
-        )
-
-//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
-//                        "This is technician helpline number.", "GOT IT");
-
-
-//                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
-//                        "This is technician helpline number.", "GOT IT");
-        sequence.start()
+//
+////        sequence.addSequenceItem(
+////            binding.imgsearch,
+////            "Using this you can call customer.", "GOT IT"
+////        )
+//
+//        sequence.addSequenceItem(
+//            binding.cartmenu,
+//            "You can Now see your added products here.", "GOT IT"
+//        )
+//
+////                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+////                        "This is technician helpline number.", "GOT IT");
+//
+//
+////                sequence.addSequenceItem(mTaskListAdapterBinding.helpline,
+////                        "This is technician helpline number.", "GOT IT");
+//        sequence.start()
 
 
 
