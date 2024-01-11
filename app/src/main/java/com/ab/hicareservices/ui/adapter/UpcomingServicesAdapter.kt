@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ab.hicareservices.data.model.dashboard.UpcomingService
 import com.ab.hicareservices.data.model.service.ServiceData
 import com.ab.hicareservices.databinding.LayoutPaymentDashboardAdapterBinding
-import com.ab.hicareservices.databinding.ServiceRequestAdapterBinding
 import com.ab.hicareservices.ui.handler.OnServiceRequestClickHandler
 import com.ab.hicareservices.ui.handler.onResceduleInterface
 import com.ab.hicareservices.utils.AppUtils2

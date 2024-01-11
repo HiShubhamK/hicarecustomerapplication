@@ -69,6 +69,7 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.MainViewHolder>(){
                 holder.binding.btnaddtocart.text = "Notify Me!"
                 holder.binding.btnaddtocart.setOnClickListener {
                     onProductClickedHandler?.onNotifyMeclick(position,productlists)
+                    DesignToast.makeText(requireActivity,"ThankYou For Notifying Us!",Toast.LENGTH_LONG,DesignToast.TYPE_SUCCESS).show()
 
 //                    Toast.makeText(requireActivity,"You will get update once product is available",Toast.LENGTH_LONG).show()
 

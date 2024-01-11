@@ -98,6 +98,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             "Service | Customer Mobile App",
             "1"
         )
+        AppUtils2.eventCall(this, "BookingPayment: Options: $options")
+
 
         Log.d("OptionTag", options.toString())
 
@@ -170,6 +172,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
 
             viewProductModel.paymentsuceess.observe(this, Observer {
                 if (it.IsSuccess == true) {
+                    AppUtils2.eventCall(this, "BookingPaymentActivity To MyOrderActivityNew:paymentsuceess")
+
 
                     SharedPreferenceUtil.setData(this, "User_Id", 0)
                     SharedPreferenceUtil.setData(this, "Address_Id", 0)
@@ -227,6 +231,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                 }, 500)
                     Handler(Looper.getMainLooper()).postDelayed({
                         onBackPressed()
+                        AppUtils2.eventCall(this, "BookingPaymentActivity To Checkout:Failed")
+
                         val intent =
                             Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
                         startActivity(intent)
@@ -297,6 +303,8 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
             data["Cust_InstructionforService"] = SharedPreferenceUtil.getData(this, "Instructions", "").toString()
             data["OrderPayments"] = orderPaymentlist
             data["Campaign_Url"] = "https://hicare.in/"
+            AppUtils2.eventCall(this, "AddOrderAsync:$data")
+
 
             viewProductModel.AddOrderAsync(data)
             progressDialog.dismiss()
@@ -317,6 +325,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         try {
 
             progressDialog.dismiss()
+            AppUtils2.eventCall(this, "Payment Failed")
 
             binding.imgOffer.visibility = View.GONE
             binding.imgOffererror.visibility = View.VISIBLE

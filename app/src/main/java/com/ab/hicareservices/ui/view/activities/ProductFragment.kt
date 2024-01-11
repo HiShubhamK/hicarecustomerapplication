@@ -485,10 +485,10 @@ class ProductFragment : Fragment() {
         binding.recycleviewproduct.adapter = mAdapter
         viewProductModel.CreateEventNotificationResponse.observe(requireActivity(), Observer {
             if (it.IsSuccess == true) {
-                Toast.makeText(
+                DesignToast.makeText(
                     requireActivity(),
-                    "Thank You! For Notifying Us",
-                    Toast.LENGTH_SHORT
+                    "ThankYou For Notifying Us!",
+                    DesignToast.LENGTH_LONG,DesignToast.TYPE_SUCCESS
                 ).show()
             }
         })
