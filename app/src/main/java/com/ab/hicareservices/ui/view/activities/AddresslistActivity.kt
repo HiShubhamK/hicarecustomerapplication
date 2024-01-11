@@ -49,9 +49,10 @@ class AddresslistActivity : AppCompatActivity() {
 
         binding.imgLogo.setOnClickListener {
             onBackPressed()
-//            val intent=Intent(this,AddressActivity::class.java)
-//            startActivity(intent)
-//            finish()
+            val intent=Intent(this,AddressActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
         }
 
         binding.btnchecklocation.setOnClickListener {
@@ -443,8 +444,10 @@ class AddresslistActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-//        val intent=Intent(this,AddressActivity::class.java)
-//        startActivity(intent)
+        val intent=Intent(this,AddressActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 
     override fun onResume() {

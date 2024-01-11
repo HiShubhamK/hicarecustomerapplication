@@ -155,10 +155,10 @@ class BookingServiceCheckout : AppCompatActivity(){
                             val intent =
                                 Intent(
                                     this@BookingServiceCheckout,
-                                    BookingPaymentActivity::class.java
-                                )
+                                    BookingPaymentActivity::class.java)
                             intent.putExtra("Finalamount", finalamountsdata.toDouble().toString())
                             intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
                             finish()
                         } else {

@@ -216,6 +216,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
                         var finalamounts=""
                         var voucherdiscounts=""
                         val intent = Intent(this@BookingPaymentActivity, MyOrderActivityNew::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                         finish()
                     }, 1000)
@@ -348,6 +349,7 @@ class BookingPaymentActivity : AppCompatActivity(), PaymentResultWithDataListene
         AppUtils2.voucherdiscounts=""
         AppUtils2.voucherdiscounts=""
         val intent = Intent(this@BookingPaymentActivity, BookingServiceCheckout::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }

@@ -1,9 +1,11 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.fragment.app.FragmentActivity
@@ -29,13 +31,13 @@ class BookingFaqAdapter: RecyclerView.Adapter<BookingFaqAdapter.MainViewHolder>(
         val productlistdata = productDetails[position]
 
         holder.binding.tvQuetion.text=productlistdata.FAQTitle
-        holder.binding.tvDesc.text=productlistdata.FAQDetail
+        holder.binding.tvDesc.text= Html.fromHtml(productlistdata.FAQDetail.toString(),
+            HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binding.tvShowAnswer.setOnClickListener{
 
 
             val animation = AnimationUtils.loadAnimation(productDetailActivity, R.anim.slide_up)
             val animation2 = AnimationUtils.loadAnimation(productDetailActivity, R.anim.slide_down)
-
 
             if (holder.binding.crdDetail.isVisible){
 
