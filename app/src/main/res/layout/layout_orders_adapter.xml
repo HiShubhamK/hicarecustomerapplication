@@ -294,14 +294,14 @@
                     android:weightSum="2">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtrupees"
+                        android:id="@+id/txtrupeess"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/lato_semibold"
                         android:gravity="end"
-                        android:text=""
+                        android:text="wrong"
                         android:textSize="13sp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
