@@ -258,6 +258,7 @@ class BookingServiceCheckout : AppCompatActivity(){
 
                     if (it.IsSuccess == true) {
 
+
                         if (AppUtils2.voucherdiscounts.equals("")) {
                             finalamount=AppUtils2.bookingdiscountedprice
                         } else {
@@ -266,6 +267,8 @@ class BookingServiceCheckout : AppCompatActivity(){
                         AppUtils2.razorpayorderid=""
                         AppUtils2.razorpayorderid = it.Data.toString()
                         SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
+                        AppUtils2.eventCall(this,"Product Added To Cart: {bookingdiscountedprice:"+AppUtils2.bookingdiscountedprice+" Vouchercode: "+finalamountsdata.toDouble().toString()+"CoupenCode"+binding.txtcoupon.text.toString()+"Rozerpayid"+it.Data.toString()+"}")
+
                         val intent =
                             Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
                         intent.putExtra("Finalamount", finalamountsdata.toDouble().toString())

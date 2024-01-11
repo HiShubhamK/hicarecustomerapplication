@@ -290,7 +290,7 @@ class ProductActivity : AppCompatActivity() {
 //                    "Thank You! For Notifying Us",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-                DesignToast.makeText(this, "Thank You! For Notifying Us", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
+                DesignToast.makeText(this, "ThankYou For Notifying Us!", Toast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
 
             }
         })
