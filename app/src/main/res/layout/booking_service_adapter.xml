@@ -9,12 +9,14 @@
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
     android:layout_marginLeft="3dp"
-    android:layout_marginRight="3dp">
+    android:layout_marginRight="3dp"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
     <ImageView
         android:id="@+id/img_logo"
@@ -42,7 +44,8 @@
         android:paddingLeft="9dp"
         android:text="@string/my_orders"
         android:textColor="@color/black"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:background="@color/white"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -72,7 +75,9 @@
                 android:fontFamily="@font/lato_regular"
                 android:paddingLeft="9dp"
                 android:textColor="@color/grey_font"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+
+                android:background="@color/white"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -121,13 +126,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/nextappointmentdate"
@@ -147,7 +155,9 @@
                     android:fontFamily="@font/lato_regular"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+
+                    android:background="@color/white"/>
 
                 <!--                    <androidx.appcompat.widget.AppCompatTextView-->
                 <!--                        android:layout_width="match_parent"-->
@@ -167,7 +177,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -178,7 +189,9 @@
                     android:gravity="end"
                     android:textColor="@color/colorAccent"
                     android:text="View plan"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+
+                    android:background="@color/white"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="30dp"
@@ -186,6 +199,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_marginTop="2dp"
+
+                    android:background="@color/white"
                     android:src="@drawable/baseline_keyboard_double_arrow_right" />
 
 

@@ -4,6 +4,8 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.util.Log
 import android.widget.Toast
@@ -116,177 +118,62 @@ class BookingServiceCheckout : AppCompatActivity(){
 
         binding.txtplcaeorder.setOnClickListener {
 
-            progressDialog.show()
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                progressDialog.show()
 
 //            Toast.makeText(this@BookingServiceCheckout,data,Toast.LENGTH_SHORT).show()
 
-            var finalamountsdata=finalamount.toDouble().roundToInt()
+                var finalamountsdata = finalamount.toDouble().roundToInt()
 
-//            var data = HashMap<String, Any>()
-//
-//            data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
-//            data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
-//            data["WebId"] = ""
-//            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
-//            data["LastName"] = "."
-//            data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
-//            data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["AltMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
-//            data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
-//            data["BHK"] = SharedPreferenceUtil.getData(this, "BHK", "").toString()
-//            data["ServiceArea"] = "Home Type"
-//            data["OrderCreatedDatetime"] = AppUtils2.getCurrentDateTime().toString()
-//            data["LeadSource"] = ""
-//            data["CampaignCode"] = ""
-//            data["PaymentStatus"]="Online"
-//            data["PGResponse"] = ""
-//            data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
-//            data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-//            data["DiscountPercent"] = ""
-//            data["OrderValue"] = finalamount
-//            data["VoucherCode"] = ""
-//            data["OnlinePaidAmount"] = finalamount
-//            data["PaybackPaidAmount"] = ""
-//            data["AppointmentStartDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
-//            data["AppointmentEndDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentEndDateTime", "").toString()
-//            data["FlatNo"] = SharedPreferenceUtil.getData(this, "FlatNo", "").toString()
-//            data["BuildingName"] = SharedPreferenceUtil.getData(this, "BuildingName", "").toString()
-//            data["Locality"] = SharedPreferenceUtil.getData(this, "Locality", "").toString()
-//            data["Landmark"] = SharedPreferenceUtil.getData(this, "Landmark", "").toString()
-//            data["Street"] = SharedPreferenceUtil.getData(this, "Street", "").toString()
-//            data["City"] = SharedPreferenceUtil.getData(this, "City", "").toString()
-//            data["State"] = SharedPreferenceUtil.getData(this, "State", "").toString()
-//            data["Lat"] = SharedPreferenceUtil.getData(this, "Lat", "").toString()
-//            data["Long"] = SharedPreferenceUtil.getData(this, "Long", "").toString()
-//            data["ServiceCode"] = SharedPreferenceUtil.getData(this, "ServiceCode", "").toString()
-//            data["Param1"] = ""
-//            data["Param2"] = ""
-//            data["Param3"] = ""
-//            data["Source"] = "MobileApp"
-//            data["SubSource"] = ""
-//            data["UtmSource"] = ""
-//            data["UtmSubsource"] = ""
-//            data["OrderCreatedFrom"] = "Customer App"
-//            data["Subscription"] = ""
-//            data["ServiceType"] = "pest"
-//            data["Customer_Type"] = "H"
-//            data["Created_On"] = AppUtils2.getCurrentDateTime().toString()
-//            data["Hygiene_Point_Percentage"] = ""
-//            data["Redeem_Hygine_Points"] = ""
-//            data["Is_Subscription_Order"] = false
-//            data["Subscription_Id"] = ""
-//            data["Subscription_Plan_Id"] = ""
-//            data["OrderPayments"] = orderPaymentlist
-//            data["Campaign_Url"] = ""
-//
-//
-
-//            data["User_Id"] = SharedPreferenceUtil.getData(this, "User_Id", 0)
-//            data["Address_Id"] = SharedPreferenceUtil.getData(this, "Address_Id", 0)
-//            data["WebId"] = ""
-//            data["WebCustId"] =SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["Fname"] = SharedPreferenceUtil.getData(this, "Fname", "").toString()
-//            data["LastName"] = "."
-//            data["Email"] = SharedPreferenceUtil.getData(this, "Email", "").toString()
-//            data["MobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["CommunicationMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["AltMobileNo"] = SharedPreferenceUtil.getData(this, "MobileNo", "").toString()
-//            data["Pincode"] = SharedPreferenceUtil.getData(this, "Pincode", "").toString()
-//            data["Remarks"] = SharedPreferenceUtil.getData(this, "Remarks", "").toString()
-//            data["BHK"] = SharedPreferenceUtil.getData(this, "BHK", "").toString()
-//            data["ServiceArea"] = "Home Type"
-//            data["OrderCreatedDatetime"] = AppUtils2.getCurrentDateTime().toString()
-//            data["LeadSource"] = ""
-//            data["CampaignCode"] = ""
-//            data["PaymentStatus"]="Online"
-//            data["PGResponse"] = ""
-//            data["MRP"] = SharedPreferenceUtil.getData(this, "MRP", "").toString()
-//            data["DiscountValue"] = "0.00"  // SharedPreferenceUtil.getData(this, "DiscountValue", "").toString()
-//            data["DiscountPercent"] = ""
-//            data["OrderValue"] = finalamount
-//            data["VoucherCode"] = ""
-//            data["OnlinePaidAmount"] = finalamount
-//            data["PaybackPaidAmount"] = ""
-//            data["AppointmentStartDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentStartDateTime", "").toString()
-//            data["AppointmentEndDateTime"] = SharedPreferenceUtil.getData(this, "AppointmentEndDateTime", "").toString()
-//            data["FlatNo"] = SharedPreferenceUtil.getData(this, "FlatNo", "").toString()
-//            data["BuildingName"] = SharedPreferenceUtil.getData(this, "BuildingName", "").toString()
-//            data["Locality"] = SharedPreferenceUtil.getData(this, "Locality", "").toString()
-//            data["Landmark"] = SharedPreferenceUtil.getData(this, "Landmark", "").toString()
-//            data["Street"] = SharedPreferenceUtil.getData(this, "Street", "").toString()
-//            data["City"] = SharedPreferenceUtil.getData(this, "City", "").toString()
-//            data["State"] = SharedPreferenceUtil.getData(this, "State", "").toString()
-//            data["Lat"] = SharedPreferenceUtil.getData(this, "Lat", "").toString()
-//            data["Long"] = SharedPreferenceUtil.getData(this, "Long", "").toString()
-//            data["ServiceCode"] = SharedPreferenceUtil.getData(this, "Spcode", "").toString()
-//            data["Param1"] = "instructions hello"
-//            data["Param2"] = ""
-//            data["Param3"] = ""
-//            data["Source"] = "MobileApp"
-//            data["SubSource"] = ""
-//            data["UtmSource"] = ""
-//            data["UtmSubsource"] = ""
-//            data["OrderCreatedFrom"] = "Customer App"
-//            data["Subscription"] = ""
-//            data["ServiceType"] = "pest"
-//            data["Customer_Type"] = "Home"
-//            data["Created_On"] = AppUtils2.getCurrentDateTime().toString()
-//            data["Hygiene_Point_Percentage"] = ""
-//            data["Redeem_Hygine_Points"] = ""
-//            data["Is_Subscription_Order"] = false
-//            data["Subscription_Id"] = ""
-//            data["Subscription_Plan_Id"] = ""
-//            data["OrderPayments"] = orderPaymentlist
-//            data["Campaign_Url"] = "https://hicare.in/"
-//
-//            Log.d("paydata",data.toString())
-
-            if (AppUtils2.paymentcheckbutton == false) {
-
-                progressDialog.dismiss()
-
-                AppUtils2.paymentcheckbutton = true
-
-                SharedPreferenceUtil.setData(this, "razorpayorderid", "")
-
-                viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
+                if (AppUtils2.paymentcheckbutton == false) {
 
                     progressDialog.dismiss()
 
-                    if (it.IsSuccess == true) {
+                    AppUtils2.paymentcheckbutton = true
 
+                    SharedPreferenceUtil.setData(this, "razorpayorderid", "")
 
-                        if (AppUtils2.voucherdiscounts.equals("")) {
-                            finalamount=AppUtils2.bookingdiscountedprice
-                        } else {
-                            finalamount = AppUtils2.finalamounts
-                        }
-                        AppUtils2.razorpayorderid=""
-                        AppUtils2.razorpayorderid = it.Data.toString()
-                        SharedPreferenceUtil.setData(this, "razorpayorderid", it.Data.toString())
-                        AppUtils2.eventCall(this,"Product Added To Cart: {bookingdiscountedprice:"+AppUtils2.bookingdiscountedprice+" Vouchercode: "+finalamountsdata.toDouble().toString()+"CoupenCode"+binding.txtcoupon.text.toString()+"Rozerpayid"+it.Data.toString()+"}")
+                    viewProductModels.razorpayOrderIdResponse.observe(this, Observer {
 
-                        val intent =
-                            Intent(this@BookingServiceCheckout, BookingPaymentActivity::class.java)
-                        intent.putExtra("Finalamount", finalamountsdata.toDouble().toString())
-                        intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
-                        startActivity(intent)
-                        finish()
-                    } else {
                         progressDialog.dismiss()
-                    }
-                })
 
-                viewProductModels.CreateRazorpayOrderId(finalamountsdata.toDouble(), 12342)
+                        if (it.IsSuccess == true) {
 
-            } else {
-                AppUtils2.paymentcheckbutton = false
+                            if (AppUtils2.voucherdiscounts.equals("")) {
+                                finalamount = AppUtils2.bookingdiscountedprice
+                            } else {
+                                finalamount = AppUtils2.finalamounts
+                            }
+                            AppUtils2.razorpayorderid = ""
+                            AppUtils2.razorpayorderid = it.Data.toString()
+                            SharedPreferenceUtil.setData(
+                                this,
+                                "razorpayorderid",
+                                it.Data.toString()
+                            )
+                            val intent =
+                                Intent(
+                                    this@BookingServiceCheckout,
+                                    BookingPaymentActivity::class.java
+                                )
+                            intent.putExtra("Finalamount", finalamountsdata.toDouble().toString())
+                            intent.putExtra("Vouchercode", binding.txtcoupon.text.toString())
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            progressDialog.dismiss()
+                        }
+                    })
 
-            }
-            progressDialog.dismiss()
+                    viewProductModels.CreateRazorpayOrderId(finalamountsdata.toDouble(), 12342)
+
+                } else {
+                    AppUtils2.paymentcheckbutton = false
+
+                }
+                progressDialog.dismiss()
+            },1000)
         }
 
 //        binding.btnappiledcoupon.setOnClickListener {

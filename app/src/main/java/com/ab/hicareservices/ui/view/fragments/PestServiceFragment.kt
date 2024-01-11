@@ -90,7 +90,7 @@ class PestServiceFragment : Fragment() {
 
         sequence.addSequenceItem(
             binding.imgsearch,
-            "Hi there, Enter your pincode to view the pest control services that we provide.", "GOT IT"
+            "Hi there, To view the pest control services we offer, enter your pincode and click here to search.", "GOT IT"
         )
 
         sequence.start()

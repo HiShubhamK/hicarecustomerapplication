@@ -96,6 +96,8 @@ class GetSlotViewModel : ViewModel() {
                         if (response.body()?.IsSuccess == true) {
                             val responseBody = response.body()?.Data
                             getcomplainceresponse.postValue(responseBody!!)
+                        }else{
+                            errorMessage.postValue(response.body()?.ResponseMessage!!)
                         }
                     }else if(response.code()==401){
                         requestcodes.postValue("401")

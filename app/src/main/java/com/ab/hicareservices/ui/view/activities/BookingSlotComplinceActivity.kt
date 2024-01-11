@@ -277,6 +277,11 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 
 
         })
+
+        viewModel.errorMessage.observe(this@BookingSlotComplinceActivity, Observer {
+            progressDialog.dismiss()
+        })
+
         Handler(Looper.getMainLooper()).postDelayed({
             var data = HashMap<String, Any>()
 //            {
@@ -293,6 +298,8 @@ class BookingSlotComplinceActivity : AppCompatActivity() {
 //                MyLocationListener(this)
 //                Pincode = AppUtils2.pincode
 //            }
+
+
 
             data["SlotDate"] = date
             data["Lat"] = AppUtils2.Latt

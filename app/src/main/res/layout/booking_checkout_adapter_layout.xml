@@ -5,18 +5,20 @@
     android:layout_height="match_parent"
     android:layout_margin="2dp"
     android:elevation="8dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="5dp"
             android:weightSum="2">
 
             <ImageView
@@ -43,13 +45,15 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="Cockroach Monitoring System"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:background="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/white">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -64,7 +68,8 @@
                         android:layout_marginLeft="5dp"
                         android:fontFamily="@font/lato_semibold"
                         android:text="4.5"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:background="@color/white" />
 
                 </LinearLayout>
 
@@ -76,7 +81,8 @@
                     android:fontFamily="@font/lato_semibold"
                     android:text="Start at 999"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:background="@color/white" />
 
             </LinearLayout>
 
@@ -105,7 +111,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relativecheckout">
+            android:id="@+id/relativecheckout"
+            android:background="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -118,7 +125,8 @@
                 android:fontFamily="@font/lato_semibold"
                 android:text="Service Guidelines"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:background="@color/white"/>
 
 <!--                        <ImageView-->
 <!--                            android:id="@+id/imgaddinstructoin"-->
@@ -140,7 +148,8 @@
                 android:layout_marginRight="10dp"
                 android:rotation="90"
                 android:src="@drawable/forward_arrow"
-                app:tint="@color/colorAccent" />
+                app:tint="@color/colorAccent"
+                android:background="@color/white" />
 
             <ImageView
                 android:id="@+id/imgremoveinstructoin"
@@ -152,7 +161,8 @@
                 android:rotation="270"
                 android:visibility="gone"
                 android:src="@drawable/forward_arrow"
-                app:tint="@color/colorAccent" />
+                app:tint="@color/colorAccent"
+                android:background="@color/white"/>
 
     </RelativeLayout>
 
@@ -198,7 +208,8 @@
             android:text="Short description here"
             android:textColor="@color/grey_font"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:background="@color/white"/>
 
         <View
             android:layout_width="match_parent"
@@ -211,7 +222,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -224,7 +236,8 @@
                 android:fontFamily="@font/lato_semibold"
                 android:text="Add Instructions for Service"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:background="@color/white"/>
 
             <!--                        <ImageView-->
             <!--                            android:id="@+id/imgaddinstructoin"-->
@@ -244,6 +257,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
+                android:background="@color/white"
                 android:src="@drawable/ic_baseline_add_24" />
 
             <ImageView
@@ -254,6 +268,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="10dp"
                 android:visibility="gone"
+                android:background="@color/white"
                 android:src="@drawable/ic_baseline_remove_24"
                 android:textSize="30sp" />
 
@@ -293,6 +308,7 @@
             android:text="View details"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
+            android:background="@color/white"
             android:visibility="gone" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -54,7 +54,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MainViewHolder>() {
             holder.binding.txtnameorder.text=orders.OrderNumber_c
             holder.binding.txtnamestatus.text=orders.Status_c
 //            var roundValue = orders.OrderValueWithTax_c?.toDouble().roundToInt()
-            holder.binding.txtrupees.text = "₹ ${orders.OrderValueWithTax_c?.toDouble()?.roundToInt()}"
+            holder.binding.txtrupeess.text = "₹ ${orders.OrderValueWithTax_c?.toDouble()?.roundToInt()}"
             holder.binding.startdate.text=AppUtils2.formatDateTime4(orders.StartDate_c.toString())
             holder.binding.enddate.text=AppUtils2.formatDateTime4(orders.EndDate_c.toString())
 

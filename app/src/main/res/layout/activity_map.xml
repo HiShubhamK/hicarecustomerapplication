@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Toolbar with Back Arrow -->
@@ -10,7 +11,8 @@
         android:id="@+id/lnrPlaces"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -25,7 +27,6 @@
             android:hint="Search for your location"
             android:inputType="text"
             android:maxLines="1"
-
             android:padding="10dp"
             android:textColorHint="@color/grey_font"
             android:textSize="14sp" />
@@ -120,13 +121,16 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:padding="12dp"
+        android:background="@color/white"
         android:visibility="gone">
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/title"
@@ -139,12 +143,14 @@
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
                 android:textColor="@color/grey_font"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:background="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/imgLogo"
@@ -152,7 +158,8 @@
                     android:layout_height="30sp"
                     android:layout_margin="5dp"
                     android:src="@drawable/ic_location"
-                    app:tint="@color/colorAccent">
+                    app:tint="@color/colorAccent"
+                    android:background="@color/white">
 
                 </ImageView>
 
@@ -165,7 +172,8 @@
                     android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:background="@color/white" />
 
 
             </LinearLayout>
@@ -183,7 +191,8 @@
                 android:textColor="@color/md_black_1000"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="@color/white" />
 
             <Button
                 android:id="@+id/btnNext"
@@ -201,7 +210,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white">
 
 <!--                <TextView-->
 <!--                    android:layout_width="wrap_content"-->
@@ -226,7 +236,8 @@
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/red"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:background="@color/white" />
 
             </LinearLayout>
 

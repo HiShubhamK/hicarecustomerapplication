@@ -622,12 +622,11 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
         nAdapter = BookingServiceListDetailsAdapter()
         binding.recMenu.adapter = nAdapter
 
-        viewProductModel.serviceresponssedata.observe(this, Observer {
-
-
-        })
-        viewProductModel.getActiveServiceList()
-
+//        viewProductModel.serviceresponssedata.observe(this, Observer {
+//
+//
+//        })
+//        viewProductModel.getActiveServiceList()
 
 
         viewProductModel.bookingServiceDetailResponseData.observe(
@@ -690,8 +689,26 @@ class BokingServiceDetailsActivity : AppCompatActivity() {
                     serviceNames.toString().toString()
                 )
 
-
                 getplanlist(serviceCodes.toString()!!)
+
+
+                viewProductModel.bookingServiceDetailResponseData.observe(
+                    this@BokingServiceDetailsActivity,
+                    Observer {
+                        if (it.Id != 0) {
+                            if (!it.OtherServiceList.isNullOrEmpty()) {
+                                nAdapter.setServiceLists(it.OtherServiceList, this@BokingServiceDetailsActivity)
+
+                            } else {
+                                binding.lnrOurServices.visibility = View.GONE
+                            }
+                            progressDialog.dismiss()
+                        } else {
+                            progressDialog.dismiss()
+
+                        }
+                    })
+                viewProductModel.getActiveServiceDetailById(ids!!.toInt())
 
 
             }
