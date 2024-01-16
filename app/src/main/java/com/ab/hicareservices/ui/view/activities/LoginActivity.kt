@@ -93,68 +93,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-//        val sdkCallback: ITrueCallback = object : ITrueCallback {
-//            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
-//                AppUtils2.mobileno=trueProfile.phoneNumber
-//                SharedPreferenceUtil.setData(this@LoginActivity,"mobileNo",trueProfile.phoneNumber)
-//                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-//                startActivity(intent)
-//                finish()
-//
-//            }
-//            override fun onFailureProfileShared(trueError: TrueError) {
-////                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//                if (trueError.errorType == TrueError.ERROR_PROFILE_NOT_FOUND ) {
-//
-//                    // Handle unauthorized partner error
-//                    // For example, display a message to the user or take corrective action
-//                    Log.e("TruecallerError", "Unauthorized partner error")
-//                    // Perform necessary actions like notifying the user or handling the error scenario
-//                } else {
-//                    // Handle other error types if needed
-//                    Log.e("TruecallerError", "Other error: ${trueError.errorType}")
-//                }
-//
-//            }
-//            override fun onVerificationRequired(trueError: TrueError) {
-////                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//            }
-//        }
 
-//        var trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
-//            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
-//            .buttonColor(Color.parseColor("#2bb77a"))
-//            .buttonTextColor(Color.WHITE)
-//            .loginTextPrefix(TruecallerSdkScope.LOGIN_TEXT_PREFIX_TO_GET_STARTED)
-//            .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
-//            .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
-//            .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
-//            .privacyPolicyUrl("http://connect.hicare.in/privacy_policy.html")
-//            .termsOfServiceUrl("https://hicare.in/terms-conditions")
-//            .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
-//            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
-//            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITHOUT_OTP)
-//            .build()
-
-//        TruecallerSDK.init(trueScope)
-//        if (TruecallerSDK.getInstance().isUsable){
-//            TruecallerSDK.getInstance().getUserProfile(this)
-//
-//        }else{
-////            try {
-////                TruecallerSDK.getInstance().requestVerification(
-////                    "IN",
-////                    "",
-////                    apiCallback,
-////                    this
-////                )
-////            } catch (e: RuntimeException) {
-////                Log.i("TAG", e.message!!)
-////            }
-//
-//        }
 
 
 
@@ -169,77 +108,6 @@ class LoginActivity : AppCompatActivity() {
         AppUtils2.checkloging= SharedPreferenceUtil.getData(this@LoginActivity, "getchecklogindata", false) as Boolean
 
 
-//        binding.mobileNoEt.setOnClickListener {
-//            if(checkloging==false){
-//                hideKeyboard()
-//                requestHint(googleApiClient!!)
-//
-//            }else{
-//                showKeyboard(binding.mobileNoEt)
-//
-////                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-////                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-//            }
-//        }
-
-
-
-//        val sdkCallback: ITrueCallback = object : ITrueCallback {
-//            override fun onSuccessProfileShared(trueProfile: TrueProfile) {
-//                AppUtils2.mobileno=trueProfile.phoneNumber
-//                SharedPreferenceUtil.setData(this@LoginActivity,"mobileNo",trueProfile.phoneNumber)
-//
-//                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-//                startActivity(intent)
-//                finish()
-//
-//            }
-//            override fun onFailureProfileShared(trueError: TrueError) {
-//                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//                if (trueError.errorType == TrueError.ERROR_PROFILE_NOT_FOUND ) {
-//
-//                    // Handle unauthorized partner error
-//                    // For example, display a message to the user or take corrective action
-//                    Log.e("TruecallerError", "Unauthorized partner error")
-//                    // Perform necessary actions like notifying the user or handling the error scenario
-//                } else {
-//                    // Handle other error types if needed
-//                    Log.e("TruecallerError", "Other error: ${trueError.errorType}")
-//                }
-//
-//            }
-//            override fun onVerificationRequired(trueError: TrueError) {
-//                Toast.makeText(this@LoginActivity, ""+trueError.errorType, Toast.LENGTH_LONG).show()
-//
-//
-//            }
-//        }
-
-//        val trueScope = TruecallerSdkScope.Builder(this, sdkCallback)
-//            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
-//            .buttonColor(Color.parseColor("#2bb77a"))
-//            .buttonTextColor(Color.WHITE)
-//            .loginTextPrefix(TruecallerSdkScope.LOGIN_TEXT_PREFIX_TO_GET_STARTED)
-//            .loginTextSuffix(TruecallerSdkScope.LOGIN_TEXT_SUFFIX_PLEASE_VERIFY_MOBILE_NO)
-//            .ctaTextPrefix(TruecallerSdkScope.CTA_TEXT_PREFIX_USE)
-//            .buttonShapeOptions(TruecallerSdkScope.BUTTON_SHAPE_ROUNDED)
-//            .privacyPolicyUrl("https://.truecaller.com")
-//            .termsOfServiceUrl("https://.truecaller.com")
-//            .footerType(TruecallerSdkScope.FOOTER_TYPE_NONE)
-//            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_LOG_IN)
-//            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITH_OTP)
-//            .build()
-
-//        TruecallerSDK.init(trueScope)
-
-//
-//        if (TruecallerSDK.getInstance().isUsable){
-//            TruecallerSDK.getInstance().getUserProfile(this)
-//
-//        }else{
-//
-//        }
 
         if (checkLocationPermissions()) {
 //            requestHint(this.googleApiClient!!)
@@ -525,13 +393,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-//    private fun isNetworkAvailable(): Boolean {
-//        val connectivityManager =
-//            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//
-//        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-//        return activeNetwork?.isConnected == true
-//    }
+
 
 }
 
