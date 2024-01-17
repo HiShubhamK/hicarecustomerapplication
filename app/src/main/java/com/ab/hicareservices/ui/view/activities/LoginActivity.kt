@@ -231,10 +231,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLocationPermissions(): Boolean {
-        return ContextCompat.checkSelfPermission(
+        val fineLocationPermission = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
+
+        val notification = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        return fineLocationPermission && notification
+
     }
 
     private fun requestLocationPermission() {
