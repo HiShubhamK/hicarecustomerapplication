@@ -402,12 +402,15 @@ class HomeFragment : Fragment() {
                         )
 
                     } else if (offers[position].IsInAppBrowserLink == true) {
-                        requireActivity()!!.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(offers[position].PageLink)
-                            )
-                        )
+//                        requireActivity()!!.startActivity(
+//                            Intent(
+//                                Intent.ACTION_VIEW,
+//                                Uri.parse(offers[position].PageLink)
+//                            )
+//                        )
+                        val intent = Intent(requireActivity(), InAppWebViewActivity::class.java)
+                        intent.putExtra("PageLink", offers[position].PageLink)
+                        startActivity(intent)
 
                     } else if (offers[position].IsAppLink == true) {
                         requireActivity()!!.startActivity(
