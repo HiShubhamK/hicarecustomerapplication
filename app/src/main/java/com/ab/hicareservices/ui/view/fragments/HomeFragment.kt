@@ -53,6 +53,9 @@ import com.ab.hicareservices.ui.view.activities.InAppWebViewActivity
 import com.ab.hicareservices.ui.view.activities.LoginActivity
 import com.ab.hicareservices.ui.view.activities.OrderDetailActivity
 import com.ab.hicareservices.ui.view.activities.PaymentActivity
+import com.ab.hicareservices.ui.view.activities.PestServicesActivity
+import com.ab.hicareservices.ui.view.activities.ProductActivity
+import com.ab.hicareservices.ui.view.activities.ProductDetailActivity
 import com.ab.hicareservices.ui.view.activities.SlotComplinceActivity
 import com.ab.hicareservices.ui.viewmodel.DashboardViewModel
 import com.ab.hicareservices.ui.viewmodel.OtpViewModel
@@ -145,6 +148,8 @@ class HomeFragment : Fragment() {
         AppUtils2.mobileno = SharedPreferenceUtil.getData(requireActivity(), "mobileNo", "-1").toString()
 
         MyLocationListener(requireActivity())
+        AppUtils2.pincode=SharedPreferenceUtil.getData(requireActivity(), "pincode", "400080").toString()
+
 
         client = LocationServices
             .getFusedLocationProviderClient(
@@ -393,34 +398,90 @@ class HomeFragment : Fragment() {
                 }
 
                 btnRedeem.setOnClickListener {
-                    if (offers[position].IsExternalAppBrowserLink == true) {
-                        requireActivity()!!.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(offers[position].PageLink)
-                            )
-                        )
-
-                    } else if (offers[position].IsInAppBrowserLink == true) {
+                    try{
+                        if (offers[position].IsAppLink == true) {
+//                        Save 10% Off on AutoMos Product - "Product|1"
+//                        10% OFF on 4D Cockroach Control and Ant Control Service AMC-"Service|1|CMS"
+//                        10% OFF on 3X Mosquito Control Service- "Service|3|MMS"
+//                        10% OFF on Bed Bug Control Service AMC- "Service|5|BBMS"
+//                        Save 10% Off on Termite Control Service AMC-"Service|4|TMS"
 //                        requireActivity()!!.startActivity(
 //                            Intent(
 //                                Intent.ACTION_VIEW,
 //                                Uri.parse(offers[position].PageLink)
 //                            )
 //                        )
-                        val intent = Intent(requireActivity(), InAppWebViewActivity::class.java)
-                        intent.putExtra("PageLink", offers[position].PageLink)
-                        startActivity(intent)
 
-                    } else if (offers[position].IsAppLink == true) {
-                        requireActivity()!!.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(offers[position].PageLink)
+                            AppUtils2.pincode = SharedPreferenceUtil.getData(requireContext(), "pincode", "400080").toString()
+
+
+                            if(offers[position].PageLink.contentEquals("Service")){
+
+                                val intent = Intent(requireActivity(), PestServicesActivity::class.java)
+                                requireActivity()!!.startActivity(intent)
+
+
+                            }
+                            val info = offers[position].PageLink
+                            var delimiter = "|"
+
+                            val parts = info!!.split(delimiter)
+                            Log.e("TAG", "SlitName: " + parts + " img1:-" + offers[position].PageLink)
+                            val intenttype = parts[0].toString()
+                            val productId = parts[1].toString()
+//                            val custid = parts[2].toString()
+//                            val pincode = parts[3].toString()
+//                            val mobile = parts[4].toString()
+//                            val imageUrl2 = parts[5].toString()
+                            Log.e("TAG", "intenttype: " + intenttype + " productId:-" + productId)
+
+                            if (intenttype == "Product"){
+                                val intent = Intent(requireActivity(), ProductDetailActivity::class.java)
+                                intent.putExtra("productid",productId)
+                                intent.putExtra("pincode",AppUtils2.pincode)
+                                intent.putExtra("customerid", SharedPreferenceUtil.getData(requireContext(), "customerid", "").toString())
+                                requireActivity()!!.startActivity(intent)
+                            }
+//                        val imageUrlNew = imageUrl
+
+//
+//                        SharedPreferenceUtil.setData(
+//                            requireActivity(),
+//                            "pincode",
+//                            pincode
+//                        )
+//
+//                        SharedPreferenceUtil.setData(
+//                            requireActivity(),
+//                            "customerid",
+//                            custid
+//                        )
+
+
+                        }else if (offers[position].IsExternalAppBrowserLink == true) {
+                            requireActivity()!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(offers[position].PageLink)
+                                )
                             )
-                        )
 
+                        } else if (offers[position].IsInAppBrowserLink == true) {
+                            Log.e("TAG","offers[position].IsInAppBrowserLink:- "+offers[position].IsInAppBrowserLink)
+
+//
+                            val intent = Intent(requireActivity(), InAppWebViewActivity::class.java)
+                            intent.putExtra("PageLink", offers[position].PageLink)
+                            startActivity(intent)
+
+                        }
+
+                    }catch (e:Exception){
+                        e.printStackTrace()
                     }
+                    Log.e("TAG","offers[position].IsExternalAppBrowserLink:- "+offers[position].IsExternalAppBrowserLink)
+
+
                 }
                 tvCopy.setOnClickListener {
                     val clipboard = ContextCompat.getSystemService(
