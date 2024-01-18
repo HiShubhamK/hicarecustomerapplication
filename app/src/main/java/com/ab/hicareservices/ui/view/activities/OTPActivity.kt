@@ -32,7 +32,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import `in`.aabhasjindal.otptextview.OTPListener
 
-class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.ConnectionCallbacks,
+class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
     lateinit var binding: ActivityOtpactivityBinding
@@ -80,7 +80,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
         mSmsBroadcastReceiver!!.setOnOtpListeners(this@OTPActivity)
         val intentFilter = IntentFilter()
         intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
-        registerReceiver(mSmsBroadcastReceiver,intentFilter)
+        registerReceiver(mSmsBroadcastReceiver, intentFilter)
         startSMSListener()
 
         startCounter()
@@ -93,12 +93,12 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
         binding.backIvs.setOnClickListener {
             SharedPreferenceUtil.setData(this@OTPActivity, "getchecklogindata", false)
 
-            val intent=Intent(this@OTPActivity,LoginActivity::class.java)
+            val intent = Intent(this@OTPActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-            binding.otpView.otpListener = object : OTPListener {
+        binding.otpView.otpListener = object : OTPListener {
             override fun onInteractionListener() {
                 // Triggered when user interacts with the OTP field
             }
@@ -114,16 +114,34 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                             SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
                             SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
 
-                            val intent = Intent(this@OTPActivity, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            val islogin = SharedPreferenceUtil.getData(
+                                this@OTPActivity,
+                                "Notificationpermission",
+                                false
+                            )
+
+                            if (islogin == false) {
+
+                                val intent = Intent(
+                                    this@OTPActivity,
+                                    NotificationPermissionActivity::class.java
+                                )
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                         }, 2000)
 
                     } else {
                         progressDialog.dismiss()
 
-                        DesignToast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
-                            DesignToast.TYPE_ERROR).show()
+                        DesignToast.makeText(
+                            this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
 
 //                        Toast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_LONG).show()
                     }
@@ -134,43 +152,70 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
 
 //        if(AppUtils2.isNetworkAvailable(this)==true){
 
-            binding.continueBtn.setOnClickListener {
+        binding.continueBtn.setOnClickListener {
 
-                if(AppUtils2.isNetworkAvailable(this)==true){
-                    progressDialog.show()
-                    if (mOtp.equals(binding.otpView.otp.toString())) {
-                        AppUtils2.eventCall(this,"Login")
+            if (AppUtils2.isNetworkAvailable(this) == true) {
+                progressDialog.show()
+                if (mOtp.equals(binding.otpView.otp.toString())) {
+                    AppUtils2.eventCall(this, "Login")
 
-                        validateAccount(mobileNo)
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            progressDialog.dismiss()
-                            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-                            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-                            SharedPreferenceUtil.setData(this, "IsLogin", true)
+                    validateAccount(mobileNo)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        progressDialog.dismiss()
+                        SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+                        SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+                        SharedPreferenceUtil.setData(this, "IsLogin", true)
 
-                            val intent = Intent(this, HomeActivity::class.java)
+                        val islogin = SharedPreferenceUtil.getData(
+                            this@OTPActivity,
+                            "Notificationpermission",
+                            false
+                        )
+
+                        if (islogin == false) {
+
+                            val intent = Intent(
+                                this@OTPActivity,
+                                NotificationPermissionActivity::class.java
+                            )
                             startActivity(intent)
                             finish()
-                        }, 2000)
+                        } else {
+                            val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }, 2000)
 
-                    } else {
-                        progressDialog.dismiss()
 
-                        DesignToast.makeText(this@OTPActivity, "Enter valid OTP", Toast.LENGTH_SHORT,
-                            DesignToast.TYPE_ERROR).show()
+
+//                    val intent = Intent(this, HomeActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//                    }, 2000)
+
+                } else {
+                    progressDialog.dismiss()
+
+                    DesignToast.makeText(
+                        this@OTPActivity, "Enter valid OTP", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
 
 
 //                        Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
-                    }
-                }else{
-                    progressDialog.dismiss()
-                    DesignToast.makeText(this@OTPActivity, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
-                        DesignToast.TYPE_ERROR).show()
+                }
+            } else {
+                progressDialog.dismiss()
+                DesignToast.makeText(
+                    this@OTPActivity, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
+                    DesignToast.TYPE_ERROR
+                ).show()
 
 //                    Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
-                }
-
             }
+
+        }
     }
 
     private fun startSMSListener() {
@@ -200,29 +245,35 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
     }
 
     private fun resendOtp(mobileNo: String) {
-        if(AppUtils2.isNetworkAvailable(this)==true){
+        if (AppUtils2.isNetworkAvailable(this) == true) {
             viewModel.otpResponse.observe(this) {
                 if (it.isSuccess == true) {
 //                binding.resentSuccessTv.visibility = View.VISIBLE
                     mOtp = it.data.toString()
 //                    Toast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT).show()
 
-                    DesignToast.makeText(this, "OTP Sent Successfully!", Toast.LENGTH_SHORT,
-                        DesignToast.TYPE_SUCCESS).show()
+                    DesignToast.makeText(
+                        this, "OTP Sent Successfully!", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_SUCCESS
+                    ).show()
 
                     startCounter()
                 } else {
                     binding.resentSuccessTv.visibility = View.GONE
 //                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-                    DesignToast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT,
-                        DesignToast.TYPE_WARNING).show()
+                    DesignToast.makeText(
+                        this, "Something went wrong", Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_WARNING
+                    ).show()
 
                 }
             }
             viewModel.getOtp(mobileNo)
-        }else{
-            DesignToast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
-                DesignToast.TYPE_ERROR).show();
+        } else {
+            DesignToast.makeText(
+                this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
+                DesignToast.TYPE_ERROR
+            ).show();
 
 //            Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
         }
@@ -245,7 +296,7 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
     override fun onBackPressed() {
         super.onBackPressed()
         SharedPreferenceUtil.setData(this@OTPActivity, "getchecklogindata", false)
-        val intent=Intent(this@OTPActivity,LoginActivity::class.java)
+        val intent = Intent(this@OTPActivity, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -281,9 +332,9 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
     }
 
     private fun checkotp(toString: String) {
-        Log.d("checkotp","Hello"+AppUtils2.otp)
+        Log.d("checkotp", "Hello" + AppUtils2.otp)
         if (mOtp.equals(toString)) {
-            Log.d("checkotp","Hello1")
+            Log.d("checkotp", "Hello1")
             viewModel.validateResponses.observe(this, Observer {
                 if (it.IsSuccess == true) {
                     AppUtils2.TOKEN = it.Data?.Token.toString()
@@ -318,9 +369,31 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
                         "EMAIL",
                         it?.Data?.ProductCustomerData?.Email.toString()
                     )
-                    val intent = Intent(this@OTPActivity, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+
+
+                    val islogin = SharedPreferenceUtil.getData(
+                        this@OTPActivity,
+                        "Notificationpermission",
+                        false
+                    )
+
+                    if (islogin == false) {
+
+                        val intent = Intent(
+                            this@OTPActivity,
+                            NotificationPermissionActivity::class.java
+                        )
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
+//                    val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
 
                 } else {
                 }
@@ -330,8 +403,8 @@ class OTPActivity : AppCompatActivity(),OtpReceivedInterface, GoogleApiClient.Co
             SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
             SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
 
-        }else{
-            Log.d("checkotp","Failed")
+        } else {
+            Log.d("checkotp", "Failed")
         }
     }
 

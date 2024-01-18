@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ab.hicareservices">
 
-
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         tools:node="remove" />
@@ -38,8 +37,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HiCareServices"
         android:usesCleartextTraffic="true">
-
-
+        <activity
+            android:name=".ui.view.activities.NotificationPermissionActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.activities.FetchLocationActivity"
             android:exported="false"
