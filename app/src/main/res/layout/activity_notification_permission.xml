@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Allow push notificatin to get real-time \nupdates on your order/service status"
+            android:text="Allow push notification to get real-time \nupdates on your order/service status"
             android:textSize="18sp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp" />
