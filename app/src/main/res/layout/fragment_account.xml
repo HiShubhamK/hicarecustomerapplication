@@ -138,6 +138,52 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/updateNow"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/imgsync"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/baseline_sync_alt_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center"
+                    android:text="App update available"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/imgsync"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="NotSibling" />
+
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintorderid"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -528,27 +574,50 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/updateNow"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/white">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/updateNow"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:background="@color/white">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Update Now"
-                android:textColor="@color/colorAccent"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <ImageView-->
+<!--                android:id="@+id/imgsync"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:src="@drawable/baseline_sync_alt_24"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="App update available"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="13dp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toRightOf="@id/imgsync"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:ignore="NotSibling" />-->
 
+
+<!--            <ImageView-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:src="@drawable/ic_right"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:tint="@color/black" />-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signOut"

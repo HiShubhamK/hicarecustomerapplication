@@ -1,6 +1,7 @@
 package com.ab.hicareservices.ui.view.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.ab.hicareservices.R
 import com.ab.hicareservices.data.SharedPreferenceUtil
@@ -16,11 +19,19 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 class NotificationPermissionActivity : AppCompatActivity() {
     private val notificationPermissionRequestCode = 1001
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification_permission)
 
         val button = findViewById<Button>(R.id.notification)
+        val txtnotnow = findViewById<TextView>(R.id.txtnotnow)
+
+        txtnotnow.setOnClickListener {
+            val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         button.setOnClickListener {
             // Check if the permission is already granted
@@ -44,15 +55,29 @@ class NotificationPermissionActivity : AppCompatActivity() {
     }
 
     // Method to handle logic when notification permission is granted
+//    private fun onNotificationPermissionGranted() {
+//        if (isNotificationPermissionGranted()) {
+//            // Permission granted, proceed with your logic
+//            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
+//        } else {
+//            // Permission denied, you can handle this case accordingly
+//            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", false)
+//            navigateToHomeActivity()
+//        }
+//        navigateToHomeActivity()
+//    }
+
     private fun onNotificationPermissionGranted() {
         if (isNotificationPermissionGranted()) {
             // Permission granted, proceed with your logic
             SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
-        } else {
+            navigateToHomeActivity()
+        } else if(!isNotificationPermissionGranted()){
             // Permission denied, you can handle this case accordingly
+            Toast.makeText(this,"denied",Toast.LENGTH_SHORT).show()
             SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", false)
+            navigateToHomeActivity()
         }
-        navigateToHomeActivity()
     }
 
     // Method to navigate to HomeActivity
@@ -85,8 +110,12 @@ class NotificationPermissionActivity : AppCompatActivity() {
                 onNotificationPermissionGranted()
             } else {
                 // Permission denied, handle this case accordingly
+
                 SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", false)
-                // You might want to show a message to the user or take other actions
+                val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            // You might want to show a message to the user or take other actions
             }
         }
     }

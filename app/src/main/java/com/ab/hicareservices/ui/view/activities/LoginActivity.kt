@@ -94,13 +94,6 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
-
-
-
-
-
-
         googleApiClient = GoogleApiClient.Builder(this@LoginActivity)
             .addApi(Auth.CREDENTIALS_API)
             .build()
