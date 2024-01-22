@@ -325,7 +325,7 @@ class LoginActivity : AppCompatActivity() {
                 SharedPreferenceUtil.setData(this, "mobileNo", data)
                 SharedPreferenceUtil.setData(this, "phoneNo", data)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, NotificationPermissionActivity::class.java)
                 startActivity(intent)
                 finish()
             }
