@@ -64,7 +64,7 @@
 
     <Button
         android:id="@+id/notification"
-        android:text=" Turn on Notificaiton"
+        android:text=" Turn on Notifications"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:layout_marginRight="20dp"

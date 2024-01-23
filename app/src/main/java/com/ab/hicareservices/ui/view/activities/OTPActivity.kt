@@ -377,6 +377,9 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
                         false
                     )
 
+
+                    Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
+
                     if (islogin == false) {
 
                         val intent = Intent(

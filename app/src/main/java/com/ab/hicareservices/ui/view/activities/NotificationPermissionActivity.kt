@@ -28,6 +28,7 @@ class NotificationPermissionActivity : AppCompatActivity() {
         val txtnotnow = findViewById<TextView>(R.id.txtnotnow)
 
         txtnotnow.setOnClickListener {
+            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -41,8 +42,12 @@ class NotificationPermissionActivity : AppCompatActivity() {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 // Permission is already granted, proceed with your logic
+                SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
+
                 onNotificationPermissionGranted()
             } else {
+                SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
+
                 // Request the notification permission
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(
@@ -75,7 +80,7 @@ class NotificationPermissionActivity : AppCompatActivity() {
         } else if(!isNotificationPermissionGranted()){
             // Permission denied, you can handle this case accordingly
             Toast.makeText(this,"denied",Toast.LENGTH_SHORT).show()
-            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", false)
+            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             navigateToHomeActivity()
         }
     }

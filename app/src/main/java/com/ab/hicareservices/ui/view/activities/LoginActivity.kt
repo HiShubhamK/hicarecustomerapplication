@@ -325,9 +325,33 @@ class LoginActivity : AppCompatActivity() {
                 SharedPreferenceUtil.setData(this, "mobileNo", data)
                 SharedPreferenceUtil.setData(this, "phoneNo", data)
                 SharedPreferenceUtil.setData(this, "IsLogin", true)
-                val intent = Intent(this, NotificationPermissionActivity::class.java)
-                startActivity(intent)
-                finish()
+
+                val islogin = SharedPreferenceUtil.getData(
+                    this@LoginActivity,
+                    "Notificationpermission",
+                    false
+                )
+
+
+
+//                Toast.makeText(this@LoginActivity,islogin.toString(),Toast.LENGTH_LONG).show()
+
+                if (islogin == false) {
+
+                    val intent = Intent(
+                        this@LoginActivity,
+                        NotificationPermissionActivity::class.java
+                    )
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+//                val intent = Intent(this, NotificationPermissionActivity::class.java)
+//                startActivity(intent)
+//                finish()
             }
         })
     }
