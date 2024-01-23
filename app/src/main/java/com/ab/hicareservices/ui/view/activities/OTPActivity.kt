@@ -120,6 +120,8 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
                                 false
                             )
 
+//                            Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
+
                             if (islogin == false) {
 
                                 val intent = Intent(
@@ -171,6 +173,8 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
                             "Notificationpermission",
                             false
                         )
+
+//                        Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
 
                         if (islogin == false) {
 
@@ -377,15 +381,10 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
                         false
                     )
 
-
-                    Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
 
                     if (islogin == false) {
-
-                        val intent = Intent(
-                            this@OTPActivity,
-                            NotificationPermissionActivity::class.java
-                        )
+                        val intent = Intent(this@OTPActivity, NotificationPermissionActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {

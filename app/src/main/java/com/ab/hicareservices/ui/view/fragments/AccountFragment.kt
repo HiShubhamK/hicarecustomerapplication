@@ -185,6 +185,8 @@ class AccountFragment : Fragment() {
         SharedPreferenceUtil.setData(requireContext(), "FirstName", "")
         SharedPreferenceUtil.setData(requireContext(), "MobileNo", "")
         SharedPreferenceUtil.setData(requireContext(), "getchecklogindata", false)
+        SharedPreferenceUtil.setData(requireContext(), "Notificationpermission", false)
+        SharedPreferenceUtil.setData(requireContext(), "Notificationpermission", true)
 
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()

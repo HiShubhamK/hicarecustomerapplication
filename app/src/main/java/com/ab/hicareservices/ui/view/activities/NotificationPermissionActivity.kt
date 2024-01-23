@@ -35,6 +35,14 @@ class NotificationPermissionActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
+            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
+            val islogin = SharedPreferenceUtil.getData(
+                this@NotificationPermissionActivity,
+                "Notificationpermission",
+                false
+            )
+
+//            Toast.makeText(this,islogin.toString(),Toast.LENGTH_SHORT).show()
             // Check if the permission is already granted
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -42,12 +50,8 @@ class NotificationPermissionActivity : AppCompatActivity() {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 // Permission is already granted, proceed with your logic
-                SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
-
                 onNotificationPermissionGranted()
             } else {
-                SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
-
                 // Request the notification permission
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(
@@ -75,11 +79,12 @@ class NotificationPermissionActivity : AppCompatActivity() {
     private fun onNotificationPermissionGranted() {
         if (isNotificationPermissionGranted()) {
             // Permission granted, proceed with your logic
+//            Toast.makeText(this,"Allow",Toast.LENGTH_SHORT).show()
             SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             navigateToHomeActivity()
         } else if(!isNotificationPermissionGranted()){
             // Permission denied, you can handle this case accordingly
-            Toast.makeText(this,"denied",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"denied",Toast.LENGTH_SHORT).show()
             SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             navigateToHomeActivity()
         }
