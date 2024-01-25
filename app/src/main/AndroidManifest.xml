@@ -39,7 +39,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.view.activities.NotificationPermissionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.activities.FetchLocationActivity"
             android:exported="false"

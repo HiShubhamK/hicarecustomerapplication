@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Typeface
 import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -41,7 +40,6 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
     var mOtp = ""
     lateinit var progressDialog: ProgressDialog
     var token: String? = null
-    lateinit var geocoder: Geocoder
     lateinit var address: List<Address>
     var lat = 0.0
     var lng = 0.0
@@ -104,49 +102,56 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
             }
 
             override fun onOTPComplete(otp: String) {
-                if (otp.length == 4) {
-                    progressDialog.show()
-                    if (mOtp.equals(binding.otpView.otp.toString())) {
-                        validateAccount(mobileNo)
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            progressDialog.dismiss()
-                            SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
-                            SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
-                            SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
 
-                            val islogin = SharedPreferenceUtil.getData(
-                                this@OTPActivity,
-                                "Notificationpermission",
-                                false
-                            )
+                try {
+
+                    if (otp.length == 4) {
+                        progressDialog.show()
+                        if (mOtp.equals(binding.otpView.otp.toString())) {
+                            validateAccount(mobileNo)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                progressDialog.dismiss()
+                                SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
+                                SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
+                                SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
+
+                                val islogin = SharedPreferenceUtil.getData(
+                                    this@OTPActivity,
+                                    "Notificationpermission",
+                                    false
+                                )
 
 //                            Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
 
-                            if (islogin == false) {
+                                if (islogin == false) {
+                                    val intent = Intent(
+                                        this@OTPActivity,
+                                        NotificationPermissionActivity::class.java
+                                    )
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    startActivity(intent)
+                                    finish()
 
-                                val intent = Intent(
-                                    this@OTPActivity,
-                                    NotificationPermissionActivity::class.java
-                                )
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                val intent = Intent(this@OTPActivity, HomeActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-                        }, 2000)
+                                } else {
+                                    val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }, 500)
 
-                    } else {
-                        progressDialog.dismiss()
-
-                        DesignToast.makeText(
-                            this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
-                            DesignToast.TYPE_ERROR
-                        ).show()
+                        } else {
+                            progressDialog.dismiss()
+                            DesignToast.makeText(
+                                this@OTPActivity, "Enter valid otp", Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
 
 //                        Toast.makeText(this@OTPActivity, "Enter valid otp", Toast.LENGTH_LONG).show()
+                        }
                     }
+
+                }catch(e:Exception){
+                    e.printStackTrace()
                 }
             }
         }
@@ -155,42 +160,45 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
 //        if(AppUtils2.isNetworkAvailable(this)==true){
 
         binding.continueBtn.setOnClickListener {
+            try {
+                if (AppUtils2.isNetworkAvailable(this) == true) {
 
-            if (AppUtils2.isNetworkAvailable(this) == true) {
-                progressDialog.show()
-                if (mOtp.equals(binding.otpView.otp.toString())) {
-                    AppUtils2.eventCall(this, "Login")
+                    progressDialog.show()
+                    if (mOtp.equals(binding.otpView.otp.toString())) {
+                        AppUtils2.eventCall(this, "Login")
 
-                    validateAccount(mobileNo)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        progressDialog.dismiss()
-                        SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
-                        SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
-                        SharedPreferenceUtil.setData(this, "IsLogin", true)
+                        validateAccount(mobileNo)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            progressDialog.dismiss()
+                            SharedPreferenceUtil.setData(this, "mobileNo", mobileNo)
+                            SharedPreferenceUtil.setData(this, "phoneNo", mobileNo)
+                            SharedPreferenceUtil.setData(this, "IsLogin", true)
 
-                        val islogin = SharedPreferenceUtil.getData(
-                            this@OTPActivity,
-                            "Notificationpermission",
-                            false
-                        )
+                            val islogin = SharedPreferenceUtil.getData(
+                                this@OTPActivity,
+                                "Notificationpermission",
+                                false
+                            )
 
 //                        Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
 
-                        if (islogin == false) {
+                            if (islogin == false) {
 
-                            val intent = Intent(
-                                this@OTPActivity,
-                                NotificationPermissionActivity::class.java
-                            )
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            val intent = Intent(this@OTPActivity, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                    }, 2000)
+                                val intent = Intent(
+                                    this@OTPActivity,
+                                    NotificationPermissionActivity::class.java
+                                )
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                startActivity(intent)
+                                finish()
 
+
+                            } else {
+                                val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }, 2000)
 
 
 //                    val intent = Intent(this, HomeActivity::class.java)
@@ -198,27 +206,29 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
 //                        finish()
 //                    }, 2000)
 
-                } else {
-                    progressDialog.dismiss()
+                    } else {
+                        progressDialog.dismiss()
 
-                    DesignToast.makeText(
-                        this@OTPActivity, "Enter valid OTP", Toast.LENGTH_SHORT,
-                        DesignToast.TYPE_ERROR
-                    ).show()
+                        DesignToast.makeText(
+                            this@OTPActivity, "Enter valid OTP", Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
 
 
 //                        Toast.makeText(this, "Enter valid otp", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    progressDialog.dismiss()
+                    DesignToast.makeText(
+                        this@OTPActivity,
+                        "Please Check Your Internet Connection",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
                 }
-            } else {
-                progressDialog.dismiss()
-                DesignToast.makeText(
-                    this@OTPActivity, "Please Check Your Internet Connection", Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_ERROR
-                ).show()
-
-//                    Toast.makeText(this,"Please Check Your Internet Connection",Toast.LENGTH_LONG).show()
+            }catch (e:Exception){
+                e.printStackTrace()
             }
-
         }
     }
 
@@ -322,6 +332,7 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
     override fun onDestroy() {
         super.onDestroy()
         mSmsBroadcastReceiver = null
+        progressDialog.dismiss()
 //        unregisterReceiver(mSmsBroadcastReceiver)
 
     }
@@ -337,78 +348,83 @@ class OTPActivity : AppCompatActivity(), OtpReceivedInterface, GoogleApiClient.C
 
     private fun checkotp(toString: String) {
         Log.d("checkotp", "Hello" + AppUtils2.otp)
-        if (mOtp.equals(toString)) {
-            Log.d("checkotp", "Hello1")
-            viewModel.validateResponses.observe(this, Observer {
-                if (it.IsSuccess == true) {
-                    AppUtils2.TOKEN = it.Data?.Token.toString()
-                    AppUtils2.customerid = it?.Data?.ProductCustomerData?.Id.toString()
-                    SharedPreferenceUtil.setData(this, "bToken", it.Data?.Token.toString())
-                    if (it?.Data?.PestCustomerData?.BillingPostalCode == null) {
-                        SharedPreferenceUtil.setData(this, "pincode", "")
-                    } else {
+        try {
+            if (mOtp.equals(toString)) {
+                Log.d("checkotp", "Hello1")
+                viewModel.validateResponses.observe(this, Observer {
+                    if (it.IsSuccess == true) {
+                        AppUtils2.TOKEN = it.Data?.Token.toString()
+                        AppUtils2.customerid = it?.Data?.ProductCustomerData?.Id.toString()
+                        SharedPreferenceUtil.setData(this, "bToken", it.Data?.Token.toString())
+                        if (it?.Data?.PestCustomerData?.BillingPostalCode == null) {
+                            SharedPreferenceUtil.setData(this, "pincode", "")
+                        } else {
+                            SharedPreferenceUtil.setData(
+                                this,
+                                "pincode",
+                                it?.Data?.PestCustomerData?.BillingPostalCode.toString()
+                            )
+                        }
                         SharedPreferenceUtil.setData(
                             this,
-                            "pincode",
-                            it?.Data?.PestCustomerData?.BillingPostalCode.toString()
+                            "customerid",
+                            it?.Data?.ProductCustomerData?.Id.toString()
                         )
-                    }
-                    SharedPreferenceUtil.setData(
-                        this,
-                        "customerid",
-                        it?.Data?.ProductCustomerData?.Id.toString()
-                    )
-                    SharedPreferenceUtil.setData(
-                        this,
-                        "FirstName",
-                        it?.Data?.ProductCustomerData?.FirstName.toString()
-                    )
-                    SharedPreferenceUtil.setData(
-                        this,
-                        "MobileNo",
-                        it?.Data?.ProductCustomerData?.MobileNo.toString()
-                    )
-                    SharedPreferenceUtil.setData(
-                        this,
-                        "EMAIL",
-                        it?.Data?.ProductCustomerData?.Email.toString()
-                    )
+                        SharedPreferenceUtil.setData(
+                            this,
+                            "FirstName",
+                            it?.Data?.ProductCustomerData?.FirstName.toString()
+                        )
+                        SharedPreferenceUtil.setData(
+                            this,
+                            "MobileNo",
+                            it?.Data?.ProductCustomerData?.MobileNo.toString()
+                        )
+                        SharedPreferenceUtil.setData(
+                            this,
+                            "EMAIL",
+                            it?.Data?.ProductCustomerData?.Email.toString()
+                        )
 
 
-                    val islogin = SharedPreferenceUtil.getData(
-                        this@OTPActivity,
-                        "Notificationpermission",
-                        false
-                    )
+                        val islogin = SharedPreferenceUtil.getData(
+                            this@OTPActivity,
+                            "Notificationpermission",
+                            false
+                        )
 
 //                    Toast.makeText(this@OTPActivity,islogin.toString(),Toast.LENGTH_LONG).show()
 
-                    if (islogin == false) {
-                        val intent = Intent(this@OTPActivity, NotificationPermissionActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        val intent = Intent(this@OTPActivity, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
+                        if (islogin == false) {
+                            val intent =
+                                Intent(this@OTPActivity, NotificationPermissionActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
+                            overridePendingTransition(0, 0);
+                        } else {
+                            val intent = Intent(this@OTPActivity, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
 
 //                    val intent = Intent(this@OTPActivity, HomeActivity::class.java)
 //                    startActivity(intent)
 //                    finish()
 
-                } else {
-                }
-            })
-            viewModel.validateAccounts(mobileNo, this@OTPActivity)
-            SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
-            SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
-            SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
+                    } else {
+                    }
+                })
+                viewModel.validateAccounts(mobileNo, this@OTPActivity)
+                SharedPreferenceUtil.setData(this@OTPActivity, "mobileNo", mobileNo)
+                SharedPreferenceUtil.setData(this@OTPActivity, "phoneNo", mobileNo)
+                SharedPreferenceUtil.setData(this@OTPActivity, "IsLogin", true)
 
-        } else {
-            Log.d("checkotp", "Failed")
+            } else {
+                Log.d("checkotp", "Failed")
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
     }
-
-
 }

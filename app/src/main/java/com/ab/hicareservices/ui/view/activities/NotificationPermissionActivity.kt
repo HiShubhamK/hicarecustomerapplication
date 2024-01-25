@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -25,10 +26,9 @@ class NotificationPermissionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notification_permission)
 
         val button = findViewById<Button>(R.id.notification)
-        val txtnotnow = findViewById<TextView>(R.id.txtnotnow)
+        val txtnotnow = findViewById<LinearLayout>(R.id.txtnotnow)
 
         txtnotnow.setOnClickListener {
-            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
