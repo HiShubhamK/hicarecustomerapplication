@@ -2,10 +2,13 @@ package com.ab.hicareservices.ui.view.fragments
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -53,7 +56,10 @@ class AccountFragment : Fragment() {
         first_name = SharedPreferenceUtil.getData(requireContext(), "FirstName", "").toString()
         mobileno = SharedPreferenceUtil.getData(requireContext(), "mobileNo", "").toString()
 
-        binding.Versionname.text="V "+AppUtils2.versionname
+        getVersionName()
+
+
+//        binding.Versionname.text="V "+AppUtils2.versionname
 
         binding.txtusernames.text = first_name.toString()
         binding.txtUserdetailes.text = mobileno.toString()
@@ -215,6 +221,18 @@ class AccountFragment : Fragment() {
             dialogView.dismiss()
         }
         dialogView.show()
+    }
+
+    private fun getVersionName() {
+        try {
+            val packageInfo = requireActivity().packageManager.getPackageInfo(requireActivity().packageName, 0)
+
+            val versionName: String = packageInfo.versionName
+            binding.Versionname.text="V "+versionName
+            Log.d("VersionName", "The versionName is: $versionName")
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
 }

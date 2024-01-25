@@ -3,12 +3,15 @@ package com.ab.hicareservices.ui.view.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationManager
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,22 +22,30 @@ import com.ab.hicareservices.data.SharedPreferenceUtil
 
 class NotificationPermissionActivity : AppCompatActivity() {
     private val notificationPermissionRequestCode = 1001
-
+    lateinit var progressDialog: ProgressDialog
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification_permission)
 
+        progressDialog = ProgressDialog(this, R.style.TransparentProgressDialog)
+        progressDialog.setCancelable(false)
+
         val button = findViewById<Button>(R.id.notification)
         val txtnotnow = findViewById<LinearLayout>(R.id.txtnotnow)
 
         txtnotnow.setOnClickListener {
-            val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+            progressDialog.show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+                progressDialog.dismiss()
+            },1500)
         }
 
         button.setOnClickListener {
+            progressDialog.show()
             SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
             val islogin = SharedPreferenceUtil.getData(
                 this@NotificationPermissionActivity,
@@ -80,21 +91,37 @@ class NotificationPermissionActivity : AppCompatActivity() {
         if (isNotificationPermissionGranted()) {
             // Permission granted, proceed with your logic
 //            Toast.makeText(this,"Allow",Toast.LENGTH_SHORT).show()
-            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
-            navigateToHomeActivity()
+            Handler(Looper.getMainLooper()).postDelayed({
+                SharedPreferenceUtil.setData(
+                    this@NotificationPermissionActivity,
+                    "Notificationpermission",
+                    true
+                )
+                navigateToHomeActivity()
+            },1000)
         } else if(!isNotificationPermissionGranted()){
             // Permission denied, you can handle this case accordingly
 //            Toast.makeText(this,"denied",Toast.LENGTH_SHORT).show()
-            SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", true)
-            navigateToHomeActivity()
+            Handler(Looper.getMainLooper()).postDelayed({
+                SharedPreferenceUtil.setData(
+                    this@NotificationPermissionActivity,
+                    "Notificationpermission",
+                    true
+                )
+                navigateToHomeActivity()
+            },1000)
         }
     }
 
     // Method to navigate to HomeActivity
     private fun navigateToHomeActivity() {
-        val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+        progressDialog.show()
+        Handler(Looper.getMainLooper()).postDelayed({
+            progressDialog.dismiss()
+            val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        },1500)
     }
 
     private fun isNotificationPermissionGranted(): Boolean {
@@ -115,16 +142,25 @@ class NotificationPermissionActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == notificationPermissionRequestCode) {
+            progressDialog.show()
             // Check if the permission is granted after the user responds to the permission request
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                progressDialog.dismiss()
                 onNotificationPermissionGranted()
             } else {
                 // Permission denied, handle this case accordingly
-
-                SharedPreferenceUtil.setData(this@NotificationPermissionActivity, "Notificationpermission", false)
-                val intent = Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    progressDialog.dismiss()
+                    SharedPreferenceUtil.setData(
+                        this@NotificationPermissionActivity,
+                        "Notificationpermission",
+                        false
+                    )
+                    val intent =
+                        Intent(this@NotificationPermissionActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                },1000)
             // You might want to show a message to the user or take other actions
             }
         }

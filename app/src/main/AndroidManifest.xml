@@ -366,7 +366,7 @@
         <activity
             android:name=".ui.view.activities.ServicesAddresslistActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.view.activities.TextToSpeechActivity" />
+<!--        <activity android:name=".ui.view.activities.TextToSpeechActivity" />-->
     </application>
 
 </manifest>

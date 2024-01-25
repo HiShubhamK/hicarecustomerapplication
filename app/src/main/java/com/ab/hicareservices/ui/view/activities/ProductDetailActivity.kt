@@ -71,7 +71,7 @@ class ProductDetailActivity : AppCompatActivity() {
             if (intent.getStringExtra("pincode").toString() != "") {
                 AppUtils2.pincode = intent.getStringExtra("pincode").toString()
             } else {
-                Toast.makeText(this,"two "+AppUtils2.pincode.toString(),Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this,"two "+AppUtils2.pincode.toString(),Toast.LENGTH_SHORT).show()
                 AppUtils2.pincode = SharedPreferenceUtil.getData(this, "pincode", "400080").toString()
                 MyLocationListener(this@ProductDetailActivity)
             }
