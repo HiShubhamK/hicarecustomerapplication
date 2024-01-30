@@ -69,7 +69,7 @@ class AppUpdater(private val context: Context, toString: String, isUpdated: Bool
             if (latestVersionCode > BuildConfig.VERSION_CODE) {
                 showUpdateDialog1()
             } else {
-                Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Your app is up to date", Toast.LENGTH_SHORT).show()
             }
         }
     }

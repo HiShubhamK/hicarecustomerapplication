@@ -66,10 +66,10 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
                 var courses = arrayOf<String?>("Select Address Type", "Home", "Office", "Others")
 
-                binding.etpincodes.setText(AppUtils2.pincode)
+//                binding.etpincodes.setText(AppUtils2.pincode)
 
-                binding.etpincodes.isEnabled = false
-                binding.etpincodes.isClickable = false
+                binding.etpincodes.isEnabled = true
+                binding.etpincodes.isClickable = true
 
                 AppUtils2.mobileno = SharedPreferenceUtil.getData(this, "mobileNo", "-1").toString()
 
@@ -334,11 +334,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     "Shippingdata",
                                     it.Data.toString()
                                 )
-//                                Toast.makeText(
-//                                    this,
-//                                    "Shipping address added successfully",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
+                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode",binding.etpincodes.text.toString())
 
                                 DesignToast.makeText(
                                     this,
@@ -632,6 +628,9 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
+                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode",binding.etpincodes.text.toString())
+
+
                                 DesignToast.makeText(
                                     this,
                                     "Billing address added successfully",
@@ -917,6 +916,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                Toast.LENGTH_LONG
 //                            ).show()
 
+                            SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode",binding.etpincodes.text.toString())
 
                             DesignToast.makeText(
                                 this,
