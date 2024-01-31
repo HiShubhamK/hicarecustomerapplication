@@ -133,47 +133,76 @@ class AddressActivity : AppCompatActivity() {
 
 
         binding.btnnext.setOnClickListener {
-            if (binding.txtshipping.text.equals("")) {
-//                Toast.makeText(this, "Please Add Shipping Address", Toast.LENGTH_SHORT).show()
-                DesignToast.makeText(
-                    this@AddressActivity,
-                    "Please Add Shipping Address",
-                    Toast.LENGTH_SHORT,
-                    DesignToast.TYPE_ERROR
-                ).show()
-            } else {
-                if (pincodeshipping.equals(AppUtils2.pincode)) {
-                    if (billingdata.equals("")) {
-                        billingdata = shippingdata
-                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
 
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
+
+            viewProductModel.productlist.observe(this@AddressActivity, Observer {
+
+                if (it != null) {
+                    if (it.isNotEmpty()){
+                        if (binding.txtshipping.text.equals("")) {
+//                Toast.makeText(this, "Please Add Shipping Address", Toast.LENGTH_SHORT).show()
+                            DesignToast.makeText(
+                                this@AddressActivity,
+                                "Please Add Shipping Address",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
+                        } else {
+                            if (pincodeshipping.equals(AppUtils2.pincode)) {
+                                if (billingdata.equals("")) {
+                                    billingdata = shippingdata
+                                    SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
+
+                                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                                    intent.putExtra("Billdata", billingdata)
+                                    intent.putExtra("Shipdata", shippingdata)
+                                    startActivity(intent)
+                                } else {
+                                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                                    intent.putExtra("Billdata", billingdata)
+                                    intent.putExtra("Shipdata", shippingdata)
+                                    startActivity(intent)
+                                }
+                            } else {
+                                if (billingdata.equals("")) {
+                                    billingdata = shippingdata
+                                    SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
+
+                                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                                    intent.putExtra("Billdata", billingdata)
+                                    intent.putExtra("Shipdata", shippingdata)
+                                    startActivity(intent)
+                                } else {
+                                    val intent = Intent(this, OverviewProductDetailsActivity::class.java)
+                                    intent.putExtra("Billdata", billingdata)
+                                    intent.putExtra("Shipdata", shippingdata)
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                    }else {
+                        progressDialog.dismiss()
                     }
                 } else {
-                    if (billingdata.equals("")) {
-                        billingdata = shippingdata
-                        SharedPreferenceUtil.setData(this, "Billingdata", billingdata)
+                    progressDialog.dismiss()
 
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, OverviewProductDetailsActivity::class.java)
-                        intent.putExtra("Billdata", billingdata)
-                        intent.putExtra("Shipdata", shippingdata)
-                        startActivity(intent)
-                    }
                 }
-            }
+            })
+            viewProductModel.responseMessage.observe(this@AddressActivity, Observer {
+                progressDialog.dismiss()
+                if(AppUtils2.checkerrormessage==true){
+                    AppUtils2.checkerrormessage=false
+                    DesignToast.makeText(
+                        this@AddressActivity,
+                        "Pincode not serviceable",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
+                }
+
+//            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
+            })
+            viewProductModel.getProductlist(pincodeshipping)
         }
 
         binding.lnraddress.setOnClickListener {

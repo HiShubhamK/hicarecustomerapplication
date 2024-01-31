@@ -42,6 +42,7 @@ public class DesignToast extends Toast {
         return makeText(context, message, duration, TYPE_INFO);
     }
 
+    @SuppressLint("WrongConstant")
     public static DesignToast makeText(Context context, String message, int duration, int type) {
         DesignToast designToast = new DesignToast(context);
 
@@ -71,8 +72,10 @@ public class DesignToast extends Toast {
 
         }
 
+        int durationInMillis = 000;
+
         text.setText(message);
-        designToast.setDuration(duration);
+        designToast.setDuration(durationInMillis);
         designToast.setView(view);
 
         designToast.view = view;

@@ -22,6 +22,7 @@ import com.ab.hicareservices.ui.adapter.AddAddressListAdapter
 import com.ab.hicareservices.ui.handler.onAddressClickedHandler
 import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
+import com.ab.hicareservices.utils.DesignToast
 
 class AddresslistActivity : AppCompatActivity() {
 
@@ -110,14 +111,46 @@ class AddresslistActivity : AppCompatActivity() {
                 toString2: String
             ) {
                 if(b==true){
-                    SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode","")
-                    SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode",toString)
-                    AppUtils2.shippingdata=id.toString()
-                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
-                    val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                    finish()
+
+                    progressDialog.show()
+
+                    viewProductModel.productlist.observe(this@AddresslistActivity, Observer {
+
+                        if (it != null) {
+                            if (it.isNotEmpty()){
+                                progressDialog.dismiss()
+                                SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode","")
+                                SharedPreferenceUtil.setData(this@AddresslistActivity, "pincode",toString)
+                                AppUtils2.shippingdata=id.toString()
+                                SharedPreferenceUtil.setData(this@AddresslistActivity,"Shippingdata",id.toString())
+                                val intent=Intent(this@AddresslistActivity,AddressActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                startActivity(intent)
+                                finish()
+                            }else {
+                                progressDialog.dismiss()
+                            }
+                        } else {
+                            progressDialog.dismiss()
+
+                        }
+                    })
+                    viewProductModel.responseMessage.observe(this@AddresslistActivity, Observer {
+                        progressDialog.dismiss()
+                        if(AppUtils2.checkerrormessage==true){
+                            AppUtils2.checkerrormessage=false
+                            DesignToast.makeText(
+                                this@AddresslistActivity,
+                                "Pincode not serviceable",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_ERROR
+                            ).show()
+                        }
+
+//            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()
+                    })
+                    viewProductModel.getProductlist(toString)
+
                 }else if(b==false){
 //                    SharedPreferenceUtil.setData(this@AddresslistActivity,"Billingdata",id.toString())
                 }

@@ -40,9 +40,8 @@
         android:text="@string/my_orders"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="12sp">
+        android:textSize="14sp">
 
     </TextView>
 
 </LinearLayout>
-

@@ -132,7 +132,6 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/cardbutton"
         android:layout_below="@id/view1"
-        android:layout_marginTop="13dp"
         android:layout_marginBottom="-3dp">
 
         <LinearLayout
@@ -768,7 +767,9 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:weightSum="1">
 
@@ -789,15 +790,6 @@
                                 android:text="Flat No"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
-
-                            <!--                            <androidx.cardview.widget.CardView-->
-                            <!--                                android:layout_width="match_parent"-->
-                            <!--                                android:layout_height="wrap_content"-->
-                            <!--                                android:layout_marginHorizontal="6dp"-->
-                            <!--                                android:layout_marginVertical="5dp"-->
-                            <!--                                android:elevation="10dp"-->
-                            <!--                                android:gravity="center"-->
-                            <!--                                app:cardCornerRadius="5dp">-->
 
                             <EditText
                                 android:id="@+id/etflatno"
@@ -869,7 +861,9 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:weightSum="1">
 
@@ -969,7 +963,9 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:weightSum="1">
 
@@ -1065,11 +1061,12 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:weightSum="1">
 

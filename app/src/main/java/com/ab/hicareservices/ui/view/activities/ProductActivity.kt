@@ -103,8 +103,6 @@ class ProductActivity : AppCompatActivity() {
             enableLoc()
         }
 
-
-
         val config = ShowcaseConfig()
         config.delay = 300 // half second between each showcase view
 
@@ -321,7 +319,6 @@ class ProductActivity : AppCompatActivity() {
 
             }
         })
-
         viewProductModel.responseMessage.observe(this@ProductActivity, Observer {
             progressDialog.dismiss()
             if(AppUtils2.checkerrormessage==true){
@@ -452,7 +449,7 @@ class ProductActivity : AppCompatActivity() {
                     DesignToast.makeText(
                         this@ProductActivity,
                         "Invalid Pincode",
-                        Toast.LENGTH_SHORT,
+                        100,
                         DesignToast.TYPE_ERROR
                     ).show()
                 }
