@@ -192,12 +192,22 @@ class AddressActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 if(AppUtils2.checkerrormessage==true){
                     AppUtils2.checkerrormessage=false
-                    DesignToast.makeText(
-                        this@AddressActivity,
-                        "Pincode not serviceable",
-                        Toast.LENGTH_SHORT,
-                        DesignToast.TYPE_ERROR
-                    ).show()
+                    if (binding.txtshipping.text.equals("")) {
+//                Toast.makeText(this, "Please Add Shipping Address", Toast.LENGTH_SHORT).show()
+                        DesignToast.makeText(
+                            this@AddressActivity,
+                            "Please Add Shipping Address",
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
+                    }else{
+                        DesignToast.makeText(
+                            this@AddressActivity,
+                            "Pincode not serviceable",
+                            Toast.LENGTH_SHORT,
+                            DesignToast.TYPE_ERROR
+                        ).show()
+                    }
                 }
 
 //            Toast.makeText(this@ProductActivity, "Invalid Pincode", Toast.LENGTH_LONG).show()

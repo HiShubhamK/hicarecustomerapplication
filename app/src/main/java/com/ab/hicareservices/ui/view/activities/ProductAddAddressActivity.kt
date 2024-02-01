@@ -360,6 +360,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
+                                                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
+
                                                     DesignToast.makeText(
                                                         this,
                                                         "Shipping address added successfully",
@@ -743,6 +745,9 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
+
+//                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
+
                                 DesignToast.makeText(
                                     this,
                                     "Billing address added successfully",
@@ -1095,6 +1100,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                    "Shipping address added successfully",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
+
+                                                        SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
 
                                                         DesignToast.makeText(
                                                             this,
