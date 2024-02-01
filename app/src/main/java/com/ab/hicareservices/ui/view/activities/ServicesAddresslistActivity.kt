@@ -504,7 +504,7 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT,
                         DesignToast.TYPE_ERROR
                     ).show()
-//                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
                     DesignToast.makeText(
                         this,
@@ -761,11 +761,11 @@ class ServicesAddresslistActivity : AppCompatActivity() {
                 } else if (etpincode.text.toString().trim().length < 6) {
                     DesignToast.makeText(
                         this,
-                        "Enter  pincode",
+                        "Enter pincode",
                         Toast.LENGTH_SHORT,
                         DesignToast.TYPE_ERROR
                     ).show()
-//                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
                 } else if (etpincode.text.toString().trim().length < 6) {
                     DesignToast.makeText(
                         this,

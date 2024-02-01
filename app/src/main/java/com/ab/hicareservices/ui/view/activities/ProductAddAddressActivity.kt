@@ -291,11 +291,11 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             DesignToast.TYPE_ERROR
                         ).show()
                     } else if (binding.etpincodes.text.toString().trim().equals("")) {
-//                        Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
 
                         DesignToast.makeText(
                             this,
-                            "Enter  pincode",
+                            "Enter pincode",
                             Toast.LENGTH_SHORT,
                             DesignToast.TYPE_ERROR
                         ).show()
@@ -318,7 +318,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
                                 if (it != null) {
                                     if (it.isNotEmpty()) {
-                                        progressDialog.dismiss()
 
                                         progressDialog.show()
                                         var data = HashMap<String, Any>()
@@ -347,7 +346,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                         viewProductModel.getsaveaddressresponse.observe(
                                             this,
                                             Observer {
-                                                progressDialog.dismiss()
                                                 if (it.IsSuccess == true) {
                                                     SharedPreferenceUtil.setData(
                                                         this,
@@ -385,6 +383,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                                     )
                                                         .show()
                                                 }
+                                                progressDialog.dismiss()
+
                                             })
 
                                         viewProductModel.postSaveAddress(data)
@@ -691,11 +691,11 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             DesignToast.TYPE_ERROR
                         ).show()
                     } else if (binding.etpincodes.text.toString().trim().equals("")) {
-//                        Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
 
                         DesignToast.makeText(
                             this,
-                            "Enter  pincode",
+                            "Enter pincode",
                             Toast.LENGTH_SHORT,
                             DesignToast.TYPE_ERROR
                         ).show()
@@ -1011,11 +1011,11 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                 DesignToast.TYPE_ERROR
                             ).show()
                         } else if (binding.etpincodes.text.toString().trim().equals("")) {
-//                        Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
 
                             DesignToast.makeText(
                                 this,
-                                "Enter  pincode",
+                                "Enter pincode",
                                 Toast.LENGTH_SHORT,
                                 DesignToast.TYPE_ERROR
                             ).show()
@@ -1030,12 +1030,13 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             ).show()
                         } else {
 
-                            progressDialog.show()
 
                             viewProductModel.CreateEventNotificationResponse.observe(
                                 this@ProductAddAddressActivity,
                                 Observer {
                                     if (it.IsSuccess == true) {
+                                        progressDialog.dismiss()
+
 //                Toast.makeText(
 //                    this@ProductActivity,
 //                    "Thank You! For Notifying Us",
@@ -1057,7 +1058,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
                                     if (it != null) {
                                         if (it.isNotEmpty()) {
-                                            progressDialog.dismiss()
 
                                             progressDialog.show()
                                             var data = HashMap<String, Any>()
@@ -1088,7 +1088,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                             viewProductModel.getsaveaddressresponse.observe(
                                                 this,
                                                 Observer {
-                                                    progressDialog.dismiss()
                                                     if (it.IsSuccess == true) {
                                                         SharedPreferenceUtil.setData(
                                                             this,
@@ -1117,6 +1116,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                                         startActivity(intent)
                                                         finish()
+                                                        progressDialog.dismiss()
+
 
                                                     } else {
                                                         Toast.makeText(
@@ -1442,11 +1443,11 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                 DesignToast.TYPE_ERROR
                             ).show()
                         } else if (binding.etpincodes.text.toString().trim().equals("")) {
-//                        Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
 
                             DesignToast.makeText(
                                 this,
-                                "Enter  pincode",
+                                "Enter pincode",
                                 Toast.LENGTH_SHORT,
                                 DesignToast.TYPE_ERROR
                             ).show()
@@ -1483,7 +1484,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             data["IsDefault"] = false
 
                             viewProductModel.getsaveaddressresponse.observe(this, Observer {
-                                progressDialog.dismiss()
                                 if (it.IsSuccess == true) {
                                     SharedPreferenceUtil.setData(
                                         this,
@@ -1510,6 +1510,10 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                     startActivity(intent)
                                     finish()
+
+
+                                    progressDialog.dismiss()
+
 
                                 } else {
                                     Toast.makeText(
@@ -1746,10 +1750,10 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         ).show()
 
                     } else if (binding.etpincodes.text.toString().trim().equals("")) {
-//                    Toast.makeText(this, "Enter  pincode", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Enter pincode", Toast.LENGTH_LONG).show()
                         DesignToast.makeText(
                             this,
-                            "Enter  pincode",
+                            "Enter pincode",
                             Toast.LENGTH_SHORT,
                             DesignToast.TYPE_ERROR
                         ).show()
@@ -1787,7 +1791,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         data["IsDefault"] = false
 
                         viewProductModel.getsaveaddressresponse.observe(this, Observer {
-                            progressDialog.dismiss()
                             if (it.IsSuccess == true) {
 //                            Toast.makeText(
 //                                this,
@@ -1814,6 +1817,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
                                     .show()
                             }
+                            progressDialog.dismiss()
+
                         })
 
                         viewProductModel.postSaveAddress(data)
@@ -1825,18 +1830,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-//
-//        if (activityname.equals("AddressActivity")) {
-//            val intent = Intent(this@ProductAddAddressActivity, AddressActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//            finish()
-//        } else {
-//            val intent = Intent(this@ProductAddAddressActivity, AddresslistActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            intent.putExtra("shippingaddress", "true")
-//            startActivity(intent)
-//            finish()
-//        }
+
     }
 }

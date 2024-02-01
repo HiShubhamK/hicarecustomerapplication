@@ -283,7 +283,7 @@ class AddresslistActivity : AppCompatActivity() {
 //                } else if(etstate.text.toString().trim().equals("")){
 //                    Toast.makeText(this,"Enter state", Toast.LENGTH_LONG).show()
 //                }else if(etpincode.text.toString().trim().equals("")){
-//                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
 //                } else if(etpincode.text.toString().trim().length<6){
 //                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
 //                }else{
@@ -427,7 +427,7 @@ class AddresslistActivity : AppCompatActivity() {
 //                }else if(etlandmark.text.toString().trim().equals("")){
 //                    Toast.makeText(this,"Enter landmark", Toast.LENGTH_LONG).show()
 //                }else if(etpincode.text.toString().trim().length<6){
-//                    Toast.makeText(this,"Enter  pincode", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this,"Enter pincode", Toast.LENGTH_LONG).show()
 //                } else if(etpincode.text.toString().trim().length<6){
 //                    Toast.makeText(this,"Enter correct pincode", Toast.LENGTH_LONG).show()
 //                }else{
