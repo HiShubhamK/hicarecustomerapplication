@@ -129,6 +129,7 @@ class AddressActivity : AppCompatActivity() {
             val intent = Intent(this, AddresslistActivity::class.java)
             intent.putExtra("shippingaddress", "true")
             startActivity(intent)
+            binding.txtbilling.text=""
         }
 
 
