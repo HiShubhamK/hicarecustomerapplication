@@ -71,7 +71,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
         binding.txtcoupon.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
 
         binding.imgLogo.setOnClickListener {
-            SharedPreferenceUtil.setData(this, "Billingdata", "")
+//            SharedPreferenceUtil.setData(this, "Billingdata", "")
             SharedPreferenceUtil.setData(this, "Shippingdata", "")
             val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -413,7 +413,7 @@ class OverviewProductDetailsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 //        AppUtils2.vouchercodedata=""
-        SharedPreferenceUtil.setData(this, "Billingdata", "")
+//        SharedPreferenceUtil.setData(this, "Billingdata", "")
         SharedPreferenceUtil.setData(this, "Shippingdata", "")
         val intent = Intent(this@OverviewProductDetailsActivity, AddressActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

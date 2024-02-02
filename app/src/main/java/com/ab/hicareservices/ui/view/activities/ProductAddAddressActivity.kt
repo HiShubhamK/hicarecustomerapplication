@@ -314,16 +314,18 @@ class ProductAddAddressActivity : AppCompatActivity() {
                     ).show()
                 } else {
 
-                    progressDialog.show()
+                    var pincodeid=binding.etpincodes.getText().toString()
+
+                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode","")
+                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode",pincodeid)
+
                     var data = HashMap<String, Any>()
                     data["Id"] = 0
                     data["OrderId"] = 0
                     data["Customer_Id"] = AppUtils2.customerid.toInt()
                     data["Contact_Person_Name"] = binding.etname.text.toString()
-                    data["Contact_Person_Mobile"] =
-                        binding.edtmobileno.text.toString()
-                    data["Contact_Person_Email"] =
-                        binding.etemps.text.toString()
+                    data["Contact_Person_Mobile"] = binding.edtmobileno.text.toString()
+                    data["Contact_Person_Email"] = binding.etemps.text.toString()
                     data["Flat_No"] = binding.etflatno.text.toString()
                     data["Building_Name"] = binding.etbuildname.text.toString()
                     data["Street"] = binding.etstreet.text.toString()
@@ -342,22 +344,31 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         this,
                         Observer {
                             if (it.IsSuccess == true) {
+                                AppUtils2.shippingdata=it.Data.toString()
+
+                                SharedPreferenceUtil.setData(
+                                    this,
+                                    "Shippingdata",
+                                    ""
+                                )
                                 SharedPreferenceUtil.setData(
                                     this,
                                     "Shippingdata",
                                     it.Data.toString()
                                 )
+
+
 //                                Toast.makeText(
 //                                    this,
 //                                    "Shipping address added successfully",
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
-                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
+//                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
 
                                 DesignToast.makeText(
                                     this,
-                                    "Shipping address added successfully",
+                                    "Shipping address added successfully" ,
                                     Toast.LENGTH_SHORT,
                                     DesignToast.TYPE_SUCCESS
                                 ).show()
@@ -366,6 +377,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     this@ProductAddAddressActivity,
                                     AddressActivity::class.java
                                 )
+                                intent.putExtra("pincode", SharedPreferenceUtil.setData(this, "pincode", binding.etpincodes.text.toString()).toString())
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(intent)
                                 finish()

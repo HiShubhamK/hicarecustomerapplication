@@ -112,6 +112,7 @@ class AddresslistActivity : AppCompatActivity() {
             ) {
                 if(b==true){
 
+
                     progressDialog.show()
 
                     viewProductModel.productlist.observe(this@AddresslistActivity, Observer {
@@ -127,6 +128,8 @@ class AddresslistActivity : AppCompatActivity() {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(intent)
                                 finish()
+
+
                             }else {
                                 progressDialog.dismiss()
                             }

@@ -359,11 +359,11 @@ class ProductNewAddressActivity : AppCompatActivity() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
-                                SharedPreferenceUtil.setData(
-                                    this@ProductNewAddressActivity,
-                                    "pincode",
-                                    binding.etpincodes.text.toString()
-                                )
+//                                SharedPreferenceUtil.setData(
+//                                    this@ProductNewAddressActivity,
+//                                    "pincode",
+//                                    binding.etpincodes.text.toString()
+//                                )
 
                                 DesignToast.makeText(
                                     this,

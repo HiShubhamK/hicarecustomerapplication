@@ -55,7 +55,6 @@ class AddressActivity : AppCompatActivity() {
 
         pincode = SharedPreferenceUtil.getData(this, "pincode", "").toString()
 
-
         AppUtils2.customerid = SharedPreferenceUtil.getData(this, "customerid", "").toString()
         shippingdata = SharedPreferenceUtil.getData(this, "Shippingdata", "").toString()
         billingdata = SharedPreferenceUtil.getData(this, "Billingdata", "").toString()
@@ -129,7 +128,6 @@ class AddressActivity : AppCompatActivity() {
             val intent = Intent(this, AddresslistActivity::class.java)
             intent.putExtra("shippingaddress", "true")
             startActivity(intent)
-            binding.txtbilling.text=""
         }
 
 
@@ -218,7 +216,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.lnraddress.setOnClickListener {
 
-            val intent = Intent(this, ProductNewAddressActivity::class.java)
+            val intent = Intent(this, ProductAddAddressActivity::class.java)
             intent.putExtra("AddressActivity", "AddressActivity")
             intent.putExtra("Shipping", "Shipping")
             startActivity(intent)
