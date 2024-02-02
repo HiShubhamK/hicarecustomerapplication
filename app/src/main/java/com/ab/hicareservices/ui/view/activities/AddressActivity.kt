@@ -79,7 +79,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.checkbox.setOnClickListener {
 
-            val intent = Intent(this, ProductAddAddressActivity::class.java)
+            val intent = Intent(this, ProductNewAddressActivity::class.java)
             intent.putExtra("AddressActivity", "AddressActivity")
             intent.putExtra("Shipping", "Billing")
             startActivity(intent)
@@ -218,7 +218,7 @@ class AddressActivity : AppCompatActivity() {
 
         binding.lnraddress.setOnClickListener {
 
-            val intent = Intent(this, ProductAddAddressActivity::class.java)
+            val intent = Intent(this, ProductNewAddressActivity::class.java)
             intent.putExtra("AddressActivity", "AddressActivity")
             intent.putExtra("Shipping", "Shipping")
             startActivity(intent)

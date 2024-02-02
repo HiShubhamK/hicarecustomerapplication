@@ -1,7 +1,9 @@
 package com.ab.hicareservices.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -41,6 +43,7 @@ class BookingServiceListAdapter : RecyclerView.Adapter<BookingServiceListAdapter
         return MainViewHolder(binding)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val service = service[position]
         holder.binding.tvOrderName.text = service.ServiceName

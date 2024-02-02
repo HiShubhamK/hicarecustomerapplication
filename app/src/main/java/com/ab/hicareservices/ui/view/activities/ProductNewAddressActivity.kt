@@ -28,14 +28,14 @@ import com.ab.hicareservices.ui.viewmodel.ProductViewModel
 import com.ab.hicareservices.utils.AppUtils2
 import com.ab.hicareservices.utils.DesignToast
 
-class ProductAddAddressActivity : AppCompatActivity() {
+class ProductNewAddressActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductAddAddressBinding
     var selectedLocation = ""
     private val viewProductModel: ProductViewModel by viewModels()
     lateinit var progressDialog: ProgressDialog
     var activityname = ""
     var checkshippingbilling = ""
-    var onButtonclick=false
+    var onButtonclick = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +67,12 @@ class ProductAddAddressActivity : AppCompatActivity() {
         }
 
 
+        if(checkshippingbilling.equals("Shipping")){
+            binding.lnraddresstypes.visibility=View.VISIBLE
+        }else{
+
+            binding.lnraddresstypes.visibility=View.GONE
+        }
 
         var courses = arrayOf<String?>("Select Address Type", "Home", "Office", "Others")
 
@@ -147,7 +153,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT,
                         DesignToast.TYPE_ERROR
                     ).show()
-                    onButtonclick=false
+                    onButtonclick = false
 
 
                 } else if (selectedLocation.toString().trim().equals("Select Address Type")) {
@@ -353,7 +359,11 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 
-                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
+                                SharedPreferenceUtil.setData(
+                                    this@ProductNewAddressActivity,
+                                    "pincode",
+                                    binding.etpincodes.text.toString()
+                                )
 
                                 DesignToast.makeText(
                                     this,
@@ -363,7 +373,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                 ).show()
 
                                 val intent = Intent(
-                                    this@ProductAddAddressActivity,
+                                    this@ProductNewAddressActivity,
                                     AddressActivity::class.java
                                 )
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -378,8 +388,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                                     Toast.LENGTH_LONG
                                 )
                                     .show()
-                                progressDialog.dismiss()
-
                             }
                             progressDialog.dismiss()
 
@@ -387,13 +395,14 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
                     viewProductModel.postSaveAddress(data)
 
-
 //                    viewProductModel.productlist.observe(
-//                        this@ProductAddAddressActivity,
+//                        this@ProductNewAddressActivity,
 //                        Observer {
 //
 //                            if (it != null) {
 //                                if (it.isNotEmpty()) {
+//
+//                                    progressDialog.show()
 //
 //
 //                                } else {
@@ -405,7 +414,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                            }
 //                        })
 //                    viewProductModel.responseMessage.observe(
-//                        this@ProductAddAddressActivity,
+//                        this@ProductNewAddressActivity,
 //                        Observer {
 //                            progressDialog.dismiss()
 //                            if (AppUtils2.checkerrormessage == true) {
@@ -413,7 +422,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                                onButtonclick=false
 //
 //                                DesignToast.makeText(
-//                                    this@ProductAddAddressActivity,
+//                                    this@ProductNewAddressActivity,
 //                                    "Pincode not serviceable",
 //                                    Toast.LENGTH_SHORT,
 //                                    DesignToast.TYPE_ERROR
@@ -424,8 +433,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                    viewProductModel.getProductlist(binding.etpincodes.text.toString())
 
                 }
-            }
-            else {
+            } else {
                 binding.lnraddresstypes.visibility = View.GONE
                 if (selectedLocation.toString().trim().equals("Select Address Type") &&
                     binding.etname.text.toString().trim()
@@ -451,6 +459,15 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         DesignToast.TYPE_ERROR
                     ).show()
 
+                } else if (selectedLocation.toString().trim().equals("Select Address Type")) {
+//                        Toast.makeText(this, "Please select Address Type", Toast.LENGTH_SHORT).show()
+
+                    DesignToast.makeText(
+                        this,
+                        "Please select Address Type",
+                        Toast.LENGTH_SHORT,
+                        DesignToast.TYPE_ERROR
+                    ).show()
                 } else if (binding.etname.text.toString().trim().equals("")) {
 //                        Toast.makeText(this, "Enter name", Toast.LENGTH_LONG).show()
 
@@ -643,7 +660,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             ).show()
 
                             val intent = Intent(
-                                this@ProductAddAddressActivity,
+                                this@ProductNewAddressActivity,
                                 AddressActivity::class.java
                             )
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -661,27 +678,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //
