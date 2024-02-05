@@ -361,7 +361,7 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.txtprice.text =
                 "Our Price: " + "\u20B9" + it.ProductConfiguration!!.DiscountedPrice
             binding.txtratingvalues.text = it.ProductConfiguration!!.ProductRating.toString()
-            if (it.ProductConfiguration!!.Discount.toString() != "") {
+            if (it.ProductConfiguration!!.Discount.toString() != "0") {
                 binding.tvDisccount.text =
                     "Save " + "\u20B9" + it.ProductConfiguration!!.Discount.toString()
 

@@ -407,11 +407,11 @@
                                     android:layout_weight="1"
                                     android:fontFamily="@font/lato_semibold"
                                     android:gravity="end"
-                                    android:paddingEnd="5dp"
+                                    android:paddingEnd="6dp"
                                     android:text="Free "
                                     android:textColor="@color/colorAccent"
                                     android:textSize="13sp"
-                                    android:textStyle="italic" />
+                                    />
 
                                 <!--                                <androidx.appcompat.widget.AppCompatTextView-->
                                 <!--                                    android:id="@+id/tvDeliveryCharge"-->

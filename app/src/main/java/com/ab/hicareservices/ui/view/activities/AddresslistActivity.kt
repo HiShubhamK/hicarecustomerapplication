@@ -144,7 +144,7 @@ class AddresslistActivity : AppCompatActivity() {
                             AppUtils2.checkerrormessage=false
                             DesignToast.makeText(
                                 this@AddresslistActivity,
-                                "Pincode not serviceable",
+                                "Sorry, this pincode is not serviceable.Please try a different pincode",
                                 Toast.LENGTH_SHORT,
                                 DesignToast.TYPE_ERROR
                             ).show()

@@ -202,7 +202,7 @@ class AddressActivity : AppCompatActivity() {
                     }else{
                         DesignToast.makeText(
                             this@AddressActivity,
-                            "Pincode not serviceable",
+                            "Sorry, this pincode is not serviceable.Please try a different pincode",
                             Toast.LENGTH_SHORT,
                             DesignToast.TYPE_ERROR
                         ).show()
