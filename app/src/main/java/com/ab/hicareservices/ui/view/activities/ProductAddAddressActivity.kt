@@ -35,7 +35,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     var activityname = ""
     var checkshippingbilling = ""
-    var onButtonclick=false
+    var onButtonclick = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,6 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                finish()
 //            }
         }
-
 
 
         var courses = arrayOf<String?>("Select Address Type", "Home", "Office", "Others")
@@ -147,7 +146,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT,
                         DesignToast.TYPE_ERROR
                     ).show()
-                    onButtonclick=false
+                    onButtonclick = false
 
 
                 } else if (selectedLocation.toString().trim().equals("Select Address Type")) {
@@ -314,10 +313,15 @@ class ProductAddAddressActivity : AppCompatActivity() {
                     ).show()
                 } else {
 
-                    var pincodeid=binding.etpincodes.getText().toString()
+                    progressDialog.show()
+                    var pincodeid = binding.etpincodes.getText().toString()
 
-                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode","")
-                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode",pincodeid)
+                    SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", "")
+                    SharedPreferenceUtil.setData(
+                        this@ProductAddAddressActivity,
+                        "pincode",
+                        pincodeid
+                    )
 
                     var data = HashMap<String, Any>()
                     data["Id"] = 0
@@ -343,19 +347,19 @@ class ProductAddAddressActivity : AppCompatActivity() {
                     viewProductModel.getsaveaddressresponse.observe(
                         this,
                         Observer {
-                            if (it.IsSuccess == true) {
-                                AppUtils2.shippingdata=it.Data.toString()
+//                            if (it.IsSuccess == true) {
+                            AppUtils2.shippingdata = it.Data.toString()
 
-                                SharedPreferenceUtil.setData(
-                                    this,
-                                    "Shippingdata",
-                                    ""
-                                )
-                                SharedPreferenceUtil.setData(
-                                    this,
-                                    "Shippingdata",
-                                    it.Data.toString()
-                                )
+                            SharedPreferenceUtil.setData(
+                                this,
+                                "Shippingdata",
+                                ""
+                            )
+                            SharedPreferenceUtil.setData(
+                                this,
+                                "Shippingdata",
+                                it.Data.toString()
+                            )
 
 
 //                                Toast.makeText(
@@ -366,36 +370,43 @@ class ProductAddAddressActivity : AppCompatActivity() {
 
 //                                SharedPreferenceUtil.setData(this@ProductAddAddressActivity, "pincode", binding.etpincodes.text.toString())
 
-                                DesignToast.makeText(
+                            DesignToast.makeText(
+                                this,
+                                "Shipping address added successfully",
+                                Toast.LENGTH_SHORT,
+                                DesignToast.TYPE_SUCCESS
+                            ).show()
+
+                            val intent = Intent(
+                                this@ProductAddAddressActivity,
+                                AddressActivity::class.java
+                            )
+                            intent.putExtra(
+                                "pincode",
+                                SharedPreferenceUtil.setData(
                                     this,
-                                    "Shipping address added successfully" ,
-                                    Toast.LENGTH_SHORT,
-                                    DesignToast.TYPE_SUCCESS
-                                ).show()
+                                    "pincode",
+                                    binding.etpincodes.text.toString()
+                                ).toString()
+                            )
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
+                            progressDialog.dismiss()
 
-                                val intent = Intent(
-                                    this@ProductAddAddressActivity,
-                                    AddressActivity::class.java
-                                )
-                                intent.putExtra("pincode", SharedPreferenceUtil.setData(this, "pincode", binding.etpincodes.text.toString()).toString())
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                startActivity(intent)
-                                finish()
-                                progressDialog.dismiss()
-
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Something went to wrong.",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                                progressDialog.dismiss()
-
-                            }
+//                            } else {
+//
+//                                progressDialog.dismiss()
+//
+//
+//
+//
+//                            }
                             progressDialog.dismiss()
 
                         })
+
+
 
                     viewProductModel.postSaveAddress(data)
 
@@ -436,8 +447,7 @@ class ProductAddAddressActivity : AppCompatActivity() {
 //                    viewProductModel.getProductlist(binding.etpincodes.text.toString())
 
                 }
-            }
-            else {
+            } else {
                 binding.lnraddresstypes.visibility = View.GONE
                 if (selectedLocation.toString().trim().equals("Select Address Type") &&
                     binding.etname.text.toString().trim()
@@ -631,8 +641,8 @@ class ProductAddAddressActivity : AppCompatActivity() {
                     data["IsDefault"] = false
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
-                        progressDialog.dismiss()
-                        if (it.IsSuccess == true) {
+                        progressDialog.show()
+//                        if (it.IsSuccess == true) {
                             SharedPreferenceUtil.setData(
                                 this,
                                 "Billingdata",
@@ -661,40 +671,37 @@ class ProductAddAddressActivity : AppCompatActivity() {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
                             finish()
+                            progressDialog.dismiss()
 
-                        } else {
-                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
-                                .show()
-                        }
+//                        } else {
+//
+//                            progressDialog.dismiss()
+//                        }
+
                     })
+//                        DesignToast.makeText(
+//                            this,
+//                            it.toString(),
+//                            DesignToast.LENGTH_LONG, DesignToast.TYPE_ERROR
+//                        ).show()
+//                    progressDialog.dismiss()
+
 
                     viewProductModel.postSaveAddress(data)
 
                 }
             }
+
+
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        viewProductModel.errorMessage.observe(this, Observer {
+            DesignToast.makeText(
+                this,
+                it.toString(),
+                DesignToast.LENGTH_LONG, DesignToast.TYPE_ERROR
+            ).show()
+            progressDialog.dismiss()
+        })
 
 //
 //        if (activityname.equals("AddressActivity")) {

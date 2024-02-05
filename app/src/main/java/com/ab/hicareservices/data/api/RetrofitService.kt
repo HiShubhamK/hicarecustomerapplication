@@ -36,8 +36,8 @@ object RetrofitService {
         val client = OkHttpClient.Builder().readTimeout(120, TimeUnit.SECONDS).writeTimeout(120, TimeUnit.SECONDS).addInterceptor(interceptor).build()
 //        if (retrofitService == null) {
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://connect.hicare.in/product/api/mobile/") //prod
-//                .baseUrl("http://3.111.154.100/UATProductAdmin/api/mobile/")//uat
+//                .baseUrl("https://connect.hicare.in/product/api/mobile/") //prod
+                .baseUrl("http://3.111.154.100/UATProductAdmin/api/mobile/")//uat
 
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))

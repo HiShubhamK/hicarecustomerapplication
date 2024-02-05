@@ -214,7 +214,11 @@ class ProductViewModel: ViewModel() {
                 call: Call<SaveAddressResponse>,
                 response: Response<SaveAddressResponse>
             ) {
-                getsaveaddressresponse.postValue(response.body())
+                if (response.body()?.IsSuccess ==true){
+                    getsaveaddressresponse.postValue(response.body())
+                }else{
+                    errorMessage.postValue(response.body()!!.ResponseMessage!!)
+                }
             }
 
             override fun onFailure(call: Call<SaveAddressResponse>, t: Throwable) {

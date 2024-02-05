@@ -347,7 +347,7 @@ class ProductNewAddressActivity : AppCompatActivity() {
                     viewProductModel.getsaveaddressresponse.observe(
                         this,
                         Observer {
-                            if (it.IsSuccess == true) {
+//                            if (it.IsSuccess == true) {
                                 SharedPreferenceUtil.setData(
                                     this,
                                     "Shippingdata",
@@ -381,19 +381,19 @@ class ProductNewAddressActivity : AppCompatActivity() {
                                 finish()
                                 progressDialog.dismiss()
 
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Something went to wrong.",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                            }
+//                            } else {
+
+
+
+//                            }
                             progressDialog.dismiss()
 
                         })
 
+
+
                     viewProductModel.postSaveAddress(data)
+
 
 //                    viewProductModel.productlist.observe(
 //                        this@ProductNewAddressActivity,
@@ -637,7 +637,7 @@ class ProductNewAddressActivity : AppCompatActivity() {
 
                     viewProductModel.getsaveaddressresponse.observe(this, Observer {
                         progressDialog.dismiss()
-                        if (it.IsSuccess == true) {
+//                        if (it.IsSuccess == true) {
                             SharedPreferenceUtil.setData(
                                 this,
                                 "Billingdata",
@@ -667,16 +667,39 @@ class ProductNewAddressActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
 
-                        } else {
-                            Toast.makeText(this, "Something went to wrong.", Toast.LENGTH_LONG)
-                                .show()
-                        }
+//                        } else {
+
+                            progressDialog.dismiss()
+
+
+
+
+//                        }
                     })
+//                    viewProductModel.errorMessage.observe(this, Observer {
+//                        DesignToast.makeText(
+//                            this,
+//                            it.toString(),
+//                            DesignToast.LENGTH_LONG,DesignToast.TYPE_ERROR
+//                        ).show()
+//                        progressDialog.dismiss()
+//
+//                    })
+
 
                     viewProductModel.postSaveAddress(data)
 
                 }
             }
+            viewProductModel.errorMessage.observe(this, Observer {
+                DesignToast.makeText(
+                    this,
+                    it.toString(),
+                    DesignToast.LENGTH_LONG,DesignToast.TYPE_ERROR
+                ).show()
+                progressDialog.dismiss()
+
+            })
         }
 
 
